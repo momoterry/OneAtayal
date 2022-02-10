@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour
             case PC_STATE.NORMAL:
                 //UpdateAutoAttack();
                 UpdateStatus();
+                UpdateMoveControl();
                 break;
             case PC_STATE.ATTACK:
                 UpdateAttack();
@@ -176,6 +177,52 @@ public class PlayerController : MonoBehaviour
         if (mp > MP_Max)
         {
             mp = MP_Max;
+        }
+    }
+
+    protected virtual void UpdateMoveControl()
+    {
+        //TODO: 把輸入交給別的系統
+
+        float minMove = 0.5f;
+        Vector3 moveVec = Vector3.zero;
+        bool bMove = false;
+
+        if (Input.GetKey("w"))
+        {
+            moveVec += Vector3.up * minMove;
+            bMove = true;
+
+            moveVec += Vector3.right * 0.001f;   //不知道為什麼，正上正下的移動會有問題 (多半跟 Nav2D 有關)
+
+        }
+        else if (Input.GetKey("s"))
+        {
+            moveVec -= Vector3.up * minMove;
+            bMove = true;
+
+            moveVec += Vector3.right * 0.001f;   //不知道為什麼，正上正下的移動會有問題 (多半跟 Nav2D 有關)
+        }
+
+        if (Input.GetKey("a"))
+        {
+            moveVec -= Vector3.right * minMove;
+            bMove = true;
+        }
+        else if (Input.GetKey("d"))
+        {
+            moveVec += Vector3.right * minMove;
+            bMove = true;
+        }
+
+        if (bMove)
+        {
+            //TODO: 不要每 Frame 進行
+            print("move" + moveVec);
+            OnMoveToPosition(transform.position + moveVec);
+            Animator myAnimator = GetComponent<Animator>();
+            if (myAnimator)
+                myAnimator.SetFloat("Up", moveVec.y);
         }
     }
 
