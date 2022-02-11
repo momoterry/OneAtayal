@@ -226,9 +226,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //if (myAgent.velocity.magnitude > 0.5f)
         if (myAnimator)
         {
-            //myAnimator.SetBool("Run", bMove);
+            myAnimator.SetBool("Run", (myAgent.velocity.magnitude > 0.2f));
         }
     }
 
