@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
     protected float mp = 100.0f;
     protected float Attack = 50.0f;
 
+    //移動和面向
+    protected float faceAngle = 180.0f; //預設向下
+    protected Animator myAnimator;
+
     //升級相關
     protected float HP_Up_Ratio = 0.6f;
     protected float ATK_Up_Ratio = 0.6f;
@@ -57,6 +61,8 @@ public class PlayerController : MonoBehaviour
         myAgent.updateRotation = false;
         myAgent.updateUpAxis = false;
 
+        myAnimator = GetComponent<Animator>();
+
         InitStatus();
     }
 
@@ -75,6 +81,8 @@ public class PlayerController : MonoBehaviour
             myAgent.speed = WalkSpeed;
 
         nextState = PC_STATE.NORMAL;
+
+        faceAngle = 180.0f; //TODO: 應該放在別的地方
     }
 
     public virtual bool DoHpUp()
@@ -126,7 +134,6 @@ public class PlayerController : MonoBehaviour
         switch (currState)
         {
             case PC_STATE.NORMAL:
-                //UpdateAutoAttack();
                 UpdateStatus();
                 UpdateMoveControl();
                 break;
@@ -152,22 +159,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //private void UpdateAutoAttack()
-    //{
-    //    if (myAgent.velocity.magnitude < 0.1f)
-    //    {
-    //        attackWait -= Time.deltaTime;
-    //        if (attackWait <= 0.0f)
-    //        {
-    //            //DoOneAutoAttack();
-    //            attackWait += AttackCD;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        attackWait = AttackCD * 0.5f;
-    //    }
-    //}
 
     protected virtual void UpdateAttack() {}
 
@@ -218,11 +209,26 @@ public class PlayerController : MonoBehaviour
         if (bMove)
         {
             //TODO: 不要每 Frame 進行
-            print("move" + moveVec);
             OnMoveToPosition(transform.position + moveVec);
-            Animator myAnimator = GetComponent<Animator>();
+
+            faceAngle = Vector3.SignedAngle(Vector3.up, moveVec, -Vector3.forward);
+            //print(faceAngle);
+
             if (myAnimator)
-                myAnimator.SetFloat("Up", moveVec.y);
+            {
+                //myAnimator.SetFloat("Up", moveVec.y);
+                //myAnimator.SetFloat("Right", moveVec.x);
+                float faceDir = faceAngle / 360.0f;
+                if (faceDir < 0.0f)
+                    faceDir += 1.0f;
+                myAnimator.SetFloat("FaceDir", faceDir);
+                myAnimator.SetFloat("FaceAngle", faceAngle);
+            }
+        }
+
+        if (myAnimator)
+        {
+            //myAnimator.SetBool("Run", bMove);
         }
     }
 
@@ -268,41 +274,7 @@ public class PlayerController : MonoBehaviour
         mp -= MP_PerShoot;
     }
 
-    //virtual protected void DoOneAutoAttack()
-    //{
-    //    if (bulletRef == null)
-    //    {
-    //        print("Error!! No Bullet for PlayerController !!!!!!!!!!!");
-    //        return;
-    //    }
 
-    //    Vector2 checkCenter = new Vector2(transform.position.x, transform.position.y);
-    //    Collider2D[] result = Physics2D.OverlapCircleAll(checkCenter, 6.0f, LayerMask.GetMask("Character"));
-
-    //    GameObject bestTarget = null;
-    //    float bestDis = Mathf.Infinity;
-    //    foreach (Collider2D col in result)
-    //    {
-    //        if (col.CompareTag("Enemy"))
-    //        {
-    //            //print(col);
-    //            Vector3 disV = col.transform.position - transform.position;
-    //            disV.z = 0;
-    //            float dis = disV.sqrMagnitude;
-    //            if (dis < bestDis)
-    //            {
-    //                bestTarget = col.gameObject;
-    //                bestDis = dis;
-    //            }
-    //        }
-    //    }
-
-    //    if (bestTarget)
-    //    {
-    //        DoShootTo(bestTarget.transform.position);
-    //    }
-
-    //}
 
     void DoDamage(Damage theDamage)
     {

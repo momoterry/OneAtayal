@@ -24,7 +24,7 @@ public class TouchControl : MonoBehaviour
             PlayerController thePC = BattleSystem.GetInstance().GetPlayerController();
             if (thePC)
             {
-                thePC.OnAttackToward(mWorldMousePos);
+                //thePC.OnAttackToward(mWorldMousePos);
             }
         }
     }
@@ -39,6 +39,7 @@ public class TouchControl : MonoBehaviour
         if (thePC)
         {
             //thePC.OnMoveToPosition(mWorldMousePos);
+            thePC.OnAttackToward(mWorldMousePos);
         }
     }
 
