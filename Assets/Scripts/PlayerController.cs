@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletRef;
     public GameObject hitFX;
 
+    public GameObject shootFX_1;
+    public GameObject shootFX_2;
+
     public float HP_MaxInit = 100.0f;
     public float MP_MaxInit = 100.0f;
     public float Attack_Init = 50.0f;
@@ -254,6 +257,7 @@ public class PlayerController : MonoBehaviour
         if (mp < MP_PerShoot)
         {
             print("¨S Mana §r !!!!");
+            Instantiate(shootFX_2, gameObject.transform.position, Quaternion.identity, gameObject.transform);
             return;
         }
 
@@ -271,6 +275,9 @@ public class PlayerController : MonoBehaviour
                 newBullet.phyDamage = Attack;
             }
         }
+
+        Instantiate(shootFX_1, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+        Instantiate(shootFX_2, gameObject.transform.position, Quaternion.identity, gameObject.transform);
 
         mp -= MP_PerShoot;
     }
