@@ -270,6 +270,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        Vector3 td = target - gameObject.transform.position;
+        td.z = 0;
+        td.Normalize();
         GameObject newObj = Instantiate(bulletRef, gameObject.transform.position, Quaternion.identity, null);
         if (newObj)
         {
@@ -277,9 +280,7 @@ public class PlayerController : MonoBehaviour
             if (newBullet)
             {
                 newBullet.SetGroup(DAMAGE_GROUP.PLAYER);
-                Vector3 td = target - newObj.transform.position;
-                td.z = 0;
-                newBullet.targetDir = td.normalized;
+                newBullet.targetDir = td;
                 //傷害值，由自己來給
                 newBullet.phyDamage = Attack;
             }
@@ -287,6 +288,15 @@ public class PlayerController : MonoBehaviour
 
         Instantiate(shootFX_1, gameObject.transform.position, Quaternion.identity, gameObject.transform);
         Instantiate(shootFX_2, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+
+        if (myAnimator)
+        {
+            myAnimator.SetFloat("CastX", td.x);
+            myAnimator.SetFloat("CastY", td.y);
+            myAnimator.SetTrigger("Cast");
+        }
+        faceX = td.x;
+        faceY = td.y;
 
         mp -= MP_PerShoot;
     }
