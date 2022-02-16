@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     //移動和面向
     protected float faceAngle = 180.0f; //預設向下
+    protected float faceX = 0.0f;
+    protected float faceY = -1.0f;
     protected Animator myAnimator;
 
     //升級相關
@@ -86,7 +88,9 @@ public class PlayerController : MonoBehaviour
         nextState = PC_STATE.NORMAL;
 
         faceAngle = 180.0f; //TODO: 應該放在別的地方
-    }
+        faceX = 0.0f;
+        faceY = -1.0f;
+}
 
     public virtual bool DoHpUp()
     {
@@ -217,22 +221,27 @@ public class PlayerController : MonoBehaviour
             faceAngle = Vector3.SignedAngle(Vector3.up, moveVec, -Vector3.forward);
             //print(faceAngle);
 
-            if (myAnimator)
-            {
-                //myAnimator.SetFloat("Up", moveVec.y);
-                //myAnimator.SetFloat("Right", moveVec.x);
-                float faceDir = faceAngle / 360.0f;
-                if (faceDir < 0.0f)
-                    faceDir += 1.0f;
-                myAnimator.SetFloat("FaceDir", faceDir);
-                myAnimator.SetFloat("FaceAngle", faceAngle);
-            }
+            faceX = moveVec.x;
+            faceY = moveVec.y;
+
+            //if (myAnimator)
+            //{
+            //    //myAnimator.SetFloat("Up", moveVec.y);
+            //    //myAnimator.SetFloat("Right", moveVec.x);
+            //    float faceDir = faceAngle / 360.0f;
+            //    if (faceDir < 0.0f)
+            //        faceDir += 1.0f;
+            //    myAnimator.SetFloat("FaceDir", faceDir);
+            //    myAnimator.SetFloat("FaceAngle", faceAngle);
+            //}
         }
 
         //if (myAgent.velocity.magnitude > 0.5f)
         if (myAnimator)
         {
             myAnimator.SetBool("Run", (myAgent.velocity.magnitude > 0.2f));
+            myAnimator.SetFloat("X", faceX);
+            myAnimator.SetFloat("Y", faceY);
         }
     }
 
