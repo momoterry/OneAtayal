@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     MyInputActions theInput;
 
     //移動和面向
-    protected float faceAngle = 180.0f; //預設向下
+    //protected float faceAngle = 180.0f; //預設向下
     protected float faceX = 0.0f;
     protected float faceY = -1.0f;
     protected Animator myAnimator;
@@ -74,6 +74,15 @@ public class PlayerController : MonoBehaviour
         myAnimator = GetComponent<Animator>();
 
         InitStatus();
+
+        //Input System Bind
+        theInput.TheHero.Attack.performed += ctx => OnAttack();
+    }
+
+    void OnAttack()
+    {
+        Vector3 faceTo = new Vector3(faceX, faceY, 0);
+        OnAttackToward(transform.position + faceTo);
     }
 
     private void Awake()
@@ -98,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
         nextState = PC_STATE.NORMAL;
 
-        faceAngle = 180.0f; //TODO: 應該放在別的地方
+        //faceAngle = 180.0f; //TODO: 應該放在別的地方
         faceX = 0.0f;
         faceY = -1.0f;
 }
@@ -206,6 +215,7 @@ public class PlayerController : MonoBehaviour
             moveVec = moveVec.normalized * minMove + Vector3.right * 0.001f;
         }
 
+
         //if (Input.GetKey("w"))
         //{
         //    print("W");
@@ -242,8 +252,7 @@ public class PlayerController : MonoBehaviour
             //TODO: 不要每 Frame 進行
             OnMoveToPosition(transform.position + moveVec);
 
-            faceAngle = Vector3.SignedAngle(Vector3.up, moveVec, -Vector3.forward);
-            //print(faceAngle);
+            //faceAngle = Vector3.SignedAngle(Vector3.up, moveVec, -Vector3.forward);
 
             faceX = moveVec.x;
             faceY = moveVec.y;
