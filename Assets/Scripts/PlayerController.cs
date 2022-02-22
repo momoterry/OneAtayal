@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +30,9 @@ public class PlayerController : MonoBehaviour
     protected float hp = 100.0f;
     protected float mp = 100.0f;
     protected float Attack = 50.0f;
+
+    //Input
+    MyInputActions theInput;
 
     //移動和面向
     protected float faceAngle = 180.0f; //預設向下
@@ -69,6 +74,12 @@ public class PlayerController : MonoBehaviour
         myAnimator = GetComponent<Animator>();
 
         InitStatus();
+    }
+
+    private void Awake()
+    {
+        theInput = new MyInputActions();
+        theInput.Enable();
     }
 
     //初始化到等級一的狀態
@@ -186,32 +197,45 @@ public class PlayerController : MonoBehaviour
         Vector3 moveVec = Vector3.zero;
         bool bMove = false;
 
-        if (Input.GetKey("w"))
+        Vector2 inputVec = theInput.TheHero.Move.ReadValue<Vector2>();
+
+        if (inputVec.magnitude > 0.5)
         {
-            moveVec += Vector3.up * minMove;
             bMove = true;
-
-            moveVec += Vector3.right * 0.001f;   //不知道為什麼，正上正下的移動會有問題 (多半跟 Nav2D 有關)
-
-        }
-        else if (Input.GetKey("s"))
-        {
-            moveVec -= Vector3.up * minMove;
-            bMove = true;
-
-            moveVec += Vector3.right * 0.001f;   //不知道為什麼，正上正下的移動會有問題 (多半跟 Nav2D 有關)
+            moveVec = inputVec;
+            moveVec = moveVec.normalized * minMove + Vector3.right * 0.001f;
         }
 
-        if (Input.GetKey("a"))
-        {
-            moveVec -= Vector3.right * minMove;
-            bMove = true;
-        }
-        else if (Input.GetKey("d"))
-        {
-            moveVec += Vector3.right * minMove;
-            bMove = true;
-        }
+        //if (Input.GetKey("w"))
+        //{
+        //    print("W");
+        //    moveVec += Vector3.up * minMove;
+        //    bMove = true;
+
+        //    moveVec += Vector3.right * 0.001f;   //不知道為什麼，正上正下的移動會有問題 (多半跟 Nav2D 有關)
+
+        //}
+        //else if (Input.GetKey("s"))
+        //{
+        //    moveVec -= Vector3.up * minMove;
+        //    bMove = true;
+
+        //    moveVec += Vector3.right * 0.001f;   //不知道為什麼，正上正下的移動會有問題 (多半跟 Nav2D 有關)
+        //}
+
+        //if (Input.GetKey("a"))
+        //{
+        //    moveVec -= Vector3.right * minMove;
+        //    bMove = true;
+        //}
+        //else if (Input.GetKey("d"))
+        //{
+        //    moveVec += Vector3.right * minMove;
+        //    bMove = true;
+        //}
+
+        //Check GamePad
+        //if (Input.)
 
         if (bMove)
         {

@@ -15,32 +15,32 @@ public class TouchControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Vector3 mPos = Input.mousePosition;
-            Vector3 mWorldMousePos = Camera.main.ScreenToWorldPoint(mPos);
-            mWorldMousePos.z = 0.0f;
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    Vector3 mPos = Input.mousePosition;
+        //    Vector3 mWorldMousePos = Camera.main.ScreenToWorldPoint(mPos);
+        //    mWorldMousePos.z = 0.0f;
 
-            PlayerController thePC = BattleSystem.GetInstance().GetPlayerController();
-            if (thePC)
-            {
-                //thePC.OnAttackToward(mWorldMousePos);
-            }
-        }
+        //    PlayerController thePC = BattleSystem.GetInstance().GetPlayerController();
+        //    if (thePC)
+        //    {
+        //        //thePC.OnAttackToward(mWorldMousePos);
+        //    }
+        //}
     }
 
     void OnMouseDown()
     {
-        Vector3 mPos = Input.mousePosition;
-        Vector3 mWorldMousePos = Camera.main.ScreenToWorldPoint(mPos);
-        mWorldMousePos.z = 0.0f;
+        //Vector3 mPos = Input.mousePosition;
+        //Vector3 mWorldMousePos = Camera.main.ScreenToWorldPoint(mPos);
+        //mWorldMousePos.z = 0.0f;
 
-        PlayerController thePC = BattleSystem.GetInstance().GetPlayerController();
-        if (thePC)
-        {
-            //thePC.OnMoveToPosition(mWorldMousePos);
-            thePC.OnAttackToward(mWorldMousePos);
-        }
+        //PlayerController thePC = BattleSystem.GetInstance().GetPlayerController();
+        //if (thePC)
+        //{
+        //    //thePC.OnMoveToPosition(mWorldMousePos);
+        //    thePC.OnAttackToward(mWorldMousePos);
+        //}
     }
 
     //

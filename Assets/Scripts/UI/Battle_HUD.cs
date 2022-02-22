@@ -36,10 +36,10 @@ public class Battle_HUD : MonoBehaviour
     void Update()
     {
         //≥B≤z¡‰ΩL
-        if (Input.GetKeyDown("1"))
-        {
-            OnButtonPotion();
-        }
+        //if (Input.GetKeyDown("1"))
+        //{
+        //    OnButtonPotion();
+        //}
 
     }
 
