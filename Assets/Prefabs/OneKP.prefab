@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 6214839875520186890}
   - component: {fileID: 7137282259758001709}
   - component: {fileID: 6105822030357076461}
+  - component: {fileID: 7587803398858142271}
   - component: {fileID: 4938753579080997000}
   m_Layer: 10
   m_Name: OneKP
@@ -242,6 +243,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7587803398858142271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214839875520186894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59700f7143ff96a44b8ad3bdf5cecb63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FXObjs:
+  - {fileID: 0}
+  - {fileID: 917858075405889911, guid: a698daa3a831b7d4cb1bcfc2a9d693a0, type: 3}
+  - {fileID: 8004896492545301754, guid: dcd7efeccc0a5ce448ad1cc384c4edc1, type: 3}
+  - {fileID: 6945291638678450936, guid: d0e418258f92a1145bc52717322b8e72, type: 3}
+  - {fileID: 5865822088399175402, guid: 6c27fa0b2cab31842b05fa4b63ebb028, type: 3}
+  - {fileID: 0}
+  - {fileID: 5678441915601921286, guid: d3abc18f7e731534b8052a8c2d468a7d, type: 3}
+  - {fileID: 5839710596819418940, guid: e0c069ca7725f0246b5498eb918a37f1, type: 3}
 --- !u!95 &4938753579080997000
 Animator:
   serializedVersion: 3

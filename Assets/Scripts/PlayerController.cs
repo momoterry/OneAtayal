@@ -79,12 +79,6 @@ public class PlayerController : MonoBehaviour
         theInput.TheHero.Attack.performed += ctx => OnAttack();
     }
 
-    void OnAttack()
-    {
-        Vector3 faceTo = new Vector3(faceX, faceY, 0);
-        OnAttackToward(transform.position + faceTo);
-    }
-
     private void Awake()
     {
         theInput = new MyInputActions();
@@ -286,12 +280,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnAttack()
+    {
+        Vector3 faceTo = new Vector3(faceX, faceY, 0);
+        OnAttackToward(transform.position + faceTo);
+    }
+
     public virtual void OnAttackToward(Vector3 target)
     {
         if (currState == PC_STATE.NORMAL)
         {
-            DoShootTo(target);
+            //DoShootTo(target);
+            DoMeleeTo(target);
         }
+    }
+
+    protected virtual void DoMeleeTo(Vector3 target)
+    {
+        Vector3 td = target - gameObject.transform.position;
+        td.z = 0;
+        td.Normalize();
+
+        if (myAnimator)
+        {
+            myAnimator.SetFloat("AttackX", td.x);
+            myAnimator.SetFloat("AttackY", td.y);
+            myAnimator.SetTrigger("Attack");
+        }
+        faceX = td.x;
+        faceY = td.y;
+
     }
 
     protected virtual void DoShootTo(Vector3 target)
