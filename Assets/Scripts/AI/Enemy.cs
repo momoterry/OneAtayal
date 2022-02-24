@@ -61,8 +61,11 @@ public class Enemy : MonoBehaviour
     {
         myAnimcator = GetComponent<Animator>();
         myAgent = GetComponent<NavMeshAgent>();
-        myAgent.updateRotation = false;
-        myAgent.updateUpAxis = false;
+        if (myAgent)
+        {
+            myAgent.updateRotation = false;
+            myAgent.updateUpAxis = false;
+        }
         hp = MaxHP;
         myDamage.damage = Attack;
 
@@ -99,7 +102,7 @@ public class Enemy : MonoBehaviour
                     nextState = AI_STATE.IDLE;
                     break;
                 case AI_STATE.IDLE:
-                    CheckPlayerIn();
+                    UpdateIdle();
                     break;
                 case AI_STATE.CHASE:
                     UpdateChase();
@@ -144,8 +147,10 @@ public class Enemy : MonoBehaviour
         targetPos = o.transform.position;
     }
 
-    private void CheckPlayerIn()
+    protected virtual void UpdateIdle()
     {
+        //CheckPlayerIn
+
         //TODOL: PC 跟 PlayerCharacter 應該分開檢查
         GameObject po = BattleSystem.GetInstance().GetPlayer();
         PlayerController pc = BattleSystem.GetInstance().GetPlayerController();

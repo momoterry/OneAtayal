@@ -13,7 +13,7 @@ public class PC_Warrior : PlayerController
     public float MPLeechPerHit = 3.0f;
 
     private Vector3 attackTo;
-    private Damage myDamage;    //TODO: 應該由父類別宣告
+    //private Damage myDamage;    //TODO: 應該由父類別宣告
     private float attackTime;
     private float damageTime;
 

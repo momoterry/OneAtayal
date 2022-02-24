@@ -35,10 +35,12 @@ public class PlayerController : MonoBehaviour
     MyInputActions theInput;
 
     //移動和面向
-    //protected float faceAngle = 180.0f; //預設向下
     protected float faceX = 0.0f;
     protected float faceY = -1.0f;
     protected Animator myAnimator;
+
+    //直接傷害相關
+    protected Damage myDamage;
 
     //升級相關
     protected float HP_Up_Ratio = 0.6f;
@@ -312,6 +314,50 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void OnMeleeDamageBox(AnimationEvent evt)
+    {
+        if (evt.animatorClipInfo.weight < 0.5f)
+            return;
+
+        //TODO: 攻擊範圍參數化
+        float centerOffset = 1.0f;
+        Vector2 vCenter = Vector2.zero;
+        Vector2 vSize = Vector2.one * 1.5f;
+
+        switch (evt.intParameter)
+        {
+            case 0: //上
+                vCenter.y = centerOffset;
+                break;
+            case 1: //右
+                vCenter.x = centerOffset;
+                break;
+            case 2: //下
+                vCenter.y = -centerOffset;
+                break;
+            case 3: //左
+                vCenter.x = -centerOffset;
+                break;
+        }
+
+        Collider2D[] cols = Physics2D.OverlapBoxAll((Vector2)transform.position + vCenter, vSize, 0);
+
+        //if (attackFX)
+        //    Instantiate(attackFX, transform.position, Quaternion.identity, null);
+
+
+
+        myDamage.damage = Attack;
+        foreach (Collider2D col in cols)
+        {
+            if (col.gameObject.CompareTag("Enemy"))
+            {
+                col.gameObject.SendMessage("DoDamage", myDamage);
+            }
+        }
+    }
+
+    
     protected virtual void DoShootTo(Vector3 target)
     {
         if (mp < MP_PerShoot)
