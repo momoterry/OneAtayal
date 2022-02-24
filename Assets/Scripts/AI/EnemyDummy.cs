@@ -8,6 +8,12 @@ public class EnemyDummy : Enemy
     protected override void UpdateIdle()
     {
         //Do Nothing
+        if (hp<MaxHP)
+        {
+            hp += Time.deltaTime * 50.0f;
+            if (hp > MaxHP)
+                hp = MaxHP;
+        }
     }
 
     void DoDamage(Damage theDamage)
