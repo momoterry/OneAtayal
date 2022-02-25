@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
         //Input System Bind
         theInput.TheHero.Attack.performed += ctx => OnAttack();
+        theInput.TheHero.Shoot.performed += ctx => OnShoot();
     }
 
     private void Awake()
@@ -287,6 +288,16 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 faceTo = new Vector3(faceX, faceY, 0);
         OnAttackToward(transform.position + faceTo);
+    }
+    
+    void OnShoot()
+    {
+        Vector3 target = new Vector3(faceX, faceY, 0) + gameObject.transform.position;
+        if (currState == PC_STATE.NORMAL)
+        {
+            DoShootTo(target);
+            //DoMeleeTo(target);
+        }
     }
 
     public virtual void OnAttackToward(Vector3 target)

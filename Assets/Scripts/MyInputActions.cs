@@ -44,6 +44,15 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""7fc54d2f-900f-4eb4-9c86-87c5ba8d310a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,6 +143,17 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca1dd732-8ee5-4ac1-b95e-de22468d5c34"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -144,6 +164,7 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
         m_TheHero = asset.FindActionMap("TheHero", throwIfNotFound: true);
         m_TheHero_Move = m_TheHero.FindAction("Move", throwIfNotFound: true);
         m_TheHero_Attack = m_TheHero.FindAction("Attack", throwIfNotFound: true);
+        m_TheHero_Shoot = m_TheHero.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,12 +226,14 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
     private ITheHeroActions m_TheHeroActionsCallbackInterface;
     private readonly InputAction m_TheHero_Move;
     private readonly InputAction m_TheHero_Attack;
+    private readonly InputAction m_TheHero_Shoot;
     public struct TheHeroActions
     {
         private @MyInputActions m_Wrapper;
         public TheHeroActions(@MyInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_TheHero_Move;
         public InputAction @Attack => m_Wrapper.m_TheHero_Attack;
+        public InputAction @Shoot => m_Wrapper.m_TheHero_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_TheHero; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -226,6 +249,9 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                 @Attack.started -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnAttack;
+                @Shoot.started -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_TheHeroActionsCallbackInterface = instance;
             if (instance != null)
@@ -236,6 +262,9 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
@@ -244,5 +273,6 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }
