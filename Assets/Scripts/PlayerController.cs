@@ -269,7 +269,7 @@ public class PlayerController : MonoBehaviour
         //if (myAgent.velocity.magnitude > 0.5f)
         if (myAnimator)
         {
-            myAnimator.SetBool("Run", (myAgent.velocity.magnitude > 0.1f));
+            myAnimator.SetBool("Run", (myAgent.velocity.magnitude > 0.1f)||bMove);
             //myAnimator.SetBool("Run", bMove);
             myAnimator.SetFloat("X", faceX);
             myAnimator.SetFloat("Y", faceY);
