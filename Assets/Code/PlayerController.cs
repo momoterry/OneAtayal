@@ -60,6 +60,10 @@ public class PlayerController : MonoBehaviour
     public float GetMP() { return mp; }
     public float GetATTACK() { return Attack; }
 
+    //Doll ¬ÛÃö
+    public DollManager myDollManager;
+    public DollManager GetDollManager() { return myDollManager; }
+
     public enum PC_STATE
     {
         NONE,

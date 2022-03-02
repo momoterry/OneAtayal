@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Doll : MonoBehaviour
 {
+
+    protected DollManager theDollManager;
+    protected Transform mySlot;
+
     protected enum DOLL_STATE
     {
         NONE,
@@ -15,7 +19,7 @@ public class Doll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        nextState = DOLL_STATE.WAIT;
     }
 
     void OnStateExit()
@@ -43,9 +47,15 @@ public class Doll : MonoBehaviour
         switch (currState)
         {
             case DOLL_STATE.FOLLOW:
+                UpdateFollow();
                 break;
         }
         
+    }
+
+    virtual protected void UpdateFollow()
+    {
+        gameObject.transform.position = mySlot.position;
     }
 
     void OnTG(GameObject whoTG)
@@ -54,7 +64,29 @@ public class Doll : MonoBehaviour
 
         if (currState == DOLL_STATE.WAIT)
         {
-            whoTG.SendMessage("OnActionResult", false);
+            //回應 ActionTrigger 是否成功
+            bool actionResult = TryJoinThePlayer();
+            whoTG.SendMessage("OnActionResult", actionResult);
+            if (actionResult)
+            {
+                nextState = DOLL_STATE.FOLLOW;
+            }
         }
+    }
+
+    bool TryJoinThePlayer()
+    {
+        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
+        if ( pc ){
+            DollManager theDollManager = pc.GetDollManager();
+            if (theDollManager)
+            {
+                mySlot = theDollManager.AddOneDoll(this);
+            }
+        }
+
+        if (mySlot)
+            return true;
+        return false;
     }
 }
