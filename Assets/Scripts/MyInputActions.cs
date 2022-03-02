@@ -53,6 +53,15 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""971eabad-b034-44fa-8417-bcaebc4a8efb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -124,17 +133,6 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""03814ec8-2d15-48f7-bffa-1611fbbbd8b6"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d809b4f6-a696-4c24-9b0c-0628af2fdfb9"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
@@ -146,12 +144,12 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ca1dd732-8ee5-4ac1-b95e-de22468d5c34"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""id"": ""ed5bcc6d-b016-46f3-918b-1a8de26b75d7"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -165,6 +163,28 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""043cb9c3-cef2-4d47-b26a-5d0c19e876ac"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""258932b8-5bbe-4af9-907f-d294be9058a1"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -176,6 +196,7 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
         m_TheHero_Move = m_TheHero.FindAction("Move", throwIfNotFound: true);
         m_TheHero_Attack = m_TheHero.FindAction("Attack", throwIfNotFound: true);
         m_TheHero_Shoot = m_TheHero.FindAction("Shoot", throwIfNotFound: true);
+        m_TheHero_Action = m_TheHero.FindAction("Action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +259,7 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_TheHero_Move;
     private readonly InputAction m_TheHero_Attack;
     private readonly InputAction m_TheHero_Shoot;
+    private readonly InputAction m_TheHero_Action;
     public struct TheHeroActions
     {
         private @MyInputActions m_Wrapper;
@@ -245,6 +267,7 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_TheHero_Move;
         public InputAction @Attack => m_Wrapper.m_TheHero_Attack;
         public InputAction @Shoot => m_Wrapper.m_TheHero_Shoot;
+        public InputAction @Action => m_Wrapper.m_TheHero_Action;
         public InputActionMap Get() { return m_Wrapper.m_TheHero; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +286,9 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                 @Shoot.started -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnShoot;
+                @Action.started -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnAction;
+                @Action.performed -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnAction;
+                @Action.canceled -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnAction;
             }
             m_Wrapper.m_TheHeroActionsCallbackInterface = instance;
             if (instance != null)
@@ -276,6 +302,9 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Action.started += instance.OnAction;
+                @Action.performed += instance.OnAction;
+                @Action.canceled += instance.OnAction;
             }
         }
     }
@@ -285,5 +314,6 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnAction(InputAction.CallbackContext context);
     }
 }

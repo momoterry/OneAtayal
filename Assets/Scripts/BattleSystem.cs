@@ -185,7 +185,8 @@ public class BattleSystem : MonoBehaviour
 
     public void OnEnemyClear()
     {
-        clearGate.SetActive(true);
+        if (clearGate)
+            clearGate.SetActive(true);
     }
 
     public void OnClearGateEnter()
@@ -235,7 +236,8 @@ public class BattleSystem : MonoBehaviour
         else if (level > MaxLevel)
             currLevel = MaxLevel;
 
-        clearGate.SetActive(false);
+        if (clearGate)
+            clearGate.SetActive(false);
         theMG.BuildAll(currLevel);
 
         if (thePlayer == null)

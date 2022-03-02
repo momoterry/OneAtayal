@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,9 @@ public class PlayerController : MonoBehaviour
     protected float faceX = 0.0f;
     protected float faceY = -1.0f;
     protected Animator myAnimator;
+
+    //互動物件
+    protected GameObject actionObject = null;
 
     //直接傷害相關
     protected Damage myDamage;
@@ -80,7 +84,9 @@ public class PlayerController : MonoBehaviour
         //Input System Bind
         theInput.TheHero.Attack.performed += ctx => OnAttack();
         theInput.TheHero.Shoot.performed += ctx => OnShoot();
+        theInput.TheHero.Action.performed += ctx => OnActionKey();
     }
+
 
     private void Awake()
     {
@@ -284,6 +290,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //=================== 互動物件相關 ===================
+    void OnActionKey()
+    {
+        if (actionObject)
+        {
+            actionObject.SendMessage("OnAction");
+        }
+    }
+
+    public void OnRegisterActionObject( GameObject obj )
+    {
+        if (actionObject == null)
+        {
+            actionObject = obj;
+        }
+    }
+
+    public void OnUnregisterActionObject (GameObject obj )
+    {
+        if (actionObject == obj)
+        {
+            actionObject = null;
+        }
+    }
+
+    // =================== 攻擊相關 ===================
     void OnAttack()
     {
         Vector3 faceTo = new Vector3(faceX, faceY, 0);

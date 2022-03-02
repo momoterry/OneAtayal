@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Action",
+                    "type": "Button",
+                    "id": "971eabad-b034-44fa-8417-bcaebc4a8efb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -102,17 +111,6 @@
                 },
                 {
                     "name": "",
-                    "id": "03814ec8-2d15-48f7-bffa-1611fbbbd8b6",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d809b4f6-a696-4c24-9b0c-0628af2fdfb9",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -124,12 +122,12 @@
                 },
                 {
                     "name": "",
-                    "id": "ca1dd732-8ee5-4ac1-b95e-de22468d5c34",
-                    "path": "<Keyboard>/leftCtrl",
+                    "id": "ed5bcc6d-b016-46f3-918b-1a8de26b75d7",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -141,6 +139,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "043cb9c3-cef2-4d47-b26a-5d0c19e876ac",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "258932b8-5bbe-4af9-907f-d294be9058a1",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
