@@ -65,7 +65,7 @@ public class Doll : MonoBehaviour
 
     virtual public void OnPlayerAttack(Vector3 target)
     {
-        print("XX");
+        OnPlayerShoot(target);
     }
 
     virtual public void OnPlayerShoot(Vector3 target)
