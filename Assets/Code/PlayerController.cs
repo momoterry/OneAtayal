@@ -259,21 +259,9 @@ public class PlayerController : MonoBehaviour
             //TODO: 不要每 Frame 進行
             OnMoveToPosition(transform.position + moveVec);
 
-            //faceAngle = Vector3.SignedAngle(Vector3.up, moveVec, -Vector3.forward);
-
             faceX = moveVec.x;
             faceY = moveVec.y;
 
-            //if (myAnimator)
-            //{
-            //    //myAnimator.SetFloat("Up", moveVec.y);
-            //    //myAnimator.SetFloat("Right", moveVec.x);
-            //    float faceDir = faceAngle / 360.0f;
-            //    if (faceDir < 0.0f)
-            //        faceDir += 1.0f;
-            //    myAnimator.SetFloat("FaceDir", faceDir);
-            //    myAnimator.SetFloat("FaceAngle", faceAngle);
-            //}
         }
 
         //if (myAgent.velocity.magnitude > 0.5f)
@@ -324,6 +312,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 faceTo = new Vector3(faceX, faceY, 0);
         OnAttackToward(transform.position + faceTo);
+
     }
     
     void OnShoot()
@@ -332,7 +321,6 @@ public class PlayerController : MonoBehaviour
         if (currState == PC_STATE.NORMAL)
         {
             DoShootTo(target);
-            //DoMeleeTo(target);
         }
     }
 
@@ -340,7 +328,6 @@ public class PlayerController : MonoBehaviour
     {
         if (currState == PC_STATE.NORMAL)
         {
-            //DoShootTo(target);
             DoMeleeTo(target);
         }
     }
@@ -360,6 +347,8 @@ public class PlayerController : MonoBehaviour
         faceX = td.x;
         faceY = td.y;
 
+        if (myDollManager)
+            myDollManager.OnPlayerAttack(target);
     }
 
     void OnMeleeDamageBox(AnimationEvent evt)
@@ -444,6 +433,9 @@ public class PlayerController : MonoBehaviour
         faceY = td.y;
 
         mp -= MP_PerShoot;
+
+        if (myDollManager)
+            myDollManager.OnPlayerShoot(target);
     }
 
 

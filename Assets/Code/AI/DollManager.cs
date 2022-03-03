@@ -42,4 +42,27 @@ public class DollManager : MonoBehaviour
         
     }
 
+    //將玩家的行為傳達給 Doll 們
+    public void OnPlayerAttack(Vector3 target)
+    {
+        foreach ( Doll d in dolls)
+        {
+            if (d)
+            {
+                d.OnPlayerAttack(target);
+            }
+        }
+    }
+
+    public void OnPlayerShoot(Vector3 target)
+    {
+        foreach (Doll d in dolls)
+        {
+            if (d)
+            {
+                d.OnPlayerShoot(target);
+            }
+        }
+    }
+
 }
