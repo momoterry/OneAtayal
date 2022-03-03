@@ -75,7 +75,8 @@ public class DropManager : MonoBehaviour
                 break;
         }
 
-        //dropRate = 1.0f;    //Debug Test
+        if (toDrop == DropItem.DROPITEM_TYPE.NONE)
+            return;
 
         bool isDrop = (Random.Range(0, 1.0f) <= dropRate);
 

@@ -124,14 +124,22 @@ public class Enemy : MonoBehaviour
         //print("AI Endter State : " + nextState);
         switch (nextState)
         {
+            case AI_STATE.IDLE:
+                if (myAnimcator)
+                    myAnimcator.SetBool("Run", false);
+                break;
             case AI_STATE.ATTACK:
                 stateTime = AttackWait;
+                if (myAnimcator)
+                    myAnimcator.SetBool("Run", false);
                 break;
             case AI_STATE.CHASE:
                 //至少追擊一次
                 if (myAgent)
                     myAgent.SetDestination(targetPos);
                 stateTime = chaseCheckTime;
+                if (myAnimcator)
+                    myAnimcator.SetBool("Run", true);
                 break;
         }
     }
@@ -268,14 +276,17 @@ public class Enemy : MonoBehaviour
             SetTarget(po);
             nextState = AI_STATE.CHASE;
         }
+
     }
 
     void DoDeath()
     {
         BattleSystem.GetInstance().OnEnemyKilled(gameObject);
         DropManager.GetInstance().OnTryDropByEnemyKilled(this);
+       
         Destroy(gameObject);
         // TODO 死亡演出
+
     }
 
     protected virtual void DoOneAttack()
