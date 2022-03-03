@@ -10,11 +10,14 @@ public class PlayerController : MonoBehaviour
 {
     public float AttackCD = 1.0f;
     public float WalkSpeed = 8.0f;
+    public GameObject beenHitFX;
+
     public GameObject bulletRef;
-    public GameObject hitFX;
 
     public GameObject shootFX_1;
     public GameObject shootFX_2;
+
+    public GameObject meleeHitFX;
 
     public float HP_MaxInit = 100.0f;
     public float MP_MaxInit = 100.0f;
@@ -389,6 +392,10 @@ public class PlayerController : MonoBehaviour
         {
             if (col.gameObject.CompareTag("Enemy"))
             {
+                if (meleeHitFX)
+                {
+                    Instantiate(meleeHitFX, col.ClosestPoint(transform.position), Quaternion.identity, null); ;
+                }
                 col.gameObject.SendMessage("DoDamage", myDamage);
             }
         }
@@ -442,7 +449,7 @@ public class PlayerController : MonoBehaviour
 
     void DoDamage(Damage theDamage)
     {
-        Instantiate(hitFX, transform.position, Quaternion.identity, null);
+        Instantiate(beenHitFX, transform.position, Quaternion.identity, null);
 
         hp -= theDamage.damage;
         if (hp<=0)
