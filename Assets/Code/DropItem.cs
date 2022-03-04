@@ -77,6 +77,7 @@ public class DropItem : MonoBehaviour
                 UpdateFlyAway();
                 break;
         }
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //¥Î Y ­È³]©wZ
     }
 
     public void DoDrop()

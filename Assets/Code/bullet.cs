@@ -57,6 +57,8 @@ public class bullet : MonoBehaviour
         {
             myTime -= Time.deltaTime;
         }
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //¥Î Y ­È³]©wZ
+
     }
 
     private void OnCollisionEnter2D(Collision2D col)

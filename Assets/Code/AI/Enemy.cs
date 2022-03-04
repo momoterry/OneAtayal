@@ -117,6 +117,7 @@ public class Enemy : MonoBehaviour
         {
             myHPHandler.SetHP(hp, MaxHP);
         }
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //¥Î Y ­È³]©wZ
     }
 
     protected virtual void OnStateEnter()

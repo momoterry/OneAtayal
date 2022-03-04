@@ -18,6 +18,8 @@ public class FlashFX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //¥Î Y ­È³]©wZ
+
         myTime -= Time.deltaTime;
         if ( myTime <= 0.0f)
         {

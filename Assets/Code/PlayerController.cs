@@ -164,6 +164,9 @@ public class PlayerController : MonoBehaviour
         {
             OnUpdateState();
         }
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
+
     }
 
     protected virtual void OnUpdateState()
@@ -225,37 +228,6 @@ public class PlayerController : MonoBehaviour
             moveVec = moveVec.normalized * minMove + Vector3.right * 0.001f;
         }
 
-
-        //if (Input.GetKey("w"))
-        //{
-        //    print("W");
-        //    moveVec += Vector3.up * minMove;
-        //    bMove = true;
-
-        //    moveVec += Vector3.right * 0.001f;   //不知道為什麼，正上正下的移動會有問題 (多半跟 Nav2D 有關)
-
-        //}
-        //else if (Input.GetKey("s"))
-        //{
-        //    moveVec -= Vector3.up * minMove;
-        //    bMove = true;
-
-        //    moveVec += Vector3.right * 0.001f;   //不知道為什麼，正上正下的移動會有問題 (多半跟 Nav2D 有關)
-        //}
-
-        //if (Input.GetKey("a"))
-        //{
-        //    moveVec -= Vector3.right * minMove;
-        //    bMove = true;
-        //}
-        //else if (Input.GetKey("d"))
-        //{
-        //    moveVec += Vector3.right * minMove;
-        //    bMove = true;
-        //}
-
-        //Check GamePad
-        //if (Input.)
 
         if (bMove)
         {
@@ -449,7 +421,8 @@ public class PlayerController : MonoBehaviour
 
     void DoDamage(Damage theDamage)
     {
-        Instantiate(beenHitFX, transform.position, Quaternion.identity, null);
+        if (beenHitFX)
+            Instantiate(beenHitFX, transform.position, Quaternion.identity, null);
 
         hp -= theDamage.damage;
         if (hp<=0)
