@@ -12,7 +12,8 @@ public class EnemyRanger : Enemy
         // TODO: 檢查是否玩家在視野
         if (bulletRef)
         {
-            GameObject newObj = Instantiate(bulletRef, gameObject.transform.position, Quaternion.identity, null);
+            Vector3 shootPoint = gameObject.transform.position + faceDir * 0.5f;
+            GameObject newObj = Instantiate(bulletRef, shootPoint, Quaternion.identity, null);
             if (newObj)
             {
                 bullet newBullet = newObj.GetComponent<bullet>();

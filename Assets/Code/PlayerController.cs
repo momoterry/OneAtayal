@@ -165,8 +165,7 @@ public class PlayerController : MonoBehaviour
             OnUpdateState();
         }
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
-
+        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
     }
 
     protected virtual void OnUpdateState()
@@ -366,7 +365,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (meleeHitFX)
                 {
-                    Instantiate(meleeHitFX, col.ClosestPoint(transform.position), Quaternion.identity, null); ;
+                    Vector3 hitPos = col.ClosestPoint(transform.position);
+                    hitPos.z = col.transform.position.z - 0.125f;       //角色的話用對方的 Z 來調整
+                    Instantiate(meleeHitFX, hitPos, Quaternion.identity, null); ;
                 }
                 col.gameObject.SendMessage("DoDamage", myDamage);
             }

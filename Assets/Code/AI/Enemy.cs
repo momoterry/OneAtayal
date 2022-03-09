@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
 
     public float Attack = 20.0f;
 
-    protected Animator myAnimcator;
+    protected Animator myAnimator;
     protected NavMeshAgent myAgent;
     protected float hp;
     protected GameObject targetObj;
@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour
 
     protected Damage myDamage;
     protected Hp_BarHandler myHPHandler;
+
+    //2D 面向相關
+    protected Vector3 faceDir;
 
     //等級成長率
     protected float LvUpRatio = 1.4f;
@@ -46,20 +49,13 @@ public class Enemy : MonoBehaviour
     protected AI_STATE nextState = AI_STATE.NONE;
 
 
-    //private void OnGUI()
-    //{
-    //    Vector3 sPos = Camera.main.WorldToScreenPoint(transform.position);
-    //    Rect debugR = new Rect(sPos.x, Camera.main.pixelHeight - sPos.y, 200, 50);
-    //    GUI.TextArea(debugR, MaxHP.ToString() + " / " + Attack.ToString());
-    //}
-
     // Public
     public int GetID() { return ID; }
 
     // Start is called before the first frame update
     protected void Start()
     {
-        myAnimcator = GetComponent<Animator>();
+        myAnimator = GetComponent<Animator>();
         myAgent = GetComponent<NavMeshAgent>();
         if (myAgent)
         {
@@ -74,6 +70,8 @@ public class Enemy : MonoBehaviour
         BattleSystem.GetInstance().AddEnemy(gameObject);
 
         nextState = AI_STATE.SPAWN_WAIT;
+
+        faceDir = Vector3.down;
     }
 
     public virtual void SetUpLevel( int iLv = 1)
@@ -117,7 +115,7 @@ public class Enemy : MonoBehaviour
         {
             myHPHandler.SetHP(hp, MaxHP);
         }
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
+        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
     }
 
     protected virtual void OnStateEnter()
@@ -126,21 +124,21 @@ public class Enemy : MonoBehaviour
         switch (nextState)
         {
             case AI_STATE.IDLE:
-                if (myAnimcator)
-                    myAnimcator.SetBool("Run", false);
+                if (myAnimator)
+                    myAnimator.SetBool("Run", false);
                 break;
             case AI_STATE.ATTACK:
                 stateTime = AttackWait;
-                if (myAnimcator)
-                    myAnimcator.SetBool("Run", false);
+                if (myAnimator)
+                    myAnimator.SetBool("Run", false);
                 break;
             case AI_STATE.CHASE:
                 //至少追擊一次
                 if (myAgent)
                     myAgent.SetDestination(targetPos);
                 stateTime = chaseCheckTime;
-                if (myAnimcator)
-                    myAnimcator.SetBool("Run", true);
+                if (myAnimator)
+                    myAnimator.SetBool("Run", true);
                 break;
         }
     }
@@ -213,6 +211,16 @@ public class Enemy : MonoBehaviour
                 targetPos = targetObj.transform.position;
                 myAgent.SetDestination(targetPos);
                 stateTime = chaseCheckTime;
+
+                //更新面向
+                faceDir = (targetPos - transform.position);
+                faceDir.z = 0;
+                faceDir.Normalize();
+                if (myAnimator)
+                {
+                    myAnimator.SetFloat("X", faceDir.x);
+                    myAnimator.SetFloat("Y", faceDir.y);
+                }
             }
         }
 
@@ -246,6 +254,13 @@ public class Enemy : MonoBehaviour
             }
             else
             {
+                //修正面向
+                faceDir = dv.normalized;
+                if (myAnimator)
+                {
+                    myAnimator.SetFloat("X", faceDir.x);
+                    myAnimator.SetFloat("Y", faceDir.y);
+                }
                 DoOneAttack();
             }
 
@@ -259,8 +274,8 @@ public class Enemy : MonoBehaviour
         if (damageFX)
             Instantiate(damageFX, transform.position, Quaternion.identity, null);
         
-        if (myAnimcator)
-            myAnimcator.SetTrigger("Hit");
+        if (myAnimator)
+            myAnimator.SetTrigger("Hit");
 
         hp -= theDamage.damage;
         if (hp < 0)

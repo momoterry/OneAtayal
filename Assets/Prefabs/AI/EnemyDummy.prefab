@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1702275515600879293}
   - component: {fileID: 8284228851848052660}
   - component: {fileID: 4274056214866837559}
+  - component: {fileID: 7011486637474910002}
   m_Layer: 10
   m_Name: EnemyDummy
   m_TagString: Enemy
@@ -135,6 +136,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barRef: {fileID: 3890801454975395505, guid: 973c65eeb08fab642b86710e645afe25, type: 3}
   barHeight: 1.25
+--- !u!114 &7011486637474910002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568917047187759288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4847519023731070151
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,8 +22,8 @@ public class EnemyDummy : Enemy
         if (damageFX)
             Instantiate(damageFX, transform.position, Quaternion.identity, null);
 
-        if (myAnimcator)
-            myAnimcator.SetTrigger("Hit");
+        if (myAnimator)
+            myAnimator.SetTrigger("Hit");
 
         hp -= theDamage.damage;
         if (hp < 1.0f)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4541514479431337211}
   - component: {fileID: 178409954817554316}
   m_Layer: 10
-  m_Name: WoodEnemy
+  m_Name: StoneGolem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 5658057098833857537, guid: c7756a1aabfa0154190f146eb6f34854, type: 3}
+  m_Sprite: {fileID: 4646101929521763914, guid: 290ed00fc45b83242bf08c7e8997dd1c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -139,7 +139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4797232611123964707}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.75, z: 0}
+  m_LocalPosition: {x: 0, y: -0.8125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5729196296419832774}
@@ -210,8 +210,9 @@ GameObject:
   - component: {fileID: 8565208818148618048}
   - component: {fileID: 8639384707586398088}
   - component: {fileID: 3842158341424820786}
+  - component: {fileID: 8962423454557553336}
   m_Layer: 10
-  m_Name: EnemyWood
+  m_Name: EnemyStone
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,8 +273,8 @@ MonoBehaviour:
   damageFX: {fileID: 0}
   ChaseRangeIn: 6
   ChaseRangeOut: 7
-  AttackRangeIn: 5
-  AttackRangeOut: 6
+  AttackRangeIn: 2
+  AttackRangeOut: 2.5
   MeleeRange: 1.5
   AttackWait: 0.2
   AttackCD: 2
@@ -329,7 +330,7 @@ Animator:
   m_GameObject: {fileID: 7208015447484052683}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 96a1c36d6057941489fcdfe0b8854909, type: 2}
+  m_Controller: {fileID: 9100000, guid: ff5b97ef0d5bd3344937a913a5cb590b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -338,3 +339,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8962423454557553336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7208015447484052683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

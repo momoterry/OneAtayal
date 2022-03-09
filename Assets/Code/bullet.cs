@@ -57,7 +57,7 @@ public class bullet : MonoBehaviour
         {
             myTime -= Time.deltaTime;
         }
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
+        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
 
     }
 
@@ -74,6 +74,7 @@ public class bullet : MonoBehaviour
     {
         //print("OnTriggernEnter2D : " + col);
         bool hit = false;
+        bool flashShift = true;// 打中角色的話, 擊中特效往鏡頭放以免被擋
         if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
         {
             //print("Trigger:  Hit Enemy !!");
@@ -90,12 +91,21 @@ public class bullet : MonoBehaviour
         {
             //print("Trigger:  HitWall !!");
             hit = true;
+            flashShift = false;
         }
 
 
         if (hit)
         {
-            Instantiate(hitFX, col.ClosestPoint(transform.position), Quaternion.identity, null);
+            Vector3 hitPos = col.ClosestPoint(transform.position);
+            if (flashShift)
+            {
+                hitPos.z = col.transform.position.z - 0.125f;   //角色的話用對方的 Z 來調整
+            }
+            else
+                hitPos.z = hitPos.y;
+
+            Instantiate(hitFX, hitPos, Quaternion.identity, null);
             Destroy(gameObject);
         }
 
