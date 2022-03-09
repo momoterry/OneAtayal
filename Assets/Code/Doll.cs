@@ -55,7 +55,7 @@ public class Doll : MonoBehaviour
                 break;
         }
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
+        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
     }
 
     // =====================  跟隨後相關行為 =====================

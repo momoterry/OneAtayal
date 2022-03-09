@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 4032685806379418580}
   - component: {fileID: 4032685806379418582}
   - component: {fileID: 3230571039029536920}
+  - component: {fileID: -894024693914061495}
   m_Layer: 0
   m_Name: Doll_One
   m_TagString: Untagged
@@ -202,6 +203,18 @@ MonoBehaviour:
   bulletRef: {fileID: 2820250728779406873, guid: 51b72c5b9c5318b46a5b2fd972924a9e, type: 3}
   AttackInit: 10
   SearchRange: 8
+--- !u!114 &-894024693914061495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1988585230883178464
 PrefabInstance:
   m_ObjectHideFlags: 0
