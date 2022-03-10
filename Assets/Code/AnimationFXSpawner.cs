@@ -22,7 +22,6 @@ public class AnimationFXSpawner : MonoBehaviour
     {
         if (evt.animatorClipInfo.weight < 0.5f)
             return;
-        //print("OnSpawnFX " + evt.intParameter + " :  " + evt.animatorClipInfo.weight);
 
         if (FXObjs[evt.intParameter])
             Instantiate(FXObjs[evt.intParameter], gameObject.transform.position, Quaternion.identity, gameObject.transform);

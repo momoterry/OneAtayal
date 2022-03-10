@@ -6,6 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 
+
 public class PlayerController : MonoBehaviour
 {
     public float AttackCD = 1.0f;
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject shootFX_1;
     public GameObject shootFX_2;
-
+    public GameObject meleeFX;
     public GameObject meleeHitFX;
 
     public float HP_MaxInit = 100.0f;
@@ -39,8 +40,19 @@ public class PlayerController : MonoBehaviour
     MyInputActions theInput;
 
     //移動和面向
-    protected float faceX = 0.0f;
-    protected float faceY = -1.0f;
+    protected Vector3 faceDir;
+
+    // 近戰用四面向
+    public enum FaceFrontType
+    {
+        UP,
+        RIGHT,
+        DOWN,
+        LEFT,
+    }
+    protected Vector3 faceFront;
+    protected FaceFrontType faceFrontType;
+
     protected Animator myAnimator;
 
     //互動物件
@@ -117,9 +129,10 @@ public class PlayerController : MonoBehaviour
 
         nextState = PC_STATE.NORMAL;
 
-        //faceAngle = 180.0f; //TODO: 應該放在別的地方
-        faceX = 0.0f;
-        faceY = -1.0f;
+        //TODO: 應該放在別的地方
+        faceDir = Vector3.down;
+        faceFront = Vector3.down;
+        faceFrontType = FaceFrontType.DOWN;
 }
 
     public virtual bool DoHpUp()
@@ -233,20 +246,64 @@ public class PlayerController : MonoBehaviour
             //TODO: 不要每 Frame 進行
             OnMoveToPosition(transform.position + moveVec);
 
-            faceX = moveVec.x;
-            faceY = moveVec.y;
-
+            faceDir = moveVec;
+            faceDir.z = 0;
+            faceDir.Normalize();
+            //faceX = faceDir.x;      //TODO: 可以直接拿掉 faceX, faceY
+            //faceY = faceDir.y;
+            SetupFrontDirection();
         }
 
         //if (myAgent.velocity.magnitude > 0.5f)
         if (myAnimator)
         {
             myAnimator.SetBool("Run", (myAgent.velocity.magnitude > 0.1f)||bMove);
-            //myAnimator.SetBool("Run", bMove);
-            myAnimator.SetFloat("X", faceX);
-            myAnimator.SetFloat("Y", faceY);
+            //myAnimator.SetFloat("X", faceDir.x);
+            //myAnimator.SetFloat("Y", faceDir.y);
+            myAnimator.SetFloat("X", faceFront.x);
+            myAnimator.SetFloat("Y", faceFront.y);
         }
     }
+
+    private void SetupFrontDirection()
+    {
+        if (faceDir.y > faceDir.x)
+        {
+            if ( faceDir.y > -faceDir.x)
+            {
+                faceFront = Vector3.up;
+                faceFrontType = FaceFrontType.UP;
+            }
+            else
+            {
+                faceFront = Vector3.left;
+                faceFrontType = FaceFrontType.LEFT;
+            }
+        }
+        else
+        {
+            if (faceDir.y > -faceDir.x)
+            {
+                faceFront = Vector3.right;
+                faceFrontType = FaceFrontType.RIGHT;
+            }
+            else
+            {
+                faceFront = Vector3.down;
+                faceFrontType = FaceFrontType.DOWN;
+            }
+        }
+    }
+
+    //private void OnGUI()
+    //{
+    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position+faceDir);
+    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "FACE");
+    //    thePoint = Camera.main.WorldToScreenPoint(transform.position + faceFront);
+    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "X");
+    //}
 
     public virtual void OnMoveToPosition(Vector3 target)
     {
@@ -284,14 +341,17 @@ public class PlayerController : MonoBehaviour
     // =================== 攻擊相關 ===================
     void OnAttack()
     {
-        Vector3 faceTo = new Vector3(faceX, faceY, 0);
-        OnAttackToward(transform.position + faceTo);
-
+        //OnAttackToward(transform.position + faceDir);
+        if (currState == PC_STATE.NORMAL)
+        {
+            DoMeleeTo(transform.position + faceDir);
+        }
     }
-    
+
     void OnShoot()
     {
-        Vector3 target = new Vector3(faceX, faceY, 0) + gameObject.transform.position;
+        //TODO: 用滑鼠或右類比決定方向
+        Vector3 target = faceDir + gameObject.transform.position;
         if (currState == PC_STATE.NORMAL)
         {
             DoShootTo(target);
@@ -302,7 +362,9 @@ public class PlayerController : MonoBehaviour
     {
         if (currState == PC_STATE.NORMAL)
         {
+            //TODO: 由滑鼠決定攻擊方向
             DoMeleeTo(target);
+            DoShootTo(target);
         }
     }
 
@@ -311,6 +373,8 @@ public class PlayerController : MonoBehaviour
         Vector3 td = target - gameObject.transform.position;
         td.z = 0;
         td.Normalize();
+        faceDir = td;
+        SetupFrontDirection();
 
         if (myAnimator)
         {
@@ -318,8 +382,34 @@ public class PlayerController : MonoBehaviour
             myAnimator.SetFloat("AttackY", td.y);
             myAnimator.SetTrigger("Attack");
         }
-        faceX = td.x;
-        faceY = td.y;
+
+        if (meleeFX)
+        {
+            Vector3 fxPos = transform.position + faceFront;
+            float fxAngle = 0;
+            switch (faceFrontType)
+            {
+                case FaceFrontType.UP:
+                    fxAngle = 0;
+                    break;
+                case FaceFrontType.RIGHT:
+                    fxAngle = -90.0f;
+                    break;
+                case FaceFrontType.DOWN:
+                    fxAngle = 180.0f;
+                    break;
+                case FaceFrontType.LEFT:
+                    fxAngle = 90.0f;
+                    break;
+            }
+            Quaternion ro = Quaternion.Euler(0, 0, fxAngle);
+            GameObject fo = Instantiate(meleeFX, fxPos, ro, transform);
+            if (faceFrontType == FaceFrontType.RIGHT)
+            {
+                //暴力法轉向
+                fo.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            }
+        }
 
         if (myDollManager)
             myDollManager.OnPlayerAttack(target);
@@ -335,18 +425,34 @@ public class PlayerController : MonoBehaviour
         Vector2 vCenter = Vector2.zero;
         Vector2 vSize = Vector2.one * 1.5f;
 
-        switch (evt.intParameter)
+        //switch (evt.intParameter)
+        //{
+        //    case 0: //上
+        //        vCenter.y = centerOffset;
+        //        break;
+        //    case 1: //右
+        //        vCenter.x = centerOffset;
+        //        break;
+        //    case 2: //下
+        //        vCenter.y = -centerOffset;
+        //        break;
+        //    case 3: //左
+        //        vCenter.x = -centerOffset;
+        //        break;
+        //}
+
+        switch (faceFrontType)
         {
-            case 0: //上
+            case FaceFrontType.UP: //上
                 vCenter.y = centerOffset;
                 break;
-            case 1: //右
+            case FaceFrontType.RIGHT: //右
                 vCenter.x = centerOffset;
                 break;
-            case 2: //下
+            case FaceFrontType.DOWN: //下
                 vCenter.y = -centerOffset;
                 break;
-            case 3: //左
+            case FaceFrontType.LEFT: //左
                 vCenter.x = -centerOffset;
                 break;
         }
@@ -387,6 +493,11 @@ public class PlayerController : MonoBehaviour
         Vector3 td = target - gameObject.transform.position;
         td.z = 0;
         td.Normalize();
+        faceDir = td;
+        SetupFrontDirection();
+
+        //TODO 發射點靠前?
+
         GameObject newObj = Instantiate(bulletRef, gameObject.transform.position, Quaternion.identity, null);
         if (newObj)
         {
@@ -409,8 +520,8 @@ public class PlayerController : MonoBehaviour
             myAnimator.SetFloat("CastY", td.y);
             myAnimator.SetTrigger("Cast");
         }
-        faceX = td.x;
-        faceY = td.y;
+        //faceX = td.x;
+        //faceY = td.y;
 
         mp -= MP_PerShoot;
 
