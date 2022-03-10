@@ -62,6 +62,24 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePos"",
+                    ""type"": ""Value"",
+                    ""id"": ""4b74ea8e-d24d-4dbb-a7a5-147ead8aa992"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ShootTo"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3ad2756-1bfd-41cc-851b-f58dfdf5aafb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -166,17 +184,6 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""043cb9c3-cef2-4d47-b26a-5d0c19e876ac"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""258932b8-5bbe-4af9-907f-d294be9058a1"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -196,6 +203,28 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a37496f7-71f7-4fe0-9784-fb5ae7688efe"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePos"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c1e5031b-f3ec-429c-abe2-23640a8ebba0"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootTo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -208,6 +237,8 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
         m_TheHero_Attack = m_TheHero.FindAction("Attack", throwIfNotFound: true);
         m_TheHero_Shoot = m_TheHero.FindAction("Shoot", throwIfNotFound: true);
         m_TheHero_Action = m_TheHero.FindAction("Action", throwIfNotFound: true);
+        m_TheHero_MousePos = m_TheHero.FindAction("MousePos", throwIfNotFound: true);
+        m_TheHero_ShootTo = m_TheHero.FindAction("ShootTo", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,6 +302,8 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_TheHero_Attack;
     private readonly InputAction m_TheHero_Shoot;
     private readonly InputAction m_TheHero_Action;
+    private readonly InputAction m_TheHero_MousePos;
+    private readonly InputAction m_TheHero_ShootTo;
     public struct TheHeroActions
     {
         private @MyInputActions m_Wrapper;
@@ -279,6 +312,8 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_TheHero_Attack;
         public InputAction @Shoot => m_Wrapper.m_TheHero_Shoot;
         public InputAction @Action => m_Wrapper.m_TheHero_Action;
+        public InputAction @MousePos => m_Wrapper.m_TheHero_MousePos;
+        public InputAction @ShootTo => m_Wrapper.m_TheHero_ShootTo;
         public InputActionMap Get() { return m_Wrapper.m_TheHero; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -300,6 +335,12 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                 @Action.started -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnAction;
                 @Action.performed -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnAction;
                 @Action.canceled -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnAction;
+                @MousePos.started -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnMousePos;
+                @MousePos.performed -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnMousePos;
+                @MousePos.canceled -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnMousePos;
+                @ShootTo.started -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnShootTo;
+                @ShootTo.performed -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnShootTo;
+                @ShootTo.canceled -= m_Wrapper.m_TheHeroActionsCallbackInterface.OnShootTo;
             }
             m_Wrapper.m_TheHeroActionsCallbackInterface = instance;
             if (instance != null)
@@ -316,6 +357,12 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
                 @Action.started += instance.OnAction;
                 @Action.performed += instance.OnAction;
                 @Action.canceled += instance.OnAction;
+                @MousePos.started += instance.OnMousePos;
+                @MousePos.performed += instance.OnMousePos;
+                @MousePos.canceled += instance.OnMousePos;
+                @ShootTo.started += instance.OnShootTo;
+                @ShootTo.performed += instance.OnShootTo;
+                @ShootTo.canceled += instance.OnShootTo;
             }
         }
     }
@@ -326,5 +373,7 @@ public partial class @MyInputActions : IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);
+        void OnMousePos(InputAction.CallbackContext context);
+        void OnShootTo(InputAction.CallbackContext context);
     }
 }

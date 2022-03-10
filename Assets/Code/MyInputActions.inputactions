@@ -40,6 +40,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MousePos",
+                    "type": "Value",
+                    "id": "4b74ea8e-d24d-4dbb-a7a5-147ead8aa992",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ShootTo",
+                    "type": "Button",
+                    "id": "c3ad2756-1bfd-41cc-851b-f58dfdf5aafb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -144,17 +162,6 @@
                 },
                 {
                     "name": "",
-                    "id": "043cb9c3-cef2-4d47-b26a-5d0c19e876ac",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "258932b8-5bbe-4af9-907f-d294be9058a1",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -172,6 +179,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a37496f7-71f7-4fe0-9784-fb5ae7688efe",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1e5031b-f3ec-429c-abe2-23640a8ebba0",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootTo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

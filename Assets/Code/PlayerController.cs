@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
         theInput.TheHero.Attack.performed += ctx => OnAttack();
         theInput.TheHero.Shoot.performed += ctx => OnShoot();
         theInput.TheHero.Action.performed += ctx => OnActionKey();
+        theInput.TheHero.ShootTo.performed += ctx => OnShootTo();
     }
 
 
@@ -356,6 +357,20 @@ public class PlayerController : MonoBehaviour
         {
             DoShootTo(target);
         }
+
+
+    }
+
+    void OnShootTo()
+    {
+        //print("OnShootTo");
+        Vector2 mousePos = theInput.TheHero.MousePos.ReadValue<Vector2>();
+        Vector3 target = Camera.main.ScreenToWorldPoint(mousePos);
+        target.z = target.y;
+        if (currState == PC_STATE.NORMAL)
+        {
+            DoShootTo(target);
+        }
     }
 
     public virtual void OnAttackToward(Vector3 target)
@@ -425,22 +440,6 @@ public class PlayerController : MonoBehaviour
         Vector2 vCenter = Vector2.zero;
         Vector2 vSize = Vector2.one * 1.5f;
 
-        //switch (evt.intParameter)
-        //{
-        //    case 0: //上
-        //        vCenter.y = centerOffset;
-        //        break;
-        //    case 1: //右
-        //        vCenter.x = centerOffset;
-        //        break;
-        //    case 2: //下
-        //        vCenter.y = -centerOffset;
-        //        break;
-        //    case 3: //左
-        //        vCenter.x = -centerOffset;
-        //        break;
-        //}
-
         switch (faceFrontType)
         {
             case FaceFrontType.UP: //上
@@ -496,9 +495,10 @@ public class PlayerController : MonoBehaviour
         faceDir = td;
         SetupFrontDirection();
 
-        //TODO 發射點靠前?
+        //TODO 發射點靠前量參數化?
+        Vector3 shootPos = gameObject.transform.position + faceDir * 0.25f;
 
-        GameObject newObj = Instantiate(bulletRef, gameObject.transform.position, Quaternion.identity, null);
+        GameObject newObj = Instantiate(bulletRef, shootPos, Quaternion.identity, null);
         if (newObj)
         {
             bullet newBullet = newObj.GetComponent<bullet>();
