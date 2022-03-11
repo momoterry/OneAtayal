@@ -9,7 +9,6 @@ public class EnemyThrower : Enemy
 
     protected override void DoOneAttack()
     {
-
         if (damageObject)
         {
             Vector3 objPoint = gameObject.transform.position + faceDir * objectRange;
@@ -26,5 +25,9 @@ public class EnemyThrower : Enemy
             }
         }
 
+        if (myAnimator)
+        {
+            myAnimator.SetTrigger("Attack");
+        }
     }
 }

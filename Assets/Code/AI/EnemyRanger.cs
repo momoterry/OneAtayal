@@ -28,5 +28,9 @@ public class EnemyRanger : Enemy
             }
         }
 
+        if (myAnimator)
+        {
+            myAnimator.SetTrigger("Attack");
+        }
     }
 }
