@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public GameObject attackFX;
     public GameObject damageFX;
 
+    public float SpawnWaitTime = 0.1f;    
     public float ChaseRangeIn = 4.0f;
     public float ChaseRangeOut = 7.0f;
     public float AttackRangeIn = 1.0f;
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
     protected float hp;
     protected GameObject targetObj;
     protected Vector3 targetPos;
+
     protected float chaseCheckTime = 0.2f;
     protected float stateTime = 0.0f;
 
@@ -97,7 +99,11 @@ public class Enemy : MonoBehaviour
             switch (currState)
             {
                 case AI_STATE.SPAWN_WAIT:
-                    nextState = AI_STATE.IDLE;
+                    stateTime -= Time.deltaTime;
+                    if (stateTime <= 0)
+                    { 
+                        nextState = AI_STATE.IDLE; 
+                    }
                     break;
                 case AI_STATE.IDLE:
                     UpdateIdle();
@@ -123,6 +129,9 @@ public class Enemy : MonoBehaviour
         //print("AI Endter State : " + nextState);
         switch (nextState)
         {
+            case AI_STATE.SPAWN_WAIT:
+                stateTime = SpawnWaitTime;
+                break;
             case AI_STATE.IDLE:
                 if (myAnimator)
                     myAnimator.SetBool("Run", false);
