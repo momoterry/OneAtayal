@@ -460,21 +460,21 @@ public class PlayerController : MonoBehaviour
 
         Collider2D[] cols = Physics2D.OverlapBoxAll((Vector2)transform.position + vCenter, vSize, 0);
 
-        //if (attackFX)
-        //    Instantiate(attackFX, transform.position, Quaternion.identity, null);
-
-
-
         myDamage.damage = Attack;
         foreach (Collider2D col in cols)
         {
             if (col.gameObject.CompareTag("Enemy"))
             {
+                HitStopper hs = GetComponent<HitStopper>();
+                if (hs)
+                {
+                    hs.DoHitStop(0.1f);
+                }
                 if (meleeHitFX)
                 {
                     Vector3 hitPos = col.ClosestPoint(transform.position);
                     hitPos = (hitPos + col.transform.position) * 0.5f;  //往受擊方的位置 Shift //暴力法
-                    hitPos.z = col.transform.position.z - 0.125f;       //角色的話用對方的 Z 來調整
+                    hitPos.z = col.transform.position.y - 0.125f;       //角色的話用對方的 Y 來調整
                     Instantiate(meleeHitFX, hitPos, Quaternion.identity, null); ;
                 }
                 col.gameObject.SendMessage("OnDamage", myDamage);
@@ -482,7 +482,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+
     protected virtual void DoShootTo(Vector3 target)
     {
         if (mp < MP_PerShoot)

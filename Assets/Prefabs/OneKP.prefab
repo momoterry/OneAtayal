@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 6105822030357076461}
   - component: {fileID: 7587803398858142271}
   - component: {fileID: 4938753579080997000}
+  - component: {fileID: 5849571044658316421}
   - component: {fileID: 7023887932998668797}
   m_Layer: 10
   m_Name: OneKP
@@ -432,6 +433,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5849571044658316421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214839875520186894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d903665cc833c64a9a3abfba1cbdfeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7023887932998668797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zBias: 0
 --- !u!1 &6847465707704682383
 GameObject:
   m_ObjectHideFlags: 0
