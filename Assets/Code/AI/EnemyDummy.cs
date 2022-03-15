@@ -16,9 +16,9 @@ public class EnemyDummy : Enemy
         }
     }
 
-    void DoDamage(Damage theDamage)
+    void OnDamage(Damage theDamage)
     {
-        print("Dummy DoDamage");
+        print("Dummy OnDamage");
         if (damageFX)
             Instantiate(damageFX, transform.position, Quaternion.identity, null);
 

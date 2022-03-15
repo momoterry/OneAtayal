@@ -278,7 +278,7 @@ public class Enemy : MonoBehaviour
     }
 
     //³Q¶Ë®`
-    void DoDamage(Damage theDamage)
+    void OnDamage(Damage theDamage)
     {
         if (damageFX)
             Instantiate(damageFX, transform.position, Quaternion.identity, null);
@@ -327,7 +327,7 @@ public class Enemy : MonoBehaviour
         foreach( Collider2D col in cols)
         {
             if (col.gameObject.CompareTag("Player"))
-                col.gameObject.SendMessage("DoDamage", myDamage);
+                col.gameObject.SendMessage("OnDamage", myDamage);
         }
     }
 }

@@ -238,14 +238,15 @@ public class PlayerController : MonoBehaviour
         {
             bMove = true;
             moveVec = inputVec;
-            moveVec = moveVec.normalized * minMove + Vector3.right * 0.001f;
+            //moveVec = moveVec.normalized * minMove + Vector3.right * 0.001f;
         }
 
 
         if (bMove)
         {
             //TODO: 不要每 Frame 進行
-            OnMoveToPosition(transform.position + moveVec);
+            //OnMoveToPosition(transform.position + moveVec);
+            transform.position = transform.position + moveVec.normalized * WalkSpeed * Time.deltaTime;
 
             faceDir = moveVec;
             faceDir.z = 0;
@@ -305,6 +306,7 @@ public class PlayerController : MonoBehaviour
     //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
     //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "X");
     //}
+
 
     public virtual void OnMoveToPosition(Vector3 target)
     {
@@ -471,10 +473,11 @@ public class PlayerController : MonoBehaviour
                 if (meleeHitFX)
                 {
                     Vector3 hitPos = col.ClosestPoint(transform.position);
+                    hitPos = (hitPos + col.transform.position) * 0.5f;  //往受擊方的位置 Shift //暴力法
                     hitPos.z = col.transform.position.z - 0.125f;       //角色的話用對方的 Z 來調整
                     Instantiate(meleeHitFX, hitPos, Quaternion.identity, null); ;
                 }
-                col.gameObject.SendMessage("DoDamage", myDamage);
+                col.gameObject.SendMessage("OnDamage", myDamage);
             }
         }
     }
@@ -531,7 +534,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    void DoDamage(Damage theDamage)
+    void OnDamage(Damage theDamage)
     {
         if (beenHitFX)
             Instantiate(beenHitFX, transform.position, Quaternion.identity, null);

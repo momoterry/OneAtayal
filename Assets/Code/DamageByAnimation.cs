@@ -36,7 +36,7 @@ public class DamageByAnimation : MonoBehaviour
         
     }
 
-    void OnDamage()
+    void OnDoDamage()
     {
         Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position, BoxSize, 0.0f);
 
@@ -46,13 +46,13 @@ public class DamageByAnimation : MonoBehaviour
             if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
             {
                 //print("Trigger:  Hit Enemy !! ");
-                col.gameObject.SendMessage("DoDamage", myDamage);
+                col.gameObject.SendMessage("OnDamage", myDamage);
                 hit = true;
             }
             else if (col.gameObject.CompareTag("Player") && group == DAMAGE_GROUP.ENEMY)
             {
                 //print("Trigger:  Hit Player !!");
-                col.gameObject.SendMessage("DoDamage", myDamage);
+                col.gameObject.SendMessage("OnDamage", myDamage);
                 hit = true;
             }
             if (hit)

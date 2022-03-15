@@ -79,13 +79,13 @@ public class bullet : MonoBehaviour
         {
             //print("Trigger:  Hit Enemy !!");
             hit = true;
-            col.gameObject.SendMessage("DoDamage", myDamage);
+            col.gameObject.SendMessage("OnDamage", myDamage);
         }
         else if (col.gameObject.CompareTag("Player") && group == DAMAGE_GROUP.ENEMY)
         {
             //print("Trigger:  Hit Player !!");
             hit = true;
-            col.gameObject.SendMessage("DoDamage", myDamage);
+            col.gameObject.SendMessage("OnDamage", myDamage);
         }
         else if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {

@@ -126,7 +126,7 @@ public class PC_Warrior : PlayerController
         {
             if (col.gameObject.CompareTag("Enemy"))
             {
-                col.gameObject.SendMessage("DoDamage", myDamage);
+                col.gameObject.SendMessage("OnDamage", myDamage);
                 // §l¦å
                 hp += HPLeechPerHit;
                 if (hp > HP_Max)
