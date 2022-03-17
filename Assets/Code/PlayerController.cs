@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour
     {
         //TODO: 把輸入交給別的系統
 
-        float minMove = 0.5f;
+        //float minMove = 0.5f;
         Vector3 moveVec = Vector3.zero;
         bool bMove = false;
 
@@ -468,7 +468,7 @@ public class PlayerController : MonoBehaviour
                 HitStopper hs = GetComponent<HitStopper>();
                 if (hs)
                 {
-                    hs.DoHitStop(0.1f);
+                    hs.DoHitStop(0.05f);
                 }
                 if (meleeHitFX)
                 {
