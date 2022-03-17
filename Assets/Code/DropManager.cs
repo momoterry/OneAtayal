@@ -15,12 +15,14 @@ public class DropManager : MonoBehaviour
     public Dictionary<DropItem.DROPITEM_TYPE, GameObject> dropObjMap = new Dictionary<DropItem.DROPITEM_TYPE, GameObject>();
 
     //---- Instance ----
-    private static DropManager instance;
+    private static DropManager instance = null;
     public static DropManager GetInstance() { return instance; }
     public DropManager() : base()
     {
         if (instance != null)
+        {
             print("ERROR !! 超過一份 DropManager 存在 ");
+        } 
         instance = this;
     }
     //----
@@ -37,7 +39,6 @@ public class DropManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
