@@ -8,6 +8,10 @@ public class RoomController : MonoBehaviour
     public Transform southDoor;
     public Transform northDoor;
 
+    public GameObject battleWall;   //¾Ô°«¾×Àð
+
+    //protected the
+
     void Start()
     {
         
@@ -17,5 +21,17 @@ public class RoomController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnStartBattleWall()
+    {
+        battleWall.SetActive(true);
+        BattleSystem.GetInstance().GetMapGenerator().RebuildNavmesh();
+    }
+
+    public void OnStopBattleWall()
+    {
+        battleWall.SetActive(false);
+        BattleSystem.GetInstance().GetMapGenerator().RebuildNavmesh();
     }
 }

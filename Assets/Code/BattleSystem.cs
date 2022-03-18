@@ -55,6 +55,8 @@ public class BattleSystem : MonoBehaviour
 
     public PlayerController GetPlayerController() { return thePC; }
 
+    public MapGeneratorBase GetMapGenerator() { return theMG; }
+
     public void AddEnemy( GameObject enemyObj)
     {
         enemyList.Add(enemyObj);

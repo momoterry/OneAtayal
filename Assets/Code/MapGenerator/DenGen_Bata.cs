@@ -8,7 +8,7 @@ public class DenGen_Bata : MapGeneratorBase
 {
     //TODO: 以下應該被視為 Dungeon Generator 的 Base
     public GameObject gridRoot;
-    public NavMeshSurface2d theSurface2D;
+    //public NavMeshSurface2d theSurface2D;
 
     public GameObject roomRefTest;
 

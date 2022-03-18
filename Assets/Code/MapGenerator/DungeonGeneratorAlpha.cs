@@ -10,7 +10,7 @@ public class DungeonGeneratorAlpha : MapGeneratorBase
     public Tile ground;
     public Tile wall;
     public Tile hole;
-    public NavMeshSurface2d theSurface2D;
+    //public NavMeshSurface2d theSurface2D;
     public Tilemap tmGround;
     public Tilemap tmWall;
     public GameObject wallBlocker;

@@ -6,8 +6,16 @@ using UnityEngine.AI;
 
 public class MapGeneratorBase : MonoBehaviour
 {
+    public NavMeshSurface2d theSurface2D;
+
     public virtual void BuildAll(int buildLevel = 1)
     {
+    }
+
+    public void RebuildNavmesh()
+    {
+        if (theSurface2D)
+            theSurface2D.BuildNavMesh();
     }
 }
 
@@ -15,7 +23,7 @@ public class MapGenerator : MapGeneratorBase
 {
     public Tile wall;
     public Tile hole;
-    public NavMeshSurface2d theSurface2D;
+    //public NavMeshSurface2d theSurface2D;
     public Tilemap theTM;
     public GameObject wallBlocker;
 

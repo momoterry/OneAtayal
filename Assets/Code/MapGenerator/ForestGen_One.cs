@@ -28,7 +28,7 @@ public class ForestGen_One : MapGeneratorBase
         {
             toBuild--;
             if (toBuild == 0)
-                theSurface2D.BuildNavMeshAsync();
+                theSurface2D.BuildNavMesh();
         }
     }
 

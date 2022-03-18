@@ -20,7 +20,6 @@ public class EnemyThrower : Enemy
                 {
                     d.SetGroup(DAMAGE_GROUP.ENEMY);
                     d.phyDamage = Attack;
-                    print("SetUp OK");
                 }
             }
         }
