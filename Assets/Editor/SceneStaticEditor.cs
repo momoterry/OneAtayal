@@ -10,7 +10,7 @@ public class SceneStaticEditor : Editor
     {
         base.OnInspectorGUI();
 
-        if (GUILayout.Button("Set up Z by Y"))
+        if (GUILayout.Button("Set up Order by Y"))
         {
             SceneStaticManager theManager = (SceneStaticManager)target;
             theManager.SetupSorting();

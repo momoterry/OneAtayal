@@ -237,8 +237,14 @@ public class PlayerController : MonoBehaviour
         if (inputVec.magnitude > 0.5)
         {
             bMove = true;
-            moveVec = inputVec;
-            //moveVec = moveVec.normalized * minMove + Vector3.right * 0.001f;
+#if XZ_PLAN
+            moveVec = new Vector3(inputVec.x, 0, inputVec.y);   //XZ Plan
+            moveVec.Normalize();
+#else
+            moveVec = inputVec;   //XY Plan
+            moveVec.Normalize();
+            moveVec.z = moveVec.y * 0.01f;
+#endif
         }
 
 
@@ -246,13 +252,18 @@ public class PlayerController : MonoBehaviour
         {
             //TODO: 不要每 Frame 進行
             //OnMoveToPosition(transform.position + moveVec);
-            transform.position = transform.position + moveVec.normalized * WalkSpeed * Time.deltaTime;
+            transform.position = transform.position + moveVec * WalkSpeed * Time.deltaTime;
 
             faceDir = moveVec;
-            faceDir.z = 0;
-            faceDir.Normalize();
-            //faceX = faceDir.x;      //TODO: 可以直接拿掉 faceX, faceY
-            //faceY = faceDir.y;
+
+#if XZ_PLAN
+            faceDir.y = 0;      //XZ Plan
+#else
+            faceDir.z = 0;      //XY Plan
+
+#endif
+            //faceDir.Normalize();
+
             SetupFrontDirection();
         }
 

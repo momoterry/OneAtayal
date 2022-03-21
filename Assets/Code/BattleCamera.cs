@@ -19,7 +19,11 @@ public class BattleCamera : MonoBehaviour
         if (thePlayer)
         {
             Vector3 newPos = thePlayer.transform.position + targetOffset;
+#if XZ_PLAN
+            newPos.y = transform.position.y;
+#else
             newPos.z = transform.position.z;
+#endif
 
             //TODO Smooth move
             transform.position = newPos;
