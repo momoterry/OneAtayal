@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class ForestGen_One : MapGeneratorBase
 {
-    public NavMeshSurface2d theSurface2D;
+    //public NavMeshSurface2d theSurface2D;
     public GameObject[] roomRefs;
 
     public int roomToGen = 2;
