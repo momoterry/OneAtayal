@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3779367745235087563}
   - component: {fileID: -5112449252246636470}
   - component: {fileID: 4901615918446435987}
-  - component: {fileID: -1886916954033323174}
-  - component: {fileID: 8302010609039418047}
+  - component: {fileID: 4559816615859403283}
+  - component: {fileID: 325229427803922698}
   m_Layer: 0
   m_Name: FireOrb
   m_TagString: Untagged
@@ -135,40 +135,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &-1886916954033323174
-CircleCollider2D:
+  bias: 0
+--- !u!135 &4559816615859403283
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5540624750266425460}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
---- !u!50 &8302010609039418047
-Rigidbody2D:
-  serializedVersion: 4
+  m_Radius: 0.25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &325229427803922698
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5540624750266425460}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
+  serializedVersion: 2
   m_Mass: 1
-  m_LinearDrag: 0
+  m_Drag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
   m_Constraints: 0
+  m_CollisionDetection: 3

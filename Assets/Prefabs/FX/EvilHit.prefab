@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 404763948931614751}
   - component: {fileID: 404763948931614736}
   - component: {fileID: 404763948931614737}
+  - component: {fileID: -9193042184272225826}
   m_Layer: 0
   m_Name: EvilHit
   m_TagString: Untagged
@@ -118,3 +119,17 @@ MonoBehaviour:
   LifeTime: 0.5
   randomHoriFlip: 1
   randomVertiFlip: 1
+--- !u!114 &-9193042184272225826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404763948931614738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bias: 1
+  onlyAdjustOnStart: 1

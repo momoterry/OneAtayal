@@ -61,14 +61,14 @@ public class bullet : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        print("OnCollisionEnter2D : " + col);
-        if (col.gameObject.CompareTag("Enemy"))
-        {
-            //print("Hit Enemy !!  .. Collision");
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D col)
+    //{
+    //    print("OnCollisionEnter2D : " + col);
+    //    if (col.gameObject.CompareTag("Enemy"))
+    //    {
+    //        //print("Hit Enemy !!  .. Collision");
+    //    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -109,6 +109,42 @@ public class bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        //print("OnTriggerEnter : " + col);
+        bool hit = false;
+        if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
+        {
+            //print("Trigger:  Hit Enemy !!");
+            hit = true;
+            col.gameObject.SendMessage("OnDamage", myDamage);
+        }
+        else if (col.gameObject.CompareTag("Player") && group == DAMAGE_GROUP.ENEMY)
+        {
+            //print("Trigger:  Hit Player !!");
+            hit = true;
+            col.gameObject.SendMessage("OnDamage", myDamage);
+        }
+        else if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            //print("Trigger:  HitWall !!");
+            hit = true;
+        }
+
+
+        if (hit)
+        {
+            Vector3 hitPos = col.ClosestPoint(transform.position);
+
+#if XZ_PLAN
+            Instantiate(hitFX, hitPos, Quaternion.Euler(90, 0, 0), null);
+#else
+            Instantiate(hitFX, hitPos, Quaternion.identity, null);
+#endif
+            Destroy(gameObject);
+        }
     }
 
 }

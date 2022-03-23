@@ -5,6 +5,7 @@ using UnityEngine;
 public class OrderAdjust : MonoBehaviour
 {
     public float bias = 0.0f;
+    public bool onlyAdjustOnStart = false;
 
     protected float updatePeriod = 0.2f;
     protected float currTime = 0;
@@ -17,6 +18,8 @@ public class OrderAdjust : MonoBehaviour
 
         allSprite = GetComponentsInChildren<SpriteRenderer>();
         SetupOrder();
+        if (onlyAdjustOnStart)
+            enabled = false;
     }
 
     // Update is called once per frame
@@ -40,7 +43,7 @@ public class OrderAdjust : MonoBehaviour
         foreach (SpriteRenderer sr in allSprite)
         {
 #if XZ_PLAN
-            sr.sortingOrder = -(int)(sr.transform.position.z * 10.0f);
+            sr.sortingOrder = -(int)((sr.transform.position.z-bias) * 10.0f);
 #else
             sr.sortingOrder = -(int)(sr.transform.position.y * 10.0f);
 #endif

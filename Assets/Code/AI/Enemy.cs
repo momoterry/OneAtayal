@@ -347,15 +347,16 @@ public class Enemy : MonoBehaviour
         DoMeleeAttack();
     }
 
+    //早期版本, 準備淘汰
     protected virtual void DoMeleeAttack()
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, MeleeRange);
-        if (attackFX)
-            Instantiate(attackFX, transform.position, Quaternion.identity, null);
-        foreach( Collider2D col in cols)
-        {
-            if (col.gameObject.CompareTag("Player"))
-                col.gameObject.SendMessage("OnDamage", myDamage);
-        }
+        //Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, MeleeRange);
+        //if (attackFX)
+        //    Instantiate(attackFX, transform.position, Quaternion.identity, null);
+        //foreach( Collider2D col in cols)
+        //{
+        //    if (col.gameObject.CompareTag("Player"))
+        //        col.gameObject.SendMessage("OnDamage", myDamage);
+        //}
     }
 }

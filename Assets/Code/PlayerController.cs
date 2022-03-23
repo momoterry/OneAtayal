@@ -502,29 +502,35 @@ public class PlayerController : MonoBehaviour
 
         //TODO: 攻擊範圍參數化
         float centerOffset = 1.0f;
+
         Vector2 vCenter = Vector2.zero;
         Vector2 vSize = Vector2.one * 3.0f;
+
 
         switch (faceFrontType)
         {
             case FaceFrontType.UP: //上
                 vCenter.y = centerOffset;
                 break;
-            case FaceFrontType.RIGHT: //右
-                vCenter.x = centerOffset;
-                break;
             case FaceFrontType.DOWN: //下
                 vCenter.y = -centerOffset;
+                break;
+            case FaceFrontType.RIGHT: //右
+                vCenter.x = centerOffset;
                 break;
             case FaceFrontType.LEFT: //左
                 vCenter.x = -centerOffset;
                 break;
         }
 
-        Collider2D[] cols = Physics2D.OverlapBoxAll((Vector2)transform.position + vCenter, vSize, 0);
-
         myDamage.damage = Attack;
+#if XZ_PLAN
+        Collider[] cols = Physics.OverlapBox(transform.position + new Vector3(vCenter.x, 0, vCenter.y), new Vector3(vSize.x * 0.5f, 1.0f, vSize.y * 0.5f));
+        foreach (Collider col in cols)
+#else
+        Collider2D[] cols = Physics2D.OverlapBoxAll((Vector2)transform.position + vCenter, vSize, 0);
         foreach (Collider2D col in cols)
+#endif
         {
             if (col.gameObject.CompareTag("Enemy"))
             {
@@ -537,8 +543,12 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 hitPos = col.ClosestPoint(transform.position);
                     hitPos = (hitPos + col.transform.position) * 0.5f;  //往受擊方的位置 Shift //暴力法
-                    hitPos.z = col.transform.position.y - 0.125f;       //角色的話用對方的 Y 來調整
-                    Instantiate(meleeHitFX, hitPos, Quaternion.identity, null); ;
+                                                                        //hitPos.z = col.transform.position.y - 0.125f;       //角色的話用對方的 Y 來調整
+#if XZ_PLAN
+                    Instantiate(meleeHitFX, hitPos, Quaternion.Euler(90, 0, 0), null);
+#else
+                    Instantiate(meleeHitFX, hitPos, Quaternion.identity, null);
+#endif
                 }
                 col.gameObject.SendMessage("OnDamage", myDamage);
             }
@@ -612,8 +622,13 @@ public class PlayerController : MonoBehaviour
 
     void OnDamage(Damage theDamage)
     {
+#if XZ_PLAN
+        if (beenHitFX)
+            Instantiate(beenHitFX, transform.position, Quaternion.Euler(90, 0, 0), null);
+#else
         if (beenHitFX)
             Instantiate(beenHitFX, transform.position, Quaternion.identity, null);
+#endif
 
         hp -= theDamage.damage;
         if (hp<=0)

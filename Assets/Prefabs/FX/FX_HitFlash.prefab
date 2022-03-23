@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7529659373478072186}
   - component: {fileID: 4242464632101890079}
   - component: {fileID: 4579707731408881563}
+  - component: {fileID: -6250021888740467578}
   m_Layer: 0
   m_Name: FX_HitFlash
   m_TagString: Untagged
@@ -118,3 +119,17 @@ MonoBehaviour:
   LifeTime: 0.5
   randomHoriFlip: 0
   randomVertiFlip: 0
+--- !u!114 &-6250021888740467578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5491955652481773428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bias: 1
+  onlyAdjustOnStart: 1
