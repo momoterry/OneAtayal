@@ -131,8 +131,13 @@ public class PlayerController : MonoBehaviour
         nextState = PC_STATE.NORMAL;
 
         //TODO: 應該放在別的地方
+#if XZ_PLAN
+        faceDir = Vector3.back;
+        faceFront = Vector3.back;
+#else
         faceDir = Vector3.down;
         faceFront = Vector3.down;
+#endif
         faceFrontType = FaceFrontType.DOWN;
 }
 
@@ -262,24 +267,53 @@ public class PlayerController : MonoBehaviour
             faceDir.z = 0;      //XY Plan
 
 #endif
-            //faceDir.Normalize();
 
             SetupFrontDirection();
         }
 
-        //if (myAgent.velocity.magnitude > 0.5f)
+
         if (myAnimator)
         {
             myAnimator.SetBool("Run", (myAgent.velocity.magnitude > 0.1f)||bMove);
-            //myAnimator.SetFloat("X", faceDir.x);
-            //myAnimator.SetFloat("Y", faceDir.y);
             myAnimator.SetFloat("X", faceFront.x);
+#if XZ_PLAN
+            myAnimator.SetFloat("Y", faceFront.z);
+#else
             myAnimator.SetFloat("Y", faceFront.y);
+#endif
         }
     }
 
     private void SetupFrontDirection()
     {
+#if XZ_PLAN
+        if (faceDir.z > faceDir.x)
+        {
+            if (faceDir.z > -faceDir.x)
+            {
+                faceFront = Vector3.forward;
+                faceFrontType = FaceFrontType.UP;
+            }
+            else
+            {
+                faceFront = Vector3.left;
+                faceFrontType = FaceFrontType.LEFT;
+            }
+        }
+        else
+        {
+            if (faceDir.z > -faceDir.x)
+            {
+                faceFront = Vector3.right;
+                faceFrontType = FaceFrontType.RIGHT;
+            }
+            else
+            {
+                faceFront = Vector3.back;
+                faceFrontType = FaceFrontType.DOWN;
+            }
+        }
+#else
         if (faceDir.y > faceDir.x)
         {
             if ( faceDir.y > -faceDir.x)
@@ -306,6 +340,7 @@ public class PlayerController : MonoBehaviour
                 faceFrontType = FaceFrontType.DOWN;
             }
         }
+#endif
     }
 
     //private void OnGUI()
@@ -379,13 +414,19 @@ public class PlayerController : MonoBehaviour
         //print("OnShootTo");
         Vector2 mousePos = theInput.TheHero.MousePos.ReadValue<Vector2>();
         Vector3 target = Camera.main.ScreenToWorldPoint(mousePos);
-        target.z = target.y;
+#if XZ_PLAN
+        target.y = transform.position.y;
+#else
+    target.z = transform.position.z;
+#endif
+        //target.z = target.y;
         if (currState == PC_STATE.NORMAL)
         {
             DoShootTo(target);
         }
     }
 
+    //舊的攻擊方式, 由外部呼叫往指定方向攻擊, 目前暫不使用
     public virtual void OnAttackToward(Vector3 target)
     {
         if (currState == PC_STATE.NORMAL)
@@ -399,15 +440,22 @@ public class PlayerController : MonoBehaviour
     protected virtual void DoMeleeTo(Vector3 target)
     {
         Vector3 td = target - gameObject.transform.position;
+#if XZ_PLAN
+        td.y = 0;
+#else
         td.z = 0;
+#endif
         td.Normalize();
         faceDir = td;
         SetupFrontDirection();
-
         if (myAnimator)
         {
             myAnimator.SetFloat("AttackX", td.x);
+#if XZ_PLAN
+            myAnimator.SetFloat("AttackY", td.z);
+#else
             myAnimator.SetFloat("AttackY", td.y);
+#endif
             myAnimator.SetTrigger("Attack");
         }
 
@@ -430,7 +478,11 @@ public class PlayerController : MonoBehaviour
                     fxAngle = 90.0f;
                     break;
             }
+#if XZ_PLAN
+            Quaternion ro = Quaternion.Euler(90, -fxAngle, 0);
+#else
             Quaternion ro = Quaternion.Euler(0, 0, fxAngle);
+#endif
             GameObject fo = Instantiate(meleeFX, fxPos, ro, transform);
             if (faceFrontType == FaceFrontType.RIGHT)
             {
@@ -504,7 +556,11 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 td = target - gameObject.transform.position;
+#if XZ_PLAN
+        td.y = 0;
+#else
         td.z = 0;
+#endif
         td.Normalize();
         faceDir = td;
         SetupFrontDirection();
@@ -512,7 +568,14 @@ public class PlayerController : MonoBehaviour
         //TODO 發射點靠前量參數化?
         Vector3 shootPos = gameObject.transform.position + faceDir * 0.25f;
 
-        GameObject newObj = Instantiate(bulletRef, shootPos, Quaternion.identity, null);
+        Quaternion ro;
+#if XZ_PLAN
+        ro = Quaternion.Euler(90, 0, 0);
+#else
+        ro = Quaternion.identity;
+#endif
+
+        GameObject newObj = Instantiate(bulletRef, shootPos, ro, null);
         if (newObj)
         {
             bullet newBullet = newObj.GetComponent<bullet>();
@@ -525,17 +588,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Instantiate(shootFX_1, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-        Instantiate(shootFX_2, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+        Instantiate(shootFX_1, gameObject.transform.position, ro, gameObject.transform);
+        Instantiate(shootFX_2, gameObject.transform.position, ro, gameObject.transform);
 
         if (myAnimator)
         {
             myAnimator.SetFloat("CastX", td.x);
+#if XZ_PLAN
+            myAnimator.SetFloat("CastY", td.z);
+#else
             myAnimator.SetFloat("CastY", td.y);
+#endif
             myAnimator.SetTrigger("Cast");
         }
-        //faceX = td.x;
-        //faceY = td.y;
 
         mp -= MP_PerShoot;
 

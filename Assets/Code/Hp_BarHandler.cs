@@ -14,7 +14,11 @@ public class Hp_BarHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+#if XZ_PLAN
+        myBarObj = Instantiate(barRef, Vector3.zero, Quaternion.Euler(90.0f, 0, 0), null);
+#else
         myBarObj = Instantiate(barRef, Vector3.zero, Quaternion.identity, null);
+#endif
         myBar = myBarObj.GetComponent<HP_Bar>();
         if (myBar)
             myBar.SetValue(50.0f, 100.0f);
@@ -31,7 +35,11 @@ public class Hp_BarHandler : MonoBehaviour
     private void SetBarPosition()
     {
         Vector3 pos = transform.position;
+#if XZ_PLAN
+        pos.z += barHeight;
+#else
         pos.y += barHeight;
+#endif
         if (myBar)
             myBar.SetWorldPosition(pos);
         if (myBarPA)

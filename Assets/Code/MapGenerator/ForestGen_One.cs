@@ -37,6 +37,12 @@ public class ForestGen_One : MapGeneratorBase
     {
         base.BuildAll(buildLevel);
 
+#if XZ_PLAN
+        Quaternion rm = Quaternion.Euler(90, 0, 0);
+#else
+        Quaternion rm = Quaternion.identity;
+#endif
+
         Vector3 pos = transform.position;
         if (startRC && startRC.northDoor)
         {
@@ -48,7 +54,7 @@ public class ForestGen_One : MapGeneratorBase
             //pos = pos + new Vector3(0, 20.0f, 0);
             if (roomRefs[0])
             {
-                GameObject ro = Instantiate(roomRefs[0], pos, Quaternion.identity, null);
+                GameObject ro = Instantiate(roomRefs[0], pos, rm, null);
                 if (ro)
                 {
                     RoomController rc = ro.GetComponent<RoomController>();

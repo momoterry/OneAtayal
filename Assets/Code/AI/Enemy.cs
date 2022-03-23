@@ -73,7 +73,11 @@ public class Enemy : MonoBehaviour
 
         nextState = AI_STATE.SPAWN_WAIT;
 
+#if XZ_PLAN
+        faceDir = Vector3.back;
+#else
         faceDir = Vector3.down;
+#endif
     }
 
     public virtual void SetUpLevel( int iLv = 1)
@@ -173,7 +177,11 @@ public class Enemy : MonoBehaviour
         if (po && pc && !pc.IsKilled())
         {
             Vector3 dv = po.transform.position - transform.position;
+#if XZ_PLAN
+            dv.y = 0.0f;
+#else
             dv.z = 0.0f;
+#endif
             if ( dv.sqrMagnitude < ChaseRangeIn* ChaseRangeIn)
             {
                 SetTarget(po);
@@ -197,7 +205,11 @@ public class Enemy : MonoBehaviour
         }
 
         Vector3 dv = targetObj.transform.position - transform.position;
+#if XZ_PLAN
+        dv.y = 0.0f;
+#else
         dv.z = 0.0f;
+#endif
         if (dv.sqrMagnitude > ChaseRangeOut * ChaseRangeOut)
         {
             //TODO: 如果玩家在視野外，至少追到最後一次目標點
@@ -223,12 +235,20 @@ public class Enemy : MonoBehaviour
 
                 //更新面向
                 faceDir = (targetPos - transform.position);
+#if XZ_PLAN
+                faceDir.y = 0;
+#else
                 faceDir.z = 0;
+#endif
                 faceDir.Normalize();
                 if (myAnimator)
                 {
                     myAnimator.SetFloat("X", faceDir.x);
+#if XZ_PLAN
+                    myAnimator.SetFloat("Y", faceDir.z);
+#else
                     myAnimator.SetFloat("Y", faceDir.y);
+#endif
                 }
             }
         }
@@ -256,7 +276,11 @@ public class Enemy : MonoBehaviour
 
 
             Vector3 dv = targetObj.transform.position - transform.position;
+#if XZ_PLAN
+            dv.y = 0.0f;
+#else
             dv.z = 0.0f;
+#endif
             if (dv.sqrMagnitude > AttackRangeOut * AttackRangeOut)
             {
                 nextState = AI_STATE.CHASE;
@@ -268,7 +292,11 @@ public class Enemy : MonoBehaviour
                 if (myAnimator)
                 {
                     myAnimator.SetFloat("X", faceDir.x);
+#if XZ_PLAN
+                    myAnimator.SetFloat("Y", faceDir.z);
+#else
                     myAnimator.SetFloat("Y", faceDir.y);
+#endif
                 }
                 DoOneAttack();
             }

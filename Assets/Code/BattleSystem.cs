@@ -244,7 +244,11 @@ public class BattleSystem : MonoBehaviour
 
         if (thePlayer == null)
         {
+#if XZ_PLAN
+            thePlayer = Instantiate(playerRef, initPlayerPos.position, Quaternion.Euler(90.0f, 0, 0), null);
+#else
             thePlayer = Instantiate(playerRef, initPlayerPos.position, Quaternion.identity, null);
+#endif
             thePC = thePlayer.GetComponent<PlayerController>();
         }
         NavMeshAgent pAgnet = thePlayer.GetComponent<NavMeshAgent>();

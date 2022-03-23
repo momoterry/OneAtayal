@@ -7,8 +7,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyRef;
 
     public int num = 1;
-    public float randomRangeX = 0;
-    public float randomRangeY = 0;
+    public float randomRangeWidth = 0;
+    public float randomRangeHeight = 0;
 
     public GameObject[] triggerTargetWhenAllKilled;
 
@@ -57,14 +57,18 @@ public class EnemySpawner : MonoBehaviour
         //DO Spawn
         if (enemyRef)
         {
-            float rx, ry;
+            float rw, rh;
             traceEnemies = true;
             spawnedEnemies = new GameObject[num];
             for (int i = 0; i < num; i++)
             {
-                rx = Random.Range(-randomRangeX, randomRangeX);
-                ry = Random.Range(-randomRangeY, randomRangeY);
-                GameObject o = Instantiate(enemyRef, transform.position + new Vector3(rx, ry, ry), Quaternion.identity, null);
+                rw = Random.Range(-randomRangeWidth, randomRangeWidth);
+                rh = Random.Range(-randomRangeHeight, randomRangeHeight);
+#if XZ_PLAN
+                GameObject o = Instantiate(enemyRef, transform.position + new Vector3(rw, 0, rh), Quaternion.Euler(90.0f, 0, 0), null);
+#else
+                GameObject o = Instantiate(enemyRef, transform.position + new Vector3(rw, rhy, 0), Quaternion.identity, null);
+#endif
                 spawnedEnemies[i] = o;
             }
         }

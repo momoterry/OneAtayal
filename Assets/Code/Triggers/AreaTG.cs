@@ -39,4 +39,21 @@ public class AreaTG : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && isTriggered == false)
+        {
+            print("Player In !!");
+            foreach (GameObject o in TriggerTargets)
+            {
+                o.SendMessage("OnTG", other.gameObject);
+            }
+            if (triggerOnce)
+            {
+                isTriggered = true;
+                enabled = false;
+            }
+        }
+    }
 }
