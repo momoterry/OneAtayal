@@ -26,12 +26,12 @@ public class RoomController : MonoBehaviour
     public void OnStartBattleWall()
     {
         battleWall.SetActive(true);
-        BattleSystem.GetInstance().GetMapGenerator().RebuildNavmesh();
+        //BattleSystem.GetInstance().GetMapGenerator().RebuildNavmesh();
     }
 
     public void OnStopBattleWall()
     {
         battleWall.SetActive(false);
-        BattleSystem.GetInstance().GetMapGenerator().RebuildNavmesh();
+        //BattleSystem.GetInstance().GetMapGenerator().RebuildNavmesh();
     }
 }

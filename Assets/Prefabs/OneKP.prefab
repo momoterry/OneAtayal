@@ -320,7 +320,7 @@ MonoBehaviour:
   meleeHitFX: {fileID: 5491955652481773428, guid: 5cb85026023a34748ac45b481889f9a5, type: 3}
   HP_MaxInit: 9000
   MP_MaxInit: 100
-  Attack_Init: 20
+  Attack_Init: 40
   MP_Gen_Rate: 30
   MP_PerShoot: 20
   myDollManager: {fileID: 8032603736845237132}
@@ -411,6 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bias: 0
+  onlyAdjustOnStart: 0
 --- !u!65 &9163872462802235576
 BoxCollider:
   m_ObjectHideFlags: 0

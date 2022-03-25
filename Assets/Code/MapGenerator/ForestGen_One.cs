@@ -7,6 +7,8 @@ public class ForestGen_One : MapGeneratorBase
 {
     //public NavMeshSurface2d theSurface2D;
     public GameObject[] roomRefs;
+    public GameObject[] gameplayRefs;
+    public GameObject endRoomRef;
 
     public int roomToGen = 2;
 
@@ -14,10 +16,12 @@ public class ForestGen_One : MapGeneratorBase
 
     int toBuild = 5;
 
+    protected List<GameObject> roomList;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        roomList = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -49,14 +53,18 @@ public class ForestGen_One : MapGeneratorBase
             pos = startRC.northDoor.position;
         }
 
-        for (int i=0; i<roomToGen; i++)
+        //TODO:  暫時方案
+        for (int i=0; i< roomRefs.Length; i++)
         {
             //pos = pos + new Vector3(0, 20.0f, 0);
             if (roomRefs[0])
             {
-                GameObject ro = Instantiate(roomRefs[0], pos, rm, null);
+                //TODO: 暫時方案
+                GameObject ro = Instantiate(roomRefs[i], pos, rm, null);
                 if (ro)
                 {
+                    roomList.Add(ro);
+
                     RoomController rc = ro.GetComponent<RoomController>();
                     if (rc && rc.southDoor)
                     {
@@ -68,6 +76,12 @@ public class ForestGen_One : MapGeneratorBase
                         print("Room Error !! No RoomController or SouthDoor !!");
                     }
                     ro.transform.SetParent(theSurface2D.gameObject.transform);
+
+                    //Gameplay
+                    GameObject go = Instantiate(gameplayRefs[i], pos, rm, null);
+                    if (go)
+                        go.transform.SetParent(ro.transform);
+
                     if (rc && rc.northDoor)
                     {
                         pos += rc.northDoor.position - rc.transform.position;
@@ -76,7 +90,27 @@ public class ForestGen_One : MapGeneratorBase
                     {
                         print("Room Error !! No RoomController or NorthDoor !!");
                     }
+
                 }
+            }
+        }
+
+        if (endRoomRef)
+        {
+            GameObject ro = Instantiate(endRoomRef, pos, rm, null);
+            if (ro)
+            {
+                RoomController rc = ro.GetComponent<RoomController>();
+                if (rc && rc.southDoor)
+                {
+                    pos += rc.transform.position - rc.southDoor.position;
+                    ro.transform.position = pos;
+                }
+                else
+                {
+                    print("Room Error !! No RoomController or SouthDoor !!");
+                }
+                ro.transform.SetParent(theSurface2D.gameObject.transform);
             }
         }
 
