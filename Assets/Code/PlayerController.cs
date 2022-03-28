@@ -78,6 +78,8 @@ public class PlayerController : MonoBehaviour
     protected int HP_Up = 0;
     protected int ATK_Up = 0;
 
+    protected Hp_BarHandler myHPHandler;
+
     public float GetHPMax() { return HP_Max; }
     public float GetMPMax() { return MP_Max; }
     public float GetHP() { return hp; }
@@ -114,6 +116,8 @@ public class PlayerController : MonoBehaviour
         theInput.TheHero.Shoot.performed += ctx => OnShoot();
         theInput.TheHero.Action.performed += ctx => OnActionKey();
         theInput.TheHero.ShootTo.performed += ctx => OnShootTo();
+
+        myHPHandler = GetComponent<Hp_BarHandler>();
     }
 
 
@@ -194,6 +198,10 @@ public class PlayerController : MonoBehaviour
         }
 
         //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //¥Î Y ­È³]©wZ
+        if (myHPHandler && currState != PC_STATE.NONE && currState != PC_STATE.DEAD)
+        {
+            myHPHandler.SetHP(hp, HP_Max);
+        }
     }
 
     protected virtual void OnUpdateState()

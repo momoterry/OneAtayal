@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 7023887932998668797}
   - component: {fileID: 9163872462802235576}
   - component: {fileID: 2595805060564117435}
+  - component: {fileID: 7026385911095670961}
   m_Layer: 10
   m_Name: OneKP
   m_TagString: Player
@@ -325,7 +326,7 @@ MonoBehaviour:
     baseDamage: 80
     duration: 0.5
     manaCost: 20
-  HP_MaxInit: 9000
+  HP_MaxInit: 300
   MP_MaxInit: 100
   Attack_Init: 40
   MP_Gen_Rate: 30
@@ -448,6 +449,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7026385911095670961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214839875520186894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73172fc6794736341bc242f6334ad36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barRef: {fileID: 3890801454975395505, guid: eed8e0bc40ca3d249aaa3a18c14f25ba, type: 3}
+  barHeight: 1
 --- !u!1 &6847465707704682383
 GameObject:
   m_ObjectHideFlags: 0
