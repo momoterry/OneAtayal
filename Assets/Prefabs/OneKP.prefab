@@ -310,7 +310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0e4fed6b5303a4f80da82aa2faedd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackCD: 1
   WalkSpeed: 8
   beenHitFX: {fileID: 0}
   bulletRef: {fileID: 5540624750266425460, guid: 383368d35770af844b2f3170a56f3898, type: 3}
@@ -318,6 +317,14 @@ MonoBehaviour:
   shootFX_2: {fileID: 5832734160307017026, guid: cb18551bf49de064d91e8ac7f95bc304, type: 3}
   meleeFX: {fileID: 5040520427396393146, guid: b66a0ac01c1780c4da59d741c997ad3f, type: 3}
   meleeHitFX: {fileID: 5491955652481773428, guid: 5cb85026023a34748ac45b481889f9a5, type: 3}
+  meleeSkillDef:
+    baseDamage: 40
+    duration: 0.25
+    manaCost: 0
+  rangeSkillDef:
+    baseDamage: 80
+    duration: 0.5
+    manaCost: 20
   HP_MaxInit: 9000
   MP_MaxInit: 100
   Attack_Init: 40

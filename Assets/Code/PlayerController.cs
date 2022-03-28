@@ -5,11 +5,17 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-
+[System.Serializable]
+public class SkillDef
+{
+    public float baseDamage = 20.0f;
+    public float duration = 0.5f;
+    public float manaCost = 0;
+}
 
 public class PlayerController : MonoBehaviour
 {
-    public float AttackCD = 1.0f;
+    //public float AttackCD = 1.0f;
     public float WalkSpeed = 8.0f;
     public GameObject beenHitFX;
 
@@ -19,6 +25,9 @@ public class PlayerController : MonoBehaviour
     public GameObject shootFX_2;
     public GameObject meleeFX;
     public GameObject meleeHitFX;
+
+    public SkillDef meleeSkillDef;
+    public SkillDef rangeSkillDef;
 
     public float HP_MaxInit = 100.0f;
     public float MP_MaxInit = 100.0f;
@@ -218,7 +227,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected virtual void UpdateAttack() {}
+    protected virtual void UpdateAttack() 
+    {
+        attackWait -= Time.deltaTime;
+        if (attackWait <= 0)
+        {
+            nextState = PC_STATE.NORMAL;
+        }
+    }
 
     protected virtual void UpdateStatus()
     {
@@ -493,6 +509,9 @@ public class PlayerController : MonoBehaviour
 
         if (myDollManager)
             myDollManager.OnPlayerAttack(target);
+
+        nextState = PC_STATE.ATTACK;
+        attackWait = meleeSkillDef.duration;
     }
 
     void OnMeleeDamageBox(AnimationEvent evt)
@@ -523,7 +542,8 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        myDamage.damage = Attack;
+        //myDamage.damage = Attack;
+        myDamage.damage = meleeSkillDef.baseDamage;     //TODO: 升級?
 #if XZ_PLAN
         Collider[] cols = Physics.OverlapBox(transform.position + new Vector3(vCenter.x, 0, vCenter.y), new Vector3(vSize.x * 0.5f, 1.0f, vSize.y * 0.5f));
         foreach (Collider col in cols)
@@ -558,7 +578,8 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void DoShootTo(Vector3 target)
     {
-        if (mp < MP_PerShoot)
+        //if (mp < MP_PerShoot)
+        if (mp < rangeSkillDef.manaCost)  
         {
             print("沒 Mana 呀 !!!!");
             Instantiate(shootFX_2, gameObject.transform.position, Quaternion.identity, gameObject.transform);
@@ -594,7 +615,8 @@ public class PlayerController : MonoBehaviour
                 newBullet.SetGroup(DAMAGE_GROUP.PLAYER);
                 newBullet.targetDir = td;
                 //傷害值，由自己來給
-                newBullet.phyDamage = Attack;
+                //newBullet.phyDamage = Attack;
+                newBullet.phyDamage = rangeSkillDef.baseDamage; //TODO:  升級?
             }
         }
 
@@ -612,10 +634,14 @@ public class PlayerController : MonoBehaviour
             myAnimator.SetTrigger("Cast");
         }
 
-        mp -= MP_PerShoot;
+        //mp -= MP_PerShoot;
+        mp -= rangeSkillDef.manaCost;
 
         if (myDollManager)
             myDollManager.OnPlayerShoot(target);
+
+        attackWait = rangeSkillDef.duration;
+        nextState = PC_STATE.ATTACK;
     }
 
 
