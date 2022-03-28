@@ -61,4 +61,11 @@ public class Hp_BarHandler : MonoBehaviour
         if (myBarPA)
             myBarPA.SetValue(hp, hpMax);
     }
+
+    public void SetMP( float mp, float mpMax)
+    {
+        if (myBarPA)
+            myBarPA.SetMPValue(mp, mpMax);
+    }
+
 }

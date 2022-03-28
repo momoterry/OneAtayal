@@ -201,6 +201,7 @@ public class PlayerController : MonoBehaviour
         if (myHPHandler && currState != PC_STATE.NONE && currState != PC_STATE.DEAD)
         {
             myHPHandler.SetHP(hp, HP_Max);
+            myHPHandler.SetMP(mp, MP_Max);
         }
     }
 
