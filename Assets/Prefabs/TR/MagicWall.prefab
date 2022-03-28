@@ -111,6 +111,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4066914661955166950}
+  - component: {fileID: 7776798985243074217}
+  - component: {fileID: 5991060418580361721}
   m_Layer: 0
   m_Name: MagicWall
   m_TagString: Untagged
@@ -134,6 +136,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7776798985243074217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838613901666347757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bias: 0
+  onlyAdjustOnStart: 0
+--- !u!208 &5991060418580361721
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838613901666347757}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 1, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4303140666110134131
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,8 +176,6 @@ GameObject:
   m_Component:
   - component: {fileID: 853521316978190041}
   - component: {fileID: 2277296285137333176}
-  - component: {fileID: 9206399680869090065}
-  - component: {fileID: 9042969112955640971}
   m_Layer: 0
   m_Name: StoneQuake_4
   m_TagString: Untagged
@@ -218,33 +248,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9206399680869090065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4303140666110134131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bias: 0
-  onlyAdjustOnStart: 0
---- !u!208 &9042969112955640971
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4303140666110134131}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1, y: 1, z: 1}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
