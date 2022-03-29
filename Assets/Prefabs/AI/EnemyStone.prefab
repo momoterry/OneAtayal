@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 3842158341424820786}
   - component: {fileID: 8962423454557553336}
   - component: {fileID: 1047240798357459120}
+  - component: {fileID: 3236784326416634283}
   m_Layer: 10
   m_Name: EnemyStone
   m_TagString: Enemy
@@ -249,6 +250,8 @@ MonoBehaviour:
   MaxHP: 200
   attackFX: {fileID: 0}
   damageFX: {fileID: 0}
+  deadFX: {fileID: 5887683565233948115, guid: f952f3c1c10889c4e99f2755d00fdbc0, type: 3}
+  debris: {fileID: 4102302037370830796, guid: f9708512c0100ae4c9393ca2cd4ea6a3, type: 3}
   SpawnWaitTime: 0.5
   ChaseRangeIn: 8
   ChaseRangeOut: 9
@@ -342,3 +345,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3236784326416634283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7208015447484052683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7049c63b5512d1647be616ec0b53374e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theSprites: []

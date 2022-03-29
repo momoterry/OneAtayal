@@ -7,8 +7,10 @@ public class Enemy : MonoBehaviour
 {
     public int ID = -1;
     public float MaxHP = 100.0f;
-    public GameObject attackFX;
-    public GameObject damageFX;
+    public GameObject attackFX;     //TODO 不再需要
+    public GameObject damageFX;     //TODO 不再需要
+    public GameObject deadFX;
+    public GameObject debris;
 
     public float SpawnWaitTime = 0.1f;    
     public float ChaseRangeIn = 4.0f;
@@ -352,6 +354,21 @@ public class Enemy : MonoBehaviour
     {
         BattleSystem.GetInstance().OnEnemyKilled(gameObject);
         DropManager.GetInstance().OnTryDropByEnemyKilled(this);
+        
+#if XZ_PLAN
+        Quaternion rm = Quaternion.Euler(90, 0, 0);
+#else
+        Quaternion rm = Quaternion.identity;
+#endif        
+        if (deadFX)
+        {
+
+            Instantiate(deadFX, transform.position, rm, null);
+        }
+        if (debris)
+        {
+            Instantiate(debris, transform.position, rm, null);
+        }
        
         Destroy(gameObject);
         // TODO 死亡演出
