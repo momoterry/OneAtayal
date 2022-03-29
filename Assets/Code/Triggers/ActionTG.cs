@@ -63,7 +63,31 @@ public class ActionTG : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider col)
+    {
+         if (col.gameObject.CompareTag("Player"))
+        {
+            //print("I got picked !!");
+            whoActiveMe = col.gameObject;
+            whoActiveMe.SendMessage("OnRegisterActionObject", gameObject);
+            if (hint)
+                hint.gameObject.SetActive(true);
+        }       
+    }
+
     private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject == whoActiveMe)
+        {
+            //print("You leave me........ " + whoActiveMe);
+            whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
+            whoActiveMe = null;
+            if (hint)
+                hint.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerExit(Collider col)
     {
         if (col.gameObject == whoActiveMe)
         {
