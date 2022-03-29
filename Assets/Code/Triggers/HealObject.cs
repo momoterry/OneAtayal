@@ -28,7 +28,7 @@ public class HealObject : MonoBehaviour
             result = true;
         }
 
-        whoTG.SendMessage("OnActionResult", result);
+        whoTG.SendMessage("OnActionResult", result, SendMessageOptions.DontRequireReceiver);
 
         if (result)
             Destroy(gameObject);
