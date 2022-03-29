@@ -20,7 +20,16 @@ public class GateTrigger : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            //print("Gate Opend !!");
+            print("Gate Opend !!");
+            BattleSystem.GetInstance().OnClearGateEnter();
+        }
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            print("Gate Opend !!");
             BattleSystem.GetInstance().OnClearGateEnter();
         }
     }
