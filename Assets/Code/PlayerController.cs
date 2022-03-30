@@ -532,7 +532,7 @@ public class PlayerController : MonoBehaviour
         float centerOffset = 1.0f;
 
         Vector2 vCenter = Vector2.zero;
-        Vector2 vSize = Vector2.one * 3.0f;
+        Vector2 vSize = Vector2.one * 3.5f;
 
 
         switch (faceFrontType)
