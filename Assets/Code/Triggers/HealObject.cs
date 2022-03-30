@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HealObject : MonoBehaviour
 {
+    public GameObject healFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,15 @@ public class HealObject : MonoBehaviour
         if (pc.GetHP() < pc.GetHPMax())
         {
             pc.DoHeal(pc.GetHPMax()*0.5f);
+            if (healFX)
+            {
+#if XZ_PLAN
+                Quaternion rm = Quaternion.Euler(90, 0, 0);
+#else
+                Quaternion rm = Quaternion.identity;
+#endif
+                Instantiate(healFX, pc.transform.position, rm, pc.transform);
+            }
             result = true;
         }
 
