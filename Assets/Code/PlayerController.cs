@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
         NONE,
         NORMAL,
         ATTACK, //For 動作
+        STOP,   //For 外部強迫暫停
         DEAD,
     }
     protected PC_STATE currState = PC_STATE.NONE;
@@ -120,6 +121,17 @@ public class PlayerController : MonoBehaviour
         myHPHandler = GetComponent<Hp_BarHandler>();
     }
 
+    private void OnDestroy()
+    {
+        print("OnDestroy!!");
+        //Input System Unbound
+        //theInput.TheHero.Attack.performed -= ctx => OnAttack();
+        //theInput.TheHero.Shoot.performed -= ctx => OnShoot();
+        //theInput.TheHero.Action.performed -= ctx => OnActionKey();
+        //theInput.TheHero.ShootTo.performed -= ctx => OnShootTo();
+
+        theInput.Disable();
+    }
 
     private void Awake()
     {
@@ -679,5 +691,19 @@ public class PlayerController : MonoBehaviour
         hp += healNum;
         if (hp > HP_Max)
             hp = HP_Max;
+    }
+
+    public void ForceStop( bool stop = true)
+    {
+        if ( stop && currState != PC_STATE.DEAD && currState!= PC_STATE.NONE ) 
+        {
+            nextState = PC_STATE.STOP;
+            if (myAnimator)
+                myAnimator.SetBool("Run", false);
+        }
+        else if ( !stop && currState == PC_STATE.STOP )
+        {
+            nextState = PC_STATE.NORMAL;
+        }
     }
 }
