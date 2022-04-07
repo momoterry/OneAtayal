@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -949421431
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 782a9724d5433eb459a83cba9c2ea8cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -93,8 +93,9 @@ GameObject:
   - component: {fileID: 4032685806379418581}
   - component: {fileID: 4032685806379418580}
   - component: {fileID: 4032685806379418582}
-  - component: {fileID: 3230571039029536920}
   - component: {fileID: -894024693914061495}
+  - component: {fileID: 3264087317604759464}
+  - component: {fileID: 8817159822340256188}
   m_Layer: 0
   m_Name: Doll_One
   m_TagString: Untagged
@@ -188,21 +189,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3230571039029536920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4032685806379418579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8812b6181d6d157469601c176c10b2c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletRef: {fileID: 2820250728779406873, guid: 51b72c5b9c5318b46a5b2fd972924a9e, type: 3}
-  AttackInit: 10
-  SearchRange: 8
 --- !u!114 &-894024693914061495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +202,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bias: 0
+  onlyAdjustOnStart: 0
+--- !u!114 &3264087317604759464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c5c614ada13ee4479d174d41acf5850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletRef: {fileID: 2820250728779406873, guid: 51b72c5b9c5318b46a5b2fd972924a9e, type: 3}
+  AttackInit: 10
+  SearchRange: 8
+  ChaseRangeIn: 5
+  ChaseRangeOut: 10
+  PositionRangeIn: 0.125
+  PositionRangeOut: 3
+  AttackRangeIn: 3
+  AttackRangeOut: 4
+--- !u!195 &8817159822340256188
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 0
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &1988585230883178464
 PrefabInstance:
   m_ObjectHideFlags: 0

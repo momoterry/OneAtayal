@@ -21,7 +21,7 @@ public class Doll : MonoBehaviour
     protected DOLL_STATE currState = DOLL_STATE.NONE;
     protected DOLL_STATE nextState = DOLL_STATE.NONE;
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         nextState = DOLL_STATE.WAIT;
     }
@@ -37,7 +37,7 @@ public class Doll : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (nextState != currState)
         {
