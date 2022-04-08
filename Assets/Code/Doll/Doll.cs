@@ -31,9 +31,18 @@ public class Doll : MonoBehaviour
 
     }
 
+    protected virtual void OnStateEnterBattle()
+    {
+    }
+
     void OnStateEnter()
     {
-
+        switch (nextState)
+        {
+            case DOLL_STATE.BATTLE:
+                OnStateEnterBattle();
+                break;
+        }
     }
 
     // Update is called once per frame

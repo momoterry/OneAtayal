@@ -42,6 +42,7 @@ public class DollAuto : Doll
         {
             myAgent.updateRotation = false;
             myAgent.updateUpAxis = false;
+            myAgent.enabled = false;
         }
     }
 
@@ -50,6 +51,11 @@ public class DollAuto : Doll
     //{
 
     //}
+
+    protected override void OnStateEnterBattle()
+    {
+        myAgent.enabled = true;
+    }
 
     private void EnterAutoState(AutoState state)
     {
@@ -136,10 +142,11 @@ public class DollAuto : Doll
 
     void UpdateFollow()
     {
+        if (myAgent)
+            myAgent.SetDestination(mySlot.position);
         if (autoStateTime > 0.1f) 
         { 
-            if (myAgent)
-                myAgent.SetDestination(mySlot.position);
+
             autoStateTime = 0;
 
             if (SearchEnemy())

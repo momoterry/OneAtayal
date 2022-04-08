@@ -152,7 +152,7 @@ public class Enemy : MonoBehaviour
                 //至少追擊一次
                 if (myAgent)
                     myAgent.SetDestination(targetPos);
-                stateTime = chaseCheckTime;
+                stateTime = 0; //確保一開始先找一次目標
                 if (myAnimator)
                     myAnimator.SetBool("Run", true);
                 break;
