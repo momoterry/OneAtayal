@@ -5,20 +5,21 @@ using UnityEngine.AI;
 
 public class DollAuto : Doll
 {
-    protected float ChaseRangeIn = 5.0f;
-    protected float ChaseRangeOut = 8.0f;
-    protected float PositionRangeIn = 1.0f;
-    protected float PositionRangeOut = 9.0f;
-    protected float AttackRangeIn = 3.0f;
-    protected float AttackRangeOut = 4.0f;
+    public float ChaseRangeIn = 5.0f;
+    public float ChaseRangeOut = 8.0f;
+    public float PositionRangeIn = 1.0f;
+    public float PositionRangeOut = 9.0f;
+    public float AttackRangeIn = 3.0f;
+    public float AttackRangeOut = 4.0f;
 
-    protected float attackWait = 0.2f;
-    protected float attackCD = 0.5f;
+    public float attackWait = 0.2f;
+    public float attackCD = 0.5f;
 
     //== 以上其實是 public
     protected float timeToAttack = 0;
-
     protected float RunSpeed = 10.0f;
+
+    protected GameObject myMaster;
 
     enum AutoState
     {
@@ -61,6 +62,8 @@ public class DollAuto : Doll
     protected override void OnStateEnterBattle()
     {
         myAgent.enabled = true;
+
+        myMaster = BattleSystem.GetInstance().GetPlayer();
     }
 
     private void EnterAutoState(AutoState state)
@@ -82,6 +85,7 @@ public class DollAuto : Doll
                 break;
             case AutoState.ATTACK:
                 timeToAttack = attackWait;
+                StopMove();
                 break;
         }
     }
@@ -128,13 +132,14 @@ public class DollAuto : Doll
         GameObject foundEnemy = null;
         float minDistance = Mathf.Infinity;
 
-        Collider[] cols = Physics.OverlapSphere(transform.position, ChaseRangeIn, LayerMask.GetMask("Character"));
+        Collider[] cols = Physics.OverlapSphere(myMaster.transform.position, ChaseRangeIn, LayerMask.GetMask("Character"));
         foreach (Collider col in cols)
         {
             //print("I Found: "+ col.gameObject.name);
             if (col.gameObject.CompareTag("Enemy"))
             {
-                float dis = (col.gameObject.transform.position - gameObject.transform.position).magnitude;
+                //float dis = (col.gameObject.transform.position - gameObject.transform.position).magnitude;
+                float dis = Vector3.Distance(col.gameObject.transform.position, myMaster.transform.position);
 
                 if (dis < minDistance)
                 {
@@ -147,6 +152,21 @@ public class DollAuto : Doll
         myTarget = foundEnemy;
 
         return (foundEnemy!=null);
+    }
+
+    bool CheckIfRunBack()
+    {
+        if (myMaster)
+        {
+            float dis = Vector3.Distance(myMaster.transform.position, transform.position);
+            if ( dis > PositionRangeOut)
+            {
+                nextAutoState = AutoState.RUNBACK;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void UpdateFollow()
@@ -178,10 +198,14 @@ public class DollAuto : Doll
         //TODO: 也需要更新目標
         if (autoStateTime > 0.1f)
         {
-            float dis = (mySlot.position - transform.position).magnitude;
-            if (dis > PositionRangeOut)
+            //float dis = (mySlot.position - transform.position).magnitude;
+            //if (dis > PositionRangeOut)
+            //{
+            //    nextAutoState = AutoState.RUNBACK;
+            //}
+            if (CheckIfRunBack())
             {
-                nextAutoState = AutoState.RUNBACK;
+                return;
             }
 
             float disT = (myTarget.transform.position - transform.position).magnitude;
@@ -197,7 +221,7 @@ public class DollAuto : Doll
     {
         if (myAgent)
         {
-            myAgent.isStopped = true;
+            myAgent.SetDestination(transform.position);
         }
     }
 
@@ -218,10 +242,14 @@ public class DollAuto : Doll
         if (autoStateTime > 0.1f)
         {
             autoStateTime = 0;
-            float dis = (mySlot.position - transform.position).magnitude;
-            if (dis > PositionRangeOut)
+            //float dis = (mySlot.position - transform.position).magnitude;
+            //if (dis > PositionRangeOut)
+            //{
+            //    nextAutoState = AutoState.RUNBACK;
+            //    return;
+            //}
+            if (CheckIfRunBack())
             {
-                nextAutoState = AutoState.RUNBACK;
                 return;
             }
 
