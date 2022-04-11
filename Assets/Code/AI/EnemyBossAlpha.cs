@@ -143,14 +143,14 @@ public class EnemyBossAlpha : Enemy
             GameObject newObj = Instantiate(bulletRef, gameObject.transform.position, Quaternion.identity, null);
             if (newObj)
             {
-                bullet newBullet = newObj.GetComponent<bullet>();
+                bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
-                    newBullet.SetGroup(DAMAGE_GROUP.ENEMY);
-                    //Vector3 td = targetObj.transform.position - newObj.transform.position;
-                    //td.z = 0;
-                    newBullet.targetDir = shootTo;
-                    newBullet.phyDamage = Attack * specialDamageRatio;
+                    //newBullet.SetGroup(DAMAGE_GROUP.ENEMY);
+                    //newBullet.targetDir = shootTo;
+                    //newBullet.phyDamage = Attack * specialDamageRatio;
+
+                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, Attack * specialDamageRatio, shootTo);
                 }
             }
         }

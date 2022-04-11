@@ -20,18 +20,19 @@ public class EnemyRanger : Enemy
 #endif
             if (newObj)
             {
-                bullet newBullet = newObj.GetComponent<bullet>();
+                bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
-                    newBullet.SetGroup(DAMAGE_GROUP.ENEMY);
+                    //newBullet.SetGroup(DAMAGE_GROUP.ENEMY);
                     Vector3 td = targetObj.transform.position - newObj.transform.position;
 #if XZ_PLAN
                     td.y = 0;
 #else
                     td.z = 0;
 #endif
-                    newBullet.targetDir = td.normalized;
-                    newBullet.phyDamage = Attack;
+                    //newBullet.targetDir = td.normalized;
+                    //newBullet.phyDamage = Attack;
+                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, Attack, td);
                 }
             }
         }

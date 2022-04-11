@@ -115,18 +115,19 @@ public class Doll : MonoBehaviour
 #else
             GameObject bulletObj = Instantiate(bulletRef, transform.position, Quaternion.identity);
 #endif
-            bullet b = bulletObj.GetComponent<bullet>();
+            bullet_base b = bulletObj.GetComponent<bullet_base>();
             if (b)
             {
-                b.phyDamage = AttackInit;
-                b.SetGroup(DAMAGE_GROUP.PLAYER);
+                //b.phyDamage = AttackInit;
+                //b.SetGroup(DAMAGE_GROUP.PLAYER);
                 Vector3 td = foundEnemy.transform.position - transform.position;
 #if XZ_PLAN
                 td.y = 0;
 #else
                 td.z = 0;
 #endif
-                b.targetDir = td.normalized;
+                //b.targetDir = td.normalized;
+                b.InitValue(DAMAGE_GROUP.PLAYER, AttackInit, td);
             }
         }
     }

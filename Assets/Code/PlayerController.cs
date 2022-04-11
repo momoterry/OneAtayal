@@ -633,11 +633,11 @@ public class PlayerController : MonoBehaviour
             bullet newBullet = newObj.GetComponent<bullet>();
             if (newBullet)
             {
-                newBullet.SetGroup(DAMAGE_GROUP.PLAYER);
-                newBullet.targetDir = td;
+                //newBullet.SetGroup(DAMAGE_GROUP.PLAYER);
+                //newBullet.targetDir = td;
                 //傷害值，由自己來給
-                //newBullet.phyDamage = Attack;
-                newBullet.phyDamage = rangeSkillDef.baseDamage; //TODO:  升級?
+                //newBullet.phyDamage = rangeSkillDef.baseDamage; //TODO:  升級?
+                newBullet.InitValue(DAMAGE_GROUP.PLAYER, rangeSkillDef.baseDamage, td);
             }
         }
 

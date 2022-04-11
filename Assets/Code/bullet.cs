@@ -15,15 +15,29 @@ public enum DAMAGE_GROUP
     ENEMY,
 }
 
-public class bullet : MonoBehaviour
+public class bullet_base : MonoBehaviour
 {
     public float phyDamage = 60.0f;
+    protected Vector3 targetDir = Vector3.up;
+    protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
+
+    public void InitValue(DAMAGE_GROUP g, float damage, Vector3 targetVec)
+    {
+        group = g;
+        targetDir = targetVec.normalized;
+        phyDamage = damage;
+    }
+}
+
+public class bullet : bullet_base
+{
+    //public float phyDamage = 60.0f;
     public float speed = 20.0f;
-    public Vector3 targetDir = Vector3.up;
+    //public Vector3 targetDir = Vector3.up;
     public float lifeTime = 0.5f;
     public GameObject hitFX;
 
-    private DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
+    //protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
 
     private float myTime = 1.0f;
 
@@ -31,10 +45,10 @@ public class bullet : MonoBehaviour
 
 
     // Public Functions
-    public void SetGroup(DAMAGE_GROUP g)
-    {
-        group = g;
-    }
+    //public void SetGroup(DAMAGE_GROUP g)
+    //{
+    //    group = g;
+    //}
 
     // Start is called before the first frame update
     void Start()
