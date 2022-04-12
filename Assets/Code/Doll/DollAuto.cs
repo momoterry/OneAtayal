@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class DollAuto : Doll
 {
-    public float ChaseRangeIn = 5.0f;
-    public float ChaseRangeOut = 8.0f;
+    //public float ChaseRangeIn = 5.0f;
+    //public float ChaseRangeOut = 8.0f;
     public float PositionRangeIn = 1.0f;
     public float PositionRangeOut = 9.0f;
     public float AttackRangeIn = 3.0f;
@@ -14,10 +14,10 @@ public class DollAuto : Doll
 
     public float attackWait = 0.2f;
     public float attackCD = 0.5f;
+    public float RunSpeed = 10.0f;
 
     //== 以上其實是 public
     protected float timeToAttack = 0;
-    protected float RunSpeed = 10.0f;
 
     protected GameObject myMaster;
 
@@ -132,7 +132,7 @@ public class DollAuto : Doll
         GameObject foundEnemy = null;
         float minDistance = Mathf.Infinity;
 
-        Collider[] cols = Physics.OverlapSphere(myMaster.transform.position, ChaseRangeIn, LayerMask.GetMask("Character"));
+        Collider[] cols = Physics.OverlapSphere(myMaster.transform.position, SearchRange, LayerMask.GetMask("Character"));
         foreach (Collider col in cols)
         {
             //print("I Found: "+ col.gameObject.name);
@@ -198,11 +198,6 @@ public class DollAuto : Doll
         //TODO: 也需要更新目標
         if (autoStateTime > 0.1f)
         {
-            //float dis = (mySlot.position - transform.position).magnitude;
-            //if (dis > PositionRangeOut)
-            //{
-            //    nextAutoState = AutoState.RUNBACK;
-            //}
             if (CheckIfRunBack())
             {
                 return;

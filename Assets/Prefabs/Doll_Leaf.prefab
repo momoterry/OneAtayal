@@ -151,7 +151,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0.25
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1377997847346070175
@@ -169,14 +169,13 @@ MonoBehaviour:
   bulletRef: {fileID: 2820250728779406873, guid: 32cf3bce9e2c7724bbaf2abc5f4ac97c, type: 3}
   AttackInit: 10
   SearchRange: 8
-  ChaseRangeIn: 5
-  ChaseRangeOut: 8
   PositionRangeIn: 1
-  PositionRangeOut: 9
-  AttackRangeIn: 3
-  AttackRangeOut: 4
+  PositionRangeOut: 5
+  AttackRangeIn: 4
+  AttackRangeOut: 5
   attackWait: 0.5
   attackCD: 1
+  RunSpeed: 8
 --- !u!1 &6403853858975233831
 GameObject:
   m_ObjectHideFlags: 0

@@ -92,8 +92,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4032685806379418581}
   - component: {fileID: -894024693914061495}
-  - component: {fileID: 3264087317604759464}
   - component: {fileID: 8817159822340256188}
+  - component: {fileID: 1763491018998018883}
   m_Layer: 0
   m_Name: Doll_Stone
   m_TagString: Untagged
@@ -132,29 +132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bias: 0
   onlyAdjustOnStart: 0
---- !u!114 &3264087317604759464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4032685806379418579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c5c614ada13ee4479d174d41acf5850, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletRef: {fileID: 3710000809252070552, guid: cc38025dec94ad540a30b44c77129863, type: 3}
-  AttackInit: 10
-  SearchRange: 8
-  ChaseRangeIn: 5
-  ChaseRangeOut: 8
-  PositionRangeIn: 3
-  PositionRangeOut: 9
-  AttackRangeIn: 2
-  AttackRangeOut: 3
-  attackWait: 0.2
-  attackCD: 1
 --- !u!195 &8817159822340256188
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -164,7 +141,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4032685806379418579}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Speed: 10
   m_Acceleration: 48
   avoidancePriority: 80
@@ -177,6 +154,28 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1763491018998018883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae8e178ecbd0ccf4a88d7c3881086aad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletRef: {fileID: 3710000809252070552, guid: cc38025dec94ad540a30b44c77129863, type: 3}
+  AttackInit: 15
+  SearchRange: 6
+  PositionRangeIn: 1
+  PositionRangeOut: 8
+  AttackRangeIn: 2
+  AttackRangeOut: 3
+  attackWait: 0
+  attackCD: 0.5
+  RunSpeed: 10
 --- !u!1 &4790798014008892176
 GameObject:
   m_ObjectHideFlags: 0
