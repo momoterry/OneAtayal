@@ -19,7 +19,7 @@ public class HealObject : MonoBehaviour
 
     void OnTG(GameObject whoTG)
     {
-        print("DoHeal !!!!!" + whoTG);
+        //print("DoHeal !!!!!" + whoTG);
 
         bool result = false;
         PlayerController pc = BattleSystem.GetInstance().GetPlayerController();

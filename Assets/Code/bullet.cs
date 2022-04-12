@@ -19,13 +19,15 @@ public class bullet_base : MonoBehaviour
 {
     public float phyDamage = 60.0f;
     protected Vector3 targetDir = Vector3.up;
+    protected GameObject targetObj = null;
     protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
 
-    public void InitValue(DAMAGE_GROUP g, float damage, Vector3 targetVec)
+    public void InitValue(DAMAGE_GROUP g, float damage, Vector3 targetVec, GameObject targetObject = null)
     {
         group = g;
         targetDir = targetVec.normalized;
         phyDamage = damage;
+        targetObj = targetObject;
     }
 }
 

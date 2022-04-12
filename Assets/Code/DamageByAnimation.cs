@@ -60,7 +60,8 @@ public class DamageByAnimation : MonoBehaviour
                 col.gameObject.SendMessage("OnDamage", myDamage);
                 hit = true;
             }
-            if (hit)
+
+            if (hit&& hitFX)
             {
                 Vector3 hitPos = col.ClosestPoint(transform.position);
                 //hitPos.z = col.transform.position.z - 0.125f;   //角色的話用對方的 Z 來調整

@@ -21,7 +21,7 @@ public class DollAuto : Doll
 
     protected GameObject myMaster;
 
-    enum AutoState
+    protected enum AutoState
     {
         NONE,
         FOLLOW,
@@ -30,13 +30,13 @@ public class DollAuto : Doll
         ATTACK
     }
 
-    private AutoState currAutoState = AutoState.NONE;
-    private AutoState nextAutoState = AutoState.NONE;
+    protected AutoState currAutoState = AutoState.NONE;
+    protected AutoState nextAutoState = AutoState.NONE;
 
-    private GameObject myTarget;
-    private NavMeshAgent myAgent;
+    protected GameObject myTarget;
+    protected NavMeshAgent myAgent;
 
-    private float autoStateTime;
+    protected float autoStateTime;
 
     //// Start is called before the first frame update
     protected override void Start()
@@ -66,7 +66,7 @@ public class DollAuto : Doll
         myMaster = BattleSystem.GetInstance().GetPlayer();
     }
 
-    private void EnterAutoState(AutoState state)
+    protected void EnterAutoState(AutoState state)
     {
         switch (state)
         {
@@ -89,7 +89,7 @@ public class DollAuto : Doll
                 break;
         }
     }
-    private void ExitAutoState(AutoState state)
+    protected void ExitAutoState(AutoState state)
     {
 
     }
@@ -127,7 +127,7 @@ public class DollAuto : Doll
 
     }
 
-    bool SearchEnemy()
+    protected virtual bool SearchTarget()
     {
         GameObject foundEnemy = null;
         float minDistance = Mathf.Infinity;
@@ -154,7 +154,7 @@ public class DollAuto : Doll
         return (foundEnemy!=null);
     }
 
-    bool CheckIfRunBack()
+    protected bool CheckIfRunBack()
     {
         if (myMaster)
         {
@@ -169,7 +169,7 @@ public class DollAuto : Doll
         return false;
     }
 
-    void UpdateFollow()
+    protected void UpdateFollow()
     {
         if (myAgent)
             myAgent.SetDestination(mySlot.position);
@@ -178,14 +178,14 @@ public class DollAuto : Doll
 
             autoStateTime = 0;
 
-            if (SearchEnemy())
+            if (SearchTarget())
             {
                 nextAutoState = AutoState.CHASE;
             }
         }
     }
 
-    void UpdateChase()
+    protected void UpdateChase()
     {
         if (myTarget)
         {
@@ -217,7 +217,7 @@ public class DollAuto : Doll
         }
     }
 
-    void StopMove()
+    protected void StopMove()
     {
         if (myAgent)
         {
@@ -225,11 +225,11 @@ public class DollAuto : Doll
         }
     }
 
-    void UpdateAttack()
+    protected virtual void UpdateAttack()
     {
         if (!myTarget)
         {
-            if (SearchEnemy())
+            if (SearchTarget())
             {
                 nextAutoState = AutoState.CHASE;
             }
@@ -270,7 +270,7 @@ public class DollAuto : Doll
 
     }
 
-    void UpdateGoBack()
+    protected void UpdateGoBack()
     {
         if (myAgent)
         {
@@ -304,7 +304,7 @@ public class DollAuto : Doll
             td.z = 0;
 #endif
             //b.targetDir = td.normalized;
-            b.InitValue(DAMAGE_GROUP.PLAYER, AttackInit, td);
+            b.InitValue(DAMAGE_GROUP.PLAYER, AttackInit, td, myTarget);
         }
     }
 
