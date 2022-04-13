@@ -137,7 +137,7 @@ public class bullet : bullet_base
             hit = true;
             col.gameObject.SendMessage("OnDamage", myDamage);
         }
-        else if (col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll") && group == DAMAGE_GROUP.ENEMY)
+        else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == DAMAGE_GROUP.ENEMY)
         {
             //print("Trigger:  Hit Player or Doll !!");
             hit = true;

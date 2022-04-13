@@ -54,7 +54,7 @@ public class DamageByAnimation : MonoBehaviour
                 col.gameObject.SendMessage("OnDamage", myDamage);
                 hit = true;
             }
-            else if (col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll") && group == DAMAGE_GROUP.ENEMY)
+            else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == DAMAGE_GROUP.ENEMY)
             {
                 //print("Trigger:  Hit Player !!");
                 col.gameObject.SendMessage("OnDamage", myDamage);
