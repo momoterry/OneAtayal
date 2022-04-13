@@ -86,46 +86,46 @@ public class bullet : bullet_base
     //    }
     //}
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        //print("OnTriggernEnter2D : " + col);
-        bool hit = false;
-        bool flashShift = true;// 打中角色的話, 擊中特效往鏡頭放以免被擋
-        if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
-        {
-            //print("Trigger:  Hit Enemy !!");
-            hit = true;
-            col.gameObject.SendMessage("OnDamage", myDamage);
-        }
-        else if (col.gameObject.CompareTag("Player") && group == DAMAGE_GROUP.ENEMY)
-        {
-            //print("Trigger:  Hit Player !!");
-            hit = true;
-            col.gameObject.SendMessage("OnDamage", myDamage);
-        }
-        else if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
-        {
-            //print("Trigger:  HitWall !!");
-            hit = true;
-            flashShift = false;
-        }
+    //private void OnTriggerEnter2D(Collider2D col)
+    //{
+    //    //print("OnTriggernEnter2D : " + col);
+    //    bool hit = false;
+    //    bool flashShift = true;// 打中角色的話, 擊中特效往鏡頭放以免被擋
+    //    if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
+    //    {
+    //        //print("Trigger:  Hit Enemy !!");
+    //        hit = true;
+    //        col.gameObject.SendMessage("OnDamage", myDamage);
+    //    }
+    //    else if (col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll") && group == DAMAGE_GROUP.ENEMY)
+    //    {
+    //        //print("Trigger:  Hit Player or Doll !!");
+    //        hit = true;
+    //        col.gameObject.SendMessage("OnDamage", myDamage);
+    //    }
+    //    else if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
+    //    {
+    //        //print("Trigger:  HitWall !!");
+    //        hit = true;
+    //        flashShift = false;
+    //    }
 
 
-        if (hit)
-        {
-            Vector3 hitPos = col.ClosestPoint(transform.position);
-            if (flashShift)
-            {
-                hitPos.z = col.transform.position.z - 0.125f;   //角色的話用對方的 Z 來調整
-            }
-            else
-                hitPos.z = hitPos.y;
+    //    if (hit)
+    //    {
+    //        Vector3 hitPos = col.ClosestPoint(transform.position);
+    //        if (flashShift)
+    //        {
+    //            hitPos.z = col.transform.position.z - 0.125f;   //角色的話用對方的 Z 來調整
+    //        }
+    //        else
+    //            hitPos.z = hitPos.y;
 
-            Instantiate(hitFX, hitPos, Quaternion.identity, null);
-            Destroy(gameObject);
-        }
+    //        Instantiate(hitFX, hitPos, Quaternion.identity, null);
+    //        Destroy(gameObject);
+    //    }
 
-    }
+    //}
 
     private void OnTriggerEnter(Collider col)
     {
@@ -137,9 +137,9 @@ public class bullet : bullet_base
             hit = true;
             col.gameObject.SendMessage("OnDamage", myDamage);
         }
-        else if (col.gameObject.CompareTag("Player") && group == DAMAGE_GROUP.ENEMY)
+        else if (col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll") && group == DAMAGE_GROUP.ENEMY)
         {
-            //print("Trigger:  Hit Player !!");
+            //print("Trigger:  Hit Player or Doll !!");
             hit = true;
             col.gameObject.SendMessage("OnDamage", myDamage);
         }

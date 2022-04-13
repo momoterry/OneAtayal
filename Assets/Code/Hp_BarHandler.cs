@@ -68,4 +68,16 @@ public class Hp_BarHandler : MonoBehaviour
             myBarPA.SetMPValue(mp, mpMax);
     }
 
+    public void OnEnable()
+    {
+        if (myBarObj)
+            myBarObj.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        if (myBarObj)
+            myBarObj.SetActive(false);
+    }
+
 }

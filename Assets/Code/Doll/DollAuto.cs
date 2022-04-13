@@ -36,6 +36,11 @@ public class DollAuto : Doll
     protected GameObject myTarget;
     protected NavMeshAgent myAgent;
 
+    //只是為了一開始關掉
+    protected HitBody myBody;
+    protected Hp_BarHandler myHpHandler;
+    protected Collider myCollider;
+
     protected float autoStateTime;
 
     //// Start is called before the first frame update
@@ -51,6 +56,16 @@ public class DollAuto : Doll
             myAgent.updateUpAxis = false;
             myAgent.enabled = false;
         }
+
+        myBody = GetComponent<HitBody>();
+        if (myBody)
+            myBody.enabled = false;
+        myHpHandler = GetComponent<Hp_BarHandler>();
+        if (myHpHandler)
+            myHpHandler.enabled = false;
+        myCollider = GetComponent<Collider>();
+        if (myCollider)
+            myCollider.enabled = false;
     }
 
     //// Update is called once per frame
@@ -61,8 +76,14 @@ public class DollAuto : Doll
 
     protected override void OnStateEnterBattle()
     {
-        myAgent.enabled = true;
-
+        if (myAgent)
+            myAgent.enabled = true;
+        if (myBody)
+            myBody.enabled = true;
+        if (myHpHandler)
+            myHpHandler.enabled = true;
+        if (myCollider)
+            myCollider.enabled = true;
         myMaster = BattleSystem.GetInstance().GetPlayer();
     }
 

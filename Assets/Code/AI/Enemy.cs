@@ -170,24 +170,69 @@ public class Enemy : MonoBehaviour
         targetPos = o.transform.position;
     }
 
+    //    protected virtual void UpdateIdle()
+    //    {
+    //        //CheckPlayerIn == 只有 Player 時的舊版本
+
+    //        //TODOL: PC 跟 PlayerCharacter 應該分開檢查
+    //        GameObject po = BattleSystem.GetInstance().GetPlayer();
+    //        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
+    //        if (po && pc && !pc.IsKilled())
+    //        {
+    //            Vector3 dv = po.transform.position - transform.position;
+    //#if XZ_PLAN
+    //            dv.y = 0.0f;
+    //#else
+    //            dv.z = 0.0f;
+    //#endif
+    //            if ( dv.sqrMagnitude < ChaseRangeIn* ChaseRangeIn)
+    //            {
+    //                SetTarget(po);
+    //                nextState = AI_STATE.CHASE;
+    //            }
+    //        }
+    //    }
+
+    protected virtual bool SearchTarget()
+    {
+        //尋找 Enemy
+        GameObject foundTarget = null;
+        float minDistance = Mathf.Infinity;
+        Collider[] cols = Physics.OverlapSphere(transform.position, ChaseRangeIn, LayerMask.GetMask("Character"));
+        foreach (Collider col in cols)
+        {
+            if (col.gameObject.CompareTag("Player")|| col.gameObject.CompareTag("Doll"))
+            {
+
+                float dis = (col.gameObject.transform.position - gameObject.transform.position).magnitude;
+
+                if (dis < minDistance)
+                {
+                    minDistance = dis;
+                    foundTarget = col.gameObject;
+                }
+            }
+        }
+
+        if (foundTarget)
+        {
+            print("Enemy Found Target: " + foundTarget);
+            SetTarget(foundTarget);
+            return true;
+        }
+
+        return false;
+    }
+
     protected virtual void UpdateIdle()
     {
-        //CheckPlayerIn
+        stateTime -= Time.deltaTime;
 
-        //TODOL: PC 跟 PlayerCharacter 應該分開檢查
-        GameObject po = BattleSystem.GetInstance().GetPlayer();
-        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
-        if (po && pc && !pc.IsKilled())
+        if (stateTime <= 0)
         {
-            Vector3 dv = po.transform.position - transform.position;
-#if XZ_PLAN
-            dv.y = 0.0f;
-#else
-            dv.z = 0.0f;
-#endif
-            if ( dv.sqrMagnitude < ChaseRangeIn* ChaseRangeIn)
+            stateTime = 0.1f;
+            if (SearchTarget())
             {
-                SetTarget(po);
                 nextState = AI_STATE.CHASE;
             }
         }

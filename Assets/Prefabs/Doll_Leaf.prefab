@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4032685804775328988}
   - component: {fileID: 4032685804775328989}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shadow_Doll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,9 +94,13 @@ GameObject:
   - component: {fileID: -894024693914061495}
   - component: {fileID: 8817159822340256188}
   - component: {fileID: 1377997847346070175}
-  m_Layer: 0
+  - component: {fileID: 8848299746059010290}
+  - component: {fileID: 8638560577857950049}
+  - component: {fileID: 774563800371905222}
+  - component: {fileID: -3660368820591912005}
+  m_Layer: 10
   m_Name: Doll_Leaf
-  m_TagString: Untagged
+  m_TagString: Doll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +154,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
+  m_Height: 0.5
   m_BaseOffset: 0.25
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -176,6 +180,62 @@ MonoBehaviour:
   attackWait: 0.5
   attackCD: 1
   RunSpeed: 8
+--- !u!114 &8848299746059010290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ceb01d0a9c1a2845ae1690b5683c197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP_Max: 100
+--- !u!114 &8638560577857950049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73172fc6794736341bc242f6334ad36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barRef: {fileID: 3890801454975395505, guid: 90d3a6e24e111214ab4c1f9197425e63, type: 3}
+  barHeight: 0.75
+--- !u!65 &774563800371905222
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &-3660368820591912005
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6403853858975233831
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +247,7 @@ GameObject:
   - component: {fileID: 8521553403077107317}
   - component: {fileID: 7271087953935242957}
   - component: {fileID: 239322450553144745}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Doll_Leaf_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,6 +349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ActionTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 175016898089978893, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1886899707721466646, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
       propertyPath: TriggerTarget
       value: 
@@ -300,6 +364,10 @@ PrefabInstance:
     - target: {fileID: 1886899707721466646, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
       propertyPath: deleteAfterAction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3683833485145979750, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3683833485145979750, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
       propertyPath: m_IsActive

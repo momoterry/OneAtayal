@@ -11,9 +11,19 @@ public class BulletHealer : BulletTrace
     // Start is called before the first frame update
     protected override void DoHitTarget()
     {
-        //TODO: 改成也可以治療 Doll
-        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
-        pc.DoHeal(pc.GetHPMax() * healRatio + healAbsoluteValue);
+
+        PlayerController pc = targetObj.GetComponent<PlayerController>();
+        if (pc)
+        {
+            pc.DoHeal(pc.GetHPMax() * healRatio + healAbsoluteValue);
+        }
+
+        HitBody body = targetObj.GetComponent<HitBody>();
+        if (body)
+        {
+            body.DoHeal(body.GetHPMax() * healRatio + healAbsoluteValue);
+        }
+
         if (healFX)
         {
 #if XZ_PLAN
@@ -21,7 +31,7 @@ public class BulletHealer : BulletTrace
 #else
             Quaternion rm = Quaternion.identity;
 #endif
-            Instantiate(healFX, pc.transform.position, rm, pc.transform);
+            Instantiate(healFX, targetObj.transform.position, rm, targetObj.transform);
         }
 
         Destroy(gameObject);

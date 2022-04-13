@@ -35,6 +35,11 @@ public class Doll : MonoBehaviour
     {
     }
 
+    protected virtual void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+
     void OnStateEnter()
     {
         switch (nextState)

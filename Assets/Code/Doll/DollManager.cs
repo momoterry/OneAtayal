@@ -9,6 +9,19 @@ public class DollManager : MonoBehaviour
     private int slotNum = 0;
     private Doll[] dolls;
 
+    public List<Doll> GetDolls()
+    {
+        List<Doll> theList = new List<Doll>();
+        foreach (Doll d in dolls)
+        {
+            if (d)
+            {
+                theList.Add(d);
+            }
+        }
+        return theList;
+    }
+
     public Transform AddOneDoll(Doll doll)
     {
         for (int i=0; i<slotNum; i++)
