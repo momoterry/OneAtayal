@@ -2,8 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DOLL_POSITION_TYPE
+{
+    FRONT,
+    MIDDLE,
+    BACK,
+}
+
 public class Doll : MonoBehaviour
 {
+    public DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT;
+
     public GameObject bulletRef;
 
     public float AttackInit = 10.0f;
@@ -162,7 +171,7 @@ public class Doll : MonoBehaviour
             DollManager theDollManager = pc.GetDollManager();
             if (theDollManager)
             {
-                mySlot = theDollManager.AddOneDoll(this);
+                mySlot = theDollManager.AddOneDoll(this, positionType);
             }
         }
 

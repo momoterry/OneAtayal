@@ -13,6 +13,14 @@ public class SkillDef
     public float manaCost = 0;
 }
 
+public enum FaceFrontType
+{
+    UP,
+    RIGHT,
+    DOWN,
+    LEFT,
+}
+
 public class PlayerController : MonoBehaviour
 {
     //public float AttackCD = 1.0f;
@@ -52,13 +60,13 @@ public class PlayerController : MonoBehaviour
     protected Vector3 faceDir;
 
     // 近戰用四面向
-    public enum FaceFrontType
-    {
-        UP,
-        RIGHT,
-        DOWN,
-        LEFT,
-    }
+    //public enum FaceFrontType
+    //{
+    //    UP,
+    //    RIGHT,
+    //    DOWN,
+    //    LEFT,
+    //}
     protected Vector3 faceFront;
     protected FaceFrontType faceFrontType;
 
@@ -87,8 +95,10 @@ public class PlayerController : MonoBehaviour
     public float GetATTACK() { return Attack; }
 
     //Doll 相關
-    public DollManager myDollManager;
+    public GameObject DollManagerRef;
     public DollManager GetDollManager() { return myDollManager; }
+
+    protected DollManager myDollManager;
 
     public enum PC_STATE
     {
@@ -119,6 +129,18 @@ public class PlayerController : MonoBehaviour
         theInput.TheHero.ShootTo.performed += ctx => OnShootTo();
 
         myHPHandler = GetComponent<Hp_BarHandler>();
+
+        if (DollManagerRef)
+        {
+            GameObject dm = Instantiate(DollManagerRef, transform.position, Quaternion.identity, null);
+            myDollManager = dm.GetComponent<DollManager>();
+            if (myDollManager == null)
+            {
+                print("ERROR!! No DollManager Found !!!!!! ");
+                Destroy(dm);
+            }
+        }
+
     }
 
     private void OnDestroy()
@@ -214,6 +236,12 @@ public class PlayerController : MonoBehaviour
         {
             myHPHandler.SetHP(hp, HP_Max);
             myHPHandler.SetMP(mp, MP_Max);
+        }
+
+        if (myDollManager && currState != PC_STATE.NONE && currState != PC_STATE.DEAD)
+        {
+            myDollManager.SetMasterPosition(transform.position);
+            myDollManager.SetMasterDirection(faceDir, faceFrontType);
         }
     }
 

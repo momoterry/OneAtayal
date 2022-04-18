@@ -22,16 +22,43 @@ public class DollManager : MonoBehaviour
         return theList;
     }
 
-    public Transform AddOneDoll(Doll doll)
+    public Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
+        float positionRatio = 0;
+        switch (positionType)
+        {
+            case DOLL_POSITION_TYPE.MIDDLE:
+                positionRatio = 0.5f;
+                break;
+            case DOLL_POSITION_TYPE.BACK:
+                positionRatio = 1.0f;
+                break;
+        }
+
+        float minDis = 2.0f;
+        int bestFound = -1;
         for (int i=0; i<slotNum; i++)
         {
             if ( dolls[i] == null && DollSlots[i] != null)
             {
-                dolls[i] = doll;
-                return DollSlots[i];
+                float ratio = (float)i / (float)(slotNum-1);
+                float dis = Mathf.Abs(positionRatio - ratio);
+                if (dis < minDis)
+                {
+                    bestFound = i;
+                    minDis = dis;
+                }
+                //dolls[i] = doll;
+                //return DollSlots[i];
             }
         }
+
+        if (bestFound >= 0)
+        {
+            dolls[bestFound] = doll;
+            return DollSlots[bestFound];
+        }
+
         return null;
     }
 
@@ -53,6 +80,29 @@ public class DollManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetMasterPosition(Vector3 pos)
+    {
+        transform.position = pos;
+    }
+
+    public void SetMasterDirection( Vector3 dir, FaceFrontType faceType )
+    {
+        float angle = 0;
+        switch (faceType)
+        {
+            case FaceFrontType.RIGHT:
+                angle = 90.0f;
+                break;
+            case FaceFrontType.DOWN:
+                angle = 180.0f;
+                break;
+            case FaceFrontType.LEFT:
+                angle = 270.0f;
+                break;
+        }
+        transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 
     //將玩家的行為傳達給 Doll 們
