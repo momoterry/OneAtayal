@@ -94,7 +94,8 @@ public class DollAuto : Doll
             case AutoState.FOLLOW:
                 if (myAgent)
                 {
-                    myAgent.speed = BattleSystem.GetInstance().GetPlayerController().WalkSpeed;
+                    //myAgent.speed = BattleSystem.GetInstance().GetPlayerController().WalkSpeed;
+                    myAgent.speed = RunSpeed;
                 }
                 break;
             case AutoState.RUNBACK:

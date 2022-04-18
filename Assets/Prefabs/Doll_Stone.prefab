@@ -170,14 +170,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8e178ecbd0ccf4a88d7c3881086aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  positionType: 0
   bulletRef: {fileID: 3710000809252070552, guid: cc38025dec94ad540a30b44c77129863, type: 3}
-  AttackInit: 12
+  AttackInit: 5
   SearchRange: 6
   PositionRangeIn: 1
   PositionRangeOut: 8
-  AttackRangeIn: 2
-  AttackRangeOut: 3
-  attackWait: 0
+  AttackRangeIn: 3
+  AttackRangeOut: 4
+  attackWait: 0.2
   attackCD: 0.5
   RunSpeed: 10
 --- !u!65 &8878718796423490741
@@ -205,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ceb01d0a9c1a2845ae1690b5683c197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP_Max: 100
+  HP_Max: 240
 --- !u!114 &2796941266126462226
 MonoBehaviour:
   m_ObjectHideFlags: 0
