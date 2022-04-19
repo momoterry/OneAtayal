@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1604219278840402387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1604219278840402381}
+  - component: {fileID: 1604219278840402386}
+  m_Layer: 0
+  m_Name: RandomDropDoll
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1604219278840402381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604219278840402387}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604219278840402386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604219278840402387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0a304e2d0867d3439bd7206fcffa8db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfos:
+  - RandomPercent: 40
+    SpawnRefs:
+    - {fileID: 4032685806379418579, guid: 5d31c47f41f9e574e93dc4dd9bc6f7c3, type: 3}
+  - RandomPercent: 30
+    SpawnRefs:
+    - {fileID: 4032685806379418579, guid: 6f19456bd0e40c844bdf8eeae3684a33, type: 3}
+  - RandomPercent: 30
+    SpawnRefs:
+    - {fileID: 4032685806379418579, guid: bdde668c502bf8240bbbb586077d4817, type: 3}

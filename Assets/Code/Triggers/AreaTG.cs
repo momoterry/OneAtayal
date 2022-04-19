@@ -47,7 +47,8 @@ public class AreaTG : MonoBehaviour
             print("Player In !!");
             foreach (GameObject o in TriggerTargets)
             {
-                o.SendMessage("OnTG", other.gameObject);
+                if (o)
+                    o.SendMessage("OnTG", other.gameObject);
             }
             if (triggerOnce)
             {

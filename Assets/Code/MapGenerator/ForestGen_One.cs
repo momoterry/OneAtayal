@@ -10,8 +10,6 @@ public class ForestGen_One : MapGeneratorBase
     public GameObject[] gameplayRefs;
     public GameObject endRoomRef;
 
-    public int roomToGen = 2;
-
     public RoomController startRC;
 
     int toBuild = 5;
@@ -39,6 +37,9 @@ public class ForestGen_One : MapGeneratorBase
 
     public override void BuildAll(int buildLevel = 1)
     {
+        print("ForestGen_One Build All " + buildLevel);
+        ClearAll();
+
         base.BuildAll(buildLevel);
 
 #if XZ_PLAN
@@ -100,6 +101,8 @@ public class ForestGen_One : MapGeneratorBase
             GameObject ro = Instantiate(endRoomRef, pos, rm, null);
             if (ro)
             {
+                roomList.Add(ro);
+
                 RoomController rc = ro.GetComponent<RoomController>();
                 if (rc && rc.southDoor)
                 {
@@ -114,5 +117,14 @@ public class ForestGen_One : MapGeneratorBase
             }
         }
 
+    }
+
+    void ClearAll()
+    {
+        foreach (GameObject ro in roomList)
+        {
+            Destroy(ro);
+        }
+        roomList.Clear();
     }
 }
