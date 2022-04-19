@@ -242,17 +242,24 @@ public class BattleSystem : MonoBehaviour
             clearGate.SetActive(false);
         theMG.BuildAll(currLevel);
 
+#if XZ_PLAN
+        Quaternion rm = Quaternion.Euler(90, 0, 0);
+#else
+        Quaternion rm = Quaternion.identity;
+#endif
+
         if (thePlayer == null)
         {
-#if XZ_PLAN
-            thePlayer = Instantiate(playerRef, initPlayerPos.position, Quaternion.Euler(90.0f, 0, 0), null);
-#else
-            thePlayer = Instantiate(playerRef, initPlayerPos.position, Quaternion.identity, null);
-#endif
+            thePlayer = Instantiate(playerRef, initPlayerPos.position, rm, null);
+
             thePC = thePlayer.GetComponent<PlayerController>();
         }
-        NavMeshAgent pAgnet = thePlayer.GetComponent<NavMeshAgent>();
-        pAgnet.Warp(initPlayerPos.position);
+        else
+        {
+            thePC.DoTeleport(initPlayerPos.position, Vector3.back);
+        }
+        //NavMeshAgent pAgnet = thePlayer.GetComponent<NavMeshAgent>();
+        //pAgnet.Warp(initPlayerPos.position);
 
         string levelText = "LEVEL : " + currLevel;
         theBattleHUD.SetLevelText(levelText);
@@ -261,37 +268,11 @@ public class BattleSystem : MonoBehaviour
     public void ResetLevel( int level = 1 )
     {
         print("Reset Level!!");
-        //currLevel = level;
-        //if (level < 1)
-        //    currLevel = 1;
-        //else if (level > MaxLevel)
-        //    currLevel = MaxLevel;
 
         ClearLevel();
-        //if (clearEnemy)
-        //{
-        //    foreach (GameObject enemyObj in enemyList)
-        //    {
-        //        Destroy(enemyObj);
-        //        print("Kill One !!");
-        //    }
-        //    enemyList.Clear();
-        //}
+
 
         SetUpLevel(level);
-        //clearGate.SetActive(false);
-        //theMG.BuildAll(currLevel);
-
-        //if (thePlayer == null)
-        //{
-        //    thePlayer = Instantiate(playerRef, initPlayerPos.position, Quaternion.identity, null);
-        //    thePC = thePlayer.GetComponent<PlayerController>();
-        //}
-        //NavMeshAgent pAgnet = thePlayer.GetComponent<NavMeshAgent>();
-        //pAgnet.Warp(initPlayerPos.position);
-
-        //string levelText = "LEVEL : " + currLevel;
-        //theBattleHUD.SetLevelText(levelText);
     }
 
     public void OnPlayerKilled()

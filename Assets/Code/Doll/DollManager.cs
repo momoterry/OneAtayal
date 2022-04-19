@@ -105,6 +105,17 @@ public class DollManager : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 
+    public void ForceMoveAll()
+    {
+        for (int i=0; i<dolls.Length; i++)
+        {
+            if (dolls[i])
+            {
+                dolls[i].transform.position = DollSlots[i].position;
+            }
+        }
+    }
+
     //將玩家的行為傳達給 Doll 們
     public void OnPlayerAttack(Vector3 target)
     {

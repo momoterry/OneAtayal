@@ -186,7 +186,19 @@ public class PlayerController : MonoBehaviour
         faceFront = Vector3.down;
 #endif
         faceFrontType = FaceFrontType.DOWN;
-}
+    }
+
+    public void DoTeleport(Vector3 position, Vector3 dir)
+    {
+        transform.position = position;
+        SetupFrontDirection();
+        if (myDollManager)
+        {
+            myDollManager.SetMasterPosition(transform.position);
+            myDollManager.SetMasterDirection(faceDir, faceFrontType);
+            myDollManager.ForceMoveAll();
+        }
+    }
 
     public virtual bool DoHpUp()
     {
