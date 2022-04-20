@@ -148,23 +148,23 @@ public class Doll : MonoBehaviour
 
     // ===================== 被收集相關行為 ===================== 
 
-    void OnTG(GameObject whoTG)
-    {
-        //print("OnTG");
+    //void OnTG(GameObject whoTG)
+    //{
+    //    //print("OnTG");
 
-        if (currState == DOLL_STATE.WAIT)
-        {
-            //回應 ActionTrigger 是否成功
-            bool actionResult = TryJoinThePlayer();
-            whoTG.SendMessage("OnActionResult", actionResult);
-            if (actionResult)
-            {
-                nextState = DOLL_STATE.BATTLE;
-            }
-        }
-    }
+    //    if (currState == DOLL_STATE.WAIT)
+    //    {
+    //        //回應 ActionTrigger 是否成功
+    //        bool actionResult = TryJoinThePlayer();
+    //        whoTG.SendMessage("OnActionResult", actionResult);
+    //        if (actionResult)
+    //        {
+    //            nextState = DOLL_STATE.BATTLE;
+    //        }
+    //    }
+    //}
 
-    bool TryJoinThePlayer()
+    public bool TryJoinThePlayer()
     {
         PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
         if ( pc ){
@@ -176,7 +176,10 @@ public class Doll : MonoBehaviour
         }
 
         if (mySlot)
+        {
+            nextState = DOLL_STATE.BATTLE;
             return true;
+        }
         return false;
     }
 }

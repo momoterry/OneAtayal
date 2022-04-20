@@ -12,6 +12,9 @@ public struct ItemInfo
 public class RandomSpawner : MonoBehaviour
 {
     public ItemInfo[] itemInfos;
+    public bool deleteSpawnedObjectOnDestory = true;
+
+    protected List<GameObject> spawnedObjList;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +56,7 @@ public class RandomSpawner : MonoBehaviour
         if (result < 0)
             result = itemInfos.Length - 1;
 
+        spawnedObjList = new List<GameObject>();
         if (result >= 0)
         {
 #if XZ_PLAN
@@ -62,8 +66,29 @@ public class RandomSpawner : MonoBehaviour
 #endif
             foreach (GameObject o in itemInfos[result].SpawnRefs)
             {
-                Instantiate(o, transform.position, rm, null);
+                GameObject newObj = Instantiate(o, transform.position, rm, null);
+                if (newObj)
+                {
+                    spawnedObjList.Add(newObj);
+                }
             }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (deleteSpawnedObjectOnDestory && spawnedObjList!=null)
+        {
+            // 回收產生的物件
+            foreach (GameObject o in spawnedObjList)
+            {
+                if (o)
+                {
+                    Destroy(o);
+                }
+            }
+
+            spawnedObjList = null;
         }
     }
 }

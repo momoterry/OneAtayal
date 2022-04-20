@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        print("OnDestroy!!");
+        //print("OnDestroy!!");
         //Input System Unbound
         //theInput.TheHero.Attack.performed -= ctx => OnAttack();
         //theInput.TheHero.Shoot.performed -= ctx => OnShoot();
