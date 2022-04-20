@@ -22,7 +22,7 @@ public class DollCollect : MonoBehaviour
 
     void OnTG(GameObject whoTG)
     {
-        print("DollCollect OnTG");
+        //print("DollCollect OnTG");
 
 
         //回應 ActionTrigger 是否成功

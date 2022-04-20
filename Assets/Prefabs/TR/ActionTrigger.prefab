@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4275894634175769932}
   - component: {fileID: 1886899707721466646}
   - component: {fileID: 290467011334818941}
+  - component: {fileID: 4421869913707134532}
   m_Layer: 0
   m_Name: ActionTrigger
   m_TagString: Untagged
@@ -61,6 +62,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.25
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4421869913707134532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175016898089978893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bias: 0
+  onlyAdjustOnStart: 0
 --- !u!1 &3683833485145979750
 GameObject:
   m_ObjectHideFlags: 0

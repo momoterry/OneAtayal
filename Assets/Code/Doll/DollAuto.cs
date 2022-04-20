@@ -16,6 +16,8 @@ public class DollAuto : Doll
     public float attackCD = 0.5f;
     public float RunSpeed = 10.0f;
 
+    public GameObject deathFX;
+
     //== 以上其實是 public
     protected float timeToAttack = 0;
 
@@ -325,6 +327,20 @@ public class DollAuto : Doll
         }
     }
 
+
+    protected override void OnDeath()
+    {
+        if (deathFX)
+        {
+#if XZ_PLAN
+            Quaternion rm = Quaternion.Euler(90, 0, 0);
+#else
+            Quaternion rm = Quaternion.identity;
+#endif
+            Instantiate(deathFX, transform.position, rm, null);
+        }
+        base.OnDeath();
+    }
 
 
     public override void OnPlayerAttack(Vector3 target)
