@@ -11,6 +11,7 @@ public class BattleSystem : MonoBehaviour
     public GameObject clearGate;
     public MapGeneratorBase theMG;
     public Transform initPlayerPos;
+    public float initPlayerDirAngle = 0;
     public GameObject playerRef;
 
     private GameObject thePlayer;   //TODO Player Character Spawn 較晚，但 PC 應常駐
@@ -253,10 +254,11 @@ public class BattleSystem : MonoBehaviour
             thePlayer = Instantiate(playerRef, initPlayerPos.position, rm, null);
 
             thePC = thePlayer.GetComponent<PlayerController>();
+            thePC.initFaceDirAngle = initPlayerDirAngle;
         }
         else
         {
-            thePC.DoTeleport(initPlayerPos.position, Vector3.back);
+            thePC.DoTeleport(initPlayerPos.position, initPlayerDirAngle);
         }
         //NavMeshAgent pAgnet = thePlayer.GetComponent<NavMeshAgent>();
         //pAgnet.Warp(initPlayerPos.position);

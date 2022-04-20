@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
     public float MP_Gen_Rate = 30.0f;
     public float MP_PerShoot = 10.0f;
 
+    public float initFaceDirAngle = 180.0f;
+
     protected NavMeshAgent myAgent;
     protected float attackWait = 0.0f;
 
@@ -120,6 +122,8 @@ public class PlayerController : MonoBehaviour
 
         myAnimator = GetComponent<Animator>();
 
+        SetupFaceDirByAngle(initFaceDirAngle);
+
         InitStatus();
 
         //Input System Bind
@@ -145,13 +149,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        //print("OnDestroy!!");
-        //Input System Unbound
-        //theInput.TheHero.Attack.performed -= ctx => OnAttack();
-        //theInput.TheHero.Shoot.performed -= ctx => OnShoot();
-        //theInput.TheHero.Action.performed -= ctx => OnActionKey();
-        //theInput.TheHero.ShootTo.performed -= ctx => OnShootTo();
-
         theInput.Disable();
     }
 
@@ -178,20 +175,27 @@ public class PlayerController : MonoBehaviour
         nextState = PC_STATE.NORMAL;
 
         //TODO: 應該放在別的地方
-#if XZ_PLAN
-        faceDir = Vector3.back;
-        faceFront = Vector3.back;
-#else
-        faceDir = Vector3.down;
-        faceFront = Vector3.down;
-#endif
-        faceFrontType = FaceFrontType.DOWN;
+//#if XZ_PLAN
+//        faceDir = Vector3.back;
+//        faceFront = Vector3.back;
+//#else
+//        faceDir = Vector3.down;
+//        faceFront = Vector3.down;
+//#endif
+//        faceFrontType = FaceFrontType.DOWN;
     }
 
-    public void DoTeleport(Vector3 position, Vector3 dir)
+    protected void SetupFaceDirByAngle(float angle)
+    {
+        //faceDir = Vector3.RotateTowards(Vector3.forward, Vector3.right, angle * Mathf.Deg2Rad, 0);
+        faceDir = Quaternion.Euler(0, angle, 0) *  Vector3.forward;
+        SetupFrontDirection();
+    }
+
+    public void DoTeleport(Vector3 position, float faceAngle)
     {
         transform.position = position;
-        SetupFrontDirection();
+        SetupFaceDirByAngle(faceAngle);
         if (myDollManager)
         {
             myDollManager.SetMasterPosition(transform.position);
@@ -390,6 +394,12 @@ public class PlayerController : MonoBehaviour
                 faceFrontType = FaceFrontType.DOWN;
             }
         }
+        if (myAnimator)
+        {
+            myAnimator.SetFloat("X", faceFront.x);
+            myAnimator.SetFloat("Y", faceFront.z);
+        }
+
 #else
         if (faceDir.y > faceDir.x)
         {
@@ -417,21 +427,28 @@ public class PlayerController : MonoBehaviour
                 faceFrontType = FaceFrontType.DOWN;
             }
         }
+
+        if (myAnimator)
+        {
+            myAnimator.SetFloat("X", faceFront.x);
+            myAnimator.SetFloat("Y", faceFront.z);
+        }
 #endif
+
     }
 
-    //private void OnGUI()
-    //{
-    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position+faceDir);
-    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "FACE");
-    //    thePoint = Camera.main.WorldToScreenPoint(transform.position + faceFront);
-    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "X");
-    //}
+//private void OnGUI()
+//{
+//    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position+faceDir);
+//    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+//    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "FACE");
+//    thePoint = Camera.main.WorldToScreenPoint(transform.position + faceFront);
+//    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+//    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "X");
+//}
 
 
-    public virtual void OnMoveToPosition(Vector3 target)
+public virtual void OnMoveToPosition(Vector3 target)
     {
         if (currState == PC_STATE.NORMAL)
         {
