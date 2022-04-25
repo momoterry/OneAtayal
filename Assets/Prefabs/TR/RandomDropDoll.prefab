@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604219278840402387}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 6}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -47,10 +47,10 @@ MonoBehaviour:
   - RandomPercent: 40
     SpawnRefs:
     - {fileID: 4032685806379418579, guid: 66e207a031b9b004b9bb464ecc633f0d, type: 3}
-    - {fileID: 4032685806379418579, guid: 66e207a031b9b004b9bb464ecc633f0d, type: 3}
   - RandomPercent: 30
     SpawnRefs:
     - {fileID: 4032685806379418579, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
   - RandomPercent: 30
     SpawnRefs:
     - {fileID: 4032685806379418579, guid: 24370a31510131746805bfc36062d4d5, type: 3}
+  deleteSpawnedObjectOnDestory: 1
