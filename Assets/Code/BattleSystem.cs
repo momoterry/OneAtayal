@@ -58,6 +58,8 @@ public class BattleSystem : MonoBehaviour
 
     public MapGeneratorBase GetMapGenerator() { return theMG; }
 
+    public int GetCurrLevel() { return currLevel; }
+
     public void AddEnemy( GameObject enemyObj)
     {
         enemyList.Add(enemyObj);
