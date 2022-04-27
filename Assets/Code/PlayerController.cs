@@ -533,6 +533,13 @@ public virtual void OnMoveToPosition(Vector3 target)
 
     protected virtual void DoMeleeTo(Vector3 target)
     {
+        //if (mp < MP_PerShoot)
+        if (mp < meleeSkillDef.manaCost)
+        {
+            print("¨S Mana §r !!!!");
+            return;
+        }
+
         Vector3 td = target - gameObject.transform.position;
 #if XZ_PLAN
         td.y = 0;
@@ -587,6 +594,8 @@ public virtual void OnMoveToPosition(Vector3 target)
 
         if (myDollManager)
             myDollManager.OnPlayerAttack(target);
+
+        mp -= meleeSkillDef.manaCost;
 
         nextState = PC_STATE.ATTACK;
         attackWait = meleeSkillDef.duration;

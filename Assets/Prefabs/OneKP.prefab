@@ -178,7 +178,7 @@ MonoBehaviour:
   meleeSkillDef:
     baseDamage: 40
     duration: 0.25
-    manaCost: 0
+    manaCost: 10
   rangeSkillDef:
     baseDamage: 80
     duration: 0.25
@@ -188,6 +188,7 @@ MonoBehaviour:
   Attack_Init: 40
   MP_Gen_Rate: 30
   MP_PerShoot: 20
+  initFaceDirAngle: 180
   DollManagerRef: {fileID: 1352149302683423010, guid: f70a7dab604e9104e84a6c7f5a5bf208, type: 3}
 --- !u!195 &6214839875520186890
 NavMeshAgent:

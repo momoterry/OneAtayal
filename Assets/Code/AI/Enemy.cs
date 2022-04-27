@@ -216,7 +216,7 @@ public class Enemy : MonoBehaviour
 
         if (foundTarget)
         {
-            print("Enemy Found Target: " + foundTarget);
+            //print("Enemy Found Target: " + foundTarget);
             SetTarget(foundTarget);
             return true;
         }
@@ -422,19 +422,27 @@ public class Enemy : MonoBehaviour
 
     protected virtual void DoOneAttack()
     {
-        DoMeleeAttack();
+        //DoMeleeAttack();
     }
 
     //早期版本, 準備淘汰
-    protected virtual void DoMeleeAttack()
+    //protected virtual void DoMeleeAttack()
+    //{
+    //    //Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, MeleeRange);
+    //    //if (attackFX)
+    //    //    Instantiate(attackFX, transform.position, Quaternion.identity, null);
+    //    //foreach( Collider2D col in cols)
+    //    //{
+    //    //    if (col.gameObject.CompareTag("Player"))
+    //    //        col.gameObject.SendMessage("OnDamage", myDamage);
+    //    //}
+    //}
+
+    private void OnGUI()
     {
-        //Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, MeleeRange);
-        //if (attackFX)
-        //    Instantiate(attackFX, transform.position, Quaternion.identity, null);
-        //foreach( Collider2D col in cols)
-        //{
-        //    if (col.gameObject.CompareTag("Player"))
-        //        col.gameObject.SendMessage("OnDamage", myDamage);
-        //}
+        Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+        thePoint.y = Camera.main.pixelHeight - thePoint.y;
+        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currState.ToString());
+
     }
 }
