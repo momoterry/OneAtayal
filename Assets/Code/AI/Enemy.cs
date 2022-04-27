@@ -438,11 +438,11 @@ public class Enemy : MonoBehaviour
     //    //}
     //}
 
-    private void OnGUI()
-    {
-        Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
-        thePoint.y = Camera.main.pixelHeight - thePoint.y;
-        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currState.ToString());
+    //private void OnGUI()
+    //{
+    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currState.ToString());
 
-    }
+    //}
 }
