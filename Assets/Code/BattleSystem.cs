@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class BattleSystem : MonoBehaviour
 {
     public Battle_HUD theBattleHUD;
+    public string backScene = "StartMenu";
 
     public GameObject clearGate;
     public MapGeneratorBase theMG;
@@ -222,6 +223,11 @@ public class BattleSystem : MonoBehaviour
     public void OnGotoScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void OnBackPrevScene()
+    {
+        SceneManager.LoadScene(backScene);
     }
 
   

@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 6818834428796963504}
   - component: {fileID: 2238306554897780948}
   m_Layer: 5
-  m_Name: Button_BackToStart
+  m_Name: Button_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -524,7 +524,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1596471963}
         m_TargetAssemblyTypeName: Battle_HUD, Assembly-CSharp
-        m_MethodName: OnFailBackToStartMenu
+        m_MethodName: OnBackToScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1894,7 +1894,7 @@ MonoBehaviour:
   mpText: {fileID: 2153889257777392299}
   levelText: {fileID: 7394230414908343912}
   failMenu: {fileID: 502031786445094039}
-  backScene: 
+  backScene: StartMenu
   PotionNumText: {fileID: 3301356986055268459}
   PotionMaxText: {fileID: 4072728330922270175}
   AttackText: {fileID: 6939669803972211492}

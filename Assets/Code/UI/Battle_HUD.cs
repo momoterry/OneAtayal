@@ -18,7 +18,6 @@ public class Battle_HUD : MonoBehaviour
 
     //失敗畫面
     public GameObject failMenu;
-    public string backScene;
 
     //血瓶
     public Text PotionNumText;
@@ -83,8 +82,7 @@ public class Battle_HUD : MonoBehaviour
     {
         print("回指定關卡");
         failMenu.SetActive(false);
-        //BattleSystem.GetInstance().OnBackToStartMenu();
-        BattleSystem.GetInstance().OnGotoScene(backScene);
+        BattleSystem.GetInstance().OnBackPrevScene();
     }
 
     public void SetPotionNum( int num, int maxNum)
