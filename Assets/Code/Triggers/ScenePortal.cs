@@ -46,6 +46,7 @@ public class ScenePortal : MonoBehaviour
 
     void DoLoadScene()
     {
-        SceneManager.LoadScene(sceneName);
+        //SceneManager.LoadScene(sceneName);
+        BattleSystem.GetInstance().OnGotoScene(sceneName);
     }
 }

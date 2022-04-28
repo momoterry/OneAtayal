@@ -219,6 +219,11 @@ public class BattleSystem : MonoBehaviour
         SceneManager.LoadScene("StartMenu");
     }
 
+    public void OnGotoScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
   
     private void ClearLevel()
     {

@@ -13838,6 +13838,7 @@ MonoBehaviour:
   clearGate: {fileID: 0}
   theMG: {fileID: 103007906}
   initPlayerPos: {fileID: 1372550211}
+  initPlayerDirAngle: 0
   playerRef: {fileID: 6214839875520186894, guid: ecdea559da892964090bcfc0da60a7ff, type: 3}
   MaxLevel: 10
   initPotion: 3
@@ -14029,6 +14030,10 @@ PrefabInstance:
     - target: {fileID: 1364739951845567551, guid: be8896d1d8d04774f9f532fff833af1e, type: 3}
       propertyPath: m_Name
       value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8244460426631099153, guid: be8896d1d8d04774f9f532fff833af1e, type: 3}
+      propertyPath: sceneName
+      value: DollForestAlpha
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be8896d1d8d04774f9f532fff833af1e, type: 3}
