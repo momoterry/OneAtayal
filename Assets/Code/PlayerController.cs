@@ -147,6 +147,18 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void SetInputActive( bool enable)
+    {
+        if (enable)
+        {
+            theInput.Enable();
+        }
+        else
+        {
+            theInput.Disable();
+        }
+    }
+
     private void OnDestroy()
     {
         theInput.Disable();

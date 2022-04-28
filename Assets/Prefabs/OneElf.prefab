@@ -47,15 +47,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0e4fed6b5303a4f80da82aa2faedd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackCD: 1
   WalkSpeed: 8
+  beenHitFX: {fileID: 0}
   bulletRef: {fileID: 235350965768676985, guid: a2e44e95974228242ac0c18a872f1102, type: 3}
-  hitFX: {fileID: 2716054445896036186, guid: a6774939bbc424b449377cae5be3c62c, type: 3}
+  shootFX_1: {fileID: 0}
+  shootFX_2: {fileID: 0}
+  meleeFX: {fileID: 0}
+  meleeHitFX: {fileID: 0}
+  meleeSkillDef:
+    baseDamage: 20
+    duration: 0.5
+    manaCost: 0
+  rangeSkillDef:
+    baseDamage: 20
+    duration: 0.5
+    manaCost: 0
   HP_MaxInit: 100
   MP_MaxInit: 100
   Attack_Init: 60
   MP_Gen_Rate: 30
   MP_PerShoot: 20
+  initFaceDirAngle: 180
+  DollManagerRef: {fileID: 0}
 --- !u!195 &6214839875520186890
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -196,12 +209,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: 8b7d871ce127d42499adf179fe0a2fcb, type: 3}
+  m_Sprite: {fileID: -8507617026933212213, guid: 8b7d871ce127d42499adf179fe0a2fcb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

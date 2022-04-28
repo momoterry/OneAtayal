@@ -336,7 +336,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8b7d871ce127d42499adf179fe0a2fcb, type: 3}
+  m_Sprite: {fileID: -8507617026933212213, guid: 8b7d871ce127d42499adf179fe0a2fcb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -421,7 +421,8 @@ MonoBehaviour:
   Attack_Init: 40
   MP_Gen_Rate: 30
   MP_PerShoot: 20
-  myDollManager: {fileID: 8032603736845237132}
+  initFaceDirAngle: 180
+  DollManagerRef: {fileID: 0}
 --- !u!195 &6214839875520186890
 NavMeshAgent:
   m_ObjectHideFlags: 0
