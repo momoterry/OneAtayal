@@ -27,7 +27,12 @@ public class EnemyOne : Enemy
         print("EnemyOne DoOneAttack!!");
         if (skillList.Length > 0)
         {
-            DoOneSkill(skillList[0]);
+            DoOneSkill(skillList[currSkillIndex]);
+            currSkillIndex++;
+            if (currSkillIndex >= skillList.Length)
+            {
+                currSkillIndex = 0;
+            }
         }
     }
 
