@@ -13,17 +13,17 @@ public class Enemy : MonoBehaviour
     public GameObject debris;
 
     public float SpawnWaitTime = 0.1f;    
-    public float ChaseRangeIn = 4.0f;
-    public float ChaseRangeOut = 7.0f;
+    public float ChaseRangeIn = 10.0f;
+    public float ChaseRangeOut = 12.0f;
     public float AttackRangeIn = 1.0f;
     public float AttackRangeOut = 1.2f;
-    public float MeleeRange = 1.5f;
+    public float MeleeRange = 1.5f;     //TODO 不再需要
     public float AttackWait = 0.2f;
     public float AttackCD = 1.0f;
 
     public float Attack = 20.0f;
 
-    protected Animator myAnimator;
+    public Animator myAnimator;         //可以指直接外部指定
     protected NavMeshAgent myAgent;
     protected float hp;
     protected GameObject targetObj;
@@ -59,7 +59,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
-        myAnimator = GetComponent<Animator>();
+        if (!myAnimator)
+            myAnimator = GetComponent<Animator>();
         myAgent = GetComponent<NavMeshAgent>();
         if (myAgent)
         {
