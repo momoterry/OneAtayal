@@ -10,7 +10,7 @@ public class ActionTG : MonoBehaviour
 
     public bool deleteAfterAction = false;
 
-    private GameObject whoActiveMe = null;
+    private PlayerController whoActiveMe = null;
 
 
     // Start is called before the first frame update
@@ -56,31 +56,41 @@ public class ActionTG : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             //print("I got picked !!");
-            whoActiveMe = col.gameObject;
-            whoActiveMe.SendMessage("OnRegisterActionObject", gameObject);
-            if (hint)
+            whoActiveMe = col.gameObject.GetComponent<PlayerController>();
+            //whoActiveMe.SendMessage("OnRegisterActionObject", gameObject);
+            if (whoActiveMe && hint && whoActiveMe.OnRegisterActionObject(gameObject))
+            {
                 hint.gameObject.SetActive(true);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider col)
     {
-         if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player"))
         {
             //print("I got picked !!");
-            whoActiveMe = col.gameObject;
-            whoActiveMe.SendMessage("OnRegisterActionObject", gameObject);
-            if (hint)
+            whoActiveMe = col.gameObject.GetComponent<PlayerController>();
+            //whoActiveMe.SendMessage("OnRegisterActionObject", gameObject);
+            if (whoActiveMe && hint && whoActiveMe.OnRegisterActionObject(gameObject))
+            {
                 hint.gameObject.SetActive(true);
-        }       
+            }
+            //TODO: 如果無法跟玩家註冊，需要在 Update 時 Check 是否
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject == whoActiveMe)
+        if (col.gameObject == whoActiveMe.gameObject)
         {
             //print("You leave me........ " + whoActiveMe);
-            whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
+            //whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
+            if (!whoActiveMe.OnUnregisterActionObject(gameObject))
+            {
+                print("ERROR: ActionTG OnTriggerExit Fail........");
+            }
             whoActiveMe = null;
             if (hint)
                 hint.gameObject.SetActive(false);
@@ -92,7 +102,11 @@ public class ActionTG : MonoBehaviour
         if (col.gameObject == whoActiveMe)
         {
             //print("You leave me........ " + whoActiveMe);
-            whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
+            //whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
+            if (!whoActiveMe.OnUnregisterActionObject(gameObject))
+            {
+                print("ERROR: ActionTG OnTriggerExit Fail........");
+            }
             whoActiveMe = null;
             if (hint)
                 hint.gameObject.SetActive(false);
@@ -103,7 +117,8 @@ public class ActionTG : MonoBehaviour
     {
         if (whoActiveMe)
         {
-            whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
+            //whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
+            whoActiveMe.OnUnregisterActionObject(gameObject);
         }
     }
 

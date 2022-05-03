@@ -47,6 +47,8 @@ public class BulletMultiShoot : bullet_base
             }
             currAngle += angleStep;
         }
+
+        Destroy(gameObject);
     }
 
     // Update is called once per frame

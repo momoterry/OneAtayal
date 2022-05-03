@@ -477,20 +477,24 @@ public virtual void OnMoveToPosition(Vector3 target)
         }
     }
 
-    public void OnRegisterActionObject( GameObject obj )
+    public bool OnRegisterActionObject( GameObject obj )
     {
         if (actionObject == null)
         {
             actionObject = obj;
+            return true;
         }
+        return false;
     }
 
-    public void OnUnregisterActionObject (GameObject obj )
+    public bool OnUnregisterActionObject (GameObject obj )
     {
         if (actionObject == obj)
         {
             actionObject = null;
+            return true;
         }
+        return false;
     }
 
     // =================== §ðÀ»¬ÛÃö ===================
