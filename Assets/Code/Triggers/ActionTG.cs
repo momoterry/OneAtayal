@@ -10,8 +10,10 @@ public class ActionTG : MonoBehaviour
 
     public bool deleteAfterAction = false;
 
-    private PlayerController whoActiveMe = null;
+    protected PlayerController playerToActive = null;
+    protected PlayerController pendingPlayer = null;
 
+    protected float tryRegisterTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -22,20 +24,33 @@ public class ActionTG : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (pendingPlayer)
+        {
+            tryRegisterTime += Time.deltaTime;
+            if (tryRegisterTime > 0.1f)
+            {
+                if (pendingPlayer.OnRegisterActionObject(gameObject))
+                {
+                    playerToActive = pendingPlayer;
+                    pendingPlayer = null;
+                    if (hint)
+                    {
+                        hint.gameObject.SetActive(true);
+                    }
+                }
 
+                tryRegisterTime = 0;
+            }
+        }
     }
 
     void OnAction()
     {
-        if (whoActiveMe)
+        if (playerToActive)
         {
             if (TriggerTarget)
             {
                 TriggerTarget.SendMessage("OnTG", gameObject);
-                //if (deleteAfterAction)
-                //{
-                //    Destroy(gameObject);
-                //}
             }
         }
     }
@@ -44,6 +59,16 @@ public class ActionTG : MonoBehaviour
     {
         if (result)
         {
+            if (hint) //TODO: 是否加一個參數來關掉提示?
+            {
+                hint.gameObject.SetActive(false);
+            }
+            if (playerToActive)
+            {
+                playerToActive.OnUnregisterActionObject(gameObject);
+                playerToActive = null;
+            }
+
             if (deleteAfterAction)
             {
                 Destroy(gameObject);
@@ -51,74 +76,83 @@ public class ActionTG : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    void OnGameObjectIn(GameObject obj)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (obj.CompareTag("Player"))
         {
-            //print("I got picked !!");
-            whoActiveMe = col.gameObject.GetComponent<PlayerController>();
-            //whoActiveMe.SendMessage("OnRegisterActionObject", gameObject);
-            if (whoActiveMe && hint && whoActiveMe.OnRegisterActionObject(gameObject))
+
+            PlayerController pc = obj.GetComponent<PlayerController>();
+            if (pc)
             {
-                hint.gameObject.SetActive(true);
+                //TODO: 往後要考慮如果有多個 PlayerController 的情況 ( if playerToActive != null )
+
+                if (pc.OnRegisterActionObject(gameObject))
+                {
+                    playerToActive = pc;
+                    if (hint)
+                    {
+                        hint.gameObject.SetActive(true);
+                    }
+                }
+                else
+                {
+                    pendingPlayer = pc;
+                }
             }
         }
+    }
+
+    void OnGameObjectOut(GameObject obj)
+    {
+        PlayerController pc = obj.GetComponent<PlayerController>();
+        if (pc)
+        {
+            if (pc == playerToActive)
+            {
+                if (!playerToActive.OnUnregisterActionObject(gameObject))
+                {
+                    print("ERROR: ActionTG OnGameObjectOut Fail........OnUnregisterActionObject Fail ");
+                }
+                if (hint)
+                    hint.gameObject.SetActive(false);
+
+                playerToActive = null;
+            }
+            else
+            {
+                if (pc == pendingPlayer)
+                {
+                    pendingPlayer = null;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        OnGameObjectIn(col.gameObject);
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            //print("I got picked !!");
-            whoActiveMe = col.gameObject.GetComponent<PlayerController>();
-            //whoActiveMe.SendMessage("OnRegisterActionObject", gameObject);
-            if (whoActiveMe && hint && whoActiveMe.OnRegisterActionObject(gameObject))
-            {
-                hint.gameObject.SetActive(true);
-            }
-            //TODO: 如果無法跟玩家註冊，需要在 Update 時 Check 是否
-        }
-
+        OnGameObjectIn(col.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject == whoActiveMe.gameObject)
-        {
-            //print("You leave me........ " + whoActiveMe);
-            //whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
-            if (!whoActiveMe.OnUnregisterActionObject(gameObject))
-            {
-                print("ERROR: ActionTG OnTriggerExit Fail........");
-            }
-            whoActiveMe = null;
-            if (hint)
-                hint.gameObject.SetActive(false);
-        }
+        OnGameObjectOut(col.gameObject);
     }
 
     private void OnTriggerExit(Collider col)
     {
-        if (col.gameObject == whoActiveMe)
-        {
-            //print("You leave me........ " + whoActiveMe);
-            //whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
-            if (!whoActiveMe.OnUnregisterActionObject(gameObject))
-            {
-                print("ERROR: ActionTG OnTriggerExit Fail........");
-            }
-            whoActiveMe = null;
-            if (hint)
-                hint.gameObject.SetActive(false);
-        }
+        OnGameObjectOut(col.gameObject);
     }
 
     private void OnDestroy()
     {
-        if (whoActiveMe)
+        if (playerToActive)
         {
-            //whoActiveMe.SendMessage("OnUnregisterActionObject", gameObject);
-            whoActiveMe.OnUnregisterActionObject(gameObject);
+            playerToActive.OnUnregisterActionObject(gameObject);
         }
     }
 
