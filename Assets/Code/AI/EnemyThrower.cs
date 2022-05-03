@@ -19,11 +19,17 @@ public class EnemyThrower : Enemy
 #endif
             if (newObj)
             {
-                DamageByAnimation d = newObj.GetComponent<DamageByAnimation>();
-                if (d)
+                //DamageByAnimation d = newObj.GetComponent<DamageByAnimation>();
+                //if (d)
+                //{
+                //    d.SetGroup(DAMAGE_GROUP.ENEMY);
+                //    d.phyDamage = Attack;
+                //}
+                bullet_base newBullet = newObj.GetComponent<bullet_base>();
+                if (newBullet)
                 {
-                    d.SetGroup(DAMAGE_GROUP.ENEMY);
-                    d.phyDamage = Attack;
+
+                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, Attack, faceDir);
                 }
             }
         }

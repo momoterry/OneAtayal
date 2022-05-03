@@ -161,25 +161,17 @@ MonoBehaviour:
   SpawnWaitTime: 0.1
   ChaseRangeIn: 10
   ChaseRangeOut: 12
-  AttackRangeIn: 4
-  AttackRangeOut: 5
+  AttackRangeIn: 5
+  AttackRangeOut: 6
   MeleeRange: 1.5
   AttackWait: 0.5
   AttackCD: 2
   Attack: 30
   myAnimator: {fileID: 4016448738983798548}
   skillList:
-  - bulletRef: {fileID: 4641581918583914209, guid: c9672b5b8d05bcd4786677c9e32122d7, type: 3}
+  - bulletRef: {fileID: 2465002660163240797, guid: 1c3b8040613272c438dacc99c424b7ad, type: 3}
     bulletInitDis: 0
-    damageRatio: 1
-    animString: Attack
-  - bulletRef: {fileID: 4641581918583914209, guid: c9672b5b8d05bcd4786677c9e32122d7, type: 3}
-    bulletInitDis: 0
-    damageRatio: 1
-    animString: Attack
-  - bulletRef: {fileID: 4641581918583914209, guid: 1ef26239157c88941879412745b25ec2, type: 3}
-    bulletInitDis: 0
-    damageRatio: 0.75
+    damageRatio: 0.2
     animString: Attack
 --- !u!114 &4274056214866837559
 MonoBehaviour:

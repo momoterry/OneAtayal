@@ -2,42 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageByAnimation : MonoBehaviour
+public class DamageByAnimation : bullet_base
 {
-    public float phyDamage = 10.0f; //方便初期測試用
+    //public float phyDamage = 10.0f; //方便初期測試用
     //TODO: 支援圓形和 Box
     public Vector2 BoxSize;
     public GameObject hitFX;
 
-    private DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
-    private Damage myDamage;
+    //private DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
+    protected Damage myDamage;
 
-    //Public Functions
-    public void SetGroup(DAMAGE_GROUP g)
-    {
-        group = g;
-    }
+    ////Public Functions
+    //public void SetGroup(DAMAGE_GROUP g)
+    //{
+    //    group = g;
+    //}
 
-    public void SetDamage(Damage d)
-    {
-        myDamage = d;
-        phyDamage = d.damage;
-    }
+    //public void SetDamage(Damage d)
+    //{
+    //    myDamage = d;
+    //    phyDamage = d.damage;
+    //}
 
     // Start is called before the first frame update
-    void Start()
-    {
-        myDamage.damage = phyDamage;
-    }
+    //void Start()
+    //{
+    //    myDamage.damage = phyDamage;
+    //}
 
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
         
-    }
+    //}
 
     void OnDoDamage()
     {
+        myDamage.damage = phyDamage;
 #if XZ_PLAN
         Collider[] cols = Physics.OverlapBox(transform.position, new Vector3(BoxSize.x*0.5f, 1.0f, BoxSize.y*0.5f));
         foreach (Collider col in cols)

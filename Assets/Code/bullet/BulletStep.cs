@@ -49,11 +49,17 @@ public class BulletStep : bullet_base
             GameObject newObj = Instantiate(Step_Object, objPoint, rm, null);
             if (newObj)
             {
-                DamageByAnimation d = newObj.GetComponent<DamageByAnimation>();
-                if (d)
+                //DamageByAnimation d = newObj.GetComponent<DamageByAnimation>();
+                //if (d)
+                //{
+                //    d.SetGroup(group);
+                //    d.phyDamage = phyDamage;
+                //}
+                bullet_base newBullet = newObj.GetComponent<bullet_base>();
+                if (newBullet)
                 {
-                    d.SetGroup(group);
-                    d.phyDamage = phyDamage;
+
+                    newBullet.InitValue(group, phyDamage, targetDir);
                 }
             }
         }
