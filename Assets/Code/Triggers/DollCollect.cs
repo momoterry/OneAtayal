@@ -27,7 +27,7 @@ public class DollCollect : MonoBehaviour
 
         //回應 ActionTrigger 是否成功
         bool actionResult = theDoll.TryJoinThePlayer();
-        whoTG.SendMessage("OnActionResult", actionResult);
+        whoTG.SendMessage("OnActionResult", actionResult, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
         if (actionResult)
         {
             //脫離

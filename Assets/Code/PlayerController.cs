@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
     protected float Attack = 50.0f;
 
     //Input
-    MyInputActions theInput;
+    protected MyInputActions theInput;
 
     //移動和面向
     protected Vector3 faceDir;
@@ -117,8 +117,11 @@ public class PlayerController : MonoBehaviour
     {
         //print("我終於開始寫 Code !!");
         myAgent = GetComponent<NavMeshAgent>();
-        myAgent.updateRotation = false;
-        myAgent.updateUpAxis = false;
+        if (myAgent) 
+        { 
+            myAgent.updateRotation = false;
+            myAgent.updateUpAxis = false;
+        }
 
         myAnimator = GetComponent<Animator>();
 
