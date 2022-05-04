@@ -396,7 +396,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void DoDeath()
+    protected void DoDeath()
     {
         BattleSystem.GetInstance().OnEnemyKilled(gameObject);
         DropManager.GetInstance().OnTryDropByEnemyKilled(this);

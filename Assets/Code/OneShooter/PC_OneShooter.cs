@@ -32,4 +32,21 @@ public class PC_OneShooter : PlayerController
             transform.position = newPos;
         }
     }
+
+    protected override void OnShootTo()
+    {
+        //print("PC_OneShooter::OnShootTo");
+    }
+
+    protected override void OnShoot()
+    {
+        //print("PC_OneShooter::OnShoot");
+    }
+
+    protected override void OnAttack()
+    {
+        //print("PC_OneShooter::OnAttack");
+    }
+
+
 }

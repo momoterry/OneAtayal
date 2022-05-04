@@ -501,7 +501,7 @@ public virtual void OnMoveToPosition(Vector3 target)
     }
 
     // =================== 攻擊相關 ===================
-    void OnAttack()
+    protected virtual void OnAttack()
     {
         //OnAttackToward(transform.position + faceDir);
         if (currState == PC_STATE.NORMAL)
@@ -510,7 +510,7 @@ public virtual void OnMoveToPosition(Vector3 target)
         }
     }
 
-    void OnShoot()
+    protected virtual void OnShoot()
     {
         //TODO: 用滑鼠或右類比決定方向
         Vector3 target = faceDir + gameObject.transform.position;
@@ -522,7 +522,7 @@ public virtual void OnMoveToPosition(Vector3 target)
 
     }
 
-    void OnShootTo()
+    protected virtual void OnShootTo()
     {
         //print("OnShootTo");
         Vector2 mousePos = theInput.TheHero.MousePos.ReadValue<Vector2>();
