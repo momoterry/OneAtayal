@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Doll_Wing : Doll
 {
-    protected float bullet_pos = 0.5f;
-    protected float rapied_shoot_period = 0.125f;
+    public float bullet_pos = 0.5f;
+    public float rapied_shoot_period = 0.125f;
 
     protected float timeToShoot = 0;
 
