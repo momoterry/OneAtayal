@@ -25,4 +25,27 @@ public class EnemyFlyingRock : Enemy
         }
 
     }
+
+
+    private void OnTriggerEnter(Collider col)
+    {
+        bool hit = false;
+        if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) )
+        {
+            //print("Trigger:  Hit Player or Doll !!");
+            hit = true;
+            col.gameObject.SendMessage("OnDamage", myDamage);
+        }
+        else if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            //print("Trigger:  HitWall !!");
+            hit = true;
+        }
+
+
+        if (hit)
+        {
+            DoDeath();
+        }
+    }
 }
