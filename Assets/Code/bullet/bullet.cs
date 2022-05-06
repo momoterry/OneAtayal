@@ -131,6 +131,7 @@ public class bullet : bullet_base
     {
         //print("OnTriggerEnter : " + col);
         bool hit = false;
+        bool destroy = false;
         if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
         {
             //print("Trigger:  Hit Enemy !!");
@@ -148,6 +149,10 @@ public class bullet : bullet_base
             //print("Trigger:  HitWall !!");
             hit = true;
         }
+        else if (col.gameObject.layer == LayerMask.NameToLayer("DeadZone"))
+        {
+            destroy = true;
+        }
 
 
         if (hit)
@@ -159,6 +164,12 @@ public class bullet : bullet_base
 #else
             Instantiate(hitFX, hitPos, Quaternion.identity, null);
 #endif
+            //Destroy(gameObject);
+            destroy = true;
+        }
+
+        if (destroy)
+        {
             Destroy(gameObject);
         }
     }
