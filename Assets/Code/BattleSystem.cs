@@ -201,6 +201,12 @@ public class BattleSystem : MonoBehaviour
         ResetLevel(currLevel+1);
     }
 
+    public void OnAddLevelDifficulty( int addLevel = 1)
+    {
+        currLevel += 1;
+        SetUpHud();
+    }
+
     //整個重開，角色也回到等級一狀態，從 Fail UI 呼叫
     public void OnLevelRestart()
     {
@@ -243,6 +249,11 @@ public class BattleSystem : MonoBehaviour
         DropItem.ClearAllDropItem();
     }
 
+    private void SetUpHud()
+    {
+        string levelText = "LEVEL : " + currLevel;
+        theBattleHUD.SetLevelText(levelText);
+    }
 
     private void SetUpLevel( int level = 1)
     {
@@ -276,8 +287,9 @@ public class BattleSystem : MonoBehaviour
         //NavMeshAgent pAgnet = thePlayer.GetComponent<NavMeshAgent>();
         //pAgnet.Warp(initPlayerPos.position);
 
-        string levelText = "LEVEL : " + currLevel;
-        theBattleHUD.SetLevelText(levelText);
+        //string levelText = "LEVEL : " + currLevel;
+        //theBattleHUD.SetLevelText(levelText);
+        SetUpHud();
     }
 
     public void ResetLevel( int level = 1 )

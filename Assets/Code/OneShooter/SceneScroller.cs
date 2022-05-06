@@ -12,6 +12,7 @@ public class SceneScroller : MonoBehaviour
 
     public GameObject childGameplayRef;
     public bool isInitGameplay = false;
+    public bool addBattleDifficultyWhenEnd = false;
 
     protected GameObject childGameplay = null;
 
@@ -44,6 +45,10 @@ public class SceneScroller : MonoBehaviour
 
     void ResetGameplay()
     {
+        if (addBattleDifficultyWhenEnd)
+        {
+            BattleSystem.GetInstance().OnAddLevelDifficulty();
+        }
         if (childGameplay)
         {
             Destroy(childGameplay);
