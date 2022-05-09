@@ -61,6 +61,8 @@ public class BattleSystem : MonoBehaviour
 
     public int GetCurrLevel() { return currLevel; }
 
+    public bool IsDuringBattle() { return currState == BATTLE_GAME_STATE.BATTLE; }
+
     public void AddEnemy( GameObject enemyObj)
     {
         enemyList.Add(enemyObj);
@@ -346,5 +348,10 @@ public class BattleSystem : MonoBehaviour
         }
 
         return result;
+    }
+
+    private void OnGUI()
+    {
+        GUI.TextArea(new Rect(new Vector2(10.0f, 10.0f), new Vector2(100.0f, 40.0f)), currState.ToString());
     }
 }

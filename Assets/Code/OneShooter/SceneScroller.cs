@@ -20,7 +20,7 @@ public class SceneScroller : MonoBehaviour
     {
         if (isInitGameplay)
         {
-            ResetGameplay();
+            SetupGameplay();
         }
     }
 
@@ -39,20 +39,28 @@ public class SceneScroller : MonoBehaviour
 
         if (isReset)
         {
-            ResetGameplay();
+            ClearGameplay();
+            if (BattleSystem.GetInstance().IsDuringBattle())
+                SetupGameplay();
         }
     }
 
-    void ResetGameplay()
+
+    void ClearGameplay()
+    {
+        if (childGameplay)
+        {
+            Destroy(childGameplay);
+        }
+    }
+
+    void SetupGameplay()
     {
         if (addBattleDifficultyWhenEnd)
         {
             BattleSystem.GetInstance().OnAddLevelDifficulty();
         }
-        if (childGameplay)
-        {
-            Destroy(childGameplay);
-        }
+
         if (childGameplayRef)
         {
             childGameplay = Instantiate(childGameplayRef, transform.position, Quaternion.Euler(90, 0, 0), transform);

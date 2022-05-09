@@ -139,4 +139,14 @@ public class DollManager : MonoBehaviour
         }
     }
 
+    public void OnPlayerDead()
+    {
+        foreach (Doll d in dolls)
+        {
+            if (d)
+            {
+                d.OnPlayerDead();
+            }
+        }
+    }
 }

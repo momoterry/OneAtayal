@@ -26,6 +26,7 @@ public class Doll : MonoBehaviour
         NONE,
         WAIT,
         BATTLE,
+        SILENCE,
     }
     protected DOLL_STATE currState = DOLL_STATE.NONE;
     protected DOLL_STATE nextState = DOLL_STATE.NONE;
@@ -144,6 +145,11 @@ public class Doll : MonoBehaviour
                 b.InitValue(DAMAGE_GROUP.PLAYER, AttackInit, td);
             }
         }
+    }
+
+    virtual public void OnPlayerDead()
+    {
+        nextState = DOLL_STATE.SILENCE;
     }
 
     // ===================== 被收集相關行為 ===================== 

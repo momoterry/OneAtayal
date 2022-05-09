@@ -263,7 +263,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //¥Î Y ­È³]©wZ
-        if (myHPHandler && currState != PC_STATE.NONE && currState != PC_STATE.DEAD)
+        if (myHPHandler && currState != PC_STATE.NONE)
         {
             myHPHandler.SetHP(hp, HP_Max);
             myHPHandler.SetMP(mp, MP_Max);
@@ -767,6 +767,8 @@ public virtual void OnMoveToPosition(Vector3 target)
         {
             hp = 0;
             nextState = PC_STATE.DEAD;
+            if (myDollManager)
+                myDollManager.OnPlayerDead();
             BattleSystem.GetInstance().OnPlayerKilled();
         }
     }
