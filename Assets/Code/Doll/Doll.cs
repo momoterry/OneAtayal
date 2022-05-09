@@ -149,7 +149,8 @@ public class Doll : MonoBehaviour
 
     virtual public void OnPlayerDead()
     {
-        nextState = DOLL_STATE.SILENCE;
+        //nextState = DOLL_STATE.SILENCE;
+        OnDeath();
     }
 
     // ===================== 被收集相關行為 ===================== 

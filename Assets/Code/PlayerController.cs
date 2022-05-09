@@ -751,6 +751,15 @@ public virtual void OnMoveToPosition(Vector3 target)
     }
 
 
+    virtual protected void DoDeath()
+    {
+        hp = 0;
+        nextState = PC_STATE.DEAD;
+        if (myDollManager)
+            myDollManager.OnPlayerDead();
+        BattleSystem.GetInstance().OnPlayerKilled();
+    }
+
 
     void OnDamage(Damage theDamage)
     {
@@ -765,11 +774,12 @@ public virtual void OnMoveToPosition(Vector3 target)
         hp -= theDamage.damage;
         if (hp<=0)
         {
-            hp = 0;
-            nextState = PC_STATE.DEAD;
-            if (myDollManager)
-                myDollManager.OnPlayerDead();
-            BattleSystem.GetInstance().OnPlayerKilled();
+            //hp = 0;
+            //nextState = PC_STATE.DEAD;
+            //if (myDollManager)
+            //    myDollManager.OnPlayerDead();
+            //BattleSystem.GetInstance().OnPlayerKilled();
+            DoDeath();
         }
     }
 

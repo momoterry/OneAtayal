@@ -9,6 +9,7 @@ public class Doll_Wing : Doll
 
     protected float timeToShoot = 0;
 
+
     protected override void UpdateBattle()
     {
         gameObject.transform.position = mySlot.position;

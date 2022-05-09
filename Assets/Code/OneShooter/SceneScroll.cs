@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneScroller : MonoBehaviour
+public class SceneScroll : MonoBehaviour
 {
     // Start is called before the first frame update
     public float startPos = 40.0f;
@@ -10,8 +10,12 @@ public class SceneScroller : MonoBehaviour
 
     public float scrollSpeed = 8.0f;
 
+
+
     public GameObject childGameplayRef;
     public bool isInitGameplay = false;
+
+    //TODO: ²¾µ¹ ScrollController
     public bool addBattleDifficultyWhenEnd = false;
 
     protected GameObject childGameplay = null;
@@ -25,7 +29,7 @@ public class SceneScroller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void UpdateOld()
     {
         Vector3 thePos = transform.position;
         thePos.z -= Time.deltaTime * scrollSpeed;
@@ -36,17 +40,24 @@ public class SceneScroller : MonoBehaviour
             isReset = true;
         }
         transform.position = thePos;
+        print(gameObject.name + " : " + thePos);
 
         if (isReset)
         {
             ClearGameplay();
             if (BattleSystem.GetInstance().IsDuringBattle())
+            {
+                if (addBattleDifficultyWhenEnd)
+                {
+                    BattleSystem.GetInstance().OnAddLevelDifficulty();
+                }
                 SetupGameplay();
+            }
         }
     }
 
 
-    void ClearGameplay()
+    public void ClearGameplay()
     {
         if (childGameplay)
         {
@@ -54,13 +65,8 @@ public class SceneScroller : MonoBehaviour
         }
     }
 
-    void SetupGameplay()
+    public void SetupGameplay()
     {
-        if (addBattleDifficultyWhenEnd)
-        {
-            BattleSystem.GetInstance().OnAddLevelDifficulty();
-        }
-
         if (childGameplayRef)
         {
             childGameplay = Instantiate(childGameplayRef, transform.position, Quaternion.Euler(90, 0, 0), transform);

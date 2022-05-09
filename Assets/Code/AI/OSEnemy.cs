@@ -27,7 +27,7 @@ public class OSEnemy : MonoBehaviour
     protected Hp_BarHandler myHPHandler;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         hp = MaxHP;
         myHPHandler = GetComponent<Hp_BarHandler>();

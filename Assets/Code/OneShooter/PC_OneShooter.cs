@@ -48,5 +48,16 @@ public class PC_OneShooter : PlayerController
         //print("PC_OneShooter::OnAttack");
     }
 
+    protected override void DoDeath()
+    {
+        base.DoDeath();
+
+        //¼É¤Oªk
+        Doll[] dolls = gameObject.GetComponentsInChildren<Doll>();
+        foreach (Doll d in dolls)
+        {
+            d.OnPlayerDead();
+        }
+    }
 
 }

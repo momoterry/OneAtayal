@@ -27,6 +27,18 @@ public class OSE_Sequence : OSEnemy
     protected int currSPIndex = 0;
     protected float coolDown = 0;
 
+    protected override void Start()
+    {
+        base.Start();
+
+        BattleSystem.GetInstance().AddEnemy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        BattleSystem.GetInstance().OnEnemyKilled(gameObject);
+    }
+
     protected override void StartBattle()
     {
         base.StartBattle();
