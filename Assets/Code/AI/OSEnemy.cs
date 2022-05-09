@@ -8,23 +8,79 @@ public class OSEnemy : MonoBehaviour
     public GameObject deadFX;
     public float Attack = 20.0f;
 
+    public float SpawnWaitTime = 0.1f;
+    public float SpawnWaitFlyingDistance = 0.0f;
+
+    protected Vector3 flyingStartPos = new Vector3();
+
+    protected enum PHASE
+    {
+        NONE,
+        WAIT,
+        BATTLE,
+    }
+    protected PHASE currPhase = PHASE.NONE;
+    protected PHASE nextPhase = PHASE.NONE;
+    protected float phaseTime = 0;
+
     protected float hp;
     protected Hp_BarHandler myHPHandler;
 
-    public float SpawnWaitTime = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
         hp = MaxHP;
         myHPHandler = GetComponent<Hp_BarHandler>();
+
+        nextPhase = PHASE.WAIT;
+    }
+
+    virtual protected void UpdateBattle()
+    {
+        myHPHandler.SetHP(hp, MaxHP);
+    }
+
+    virtual protected void StartBattle() 
+    { 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (myHPHandler && currState != AI_STATE.SPAWN_WAIT && currState != AI_STATE.NONE)
+        if (nextPhase != currPhase)
         {
-            myHPHandler.SetHP(hp, MaxHP);
+            switch (nextPhase)
+            {
+                case PHASE.WAIT:
+                    flyingStartPos = transform.root.position;
+                    break;
+                case PHASE.BATTLE:
+                    StartBattle();
+                    break;
+            }
+            phaseTime = 0;
+            currPhase = nextPhase;
+        }
+        else
+        {
+            switch (currPhase)
+            {
+                case PHASE.WAIT:
+                    phaseTime += Time.deltaTime;
+                    float ratio = phaseTime / SpawnWaitTime;
+                    if (phaseTime >= SpawnWaitTime)
+                    {
+                        ratio = 1.0f;
+                        nextPhase = PHASE.BATTLE;
+                    }
+                    Vector3 flyVec = ratio * SpawnWaitFlyingDistance * Vector3.back;
+                    transform.root.position = flyingStartPos + flyVec;
+                    break;
+                case PHASE.BATTLE:
+                    UpdateBattle();
+                    break;
+
+            }
         }
     }
 

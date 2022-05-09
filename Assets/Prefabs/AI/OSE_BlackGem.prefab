@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6672001285631978401}
-  - component: {fileID: 1870076168804438084}
+  - component: {fileID: 3502982185089584384}
   - component: {fileID: 8762605949752483474}
   - component: {fileID: 4225663539297503993}
   - component: {fileID: 6202191610867345888}
@@ -37,7 +37,7 @@ Transform:
   m_Father: {fileID: 2264226125545639902}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1870076168804438084
+--- !u!114 &3502982185089584384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,13 +46,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 2378747198845678504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1dd65b1ec4a9c247ac35d9ce505d4aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 428cf8108ae9b5348bb706a0a2bd1320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHP: 2000
+  MaxHP: 1500
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
   Attack: 20
-  SpawnWaitTime: 0.1
+  SpawnWaitTime: 1
+  SpawnWaitFlyingDistance: 8
+  skillList:
+  - bulletRef: {fileID: 4799380860907763697, guid: f9006050047aac2498ba60b7a551ca65, type: 3}
+    bulletInitDis: 0.25
+    damageRatio: 1
+    angleShift: 30
+  - bulletRef: {fileID: 4799380860907763697, guid: f9006050047aac2498ba60b7a551ca65, type: 3}
+    bulletInitDis: 0.25
+    damageRatio: 1
+    angleShift: 0
+  - bulletRef: {fileID: 4799380860907763697, guid: f9006050047aac2498ba60b7a551ca65, type: 3}
+    bulletInitDis: 0.25
+    damageRatio: 1
+    angleShift: -30
+  skillPattern:
+  - skillIndex: 0
+    collDown: 1
+  - skillIndex: 1
+    collDown: 1
+  - skillIndex: 2
+    collDown: 3
 --- !u!114 &8762605949752483474
 MonoBehaviour:
   m_ObjectHideFlags: 0
