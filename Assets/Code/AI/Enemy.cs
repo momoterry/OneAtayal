@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
 {
     public int ID = -1;
     public float MaxHP = 100.0f;
-    public GameObject attackFX;     //TODO 不再需要
-    public GameObject damageFX;     //TODO 不再需要
+    //public GameObject attackFX;     //TODO 不再需要
+    //public GameObject damageFX;     //TODO 不再需要
     public GameObject deadFX;
     public GameObject debris;
 
@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     public float ChaseRangeOut = 12.0f;
     public float AttackRangeIn = 1.0f;
     public float AttackRangeOut = 1.2f;
-    public float MeleeRange = 1.5f;     //TODO 不再需要
+   // public float MeleeRange = 1.5f;     //TODO 不再需要
     public float AttackWait = 0.2f;
     public float AttackCD = 1.0f;
 
@@ -372,8 +372,8 @@ public class Enemy : MonoBehaviour
     //被傷害
     void OnDamage(Damage theDamage)
     {
-        if (damageFX)
-            Instantiate(damageFX, transform.position, Quaternion.identity, null);
+        //if (damageFX)
+        //    Instantiate(damageFX, transform.position, Quaternion.identity, null);
         
         if (myAnimator)
             myAnimator.SetTrigger("Hit");

@@ -19,8 +19,8 @@ public class EnemyDummy : Enemy
     void OnDamage(Damage theDamage)
     {
         //print("Dummy OnDamage");
-        if (damageFX)
-            Instantiate(damageFX, transform.position, Quaternion.identity, null);
+        //if (damageFX)
+        //    Instantiate(damageFX, transform.position, Quaternion.identity, null);
 
         if (myAnimator)
             myAnimator.SetTrigger("Hit");

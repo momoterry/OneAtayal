@@ -53,6 +53,9 @@ public class SceneScroller : MonoBehaviour
         {
             Destroy(childGameplay);
         }
-        childGameplay = Instantiate(childGameplayRef, transform.position, Quaternion.Euler(90, 0, 0), transform);
+        if (childGameplayRef)
+        {
+            childGameplay = Instantiate(childGameplayRef, transform.position, Quaternion.Euler(90, 0, 0), transform);
+        }
     }
 }
