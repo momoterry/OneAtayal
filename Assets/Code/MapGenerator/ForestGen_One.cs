@@ -8,7 +8,8 @@ public class ForestGen_One : MapGeneratorBase
     //public NavMeshSurface2d theSurface2D;
     public GameObject[] roomRefs;
     public GameObject[] gameplayRefs;
-    public GameObject endRoomRef;
+    public GameObject startGameRef;     //起始 Room 種在場上, 只重 Spawn Gameplay
+    public GameObject endRoomRef;       //結束 Room Gameplay 固定, 跟 Room 一起 Spawn 即可
 
     public RoomController startRC;
 
@@ -49,6 +50,13 @@ public class ForestGen_One : MapGeneratorBase
 #endif
 
         Vector3 pos = transform.position;
+
+        if (startGameRef && buildLevel == 1)
+        {
+            GameObject ro = Instantiate(startGameRef, pos, rm, null);
+            roomList.Add(ro);
+        }
+
         if (startRC && startRC.northDoor)
         {
             pos = startRC.northDoor.position;

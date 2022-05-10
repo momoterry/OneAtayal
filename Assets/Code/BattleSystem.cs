@@ -181,6 +181,7 @@ public class BattleSystem : MonoBehaviour
                 break;
             case BATTLE_GAME_STATE.FAIL:
                 stateTime = 3.0f;   //三秒後重開局
+                StopGameplayByFail();
                 theBattleHUD.OnStartFailUI();
                 break;
         }
@@ -249,6 +250,14 @@ public class BattleSystem : MonoBehaviour
         enemyList.Clear();
 
         DropItem.ClearAllDropItem();
+    }
+
+    private void StopGameplayByFail()
+    {
+        foreach (GameObject enemyObj in enemyList)
+        {
+            enemyObj.SendMessage("OnGameFail", SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     private void SetUpHud()

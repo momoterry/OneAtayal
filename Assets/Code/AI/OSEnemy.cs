@@ -18,6 +18,7 @@ public class OSEnemy : MonoBehaviour
         NONE,
         WAIT,
         BATTLE,
+        STOP, //When Payer Fail
     }
     protected PHASE currPhase = PHASE.NONE;
     protected PHASE nextPhase = PHASE.NONE;
@@ -111,5 +112,9 @@ public class OSEnemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    void OnGameFail()
+    {
+        nextPhase = PHASE.STOP;
+    }
 
 }

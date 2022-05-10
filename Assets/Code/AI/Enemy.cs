@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour
         IDLE,
         CHASE,
         ATTACK,
+        STOP,   //Whem Game Fail
     }
     protected AI_STATE currState = AI_STATE.NONE;
     protected AI_STATE nextState = AI_STATE.NONE;
@@ -171,28 +172,7 @@ public class Enemy : MonoBehaviour
         targetPos = o.transform.position;
     }
 
-    //    protected virtual void UpdateIdle()
-    //    {
-    //        //CheckPlayerIn == 只有 Player 時的舊版本
 
-    //        //TODOL: PC 跟 PlayerCharacter 應該分開檢查
-    //        GameObject po = BattleSystem.GetInstance().GetPlayer();
-    //        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
-    //        if (po && pc && !pc.IsKilled())
-    //        {
-    //            Vector3 dv = po.transform.position - transform.position;
-    //#if XZ_PLAN
-    //            dv.y = 0.0f;
-    //#else
-    //            dv.z = 0.0f;
-    //#endif
-    //            if ( dv.sqrMagnitude < ChaseRangeIn* ChaseRangeIn)
-    //            {
-    //                SetTarget(po);
-    //                nextState = AI_STATE.CHASE;
-    //            }
-    //        }
-    //    }
 
     protected virtual bool SearchTarget()
     {
@@ -353,15 +333,6 @@ public class Enemy : MonoBehaviour
                 //修正面向
                 faceDir = dv.normalized;
                 SetupAnimationDirection();
-//                if (myAnimator)
-//                {
-//                    myAnimator.SetFloat("X", faceDir.x);
-//#if XZ_PLAN
-//                    myAnimator.SetFloat("Y", faceDir.z);
-//#else
-//                    myAnimator.SetFloat("Y", faceDir.y);
-//#endif
-//                }
                 DoOneAttack();
             }
 
@@ -426,18 +397,11 @@ public class Enemy : MonoBehaviour
         //DoMeleeAttack();
     }
 
-    //早期版本, 準備淘汰
-    //protected virtual void DoMeleeAttack()
-    //{
-    //    //Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, MeleeRange);
-    //    //if (attackFX)
-    //    //    Instantiate(attackFX, transform.position, Quaternion.identity, null);
-    //    //foreach( Collider2D col in cols)
-    //    //{
-    //    //    if (col.gameObject.CompareTag("Player"))
-    //    //        col.gameObject.SendMessage("OnDamage", myDamage);
-    //    //}
-    //}
+    void OnGameFail()
+    {
+        //TODO: 再想怎麼處理
+        //nextState = AI_STATE.STOP;
+    }
 
     //private void OnGUI()
     //{

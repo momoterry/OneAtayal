@@ -37,6 +37,12 @@ public class OSE_Sequence : OSEnemy
     private void OnDestroy()
     {
         BattleSystem.GetInstance().OnEnemyKilled(gameObject);
+
+        //TODO: 改掉 Path 行為以後, 本 Script 應該要被放在 Root, 就不需要下面這個暴力解法
+        if (transform.parent)
+        {
+            Destroy(transform.root);
+        }
     }
 
     protected override void StartBattle()
@@ -107,4 +113,5 @@ public class OSE_Sequence : OSEnemy
             }
         }
     }
+
 }
