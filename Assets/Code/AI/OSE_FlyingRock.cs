@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class OSE_FlyingRock : OSEnemy
 {
+    public override void SetUpLevel(int iLv = 1)
+    {
+        Score *= iLv;
+    }
 
     private void OnTriggerEnter(Collider col)
     {

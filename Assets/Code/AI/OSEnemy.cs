@@ -7,6 +7,7 @@ public class OSEnemy : MonoBehaviour
     public float MaxHP = 100.0f;
     public GameObject deadFX;
     public float Attack = 20.0f;
+    public int Score = 100;
 
     public float SpawnWaitTime = 0.1f;
     public float SpawnWaitFlyingDistance = 0.0f;
@@ -27,13 +28,23 @@ public class OSEnemy : MonoBehaviour
     protected float hp;
     protected Hp_BarHandler myHPHandler;
 
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        hp = MaxHP;
+
         myHPHandler = GetComponent<Hp_BarHandler>();
 
+        int currLevel = BattleSystem.GetInstance().GetCurrLevel();
+        SetUpLevel(currLevel);
+
+        hp = MaxHP;
         nextPhase = PHASE.WAIT;
+    }
+
+    public virtual void SetUpLevel(int iLv = 1)
+    {
+
     }
 
     virtual protected void UpdateBattle()
@@ -108,6 +119,8 @@ public class OSEnemy : MonoBehaviour
 
             Instantiate(deadFX, transform.position, rm, null);
         }
+
+        OSBattleSystem.GetInstance().OnOSEKilled(gameObject);
 
         Destroy(gameObject);
     }

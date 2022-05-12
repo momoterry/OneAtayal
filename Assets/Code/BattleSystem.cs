@@ -37,8 +37,8 @@ public class BattleSystem : MonoBehaviour
         LOCAL_WIN,
         FAIL,
     }
-    BATTLE_GAME_STATE currState = BATTLE_GAME_STATE.NONE;
-    BATTLE_GAME_STATE nextState = BATTLE_GAME_STATE.NONE;
+    protected BATTLE_GAME_STATE currState = BATTLE_GAME_STATE.NONE;
+    protected BATTLE_GAME_STATE nextState = BATTLE_GAME_STATE.NONE;
     protected float stateTime = 0;
 
     public int GetEnemyCount() { return enemyList.Count ; }

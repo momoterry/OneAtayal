@@ -24,6 +24,9 @@ public class OSE_Sequence : OSEnemy
     public OSE_SkillData[] skillList;
     public OSE_PatternInfo[] skillPattern;
 
+    //等級成長率
+    protected float LvUpRatio = 1.2f;
+
     protected int currSPIndex = 0;
     protected float coolDown = 0;
 
@@ -32,6 +35,13 @@ public class OSE_Sequence : OSEnemy
         base.Start();
 
         BattleSystem.GetInstance().AddEnemy(gameObject);
+    }
+
+    public override void SetUpLevel(int iLv = 1)
+    {
+        float r = Mathf.Pow(LvUpRatio, (float)(iLv - 1));
+        MaxHP *= r;
+        Score *= iLv;
     }
 
     private void OnDestroy()
