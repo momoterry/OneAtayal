@@ -370,7 +370,7 @@ public class Enemy : MonoBehaviour
     protected void DoDeath()
     {
         BattleSystem.GetInstance().OnEnemyKilled(gameObject);
-        DropManager.GetInstance().OnTryDropByEnemyKilled(this);
+        //DropManager.GetInstance().OnTryDropByEnemyKilled(this);
         
 #if XZ_PLAN
         Quaternion rm = Quaternion.Euler(90, 0, 0);

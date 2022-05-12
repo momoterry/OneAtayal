@@ -49,22 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1dd65b1ec4a9c247ac35d9ce505d4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: -1
   MaxHP: 50
-  attackFX: {fileID: 0}
-  damageFX: {fileID: 0}
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
-  debris: {fileID: 0}
-  SpawnWaitTime: 0.1
-  ChaseRangeIn: 10
-  ChaseRangeOut: 12
-  AttackRangeIn: 1
-  AttackRangeOut: 1.2
-  MeleeRange: 1.5
-  AttackWait: 0.2
-  AttackCD: 1
   Attack: 20
-  myAnimator: {fileID: 0}
+  Score: 100
+  dropID: -1
+  SpawnWaitTime: 0.1
+  SpawnWaitFlyingDistance: 0
 --- !u!114 &4274056214866837559
 MonoBehaviour:
   m_ObjectHideFlags: 0

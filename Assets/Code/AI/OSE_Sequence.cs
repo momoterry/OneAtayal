@@ -25,7 +25,7 @@ public class OSE_Sequence : OSEnemy
     public OSE_PatternInfo[] skillPattern;
 
     //等級成長率
-    protected float LvUpRatio = 1.2f;
+    protected float LvUpRatio = 1.6f;
 
     protected int currSPIndex = 0;
     protected float coolDown = 0;

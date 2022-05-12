@@ -8,6 +8,7 @@ public class OSEnemy : MonoBehaviour
     public GameObject deadFX;
     public float Attack = 20.0f;
     public int Score = 100;
+    public int dropID = -1;
 
     public float SpawnWaitTime = 0.1f;
     public float SpawnWaitFlyingDistance = 0.0f;
@@ -121,6 +122,10 @@ public class OSEnemy : MonoBehaviour
         }
 
         OSBattleSystem.GetInstance().OnOSEKilled(gameObject);
+        if (DropManager.GetInstance())
+        {
+            DropManager.GetInstance().DoDropByID(dropID, transform.position);
+        }
 
         Destroy(gameObject);
     }

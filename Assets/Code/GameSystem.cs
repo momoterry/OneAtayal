@@ -33,7 +33,7 @@ public class GameSystem : MonoBehaviour
     {
         if (instance == null)
         {
-            //print("還沒有創建 GameSystem，需要加載 Scene: GameSystem!!");
+            print("還沒有創建 GameSystem，需要加載 Scene: GameSystem!!");
             SceneManager.LoadScene("Global", LoadSceneMode.Additive);
             //print("加載完, instace =" + instance);
         }
