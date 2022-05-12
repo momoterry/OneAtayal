@@ -9,27 +9,27 @@ public class BattleSystem : MonoBehaviour
     public Battle_HUD theBattleHUD;
     public string backScene = "StartMenu";
 
-    public GameObject clearGate;
+    //public GameObject clearGate;        //TODO: 可以移除
     public MapGeneratorBase theMG;
     public Transform initPlayerPos;
     public float initPlayerDirAngle = 0;
     public GameObject playerRef;
 
-    private GameObject thePlayer;   //TODO Player Character Spawn 較晚，但 PC 應常駐
-    private List<GameObject> enemyList = new List<GameObject>();
+    protected GameObject thePlayer;   //TODO Player Character Spawn 較晚，但 PC 應常駐
+    protected List<GameObject> enemyList = new List<GameObject>();
 
-    private PlayerController thePC;
+    protected PlayerController thePC;
 
     public int MaxLevel = 5;
-    private int currLevel = 1;
+    protected int currLevel = 1;
 
     //血瓶
     public int initPotion = 3;
     public int maxPotion = 5;
     public float potionHealRatio = 0.5f;
-    private int currPotion = 3;
+    protected int currPotion = 3;
 
-    enum BATTLE_GAME_STATE
+    protected enum BATTLE_GAME_STATE
     {
         NONE,
         INIT,
@@ -39,11 +39,11 @@ public class BattleSystem : MonoBehaviour
     }
     BATTLE_GAME_STATE currState = BATTLE_GAME_STATE.NONE;
     BATTLE_GAME_STATE nextState = BATTLE_GAME_STATE.NONE;
-    float stateTime = 0;
+    protected float stateTime = 0;
 
     public int GetEnemyCount() { return enemyList.Count ; }
 
-    private static BattleSystem instance;
+    protected static BattleSystem instance;
     public static BattleSystem GetInstance() { return instance; }
 
     public BattleSystem() : base()
@@ -83,13 +83,21 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    private void Awake()
+    //TODO: 可以拿掉了
+    protected void OnEnemyClear()
+    {
+        //if (clearGate)
+        //    clearGate.SetActive(true);
+    }
+
+
+    protected void Awake()
     {
         GameSystem.Ensure();    //為了讓任何 Scene 都可以直接 Play !!
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         GameObject playerInfoToSet = GameSystem.GetInstance().GetPlayerCharacterRef();
         if (playerInfoToSet != null)
@@ -101,7 +109,7 @@ public class BattleSystem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
 
         if (nextState != currState)
@@ -129,30 +137,29 @@ public class BattleSystem : MonoBehaviour
         UpdateBattleHUD();
     }
 
-    //第一次初始化關卡
-    private void InitGameData()
+    //Loading 後第一次初始化關卡 (非 Fail Reset)
+    protected virtual void InitBattle()
     {
+        //print("InitBattle");
         SetUpLevel(1);
-
-        //thePC.InitStatus();
-        //currPotion = initPotion;
-        InitPlayerData();
+        //InitPlayerData();           //TODO: 這裡應該改交給 SetUpLevel 去指定
     }
 
-    private void InitPlayerData()
+    protected virtual void InitBattleStatus()
     {
-        thePC.InitStatus();
+        //print("InitBattleData");
+        //thePC.InitStatus();
         currPotion = initPotion;
     }
 
-    private void UpdateInit()
+    protected void UpdateInit()
     {
         //TODO: Loading 結束後等待幾個 Frame ?
-        InitGameData();
+        InitBattle();
         nextState = BATTLE_GAME_STATE.BATTLE;
     }
 
-    private void UpdateBattleHUD()
+    protected virtual void UpdateBattleHUD()
     {
         if (thePC)
         {
@@ -161,19 +168,12 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    private void UpdateFail()
+    protected void UpdateFail()
     {
-    //    stateTime -= Time.deltaTime;
-    //    if (stateTime < 0)
-    //    {
-    //        //TODO: 整個遊戲重開
-    //        ResetLevel();
-    //        thePC.InitStatus();
-    //        nextState = BATTLE_GAME_STATE.BATTLE;
-    //    }
+
     }
 
-    private void OnStateEnter()
+    protected virtual void OnStateEnter()
     {
         switch (nextState)
         {
@@ -187,72 +187,24 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    private void OnStateExit()
+    protected virtual void OnStateExit()
     {
 
     }
 
-    public void OnEnemyClear()
-    {
-        if (clearGate)
-            clearGate.SetActive(true);
-    }
-
-    public void OnClearGateEnter()
-    {
-        //增加一個難度
-        ResetLevel(currLevel+1);
-    }
-
-    public void OnAddLevelDifficulty( int addLevel = 1)
-    {
-        currLevel += 1;
-        SetUpHud();
-    }
-
-    //整個重開，角色也回到等級一狀態，從 Fail UI 呼叫
-    public void OnLevelRestart()
-    {
-        if (currState != BATTLE_GAME_STATE.FAIL)
-        {
-            print("ERROR !!!!! OnLevelRestart() called but not in fail state !!");
-        }
-
-        ResetLevel();
-        //thePC.InitStatus();
-        InitPlayerData();
-        nextState = BATTLE_GAME_STATE.BATTLE;
-    }
-
-    public void OnBackToStartMenu()
-    {
-        SceneManager.LoadScene("StartMenu");
-    }
-
-    public void OnGotoScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    public void OnBackPrevScene()
-    {
-        SceneManager.LoadScene(backScene);
-    }
-
-  
-    private void ClearLevel()
+    protected virtual void ClearLevel()
     {
         foreach (GameObject enemyObj in enemyList)
         {
             Destroy(enemyObj);
-            print("Kill One !!");
+            //print("Kill One !!");
         }
         enemyList.Clear();
 
         DropItem.ClearAllDropItem();
     }
 
-    private void StopGameplayByFail()
+    protected virtual void StopGameplayByFail()
     {
         foreach (GameObject enemyObj in enemyList)
         {
@@ -260,50 +212,59 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    private void SetUpHud()
+    protected virtual void SetUpHud()
     {
         string levelText = "LEVEL : " + currLevel;
         theBattleHUD.SetLevelText(levelText);
     }
 
-    private void SetUpLevel( int level = 1)
+    protected virtual void SetUpLevel( int level = 1)
     {
+        //print("SetUpLevel " + level);
         currLevel = level;
         if (level < 1)
             currLevel = 1;
         else if (level > MaxLevel)
             currLevel = MaxLevel;
 
-        if (clearGate)
-            clearGate.SetActive(false);
+        //if (clearGate)
+        //    clearGate.SetActive(false);
         theMG.BuildAll(currLevel);
 
-#if XZ_PLAN
-        Quaternion rm = Quaternion.Euler(90, 0, 0);
-#else
-        Quaternion rm = Quaternion.identity;
-#endif
-
-        if (thePlayer == null)
+        // ================ 戰鬥資料初始化 ====================
+        if (level == 1)
         {
-            thePlayer = Instantiate(playerRef, initPlayerPos.position, rm, null);
+            InitBattleStatus();
+            if (thePlayer == null)
+            {
+    #if XZ_PLAN
+                Quaternion rm = Quaternion.Euler(90, 0, 0);
+    #else
+                Quaternion rm = Quaternion.identity;
+    #endif
 
-            thePC = thePlayer.GetComponent<PlayerController>();
-            thePC.initFaceDirAngle = initPlayerDirAngle;
+                thePlayer = Instantiate(playerRef, initPlayerPos.position, rm, null);
+
+                thePC = thePlayer.GetComponent<PlayerController>();
+                thePC.initFaceDirAngle = initPlayerDirAngle;
+                //thePC.InitStatus(); 會在 PC 的 Start 被呼叫
+            }    
+            else
+            {
+                thePC.DoTeleport(initPlayerPos.position, initPlayerDirAngle);
+                thePC.InitStatus();
+            }
         }
         else
         {
+            // 關卡升級
             thePC.DoTeleport(initPlayerPos.position, initPlayerDirAngle);
         }
-        //NavMeshAgent pAgnet = thePlayer.GetComponent<NavMeshAgent>();
-        //pAgnet.Warp(initPlayerPos.position);
 
-        //string levelText = "LEVEL : " + currLevel;
-        //theBattleHUD.SetLevelText(levelText);
         SetUpHud();
     }
 
-    public void ResetLevel( int level = 1 )
+    protected void ResetLevel( int level = 1 )
     {
         print("Reset Level!!");
 
@@ -357,6 +318,48 @@ public class BattleSystem : MonoBehaviour
         }
 
         return result;
+    }
+
+
+    public void OnAddLevelDifficulty(int addLevel = 1)
+    {
+        currLevel += 1;
+        SetUpHud();
+    }
+
+    public void OnClearGateEnter()
+    {
+        //增加一個難度
+        ResetLevel(currLevel + 1);
+    }
+
+
+    //整個重開，角色也回到等級一狀態，從 Fail UI 呼叫
+    public void OnLevelRestart()
+    {
+        if (currState != BATTLE_GAME_STATE.FAIL)
+        {
+            print("ERROR !!!!! OnLevelRestart() called but not in fail state !!");
+        }
+
+        ResetLevel();
+        //InitPlayerData();
+        nextState = BATTLE_GAME_STATE.BATTLE;
+    }
+
+    public void OnBackToStartMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+
+    public void OnGotoScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void OnBackPrevScene()
+    {
+        SceneManager.LoadScene(backScene);
     }
 
     //private void OnGUI()

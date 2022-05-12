@@ -44,7 +44,7 @@ public class AreaTG : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && isTriggered == false)
         {
-            print("Player In !!");
+            //print("Player In !!");
             foreach (GameObject o in TriggerTargets)
             {
                 if (o)

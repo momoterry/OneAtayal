@@ -61,14 +61,6 @@ public class PlayerController : MonoBehaviour
     //移動和面向
     protected Vector3 faceDir;
 
-    // 近戰用四面向
-    //public enum FaceFrontType
-    //{
-    //    UP,
-    //    RIGHT,
-    //    DOWN,
-    //    LEFT,
-    //}
     protected Vector3 faceFront;
     protected FaceFrontType faceFrontType;
 
@@ -115,6 +107,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
+        //print("PlayerController::Start");
         //print("我終於開始寫 Code !!");
         myAgent = GetComponent<NavMeshAgent>();
         if (myAgent) 
@@ -127,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
         SetupFaceDirByAngle(initFaceDirAngle);
 
-        InitStatus();
+        InitStatus();  
 
         //Input System Bind
         theInput.TheHero.Attack.performed += ctx => OnAttack();
@@ -176,6 +169,7 @@ public class PlayerController : MonoBehaviour
     //初始化到等級一的狀態
     public virtual void InitStatus()
     {
+        //print("PlayerController::InitStatus");
         HP_Max = HP_MaxInit;
         MP_Max = MP_MaxInit;
         Attack = Attack_Init;

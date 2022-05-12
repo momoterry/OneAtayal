@@ -24,7 +24,7 @@ public class RandomSpawner : MonoBehaviour
         foreach (ItemInfo o in itemInfos)
         {
             randomTotal += o.RandomPercent;
-            if (o.RandomPercent <= 0 || o.RandomPercent >= 100.0f)
+            if (o.RandomPercent < 0 || o.RandomPercent > 100.0f)
             {
                 print("ERRROR!! RandomSpanwer 有問題的隨機值，必須在 0 - 100 之間!! " + gameObject.name);
             }

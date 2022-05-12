@@ -45,7 +45,7 @@ public class ResetPortal : MonoBehaviour
 
     void DoReset()
     {
-        print("Gate Opend !!");
+        //print("Gate Opend !!");
         BattleSystem.GetInstance().GetPlayerController().ForceStop(false);
         BattleSystem.GetInstance().OnClearGateEnter();
     }
