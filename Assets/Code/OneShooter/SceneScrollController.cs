@@ -61,7 +61,7 @@ public class SceneScrollController : MonoBehaviour
 
             if (vRefPoint <= vEnd)
             {
-                print("============== Reset Ref ==============");
+                //print("============== Reset Ref ==============");
                 vRefPoint += totalLength;
                 ResetFlags();
                 if (BattleSystem.GetInstance().IsDuringBattle())

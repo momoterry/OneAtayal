@@ -29,7 +29,8 @@ public class Battle_HUD : MonoBehaviour
     void Start()
     {
         failMenu.SetActive(false);
-        hpBar.value = 1.0f;
+        if (hpBar)
+            hpBar.value = 1.0f;
     }
 
     // Update is called once per frame
@@ -45,13 +46,18 @@ public class Battle_HUD : MonoBehaviour
 
     public void SetPlayerInfo( float hp, float maxHp, float mp, float maxMP, float Attack)
     {
-        hpBar.value = hp / maxHp;
-        mpBar.value = mp / maxMP;
+        if (hpBar)
+            hpBar.value = hp / maxHp;
+        if (mpBar)
+            mpBar.value = mp / maxMP;
 
-        hpText.text = hp.ToString("F0") + " / " + maxHp.ToString("F0");
-        mpText.text = mp.ToString("F0") + " / " + maxMP.ToString("F0");
+        if (hpText)
+            hpText.text = hp.ToString("F0") + " / " + maxHp.ToString("F0");
+        if (mpText)
+            mpText.text = mp.ToString("F0") + " / " + maxMP.ToString("F0");
 
-        AttackText.text = "ATK: " + Attack.ToString("F1");
+        if (AttackText)
+            AttackText.text = "ATK: " + Attack.ToString("F1");
     }
 
     public void SetLevelText(string text)
@@ -66,21 +72,21 @@ public class Battle_HUD : MonoBehaviour
 
     public void OnFailRetry()
     {
-        print("再來一次 !!!");
+        //print("再來一次 !!!");
         failMenu.SetActive(false);
         BattleSystem.GetInstance().OnLevelRestart();
     }
 
     public void OnFailBackToStartMenu()
     {
-        print("想回主選單呀，關不掉呀");
+        //print("想回主選單呀，關不掉呀");
         failMenu.SetActive(false);
         BattleSystem.GetInstance().OnBackToStartMenu();
     }
 
     public void OnBackToScene()
     {
-        print("回指定關卡");
+        //print("回指定關卡");
         failMenu.SetActive(false);
         BattleSystem.GetInstance().OnBackPrevScene();
     }

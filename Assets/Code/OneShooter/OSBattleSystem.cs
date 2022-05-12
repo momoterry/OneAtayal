@@ -17,6 +17,8 @@ public class OSBattleSystem : BattleSystem
             {
                 totalScore += e.Score;
             }
+            if (theBattleHUD)
+                ((OS_Battle_HUD)theBattleHUD).SetScore(totalScore);
         }
     }
 
@@ -24,6 +26,14 @@ public class OSBattleSystem : BattleSystem
     {
         base.InitBattleStatus();
         totalScore = 0;
+    }
+
+    protected override void SetUpHud()
+    {
+        base.SetUpHud();
+
+        if(theBattleHUD)
+            ((OS_Battle_HUD)theBattleHUD).SetScore(totalScore);
     }
 
     //void OnGUI()
