@@ -35,14 +35,15 @@ public class DropManager : MonoBehaviour
 
     public void DoDropByID(int ID, Vector3 pos)
     {
-        print("Try Drop: " + ID);
+        //print("Try Drop: " + ID);
         if (dropMap.ContainsKey(ID))
         { 
             DropMapping dm = dropMap[ID];
             if (dm!=null)
             {
-                print("Drop !!!!!!!!!!!!!!!!!!!!!!!");
-                GameObject newDrop = Instantiate(dm.objRef, pos, Quaternion.Euler(90, 0, 0), null);
+                //print("Drop !!!!!!!!!!!!!!!!!!!!!!!");
+                //GameObject newDrop = Instantiate(dm.objRef, pos, Quaternion.Euler(90, 0, 0), null);
+                BattleSystem.GetInstance().SpawnGameplayObject(dm.objRef, pos);
             }        
         }
     }

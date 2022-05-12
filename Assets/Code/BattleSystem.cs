@@ -17,6 +17,7 @@ public class BattleSystem : MonoBehaviour
 
     protected GameObject thePlayer;   //TODO Player Character Spawn 較晚，但 PC 應常駐
     protected List<GameObject> enemyList = new List<GameObject>();
+    protected List<GameObject> objList = new List<GameObject>();
 
     protected PlayerController thePC;
 
@@ -79,6 +80,32 @@ public class BattleSystem : MonoBehaviour
             if (GetEnemyCount()==0)
             {
                 OnEnemyClear();
+            }
+        }
+    }
+
+    public void OnBSObjectDestroy(GameObject obj)
+    {
+        objList.Remove(obj);
+    }
+
+    public void SpawnGameplayObject(GameObject objRef, Vector3 pos, bool clearByBS = true)
+    {
+#if XZ_PLAN
+        Quaternion qm = Quaternion.Euler(90, 0, 0);
+#else
+        Quaternion qm = Quaternion.identity;
+#endif
+        if (!objRef)
+            return;
+
+        GameObject o = Instantiate(objRef, pos, qm, null);
+        if (o)
+        {
+            objList.Add(o);
+            if (clearByBS)
+            {
+                o.AddComponent<BSObjectTag>();
             }
         }
     }
@@ -201,6 +228,12 @@ public class BattleSystem : MonoBehaviour
         }
         enemyList.Clear();
 
+        foreach (GameObject o in objList)
+        {
+            Destroy(o);
+        }
+        objList.Clear();
+
         DropItem.ClearAllDropItem();
     }
 
@@ -237,11 +270,11 @@ public class BattleSystem : MonoBehaviour
             InitBattleStatus();
             if (thePlayer == null)
             {
-    #if XZ_PLAN
+#if XZ_PLAN
                 Quaternion rm = Quaternion.Euler(90, 0, 0);
-    #else
+#else
                 Quaternion rm = Quaternion.identity;
-    #endif
+#endif
 
                 thePlayer = Instantiate(playerRef, initPlayerPos.position, rm, null);
 
