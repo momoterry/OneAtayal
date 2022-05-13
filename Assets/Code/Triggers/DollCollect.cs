@@ -32,7 +32,8 @@ public class DollCollect : MonoBehaviour
         {
             //²æÂ÷
             theDoll.transform.SetParent(null);
-            //¦Û§Ú§R°£?
+
+            Destroy(gameObject);
         }
     }
 }
