@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4032685806379418581}
   - component: {fileID: 3428589637908568908}
+  - component: {fileID: 6911439701611988198}
   m_Layer: 10
   m_Name: DropWing
   m_TagString: Doll
@@ -46,6 +47,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dollObject: {fileID: 4765746154311351062}
+--- !u!114 &6911439701611988198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b500d953e5cc38429dd5f8ce2c94b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackRef: {fileID: 6177815566803548422, guid: e808707dfca891d4492b6e223c6c4f1f, type: 3}
+  StartAtBegin: 1
 --- !u!1001 &4265211573469119723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3265715631666050365, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3265715631666050365, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -149,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4032685806379418581, guid: 98cc387aa96718d4e8b33b0dcad1abe9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4032685806379418581, guid: 98cc387aa96718d4e8b33b0dcad1abe9, type: 3}
       propertyPath: m_LocalPosition.z

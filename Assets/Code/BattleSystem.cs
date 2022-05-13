@@ -89,7 +89,7 @@ public class BattleSystem : MonoBehaviour
         objList.Remove(obj);
     }
 
-    public void SpawnGameplayObject(GameObject objRef, Vector3 pos, bool clearByBS = true)
+    public GameObject SpawnGameplayObject(GameObject objRef, Vector3 pos, bool clearByBS = true)
     {
 #if XZ_PLAN
         Quaternion qm = Quaternion.Euler(90, 0, 0);
@@ -97,7 +97,7 @@ public class BattleSystem : MonoBehaviour
         Quaternion qm = Quaternion.identity;
 #endif
         if (!objRef)
-            return;
+            return null;
 
         GameObject o = Instantiate(objRef, pos, qm, null);
         if (o)
@@ -108,6 +108,7 @@ public class BattleSystem : MonoBehaviour
                 o.AddComponent<BSObjectTag>();
             }
         }
+        return o;
     }
 
     //TODO: ¥i¥H®³±¼¤F
