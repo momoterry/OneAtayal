@@ -74,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
 #if XZ_PLAN
                 GameObject o = Instantiate(enemyRef, transform.position + new Vector3(rw, 0, rh), Quaternion.Euler(90.0f, 0, 0), null);
 #else
-                GameObject o = Instantiate(enemyRef, transform.position + new Vector3(rw, rhy, 0), Quaternion.identity, null);
+                GameObject o = Instantiate(enemyRef, transform.position + new Vector3(rw, rh, 0), Quaternion.identity, null);
 #endif
                 spawnedEnemies[i] = o;
             }
