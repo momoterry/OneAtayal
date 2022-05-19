@@ -6693,6 +6693,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackGem
       objectReference: {fileID: 0}
+    - target: {fileID: 4568917047187759288, guid: e2d26b1924c6fc1449fbff2f705b91ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2d26b1924c6fc1449fbff2f705b91ce, type: 3}
 --- !u!1 &290726947
@@ -7626,7 +7630,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theBattleHUD: {fileID: 1790230567}
   backScene: StartMenu
-  clearGate: {fileID: 0}
   theMG: {fileID: 103007906}
   initPlayerPos: {fileID: 1372550211}
   initPlayerDirAngle: 180

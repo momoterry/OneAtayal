@@ -26,6 +26,9 @@ public class Battle_HUD : MonoBehaviour
     //技能
     public Text AttackText;
 
+    //虛擬搖桿相關
+    public VPad theVPad;
+
     void Start()
     {
         failMenu.SetActive(false);

@@ -23,6 +23,19 @@ public class PC_OneShooter : PlayerController
             moveVec.Normalize();
         }
 
+        //VPad
+        Vector2 vPadVec = Vector2.zero;
+        if (BattleSystem.GetInstance().GetVPad())
+        {
+            vPadVec = BattleSystem.GetInstance().GetVPad().GetCurrVector();
+        }
+        if (vPadVec.magnitude > 0.2f)
+        {
+            bMove = true;
+            moveVec = new Vector3(vPadVec.x, 0, vPadVec.y);   //XZ Plan
+            moveVec.Normalize();
+        }
+
 
         if (bMove)
         {
@@ -33,17 +46,17 @@ public class PC_OneShooter : PlayerController
         }
     }
 
-    protected override void OnShootTo()
+    public override void OnShootTo()
     {
         //print("PC_OneShooter::OnShootTo");
     }
 
-    protected override void OnShoot()
+    public override void OnShoot()
     {
         //print("PC_OneShooter::OnShoot");
     }
 
-    protected override void OnAttack()
+    public override void OnAttack()
     {
         //print("PC_OneShooter::OnAttack");
     }

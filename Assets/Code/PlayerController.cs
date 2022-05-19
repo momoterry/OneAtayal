@@ -329,7 +329,29 @@ public class PlayerController : MonoBehaviour
 
         Vector2 inputVec = theInput.TheHero.Move.ReadValue<Vector2>();
 
-        if (inputVec.magnitude > 0.5)
+        //觸控介面
+        Vector2 vPadVec = Vector2.zero;
+        if (BattleSystem.GetInstance().GetVPad())
+        {
+            vPadVec = BattleSystem.GetInstance().GetVPad().GetCurrVector();
+        }
+
+        if (vPadVec.magnitude > 0.2f)
+        {
+            bMove = true;
+#if XZ_PLAN
+            moveVec = new Vector3(vPadVec.x, 0, vPadVec.y);   //XZ Plan
+            moveVec.Normalize();
+#else
+            moveVec = vPadVec;   //XY Plan
+            moveVec.Normalize();
+            moveVec.z = moveVec.y * 0.01f;
+#endif
+        }
+
+
+        // 鍵鼠和手把
+        if (inputVec.magnitude > 0.5f)
         {
             bMove = true;
 #if XZ_PLAN
@@ -466,7 +488,7 @@ public virtual void OnMoveToPosition(Vector3 target)
     }
 
     //=================== 互動物件相關 ===================
-    void OnActionKey()
+    public void OnActionKey()
     {
         if (actionObject)
         {
@@ -495,7 +517,7 @@ public virtual void OnMoveToPosition(Vector3 target)
     }
 
     // =================== 攻擊相關 ===================
-    protected virtual void OnAttack()
+    public virtual void OnAttack()
     {
         //OnAttackToward(transform.position + faceDir);
         if (currState == PC_STATE.NORMAL)
@@ -504,7 +526,7 @@ public virtual void OnMoveToPosition(Vector3 target)
         }
     }
 
-    protected virtual void OnShoot()
+    public virtual void OnShoot()
     {
         //TODO: 用滑鼠或右類比決定方向
         Vector3 target = faceDir + gameObject.transform.position;
@@ -516,7 +538,7 @@ public virtual void OnMoveToPosition(Vector3 target)
 
     }
 
-    protected virtual void OnShootTo()
+    public virtual void OnShootTo()
     {
         //print("OnShootTo");
         Vector2 mousePos = theInput.TheHero.MousePos.ReadValue<Vector2>();
@@ -676,7 +698,7 @@ public virtual void OnMoveToPosition(Vector3 target)
     }
 
 
-    protected virtual void DoShootTo(Vector3 target)
+    public virtual void DoShootTo(Vector3 target)
     {
         //if (mp < MP_PerShoot)
         if (mp < rangeSkillDef.manaCost)  

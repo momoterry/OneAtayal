@@ -13968,7 +13968,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theBattleHUD: {fileID: 1596471963}
   backScene: StartMenu
-  clearGate: {fileID: 0}
   theMG: {fileID: 103007906}
   initPlayerPos: {fileID: 1372550211}
   initPlayerDirAngle: 180
@@ -15942,6 +15941,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2547500483358763619, guid: 1241db243ab8f8944ad84eb0e4b32b10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4258399228296095096, guid: 1241db243ab8f8944ad84eb0e4b32b10, type: 3}
       propertyPath: TriggerTarget
       value: 
@@ -16240,6 +16243,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0.768
       objectReference: {fileID: 0}
+    - target: {fileID: 5198115187890900562, guid: 65b2e50c2162be943aa143bf394caf18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5198115187956067766, guid: 65b2e50c2162be943aa143bf394caf18, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -16330,7 +16337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5198115187956067770, guid: 65b2e50c2162be943aa143bf394caf18, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65b2e50c2162be943aa143bf394caf18, type: 3}

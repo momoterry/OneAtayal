@@ -8,6 +8,7 @@ public class BattleSystem : MonoBehaviour
 {
     public Battle_HUD theBattleHUD;
     public string backScene = "StartMenu";
+    //public VPad theVPad;
 
     //public GameObject clearGate;        //TODO: ¥i¥H²¾°£
     public MapGeneratorBase theMG;
@@ -42,7 +43,7 @@ public class BattleSystem : MonoBehaviour
     protected BATTLE_GAME_STATE nextState = BATTLE_GAME_STATE.NONE;
     protected float stateTime = 0;
 
-    public int GetEnemyCount() { return enemyList.Count ; }
+    public int GetEnemyCount() { return enemyList.Count; }
 
     protected static BattleSystem instance;
     public static BattleSystem GetInstance() { return instance; }
@@ -57,6 +58,7 @@ public class BattleSystem : MonoBehaviour
     public GameObject GetPlayer() { return thePlayer; }
 
     public PlayerController GetPlayerController() { return thePC; }
+    public VPad GetVPad() {return theBattleHUD.theVPad; }
 
     public MapGeneratorBase GetMapGenerator() { return theMG; }
 
