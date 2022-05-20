@@ -183,15 +183,6 @@ public class PlayerController : MonoBehaviour
 
         nextState = PC_STATE.NORMAL;
 
-        //TODO: 應該放在別的地方
-//#if XZ_PLAN
-//        faceDir = Vector3.back;
-//        faceFront = Vector3.back;
-//#else
-//        faceDir = Vector3.down;
-//        faceFront = Vector3.down;
-//#endif
-//        faceFrontType = FaceFrontType.DOWN;
     }
 
     protected void SetupFaceDirByAngle(float angle)
@@ -517,6 +508,37 @@ public virtual void OnMoveToPosition(Vector3 target)
     }
 
     // =================== 攻擊相關 ===================
+
+    virtual protected GameObject FindBestShootTarget()
+    {
+        float searchRange = 10.0f;
+        float searchAngle = 45.0f;
+
+        Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
+
+        GameObject bestEnemy = null;
+        float bestSDis = Mathf.Infinity;
+        foreach (Collider col in cols)
+        {
+            //print("I Found: "+ col.gameObject.name);
+            if (col.gameObject.CompareTag("Enemy"))
+            {
+                Vector3 vDis = col.transform.position - transform.position;
+                float angle = Vector3.Angle(faceDir, vDis);
+                if (angle > searchAngle)
+                    continue;
+                float sDis = vDis.sqrMagnitude;
+                if (sDis < bestSDis)
+                {
+                    bestEnemy = col.gameObject;
+                    bestSDis = sDis;
+                }
+            }
+        }
+                
+        return bestEnemy;
+    }
+
     public virtual void OnAttack()
     {
         //OnAttackToward(transform.position + faceDir);
@@ -528,8 +550,17 @@ public virtual void OnMoveToPosition(Vector3 target)
 
     public virtual void OnShoot()
     {
-        //TODO: 用滑鼠或右類比決定方向
-        Vector3 target = faceDir + gameObject.transform.position;
+        Vector3 target;
+
+        GameObject targetEnemy = FindBestShootTarget();
+        if (targetEnemy)
+        {
+            target = targetEnemy.transform.position;
+        }
+        else
+            target = faceDir + gameObject.transform.position;
+
+        //target = faceDir + gameObject.transform.position;
         if (currState == PC_STATE.NORMAL)
         {
             DoShootTo(target);
@@ -703,7 +734,7 @@ public virtual void OnMoveToPosition(Vector3 target)
         //if (mp < MP_PerShoot)
         if (mp < rangeSkillDef.manaCost)  
         {
-            print("沒 Mana 呀 !!!!");
+            //print("沒 Mana 呀 !!!!");
             Instantiate(shootFX_2, gameObject.transform.position, Quaternion.identity, gameObject.transform);
             return;
         }

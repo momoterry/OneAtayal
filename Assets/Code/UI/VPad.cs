@@ -21,6 +21,9 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     public void OnDrag(PointerEventData data)
     {
+        if (data.button != PointerEventData.InputButton.Left)
+            return;
+
         float maxLength = 40.0f;
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(vCenter.rectTransform, data.position, data.enterEventCamera, out pos);
@@ -40,6 +43,9 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     public void OnPointerDown(PointerEventData data)
     {
+        if (data.button != PointerEventData.InputButton.Left)
+            return;
+
         Vector2 pos;
         Vector2 oldPos = vCenter.rectTransform.anchoredPosition;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(vCenter.rectTransform, data.position, data.enterEventCamera, out pos);
@@ -48,6 +54,9 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     public void OnPointerUp(PointerEventData data)
     {
+        if (data.button != PointerEventData.InputButton.Left)
+            return;
+
         vCenter.rectTransform.anchoredPosition = defaultCenter;
         vStick.rectTransform.anchoredPosition = Vector2.zero;
         currVector = Vector2.zero;
