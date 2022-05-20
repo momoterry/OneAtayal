@@ -484,6 +484,10 @@ public virtual void OnMoveToPosition(Vector3 target)
         if (actionObject)
         {
             actionObject.SendMessage("OnAction");
+
+            actionObject = null;
+            if (BattleSystem.GetInstance().GetVPad())
+                BattleSystem.GetInstance().GetVPad().OnActionOff();
         }
     }
 
@@ -492,6 +496,8 @@ public virtual void OnMoveToPosition(Vector3 target)
         if (actionObject == null)
         {
             actionObject = obj;
+            if (BattleSystem.GetInstance().GetVPad())
+                BattleSystem.GetInstance().GetVPad().OnActionOn();
             return true;
         }
         return false;
@@ -502,6 +508,8 @@ public virtual void OnMoveToPosition(Vector3 target)
         if (actionObject == obj)
         {
             actionObject = null;
+            if (BattleSystem.GetInstance().GetVPad())
+                BattleSystem.GetInstance().GetVPad().OnActionOff();
             return true;
         }
         return false;
@@ -512,7 +520,7 @@ public virtual void OnMoveToPosition(Vector3 target)
     virtual protected GameObject FindBestShootTarget()
     {
         float searchRange = 10.0f;
-        float searchAngle = 45.0f;
+        float searchAngle = 60.0f;
 
         Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
 
@@ -520,11 +528,11 @@ public virtual void OnMoveToPosition(Vector3 target)
         float bestSDis = Mathf.Infinity;
         foreach (Collider col in cols)
         {
-            //print("I Found: "+ col.gameObject.name);
+            print("I Found: "+ col.gameObject.name);
             if (col.gameObject.CompareTag("Enemy"))
             {
                 Vector3 vDis = col.transform.position - transform.position;
-                float angle = Vector3.Angle(faceDir, vDis);
+                float angle = Vector3.Angle(faceFront, vDis);
                 if (angle > searchAngle)
                     continue;
                 float sDis = vDis.sqrMagnitude;

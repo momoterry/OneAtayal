@@ -9,6 +9,8 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
     public Image vCenter;
     public Image vStick;
 
+    public GameObject actionButton;
+
     protected Vector2 defaultCenter;
     protected Vector2 currVector = Vector2.zero;
 
@@ -17,6 +19,8 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
     void Start()
     {
         defaultCenter = vCenter.rectTransform.anchoredPosition;
+        if (actionButton)
+            actionButton.SetActive(false);
     }
 
     public void OnDrag(PointerEventData data)
@@ -87,5 +91,17 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         {
             pc.OnActionKey();
         }
+    }
+
+    public void OnActionOn()
+    {
+        if (actionButton)
+            actionButton.SetActive(true);
+    }
+
+    public void OnActionOff()
+    {
+        if (actionButton)
+            actionButton.SetActive(false);
     }
 }
