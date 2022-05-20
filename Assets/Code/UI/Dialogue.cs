@@ -73,7 +73,7 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    void OnClick()
+    public void OnClick()
     {
         if (currState == PHASE.NORMAL)
         {
