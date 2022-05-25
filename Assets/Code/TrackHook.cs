@@ -34,7 +34,15 @@ public class TrackHook : MonoBehaviour
     {
         if (hooking)
         {
-            gameObject.transform.position = mySlot.position;
+            if (mySlot == null)
+            {
+                //Animation Done, Delete Self.
+                Destroy(this);
+            }
+            else
+            {
+                gameObject.transform.position = mySlot.position;
+            }
         }
     }
 
@@ -45,4 +53,13 @@ public class TrackHook : MonoBehaviour
             Destroy(myTrackObj);
         }
     }
+
+    //public void OnAnimationDone()
+    //{
+    //    if (myTrackObj)
+    //    {
+    //        Destroy(myTrackObj);
+    //    }
+    //    Destroy(this);
+    //}
 }

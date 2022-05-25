@@ -170,17 +170,24 @@ MonoBehaviour:
     bulletInitDis: 0
     damageRatio: 0.2
     animString: Attack
+    trackRef: {fileID: 0}
   - bulletRef: {fileID: 4641581918583914209, guid: 1ef26239157c88941879412745b25ec2, type: 3}
     bulletInitDis: 0
     damageRatio: 0.2
     animString: Attack
+    trackRef: {fileID: 0}
+  - bulletRef: {fileID: 0}
+    bulletInitDis: 0
+    damageRatio: 0.2
+    animString: 
+    trackRef: {fileID: 4770913686230908908, guid: e1266ae7ad014274cb8472104e2129a1, type: 3}
   skillPattern:
   - skillIndex: 0
     collDown: 1
   - skillIndex: 0
     collDown: 1
-  - skillIndex: 1
-    collDown: 2
+  - skillIndex: 2
+    collDown: 6
 --- !u!114 &4274056214866837559
 MonoBehaviour:
   m_ObjectHideFlags: 0

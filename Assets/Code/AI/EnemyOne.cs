@@ -7,10 +7,11 @@ using UnityEngine;
 [System.Serializable]
 public struct SkillData
 {
-    public GameObject bulletRef;  //會給予方向的 Spawn 物件
+    public GameObject bulletRef;    //會給予方向的 Spawn 物件
     public float bulletInitDis;
     public float damageRatio;
     public string animString;
+    public GameObject trackRef;     //如果要使用 Track Animation
 }
 [System.Serializable]
 public class SkillPatternInfo
@@ -95,9 +96,19 @@ public class EnemyOne : Enemy
             }
         }
 
-        if (myAnimator && skill.animString != null)
+        if (myAnimator && skill.animString != "")
         {
             myAnimator.SetTrigger(skill.animString);
+        }
+
+        if (skill.trackRef)
+        {
+            TrackHook th = gameObject.AddComponent<TrackHook>();
+            if (th)
+            {
+                th.trackRef = skill.trackRef;
+                th.StartAtBegin = true;
+            }
         }
     }
 
