@@ -12,29 +12,58 @@ public struct SkillData
     public float damageRatio;
     public string animString;
 }
-
+[System.Serializable]
+public class SkillPatternInfo
+{
+    public int skillIndex = 0;
+    public float collDown = 1.0f;
+}
 
 
 public class EnemyOne : Enemy
 {
     public SkillData[] skillList;
+    public SkillPatternInfo[] skillPattern;
 
     protected int currSkillIndex = 0;
 
+    protected override void Start()
+    {
+        base.Start();
+        if (skillList.Length <= 0 || skillPattern.Length <= 0)
+        {
+            print("ERROR!!!! OSE_Sequence Invalid Data !!!!!");
+            currSkillIndex = -1;
+        }
+    }
 
     protected override void DoOneAttack()
     {
+        if (currSkillIndex < 0)
+            return;
         print("EnemyOne DoOneAttack!!");
-        if (skillList.Length > 0)
+
+        int id = skillPattern[currSkillIndex].skillIndex;
+        if (id < 0 || id >= skillList.Length)
         {
-            DoOneSkill(skillList[currSkillIndex]);
-            currSkillIndex++;
-            if (currSkillIndex >= skillList.Length)
-            {
-                currSkillIndex = 0;
-            }
+            print("ERROR!!!! Invalid Skill Index In Pattern");
+        }
+
+        SkillData theSkill = skillList[skillPattern[currSkillIndex].skillIndex];
+
+        //coolDown = skillPattern[currSPIndex].collDown;
+
+        DoOneSkill(theSkill);
+
+        AttackCD = skillPattern[currSkillIndex].collDown;
+
+        currSkillIndex++;
+        if (currSkillIndex >= skillPattern.Length)
+        {
+            currSkillIndex = 0;
         }
     }
+
 
 
     protected void DoOneSkill(SkillData skill)

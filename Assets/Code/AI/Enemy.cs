@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
     public int GetID() { return ID; }
 
     // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
         if (!myAnimator)
             myAnimator = GetComponent<Animator>();
