@@ -11,7 +11,9 @@ public struct SkillData
     public float bulletInitDis;
     public float damageRatio;
     public string animString;
+
     public GameObject trackRef;     //如果要使用 Track Animation
+    public string trackAnimStr;
 }
 [System.Serializable]
 public class SkillPatternInfo
@@ -27,6 +29,11 @@ public class EnemyOne : Enemy
     public SkillPatternInfo[] skillPattern;
 
     protected int currSkillIndex = 0;
+
+    //Track Animation 用
+    protected TrackHookForAgent myHook = null;
+    protected bool isWaitTrack = false;
+    protected string trackAnimationStr = null;
 
 
     protected override void Start()
@@ -66,6 +73,25 @@ public class EnemyOne : Enemy
         }
     }
 
+    protected override void UpdateAttack()
+    {
+        if (isWaitTrack)
+        {
+            if (myHook == null)
+            {
+                // Track 結束處理
+                if (myAnimator && trackAnimationStr != "")
+                {
+                    myAnimator.SetBool(trackAnimationStr, false);
+                }
+                isWaitTrack = false;
+            }
+        }
+        else
+        {
+            base.UpdateAttack();
+        }
+    }
 
 
     protected void DoOneSkill(SkillData skill)
@@ -104,12 +130,18 @@ public class EnemyOne : Enemy
 
         if (skill.trackRef)
         {
-            TrackHookForAgent th = gameObject.AddComponent<TrackHookForAgent>();
-            if (th)
+            myHook = gameObject.AddComponent<TrackHookForAgent>();
+            if (myHook)
             {
-                th.trackRef = skill.trackRef;
-                th.StartAtBegin = true;
-                th.hookAgent = myAgent;
+                myHook.trackRef = skill.trackRef;
+                myHook.StartAtBegin = true;
+                myHook.hookAgent = myAgent;
+                isWaitTrack = true;
+                if ( myAnimator && skill.trackAnimStr != "")
+                {
+                    trackAnimationStr = skill.trackAnimStr;
+                    myAnimator.SetBool(trackAnimationStr, true);
+                }
             }
         }
     }

@@ -73,12 +73,5 @@ public class TrackHook : MonoBehaviour
         }
     }
 
-    //public void OnAnimationDone()
-    //{
-    //    if (myTrackObj)
-    //    {
-    //        Destroy(myTrackObj);
-    //    }
-    //    Destroy(this);
-    //}
+
 }
