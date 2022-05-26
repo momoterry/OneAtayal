@@ -157,6 +157,11 @@ public class EnemyOne : Enemy
                 {
                     myTrackDamageFX = BattleSystem.GetInstance().SpawnGameplayObject(skill.trackDamageFX, transform.position, false);
                     myTrackDamageFX.transform.parent = transform;
+                    bullet_base newBullet = myTrackDamageFX.GetComponent<bullet_base>();
+                    if (newBullet)
+                    {
+                        newBullet.InitValue(DAMAGE_GROUP.ENEMY, Attack * skill.damageRatio, faceDir);
+                    }
                 }
             }
         }

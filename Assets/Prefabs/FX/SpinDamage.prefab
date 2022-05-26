@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6364942972345185754}
   - component: {fileID: 2704143219155363933}
+  - component: {fileID: 8207093151465176736}
   m_Layer: 0
   m_Name: SpinDamage
   m_TagString: Untagged
@@ -47,6 +48,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bias: -0.25
   onlyAdjustOnStart: 0
+--- !u!114 &8207093151465176736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4496796887068261480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45022751a41de440838e7ad7dcda942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phyDamage: 60
+  damagePeriod: 0.125
+  BoxSize: {x: 4, y: 2}
+  hitFX: {fileID: 404763948931614738, guid: 8f4193110cb32f54e8a43704b08cae36, type: 3}
 --- !u!1001 &517285032200283826
 PrefabInstance:
   m_ObjectHideFlags: 0
