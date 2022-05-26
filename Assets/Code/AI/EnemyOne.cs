@@ -14,6 +14,7 @@ public struct SkillData
 
     public GameObject trackRef;     //如果要使用 Track Animation
     public string trackAnimStr;
+    public GameObject trackDamageFX;      
 }
 [System.Serializable]
 public class SkillPatternInfo
@@ -34,6 +35,7 @@ public class EnemyOne : Enemy
     protected TrackHookForAgent myHook = null;
     protected bool isWaitTrack = false;
     protected string trackAnimationStr = null;
+    protected GameObject myTrackDamageFX = null;
 
 
     protected override void Start()
@@ -79,18 +81,27 @@ public class EnemyOne : Enemy
         {
             if (myHook == null)
             {
-                // Track 結束處理
-                if (myAnimator && trackAnimationStr != "")
-                {
-                    myAnimator.SetBool(trackAnimationStr, false);
-                }
-                isWaitTrack = false;
+                DoEndTrack();
             }
         }
         else
         {
             base.UpdateAttack();
         }
+    }
+
+    protected void DoEndTrack()
+    {
+        // Track 結束處理
+        if (myAnimator && trackAnimationStr != "")
+        {
+            myAnimator.SetBool(trackAnimationStr, false);
+        }
+        if (myTrackDamageFX)
+        {
+            Destroy(myTrackDamageFX);
+        }
+        isWaitTrack = false;
     }
 
 
@@ -141,6 +152,11 @@ public class EnemyOne : Enemy
                 {
                     trackAnimationStr = skill.trackAnimStr;
                     myAnimator.SetBool(trackAnimationStr, true);
+                }
+                if (skill.trackDamageFX)
+                {
+                    myTrackDamageFX = BattleSystem.GetInstance().SpawnGameplayObject(skill.trackDamageFX, transform.position, false);
+                    myTrackDamageFX.transform.parent = transform;
                 }
             }
         }
