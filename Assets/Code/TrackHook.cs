@@ -24,10 +24,28 @@ public class TrackHook : MonoBehaviour
                 {
                     mySlot = tr.GetSlot();
                     hooking = true;
+                    StartHook();               
                 }
-            }
+
+          }
         }
     }
+
+    virtual protected void StartHook()
+    {
+
+    }
+
+    virtual protected void EndHook()
+    {
+
+    }
+
+    virtual protected void UpdateHook()
+    {
+        gameObject.transform.position = mySlot.position;
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -41,13 +59,14 @@ public class TrackHook : MonoBehaviour
             }
             else
             {
-                gameObject.transform.position = mySlot.position;
+                UpdateHook();
             }
         }
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
+        EndHook();
         if (myTrackObj)
         {
             Destroy(myTrackObj);

@@ -28,6 +28,7 @@ public class EnemyOne : Enemy
 
     protected int currSkillIndex = 0;
 
+
     protected override void Start()
     {
         base.Start();
@@ -42,7 +43,7 @@ public class EnemyOne : Enemy
     {
         if (currSkillIndex < 0)
             return;
-        print("EnemyOne DoOneAttack!!");
+        //print("EnemyOne DoOneAttack!!");
 
         int id = skillPattern[currSkillIndex].skillIndex;
         if (id < 0 || id >= skillList.Length)
@@ -103,11 +104,12 @@ public class EnemyOne : Enemy
 
         if (skill.trackRef)
         {
-            TrackHook th = gameObject.AddComponent<TrackHook>();
+            TrackHookForAgent th = gameObject.AddComponent<TrackHookForAgent>();
             if (th)
             {
                 th.trackRef = skill.trackRef;
                 th.StartAtBegin = true;
+                th.hookAgent = myAgent;
             }
         }
     }
