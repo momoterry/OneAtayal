@@ -159,11 +159,11 @@ MonoBehaviour:
   SpawnWaitTime: 0.1
   ChaseRangeIn: 10
   ChaseRangeOut: 12
-  AttackRangeIn: 3
-  AttackRangeOut: 5
+  AttackRangeIn: 5
+  AttackRangeOut: 9
   AttackWait: 0.5
   AttackCD: 2
-  Attack: 100
+  Attack: 60
   myAnimator: {fileID: 4016448738983798548}
   skillList:
   - bulletRef: {fileID: 4641581918583914209, guid: c9672b5b8d05bcd4786677c9e32122d7, type: 3}
@@ -193,6 +193,12 @@ MonoBehaviour:
   - skillIndex: 0
     collDown: 1
   - skillIndex: 2
+    collDown: 1
+  - skillIndex: 0
+    collDown: 1
+  - skillIndex: 0
+    collDown: 1
+  - skillIndex: 1
     collDown: 2
 --- !u!114 &4274056214866837559
 MonoBehaviour:
