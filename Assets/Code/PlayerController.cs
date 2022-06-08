@@ -532,9 +532,9 @@ public virtual void OnMoveToPosition(Vector3 target)
             if (col.gameObject.CompareTag("Enemy"))
             {
                 Vector3 vDis = col.transform.position - transform.position;
-                float angle = Vector3.Angle(faceFront, vDis);
-                if (angle > searchAngle)
-                    continue;
+                //float angle = Vector3.Angle(faceFront, vDis);
+                //if (angle > searchAngle)
+                //    continue;
                 float sDis = vDis.sqrMagnitude;
                 if (sDis < bestSDis)
                 {
