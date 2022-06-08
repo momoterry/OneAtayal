@@ -90,6 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vCenter: {fileID: 2219332196767591475}
   vStick: {fileID: 2219332197295835184}
+  actionButton: {fileID: 0}
 --- !u!1 &2219332196202087268
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +121,7 @@ RectTransform:
   - {fileID: 2219332196767591472}
   - {fileID: 2219332196157764766}
   m_Father: {fileID: 2219332196827940496}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -704,8 +705,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2219332196883101987}
   - {fileID: 2219332196202087271}
+  - {fileID: 2219332196883101987}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -745,7 +746,7 @@ RectTransform:
   - {fileID: 2219332196330576563}
   - {fileID: 2219332196523752981}
   m_Father: {fileID: 2219332196827940496}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
