@@ -68,7 +68,7 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     public void OnAttack()
     {
-        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
+        PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         if (pc)
         {
             pc.OnAttack();
@@ -77,7 +77,7 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     public void OnShoot()
     {
-        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
+        PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         if (pc)
         {
             pc.OnShoot();
@@ -86,7 +86,7 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     public void OnAction()
     {
-        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
+        PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         if (pc)
         {
             pc.OnActionKey();

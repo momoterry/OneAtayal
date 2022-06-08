@@ -18,7 +18,7 @@ public class VButton : MonoBehaviour
 
     void OnAttack()
     {
-        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
+        PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         if (pc)
         {
             pc.OnAttack();

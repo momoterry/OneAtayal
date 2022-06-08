@@ -42,7 +42,7 @@ public class PC_Warrior : PlayerController
     //    base.Update();
     //}
 
-    public override void OnAttackToward(Vector3 target)
+    public override void OnAttackTo(Vector3 target)
     {
         if (currState == PC_STATE.NORMAL)
         {

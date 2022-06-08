@@ -10,8 +10,8 @@ public class ActionTG : MonoBehaviour
 
     public bool deleteAfterAction = false;
 
-    protected PlayerController playerToActive = null;
-    protected PlayerController pendingPlayer = null;
+    protected PlayerControllerBase playerToActive = null;
+    protected PlayerControllerBase pendingPlayer = null;
 
     protected float tryRegisterTime = 0;
 
@@ -81,7 +81,7 @@ public class ActionTG : MonoBehaviour
         if (obj.CompareTag("Player"))
         {
 
-            PlayerController pc = obj.GetComponent<PlayerController>();
+            PlayerControllerBase pc = obj.GetComponent<PlayerController>();
             if (pc)
             {
                 //TODO: 往後要考慮如果有多個 PlayerController 的情況 ( if playerToActive != null )
@@ -104,7 +104,7 @@ public class ActionTG : MonoBehaviour
 
     void OnGameObjectOut(GameObject obj)
     {
-        PlayerController pc = obj.GetComponent<PlayerController>();
+        PlayerControllerBase pc = obj.GetComponent<PlayerController>();
         if (pc)
         {
             if (pc == playerToActive)

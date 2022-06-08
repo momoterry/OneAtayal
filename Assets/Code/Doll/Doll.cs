@@ -173,7 +173,7 @@ public class Doll : MonoBehaviour
 
     public bool TryJoinThePlayer()
     {
-        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
+        PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         if ( pc ){
             DollManager theDollManager = pc.GetDollManager();
             if (theDollManager)

@@ -20,7 +20,7 @@ public class BattleSystem : MonoBehaviour
     protected List<GameObject> enemyList = new List<GameObject>();
     protected List<GameObject> objList = new List<GameObject>();
 
-    protected PlayerController thePC;
+    protected PlayerControllerBase thePC;
 
     public int MaxLevel = 5;
     protected int currLevel = 1;
@@ -57,7 +57,7 @@ public class BattleSystem : MonoBehaviour
 
     public GameObject GetPlayer() { return thePlayer; }
 
-    public PlayerController GetPlayerController() { return thePC; }
+    public PlayerControllerBase GetPlayerController() { return thePC; }
     public VPad GetVPad() {return theBattleHUD.theVPad; }
 
     public MapGeneratorBase GetMapGenerator() { return theMG; }
@@ -281,7 +281,7 @@ public class BattleSystem : MonoBehaviour
 
                 thePlayer = Instantiate(playerRef, initPlayerPos.position, rm, null);
 
-                thePC = thePlayer.GetComponent<PlayerController>();
+                thePC = thePlayer.GetComponent<PlayerControllerBase>();
                 thePC.initFaceDirAngle = initPlayerDirAngle;
                 //thePC.InitStatus(); 會在 PC 的 Start 被呼叫
             }    

@@ -21,7 +21,8 @@ public enum FaceFrontType
     LEFT,
 }
 
-public class PlayerController : MonoBehaviour
+
+public class PlayerController : PlayerControllerBase
 {
     //public float AttackCD = 1.0f;
     public float WalkSpeed = 8.0f;
@@ -44,16 +45,16 @@ public class PlayerController : MonoBehaviour
     public float MP_Gen_Rate = 30.0f;
     public float MP_PerShoot = 10.0f;
 
-    public float initFaceDirAngle = 180.0f;
+    //public float initFaceDirAngle = 180.0f;
 
     protected NavMeshAgent myAgent;
     protected float attackWait = 0.0f;
 
-    protected float HP_Max = 100.0f;
-    protected float MP_Max = 100.0f;    
-    protected float hp = 100.0f;
-    protected float mp = 100.0f;
-    protected float Attack = 50.0f;
+    //protected float HP_Max = 100.0f;
+    //protected float MP_Max = 100.0f;    
+    //protected float hp = 100.0f;
+    //protected float mp = 100.0f;
+    //protected float Attack = 50.0f;
 
     //Input
     protected MyInputActions theInput;
@@ -82,17 +83,17 @@ public class PlayerController : MonoBehaviour
 
     protected Hp_BarHandler myHPHandler;
 
-    public float GetHPMax() { return HP_Max; }
-    public float GetMPMax() { return MP_Max; }
-    public float GetHP() { return hp; }
-    public float GetMP() { return mp; }
-    public float GetATTACK() { return Attack; }
+    //public float GetHPMax() { return HP_Max; }
+    //public float GetMPMax() { return MP_Max; }
+    //public float GetHP() { return hp; }
+    //public float GetMP() { return mp; }
+    //public float GetATTACK() { return Attack; }
 
-    //Doll 相關
-    public GameObject DollManagerRef;
-    public DollManager GetDollManager() { return myDollManager; }
+    ////Doll 相關
+    //public GameObject DollManagerRef;
+    //public DollManager GetDollManager() { return myDollManager; }
 
-    protected DollManager myDollManager;
+    //protected DollManager myDollManager;
 
     public enum PC_STATE
     {
@@ -143,7 +144,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void SetInputActive( bool enable)
+    public override void SetInputActive( bool enable)
     {
         if (enable)
         {
@@ -167,7 +168,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //初始化到等級一的狀態
-    public virtual void InitStatus()
+    public override void InitStatus()
     {
         //print("PlayerController::InitStatus");
         HP_Max = HP_MaxInit;
@@ -192,7 +193,7 @@ public class PlayerController : MonoBehaviour
         SetupFrontDirection();
     }
 
-    public void DoTeleport(Vector3 position, float faceAngle)
+    public override void DoTeleport(Vector3 position, float faceAngle)
     {
         transform.position = position;
         SetupFaceDirByAngle(faceAngle);
@@ -204,7 +205,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public virtual bool DoHpUp()
+    public override bool DoHpUp()
     {
         if (HP_Up == HP_UP_Max)
             return false;
@@ -217,7 +218,7 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
-    public virtual bool DoAtkUp()
+    public override bool DoAtkUp()
     {
         if (ATK_Up == ATK_UP_MAX)
             return false;
@@ -227,7 +228,7 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
-    public bool IsKilled()
+    public override bool IsKilled()
     {
         bool result = (currState == PC_STATE.DEAD);
         return result;
@@ -470,7 +471,7 @@ public class PlayerController : MonoBehaviour
 //}
 
 
-public virtual void OnMoveToPosition(Vector3 target)
+    public override void OnMoveToPosition(Vector3 target)
     {
         if (currState == PC_STATE.NORMAL)
         {
@@ -479,7 +480,7 @@ public virtual void OnMoveToPosition(Vector3 target)
     }
 
     //=================== 互動物件相關 ===================
-    public void OnActionKey()
+    public override void OnActionKey()
     {
         if (actionObject)
         {
@@ -491,7 +492,7 @@ public virtual void OnMoveToPosition(Vector3 target)
         }
     }
 
-    public bool OnRegisterActionObject( GameObject obj )
+    public override bool OnRegisterActionObject( GameObject obj )
     {
         if (actionObject == null)
         {
@@ -503,7 +504,7 @@ public virtual void OnMoveToPosition(Vector3 target)
         return false;
     }
 
-    public bool OnUnregisterActionObject (GameObject obj )
+    public override bool OnUnregisterActionObject (GameObject obj )
     {
         if (actionObject == obj)
         {
@@ -520,7 +521,7 @@ public virtual void OnMoveToPosition(Vector3 target)
     virtual protected GameObject FindBestShootTarget()
     {
         float searchRange = 10.0f;
-        float searchAngle = 60.0f;
+        //float searchAngle = 60.0f;
 
         Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
 
@@ -547,7 +548,7 @@ public virtual void OnMoveToPosition(Vector3 target)
         return bestEnemy;
     }
 
-    public virtual void OnAttack()
+    public override void OnAttack()
     {
         //OnAttackToward(transform.position + faceDir);
         if (currState == PC_STATE.NORMAL)
@@ -556,7 +557,7 @@ public virtual void OnMoveToPosition(Vector3 target)
         }
     }
 
-    public virtual void OnShoot()
+    public override void OnShoot()
     {
         Vector3 target;
 
@@ -577,7 +578,7 @@ public virtual void OnMoveToPosition(Vector3 target)
 
     }
 
-    public virtual void OnShootTo()
+    public override void OnShootTo()
     {
         //print("OnShootTo");
         Vector2 mousePos = theInput.TheHero.MousePos.ReadValue<Vector2>();
@@ -595,7 +596,7 @@ public virtual void OnMoveToPosition(Vector3 target)
     }
 
     //舊的攻擊方式, 由外部呼叫往指定方向攻擊, 目前暫不使用
-    public virtual void OnAttackToward(Vector3 target)
+    public override void OnAttackTo(Vector3 target)
     {
         if (currState == PC_STATE.NORMAL)
         {
@@ -605,7 +606,7 @@ public virtual void OnMoveToPosition(Vector3 target)
         }
     }
 
-    protected virtual void DoMeleeTo(Vector3 target)
+    protected void DoMeleeTo(Vector3 target)
     {
         //if (mp < MP_PerShoot)
         if (mp < meleeSkillDef.manaCost)
@@ -737,7 +738,7 @@ public virtual void OnMoveToPosition(Vector3 target)
     }
 
 
-    public virtual void DoShootTo(Vector3 target)
+    public override void DoShootTo(Vector3 target)
     {
         //if (mp < MP_PerShoot)
         if (mp < rangeSkillDef.manaCost)  
@@ -838,14 +839,14 @@ public virtual void OnMoveToPosition(Vector3 target)
         }
     }
 
-    public void DoHeal( float healNum)
+    public override void DoHeal( float healNum)
     {
         hp += healNum;
         if (hp > HP_Max)
             hp = HP_Max;
     }
 
-    public void ForceStop( bool stop = true)
+    public override void ForceStop( bool stop = true)
     {
         if ( stop && currState != PC_STATE.DEAD && currState!= PC_STATE.NONE ) 
         {

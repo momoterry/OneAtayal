@@ -22,7 +22,7 @@ public class HealObject : MonoBehaviour
         //print("DoHeal !!!!!" + whoTG);
 
         bool result = false;
-        PlayerController pc = BattleSystem.GetInstance().GetPlayerController();
+        PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         if (pc.GetHP() < pc.GetHPMax())
         {
             pc.DoHeal(pc.GetHPMax()*0.5f);
