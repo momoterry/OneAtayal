@@ -239,7 +239,7 @@ public class Enemy : MonoBehaviour
             nextState = AI_STATE.IDLE;
             return;
         }
-        PlayerControllerBase thePC = targetObj.GetComponent<PlayerController>();
+        PlayerControllerBase thePC = targetObj.GetComponent<PlayerControllerBase>();
         if (thePC && thePC.IsKilled())
         {
             nextState = AI_STATE.IDLE;
@@ -305,7 +305,7 @@ public class Enemy : MonoBehaviour
             nextState = AI_STATE.IDLE;
             return;
         }
-        PlayerControllerBase thePC = targetObj.GetComponent<PlayerController>();
+        PlayerControllerBase thePC = targetObj.GetComponent<PlayerControllerBase>();
         if (thePC && thePC.IsKilled())
         {
             nextState = AI_STATE.IDLE;

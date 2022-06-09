@@ -81,7 +81,7 @@ public class ActionTG : MonoBehaviour
         if (obj.CompareTag("Player"))
         {
 
-            PlayerControllerBase pc = obj.GetComponent<PlayerController>();
+            PlayerControllerBase pc = obj.GetComponent<PlayerControllerBase>();
             if (pc)
             {
                 //TODO: 往後要考慮如果有多個 PlayerController 的情況 ( if playerToActive != null )
@@ -104,7 +104,7 @@ public class ActionTG : MonoBehaviour
 
     void OnGameObjectOut(GameObject obj)
     {
-        PlayerControllerBase pc = obj.GetComponent<PlayerController>();
+        PlayerControllerBase pc = obj.GetComponent<PlayerControllerBase>();
         if (pc)
         {
             if (pc == playerToActive)

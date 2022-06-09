@@ -142,7 +142,7 @@ public class DropItem : MonoBehaviour
             else
             {
                 //距離太遠，改成讓玩家走過來 TODO: 走過來撿掉?
-                PlayerControllerBase pc = p.GetComponent<PlayerController>();
+                PlayerControllerBase pc = p.GetComponent<PlayerControllerBase>();
                 Vector3 targetPos = transform.position + Vector3.Normalize(p.transform.position - transform.position) * 1.5f;
                 if (pc)
                     pc.OnMoveToPosition(targetPos);

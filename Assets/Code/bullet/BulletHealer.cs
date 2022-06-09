@@ -12,7 +12,7 @@ public class BulletHealer : BulletTrace
     protected override void DoHitTarget()
     {
 
-        PlayerControllerBase pc = targetObj.GetComponent<PlayerController>();
+        PlayerControllerBase pc = targetObj.GetComponent<PlayerControllerBase>();
         if (pc)
         {
             pc.DoHeal(pc.GetHPMax() * healRatio + healAbsoluteValue);
