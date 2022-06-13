@@ -15,6 +15,8 @@ public class PC_One : PlayerControllerBase
         public float manaCost = 0;
     }
 
+    public SkillBase autoSkillRef;
+
     public SkillInfo autoAttackInfo;
     public float autoAttackRange = 8.0f;
     public float autoAttackWait = 0.2f;
@@ -32,6 +34,7 @@ public class PC_One : PlayerControllerBase
     protected NavMeshAgent myAgent;
     protected float skillTime = 0.0f;
     protected float autoAttackCDLeft = 0.0f;
+    protected SkillBase autoSkill;
 
     //Input
     protected MyInputActions theInput;
@@ -105,6 +108,12 @@ public class PC_One : PlayerControllerBase
                 print("ERROR!! No DollManager Found !!!!!! ");
                 Destroy(dm);
             }
+        }
+
+        //產生各 SkillBase
+        if (autoSkillRef)
+        {
+            autoSkill = Instantiate(autoSkillRef, transform);
         }
 
     }
@@ -280,6 +289,12 @@ public class PC_One : PlayerControllerBase
         if (autoAttackCDLeft <=0)
         {
             // TODO 尋找目標
+            //TEST
+            //if (autoSkill)
+            //{
+            //    autoSkill.DoStart();
+            //}
+
             GameObject o = FindBestShootTarget(autoAttackRange);
             if (o)
             {
@@ -532,7 +547,7 @@ public class PC_One : PlayerControllerBase
         float bestSDis = Mathf.Infinity;
         foreach (Collider col in cols)
         {
-            print("I Found: " + col.gameObject.name);
+            //print("I Found: " + col.gameObject.name);
             if (col.gameObject.CompareTag("Enemy"))
             {
                 Vector3 vDis = col.transform.position - transform.position;
