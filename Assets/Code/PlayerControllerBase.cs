@@ -13,11 +13,11 @@ public class PlayerControllerBase : MonoBehaviour
     protected float Attack = 50.0f;
 
     //取得數值相關
-    public float GetHPMax() { return 0; }
-    public float GetMPMax() { return 0; }
-    public float GetHP() { return 0; }
-    public float GetMP() { return 0; }
-    public float GetATTACK() { return 0; }
+    public float GetHPMax() { return MP_Max; }
+    public float GetMPMax() { return MP_Max; }
+    public float GetHP() { return hp; }
+    public float GetMP() { return mp; }
+    public float GetATTACK() { return Attack; }
     public virtual void InitStatus() {}
     public virtual bool IsKilled(){return false;}
 
