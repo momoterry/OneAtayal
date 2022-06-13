@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class PC_One : PlayerControllerBase
 {
     [System.Serializable]
@@ -114,6 +115,10 @@ public class PC_One : PlayerControllerBase
         if (autoSkillRef)
         {
             autoSkill = Instantiate(autoSkillRef, transform);
+            if (autoSkill)
+            {
+                autoSkill.InitCasterInfo(gameObject);
+            }
         }
 
     }
@@ -164,6 +169,12 @@ public class PC_One : PlayerControllerBase
     {
         //faceDir = Vector3.RotateTowards(Vector3.forward, Vector3.right, angle * Mathf.Deg2Rad, 0);
         faceDir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+        SetupFrontDirection();
+    }
+
+    public override void SetupFaceDir(Vector3 dir)
+    {
+        faceDir = dir;
         SetupFrontDirection();
     }
 
@@ -288,23 +299,28 @@ public class PC_One : PlayerControllerBase
         
         if (autoAttackCDLeft <=0)
         {
-            // TODO 尋找目標
-            //TEST
-            //if (autoSkill)
-            //{
-            //    autoSkill.DoStart();
-            //}
+            if (autoSkill)
+            {
+                if (DoStartSkill(autoSkill))
+                {
+                    autoAttackCDLeft = autoAttackCD;
+                }
+                else
+                {
+                    autoAttackCDLeft = 0.1f;
+                }
+            }
 
-            GameObject o = FindBestShootTarget(autoAttackRange);
-            if (o)
-            {
-                DoStartSkill(autoAttackInfo, o);
-                autoAttackCDLeft = autoAttackCD;
-            }
-            else
-            {
-                autoAttackCDLeft = 0.1f;    //重找目標時間, TODO: 參數化?
-            }
+            //GameObject o = FindBestShootTarget(autoAttackRange);
+            //if (o)
+            //{
+            //    DoStartSkill(autoAttackInfo, o);
+            //    autoAttackCDLeft = autoAttackCD;
+            //}
+            //else
+            //{
+            //    autoAttackCDLeft = 0.1f;    //重找目標時間, TODO: 參數化?
+            //}
         }
     }
 
@@ -566,6 +582,25 @@ public class PC_One : PlayerControllerBase
         return bestEnemy;
     }
 
+    // 以下兩種方式二擇一
+    protected virtual bool DoStartSkill( SkillBase theSkill)
+    {
+        if (theSkill.DoStart())
+        {
+            if (theSkill.duration > 0)
+            {
+                skillTime = autoSkill.duration;
+                nextState = PC_STATE.SKILL;
+            }
+            else
+                nextState = PC_STATE.ATTACK_AUTO;
+
+            return true;
+        }
+
+        return false;
+    }
+
     protected virtual void DoStartSkill(SkillInfo skillInfo, GameObject target)
     {
         if (mp < skillInfo.manaCost)
@@ -611,12 +646,6 @@ public class PC_One : PlayerControllerBase
 
         mp -= skillInfo.manaCost;
 
-
-        if (skillInfo.duration > 0)
-        {
-            nextState = PC_STATE.SKILL;
-            skillTime = skillInfo.duration;
-        }
     }
 
 

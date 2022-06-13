@@ -8,6 +8,11 @@ public class SkillBase : MonoBehaviour
     public float duration = 0.2f;   //技能施放期間 (無法操作 )
     public float manaCost = 0;
 
-    
-    public virtual void DoStart() { print("SkillBase !!!!!!"); }
+    protected GameObject theCaster;
+
+    public virtual void InitCasterInfo(GameObject oCaster) { theCaster = oCaster; }
+    public virtual bool DoStart() { 
+        print("SkillBase !!!!!!");
+        return true;
+    }
 }

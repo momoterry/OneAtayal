@@ -39,6 +39,7 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual void OnMoveToPosition(Vector3 target) { }
     public virtual void ForceStop(bool stop = true) { }
     public virtual void DoTeleport(Vector3 position, float faceAngle) { }
+    public virtual void SetupFaceDir(Vector3 dir) { }
     public virtual void SetInputActive(bool enable) { }
 
     // 攻擊行為相關
@@ -48,5 +49,13 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual void OnAttackTo(Vector3 target) { }
     public virtual void DoShootTo(Vector3 target) { }
     public virtual void DoHeal(float healNum) { }
+    public virtual void DoUseMP(float mpCost) 
+    {
+        mp -= mpCost;
+        if (mp < 0)
+        {
+            mp = 0;
+        }
+    }
 }
 
