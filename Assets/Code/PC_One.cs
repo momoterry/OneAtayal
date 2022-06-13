@@ -15,10 +15,10 @@ public class PC_One : PlayerControllerBase
         public float duration = 0.2f;   //技能施放期間 (無法操作 )
         public float manaCost = 0;
     }
+    //public SkillInfo autoAttackInfo;
 
     public SkillBase autoSkillRef;
 
-    public SkillInfo autoAttackInfo;
     public float autoAttackRange = 8.0f;
     public float autoAttackWait = 0.2f;
     public float autoAttackCD = 1.0f;
