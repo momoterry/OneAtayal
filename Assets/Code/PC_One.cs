@@ -5,26 +5,33 @@ using UnityEngine.AI;
 
 public class PC_One : PlayerControllerBase
 {
-    //public float AttackCD = 1.0f;
+    [System.Serializable]
+    public class SkillInfo
+    {
+        public GameObject bulletRef;
+        public float bulletInitDis;
+        public float damageRatio = 1.0f;
+        public float duration = 0.2f;   //技能施放期間 (無法操作 )
+        public float manaCost = 0;
+    }
+
+    public SkillInfo autoAttackInfo;
+    public float autoAttackRange = 8.0f;
+    public float autoAttackWait = 0.2f;
+    public float autoAttackCD = 1.0f;
+
     public float WalkSpeed = 8.0f;
-    public GameObject beenHitFX;
 
-    public GameObject bulletRef;
-
-    public GameObject shootFX_1;
-    public GameObject shootFX_2;
-
-    public SkillDef rangeSkillDef;
 
     public float HP_MaxInit = 100.0f;
     public float MP_MaxInit = 100.0f;
     public float Attack_Init = 50.0f;
 
     public float MP_Gen_Rate = 30.0f;
-    public float MP_PerShoot = 10.0f;
 
     protected NavMeshAgent myAgent;
-    protected float attackWait = 0.0f;
+    protected float skillTime = 0.0f;
+    protected float autoAttackCDLeft = 0.0f;
 
     //Input
     protected MyInputActions theInput;
@@ -57,9 +64,9 @@ public class PC_One : PlayerControllerBase
     {
         NONE,
         NORMAL,
-        ATTACK_AUTO,
-        ATTACK, //For sKILL 動作
-        STOP,   //For 外部強迫暫停
+        ATTACK_AUTO,    //自動普攻狀態
+        SKILL,          //攻擊或技能後硬直狀態 (不接受輸入)
+        STOP,           //For 外部強迫暫停
         DEAD,
     }
     protected PC_STATE currState = PC_STATE.NONE;
@@ -206,17 +213,27 @@ public class PC_One : PlayerControllerBase
             OnUpdateState();
         }
 
-        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
+        if (myDollManager && currState != PC_STATE.NONE && currState != PC_STATE.DEAD)
+        {
+            UpdateStatus();
+            myDollManager.SetMasterPosition(transform.position);
+            myDollManager.SetMasterDirection(faceDir, faceFrontType);
+        }
+
         if (myHPHandler && currState != PC_STATE.NONE)
         {
             myHPHandler.SetHP(hp, HP_Max);
             myHPHandler.SetMP(mp, MP_Max);
-        }
+        }    
 
-        if (myDollManager && currState != PC_STATE.NONE && currState != PC_STATE.DEAD)
+        if (currState == PC_STATE.NORMAL || currState == PC_STATE.ATTACK_AUTO || currState == PC_STATE.SKILL)
         {
-            myDollManager.SetMasterPosition(transform.position);
-            myDollManager.SetMasterDirection(faceDir, faceFrontType);
+            if (autoAttackCDLeft > 0)
+            {
+                autoAttackCDLeft -= Time.deltaTime;
+            }
+            else
+                autoAttackCDLeft = 0;
         }
     }
 
@@ -225,11 +242,14 @@ public class PC_One : PlayerControllerBase
         switch (currState)
         {
             case PC_STATE.NORMAL:
-                UpdateStatus();
                 UpdateMoveControl();
                 break;
-            case PC_STATE.ATTACK:
-                UpdateAttack();
+            case PC_STATE.ATTACK_AUTO:
+                UpdateAttackAuto();
+                UpdateMoveControl();
+                break;
+            case PC_STATE.SKILL:
+                UpdateSkill();
                 break;
             case PC_STATE.DEAD:
                 break;
@@ -250,13 +270,35 @@ public class PC_One : PlayerControllerBase
 
     }
 
-
-    protected virtual void UpdateAttack()
+    protected virtual void UpdateAttackAuto()
     {
-        attackWait -= Time.deltaTime;
-        if (attackWait <= 0)
+        if (autoAttackCDLeft > 0)
         {
-            nextState = PC_STATE.NORMAL;
+            autoAttackCDLeft -= Time.deltaTime;
+        }
+        
+        if (autoAttackCDLeft <=0)
+        {
+            // TODO 尋找目標
+            GameObject o = FindBestShootTarget(autoAttackRange);
+            if (o)
+            {
+                DoStartSkill(autoAttackInfo, o);
+                autoAttackCDLeft = autoAttackCD;
+            }
+            else
+            {
+                autoAttackCDLeft = 0.1f;    //重找目標時間, TODO: 參數化?
+            }
+        }
+    }
+
+    protected virtual void UpdateSkill()
+    {
+        skillTime -= Time.deltaTime;
+        if (skillTime <= 0)
+        {
+            nextState = PC_STATE.ATTACK_AUTO;
         }
     }
 
@@ -331,6 +373,18 @@ public class PC_One : PlayerControllerBase
 #endif
 
             SetupFrontDirection();
+
+            if (currState == PC_STATE.ATTACK_AUTO)
+            {
+                nextState = PC_STATE.NORMAL;
+            }
+        }
+        else
+        {
+            if (currState == PC_STATE.NORMAL)
+            {
+                nextState = PC_STATE.ATTACK_AUTO;
+            }
         }
 
 
@@ -418,15 +472,7 @@ public class PC_One : PlayerControllerBase
 
     }
 
-    //private void OnGUI()
-    //{
-    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position+faceDir);
-    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "FACE");
-    //    thePoint = Camera.main.WorldToScreenPoint(transform.position + faceFront);
-    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "X");
-    //}
+
 
 
     public override void OnMoveToPosition(Vector3 target)
@@ -476,10 +522,9 @@ public class PC_One : PlayerControllerBase
 
     // =================== 攻擊相關 ===================
 
-    virtual protected GameObject FindBestShootTarget()
+    virtual protected GameObject FindBestShootTarget(float searchRange = 10.0f)
     {
-        float searchRange = 10.0f;
-        //float searchAngle = 60.0f;
+        //float searchRange = 10.0f;
 
         Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
 
@@ -506,52 +551,15 @@ public class PC_One : PlayerControllerBase
         return bestEnemy;
     }
 
-    public override void OnAttack()
+    protected virtual void DoStartSkill(SkillInfo skillInfo, GameObject target)
     {
-
-    }
-
-    public override void OnShoot()
-    {
-        Vector3 target;
-
-        GameObject targetEnemy = FindBestShootTarget();
-        if (targetEnemy)
+        if (mp < skillInfo.manaCost)
         {
-            target = targetEnemy.transform.position;
-        }
-        else
-            target = faceDir + gameObject.transform.position;
-
-        //target = faceDir + gameObject.transform.position;
-        if (currState == PC_STATE.NORMAL)
-        {
-            DoShootTo(target);
-        }
-
-
-    }
-
-    public override void OnShootTo()
-    {
-    }
-
-    //舊的攻擊方式, 由外部呼叫往指定方向攻擊, 目前暫不使用
-    public override void OnAttackTo(Vector3 target)
-    {
-    }
-
-    public override void DoShootTo(Vector3 target)
-    {
-        //if (mp < MP_PerShoot)
-        if (mp < rangeSkillDef.manaCost)
-        {
-            //print("沒 Mana 呀 !!!!");
-            Instantiate(shootFX_2, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+            print("沒 Mana 呀 !!!!");
             return;
         }
 
-        Vector3 td = target - gameObject.transform.position;
+        Vector3 td = target.transform.position - gameObject.transform.position;
 #if XZ_PLAN
         td.y = 0;
 #else
@@ -562,31 +570,17 @@ public class PC_One : PlayerControllerBase
         SetupFrontDirection();
 
         //TODO 發射點靠前量參數化?
-        Vector3 shootPos = gameObject.transform.position + faceDir * 0.25f;
+        Vector3 shootPos = gameObject.transform.position + td * skillInfo.bulletInitDis;
 
-        Quaternion ro;
-#if XZ_PLAN
-        ro = Quaternion.Euler(90, 0, 0);
-#else
-        ro = Quaternion.identity;
-#endif
-
-        GameObject newObj = Instantiate(bulletRef, shootPos, ro, null);
+        GameObject newObj = BattleSystem.GetInstance().SpawnGameplayObject(skillInfo.bulletRef, shootPos, false);
         if (newObj)
         {
             bullet newBullet = newObj.GetComponent<bullet>();
             if (newBullet)
             {
-                //newBullet.SetGroup(DAMAGE_GROUP.PLAYER);
-                //newBullet.targetDir = td;
-                //傷害值，由自己來給
-                //newBullet.phyDamage = rangeSkillDef.baseDamage; //TODO:  升級?
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, rangeSkillDef.baseDamage, td);
+                newBullet.InitValue(DAMAGE_GROUP.PLAYER, Attack * skillInfo.damageRatio, td);
             }
         }
-
-        Instantiate(shootFX_1, gameObject.transform.position, ro, gameObject.transform);
-        Instantiate(shootFX_2, gameObject.transform.position, ro, gameObject.transform);
 
         if (myAnimator)
         {
@@ -599,15 +593,37 @@ public class PC_One : PlayerControllerBase
             myAnimator.SetTrigger("Cast");
         }
 
-        //mp -= MP_PerShoot;
-        mp -= rangeSkillDef.manaCost;
 
-        if (myDollManager)
-            myDollManager.OnPlayerShoot(target);
+        mp -= skillInfo.manaCost;
 
-        attackWait = rangeSkillDef.duration;
-        nextState = PC_STATE.ATTACK;
+
+        if (skillInfo.duration > 0)
+        {
+            nextState = PC_STATE.SKILL;
+            skillTime = skillInfo.duration;
+        }
     }
+
+
+    public override void OnAttack()
+    {
+
+    }
+
+    public override void OnShoot()
+    {
+
+    }
+
+    public override void OnShootTo()
+    {}
+
+    //舊的攻擊方式, 由外部呼叫往指定方向攻擊, 目前暫不使用
+    public override void OnAttackTo(Vector3 target)
+    {}
+
+    public override void DoShootTo(Vector3 target)
+    {}
 
 
     virtual protected void DoDeath()
@@ -622,22 +638,10 @@ public class PC_One : PlayerControllerBase
 
     void OnDamage(Damage theDamage)
     {
-#if XZ_PLAN
-        if (beenHitFX)
-            Instantiate(beenHitFX, transform.position, Quaternion.Euler(90, 0, 0), null);
-#else
-        if (beenHitFX)
-            Instantiate(beenHitFX, transform.position, Quaternion.identity, null);
-#endif
 
         hp -= theDamage.damage;
         if (hp <= 0)
         {
-            //hp = 0;
-            //nextState = PC_STATE.DEAD;
-            //if (myDollManager)
-            //    myDollManager.OnPlayerDead();
-            //BattleSystem.GetInstance().OnPlayerKilled();
             DoDeath();
         }
     }
@@ -662,4 +666,12 @@ public class PC_One : PlayerControllerBase
             nextState = PC_STATE.NORMAL;
         }
     }
+
+
+    //private void OnGUI()
+    //{
+    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + faceDir);
+    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currState.ToString());
+    //}
 }

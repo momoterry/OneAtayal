@@ -170,20 +170,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initFaceDirAngle: 180
   DollManagerRef: {fileID: 1352149302683423010, guid: ac0235a075b2cb2478f2bc4cc2d7a84e, type: 3}
-  WalkSpeed: 8
-  beenHitFX: {fileID: 0}
-  bulletRef: {fileID: 0}
-  shootFX_1: {fileID: 0}
-  shootFX_2: {fileID: 0}
-  rangeSkillDef:
-    baseDamage: 20
-    duration: 0.5
+  autoAttackInfo:
+    bulletRef: {fileID: 5540624750266425460, guid: 383368d35770af844b2f3170a56f3898, type: 3}
+    bulletInitDis: 0.25
+    damageRatio: 1
+    duration: 0.2
     manaCost: 0
+  autoAttackRange: 6
+  autoAttackWait: 0.2
+  autoAttackCD: 1
+  WalkSpeed: 8
   HP_MaxInit: 100
   MP_MaxInit: 100
   Attack_Init: 50
   MP_Gen_Rate: 30
-  MP_PerShoot: 10
 --- !u!195 &6214839875520186890
 NavMeshAgent:
   m_ObjectHideFlags: 0
