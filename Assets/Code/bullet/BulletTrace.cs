@@ -59,7 +59,7 @@ public class BulletTrace : bullet_base
                 loseTarget = true;
             }
         }
-        
+        //print("Trace..." + targetObj + "  dir  " + targetDir);
     }
 
     virtual protected void DoHitTarget()

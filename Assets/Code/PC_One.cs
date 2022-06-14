@@ -625,7 +625,7 @@ public class PC_One : PlayerControllerBase
         GameObject newObj = BattleSystem.GetInstance().SpawnGameplayObject(skillInfo.bulletRef, shootPos, false);
         if (newObj)
         {
-            bullet newBullet = newObj.GetComponent<bullet>();
+            bullet_base newBullet = newObj.GetComponent<bullet_base>();
             if (newBullet)
             {
                 newBullet.InitValue(DAMAGE_GROUP.PLAYER, Attack * skillInfo.damageRatio, td);

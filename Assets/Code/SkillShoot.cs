@@ -20,7 +20,7 @@ public class SkillShoot : SkillBase
         theAnimator = oCaster.GetComponent<Animator>();
     }
 
-    protected GameObject FindBestShootTarget(float searchRange)
+    protected virtual GameObject FindBestShootTarget(float searchRange)
     {
         if (theCaster == null)
             return null;
@@ -74,16 +74,15 @@ public class SkillShoot : SkillBase
         td.Normalize();
         thePC.SetupFaceDir(td);
 
-        //TODO 發射點靠前量參數化?
-        Vector3 shootPos = gameObject.transform.position + td * bulletInitDis;
+        Vector3 shootPos = theCaster.transform.position + td * bulletInitDis;
 
         GameObject newObj = BattleSystem.GetInstance().SpawnGameplayObject(bulletRef, shootPos, false);
         if (newObj)
         {
-            bullet newBullet = newObj.GetComponent<bullet>();
+            bullet_base newBullet = newObj.GetComponent<bullet_base>();
             if (newBullet)
             {
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, thePC.GetATTACK() * damageRatio, td);
+                newBullet.InitValue(DAMAGE_GROUP.PLAYER, thePC.GetATTACK() * damageRatio, td, target);
             }
         }
 

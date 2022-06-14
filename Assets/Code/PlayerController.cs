@@ -771,7 +771,7 @@ public class PlayerController : PlayerControllerBase
         GameObject newObj = Instantiate(bulletRef, shootPos, ro, null);
         if (newObj)
         {
-            bullet newBullet = newObj.GetComponent<bullet>();
+            bullet_base newBullet = newObj.GetComponent<bullet_base>();
             if (newBullet)
             {
                 //newBullet.SetGroup(DAMAGE_GROUP.PLAYER);
