@@ -104,4 +104,13 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         if (actionButton)
             actionButton.SetActive(false);
     }
+
+    public void OnSkillOne()
+    {
+        PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
+        if (pc)
+        {
+            pc.OnSkill(0);
+        }
+    }
 }

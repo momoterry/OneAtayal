@@ -18,6 +18,7 @@ public class PC_One : PlayerControllerBase
     //public SkillInfo autoAttackInfo;
 
     public SkillBase autoSkillRef;
+    public SkillBase[] activeSkillRefs;
 
     public float autoAttackRange = 8.0f;
     public float autoAttackWait = 0.2f;
@@ -36,6 +37,7 @@ public class PC_One : PlayerControllerBase
     protected float skillTime = 0.0f;
     protected float autoAttackCDLeft = 0.0f;
     protected SkillBase autoSkill;
+    protected SkillBase[] activeSkillls;
 
     //Input
     protected MyInputActions theInput;
@@ -115,12 +117,17 @@ public class PC_One : PlayerControllerBase
         if (autoSkillRef)
         {
             autoSkill = Instantiate(autoSkillRef, transform);
-            if (autoSkill)
+            autoSkill.InitCasterInfo(gameObject);
+        }
+        if (activeSkillRefs.Length > 0)
+        {
+            activeSkillls = new SkillBase[activeSkillRefs.Length];
+            for (int i = 0; i < activeSkillRefs.Length; i++)
             {
-                autoSkill.InitCasterInfo(gameObject);
+                activeSkillls[i] = Instantiate(activeSkillRefs[i], transform);
+                activeSkillls[i].InitCasterInfo(gameObject);
             }
         }
-
     }
 
     public override void SetInputActive(bool enable)
@@ -648,6 +655,23 @@ public class PC_One : PlayerControllerBase
 
     }
 
+    public override void OnSkill(int index)
+    {
+        if (activeSkillls.Length <= index)
+            return;
+
+        if (currState!= PC_STATE.NORMAL && currState != PC_STATE.ATTACK_AUTO)
+            return;
+
+        SkillBase theSkill = activeSkillls[index];
+
+        if (theSkill.DoStart())
+        {
+            nextState = PC_STATE.SKILL;
+            skillTime = theSkill.duration;
+        }
+
+    }
 
     public override void OnAttack()
     {

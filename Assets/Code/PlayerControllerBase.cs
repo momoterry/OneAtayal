@@ -57,5 +57,6 @@ public class PlayerControllerBase : MonoBehaviour
             mp = 0;
         }
     }
+    public virtual void OnSkill( int index) {}
 }
 
