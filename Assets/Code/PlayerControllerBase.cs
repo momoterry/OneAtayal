@@ -42,6 +42,10 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual void SetupFaceDir(Vector3 dir) { }
     public virtual void SetInputActive(bool enable) { }
 
+    //為了 SkillBase 能取得相關資訊用
+    public virtual Vector3 GetFaceDir() { return Vector3.forward; }
+
+
     // 攻擊行為相關
     public virtual void OnAttack() { }
     public virtual void OnShoot() { }

@@ -7,7 +7,7 @@ public class SkillShoot : SkillBase
     public GameObject bulletRef;
     public float bulletInitDis = 0.25f;
     public float searchRange = 10.0f;
-    // Start is called before the first frame update
+    public bool shootEvenNoEnemy = true;
 
     protected PlayerControllerBase thePC;
     protected Animator theAnimator;
@@ -50,7 +50,7 @@ public class SkillShoot : SkillBase
     {
         //print("SkillShoot!!!!!! ");
         GameObject target = FindBestShootTarget(searchRange);
-        if (target == null)
+        if (target == null && !shootEvenNoEnemy)
             return false;
 
        // PlayerControllerBase thePC = theCaster.GetComponent<PlayerControllerBase>();
@@ -64,7 +64,12 @@ public class SkillShoot : SkillBase
         }
         thePC.DoUseMP(manaCost);
 
-        Vector3 td = target.transform.position - theCaster.transform.position;
+        Vector3 td;
+        if (target != null)
+            td = target.transform.position - theCaster.transform.position;
+        else
+            td = thePC.GetFaceDir();
+
 #if XZ_PLAN
         td.y = 0;
 #else

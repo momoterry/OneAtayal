@@ -20,9 +20,9 @@ public class PC_One : PlayerControllerBase
     public SkillBase autoSkillRef;
     public SkillBase[] activeSkillRefs;
 
-    public float autoAttackRange = 8.0f;
+    //public float autoAttackRange = 8.0f;
     public float autoAttackWait = 0.2f;
-    public float autoAttackCD = 1.0f;
+    public float autoAttackCD = 1.0f;       //TODO: 由 Skill 決定
 
     public float WalkSpeed = 8.0f;
 
@@ -71,12 +71,19 @@ public class PC_One : PlayerControllerBase
         NONE,
         NORMAL,
         ATTACK_AUTO,    //自動普攻狀態
-        SKILL,          //攻擊或技能後硬直狀態 (不接受輸入)
+        ATTACK,         //自動普攻後的硬直 (不能移動, 可放技能)
+        SKILL,          //攻擊或技能後硬直狀態 (不接受輸入和技能)
         STOP,           //For 外部強迫暫停
         DEAD,
     }
     protected PC_STATE currState = PC_STATE.NONE;
     protected PC_STATE nextState = PC_STATE.NONE;
+
+    public override Vector3 GetFaceDir()
+    {
+        return faceDir;
+    }
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -275,6 +282,9 @@ public class PC_One : PlayerControllerBase
                 UpdateAttackAuto();
                 UpdateMoveControl();
                 break;
+            case PC_STATE.ATTACK:
+                UpdateAttack();
+                break;
             case PC_STATE.SKILL:
                 UpdateSkill();
                 break;
@@ -308,7 +318,7 @@ public class PC_One : PlayerControllerBase
         {
             if (autoSkill)
             {
-                if (DoStartSkill(autoSkill))
+                if (DoStartSkill(autoSkill, true))
                 {
                     autoAttackCDLeft = autoAttackCD;
                 }
@@ -317,21 +327,19 @@ public class PC_One : PlayerControllerBase
                     autoAttackCDLeft = 0.1f;
                 }
             }
-
-            //GameObject o = FindBestShootTarget(autoAttackRange);
-            //if (o)
-            //{
-            //    DoStartSkill(autoAttackInfo, o);
-            //    autoAttackCDLeft = autoAttackCD;
-            //}
-            //else
-            //{
-            //    autoAttackCDLeft = 0.1f;    //重找目標時間, TODO: 參數化?
-            //}
         }
     }
 
     protected virtual void UpdateSkill()
+    {
+        skillTime -= Time.deltaTime;
+        if (skillTime <= 0)
+        {
+            nextState = PC_STATE.ATTACK_AUTO;
+        }
+    }
+
+    protected virtual void UpdateAttack()
     {
         skillTime -= Time.deltaTime;
         if (skillTime <= 0)
@@ -590,14 +598,17 @@ public class PC_One : PlayerControllerBase
     }
 
     // 以下兩種方式二擇一
-    protected virtual bool DoStartSkill( SkillBase theSkill)
+    protected virtual bool DoStartSkill( SkillBase theSkill, bool autoAttack = false)
     {
         if (theSkill.DoStart())
         {
             if (theSkill.duration > 0)
             {
                 skillTime = autoSkill.duration;
-                nextState = PC_STATE.SKILL;
+                if (autoAttack)
+                    nextState = PC_STATE.ATTACK;
+                else
+                    nextState = PC_STATE.SKILL;
             }
             else
                 nextState = PC_STATE.ATTACK_AUTO;
@@ -660,7 +671,7 @@ public class PC_One : PlayerControllerBase
         if (activeSkillls.Length <= index)
             return;
 
-        if (currState!= PC_STATE.NORMAL && currState != PC_STATE.ATTACK_AUTO)
+        if (currState!= PC_STATE.NORMAL && currState != PC_STATE.ATTACK_AUTO && currState != PC_STATE.ATTACK)
             return;
 
         SkillBase theSkill = activeSkillls[index];

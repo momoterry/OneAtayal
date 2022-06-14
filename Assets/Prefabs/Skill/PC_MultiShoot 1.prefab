@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 122030480824612215}
   - component: {fileID: -7341246982687760167}
   m_Layer: 0
-  m_Name: PC_FireBall
+  m_Name: PC_MultiShoot 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,10 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee2b5380a98cd74fbcfe22f159ecefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageRatio: 1
+  damageRatio: 0.15
   duration: 0.2
   manaCost: 0
-  bulletRef: {fileID: 5540624750266425460, guid: 383368d35770af844b2f3170a56f3898, type: 3}
+  bulletRef: {fileID: 4799380860907763697, guid: 42ade1cf0ed9275459cddfb95187fb6d, type: 3}
   bulletInitDis: 0.25
-  searchRange: 8
+  searchRange: 10
   shootEvenNoEnemy: 0
