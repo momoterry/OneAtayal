@@ -6,15 +6,15 @@ using UnityEngine.AI;
 
 public class PC_One : PlayerControllerBase
 {
-    [System.Serializable]
-    public class SkillInfo
-    {
-        public GameObject bulletRef;
-        public float bulletInitDis;
-        public float damageRatio = 1.0f;
-        public float duration = 0.2f;   //技能施放期間 (無法操作 )
-        public float manaCost = 0;
-    }
+    //[System.Serializable]
+    //public class SkillInfo
+    //{
+    //    public GameObject bulletRef;
+    //    public float bulletInitDis;
+    //    public float damageRatio = 1.0f;
+    //    public float duration = 0.2f;   //技能施放期間 (無法操作 )
+    //    public float manaCost = 0;
+    //}
     //public SkillInfo autoAttackInfo;
 
     public SkillBase autoSkillRef;
@@ -22,7 +22,7 @@ public class PC_One : PlayerControllerBase
 
     //public float autoAttackRange = 8.0f;
     public float autoAttackWait = 0.2f;
-    public float autoAttackCD = 1.0f;       //TODO: 由 Skill 決定
+    //public float autoAttackCD = 1.0f;       //TODO: 由 Skill 決定
 
     public float WalkSpeed = 8.0f;
 
@@ -320,7 +320,8 @@ public class PC_One : PlayerControllerBase
             {
                 if (DoStartSkill(autoSkill, true))
                 {
-                    autoAttackCDLeft = autoAttackCD;
+                    //autoAttackCDLeft = autoAttackCD;
+                    autoAttackCDLeft = autoSkill.coolDown;
                 }
                 else
                 {
@@ -619,52 +620,52 @@ public class PC_One : PlayerControllerBase
         return false;
     }
 
-    protected virtual void DoStartSkill(SkillInfo skillInfo, GameObject target)
-    {
-        if (mp < skillInfo.manaCost)
-        {
-            print("沒 Mana 呀 !!!!");
-            return;
-        }
+//    protected virtual void DoStartSkill(SkillInfo skillInfo, GameObject target)
+//    {
+//        if (mp < skillInfo.manaCost)
+//        {
+//            print("沒 Mana 呀 !!!!");
+//            return;
+//        }
 
-        Vector3 td = target.transform.position - gameObject.transform.position;
-#if XZ_PLAN
-        td.y = 0;
-#else
-        td.z = 0;
-#endif
-        td.Normalize();
-        faceDir = td;
-        SetupFrontDirection();
+//        Vector3 td = target.transform.position - gameObject.transform.position;
+//#if XZ_PLAN
+//        td.y = 0;
+//#else
+//        td.z = 0;
+//#endif
+//        td.Normalize();
+//        faceDir = td;
+//        SetupFrontDirection();
 
-        //TODO 發射點靠前量參數化?
-        Vector3 shootPos = gameObject.transform.position + td * skillInfo.bulletInitDis;
+//        //TODO 發射點靠前量參數化?
+//        Vector3 shootPos = gameObject.transform.position + td * skillInfo.bulletInitDis;
 
-        GameObject newObj = BattleSystem.GetInstance().SpawnGameplayObject(skillInfo.bulletRef, shootPos, false);
-        if (newObj)
-        {
-            bullet_base newBullet = newObj.GetComponent<bullet_base>();
-            if (newBullet)
-            {
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, Attack * skillInfo.damageRatio, td);
-            }
-        }
+//        GameObject newObj = BattleSystem.GetInstance().SpawnGameplayObject(skillInfo.bulletRef, shootPos, false);
+//        if (newObj)
+//        {
+//            bullet_base newBullet = newObj.GetComponent<bullet_base>();
+//            if (newBullet)
+//            {
+//                newBullet.InitValue(DAMAGE_GROUP.PLAYER, Attack * skillInfo.damageRatio, td);
+//            }
+//        }
 
-        if (myAnimator)
-        {
-            myAnimator.SetFloat("CastX", td.x);
-#if XZ_PLAN
-            myAnimator.SetFloat("CastY", td.z);
-#else
-            myAnimator.SetFloat("CastY", td.y);
-#endif
-            myAnimator.SetTrigger("Cast");
-        }
+//        if (myAnimator)
+//        {
+//            myAnimator.SetFloat("CastX", td.x);
+//#if XZ_PLAN
+//            myAnimator.SetFloat("CastY", td.z);
+//#else
+//            myAnimator.SetFloat("CastY", td.y);
+//#endif
+//            myAnimator.SetTrigger("Cast");
+//        }
 
 
-        mp -= skillInfo.manaCost;
+//        mp -= skillInfo.manaCost;
 
-    }
+//    }
 
     public override void OnSkill(int index)
     {

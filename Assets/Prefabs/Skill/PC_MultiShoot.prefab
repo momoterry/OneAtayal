@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 122030480824612215}
   - component: {fileID: -7341246982687760167}
   m_Layer: 0
-  m_Name: PC_MultiShoot 1
+  m_Name: PC_MultiShoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
   damageRatio: 0.15
   duration: 0.2
   manaCost: 0
+  coolDown: 1
   bulletRef: {fileID: 4799380860907763697, guid: 42ade1cf0ed9275459cddfb95187fb6d, type: 3}
   bulletInitDis: 0.25
   searchRange: 10
