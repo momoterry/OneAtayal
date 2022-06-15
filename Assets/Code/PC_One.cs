@@ -121,11 +121,8 @@ public class PC_One : PlayerControllerBase
         }
 
         //²£¥Í¦U SkillBase
-        if (autoSkillRef)
-        {
-            autoSkill = Instantiate(autoSkillRef, transform);
-            autoSkill.InitCasterInfo(gameObject);
-        }
+        DoSetAutoSkill(autoSkillRef);
+
         if (activeSkillRefs.Length > 0)
         {
             activeSkillls = new SkillBase[activeSkillRefs.Length];
@@ -135,6 +132,28 @@ public class PC_One : PlayerControllerBase
                 activeSkillls[i].InitCasterInfo(gameObject);
             }
         }
+    }
+
+
+    protected void DoSetAutoSkill( SkillBase skillRef)
+    {
+        print("DoSetAutoSkill!! " + skillRef);
+        if (autoSkill)
+        {
+            Destroy(autoSkill.gameObject);
+            autoSkill = null;
+        }
+
+        if (skillRef)
+        {
+            autoSkill = Instantiate(skillRef, transform);
+            autoSkill.InitCasterInfo(gameObject);
+        }
+    }
+
+    public void SetAutoSkill( SkillBase skillRef)
+    {
+        DoSetAutoSkill(skillRef);
     }
 
     public override void SetInputActive(bool enable)
