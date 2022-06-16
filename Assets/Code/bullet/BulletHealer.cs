@@ -5,13 +5,14 @@ using UnityEngine;
 public class BulletHealer : BulletTrace
 {
     public float healRatio = 0.1f;
-    public float healAbsoluteValue = 20.0f;
+    //public float healAbsoluteValue = 20.0f;
+    //public float heal
     public GameObject healFX;
 
     // Start is called before the first frame update
     protected override void DoHitTarget()
     {
-
+        float healAbsoluteValue = phyDamage;
         PlayerControllerBase pc = targetObj.GetComponent<PlayerControllerBase>();
         if (pc)
         {
