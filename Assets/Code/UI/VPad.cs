@@ -66,6 +66,7 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         currVector = Vector2.zero;
     }
 
+
     public void OnAttack()
     {
         PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();

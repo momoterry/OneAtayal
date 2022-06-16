@@ -148,6 +148,11 @@ public class PC_One : PlayerControllerBase
         {
             autoSkill = Instantiate(skillRef, transform);
             autoSkill.InitCasterInfo(gameObject);
+            BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(autoSkill.icon, 0);
+        }
+        else
+        {
+            BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(null, 0);
         }
     }
 

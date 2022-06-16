@@ -25,9 +25,11 @@ public class Battle_HUD : MonoBehaviour
 
     //技能
     public Text AttackText;
+    public Image[] SkillIcons;
 
     //虛擬搖桿相關
     public VPad theVPad;
+
 
     void Start()
     {
@@ -45,6 +47,17 @@ public class Battle_HUD : MonoBehaviour
         //    OnButtonPotion();
         //}
 
+    }
+
+    public void SetSkillIcon(Sprite sprite, int index)
+    {
+        if (index < 0 || index >= SkillIcons.Length)
+            return;
+
+        if (SkillIcons[index])
+        {
+            SkillIcons[index].sprite = sprite;
+        }
     }
 
     public void SetPlayerInfo( float hp, float maxHp, float mp, float maxMP, float Attack)

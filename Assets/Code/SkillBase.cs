@@ -9,6 +9,8 @@ public class SkillBase : MonoBehaviour
     public float manaCost = 0;
     public float coolDown = 1.0f;
 
+    public Sprite icon;
+
     protected GameObject theCaster;
 
     public virtual void InitCasterInfo(GameObject oCaster) { theCaster = oCaster; }
