@@ -6,16 +6,8 @@ using UnityEngine.AI;
 
 public class PC_One : PlayerControllerBase
 {
-    //[System.Serializable]
-    //public class SkillInfo
-    //{
-    //    public GameObject bulletRef;
-    //    public float bulletInitDis;
-    //    public float damageRatio = 1.0f;
-    //    public float duration = 0.2f;   //技能施放期間 (無法操作 )
-    //    public float manaCost = 0;
-    //}
-    //public SkillInfo autoAttackInfo;
+    protected const string AUTO_SKILL = "AutoSkill";
+    protected const string SKILL_ONE =  "SkillOne";
 
     public SkillBase autoSkillRef;
     public SkillBase[] activeSkillRefs;
@@ -120,6 +112,14 @@ public class PC_One : PlayerControllerBase
             }
         }
 
+        //先檢查存檔
+        SkillBase savedAutoSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(AUTO_SKILL);
+        print("技能存檔 !! " + savedAutoSkillRef);
+        if (savedAutoSkillRef)
+        {
+            autoSkillRef = savedAutoSkillRef;
+        }
+
         //產生各 SkillBase
         DoSetAutoSkill(autoSkillRef);
 
@@ -137,7 +137,7 @@ public class PC_One : PlayerControllerBase
 
     protected void DoSetAutoSkill( SkillBase skillRef)
     {
-        print("DoSetAutoSkill!! " + skillRef);
+        //print("DoSetAutoSkill!! " + skillRef);
         if (autoSkill)
         {
             Destroy(autoSkill.gameObject);
@@ -153,6 +153,7 @@ public class PC_One : PlayerControllerBase
 
     public void SetAutoSkill( SkillBase skillRef)
     {
+        GameSystem.GetInstance().SetPlayerSkillRef(AUTO_SKILL, skillRef);
         DoSetAutoSkill(skillRef);
     }
 

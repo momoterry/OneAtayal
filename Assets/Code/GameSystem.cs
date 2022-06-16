@@ -7,6 +7,9 @@ public class GameSystem : MonoBehaviour
 {
     private GameObject playerCharacterRef = null;
 
+    //Skill ¬ÛÃö
+    private Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>(); 
+
     static private GameSystem instance;
 
     public GameSystem() : base()
@@ -47,6 +50,22 @@ public class GameSystem : MonoBehaviour
     public GameObject GetPlayerCharacterRef()
     {
         return playerCharacterRef;
+    }
+
+    public void SetPlayerSkillRef( string skillStr, SkillBase skillRef)
+    {
+        if (skillMap.ContainsKey(skillStr))
+            skillMap[skillStr] = skillRef;
+        else
+            skillMap.Add(skillStr, skillRef);
+    }
+
+    public SkillBase GetPlayerSkillRef(string skillStr)
+    {
+        if (skillMap.ContainsKey(skillStr))
+            return skillMap[skillStr];
+        else
+            return null;
     }
 
     // Start is called before the first frame update

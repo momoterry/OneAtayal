@@ -20,7 +20,7 @@ public class SkillSet : MonoBehaviour
 
     void OnTG(GameObject whoTG)
     {
-        print("Do it !!");
+        //print("Do it !!");
 
         PC_One thePC = BattleSystem.GetInstance().GetPlayer().GetComponent<PC_One>();
         if (thePC==null)
