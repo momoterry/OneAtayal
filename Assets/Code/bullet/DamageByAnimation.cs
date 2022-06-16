@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DamageByAnimation : bullet_base
 {
-    //public float phyDamage = 10.0f; //方便初期測試用
+    //public float baseDamage = 10.0f; //方便初期測試用
     //TODO: 支援圓形和 Box
     public Vector2 BoxSize;
     public GameObject hitFX;
@@ -21,13 +21,13 @@ public class DamageByAnimation : bullet_base
     //public void SetDamage(Damage d)
     //{
     //    myDamage = d;
-    //    phyDamage = d.damage;
+    //    baseDamage = d.damage;
     //}
 
     // Start is called before the first frame update
     //void Start()
     //{
-    //    myDamage.damage = phyDamage;
+    //    myDamage.damage = baseDamage;
     //}
 
     // Update is called once per frame
@@ -38,7 +38,7 @@ public class DamageByAnimation : bullet_base
 
     void OnDoDamage()
     {
-        myDamage.damage = phyDamage;
+        myDamage.damage = baseDamage;
 #if XZ_PLAN
         Collider[] cols = Physics.OverlapBox(transform.position, new Vector3(BoxSize.x*0.5f, 1.0f, BoxSize.y*0.5f));
         foreach (Collider col in cols)

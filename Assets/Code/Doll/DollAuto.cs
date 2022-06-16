@@ -314,7 +314,7 @@ public class DollAuto : Doll
         bullet_base b = bulletObj.GetComponent<bullet_base>();
         if (b)
         {
-            //b.phyDamage = AttackInit;
+            //b.baseDamage = AttackInit;
             //b.SetGroup(DAMAGE_GROUP.PLAYER);
             Vector3 td = myTarget.transform.position - transform.position;
 #if XZ_PLAN

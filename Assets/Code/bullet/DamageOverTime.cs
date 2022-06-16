@@ -30,7 +30,7 @@ public class DamageOverTime : bullet_base
 
     void DoOneDamage()
     {
-        myDamage.damage = phyDamage;
+        myDamage.damage = baseDamage;
 
         Collider[] cols = Physics.OverlapBox(transform.position, new Vector3(BoxSize.x * 0.5f, 1.0f, BoxSize.y * 0.5f));
         foreach (Collider col in cols)

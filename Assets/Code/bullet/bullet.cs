@@ -17,7 +17,7 @@ public enum DAMAGE_GROUP
 
 public class bullet_base : MonoBehaviour
 {
-    public float phyDamage = 60.0f;
+    protected float baseDamage = 60.0f;
     protected Vector3 targetDir = Vector3.up;
     protected GameObject targetObj = null;
     protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
@@ -26,14 +26,14 @@ public class bullet_base : MonoBehaviour
     {
         group = g;
         targetDir = targetVec.normalized;
-        phyDamage = damage;
+        baseDamage = damage;
         targetObj = targetObject;
     }
 }
 
 public class bullet : bullet_base
 {
-    //public float phyDamage = 60.0f;
+    //public float baseDamage = 60.0f;
     public float speed = 20.0f;
     //public Vector3 targetDir = Vector3.up;
     public float lifeTime = 0.5f;
@@ -56,7 +56,7 @@ public class bullet : bullet_base
     void Start()
     {
         myTime = lifeTime;
-        myDamage.damage = phyDamage;
+        myDamage.damage = baseDamage;
     }
 
     // Update is called once per frame

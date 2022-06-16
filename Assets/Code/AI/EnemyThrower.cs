@@ -23,7 +23,7 @@ public class EnemyThrower : Enemy
                 //if (d)
                 //{
                 //    d.SetGroup(DAMAGE_GROUP.ENEMY);
-                //    d.phyDamage = Attack;
+                //    d.baseDamage = Attack;
                 //}
                 bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)

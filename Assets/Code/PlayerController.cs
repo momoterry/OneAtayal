@@ -777,7 +777,7 @@ public class PlayerController : PlayerControllerBase
                 //newBullet.SetGroup(DAMAGE_GROUP.PLAYER);
                 //newBullet.targetDir = td;
                 //傷害值，由自己來給
-                //newBullet.phyDamage = rangeSkillDef.baseDamage; //TODO:  升級?
+                //newBullet.baseDamage = rangeSkillDef.baseDamage; //TODO:  升級?
                 newBullet.InitValue(DAMAGE_GROUP.PLAYER, rangeSkillDef.baseDamage, td);
             }
         }

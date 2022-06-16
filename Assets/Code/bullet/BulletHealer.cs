@@ -12,7 +12,7 @@ public class BulletHealer : BulletTrace
     // Start is called before the first frame update
     protected override void DoHitTarget()
     {
-        float healAbsoluteValue = phyDamage;
+        float healAbsoluteValue = baseDamage;
         PlayerControllerBase pc = targetObj.GetComponent<PlayerControllerBase>();
         if (pc)
         {

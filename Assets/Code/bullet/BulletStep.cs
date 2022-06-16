@@ -53,13 +53,13 @@ public class BulletStep : bullet_base
                 //if (d)
                 //{
                 //    d.SetGroup(group);
-                //    d.phyDamage = phyDamage;
+                //    d.baseDamage = baseDamage;
                 //}
                 bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
 
-                    newBullet.InitValue(group, phyDamage, targetDir);
+                    newBullet.InitValue(group, baseDamage, targetDir);
                 }
             }
         }
