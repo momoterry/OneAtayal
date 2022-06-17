@@ -54,6 +54,8 @@ public class Battle_HUD : MonoBehaviour
         if (index < 0 || index >= SkillIcons.Length)
             return;
 
+        //print("SetSkillIcon " + index + "   " + sprite);
+
         if (SkillIcons[index])
         {
             SkillIcons[index].sprite = sprite;

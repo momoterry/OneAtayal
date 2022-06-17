@@ -120,6 +120,16 @@ public class PC_One : PlayerControllerBase
             autoSkillRef = savedAutoSkillRef;
         }
 
+        if (activeSkillRefs.Length >= 1)
+        {
+            SkillBase savedActiveSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(SKILL_ONE);
+            print("主動技能存檔 !! " + savedActiveSkillRef);
+            if (savedActiveSkillRef)
+            {
+                activeSkillRefs[0] = savedActiveSkillRef;
+            }
+        }
+
         //產生各 SkillBase
         DoSetAutoSkill(autoSkillRef);
 
@@ -128,12 +138,35 @@ public class PC_One : PlayerControllerBase
             activeSkillls = new SkillBase[activeSkillRefs.Length];
             for (int i = 0; i < activeSkillRefs.Length; i++)
             {
-                activeSkillls[i] = Instantiate(activeSkillRefs[i], transform);
-                activeSkillls[i].InitCasterInfo(gameObject);
+                //activeSkillls[i] = Instantiate(activeSkillRefs[i], transform);
+                //activeSkillls[i].InitCasterInfo(gameObject);
+                DoSetActiveSkill(activeSkillRefs[i], i);
             }
         }
     }
 
+    protected void DoSetActiveSkill( SkillBase skillRef, int index)
+    {
+        if (index < 0 || index >= activeSkillls.Length)
+            return;
+
+        if (activeSkillls[index])
+        {
+            Destroy(activeSkillls[index]);
+            activeSkillls[index] = null;
+        }
+
+        if (skillRef)
+        {
+            activeSkillls[index] = Instantiate(skillRef, transform);
+            activeSkillls[index].InitCasterInfo(gameObject);
+            BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(activeSkillls[index].icon, index + 1);
+        }
+        else
+        {
+            BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(null, index + 1);
+        }
+    }
 
     protected void DoSetAutoSkill( SkillBase skillRef)
     {
@@ -156,10 +189,16 @@ public class PC_One : PlayerControllerBase
         }
     }
 
-    public void SetAutoSkill( SkillBase skillRef)
+    public void SetAutoSkill( SkillBase skillRef )
     {
         GameSystem.GetInstance().SetPlayerSkillRef(AUTO_SKILL, skillRef);
         DoSetAutoSkill(skillRef);
+    }
+
+    public void SetActiveSkill( SkillBase activeSkillRef )
+    {
+        GameSystem.GetInstance().SetPlayerSkillRef(SKILL_ONE, activeSkillRef);
+        DoSetActiveSkill(activeSkillRef, 0);
     }
 
     public override void SetInputActive(bool enable)
