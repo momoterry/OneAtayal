@@ -621,13 +621,14 @@ public class PC_One : PlayerControllerBase
 
     public override bool OnUnregisterActionObject(GameObject obj)
     {
-        if (actionObject == obj)
+        if (actionObject == obj || actionObject == null)
         {
             actionObject = null;
             if (BattleSystem.GetInstance().GetVPad())
                 BattleSystem.GetInstance().GetVPad().OnActionOff();
             return true;
         }
+
         return false;
     }
 
