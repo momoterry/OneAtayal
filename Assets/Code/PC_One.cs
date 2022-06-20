@@ -25,6 +25,8 @@ public class PC_One : PlayerControllerBase
 
     public float MP_Gen_Rate = 30.0f;
 
+    public Talk theTalk;
+
     protected NavMeshAgent myAgent;
     protected float skillTime = 0.0f;
     protected float autoAttackCDLeft = 0.0f;
@@ -742,10 +744,21 @@ public class PC_One : PlayerControllerBase
 
         SkillBase theSkill = activeSkillls[index];
 
+        //TEST
+        //string skillTalk = "打給你死喔!!" + Random.Range(11, 99).ToString();
+        //theTalk.AddSentence(skillTalk);
+
         if (theSkill.DoStart())
         {
             nextState = PC_STATE.SKILL;
             skillTime = theSkill.duration;
+        }
+        else
+        {
+            if (theTalk)
+            {
+                theTalk.AddSentence("不行, Mana 不夠....");
+            }
         }
 
     }
