@@ -13,13 +13,13 @@ public class SkillDef
     public float manaCost = 0;
 }
 
-public enum FaceFrontType
-{
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT,
-}
+//public enum FaceFrontType
+//{
+//    UP,
+//    RIGHT,
+//    DOWN,
+//    LEFT,
+//}
 
 
 public class PlayerController : PlayerControllerBase

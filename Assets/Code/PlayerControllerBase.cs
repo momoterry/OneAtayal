@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum FaceFrontType
+{
+    UP,
+    RIGHT,
+    DOWN,
+    LEFT,
+}
 public class PlayerControllerBase : MonoBehaviour
 {
     public float initFaceDirAngle = 180.0f;
@@ -44,6 +51,7 @@ public class PlayerControllerBase : MonoBehaviour
 
     //為了 SkillBase 能取得相關資訊用
     public virtual Vector3 GetFaceDir() { return Vector3.forward; }
+    public virtual FaceFrontType GetFaceFront() { return FaceFrontType.DOWN; }
 
 
     // 攻擊行為相關

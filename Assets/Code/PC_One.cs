@@ -78,6 +78,11 @@ public class PC_One : PlayerControllerBase
         return faceDir;
     }
 
+    public override FaceFrontType GetFaceFront()
+    {
+        return faceFrontType;
+    }
+
     // Start is called before the first frame update
     protected void Start()
     {
