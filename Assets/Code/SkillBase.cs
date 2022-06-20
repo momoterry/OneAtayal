@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SKILL_RESULT
+{
+    SUCCESS,
+    ERROR,
+    NO_TARGET,
+    NO_MANA,
+}
+
 public class SkillBase : MonoBehaviour
 {
     public float damageRatio = 1.0f;
@@ -14,8 +22,14 @@ public class SkillBase : MonoBehaviour
     protected GameObject theCaster;
 
     public virtual void InitCasterInfo(GameObject oCaster) { theCaster = oCaster; }
-    public virtual bool DoStart() { 
-        print("SkillBase !!!!!!");
+    public virtual bool DoStart() {
+        SKILL_RESULT theResult = SKILL_RESULT.SUCCESS;
+        return DoStart(ref theResult);
+    }
+
+    public virtual bool DoStart(ref SKILL_RESULT result)
+    {
         return true;
     }
+
 }

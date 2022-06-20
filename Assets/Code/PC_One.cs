@@ -748,16 +748,20 @@ public class PC_One : PlayerControllerBase
         //string skillTalk = "打給你死喔!!" + Random.Range(11, 99).ToString();
         //theTalk.AddSentence(skillTalk);
 
-        if (theSkill.DoStart())
+        SKILL_RESULT skillResult = SKILL_RESULT.SUCCESS;
+        if (theSkill.DoStart(ref skillResult))
         {
             nextState = PC_STATE.SKILL;
             skillTime = theSkill.duration;
         }
         else
         {
-            if (theTalk)
+            if (skillResult == SKILL_RESULT.NO_MANA)
             {
-                theTalk.AddSentence("不行, Mana 不夠....");
+                if (theTalk)
+                {
+                    theTalk.AddSentence("Mana 不夠啦 !!");
+                }
             }
         }
 

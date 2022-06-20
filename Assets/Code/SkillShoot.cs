@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SkillShoot : SkillBase
 {
     public GameObject bulletRef;
@@ -46,20 +47,27 @@ public class SkillShoot : SkillBase
         return bestEnemy;
     }
 
-    public override bool DoStart()
+    public override bool DoStart(ref SKILL_RESULT result)
     {
         //print("SkillShoot!!!!!! ");
         GameObject target = FindBestShootTarget(searchRange);
         if (target == null && !shootEvenNoEnemy)
+        {
+            result = SKILL_RESULT.NO_TARGET;
             return false;
+        }
 
-       // PlayerControllerBase thePC = theCaster.GetComponent<PlayerControllerBase>();
+        // PlayerControllerBase thePC = theCaster.GetComponent<PlayerControllerBase>();
         if (thePC == null)
+        {
+            result = SKILL_RESULT.ERROR;
             return false;
+        }
 
         if (thePC.GetMP() < manaCost)
         {
-            print("Mana ¤£°÷°Õ !!");
+            //print("Mana ¤£°÷°Õ !!");
+            result = SKILL_RESULT.NO_MANA;
             return false;
         }
         thePC.DoUseMP(manaCost);
@@ -102,7 +110,7 @@ public class SkillShoot : SkillBase
             theAnimator.SetTrigger("Cast");
         }
 
-
+        result = SKILL_RESULT.SUCCESS;
         return true; ;
     }
 
