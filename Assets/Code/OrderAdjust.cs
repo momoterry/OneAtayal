@@ -10,13 +10,14 @@ public class OrderAdjust : MonoBehaviour
     protected float updatePeriod = 0.2f;
     protected float currTime = 0;
 
-    protected SpriteRenderer[] allSprite;
+    //2022/0620: 使用 Renderer 而不是 SpriteRenderer, 以支援 TextMesh
+    protected Renderer[] allSprite;
     // Start is called before the first frame update
     void Start()
     {
         //gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y + zBias);
 
-        allSprite = GetComponentsInChildren<SpriteRenderer>();
+        allSprite = GetComponentsInChildren<Renderer>();
         SetupOrder();
         if (onlyAdjustOnStart)
             enabled = false;
@@ -40,13 +41,14 @@ public class OrderAdjust : MonoBehaviour
 
     private void SetupOrder()
     {
-        foreach (SpriteRenderer sr in allSprite)
+        foreach (Renderer sr in allSprite)
         {
 #if XZ_PLAN
-            sr.sortingOrder = -(int)((sr.transform.position.z-bias) * 10.0f);
+            sr.sortingOrder = -(int)((sr.transform.position.z - bias) * 10.0f);
 #else
             sr.sortingOrder = -(int)(sr.transform.position.y * 10.0f);
 #endif
         }
+
     }
 }
