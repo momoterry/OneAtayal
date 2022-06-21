@@ -8,6 +8,7 @@ public enum SKILL_RESULT
     ERROR,
     NO_TARGET,
     NO_MANA,
+    COLL_DOWN,
 }
 
 public class SkillBase : MonoBehaviour
@@ -20,8 +21,18 @@ public class SkillBase : MonoBehaviour
     public Sprite icon;
 
     protected GameObject theCaster;
+    protected PlayerControllerBase thePC;
+    protected Animator theAnimator;
 
-    public virtual void InitCasterInfo(GameObject oCaster) { theCaster = oCaster; }
+    protected float cdLeft = 0;
+
+    public float GetCoolDownLeft() { return cdLeft; }
+
+    public virtual void InitCasterInfo(GameObject oCaster) { 
+        theCaster = oCaster;
+        thePC = oCaster.GetComponent<PlayerControllerBase>();
+        theAnimator = oCaster.GetComponent<Animator>();
+    }
     public virtual bool DoStart() {
         SKILL_RESULT theResult = SKILL_RESULT.SUCCESS;
         return DoStart(ref theResult);
@@ -29,7 +40,29 @@ public class SkillBase : MonoBehaviour
 
     public virtual bool DoStart(ref SKILL_RESULT result)
     {
+        if (thePC == null)
+        {
+            result = SKILL_RESULT.ERROR;
+            return false;
+        }
+
+        if (thePC.GetMP() < manaCost)
+        {
+            result = SKILL_RESULT.NO_MANA;
+            return false;
+        }
         return true;
+    }
+
+
+    protected virtual void Update()
+    {
+        if (cdLeft > 0)
+        {
+            cdLeft -= Time.deltaTime;
+            if (cdLeft < 0)
+                cdLeft = 0;
+        }
     }
 
 }

@@ -10,16 +10,16 @@ public class SkillShoot : SkillBase
     public float searchRange = 10.0f;
     public bool shootEvenNoEnemy = true;
 
-    protected PlayerControllerBase thePC;
-    protected Animator theAnimator;
+    //protected PlayerControllerBase thePC;
+    //protected Animator theAnimator;
 
-    public override void InitCasterInfo(GameObject oCaster)
-    {
-        base.InitCasterInfo(oCaster);
+    //public override void InitCasterInfo(GameObject oCaster)
+    //{
+    //    base.InitCasterInfo(oCaster);
 
-        thePC = oCaster.GetComponent<PlayerControllerBase>();
-        theAnimator = oCaster.GetComponent<Animator>();
-    }
+    //    thePC = oCaster.GetComponent<PlayerControllerBase>();
+    //    theAnimator = oCaster.GetComponent<Animator>();
+    //}
 
     protected virtual GameObject FindBestShootTarget(float searchRange)
     {
@@ -49,6 +49,10 @@ public class SkillShoot : SkillBase
 
     public override bool DoStart(ref SKILL_RESULT result)
     {
+        //基本檢查
+        if (!base.DoStart(ref result))
+            return false;
+
         //print("SkillShoot!!!!!! ");
         GameObject target = FindBestShootTarget(searchRange);
         if (target == null && !shootEvenNoEnemy)
@@ -58,19 +62,19 @@ public class SkillShoot : SkillBase
         }
 
         // PlayerControllerBase thePC = theCaster.GetComponent<PlayerControllerBase>();
-        if (thePC == null)
-        {
-            result = SKILL_RESULT.ERROR;
-            return false;
-        }
+        //if (thePC == null)
+        //{
+        //    result = SKILL_RESULT.ERROR;
+        //    return false;
+        //}
 
-        if (thePC.GetMP() < manaCost)
-        {
-            //print("Mana 不夠啦 !!");
-            result = SKILL_RESULT.NO_MANA;
-            return false;
-        }
-        thePC.DoUseMP(manaCost);
+        //if (thePC.GetMP() < manaCost)
+        //{
+        //    //print("Mana 不夠啦 !!");
+        //    result = SKILL_RESULT.NO_MANA;
+        //    return false;
+        //}
+        //thePC.DoUseMP(manaCost);
 
         Vector3 td;
         if (target != null)
@@ -110,6 +114,8 @@ public class SkillShoot : SkillBase
             theAnimator.SetTrigger("Cast");
         }
 
+        thePC.DoUseMP(manaCost);
+        cdLeft = coolDown;
         result = SKILL_RESULT.SUCCESS;
         return true; ;
     }
