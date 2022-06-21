@@ -389,7 +389,7 @@ public class PC_One : PlayerControllerBase
         {
             if (autoSkill)
             {
-                if (DoStartSkill(autoSkill, true))
+                if (DoAutoSkill(autoSkill))
                 {
                     //autoAttackCDLeft = autoAttackCD;
                     autoAttackCDLeft = autoSkill.coolDown;
@@ -671,17 +671,14 @@ public class PC_One : PlayerControllerBase
     }
 
     // 以下兩種方式二擇一
-    protected virtual bool DoStartSkill( SkillBase theSkill, bool autoAttack = false)
+    protected virtual bool DoAutoSkill( SkillBase theSkill)
     {
         if (theSkill.DoStart())
         {
             if (theSkill.duration > 0)
             {
                 skillTime = autoSkill.duration;
-                if (autoAttack)
-                    nextState = PC_STATE.ATTACK;
-                else
-                    nextState = PC_STATE.SKILL;
+                nextState = PC_STATE.ATTACK;
             }
             else
                 nextState = PC_STATE.ATTACK_AUTO;
@@ -692,52 +689,6 @@ public class PC_One : PlayerControllerBase
         return false;
     }
 
-//    protected virtual void DoStartSkill(SkillInfo skillInfo, GameObject target)
-//    {
-//        if (mp < skillInfo.manaCost)
-//        {
-//            print("沒 Mana 呀 !!!!");
-//            return;
-//        }
-
-//        Vector3 td = target.transform.position - gameObject.transform.position;
-//#if XZ_PLAN
-//        td.y = 0;
-//#else
-//        td.z = 0;
-//#endif
-//        td.Normalize();
-//        faceDir = td;
-//        SetupFrontDirection();
-
-//        //TODO 發射點靠前量參數化?
-//        Vector3 shootPos = gameObject.transform.position + td * skillInfo.bulletInitDis;
-
-//        GameObject newObj = BattleSystem.GetInstance().SpawnGameplayObject(skillInfo.bulletRef, shootPos, false);
-//        if (newObj)
-//        {
-//            bullet_base newBullet = newObj.GetComponent<bullet_base>();
-//            if (newBullet)
-//            {
-//                newBullet.InitValue(DAMAGE_GROUP.PLAYER, Attack * skillInfo.damageRatio, td);
-//            }
-//        }
-
-//        if (myAnimator)
-//        {
-//            myAnimator.SetFloat("CastX", td.x);
-//#if XZ_PLAN
-//            myAnimator.SetFloat("CastY", td.z);
-//#else
-//            myAnimator.SetFloat("CastY", td.y);
-//#endif
-//            myAnimator.SetTrigger("Cast");
-//        }
-
-
-//        mp -= skillInfo.manaCost;
-
-//    }
 
     public override void OnSkill(int index)
     {
