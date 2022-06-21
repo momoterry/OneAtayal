@@ -114,9 +114,10 @@ public class SkillShoot : SkillBase
             theAnimator.SetTrigger("Cast");
         }
 
-        thePC.DoUseMP(manaCost);
-        cdLeft = coolDown;
+        //thePC.DoUseMP(manaCost);
+        //cdLeft = coolDown;
         result = SKILL_RESULT.SUCCESS;
+        base.OnSkillSucess();
         return true; ;
     }
 

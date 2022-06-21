@@ -163,15 +163,22 @@ public class PC_One : PlayerControllerBase
             activeSkillls[index] = null;
         }
 
+        SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(index + 1);
         if (skillRef)
         {
             activeSkillls[index] = Instantiate(skillRef, transform);
             activeSkillls[index].InitCasterInfo(gameObject);
-            BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(activeSkillls[index].icon, index + 1);
+            //BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(activeSkillls[index].icon, index + 1);
+            //SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(index + 1);
+            activeSkillls[index].InitButton(sb);
         }
         else
         {
-            BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(null, index + 1);
+            //BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(null, index + 1);
+            if (sb)
+            {
+                sb.SetIcon(null);
+            }
         }
     }
 
@@ -184,15 +191,22 @@ public class PC_One : PlayerControllerBase
             autoSkill = null;
         }
 
+        SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(0);
         if (skillRef)
         {
             autoSkill = Instantiate(skillRef, transform);
             autoSkill.InitCasterInfo(gameObject);
-            BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(autoSkill.icon, 0);
+            //BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(autoSkill.icon, 0);
+            //SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(0);
+            autoSkill.InitButton(sb);
         }
         else
         {
-            BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(null, 0);
+            //BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(null, 0);
+            if (sb)
+            {
+                sb.SetIcon(null);
+            }
         }
     }
 

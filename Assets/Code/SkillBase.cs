@@ -25,6 +25,17 @@ public class SkillBase : MonoBehaviour
     protected Animator theAnimator;
 
     protected float cdLeft = 0;
+    protected SkillButton theButton;
+
+    //Button ¬ÛÃö
+    public void InitButton(SkillButton skillButton)
+    {
+        theButton = skillButton;
+        if (skillButton)
+        {
+            skillButton.SetIcon(icon);
+        }
+    }
 
     public float GetCoolDownLeft() { return cdLeft; }
 
@@ -38,11 +49,29 @@ public class SkillBase : MonoBehaviour
         return DoStart(ref theResult);
     }
 
+    public virtual void OnSkillSucess()
+    {
+        thePC.DoUseMP(manaCost);
+        cdLeft = coolDown;
+        if (theButton)
+        {
+            theButton.OnSkillRelease(coolDown);
+        }
+    }
+
     public virtual bool DoStart(ref SKILL_RESULT result)
     {
         if (thePC == null)
         {
             result = SKILL_RESULT.ERROR;
+            return false;
+        
+        }
+
+        if (cdLeft > 0)
+        {
+            result = SKILL_RESULT.COLL_DOWN;
+            print("SKILL CD " + cdLeft);
             return false;
         }
 
@@ -60,8 +89,14 @@ public class SkillBase : MonoBehaviour
         if (cdLeft > 0)
         {
             cdLeft -= Time.deltaTime;
-            if (cdLeft < 0)
+            if (cdLeft <= 0)
+            {
                 cdLeft = 0;
+                if (theButton)
+                {
+                    theButton.OnSkillCoolDownFinish();
+                }
+            }
         }
     }
 
