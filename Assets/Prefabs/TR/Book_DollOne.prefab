@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8650916472587824950}
   - component: {fileID: 8505237488791214250}
-  - component: {fileID: 102390754206489081}
+  - component: {fileID: 422605488911352912}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 8036071202008269702, guid: 12740fcbb9b93be4a84a623a5a501659, type: 3}
+  m_Sprite: {fileID: 6611336990635542847, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &102390754206489081
+--- !u!114 &422605488911352912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 8039983124353175382}
   - component: {fileID: 865517655268653565}
   m_Layer: 0
-  m_Name: Book_AutoHeal
+  m_Name: Book_DollOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,9 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4eabeda22d4c624ab911ac28683c4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoSkillToSet: {fileID: 76408852592603241, guid: e1a28e0e3bd3a9240a40a74062e1d5b5, type: 3}
+  autoSkillToSet: {fileID: 0}
   skillOneToSet: {fileID: 0}
-  skillTwoToSet: {fileID: 0}
+  skillTwoToSet: {fileID: -6384202603382535029, guid: c721cf07a61f9af4693f989befe5b9a0, type: 3}
 --- !u!1 &5924422108368263741
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +301,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9154af7d4418c574c97fefdff9ab2a37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a008a1a850ae5b94490115c3e6bfa7cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

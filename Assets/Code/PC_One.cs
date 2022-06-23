@@ -223,10 +223,10 @@ public class PC_One : PlayerControllerBase
         DoSetAutoSkill(skillRef);
     }
 
-    public void SetActiveSkill( SkillBase activeSkillRef )
+    public void SetActiveSkill( SkillBase activeSkillRef, int index = 0 )
     {
-        GameSystem.GetInstance().SetPlayerSkillRef(SKILL_ONE, activeSkillRef);
-        DoSetActiveSkill(activeSkillRef, 0);
+        GameSystem.GetInstance().SetPlayerSkillRef(skillSaveNames[index], activeSkillRef);
+        DoSetActiveSkill(activeSkillRef, index);
     }
 
     public override void SetInputActive(bool enable)

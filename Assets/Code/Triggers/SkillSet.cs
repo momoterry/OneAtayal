@@ -7,6 +7,7 @@ public class SkillSet : MonoBehaviour
     public SkillBase autoSkillToSet;
 
     public SkillBase skillOneToSet;
+    public SkillBase skillTwoToSet;
 
     // Start is called before the first frame update
     //void Start()
@@ -38,7 +39,12 @@ public class SkillSet : MonoBehaviour
 
         if (skillOneToSet)
         {
-            thePC.SetActiveSkill(skillOneToSet);
+            thePC.SetActiveSkill(skillOneToSet, 0);
+        }
+
+        if (skillTwoToSet)
+        {
+            thePC.SetActiveSkill(skillTwoToSet, 1);
         }
 
     }
