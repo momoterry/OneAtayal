@@ -48,6 +48,7 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual void DoTeleport(Vector3 position, float faceAngle) { }
     public virtual void SetupFaceDir(Vector3 dir) { }
     public virtual void SetInputActive(bool enable) { }
+    public virtual void SaySomthing(string str) { }
 
     //為了 SkillBase 能取得相關資訊用
     public virtual Vector3 GetFaceDir() { return Vector3.forward; }

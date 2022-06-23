@@ -653,6 +653,14 @@ public class PC_One : PlayerControllerBase
         return false;
     }
 
+    public override void SaySomthing(string str)
+    {
+        if (theTalk)
+        {
+            theTalk.AddSentence(str);
+        }
+    }
+
     // =================== §ğÀ»¬ÛÃö ===================
 
     virtual protected GameObject FindBestShootTarget(float searchRange = 10.0f)
