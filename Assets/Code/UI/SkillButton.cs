@@ -40,7 +40,7 @@ public class SkillButton : MonoBehaviour
 
     void DoStartCD()
     {
-        print("DoStartCD.........");
+        //print("DoStartCD.........");
         if (coolDownText)
         {
             coolDownText.gameObject.SetActive(true);

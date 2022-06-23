@@ -71,7 +71,7 @@ public class SkillBase : MonoBehaviour
         if (cdLeft > 0)
         {
             result = SKILL_RESULT.COLL_DOWN;
-            print("SKILL CD " + cdLeft);
+            //print("SKILL CD " + cdLeft);
             return false;
         }
 

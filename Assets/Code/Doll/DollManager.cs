@@ -22,6 +22,11 @@ public class DollManager : MonoBehaviour
         return theList;
     }
 
+    public Transform GetEmptySlot(DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
+    {
+        return AddOneDoll(null, positionType);
+    }
+
     public Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
         float positionRatio = 0;

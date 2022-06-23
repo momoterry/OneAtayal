@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 122030480824612215}
-  - component: {fileID: 8332058113700054757}
+  - component: {fileID: -6384202603382535029}
   m_Layer: 0
   m_Name: A_Doll_One
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8332058113700054757
+--- !u!114 &-6384202603382535029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,13 +40,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6908609267550144693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a879b144f054dd04a8821558a7e875f2, type: 3}
+  m_Script: {fileID: 11500000, guid: ec6ebd233af3c8247b40aa703bbfe932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageRatio: 2.5
-  duration: 0.5
-  manaCost: 60
+  damageRatio: 1
+  duration: 0.2
+  manaCost: 40
   coolDown: 1
-  icon: {fileID: 21300000, guid: a72c9d89f1ba1ca4784622d3a02742f1, type: 3}
-  meleeObject: {fileID: 963082905904562491, guid: 1ee1a83b0b9de954f80c5931bc355848, type: 3}
-  meleeCenterDis: 1
+  icon: {fileID: 6611336990635542847, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
+  dollRef: {fileID: 4032685806379418579, guid: 5d31c47f41f9e574e93dc4dd9bc6f7c3, type: 3}

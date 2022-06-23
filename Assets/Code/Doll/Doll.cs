@@ -33,7 +33,8 @@ public class Doll : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        nextState = DOLL_STATE.WAIT;
+        if (nextState == DOLL_STATE.NONE)   //以確保一開始就被加入玩家的情況能正確
+            nextState = DOLL_STATE.WAIT;
     }
 
     void OnStateExit()
