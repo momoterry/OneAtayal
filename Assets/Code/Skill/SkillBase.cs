@@ -26,15 +26,29 @@ public class SkillBase : MonoBehaviour
 
     protected float cdLeft = 0;
     protected SkillButton theButton;
+    protected int skillIndex = 0;
 
     //Button ¬ÛÃö
+
+    public void OnButtonClicked()
+    {
+        print("SkillBase::OnButtonClicked() ...." + skillIndex);
+        thePC.OnSkill(skillIndex);
+    }
+
     public void InitButton(SkillButton skillButton)
     {
         theButton = skillButton;
         if (skillButton)
         {
             skillButton.SetIcon(icon);
+            skillButton.Bind(OnButtonClicked);
         }
+    }
+
+    public void SetSkillIndex(int index)
+    {
+        skillIndex = index;
     }
 
     public float GetCoolDownLeft() { return cdLeft; }

@@ -8,6 +8,9 @@ public class PC_One : PlayerControllerBase
 {
     protected const string AUTO_SKILL = "AutoSkill";
     protected const string SKILL_ONE =  "SkillOne";
+    protected const string SKILL_TWO = "SkillTwo";
+    protected const string SKILL_THREE = "SkillThree";
+    protected string[] skillSaveNames = { SKILL_ONE, SKILL_TWO, SKILL_THREE };
 
     public SkillBase autoSkillRef;
     public SkillBase[] activeSkillRefs;
@@ -127,13 +130,16 @@ public class PC_One : PlayerControllerBase
             autoSkillRef = savedAutoSkillRef;
         }
 
-        if (activeSkillRefs.Length >= 1)
+        if (activeSkillRefs.Length >= 1 && activeSkillRefs.Length <=3 )
         {
-            SkillBase savedActiveSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(SKILL_ONE);
-            print("主動技能存檔 !! " + savedActiveSkillRef);
-            if (savedActiveSkillRef)
+            for (int i=0; i<activeSkillRefs.Length; i++)
             {
-                activeSkillRefs[0] = savedActiveSkillRef;
+                SkillBase savedActiveSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(skillSaveNames[i]);
+                print("主動技能存檔 !! " + i + " : " + savedActiveSkillRef);
+                if (savedActiveSkillRef)
+                {
+                    activeSkillRefs[i] = savedActiveSkillRef;
+                }
             }
         }
 
@@ -163,7 +169,7 @@ public class PC_One : PlayerControllerBase
             activeSkillls[index] = null;
         }
 
-        SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(index + 1);
+        SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(index);
         if (skillRef)
         {
             activeSkillls[index] = Instantiate(skillRef, transform);
@@ -171,6 +177,7 @@ public class PC_One : PlayerControllerBase
             //BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(activeSkillls[index].icon, index + 1);
             //SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(index + 1);
             activeSkillls[index].InitButton(sb);
+            activeSkillls[index].SetSkillIndex(index);
         }
         else
         {
@@ -191,7 +198,7 @@ public class PC_One : PlayerControllerBase
             autoSkill = null;
         }
 
-        SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(0);
+        SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetAutoAttackButton();
         if (skillRef)
         {
             autoSkill = Instantiate(skillRef, transform);

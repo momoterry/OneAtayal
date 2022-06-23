@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class SkillButton : MonoBehaviour
 {
@@ -15,6 +16,15 @@ public class SkillButton : MonoBehaviour
         if (icon)
         {
             icon.sprite = iconSprite;
+        }
+    }
+    
+    public void Bind(UnityAction act)
+    {
+        Button button = gameObject.GetComponent<Button>();
+        if (button)
+        {
+            button.onClick.AddListener(act);
         }
     }
 

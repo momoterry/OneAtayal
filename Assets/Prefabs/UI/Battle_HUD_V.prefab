@@ -938,9 +938,11 @@ MonoBehaviour:
   PotionNumText: {fileID: 0}
   PotionMaxText: {fileID: 0}
   AttackText: {fileID: 0}
+  autoAttackButton: {fileID: 6666872091378140402}
   SkillButtons:
-  - {fileID: 6666872091378140402}
   - {fileID: 952790980268499724}
+  - {fileID: 3784634113929909978}
+  - {fileID: 4594373393409481539}
   theVPad: {fileID: 2946355048006526911}
 --- !u!1 &6971823420982486051
 GameObject:
@@ -1338,31 +1340,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gamd_Pad
       objectReference: {fileID: 0}
-    - target: {fileID: 5045057367292948505, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
-      propertyPath: m_Text
-      value: 3.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5045057367292948505, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5045057367292948505, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
-      propertyPath: m_FontData.m_MinSize
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5045057367292948505, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097558684022337157, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
---- !u!114 &952790980268499724 stripped
+--- !u!224 &2946355047602967988 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1791262599311858754, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
+  m_PrefabInstance: {fileID: 3474625629836593654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4594373393409481539 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4395697683381709562, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1151276478551118517, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
   m_PrefabInstance: {fileID: 3474625629836593654}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1371,11 +1358,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc55291b2dbfbe4db18fb65a23a0128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2946355047602967988 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1791262599311858754, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
+--- !u!114 &3784634113929909978 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 341676766185578284, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
   m_PrefabInstance: {fileID: 3474625629836593654}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc55291b2dbfbe4db18fb65a23a0128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2946355048006526911 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1791262597836402249, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
@@ -1385,5 +1378,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2f26512709059b49a87ea88947ec804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &952790980268499724 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4395697683381709562, guid: 58dc8394c5908044f9417ff15d6b1d63, type: 3}
+  m_PrefabInstance: {fileID: 3474625629836593654}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc55291b2dbfbe4db18fb65a23a0128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

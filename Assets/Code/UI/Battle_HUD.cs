@@ -25,7 +25,7 @@ public class Battle_HUD : MonoBehaviour
 
     //技能
     public Text AttackText;
-    //public Image[] SkillIcons;
+    public SkillButton autoAttackButton;
     public SkillButton[] SkillButtons;
 
     //虛擬搖桿相關
@@ -62,6 +62,10 @@ public class Battle_HUD : MonoBehaviour
     //        SkillIcons[index].sprite = sprite;
     //    }
     //}
+    public SkillButton GetAutoAttackButton()
+    {
+        return autoAttackButton;
+    }
 
     public SkillButton GetSkillButton(int index)
     {
