@@ -5,6 +5,7 @@ using UnityEngine;
 public class SkillDollSummon : SkillBase
 {
     public GameObject dollRef;
+    public GameObject summonFX;
     public float defaultSummonDistance = 2.0f;
 
 
@@ -40,6 +41,9 @@ public class SkillDollSummon : SkillBase
 
         Vector3 pos = transform.position + thePC.GetFaceDir() * defaultSummonDistance;
         //Vector3 pos = availableSlot.position;
+
+        if (summonFX)
+            BattleSystem.GetInstance().SpawnGameplayObject(summonFX, pos, false);
 
         GameObject dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
         Doll theDoll = dollObj.GetComponent<Doll>();
