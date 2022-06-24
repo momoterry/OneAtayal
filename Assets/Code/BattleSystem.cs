@@ -102,13 +102,14 @@ public class BattleSystem : MonoBehaviour
             return null;
 
         GameObject o = Instantiate(objRef, pos, qm, null);
-        if (o)
+        if (o && clearByBS)
         {
             objList.Add(o);
-            if (clearByBS)
-            {
-                o.AddComponent<BSObjectTag>();
-            }
+            //if (clearByBS)
+            //{
+            //    o.AddComponent<BSObjectTag>();
+            //}
+            o.AddComponent<BSObjectTag>();
         }
         return o;
     }

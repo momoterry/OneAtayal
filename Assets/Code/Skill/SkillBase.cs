@@ -32,7 +32,7 @@ public class SkillBase : MonoBehaviour
 
     public void OnButtonClicked()
     {
-        print("SkillBase::OnButtonClicked() ...." + skillIndex);
+        //print("SkillBase::OnButtonClicked() ...." + skillIndex);
         thePC.OnSkill(skillIndex);
     }
 
