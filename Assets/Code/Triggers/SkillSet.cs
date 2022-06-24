@@ -47,5 +47,7 @@ public class SkillSet : MonoBehaviour
             thePC.SetActiveSkill(skillTwoToSet, 1);
         }
 
+        whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
+
     }
 }
