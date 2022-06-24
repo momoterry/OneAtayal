@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 963082905904562490}
   - component: {fileID: 963082905904562487}
   - component: {fileID: 7515111668964709953}
+  - component: {fileID: 1375887301379247565}
   m_Layer: 0
   m_Name: MeleeFlameBlade
   m_TagString: Untagged
@@ -132,3 +133,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bias: 0
   onlyAdjustOnStart: 0
+--- !u!114 &1375887301379247565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963082905904562491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec01db58628bd434ead35794c4e5b764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeTime: 1
+  randomHoriFlip: 0
+  randomVertiFlip: 0
