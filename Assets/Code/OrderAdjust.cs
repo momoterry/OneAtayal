@@ -17,7 +17,7 @@ public class OrderAdjust : MonoBehaviour
     {
         //gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y + zBias);
 
-        allSprite = GetComponentsInChildren<Renderer>();
+        allSprite = GetComponentsInChildren<Renderer>(true);
         SetupOrder();
         if (onlyAdjustOnStart)
             enabled = false;
@@ -41,13 +41,19 @@ public class OrderAdjust : MonoBehaviour
 
     private void SetupOrder()
     {
+#if XZ_PLAN
+        int order = -(int)((transform.position.z - bias) * 10.0f);
+#else
+        int order = -(int)(sr.transform.position.y * 10.0f);
+#endif
         foreach (Renderer sr in allSprite)
         {
-#if XZ_PLAN
-            sr.sortingOrder = -(int)((sr.transform.position.z - bias) * 10.0f);
-#else
-            sr.sortingOrder = -(int)(sr.transform.position.y * 10.0f);
-#endif
+            sr.sortingOrder = order;
+//#if XZ_PLAN
+//            sr.sortingOrder = -(int)((sr.transform.position.z - bias) * 10.0f);
+//#else
+//            sr.sortingOrder = -(int)(sr.transform.position.y * 10.0f);
+//#endif
         }
 
     }
