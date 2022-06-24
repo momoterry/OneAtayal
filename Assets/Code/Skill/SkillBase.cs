@@ -70,7 +70,6 @@ public class SkillBase : MonoBehaviour
         if (theButton)
         {
             theButton.OnSkillRelease(coolDown);
-            print("heButton.OnSkillRelease(coolDown);");
         }
     }
 
