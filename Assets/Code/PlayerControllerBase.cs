@@ -70,6 +70,14 @@ public class PlayerControllerBase : MonoBehaviour
             mp = 0;
         }
     }
+    public virtual void DoHealMana(float healNum)
+    {
+        mp += healNum;
+        if ( mp > MP_Max)
+        {
+            mp = MP_Max;
+        }
+    }
     public virtual void OnSkill( int index) {}
 }
 
