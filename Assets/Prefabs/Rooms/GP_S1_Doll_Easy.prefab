@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: 2
   TriggerTargets:
-  - {fileID: 6759977427806425698}
+  - {fileID: 7678771722652118060}
   - {fileID: 5815315452659662050}
 --- !u!1 &2253617814084972155
 GameObject:
@@ -243,6 +243,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d1a8eb41e331d4ba08f7ae480224b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2492421088587920186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6940206978940726046}
+  - component: {fileID: 7723207019461364193}
+  m_Layer: 0
+  m_Name: DropManaPotion_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6940206978940726046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492421088587920186}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.2500005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2254938519080447767}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7723207019461364193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492421088587920186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0a304e2d0867d3439bd7206fcffa8db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfos:
+  - RandomPercent: 100
+    SpawnRefs:
+    - {fileID: 8143502755978418841, guid: be1ff6a7850dc4c4f98ce0b1027b1a8a, type: 3}
+  deleteSpawnedObjectOnDestory: 1
 --- !u!1 &3375083398550283232
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: 3
   TriggerTargets:
-  - {fileID: 8323398108666107278}
+  - {fileID: 2492421088587920186}
 --- !u!1 &5161297188397935394
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +369,7 @@ Transform:
   - {fileID: 2253617814084972154}
   - {fileID: 2253617813619873186}
   - {fileID: 6759977427806425724}
+  - {fileID: 7678771722652118066}
   m_Father: {fileID: 2253617814848694305}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -373,6 +422,7 @@ Transform:
   - {fileID: 6441046783589789955}
   - {fileID: 109574812646511930}
   - {fileID: 8323398108666107280}
+  - {fileID: 6940206978940726046}
   m_Father: {fileID: 2253617814848694305}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -443,6 +493,54 @@ MonoBehaviour:
   randomRangeHeight: 1
   triggerTargetWhenAllKilled:
   - {fileID: 2253617813619873187}
+--- !u!1 &7678771722652118060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7678771722652118066}
+  - component: {fileID: 7678771722652118061}
+  m_Layer: 0
+  m_Name: DropManaPotion
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7678771722652118066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7678771722652118060}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.7500014, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6821757801638607206}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7678771722652118061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7678771722652118060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0a304e2d0867d3439bd7206fcffa8db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfos:
+  - RandomPercent: 100
+    SpawnRefs:
+    - {fileID: 8143502755978418841, guid: be1ff6a7850dc4c4f98ce0b1027b1a8a, type: 3}
+  deleteSpawnedObjectOnDestory: 1
 --- !u!1 &8905206303680068101
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,11 +724,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c27f692cc0220154b820050a5bbec9ab, type: 3}
---- !u!1 &6759977427806425698 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1604219278840402387, guid: c27f692cc0220154b820050a5bbec9ab, type: 3}
-  m_PrefabInstance: {fileID: 5445721976101536689}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6759977427806425724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1604219278840402381, guid: c27f692cc0220154b820050a5bbec9ab, type: 3}
@@ -712,10 +805,5 @@ PrefabInstance:
 --- !u!4 &8323398108666107280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1604219278840402381, guid: c27f692cc0220154b820050a5bbec9ab, type: 3}
-  m_PrefabInstance: {fileID: 7332408386982380637}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8323398108666107278 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1604219278840402387, guid: c27f692cc0220154b820050a5bbec9ab, type: 3}
   m_PrefabInstance: {fileID: 7332408386982380637}
   m_PrefabAsset: {fileID: 0}
