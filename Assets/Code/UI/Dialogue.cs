@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class Dialogue : MonoBehaviour
 {
     public GameObject theWindow;
+    public bool isRepeatable = false;
     public GameObject[] EndTriggers;
 
     MyInputActions theInput;
@@ -47,6 +48,10 @@ public class Dialogue : MonoBehaviour
     {
         switch (nextState)
         {
+            case PHASE.WAIT:
+                if (theWindow)
+                    theWindow.SetActive(false);
+                break;
             case PHASE.NORMAL:
                 if (theWindow)
                     theWindow.SetActive(true);
@@ -70,15 +75,27 @@ public class Dialogue : MonoBehaviour
         {
             OnEnterState();
             currState = nextState;
+            return;
+        }
+
+        switch (currState)
+        {
+            case PHASE.END:
+                if (isRepeatable)
+                {
+                    nextState = PHASE.WAIT;
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+                break;
         }
     }
 
     public void OnClick()
     {
-        if (currState == PHASE.NORMAL)
-        {
-            nextState = PHASE.END;
-        }
+        TryDoFinish();
     }
 
     void OnTG(GameObject whoTG)
@@ -90,11 +107,17 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    protected void OnMouseDown()
+    {
+        TryDoFinish();
+    }
+
+    protected void TryDoFinish()
     {
         if (currState == PHASE.NORMAL)
         {
             nextState = PHASE.END;
         }
     }
+
 }
