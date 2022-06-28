@@ -12,6 +12,8 @@ public class PC_One : PlayerControllerBase
     protected const string SKILL_THREE = "SkillThree";
     protected string[] skillSaveNames = { SKILL_ONE, SKILL_TWO, SKILL_THREE };
 
+    public Animator theAnimator;
+
     public SkillBase autoSkillRef;
     public SkillBase[] activeSkillRefs;
 
@@ -96,7 +98,10 @@ public class PC_One : PlayerControllerBase
             myAgent.updateUpAxis = false;
         }
 
-        myAnimator = GetComponent<Animator>();
+        if (theAnimator)
+            myAnimator = theAnimator;
+        else
+            myAnimator = GetComponent<Animator>();
 
         SetupFaceDirByAngle(initFaceDirAngle);
 
