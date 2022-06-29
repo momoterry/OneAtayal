@@ -217,8 +217,10 @@ public class DollAuto : Doll
                 myAgent.SetDestination(myTarget.transform.position);
         }
         else
+        {
             nextAutoState = AutoState.FOLLOW;
-
+            return;
+        }
         //TODO: 也需要更新目標
         if (autoStateTime > 0.1f)
         {

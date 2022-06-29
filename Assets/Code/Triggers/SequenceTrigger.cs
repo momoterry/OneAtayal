@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class SequenceTrigger : MonoBehaviour
 {
-    public GameObject[] TriggerTargetList;
     public float timePeriod = 2.0f;
-
     public bool Shuffle = false;
     public bool Loop = false;
+
+    public GameObject[] TriggerTargetList;
 
     protected GameObject[] triggerSequence;
     protected int sequenceNum;
     protected int currIndex = 0;
     protected float currTime = 0;
+
+    protected enum PHASE
+    {
+        NONE,
+        RUNNING,
+        END,
+    }
+    PHASE currPhase = PHASE.NONE;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +33,35 @@ public class SequenceTrigger : MonoBehaviour
         {
             triggerSequence[i] = TriggerTargetList[i];
         }
+
+        if (Shuffle)
+        {
+            ShuffleSequence();
+        }
+    }
+
+    void ShuffleSequence()
+    {
+        for (int i = sequenceNum-1; i>=0; i--)
+        {
+            int rd = Random.Range(0, i);
+            GameObject tmp = triggerSequence[rd];
+            triggerSequence[rd] = triggerSequence[i];
+            triggerSequence[i] = tmp;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        currTime += Time.deltaTime;
-        if (currTime >= timePeriod)
+        if (currPhase == PHASE.RUNNING)
         {
-            currTime = 0;
+            currTime += Time.deltaTime;
+            if (currTime >= timePeriod)
+            {
+                DoOneTrigger();
+                currTime = 0;
+            }
         }
     }
 
@@ -48,8 +76,28 @@ public class SequenceTrigger : MonoBehaviour
         currIndex++;
         if (currIndex >= sequenceNum)
         {
-            currIndex = 0;
-            enabled = false;    //TODO: Loop ?
+            if (Loop) 
+            {
+                currIndex = 0;
+                if (Shuffle)
+                {
+                    ShuffleSequence();
+                }
+            }
+            else
+            {
+                currPhase = PHASE.END;
+                enabled = false;
+            }
+        }
+    }
+
+    void OnTG(GameObject whoTG)
+    {
+        //print("GO!!");
+        if (currPhase == PHASE.NONE)
+        {
+            currPhase = PHASE.RUNNING;
         }
     }
 
