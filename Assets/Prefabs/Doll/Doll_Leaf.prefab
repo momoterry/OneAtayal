@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 8638560577857950049}
   - component: {fileID: 774563800371905222}
   - component: {fileID: -3660368820591912005}
+  - component: {fileID: -3027592200863926346}
   m_Layer: 10
   m_Name: Doll_Leaf
   m_TagString: Doll
@@ -237,6 +238,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-3027592200863926346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5511d6d0a39d11d4d9b3f35653b8cd63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cancelObjRef: {fileID: 6182335869324556820, guid: a8e9b478df91f844eb4ebb9977a9151a, type: 3}
 --- !u!1 &6403853858975233831
 GameObject:
   m_ObjectHideFlags: 0
