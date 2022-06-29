@@ -29,6 +29,7 @@ public class DollSelector : MonoBehaviour
 
     private void OnMouseDown()
     {
+
         if (theCanceller)
         {
             //有存在的 Canceller, 先移除

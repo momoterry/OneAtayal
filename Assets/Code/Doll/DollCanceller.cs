@@ -14,7 +14,7 @@ public class DollCanceller : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //print("I got Clicked !!!!!!!!");
+
         Vector3 mPos = Input.mousePosition;
         Vector3 wPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         wPos.y = 0;
