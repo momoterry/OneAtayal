@@ -11,11 +11,17 @@ public class SequenceTrigger : MonoBehaviour
 
     public GameObject[] TriggerTargetList;
 
+    public GameObject TriggerWhenAllDone;   //暴力法，為了配合 EenmySpawner
+
     protected GameObject[] triggerSequence;
     protected int sequenceNum;
     protected int currIndex = 0;
     protected float currTime = 0;
     protected int currLoopCount = 0;
+
+    //收到回傳的「完成」 Trigger: (TODO: 用其它更嚴謹的方式處理)
+    protected int totalDoneCount;
+    protected int recivedDoneCount = 0;
 
     protected enum PHASE
     {
@@ -40,6 +46,8 @@ public class SequenceTrigger : MonoBehaviour
         {
             ShuffleSequence();
         }
+
+        totalDoneCount = sequenceNum * LoopCount;
     }
 
     void ShuffleSequence()
@@ -90,7 +98,7 @@ public class SequenceTrigger : MonoBehaviour
             else
             {
                 currPhase = PHASE.END;
-                enabled = false;
+                //enabled = false;      //TODO: 是否等 Total Done 之後 Disable?
             }
         }
     }
@@ -101,6 +109,22 @@ public class SequenceTrigger : MonoBehaviour
         if (currPhase == PHASE.NONE)
         {
             currPhase = PHASE.RUNNING;
+        }
+        else if ( currPhase == PHASE.RUNNING || currPhase == PHASE.END)
+        {
+            if (recivedDoneCount < totalDoneCount)
+            {
+                //收到回傳的「完成」 Trigger: (TODO: 用其它更嚴謹的方式處理)
+                recivedDoneCount++;
+                print("Sequence Done: " + recivedDoneCount + " / " + totalDoneCount);
+                if (recivedDoneCount == totalDoneCount)
+                {
+                    print("Total Done !!");
+                    if (TriggerWhenAllDone)
+                        TriggerWhenAllDone.SendMessage("OnTG", gameObject);
+                }
+            }
+
         }
     }
 
