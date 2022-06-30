@@ -11,7 +11,7 @@ public class Doll_Healer : DollAuto
         PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         if (pc.GetHP() < pc.GetHPMax())
         {
-            print("Player HP  " + pc.GetHP() + " / " + pc.GetHPMax());
+            //print("Player HP  " + pc.GetHP() + " / " + pc.GetHPMax());
             bestTargetHpRatio = pc.GetHP() / pc.GetHPMax();
             myTarget = pc.gameObject;
         }
