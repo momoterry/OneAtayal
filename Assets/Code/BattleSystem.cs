@@ -379,9 +379,12 @@ public class BattleSystem : MonoBehaviour
             print("ERROR !!!!! OnLevelRestart() called but not in fail state !!");
         }
 
-        ResetLevel();
-        //InitPlayerData();
-        nextState = BATTLE_GAME_STATE.BATTLE;
+
+        Scene scene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(scene.name);
+
+        //ResetLevel();
+        //nextState = BATTLE_GAME_STATE.BATTLE;
     }
 
     public void OnBackToStartMenu()
