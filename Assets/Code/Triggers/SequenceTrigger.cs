@@ -6,7 +6,8 @@ public class SequenceTrigger : MonoBehaviour
 {
     public float timePeriod = 2.0f;
     public bool Shuffle = false;
-    public bool Loop = false;
+    //public bool Loop = false;
+    public int LoopCount = 1;
 
     public GameObject[] TriggerTargetList;
 
@@ -14,6 +15,7 @@ public class SequenceTrigger : MonoBehaviour
     protected int sequenceNum;
     protected int currIndex = 0;
     protected float currTime = 0;
+    protected int currLoopCount = 0;
 
     protected enum PHASE
     {
@@ -76,7 +78,8 @@ public class SequenceTrigger : MonoBehaviour
         currIndex++;
         if (currIndex >= sequenceNum)
         {
-            if (Loop) 
+            currLoopCount++;
+            if (currLoopCount<LoopCount) 
             {
                 currIndex = 0;
                 if (Shuffle)
