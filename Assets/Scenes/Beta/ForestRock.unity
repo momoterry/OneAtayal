@@ -343,6 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 352885244}
   - component: {fileID: 352885245}
+  - component: {fileID: 352885246}
   m_Layer: 0
   m_Name: BattleSystem
   m_TagString: Untagged
@@ -386,6 +387,28 @@ MonoBehaviour:
   initPotion: 3
   maxPotion: 5
   potionHealRatio: 0.5
+--- !u!114 &352885246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352885243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4e9510c132c2f49a52b77b58162149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropMappingArray:
+  - ID: 0
+    dropRatio: 100
+    objRef: {fileID: 0}
+  - ID: 1010
+    dropRatio: 40
+    objRef: {fileID: 8143502755978418841, guid: be1ff6a7850dc4c4f98ce0b1027b1a8a, type: 3}
+  - ID: 1020
+    dropRatio: 40
+    objRef: {fileID: 8143502755978418841, guid: be1ff6a7850dc4c4f98ce0b1027b1a8a, type: 3}
 --- !u!1 &362805122
 GameObject:
   m_ObjectHideFlags: 0

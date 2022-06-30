@@ -6,6 +6,7 @@ using UnityEngine;
 public class DropMapping
 {
     public int ID;
+    public float dropRatio = 100.0f;
     public GameObject objRef;
 }
 
@@ -41,9 +42,13 @@ public class DropManager : MonoBehaviour
             DropMapping dm = dropMap[ID];
             if (dm!=null)
             {
-                //print("Drop !!!!!!!!!!!!!!!!!!!!!!!");
-                //GameObject newDrop = Instantiate(dm.objRef, pos, Quaternion.Euler(90, 0, 0), null);
-                BattleSystem.GetInstance().SpawnGameplayObject(dm.objRef, pos);
+                float rd = Random.Range(0, 100.0f);
+                if (rd <= dm.dropRatio)
+                {
+                    //print("Drop !!!!!!!!!!!!!!!!!!!!!!!");
+                    //GameObject newDrop = Instantiate(dm.objRef, pos, Quaternion.Euler(90, 0, 0), null);
+                    BattleSystem.GetInstance().SpawnGameplayObject(dm.objRef, pos);
+                }
             }        
         }
     }

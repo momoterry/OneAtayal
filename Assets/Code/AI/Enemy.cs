@@ -386,7 +386,12 @@ public class Enemy : MonoBehaviour
         {
             Instantiate(debris, transform.position, rm, null);
         }
-       
+
+        if (DropManager.GetInstance())
+        {
+            DropManager.GetInstance().DoDropByID(ID, transform.position);
+        }
+
         Destroy(gameObject);
         // TODO ¦º¤`ºt¥X
 
