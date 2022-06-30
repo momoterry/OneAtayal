@@ -4458,7 +4458,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2102823569}
-  - component: {fileID: 2102823570}
   - component: {fileID: 2102823571}
   m_Layer: 0
   m_Name: Win
@@ -4482,21 +4481,6 @@ Transform:
   m_Father: {fileID: 131614033}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2102823570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102823568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2a48c895d7f82b4a82b7cc99d300d4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnableTargets:
-  - {fileID: 839278032}
-  SetEnable: 1
 --- !u!114 &2102823571
 MonoBehaviour:
   m_ObjectHideFlags: 0
