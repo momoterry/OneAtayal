@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SequenceTrigger : MonoBehaviour
+public class TriggerSequence: MonoBehaviour
 {
     public float timePeriod = 2.0f;
     public bool Shuffle = false;
