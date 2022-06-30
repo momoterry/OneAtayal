@@ -12,6 +12,8 @@ public class SkillShoot : SkillBase
     public bool autoAim = true;
     public bool faceTarget = true;
 
+    public GameObject[] fireFXRefs;
+
     //protected PlayerControllerBase thePC;
     //protected Animator theAnimator;
 
@@ -104,6 +106,12 @@ public class SkillShoot : SkillBase
             {
                 newBullet.InitValue(DAMAGE_GROUP.PLAYER, thePC.GetATTACK() * damageRatio, td, target);
             }
+        }
+
+        //µo®g¯S®Ä
+        foreach (GameObject fx in fireFXRefs)
+        {
+            Instantiate(fx, transform.position, Quaternion.Euler(90, 0, 0), transform);
         }
 
         if (theAnimator)
