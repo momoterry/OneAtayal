@@ -801,7 +801,7 @@ public class PC_One : PlayerControllerBase
     public override void DoHeal(float healNum)
     {
         hp += healNum;
-        if (hp > HP_Max)
+        if (hp >= HP_Max)
             hp = HP_Max;
     }
 

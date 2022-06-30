@@ -20,7 +20,7 @@ public class PlayerControllerBase : MonoBehaviour
     protected float Attack = 50.0f;
 
     //取得數值相關
-    public float GetHPMax() { return MP_Max; }
+    public float GetHPMax() { return HP_Max; }
     public float GetMPMax() { return MP_Max; }
     public float GetHP() { return hp; }
     public float GetMP() { return mp; }
