@@ -12,6 +12,7 @@ public class TriggerSequence: MonoBehaviour
     public GameObject[] TriggerTargetList;
 
     public GameObject TriggerWhenAllDone;   //暴力法，為了配合 EenmySpawner
+    public GameObject TriggerWhenFinish;
 
     protected GameObject[] triggerSequence;
     protected int sequenceNum;
@@ -87,7 +88,7 @@ public class TriggerSequence: MonoBehaviour
         if (currIndex >= sequenceNum)
         {
             currLoopCount++;
-            if (currLoopCount<LoopCount) 
+            if (currLoopCount < LoopCount)
             {
                 currIndex = 0;
                 if (Shuffle)
@@ -99,6 +100,11 @@ public class TriggerSequence: MonoBehaviour
             {
                 currPhase = PHASE.END;
                 //enabled = false;      //TODO: 是否等 Total Done 之後 Disable?
+                if (TriggerWhenFinish)
+                {
+                    print("TriggerWhenFinish");
+                    TriggerWhenFinish.SendMessage("OnTG", gameObject);
+                }
             }
         }
     }
