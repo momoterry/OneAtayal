@@ -9,6 +9,8 @@ public class SkillShoot : SkillBase
     public float bulletInitDis = 0.25f;
     public float searchRange = 10.0f;
     public bool shootEvenNoEnemy = true;
+    public bool autoAim = true;
+    public bool faceTarget = true;
 
     //protected PlayerControllerBase thePC;
     //protected Animator theAnimator;
@@ -77,7 +79,7 @@ public class SkillShoot : SkillBase
         //thePC.DoUseMP(manaCost);
 
         Vector3 td;
-        if (target != null)
+        if (target != null && autoAim)
             td = target.transform.position - theCaster.transform.position;
         else
             td = thePC.GetFaceDir();
@@ -89,7 +91,8 @@ public class SkillShoot : SkillBase
 #endif
 
         td.Normalize();
-        thePC.SetupFaceDir(td);
+        if (faceTarget)
+            thePC.SetupFaceDir(td);
 
         Vector3 shootPos = theCaster.transform.position + td * bulletInitDis;
 

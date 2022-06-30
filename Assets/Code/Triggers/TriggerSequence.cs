@@ -116,10 +116,10 @@ public class TriggerSequence: MonoBehaviour
             {
                 //收到回傳的「完成」 Trigger: (TODO: 用其它更嚴謹的方式處理)
                 recivedDoneCount++;
-               // print("Sequence Done: " + recivedDoneCount + " / " + totalDoneCount);
+                print("Sequence Done: " + recivedDoneCount + " / " + totalDoneCount);
                 if (recivedDoneCount == totalDoneCount)
                 {
-                    //print("Total Done !!");
+                    print("Total Done !!");
                     if (TriggerWhenAllDone)
                         TriggerWhenAllDone.SendMessage("OnTG", gameObject);
                 }
