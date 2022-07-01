@@ -897,8 +897,9 @@ MonoBehaviour:
   - {fileID: 173316767}
   - {fileID: 1744593985}
   - {fileID: 443504371}
-  TriggerWhenAllDone: {fileID: 0}
-  TriggerWhenFinish: {fileID: 1370156774}
+  InstanceTriggerTarget: 1
+  TriggerWhenAllDone: {fileID: 1370156774}
+  TriggerWhenFinish: {fileID: 0}
 --- !u!1001 &1130835245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4461,6 +4462,7 @@ MonoBehaviour:
   LoopCount: 4
   TriggerTargetList:
   - {fileID: 997437720}
+  InstanceTriggerTarget: 0
   TriggerWhenAllDone: {fileID: 0}
   TriggerWhenFinish: {fileID: 0}
 --- !u!1 &2004474911

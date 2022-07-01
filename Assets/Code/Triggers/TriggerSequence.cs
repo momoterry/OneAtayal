@@ -10,9 +10,10 @@ public class TriggerSequence: MonoBehaviour
     public int LoopCount = 1;
 
     public GameObject[] TriggerTargetList;
-
-    public GameObject TriggerWhenAllDone;   //暴力法，為了配合 EenmySpawner
     public GameObject TriggerWhenFinish;
+
+    public bool InstanceTriggerTarget = false;      //暴力法，為了支援重覆觸發 EnemySpawner....
+    public GameObject TriggerWhenAllDone;   //暴力法，為了配合 EenmySpawner
 
     protected GameObject[] triggerSequence;
     protected int sequenceNum;
@@ -42,6 +43,10 @@ public class TriggerSequence: MonoBehaviour
         {
             triggerSequence[i] = TriggerTargetList[i];
         }
+        if (InstanceTriggerTarget)
+        {
+            CloneTriggerTargets();
+        }
 
         if (Shuffle)
         {
@@ -49,6 +54,18 @@ public class TriggerSequence: MonoBehaviour
         }
 
         totalDoneCount = sequenceNum * LoopCount;
+    }
+
+    void CloneTriggerTargets()
+    {
+        for (int i = 0; i < sequenceNum; i++)
+        {
+            GameObject o = triggerSequence[i];
+            if (o) 
+            {
+                triggerSequence[i] = Instantiate(o, o.transform.position, o.transform.rotation, o.transform.parent);
+            }
+        }
     }
 
     void ShuffleSequence()
@@ -91,6 +108,10 @@ public class TriggerSequence: MonoBehaviour
             if (currLoopCount < LoopCount)
             {
                 currIndex = 0;
+                if (InstanceTriggerTarget)
+                {
+                    CloneTriggerTargets();
+                }
                 if (Shuffle)
                 {
                     ShuffleSequence();
