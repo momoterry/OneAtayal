@@ -10,7 +10,8 @@ public class PC_One : PlayerControllerBase
     protected const string SKILL_ONE =  "SkillOne";
     protected const string SKILL_TWO = "SkillTwo";
     protected const string SKILL_THREE = "SkillThree";
-    protected string[] skillSaveNames = { SKILL_ONE, SKILL_TWO, SKILL_THREE };
+    protected const string SKILL_FOUR = "SkillFour";
+    protected string[] skillSaveNames = { SKILL_ONE, SKILL_TWO, SKILL_THREE, SKILL_FOUR };
 
     public Animator theAnimator;
 
@@ -129,24 +130,27 @@ public class PC_One : PlayerControllerBase
 
         //先檢查存檔
         SkillBase savedAutoSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(AUTO_SKILL);
-        print("技能存檔 !! " + savedAutoSkillRef);
+        if (savedAutoSkillRef)
+            print("技能存檔 !! " + savedAutoSkillRef);
         if (savedAutoSkillRef)
         {
             autoSkillRef = savedAutoSkillRef;
         }
 
-        if (activeSkillRefs.Length >= 1 && activeSkillRefs.Length <=3 )
+        int activeSkillSaveMax = Mathf.Min(activeSkillRefs.Length, skillSaveNames.Length);
+        //if (activeSkillRefs.Length >= 1 && activeSkillRefs.Length <= skillSaveNames.Length)
+        //{
+        for (int i = 0; i < activeSkillSaveMax; i++)
         {
-            for (int i=0; i<activeSkillRefs.Length; i++)
-            {
-                SkillBase savedActiveSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(skillSaveNames[i]);
+            SkillBase savedActiveSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(skillSaveNames[i]);
+            if (savedActiveSkillRef)
                 print("主動技能存檔 !! " + i + " : " + savedActiveSkillRef);
-                if (savedActiveSkillRef)
-                {
-                    activeSkillRefs[i] = savedActiveSkillRef;
-                }
+            if (savedActiveSkillRef)
+            {
+                activeSkillRefs[i] = savedActiveSkillRef;
             }
         }
+        //}
 
         //產生各 SkillBase
         DoSetAutoSkill(autoSkillRef);
