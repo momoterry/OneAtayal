@@ -897,9 +897,9 @@ MonoBehaviour:
   - {fileID: 173316767}
   - {fileID: 1744593985}
   - {fileID: 443504371}
-  InstanceTriggerTarget: 1
-  TriggerWhenAllDone: {fileID: 1370156774}
   TriggerWhenFinish: {fileID: 0}
+  InstanceTriggerTarget: 1
+  TriggerWhenAllDone: {fileID: 1554885115}
 --- !u!1001 &1130835245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4103,7 +4103,7 @@ GameObject:
   m_Layer: 0
   m_Name: WaitBoss
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4115,7 +4115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554885115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 13.750003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 131614033}
@@ -4133,7 +4133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33242d63823eb9f44b326c6ab98f0d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 25
+  delayTime: 3
   TriggerTargets:
   - {fileID: 1370156774}
 --- !u!1 &1639246122
@@ -4462,9 +4462,9 @@ MonoBehaviour:
   LoopCount: 4
   TriggerTargetList:
   - {fileID: 997437720}
+  TriggerWhenFinish: {fileID: 0}
   InstanceTriggerTarget: 0
   TriggerWhenAllDone: {fileID: 0}
-  TriggerWhenFinish: {fileID: 0}
 --- !u!1 &2004474911
 GameObject:
   m_ObjectHideFlags: 0
