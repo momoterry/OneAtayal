@@ -21,6 +21,9 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         defaultCenter = vCenter.rectTransform.anchoredPosition;
         if (actionButton)
             actionButton.SetActive(false);
+
+        vCenter.enabled = false;
+        vStick.enabled = false;
     }
 
     public void OnDrag(PointerEventData data)
@@ -54,6 +57,9 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         Vector2 oldPos = vCenter.rectTransform.anchoredPosition;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(vCenter.rectTransform, data.position, data.enterEventCamera, out pos);
         vCenter.rectTransform.anchoredPosition = oldPos + pos;
+
+        vCenter.enabled = true;
+        vStick.enabled = true;
     }
 
     public void OnPointerUp(PointerEventData data)
@@ -64,6 +70,9 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         vCenter.rectTransform.anchoredPosition = defaultCenter;
         vStick.rectTransform.anchoredPosition = Vector2.zero;
         currVector = Vector2.zero;
+
+        vCenter.enabled = false;
+        vStick.enabled = false;
     }
 
 
