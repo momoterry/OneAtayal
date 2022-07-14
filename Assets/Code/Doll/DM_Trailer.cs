@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class DM_Trailer : DollManager
 {
-    protected int dotNum = 50;
+    protected int dotNum = 0;
     protected float dotDis = 0.5f;
+    protected int slotDotNum = 2;
+
+    //protected int trailSlotNum = 20;
+
     protected float dotDisSqr = 0;
 
     protected Vector3[] dotArray = null;
@@ -14,29 +18,71 @@ public class DM_Trailer : DollManager
 
     //Debug
     public GameObject testDotRef;
-    protected GameObject[] testObjArray = null;
+    public GameObject testSlotRef;
+    protected GameObject[] testDotArray = null;
+    protected GameObject[] testSlotArray = null;
+
+    protected bool IsDebug = false;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
 
+        //trailSlotNum = slotNum;
+        dotNum = slotDotNum * slotNum + 10;
+
         dotArray = new Vector3[dotNum];
         for (int i=0; i<dotNum; i++)
         {
-            print(dotArray[i]);
-            dotArray[i] = transform.position -Vector3.forward*(dotNum-i)*dotDis;
+            //print(dotArray[i]);
+            //dotArray[i] = transform.position -Vector3.forward* i *dotDis;
+            dotArray[i] = transform.position;
         }
-
-        testObjArray = new GameObject[dotNum];
-        for (int i = 0; i < dotNum; i++)
-        {
-            print(testObjArray[i]);
-            //dotArray[i] = transform.position;
-            testObjArray[i] = BattleSystem.GetInstance().SpawnGameplayObject(testDotRef, dotArray[i]);
-        }
-
         dotDisSqr = dotDis * dotDis;
+
+        for (int i=0; i< slotNum; i++)
+        {
+            DollSlots[i].parent = null; //暴力法: TODO: 直接重新生成
+        }
+
+        //Debug
+        if (IsDebug)
+        {
+            testDotArray = new GameObject[dotNum];
+            for (int i = 0; i < dotNum; i++)
+            {
+                //dotArray[i] = transform.position;
+                testDotArray[i] = BattleSystem.GetInstance().SpawnGameplayObject(testDotRef, dotArray[i]);
+            }
+
+            testSlotArray = new GameObject[slotNum];
+            for (int i = 0; i < slotNum; i++)
+            {
+                testSlotArray[i] = BattleSystem.GetInstance().SpawnGameplayObject(testSlotRef, transform.position);
+            }
+        }
+
+        SetupSlotPosition();
+
+    }
+
+    void SetupSlotPosition()
+    {
+        int currSlotIndex = currIndex;
+        for (int i = 0; i < slotNum; i++)
+        {
+            currSlotIndex += slotDotNum;
+            if (currSlotIndex >= dotNum)
+            {
+                currSlotIndex -= dotNum;
+            }
+
+            DollSlots[i].position = dotArray[currSlotIndex];
+
+            if (IsDebug)
+                testSlotArray[i].transform.position = dotArray[currSlotIndex];
+        }
     }
 
     // Update is called once per frame
@@ -44,14 +90,20 @@ public class DM_Trailer : DollManager
     {
         if ((transform.position - dotArray[currIndex]).sqrMagnitude >= dotDisSqr)
         {
-            currIndex++;
-            if (currIndex >= dotNum)
+            currIndex--;
+            if (currIndex <0 )
             {
-                currIndex = 0;
+                currIndex = dotNum - 1;
             }
             dotArray[currIndex] = transform.position;
+
             //TEST
-            testObjArray[currIndex].transform.position = dotArray[currIndex];
+            if (IsDebug)
+            {
+                testDotArray[currIndex].transform.position = dotArray[currIndex];
+            }
+
+            SetupSlotPosition();
         }
     }
 }

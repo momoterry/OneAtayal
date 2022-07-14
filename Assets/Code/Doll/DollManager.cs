@@ -6,8 +6,8 @@ public class DollManager : MonoBehaviour
 {
     public Transform[] DollSlots;
 
-    private int slotNum = 0;
-    private Doll[] dolls;
+    protected int slotNum = 0;
+    protected Doll[] dolls;
 
     public List<Doll> GetDolls()
     {
