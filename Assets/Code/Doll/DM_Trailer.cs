@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class DM_Trailer : DollManager
 {
+    protected int trailSlotNum = 20;
+
     protected int dotNum = 0;
     protected float dotDis = 0.5f;
     protected int slotDotNum = 2;
 
-    //protected int trailSlotNum = 20;
 
     protected float dotDisSqr = 0;
 
@@ -27,9 +28,17 @@ public class DM_Trailer : DollManager
     // Start is called before the first frame update
     protected override void Start()
     {
-        base.Start();
+        //base.Start();
+        slotNum = trailSlotNum;
+        DollSlots = new Transform[slotNum];
+        for (int i=0; i< slotNum; i++)
+        {
+            GameObject o = new GameObject("TrailSlot_"+i);
+            DollSlots[i] = o.transform;
+        }
+        dolls = new Doll[slotNum];
 
-        //trailSlotNum = slotNum;
+
         dotNum = slotDotNum * slotNum + 10;
 
         dotArray = new Vector3[dotNum];
