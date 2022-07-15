@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DamageArea : AreaEffectBase
 {
-    //public float damageRatio = 0.02f;
+    public float defaultDamage = 20.0f;
     public GameObject damageFX;
 
     protected override void ApplyEffect(GameObject obj)
@@ -12,7 +12,7 @@ public class DamageArea : AreaEffectBase
         //float healAbsoluteValue = baseDamage;
 
         Damage myDamage;
-        myDamage.damage = baseDamage;
+        myDamage.damage = defaultDamage;
 
         //PlayerControllerBase pc = obj.GetComponent<PlayerControllerBase>();
         //if (pc)

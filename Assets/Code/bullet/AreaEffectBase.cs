@@ -33,7 +33,7 @@ public class AreaEffectBase : bullet_base
         }
 
         timeTotal += Time.deltaTime;
-        if (timeTotal >= lifeTime)
+        if (lifeTime >=0 && timeTotal >= lifeTime)
         {
             Destroy(gameObject);
         }
