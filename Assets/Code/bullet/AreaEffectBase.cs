@@ -27,7 +27,7 @@ public class AreaEffectBase : bullet_base
 
             foreach (GameObject o in objListInArea)
             {
-                if (o)
+                if (o && o.activeInHierarchy)
                     ApplyEffect(o);
             }
         }

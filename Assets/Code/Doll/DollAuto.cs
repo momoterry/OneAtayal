@@ -18,6 +18,8 @@ public class DollAuto : Doll
 
     public GameObject deathFX;
 
+    public bool canRevie = false;
+
     //== 以上其實是 public
     protected float timeToAttack = 0;
 
@@ -29,7 +31,8 @@ public class DollAuto : Doll
         FOLLOW,
         RUNBACK,
         CHASE,
-        ATTACK
+        ATTACK,
+        WAIT_REVIVE,
     }
 
     protected AutoState currAutoState = AutoState.NONE;
@@ -111,11 +114,20 @@ public class DollAuto : Doll
                 timeToAttack = attackWait;
                 StopMove();
                 break;
+            case AutoState.WAIT_REVIVE:
+                gameObject.SetActive(false);
+                break;
         }
     }
     protected void ExitAutoState(AutoState state)
     {
-
+        switch (state)
+        {
+            case AutoState.WAIT_REVIVE:
+                gameObject.SetActive(true);
+                transform.position = mySlot.position;
+                break;
+        }
     }
 
     protected override void UpdateBattle()
@@ -146,6 +158,9 @@ public class DollAuto : Doll
                 case AutoState.ATTACK:
                     UpdateAttack();
                     break;
+                //case AutoState.WAIT_REVIVE:
+                //    transform.position = mySlot.position;
+                //    break;
             }
         }
 
@@ -341,7 +356,27 @@ public class DollAuto : Doll
 #endif
             Instantiate(deathFX, transform.position, rm, null);
         }
-        base.OnDeath();
+        if (!canRevie)
+        {
+            base.OnDeath();
+        }
+        else
+        {
+            nextAutoState = AutoState.WAIT_REVIVE;
+        }
+    }
+
+    protected virtual void OnRevive()
+    {
+        HitBody hb = GetComponent<HitBody>();
+        if (hb)
+        {
+            hb.DoHeal(hb.HP_Max);
+        }
+        if (currAutoState == AutoState.WAIT_REVIVE)
+        {
+            nextAutoState = AutoState.FOLLOW;
+        }
     }
 
 
@@ -355,12 +390,12 @@ public class DollAuto : Doll
         //啥也不做
     }
 
-    //private void OnGUI()
-    //{
-    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
-    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currAutoState.ToString());
+    private void OnGUI()
+    {
+        Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+        thePoint.y = Camera.main.pixelHeight - thePoint.y;
+        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currAutoState.ToString());
 
-    //}
+    }
 
 }

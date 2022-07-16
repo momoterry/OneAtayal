@@ -21,6 +21,8 @@ public class SkillHealBall : SkillShoot
         List<Doll> theList = thePC.GetDollManager().GetDolls();
         foreach (Doll d in theList)
         {
+            if (!d.gameObject.activeInHierarchy)
+                continue;
             //if (d == this)
             //    continue;
             HitBody body = d.GetComponent<HitBody>();

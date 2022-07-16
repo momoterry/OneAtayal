@@ -22,6 +22,8 @@ public class Doll_Healer : DollAuto
         List<Doll> theList = pc.GetDollManager().GetDolls();
         foreach (Doll d in theList)
         {
+            if (!d.gameObject.activeInHierarchy)
+                continue;
             if (d == this)
                 continue;
             HitBody body = d.GetComponent<HitBody>();

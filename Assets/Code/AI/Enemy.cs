@@ -300,7 +300,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void UpdateAttack()
     {
-        if ( !myAgent || !targetObj )
+        if ( !myAgent || !targetObj || !targetObj.activeInHierarchy)
         {
             nextState = AI_STATE.IDLE;
             return;
