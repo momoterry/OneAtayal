@@ -17,6 +17,33 @@ public class AreaEffectBase : bullet_base
 
     }
 
+
+    void DoApplyEffectAll()
+    {
+        while (objListInArea.Remove(null)) { }
+
+        //TODO: 想辦法不要用額外 new 的內容
+        List<GameObject> removeList = new List<GameObject>();
+
+        foreach (GameObject o in objListInArea)
+        {
+            if (o.activeInHierarchy)
+            {
+                ApplyEffect(o);
+            }
+            else
+            {
+                removeList.Add(o);
+            }
+        }
+
+        foreach (GameObject ro in removeList)
+        {
+            objListInArea.Remove(ro);
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -25,11 +52,7 @@ public class AreaEffectBase : bullet_base
         {
             timeAfterEffect -= timePeriod;
 
-            foreach (GameObject o in objListInArea)
-            {
-                if (o && o.activeInHierarchy)
-                    ApplyEffect(o);
-            }
+            DoApplyEffectAll();
         }
 
         timeTotal += Time.deltaTime;

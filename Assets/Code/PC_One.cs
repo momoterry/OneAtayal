@@ -823,6 +823,28 @@ public class PC_One : PlayerControllerBase
         }
     }
 
+    // =================== Doll «ü´§¬ÛÃö ===================
+
+    public void ReviveOneDoll()
+    {
+        List<Doll> dollList = myDollManager.GetDolls();
+        foreach( Doll d in dollList)
+        {
+            if (d.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+            print("Found One !!");
+            //d.gameObject.SendMessage("OnRevive");
+            DollAuto da = d.gameObject.GetComponent<DollAuto>();
+            if (da)
+            {
+                print("Do OnRevive");
+                da.OnRevive();
+            }
+
+        }
+    }
 
     //private void OnGUI()
     //{

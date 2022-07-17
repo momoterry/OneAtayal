@@ -121,13 +121,13 @@ public class DollAuto : Doll
     }
     protected void ExitAutoState(AutoState state)
     {
-        switch (state)
-        {
-            case AutoState.WAIT_REVIVE:
-                gameObject.SetActive(true);
-                transform.position = mySlot.position;
-                break;
-        }
+        //switch (state)
+        //{
+        //    case AutoState.WAIT_REVIVE:
+        //        gameObject.SetActive(true);
+        //        transform.position = mySlot.position;
+        //        break;
+        //}
     }
 
     protected override void UpdateBattle()
@@ -366,16 +366,20 @@ public class DollAuto : Doll
         }
     }
 
-    protected virtual void OnRevive()
+    public virtual void OnRevive()
     {
+        if (currAutoState != AutoState.WAIT_REVIVE)
+        {
+            return;
+        }
+        nextAutoState = AutoState.FOLLOW;
+
+        gameObject.SetActive(true);
+        transform.position = mySlot.position;
         HitBody hb = GetComponent<HitBody>();
         if (hb)
         {
             hb.DoHeal(hb.HP_Max);
-        }
-        if (currAutoState == AutoState.WAIT_REVIVE)
-        {
-            nextAutoState = AutoState.FOLLOW;
         }
     }
 
@@ -390,12 +394,12 @@ public class DollAuto : Doll
         //Ô£¤]¤£°µ
     }
 
-    private void OnGUI()
-    {
-        Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
-        thePoint.y = Camera.main.pixelHeight - thePoint.y;
-        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currAutoState.ToString());
+    //private void OnGUI()
+    //{
+    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currAutoState.ToString());
 
-    }
+    //}
 
 }
