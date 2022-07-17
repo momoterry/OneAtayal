@@ -834,13 +834,14 @@ public class PC_One : PlayerControllerBase
             {
                 continue;
             }
-            print("Found One !!");
+            //print("Found One !!");
             //d.gameObject.SendMessage("OnRevive");
             DollAuto da = d.gameObject.GetComponent<DollAuto>();
             if (da)
             {
-                print("Do OnRevive");
+                //print("Do OnRevive");
                 da.OnRevive();
+                break;
             }
 
         }

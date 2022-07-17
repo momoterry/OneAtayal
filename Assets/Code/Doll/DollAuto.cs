@@ -379,7 +379,7 @@ public class DollAuto : Doll
         HitBody hb = GetComponent<HitBody>();
         if (hb)
         {
-            hb.DoHeal(hb.HP_Max);
+            hb.DoHeal(Mathf.Infinity);
         }
     }
 
