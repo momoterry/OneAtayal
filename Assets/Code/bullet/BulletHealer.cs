@@ -12,27 +12,30 @@ public class BulletHealer : BulletTrace
     // Start is called before the first frame update
     protected override void DoHitTarget()
     {
-        float healAbsoluteValue = baseDamage;
-        PlayerControllerBase pc = targetObj.GetComponent<PlayerControllerBase>();
-        if (pc)
+        if (targetObj.activeInHierarchy)
         {
-            pc.DoHeal(pc.GetHPMax() * healRatio + healAbsoluteValue);
-        }
+            float healAbsoluteValue = baseDamage;
+            PlayerControllerBase pc = targetObj.GetComponent<PlayerControllerBase>();
+            if (pc)
+            {
+                pc.DoHeal(pc.GetHPMax() * healRatio + healAbsoluteValue);
+            }
 
-        HitBody body = targetObj.GetComponent<HitBody>();
-        if (body)
-        {
-            body.DoHeal(body.GetHPMax() * healRatio + healAbsoluteValue);
-        }
+            HitBody body = targetObj.GetComponent<HitBody>();
+            if (body)
+            {
+                body.DoHeal(body.GetHPMax() * healRatio + healAbsoluteValue);
+            }
 
-        if (healFX)
-        {
+            if (healFX)
+            {
 #if XZ_PLAN
-            Quaternion rm = Quaternion.Euler(90, 0, 0);
+                Quaternion rm = Quaternion.Euler(90, 0, 0);
 #else
             Quaternion rm = Quaternion.identity;
 #endif
-            Instantiate(healFX, targetObj.transform.position, rm, targetObj.transform);
+                Instantiate(healFX, targetObj.transform.position, rm, targetObj.transform);
+            }
         }
 
         Destroy(gameObject);

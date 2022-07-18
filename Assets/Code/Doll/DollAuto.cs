@@ -362,8 +362,23 @@ public class DollAuto : Doll
         }
         else
         {
+            DoWaitRevive();
             nextAutoState = AutoState.WAIT_REVIVE;
         }
+    }
+
+
+    protected void DoWaitRevive()
+    {
+        //暴力法清除連結的特效
+        FlashFX[] fxLinked = GetComponentsInChildren<FlashFX>();
+
+        foreach( FlashFX fx in fxLinked)
+        {
+            print("FlashFX Found !! " + fx.gameObject + " ... " + fx.transform.position);
+            Destroy(fx.gameObject);
+        }
+        
     }
 
     public virtual void OnRevive()

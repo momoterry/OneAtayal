@@ -36,4 +36,5 @@ public class FlashFX : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }
