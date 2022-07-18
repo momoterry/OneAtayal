@@ -375,7 +375,7 @@ public class DollAuto : Doll
 
         foreach( FlashFX fx in fxLinked)
         {
-            print("FlashFX Found !! " + fx.gameObject + " ... " + fx.transform.position);
+            //print("FlashFX Found !! " + fx.gameObject + " ... " + fx.transform.position);
             Destroy(fx.gameObject);
         }
         
