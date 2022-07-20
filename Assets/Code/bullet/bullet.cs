@@ -41,9 +41,9 @@ public class bullet : bullet_base
 
     //protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
 
-    private float myTime = 1.0f;
+    protected float myTime = 1.0f;
 
-    private Damage myDamage;
+    protected Damage myDamage;
 
 
     // Public Functions
@@ -129,7 +129,7 @@ public class bullet : bullet_base
 
     private void OnTriggerEnter(Collider col)
     {
-        //print("OnTriggerEnter : " + col);
+        //print("bullet::OnTriggerEnter : " + col);
         bool hit = false;
         bool destroy = false;
         if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
