@@ -84,11 +84,11 @@ public class TriggerSequence: MonoBehaviour
     {
         if (currPhase == PHASE.RUNNING)
         {
-            currTime += Time.deltaTime;
-            if (currTime >= timePeriod)
+            currTime -= Time.deltaTime;
+            if (currTime <= 0)
             {
                 DoOneTrigger();
-                currTime = 0;
+                currTime = timePeriod;
             }
         }
     }

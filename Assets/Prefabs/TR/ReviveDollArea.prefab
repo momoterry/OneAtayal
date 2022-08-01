@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 829658201207304564}
   - component: {fileID: 829658201207304565}
   - component: {fileID: 829658201207304567}
+  - component: {fileID: 142025331}
   m_Layer: 0
   m_Name: ReviveDollArea
   m_TagString: Untagged
@@ -142,3 +143,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timePeriod: 0.5
   lifeTime: -1
+--- !u!114 &142025331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829658201207304562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebf55e4873705948b228ac781a830ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timePeriod: 0.5
+  lifeTime: -1
+  healRatio: 0.1
+  healFX: {fileID: 2349360926062933808, guid: 86346f98b53b53443af314932ed834ce, type: 3}
