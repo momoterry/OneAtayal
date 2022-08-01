@@ -846,6 +846,16 @@ public class PlayerController : PlayerControllerBase
             hp = HP_Max;
     }
 
+    public override float DoHeal(float healAbsoluteNum, float healRatio)
+    {
+        float newHp = hp + healAbsoluteNum + HP_Max * healRatio;
+        if (newHp >= HP_Max)
+            newHp = HP_Max;
+        float healResult = newHp - hp;
+        hp = newHp;
+        return healResult;
+    }
+
     public override void ForceStop( bool stop = true)
     {
         if ( stop && currState != PC_STATE.DEAD && currState!= PC_STATE.NONE ) 

@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct HealData
+{
+    public float healAbsoluteValue;
+    public float healRatio;
+    public float healResult;
+}
 public class HitBody : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -44,5 +50,15 @@ public class HitBody : MonoBehaviour
         hp += healNum;
         if (hp > HP_Max)
             hp = HP_Max;
+    }
+
+    public float DoHeal(float healAbsoluteNum, float healRatio)
+    {
+        float newHp = hp + healAbsoluteNum + HP_Max * healRatio;
+        if (newHp >= HP_Max)
+            newHp = HP_Max;
+        float healResult = newHp - hp;
+        hp = newHp;
+        return healResult;
     }
 }

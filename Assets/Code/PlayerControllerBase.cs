@@ -62,6 +62,7 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual void OnAttackTo(Vector3 target) { }
     public virtual void DoShootTo(Vector3 target) { }
     public virtual void DoHeal(float healNum) { }
+    public virtual float DoHeal(float healAbsoluteNum, float healRatio) { return 0; }
     public virtual void DoUseMP(float mpCost) 
     {
         mp -= mpCost;
