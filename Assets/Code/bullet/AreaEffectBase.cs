@@ -12,6 +12,9 @@ public class AreaEffectBase : bullet_base
     protected float timeAfterEffect = 0;
     protected float timeTotal = 0;
     // Start is called before the first frame update
+
+    private List<GameObject> removeList = new List<GameObject>();
+
     void Start()
     {
 
@@ -23,7 +26,7 @@ public class AreaEffectBase : bullet_base
         while (objListInArea.Remove(null)) { }
 
         //TODO: 想辦法不要用額外 new 的內容
-        List<GameObject> removeList = new List<GameObject>();
+        //List<GameObject> removeList = new List<GameObject>();
 
         foreach (GameObject o in objListInArea)
         {
@@ -41,6 +44,7 @@ public class AreaEffectBase : bullet_base
         {
             objListInArea.Remove(ro);
         }
+        removeList.Clear();
 
     }
 
