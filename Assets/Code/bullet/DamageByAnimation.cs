@@ -65,12 +65,8 @@ public class DamageByAnimation : bullet_base
             if (hit&& hitFX)
             {
                 Vector3 hitPos = col.ClosestPoint(transform.position);
-                //hitPos.z = col.transform.position.z - 0.125f;   //角色的話用對方的 Z 來調整
-#if XZ_PLAN
-                Instantiate(hitFX, hitPos, Quaternion.Euler(90, 0, 0), null);
-#else
-                Instantiate(hitFX, hitPos, Quaternion.identity, null);
-#endif
+
+                BattleSystem.GetInstance().SpawnGameplayObject(hitFX, hitPos, false);
             }
         }
     }

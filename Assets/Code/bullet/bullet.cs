@@ -159,11 +159,13 @@ public class bullet : bullet_base
         {
             Vector3 hitPos = col.ClosestPoint(transform.position);
 
-#if XZ_PLAN
-            Instantiate(hitFX, hitPos, Quaternion.Euler(90, 0, 0), null);
-#else
-            Instantiate(hitFX, hitPos, Quaternion.identity, null);
-#endif
+            //#if XZ_PLAN
+            //            Instantiate(hitFX, hitPos, Quaternion.Euler(90, 0, 0), null);
+            //#else
+            //            Instantiate(hitFX, hitPos, Quaternion.identity, null);
+            //#endif
+            BattleSystem.GetInstance().SpawnGameplayObject(hitFX, hitPos, false);
+
             //Destroy(gameObject);
             destroy = true;
         }

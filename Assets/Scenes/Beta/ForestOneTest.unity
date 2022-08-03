@@ -361,7 +361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4808941977302389582, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: TriggerTargets.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4808941977302389582, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: TriggerTargets.Array.data[0]
@@ -886,10 +886,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timePeriod: 3
-  Shuffle: 1
+  Shuffle: 0
   LoopCount: 1
   TriggerTargetList:
   - {fileID: 1859130182}
+  - {fileID: 362805122}
   TriggerWhenFinish: {fileID: 0}
   InstanceTriggerTarget: 1
   TriggerWhenAllDone: {fileID: 1554885115}

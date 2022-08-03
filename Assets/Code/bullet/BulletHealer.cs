@@ -29,12 +29,13 @@ public class BulletHealer : BulletTrace
 
             if (healFX)
             {
-#if XZ_PLAN
-                Quaternion rm = Quaternion.Euler(90, 0, 0);
-#else
-            Quaternion rm = Quaternion.identity;
-#endif
-                Instantiate(healFX, targetObj.transform.position, rm, targetObj.transform);
+                //#if XZ_PLAN
+                //                Quaternion rm = Quaternion.Euler(90, 0, 0);
+                //#else
+                //            Quaternion rm = Quaternion.identity;
+                //#endif
+                //                Instantiate(healFX, targetObj.transform.position, rm, targetObj.transform);
+                BattleSystem.GetInstance().SpawnGameplayObject(healFX, targetObj.transform.position, false);
             }
         }
 
