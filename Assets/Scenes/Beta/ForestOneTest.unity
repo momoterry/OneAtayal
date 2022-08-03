@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &131614033
 Transform:
   m_ObjectHideFlags: 0
@@ -887,16 +887,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timePeriod: 3
   Shuffle: 1
-  LoopCount: 3
+  LoopCount: 1
   TriggerTargetList:
-  - {fileID: 362805122}
-  - {fileID: 1181191868}
-  - {fileID: 1216473676}
-  - {fileID: 1647261720}
   - {fileID: 1859130182}
-  - {fileID: 173316767}
-  - {fileID: 1744593985}
-  - {fileID: 443504371}
   TriggerWhenFinish: {fileID: 0}
   InstanceTriggerTarget: 1
   TriggerWhenAllDone: {fileID: 1554885115}
@@ -4388,7 +4381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859130182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.77, y: 2.61, z: 0}
+  m_LocalPosition: {x: 0.01999998, y: 6.3600006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 131614033}
@@ -4407,8 +4400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRef: {fileID: 7208015447484052683, guid: 77157c922e8b30d49aba0e2b9e5bfaa6, type: 3}
-  num: 2
-  numAddPerLevel: 1
+  num: 1
+  numAddPerLevel: 0
   randomRangeWidth: 4
   randomRangeHeight: 4
   triggerTargetWhenAllKilled:
@@ -4532,15 +4525,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 551906142368380791, guid: 6fd906dabee995340b2a3bb28456a93b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.75
       objectReference: {fileID: 0}
     - target: {fileID: 551906142368380791, guid: 6fd906dabee995340b2a3bb28456a93b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000020861626
+      value: -0.0000023543835
       objectReference: {fileID: 0}
     - target: {fileID: 551906142368380791, guid: 6fd906dabee995340b2a3bb28456a93b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.500002
+      value: 19.750002
       objectReference: {fileID: 0}
     - target: {fileID: 551906142368380791, guid: 6fd906dabee995340b2a3bb28456a93b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4601,11 +4594,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829658201207304564, guid: 9fd5f306fb21be84aa09d89b5c452e82, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000028312206
+      value: -0.0000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 829658201207304564, guid: 9fd5f306fb21be84aa09d89b5c452e82, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 23.750004
+      value: 32.000004
       objectReference: {fileID: 0}
     - target: {fileID: 829658201207304564, guid: 9fd5f306fb21be84aa09d89b5c452e82, type: 3}
       propertyPath: m_LocalRotation.w

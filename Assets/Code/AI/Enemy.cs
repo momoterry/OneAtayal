@@ -271,28 +271,23 @@ public class Enemy : MonoBehaviour
             stateTime -= Time.deltaTime;
             if (stateTime <= 0)
             {
-                targetPos = targetObj.transform.position;
-                myAgent.SetDestination(targetPos);
-                stateTime = chaseCheckTime;
+                //重新找最佳 Target
+                if (SearchTarget())
+                {
+                    targetPos = targetObj.transform.position;
+                    myAgent.SetDestination(targetPos);
+                    stateTime = chaseCheckTime;
 
-                //更新面向
-                faceDir = (targetPos - transform.position);
+                    //更新面向
+                    faceDir = (targetPos - transform.position);
 #if XZ_PLAN
-                faceDir.y = 0;
+                    faceDir.y = 0;
 #else
-                faceDir.z = 0;
+                    faceDir.z = 0;
 #endif
-                faceDir.Normalize();
-                SetupAnimationDirection();
-//                if (myAnimator)
-//                {
-//                    myAnimator.SetFloat("X", faceDir.x);
-//#if XZ_PLAN
-//                    myAnimator.SetFloat("Y", faceDir.z);
-//#else
-//                    myAnimator.SetFloat("Y", faceDir.y);
-//#endif
-//                }
+                    faceDir.Normalize();
+                    SetupAnimationDirection();
+                }
             }
         }
 
@@ -346,8 +341,8 @@ public class Enemy : MonoBehaviour
         //if (damageFX)
         //    Instantiate(damageFX, transform.position, Quaternion.identity, null);
         
-        if (myAnimator)
-            myAnimator.SetTrigger("Hit");
+        //if (myAnimator)
+        //    myAnimator.SetTrigger("Hit");
 
         hp -= theDamage.damage;
         if (hp < 0)
