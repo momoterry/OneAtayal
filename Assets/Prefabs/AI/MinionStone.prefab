@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 1010
-  MaxHP: 350
+  MaxHP: 200
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
   debris: {fileID: 4102302037370830796, guid: f9708512c0100ae4c9393ca2cd4ea6a3, type: 3}
   SpawnWaitTime: 0.5
@@ -276,7 +276,7 @@ MonoBehaviour:
   AttackRangeOut: 2.5
   AttackWait: 0.2
   AttackCD: 1.5
-  Attack: 18
+  Attack: 10
   myAnimator: {fileID: 0}
   damageObject: {fileID: 1336676213397750121, guid: 59ff8163679173349a07d35742ed05e6, type: 3}
   objectRange: 1.5
@@ -289,7 +289,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7208015447484052683}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Speed: 3.5
   m_Acceleration: 24
   avoidancePriority: 50
@@ -341,7 +341,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.75, y: 0.75, z: 0.75}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3236784326416634283
 MonoBehaviour:
