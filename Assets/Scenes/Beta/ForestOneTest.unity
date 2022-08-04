@@ -213,6 +213,7 @@ Transform:
   - {fileID: 1930612764}
   - {fileID: 95888562}
   - {fileID: 882056022}
+  - {fileID: 677815623}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -895,6 +896,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &677815622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 677815623}
+  - component: {fileID: 677815624}
+  m_Layer: 0
+  m_Name: MinionFire_1
+  m_TagString: Untagged
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &677815623
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677815622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 131614033}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &677815624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677815622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40183966176b94b4fa93de7d252d0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyRef: {fileID: 7208015447484052683, guid: 4ec4ca1546184524881ae626ab49e2c8, type: 3}
+  num: 8
+  numAddPerLevel: 0
+  randomRangeWidth: 4
+  randomRangeHeight: 2
+  triggerTargetWhenAllKilled:
+  - {fileID: 1117479889}
 --- !u!1001 &882056021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1117,8 +1168,7 @@ MonoBehaviour:
   Shuffle: 0
   LoopCount: 1
   TriggerTargetList:
-  - {fileID: 1859130182}
-  - {fileID: 173316767}
+  - {fileID: 677815622}
   TriggerWhenFinish: {fileID: 0}
   InstanceTriggerTarget: 1
   TriggerWhenAllDone: {fileID: 1554885115}
