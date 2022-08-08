@@ -5,10 +5,12 @@ using UnityEngine;
 public class EnemyDasher : Enemy
 {
     //public float DashSpeed = 10.0f;
-    protected float DashTime = 0.1f;
-    protected float BackTime = 0.1f;
+    public float DashTime = 0.1f;
+    public float BackTime = 0.1f;
     public float MinDashLength = 1.0f;
-    protected float DashToTargetDistance = 0.5f;
+    public float DashToTargetDistance = 0.5f;
+
+    public GameObject hitFX;
 
     //protected float originalSpeed = 3.0f;
     //protected float originalAcc = 10.0f;
@@ -52,6 +54,20 @@ public class EnemyDasher : Enemy
         }
     }
 
+    protected void DoApplyDashDamage()
+    {
+        if (targetObj)
+        {
+            targetObj.SendMessage("OnDamage", myDamage);
+
+            if (hitFX)
+            {
+                Vector3 pos = targetObj.transform.position;
+                BattleSystem.GetInstance().SpawnGameplayObject(hitFX, pos, false);
+            }
+        }
+    }
+
     protected override void UpdateAttack()
     {
         //base.UpdateAttack();
@@ -61,6 +77,7 @@ public class EnemyDasher : Enemy
             switch (nextDashState)
             {
                 case DASH_STATE.DASHING:
+                    DoApplyDashDamage();
                     break;
                 case DASH_STATE.BACK:
                     break;
@@ -84,9 +101,11 @@ public class EnemyDasher : Enemy
                 base.UpdateAttack();
                 break;
             case DASH_STATE.DASHING:
+                stateTime -= Time.deltaTime;
                 UpdateDash();
                 break;
             case DASH_STATE.BACK:
+                stateTime -= Time.deltaTime;
                 UpdateBack();
                 break;
         }
