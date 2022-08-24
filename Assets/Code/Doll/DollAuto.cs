@@ -195,14 +195,22 @@ public class DollAuto : Doll
 
     protected bool CheckIfRunBack()
     {
-        if (myMaster)
+        //if (myMaster)
+        //{
+        //    float dis = Vector3.Distance(myMaster.transform.position, transform.position);
+        //    if ( dis > PositionRangeOut)
+        //    {
+        //        //print("Need To Run Back, Distance: " + dis);
+        //        nextAutoState = AutoState.RUNBACK;
+        //        return true;
+        //    }
+        //}
+        float dis = Vector3.Distance(mySlot.position, transform.position);
+        if (dis > PositionRangeOut)
         {
-            float dis = Vector3.Distance(myMaster.transform.position, transform.position);
-            if ( dis > PositionRangeOut)
-            {
-                nextAutoState = AutoState.RUNBACK;
-                return true;
-            }
+            //print("Need To Run Back, Distance: " + dis);
+            nextAutoState = AutoState.RUNBACK;
+            return true;
         }
 
         return false;
@@ -220,6 +228,12 @@ public class DollAuto : Doll
             if (SearchTarget())
             {
                 nextAutoState = AutoState.CHASE;
+                //ª½±µ¶i§ðÀ»
+                float disT = (myTarget.transform.position - transform.position).magnitude;
+                if (disT < AttackRangeIn)
+                {
+                    nextAutoState = AutoState.ATTACK;
+                }
             }
         }
     }

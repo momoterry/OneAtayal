@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4032685806379418581}
-  - component: {fileID: 7794630717541975399}
+  - component: {fileID: 1763491018998018883}
   - component: {fileID: -894024693914061495}
   - component: {fileID: 8817159822340256188}
   - component: {fileID: 8878718796423490741}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 8331660659177549446}
   - component: {fileID: 5111333253751210810}
   m_Layer: 10
-  m_Name: Doll_Stone
+  m_Name: Doll_Stone Attacker
   m_TagString: Doll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &7794630717541975399
+--- !u!114 &1763491018998018883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,17 +131,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4032685806379418579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c5c614ada13ee4479d174d41acf5850, type: 3}
+  m_Script: {fileID: 11500000, guid: ae8e178ecbd0ccf4a88d7c3881086aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   positionType: 0
   bulletRef: {fileID: 3710000809252070552, guid: cc38025dec94ad540a30b44c77129863, type: 3}
   AttackInit: 5
-  SearchRange: 4
+  SearchRange: 6
   PositionRangeIn: 1
-  PositionRangeOut: 2
+  PositionRangeOut: 8
   AttackRangeIn: 3
-  AttackRangeOut: 5
+  AttackRangeOut: 4
   attackWait: 0.2
   attackCD: 0.5
   RunSpeed: 10

@@ -11,6 +11,6 @@ public class Doll_Attacker : DollAuto
     {
         base.DoOneAttack();
 
-        //nextAutoState = AutoState.RUNBACK;
+        nextAutoState = AutoState.RUNBACK;
     }
 }
