@@ -6,6 +6,8 @@ public class DollManager : MonoBehaviour
 {
     public Transform[] DollSlots;
 
+    public bool FixDirection = false;
+
     protected int slotNum = 0;
     protected Doll[] dolls;
 
@@ -94,7 +96,11 @@ public class DollManager : MonoBehaviour
 
     public void SetMasterDirection( Vector3 dir, FaceFrontType faceType )
     {
+        if (FixDirection)
+            return;        
+        
         float angle = 0;
+
         switch (faceType)
         {
             case FaceFrontType.RIGHT:
