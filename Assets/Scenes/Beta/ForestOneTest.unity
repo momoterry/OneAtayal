@@ -606,7 +606,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362805122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.27, y: 2.63, z: 0}
+  m_LocalPosition: {x: -0.01999998, y: 6.8800006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 131614033}
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRef: {fileID: 7208015447484052683, guid: 4ec4ca1546184524881ae626ab49e2c8, type: 3}
-  num: 3
+  num: 6
   numAddPerLevel: 1
   randomRangeWidth: 4
   randomRangeHeight: 4
@@ -1164,11 +1164,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515302fcbc0771c44a4e2890fc7f4864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timePeriod: 3
+  timePeriod: 1
   Shuffle: 0
   LoopCount: 1
   TriggerTargetList:
   - {fileID: 1859130182}
+  - {fileID: 362805122}
   TriggerWhenFinish: {fileID: 0}
   InstanceTriggerTarget: 1
   TriggerWhenAllDone: {fileID: 1554885115}
