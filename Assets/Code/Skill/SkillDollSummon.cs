@@ -29,8 +29,9 @@ public class SkillDollSummon : SkillBase
             return false;
         }
 
-        Transform availableSlot = dm.GetEmptySlot(refDoll.positionType);
-        if (availableSlot == null)
+        //Transform availableSlot = dm.GetEmptySlot(refDoll.positionType);
+        //if (availableSlot == null)
+        if (!dm.HasEmpltySlot(refDoll.positionType))
         {
             thePC.SaySomthing("沒有空間了....");
             result = SKILL_RESULT.ERROR;
