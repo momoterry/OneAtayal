@@ -18,7 +18,7 @@ public class DollAuto : Doll
 
     public GameObject deathFX;
 
-    public bool canRevie = false;
+    //public bool canRevie = false;
 
     //== 以上其實是 public
     protected float timeToAttack = 0;
@@ -32,7 +32,7 @@ public class DollAuto : Doll
         RUNBACK,
         CHASE,
         ATTACK,
-        WAIT_REVIVE,
+        //WAIT_REVIVE,
     }
 
     protected AutoState currAutoState = AutoState.NONE;
@@ -114,9 +114,9 @@ public class DollAuto : Doll
                 timeToAttack = attackWait;
                 StopMove();
                 break;
-            case AutoState.WAIT_REVIVE:
-                gameObject.SetActive(false);
-                break;
+            //case AutoState.WAIT_REVIVE:
+            //    gameObject.SetActive(false);
+            //    break;
         }
     }
     protected void ExitAutoState(AutoState state)
@@ -370,47 +370,48 @@ public class DollAuto : Doll
 #endif
             Instantiate(deathFX, transform.position, rm, null);
         }
-        if (!canRevie)
-        {
-            base.OnDeath();
-        }
-        else
-        {
-            DoWaitRevive();
-            nextAutoState = AutoState.WAIT_REVIVE;
-        }
+        //if (!canRevie)
+        //{
+        //    base.OnDeath();
+        //}
+        //else
+        //{
+        //    DoWaitRevive();
+        //    nextAutoState = AutoState.WAIT_REVIVE;
+        //}
+        base.OnDeath();
     }
 
 
-    protected void DoWaitRevive()
-    {
-        //暴力法清除連結的特效
-        FlashFX[] fxLinked = GetComponentsInChildren<FlashFX>();
+    //protected void DoWaitRevive()
+    //{
+    //    //暴力法清除連結的特效
+    //    FlashFX[] fxLinked = GetComponentsInChildren<FlashFX>();
 
-        foreach( FlashFX fx in fxLinked)
-        {
-            //print("FlashFX Found !! " + fx.gameObject + " ... " + fx.transform.position);
-            Destroy(fx.gameObject);
-        }
+    //    foreach( FlashFX fx in fxLinked)
+    //    {
+    //        //print("FlashFX Found !! " + fx.gameObject + " ... " + fx.transform.position);
+    //        Destroy(fx.gameObject);
+    //    }
         
-    }
+    //}
 
-    public virtual void OnRevive()
-    {
-        if (currAutoState != AutoState.WAIT_REVIVE)
-        {
-            return;
-        }
-        nextAutoState = AutoState.FOLLOW;
+    //public virtual void OnRevive()
+    //{
+    //    if (currAutoState != AutoState.WAIT_REVIVE)
+    //    {
+    //        return;
+    //    }
+    //    nextAutoState = AutoState.FOLLOW;
 
-        gameObject.SetActive(true);
-        transform.position = mySlot.position;
-        HitBody hb = GetComponent<HitBody>();
-        if (hb)
-        {
-            hb.DoHeal(Mathf.Infinity);
-        }
-    }
+    //    gameObject.SetActive(true);
+    //    transform.position = mySlot.position;
+    //    HitBody hb = GetComponent<HitBody>();
+    //    if (hb)
+    //    {
+    //        hb.DoHeal(Mathf.Infinity);
+    //    }
+    //}
 
 
     public override void OnPlayerAttack(Vector3 target)

@@ -18,6 +18,8 @@ public class Doll : MonoBehaviour
     public float AttackInit = 10.0f;
     public float SearchRange = 8.0f;
 
+    public bool canRevie = false;
+
     protected DollManager theDollManager;
     protected Transform mySlot;
 
@@ -26,7 +28,8 @@ public class Doll : MonoBehaviour
         NONE,
         WAIT,
         BATTLE,
-        SILENCE,
+        //SILENCE,
+        TEMP_DEATH,      //可以被復活的
     }
     protected DOLL_STATE currState = DOLL_STATE.NONE;
     protected DOLL_STATE nextState = DOLL_STATE.NONE;
@@ -51,7 +54,43 @@ public class Doll : MonoBehaviour
 
     protected virtual void OnDeath()
     {
-        Destroy(gameObject);
+        if (!canRevie)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            nextState = DOLL_STATE.TEMP_DEATH;
+            DoTempDeath();
+        }
+    }
+
+    virtual protected void DoTempDeath()
+    {
+        //暴力法清除連結的特效
+        FlashFX[] fxLinked = GetComponentsInChildren<FlashFX>();
+
+        foreach (FlashFX fx in fxLinked)
+        {
+            Destroy(fx.gameObject);
+        }
+    }
+
+    public virtual void OnRevive()
+    {
+        if (currState != DOLL_STATE.TEMP_DEATH)
+        {
+            return;
+        }
+        nextState = DOLL_STATE.BATTLE;
+
+        gameObject.SetActive(true);
+        transform.position = mySlot.position;
+        HitBody hb = GetComponent<HitBody>();
+        if (hb)
+        {
+            hb.DoHeal(Mathf.Infinity);
+        }
     }
 
     void OnStateEnter()
@@ -60,6 +99,9 @@ public class Doll : MonoBehaviour
         {
             case DOLL_STATE.BATTLE:
                 OnStateEnterBattle();
+                break;
+            case DOLL_STATE.TEMP_DEATH:
+                gameObject.SetActive(false);
                 break;
         }
     }
