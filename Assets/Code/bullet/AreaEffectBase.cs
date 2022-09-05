@@ -13,7 +13,7 @@ public class AreaEffectBase : bullet_base
     protected float timeTotal = 0;
     // Start is called before the first frame update
 
-    private List<GameObject> removeList = new List<GameObject>();
+    //private List<GameObject> removeList = new List<GameObject>();
 
     void Start()
     {
@@ -23,28 +23,50 @@ public class AreaEffectBase : bullet_base
 
     void DoApplyEffectAll()
     {
-        while (objListInArea.Remove(null)) { }
+        //while (objListInArea.Remove(null)) { }
 
-        //TODO: 想辦法不要用額外 new 的內容
-        //List<GameObject> removeList = new List<GameObject>();
 
-        foreach (GameObject o in objListInArea)
+        //foreach (GameObject o in objListInArea)
+        //{
+        //    if (o == null)
+        //    {
+        //        print("XXXXXXXX");
+        //    }
+        //    if (o.activeInHierarchy)
+        //    {
+        //        ApplyEffect(o);
+        //    }
+        //    else
+        //    {
+        //        removeList.Add(o);
+        //    }
+        //}
+
+        //foreach (GameObject ro in removeList)
+        //{
+        //    objListInArea.Remove(ro);
+        //}
+        //removeList.Clear();
+
+        bool isLoop = true;
+        while (isLoop)
         {
-            if (o.activeInHierarchy)
+            isLoop = false;
+            for (int i=0; i<objListInArea.Count; i++)
             {
-                ApplyEffect(o);
-            }
-            else
-            {
-                removeList.Add(o);
+                GameObject o = objListInArea[i];
+                if (o == null || !o.activeInHierarchy)
+                {
+                    objListInArea.RemoveAt(i);
+                    isLoop = true;
+                    break;
+                }
+                else
+                {
+                    ApplyEffect(o);
+                }
             }
         }
-
-        foreach (GameObject ro in removeList)
-        {
-            objListInArea.Remove(ro);
-        }
-        removeList.Clear();
 
     }
 
