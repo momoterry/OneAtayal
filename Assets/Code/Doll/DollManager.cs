@@ -81,6 +81,21 @@ public class DollManager : MonoBehaviour
         return null;
     }
 
+    public virtual void OnDollTempDeath(Doll doll)
+    {
+
+    }
+
+    public virtual void OnDollRevive( Doll doll)
+    {
+
+    }
+
+    public virtual void OnDollDestroy( Doll doll)
+    {
+
+    }
+
     // Start is called before the first frame update
     virtual protected void Start()
     {

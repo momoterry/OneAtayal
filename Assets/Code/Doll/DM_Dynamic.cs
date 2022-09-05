@@ -60,13 +60,13 @@ public class DM_Dynamic : DollManager
 
     protected void RebuilFormation()
     {
-        print("RebuildFormation !! " +  frontList.Count);
+        //print("RebuildFormation !! " +  frontList.Count);
         frontList.Clear();
-        print("RebuildFormation Clear !! " +  frontList.Count);
+        //print("RebuildFormation Clear !! " +  frontList.Count);
 
         for (int i = 0; i < slotNum; i++)
         {
-            if (dolls[i] && dolls[i].positionType == DOLL_POSITION_TYPE.FRONT)
+            if (dolls[i] && dolls[i].gameObject.activeInHierarchy && dolls[i].positionType == DOLL_POSITION_TYPE.FRONT)
             {
                 frontList.Add(dolls[i]);
             }
@@ -93,5 +93,31 @@ public class DM_Dynamic : DollManager
         }
 
         return result;
+    }
+
+    public override void OnDollTempDeath(Doll doll)
+    {
+        DoRemoveDollFronList(doll);
+    }
+
+    public override void OnDollRevive(Doll doll)
+    {
+        needRebuild = true;
+    }
+
+    public override void OnDollDestroy(Doll doll)
+    {
+        DoRemoveDollFronList(doll);
+    }
+
+    protected void DoRemoveDollFronList(Doll doll)
+    {
+        switch (doll.positionType)
+        {
+            case DOLL_POSITION_TYPE.FRONT:
+                frontList.Remove(doll);
+                RebuildFrontSlots();
+                break;
+        }
     }
 }

@@ -52,20 +52,22 @@ public class Doll : MonoBehaviour
     {
     }
 
+
     protected virtual void OnDeath()
     {
         if (!canRevie)
         {
+            theDollManager.OnDollDestroy(this);
             Destroy(gameObject);
         }
         else
         {
             nextState = DOLL_STATE.TEMP_DEATH;
-            DoTempDeath();
+            PrepareTempDeath();
         }
     }
 
-    virtual protected void DoTempDeath()
+    virtual protected void PrepareTempDeath()
     {
         //暴力法清除連結的特效
         FlashFX[] fxLinked = GetComponentsInChildren<FlashFX>();
@@ -91,6 +93,8 @@ public class Doll : MonoBehaviour
         {
             hb.DoHeal(Mathf.Infinity);
         }
+
+        theDollManager.OnDollRevive(this);
     }
 
     void OnStateEnter()
@@ -101,6 +105,7 @@ public class Doll : MonoBehaviour
                 OnStateEnterBattle();
                 break;
             case DOLL_STATE.TEMP_DEATH:
+                theDollManager.OnDollTempDeath(this);
                 gameObject.SetActive(false);
                 break;
         }
@@ -221,7 +226,7 @@ public class Doll : MonoBehaviour
     {
         PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         if ( pc ){
-            DollManager theDollManager = pc.GetDollManager();
+            theDollManager = pc.GetDollManager();
             if (theDollManager)
             {
                 mySlot = theDollManager.AddOneDoll(this, positionType);
