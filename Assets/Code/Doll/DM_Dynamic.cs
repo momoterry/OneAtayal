@@ -81,6 +81,44 @@ public class DM_Dynamic : DollManager
 
     protected void RebuildMiddleSlots()
     {
+        int MiddleDepth = 3;    //TODO: 放成變數
+        int middleNum = middleList.Count;
+
+        int circleNum = MiddleDepth + MiddleDepth;
+        int nCircle = (middleNum - 1) / circleNum + 1;
+        int lastCircleCount = (middleNum - 1) % circleNum + 1;
+
+        float slotWidth = 1.0f;
+        float innerWidth = 2.0f;    //最內圈距離
+
+        float width = innerWidth;
+        for (int c=0; c<nCircle; c++)
+        {
+            int num = circleNum;
+            if (c == nCircle - 1)
+                num = lastCircleCount;
+            int nLine = (num - 1) / 2 + 1;
+            float slotDepth = Mathf.Max(1.0f, 1.5f - (nLine - 1) * 0.25f);
+            float totalDepth = (float)(nLine - 1) * slotDepth;
+            float fPos = totalDepth * 0.5f;
+
+            for (int l=0; l<nLine; l++)
+            {
+                int i = c * circleNum + l * 2;
+                middleList[i].GetSlot().localPosition = new Vector3(-width, 0, fPos);  //左
+                //print("Prepare... " + i);
+
+                i++;
+                if (i < middleNum)
+                {
+                    middleList[i].GetSlot().localPosition = new Vector3(width, 0, fPos);   //右
+                    //print("Prepare... " + i);
+                }
+
+                fPos -= slotDepth;
+            }
+            width += slotWidth;
+        }
 
     }
 
@@ -160,7 +198,17 @@ public class DM_Dynamic : DollManager
 
     public override Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
-        Transform result = base.AddOneDoll(doll, positionType);
+        //Transform result = base.AddOneDoll(doll, positionType);
+        Transform result = null;
+        for (int i=0; i<slotNum; i++)
+        {
+            if (dolls[i] == null && DollSlots[i] != null)
+            {
+                dolls[i] = doll;
+                result = DollSlots[i];
+                break;
+            }
+        }
 
         if (result)
         {
