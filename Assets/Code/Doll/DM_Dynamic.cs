@@ -13,6 +13,8 @@ public class DM_Dynamic : DollManager
     //}
 
     protected List<Doll> frontList = new List<Doll>();
+    protected List<Doll> middleList = new List<Doll>();
+    protected List<Doll> backList = new List<Doll>();
 
     protected bool needRebuild = false;
 
@@ -62,14 +64,14 @@ public class DM_Dynamic : DollManager
             int num = FrontWidth;
             if (l == nLine - 1)
                 num = lastLineCount;
-            print("Line: " + l + " Count: " + num);
+            //print("Line: " + l + " Count: " + num);
 
             float slotWidth = Mathf.Max(1.0f, 1.5f - ((float)(num - 1) * 0.25f));
             float width = (float)(num - 1) * slotWidth;
             float lPos = width * -0.5f;
             for (int i= l * FrontWidth; i< l * FrontWidth + num; i++)
             {
-                print("Prepare ..." + i);
+                //print("Prepare ..." + i);
                 frontList[i].GetSlot().localPosition = new Vector3(lPos, 0, fPos);
                 lPos += slotWidth;
             }
@@ -77,20 +79,81 @@ public class DM_Dynamic : DollManager
         }
     }
 
+    protected void RebuildMiddleSlots()
+    {
+
+    }
+
+    protected void RebuildBackSlots()
+    {
+        int BackWidth = 5; //TODO: 放成變數
+        int backNum = backList.Count;
+
+        if (backNum <= 0)
+            return;
+
+        int nLine = ((backNum - 1) / BackWidth) + 1;
+        int lastLineCount = (backNum - 1) % BackWidth + 1;
+
+        float bkPos = Mathf.Max(1.0f, 2.0f - (float)(nLine - 1) * 0.5f);  //後方起始
+        float slotDepth = 1.0f;
+        bkPos += slotDepth * (float)(nLine - 1);
+
+        for (int l = 0; l < nLine; l++)
+        {
+            int num = BackWidth;
+            if (l == nLine - 1)
+                num = lastLineCount;
+            print("Line: " + l + " Count: " + num);
+
+            float slotWidth = Mathf.Max(1.0f, 1.5f - ((float)(num - 1) * 0.25f));
+            float width = (float)(num - 1) * slotWidth;
+            float lPos = width * -0.5f;
+            for (int i = l * BackWidth; i < l * BackWidth + num; i++)
+            {
+                print("Prepare ..." + (backNum - i));
+                backList[backNum-i-1].GetSlot().localPosition = new Vector3(lPos, 0, -bkPos);
+                lPos += slotWidth;
+            }
+            bkPos -= slotDepth;
+        }
+    }
+
     protected void RebuildFormation()
     {
         frontList.Clear();
+        middleList.Clear();
+        backList.Clear();
 
         for (int i = 0; i < slotNum; i++)
         {
-            if (dolls[i] && dolls[i].gameObject.activeInHierarchy && dolls[i].positionType == DOLL_POSITION_TYPE.FRONT)
+            if (dolls[i] && dolls[i].gameObject.activeInHierarchy)
             {
-                frontList.Add(dolls[i]);
+                switch(dolls[i].positionType)
+                {
+                    case DOLL_POSITION_TYPE.FRONT:
+                        frontList.Add(dolls[i]);
+                        break;
+                    case DOLL_POSITION_TYPE.MIDDLE:
+                        middleList.Add(dolls[i]);
+                        break;
+                    case DOLL_POSITION_TYPE.BACK:
+                        backList.Add(dolls[i]);
+                        break;
+                }
             }
         }
         if (frontList.Count > 0)
         {
             RebuildFrontSlots();
+        }
+        if (middleList.Count > 0)
+        {
+            RebuildMiddleSlots();
+        }
+        if (backList.Count > 0)
+        {
+            RebuildBackSlots();
         }
     }
 
@@ -130,6 +193,14 @@ public class DM_Dynamic : DollManager
             case DOLL_POSITION_TYPE.FRONT:
                 frontList.Remove(doll);
                 RebuildFrontSlots();
+                break;
+            case DOLL_POSITION_TYPE.MIDDLE:
+                middleList.Remove(doll);
+                RebuildMiddleSlots();
+                break;
+            case DOLL_POSITION_TYPE.BACK:
+                backList.Remove(doll);
+                RebuildBackSlots();
                 break;
         }
     }
