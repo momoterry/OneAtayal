@@ -37,32 +37,49 @@ public class DM_Dynamic : DollManager
     {
         if (needRebuild)
         {
-            RebuilFormation();
+            RebuildFormation();
             needRebuild = false;
         }
     }
 
     protected void RebuildFrontSlots()
     {
+        int FrontWidth = 4; //TODO: 放成變數
         int frontNum = frontList.Count;
 
-        float slotWidth = 1.5f;
-        float width = (float)(frontNum - 1) * slotWidth;
+        if (frontNum <= 0)
+            return;
 
-        float lPos = width * -0.5f;
-        foreach (Doll d in frontList)
+        int nLine = ((frontNum-1) / FrontWidth ) + 1;
+        int lastLineCount = (frontNum-1) % FrontWidth + 1;
+
+        float fPos = Mathf.Max(1.0f, 2.0f - (float)(nLine-1) * 0.5f);  //前方起始
+        float slotDepth = 1.0f;
+        fPos += slotDepth * (float)(nLine-1);
+
+        for (int l=0; l<nLine; l++)
         {
-            // 有問題, 這時新 Assign 的 Doll 還沒好
-            d.GetSlot().localPosition = new Vector3(lPos, 0, 2.0f);
-            lPos += slotWidth;
+            int num = FrontWidth;
+            if (l == nLine - 1)
+                num = lastLineCount;
+            print("Line: " + l + " Count: " + num);
+
+            float slotWidth = Mathf.Max(1.0f, 1.5f - ((float)(num - 1) * 0.25f));
+            float width = (float)(num - 1) * slotWidth;
+            float lPos = width * -0.5f;
+            for (int i= l * FrontWidth; i< l * FrontWidth + num; i++)
+            {
+                print("Prepare ..." + i);
+                frontList[i].GetSlot().localPosition = new Vector3(lPos, 0, fPos);
+                lPos += slotWidth;
+            }
+            fPos -= slotDepth;
         }
     }
 
-    protected void RebuilFormation()
+    protected void RebuildFormation()
     {
-        //print("RebuildFormation !! " +  frontList.Count);
         frontList.Clear();
-        //print("RebuildFormation Clear !! " +  frontList.Count);
 
         for (int i = 0; i < slotNum; i++)
         {
@@ -77,10 +94,6 @@ public class DM_Dynamic : DollManager
         }
     }
 
-    //public override bool HasEmpltySlot(DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
-    //{
-    //    return false;
-    //}
 
     public override Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
