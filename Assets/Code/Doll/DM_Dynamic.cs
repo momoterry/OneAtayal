@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class DM_Dynamic : DollManager
 {
-    protected int MaxSlot = 40;
+    public int MaxSlot = 40;
 
-    //protected struct DynamicNode
-    //{
-    //    public Doll doll;
-    //    public int index;
-    //}
+    public int FrontWidth = 4;
+    public int MiddleDepth = 3;
+    public int BackWidth = 4; 
 
     protected List<Doll> frontList = new List<Doll>();
     protected List<Doll> middleList = new List<Doll>();
@@ -46,7 +44,7 @@ public class DM_Dynamic : DollManager
 
     protected void RebuildFrontSlots()
     {
-        int FrontWidth = 4; //TODO: Θ跑计
+        //int FrontWidth = 4; //TODO: Θ跑计
         int frontNum = frontList.Count;
 
         if (frontNum <= 0)
@@ -81,7 +79,7 @@ public class DM_Dynamic : DollManager
 
     protected void RebuildMiddleSlots()
     {
-        int MiddleDepth = 3;    //TODO: Θ跑计
+        //int MiddleDepth = 3;    //TODO: Θ跑计
         int middleNum = middleList.Count;
 
         int circleNum = MiddleDepth + MiddleDepth;
@@ -124,7 +122,7 @@ public class DM_Dynamic : DollManager
 
     protected void RebuildBackSlots()
     {
-        int BackWidth = 5; //TODO: Θ跑计
+        //int BackWidth = 5; //TODO: Θ跑计
         int backNum = backList.Count;
 
         if (backNum <= 0)
