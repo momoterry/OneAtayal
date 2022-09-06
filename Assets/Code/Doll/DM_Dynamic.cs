@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DM_Dynamic : DollManager
 {
-    protected int MaxSlot = 20;
+    protected int MaxSlot = 40;
 
     //protected struct DynamicNode
     //{
