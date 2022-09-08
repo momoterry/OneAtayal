@@ -75,7 +75,7 @@ public class BattleSystem : MonoBehaviour
     {
        if ( !enemyList.Remove(enemyObj))
        {
-            print("ERROR !! OnEnemyKilled() : 指定的敵人不在清單中 : " + enemyObj);
+            //print("ERROR !! OnEnemyKilled() : 指定的敵人不在清單中 : " + enemyObj);
        }
        else
         {

@@ -8,6 +8,7 @@ public class DollManager : MonoBehaviour
 
     public bool FixDirection = false;
     public bool AllDirectioin = false;
+    public float RotateSpeed = -1.0f;
 
     protected int slotNum = 0;
     protected Doll[] dolls;
@@ -125,11 +126,15 @@ public class DollManager : MonoBehaviour
     public void SetMasterDirection( Vector3 dir, FaceFrontType faceType )
     {
         if (FixDirection)
-            return;        
-        
+            return;
+
+        Quaternion targetRt;
         if (AllDirectioin)
         {
-            transform.rotation = Quaternion.FromToRotation(Vector3.forward, dir);
+            targetRt = Quaternion.LookRotation(dir);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRt, Time.deltaTime * rotateSpeed);
+
+            //transform.rotation = Quaternion.FromToRotation(Vector3.forward, dir);
         }
         else
         {
@@ -147,10 +152,18 @@ public class DollManager : MonoBehaviour
                     angle = 270.0f;
                     break;
             }
-            transform.rotation = Quaternion.Euler(0, angle, 0);
+            //transform.rotation = Quaternion.Euler(0, angle, 0);
+            targetRt = Quaternion.Euler(0, angle, 0);
         }
 
-
+        if (RotateSpeed > 0.0f)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRt, Time.deltaTime * RotateSpeed);
+        }
+        else
+        {
+            transform.rotation = targetRt;
+        }
     }
 
     public void ForceMoveAll()
