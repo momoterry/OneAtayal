@@ -82,6 +82,9 @@ public class DM_Dynamic : DollManager
         //int MiddleDepth = 3;    //TODO: 放成變數
         int middleNum = middleList.Count;
 
+        if (middleNum <= 0)
+            return;
+
         int circleNum = MiddleDepth + MiddleDepth;
         int nCircle = (middleNum - 1) / circleNum + 1;
         int lastCircleCount = (middleNum - 1) % circleNum + 1;
