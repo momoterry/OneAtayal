@@ -626,7 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 657190576}
   roomRef: {fileID: 638193681433850415, guid: 8008bb5ab5b73d849ae7384c68891dd3, type: 3}
-  initRC: {fileID: 8551657297017460614}
+  initRD: {fileID: 8551657297017460615}
 --- !u!4 &591234513
 Transform:
   m_ObjectHideFlags: 0
@@ -3644,7 +3644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8551657297017460612}
-  - component: {fileID: 8551657297017460614}
+  - component: {fileID: 8551657297017460615}
   m_Layer: 0
   m_Name: Init
   m_TagString: Untagged
@@ -3652,7 +3652,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8551657297017460614
+--- !u!114 &8551657297017460615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3661,12 +3661,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 8551657297017460613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a2bcc4c02b070d49b357fe218de01b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 93a710b4a89d8464e94b8b1c8d84e7ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  southDoor: {fileID: 0}
-  northDoor: {fileID: 701666222}
-  battleWall: {fileID: 0}
+  N:
+    pos: {fileID: 701666222}
+    closeObj: {fileID: 0}
+    openObj: {fileID: 0}
+  S:
+    pos: {fileID: 0}
+    closeObj: {fileID: 0}
+    openObj: {fileID: 0}
+  W1:
+    pos: {fileID: 0}
+    closeObj: {fileID: 0}
+    openObj: {fileID: 0}
+  W2:
+    pos: {fileID: 0}
+    closeObj: {fileID: 0}
+    openObj: {fileID: 0}
+  E1:
+    pos: {fileID: 0}
+    closeObj: {fileID: 0}
+    openObj: {fileID: 0}
+  E2:
+    pos: {fileID: 0}
+    closeObj: {fileID: 0}
+    openObj: {fileID: 0}
 --- !u!114 &8779018506141970250
 MonoBehaviour:
   m_ObjectHideFlags: 0

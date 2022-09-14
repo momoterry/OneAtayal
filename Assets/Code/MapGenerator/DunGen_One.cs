@@ -5,7 +5,7 @@ using UnityEngine;
 public class DunGen_One : MapGeneratorBase
 {
     public GameObject roomRef;
-    public RoomController initRC;
+    public RoomDungeon initRD;
 
     protected int RoomNum = 3;
 
@@ -36,68 +36,103 @@ public class DunGen_One : MapGeneratorBase
     {
         base.BuildAll(buildLevel);
 
-        Vector3 pos = transform.position;
-
-        if (initRC && initRC.northDoor)
-        {
-            pos = initRC.northDoor.position;
-        }
-
-        if (roomRef == null)
+        if (!initRD)
             return;
 
-        for (int i = 0; i < RoomNum; i++)
+        GameObject currRoom = initRD.gameObject;
+        GameObject newRoom = null;
+
+        for (int i= 0; i< RoomNum; i++)
         {
-            //GameObject ro = Instantiate(roomRef, pos, rm, null);
-            GameObject ro = BattleSystem.GetInstance().SpawnGameplayObject(roomRef, pos);
-            if (ro)
+            newRoom = CreateRoom(roomRef, currRoom, DoorDir.N, DoorDir.S);
+            if (newRoom)
             {
-                roomList.Add(ro);
-
-                //RoomController rc = ro.GetComponent<RoomController>();
-                RoomDungeon rd = ro.GetComponent<RoomDungeon>();
-                if (rd)
-                {
-                    pos += rd.transform.position - rd.GetDoorPos(DoorDir.S);
-                    ro.transform.position = pos;
-
-                    rd.SetDoorStatus(DoorDir.S, true);
-                }
-                else
-                {
-                    print("Room Error !! No RoomDungeon !!");
-                }
-                ro.transform.SetParent(theSurface2D.gameObject.transform);
-
-                //Gameplay
-                //GameObject go = Instantiate(gameplayRefs[i], pos, rm, null);
-                //if (go)
-                //    go.transform.SetParent(ro.transform);
-
-                if (i == 0)
-                {
-                    //Try Branch
-                    CreateRoom(roomRef, ro, DoorDir.W1, DoorDir.E2);
-                    CreateRoom(roomRef, ro, DoorDir.E2, DoorDir.W1);
-                }
-
-                if (rd)
-                {
-                    pos += rd.GetDoorPos(DoorDir.N) - rd.transform.position;
-                    if (i != RoomNum - 1)
-                    {
-                        rd.SetDoorStatus(DoorDir.N, true);
-                    }
-                }
-                else
-                {
-                    print("Room Error !! No RoomDungeon !!");
-                }
-
+                print("NewRoom: " + newRoom.transform.position);
+                roomList.Add(newRoom);
+                //newRoom.transform.SetParent(theSurface2D.gameObject.transform);
             }
+            else
+            {
+                print("ERROR !!!! CreatRoom Fail....");
+                return;
+            }
+            currRoom = newRoom;
 
-
+            if (i == 0)
+            {
+                //Try Branch
+                roomList.Add(CreateRoom(roomRef, newRoom, DoorDir.W1, DoorDir.E2));
+                roomList.Add(CreateRoom(roomRef, newRoom, DoorDir.E2, DoorDir.W1));
+            }
         }
+
+        foreach¡@(GameObject ro in roomList)
+        {
+            ro.transform.SetParent(theSurface2D.transform);
+        }
+
+        //Vector3 pos = transform.position;
+
+        //if (initRD )
+        //{
+        //    pos = initRD.GetDoorPos(DoorDir.N);
+        //}
+
+        //if (roomRef == null)
+        //    return;
+
+        //for (int i = 0; i < RoomNum; i++)
+        //{
+        //    //GameObject ro = Instantiate(roomRef, pos, rm, null);
+        //    GameObject ro = BattleSystem.GetInstance().SpawnGameplayObject(roomRef, pos);
+        //    if (ro)
+        //    {
+        //        roomList.Add(ro);
+
+        //        //RoomController rc = ro.GetComponent<RoomController>();
+        //        RoomDungeon rd = ro.GetComponent<RoomDungeon>();
+        //        if (rd)
+        //        {
+        //            pos += rd.transform.position - rd.GetDoorPos(DoorDir.S);
+        //            ro.transform.position = pos;
+
+        //            rd.SetDoorStatus(DoorDir.S, true);
+        //        }
+        //        else
+        //        {
+        //            print("Room Error !! No RoomDungeon !!");
+        //        }
+        //        ro.transform.SetParent(theSurface2D.gameObject.transform);
+
+        //        //Gameplay
+        //        //GameObject go = Instantiate(gameplayRefs[i], pos, rm, null);
+        //        //if (go)
+        //        //    go.transform.SetParent(ro.transform);
+
+        //        if (i == 0)
+        //        {
+        //            //Try Branch
+        //            CreateRoom(roomRef, ro, DoorDir.W1, DoorDir.E2);
+        //            CreateRoom(roomRef, ro, DoorDir.E2, DoorDir.W1);
+        //        }
+
+        //        if (rd)
+        //        {
+        //            pos += rd.GetDoorPos(DoorDir.N) - rd.transform.position;
+        //            if (i != RoomNum - 1)
+        //            {
+        //                rd.SetDoorStatus(DoorDir.N, true);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            print("Room Error !! No RoomDungeon !!");
+        //        }
+
+        //    }
+
+
+        //}
 
     }
 
@@ -105,14 +140,19 @@ public class DunGen_One : MapGeneratorBase
     {
         RoomDungeon rd = fromRoom.GetComponent<RoomDungeon>();
         if (!rd)
+        {
+            print("ERROR !! formRoom has no RoomDungeon !!");
             return null;
+        }
 
         Vector3 pos = rd.GetDoorPos(fromDoor);
 
         RoomDungeon rdNew = roRef.GetComponent<RoomDungeon>();
         if (!rdNew)
+        {
+            print("ERROR !! roRef has no RoomDungeon !!");
             return null;
-
+        }
         Vector3 toDoorVec = rdNew.GetDoorPos(toDoor) - roRef.transform.position;
 
         GameObject ro = BattleSystem.GetInstance().SpawnGameplayObject(roRef, pos - toDoorVec);
@@ -121,6 +161,6 @@ public class DunGen_One : MapGeneratorBase
         rd.SetDoorStatus(fromDoor, true);
         rdNew.SetDoorStatus(toDoor, true);
 
-        return null;
+        return ro;
     }
 }
