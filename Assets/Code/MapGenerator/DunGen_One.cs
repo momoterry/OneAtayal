@@ -74,6 +74,13 @@ public class DunGen_One : MapGeneratorBase
                 //if (go)
                 //    go.transform.SetParent(ro.transform);
 
+                if (i == 0)
+                {
+                    //Try Branch
+                    CreateRoom(roomRef, ro, DoorDir.W1, DoorDir.E2);
+                    CreateRoom(roomRef, ro, DoorDir.E2, DoorDir.W1);
+                }
+
                 if (rd)
                 {
                     pos += rd.GetDoorPos(DoorDir.N) - rd.transform.position;
@@ -88,7 +95,32 @@ public class DunGen_One : MapGeneratorBase
                 }
 
             }
+
+
         }
 
+    }
+
+    protected GameObject CreateRoom( GameObject roRef, GameObject fromRoom, DoorDir fromDoor, DoorDir toDoor)
+    {
+        RoomDungeon rd = fromRoom.GetComponent<RoomDungeon>();
+        if (!rd)
+            return null;
+
+        Vector3 pos = rd.GetDoorPos(fromDoor);
+
+        RoomDungeon rdNew = roRef.GetComponent<RoomDungeon>();
+        if (!rdNew)
+            return null;
+
+        Vector3 toDoorVec = rdNew.GetDoorPos(toDoor) - roRef.transform.position;
+
+        GameObject ro = BattleSystem.GetInstance().SpawnGameplayObject(roRef, pos - toDoorVec);
+        rdNew = ro.GetComponent<RoomDungeon>();
+
+        rd.SetDoorStatus(fromDoor, true);
+        rdNew.SetDoorStatus(toDoor, true);
+
+        return null;
     }
 }
