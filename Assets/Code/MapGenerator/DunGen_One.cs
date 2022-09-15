@@ -48,14 +48,38 @@ public class DunGen_One : MapGeneratorBase
 
         ExtendType[,] extendData = new ExtendType[,] {
             { ExtendType.N, ExtendType.W, ExtendType.WB, ExtendType.N },
+            { ExtendType.N, ExtendType.W, ExtendType.WB, ExtendType.E },
             { ExtendType.N, ExtendType.W, ExtendType.NB, ExtendType.W },
+            { ExtendType.N, ExtendType.W, ExtendType.NB, ExtendType.E },
+
             { ExtendType.N, ExtendType.E, ExtendType.EB, ExtendType.N },
+            { ExtendType.N, ExtendType.E, ExtendType.EB, ExtendType.W },
             { ExtendType.N, ExtendType.E, ExtendType.NB, ExtendType.E },
+            { ExtendType.N, ExtendType.E, ExtendType.NB, ExtendType.W },
+
             { ExtendType.N, ExtendType.N, ExtendType.WB, ExtendType.N },
+            { ExtendType.N, ExtendType.N, ExtendType.WB, ExtendType.E },
             { ExtendType.N, ExtendType.N, ExtendType.EB, ExtendType.N },
+            { ExtendType.N, ExtendType.N, ExtendType.EB, ExtendType.W },
+
+            { ExtendType.N, ExtendType.WB, ExtendType.N, ExtendType.N },
+            { ExtendType.N, ExtendType.WB, ExtendType.N, ExtendType.E },
+            { ExtendType.N, ExtendType.WB, ExtendType.N, ExtendType.W },
+            { ExtendType.N, ExtendType.WB, ExtendType.E, ExtendType.W },
+            { ExtendType.N, ExtendType.WB, ExtendType.E, ExtendType.N },
+            { ExtendType.N, ExtendType.WB, ExtendType.E, ExtendType.E },
+
+            { ExtendType.N, ExtendType.EB, ExtendType.N, ExtendType.N },
+            { ExtendType.N, ExtendType.EB, ExtendType.N, ExtendType.W },
+            { ExtendType.N, ExtendType.EB, ExtendType.N, ExtendType.E },
+            { ExtendType.N, ExtendType.EB, ExtendType.W, ExtendType.E },
+            { ExtendType.N, ExtendType.EB, ExtendType.W, ExtendType.N },
+            { ExtendType.N, ExtendType.EB, ExtendType.W, ExtendType.W },
         };
 
         int rdPath = Random.Range(0, extendData.GetLength(0)-1);
+
+        //rdPath = 7;
 
         print("DATA " + extendData.GetLength(0) + "  " + extendData.GetLength(1));
 
