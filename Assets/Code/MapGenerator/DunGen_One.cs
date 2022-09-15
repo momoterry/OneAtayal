@@ -5,6 +5,7 @@ using UnityEngine;
 public class DunGen_One : MapGeneratorBase
 {
     public GameObject roomRef;
+    public GameObject endRoomRef;
     public RoomDungeon initRD;
 
     protected int RoomNum = 3;
@@ -116,6 +117,12 @@ public class DunGen_One : MapGeneratorBase
                 currRoom = newRoom;
             }
 
+        }
+
+        if (endRoomRef)
+        {
+            GameObject end = CreateRoom(endRoomRef, currRoom, DoorDir.N, DoorDir.S);
+            roomList.Add(end);
         }
 
         foreach (GameObject ro in roomList)
