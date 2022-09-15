@@ -51,11 +51,15 @@ public class DunGen_One : MapGeneratorBase
             { ExtendType.N, ExtendType.W, ExtendType.WB, ExtendType.E },
             { ExtendType.N, ExtendType.W, ExtendType.NB, ExtendType.W },
             { ExtendType.N, ExtendType.W, ExtendType.NB, ExtendType.E },
+            { ExtendType.N, ExtendType.W, ExtendType.EB, ExtendType.W },
+            { ExtendType.N, ExtendType.W, ExtendType.EB, ExtendType.N },
 
             { ExtendType.N, ExtendType.E, ExtendType.EB, ExtendType.N },
             { ExtendType.N, ExtendType.E, ExtendType.EB, ExtendType.W },
             { ExtendType.N, ExtendType.E, ExtendType.NB, ExtendType.E },
             { ExtendType.N, ExtendType.E, ExtendType.NB, ExtendType.W },
+            { ExtendType.N, ExtendType.E, ExtendType.WB, ExtendType.N },
+            { ExtendType.N, ExtendType.E, ExtendType.WB, ExtendType.E },
 
             { ExtendType.N, ExtendType.N, ExtendType.WB, ExtendType.N },
             { ExtendType.N, ExtendType.N, ExtendType.WB, ExtendType.E },
@@ -75,13 +79,19 @@ public class DunGen_One : MapGeneratorBase
             { ExtendType.N, ExtendType.EB, ExtendType.W, ExtendType.E },
             { ExtendType.N, ExtendType.EB, ExtendType.W, ExtendType.N },
             { ExtendType.N, ExtendType.EB, ExtendType.W, ExtendType.W },
+
+            { ExtendType.N, ExtendType.NB, ExtendType.W, ExtendType.W },
+            { ExtendType.N, ExtendType.NB, ExtendType.W, ExtendType.N },
+            { ExtendType.N, ExtendType.NB, ExtendType.E, ExtendType.E },
+            { ExtendType.N, ExtendType.NB, ExtendType.E, ExtendType.N },
+
         };
 
         int rdPath = Random.Range(0, extendData.GetLength(0)-1);
 
-        //rdPath = 7;
+        //rdPath = 5;
 
-        print("DATA " + extendData.GetLength(0) + "  " + extendData.GetLength(1));
+        print("Random Path Result : " + rdPath + " / " + extendData.GetLength(0));
 
         //ExtendType[] extendList = { ExtendType.N, ExtendType.W, ExtendType.WB, ExtendType.N };
 
