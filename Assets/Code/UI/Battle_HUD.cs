@@ -59,6 +59,7 @@ public class Battle_HUD : MonoBehaviour
             int money = pData.GetMoney();
             if (money != currMoney)
             {
+                //TODO: 處理 0 的情況
                 moneyText.text = money.ToString();
             }
         }

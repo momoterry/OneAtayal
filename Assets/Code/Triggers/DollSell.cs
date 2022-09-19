@@ -7,7 +7,9 @@ public class DollSell : MonoBehaviour
 {
     public GameObject dollRef;
     public GameObject SpawnFX;
+    public int CostMoney = 200;
     public float SpawnDistance = 4.0f;
+    public Talk theTalk;
 
     private void OnTG(GameObject whoTG)
     {
@@ -28,6 +30,14 @@ public class DollSell : MonoBehaviour
         if (!dm.HasEmpltySlot(refDoll.positionType))
         {
             print("Doll Manager 沒有空間了......");
+            return;
+        }
+
+        if (GameSystem.GetPlayerData().GetMoney() < CostMoney)
+        {
+            if (theTalk)
+                theTalk.AddSentence("你好像錢不太夠了呀.....");
+            print("錢不夠喔......." + GameSystem.GetPlayerData().GetMoney());
             return;
         }
 
@@ -66,7 +76,9 @@ public class DollSell : MonoBehaviour
             return;
         }
 
-        //TODO 在這邊扣錢
+        GameSystem.GetPlayerData().AddMoney(-CostMoney);
+        if (theTalk)
+            theTalk.AddSentence("謝謝光臨 !!");
 
         whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
     }
