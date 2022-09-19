@@ -20,6 +20,7 @@ public class PlayerData : MonoBehaviour
     }
 
     // ¤¶­±
+    public int GetMoney() { return Money; }
     public int AddMoney (int value)
     {
         Money += value;

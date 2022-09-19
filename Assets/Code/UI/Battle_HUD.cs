@@ -28,9 +28,13 @@ public class Battle_HUD : MonoBehaviour
     public SkillButton autoAttackButton;
     public SkillButton[] SkillButtons;
 
+    //錢
+    public Text moneyText;
+
     //虛擬搖桿相關
     public VPad theVPad;
 
+    protected int currMoney = 0;
 
     void Start()
     {
@@ -48,6 +52,16 @@ public class Battle_HUD : MonoBehaviour
         //    OnButtonPotion();
         //}
 
+        PlayerData pData = GameSystem.GetPlayerData();
+        //print(pData);
+        if (pData)
+        {
+            int money = pData.GetMoney();
+            if (money != currMoney)
+            {
+                moneyText.text = money.ToString();
+            }
+        }
     }
 
     //public void SetSkillIcon(Sprite sprite, int index)
@@ -89,6 +103,8 @@ public class Battle_HUD : MonoBehaviour
 
         if (AttackText)
             AttackText.text = "ATK: " + Attack.ToString("F1");
+
+        //Money !! TODO: 移到正確的地方
     }
 
     public void SetLevelText(string text)
