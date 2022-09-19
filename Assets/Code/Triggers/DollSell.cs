@@ -37,7 +37,7 @@ public class DollSell : MonoBehaviour
         {
             if (theTalk)
                 theTalk.AddSentence("你好像錢不太夠了呀.....");
-            print("錢不夠喔......." + GameSystem.GetPlayerData().GetMoney());
+            //print("錢不夠喔......." + GameSystem.GetPlayerData().GetMoney());
             return;
         }
 

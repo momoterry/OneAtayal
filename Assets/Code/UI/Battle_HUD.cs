@@ -34,7 +34,7 @@ public class Battle_HUD : MonoBehaviour
     //虛擬搖桿相關
     public VPad theVPad;
 
-    protected int currMoney = 0;
+    protected int currMoney = int.MinValue;
 
     void Start()
     {
@@ -59,8 +59,8 @@ public class Battle_HUD : MonoBehaviour
             int money = pData.GetMoney();
             if (money != currMoney)
             {
-                //TODO: 處理 0 的情況
                 moneyText.text = money.ToString();
+                currMoney = money;
             }
         }
     }
