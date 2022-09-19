@@ -71,6 +71,7 @@ public class DollAuto : Doll
         myCollider = GetComponent<Collider>();
         if (myCollider)
             myCollider.enabled = false;
+
     }
 
     //// Update is called once per frame

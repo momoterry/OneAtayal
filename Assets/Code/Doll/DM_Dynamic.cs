@@ -143,14 +143,14 @@ public class DM_Dynamic : DollManager
             int num = BackWidth;
             if (l == nLine - 1)
                 num = lastLineCount;
-            print("Line: " + l + " Count: " + num);
+            //print("Line: " + l + " Count: " + num);
 
             float slotWidth = Mathf.Max(1.0f, 1.5f - ((float)(num - 1) * 0.25f));
             float width = (float)(num - 1) * slotWidth;
             float lPos = width * -0.5f;
             for (int i = l * BackWidth; i < l * BackWidth + num; i++)
             {
-                print("Prepare ..." + (backNum - i));
+                //print("Prepare ..." + (backNum - i));
                 backList[backNum-i-1].GetSlot().localPosition = new Vector3(lPos, 0, -bkPos);
                 lPos += slotWidth;
             }
