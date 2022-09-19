@@ -539,12 +539,12 @@ public class PC_One : PlayerControllerBase
         if (myAnimator)
         {
             myAnimator.SetBool("Run", (myAgent.velocity.magnitude > 0.1f) || bMove);
-            myAnimator.SetFloat("X", faceFront.x);
-#if XZ_PLAN
-            myAnimator.SetFloat("Y", faceFront.z);
-#else
-            myAnimator.SetFloat("Y", faceFront.y);
-#endif
+//            myAnimator.SetFloat("X", faceFront.x);
+//#if XZ_PLAN
+//            myAnimator.SetFloat("Y", faceFront.z);
+//#else
+//            myAnimator.SetFloat("Y", faceFront.y);
+//#endif
         }
     }
 
@@ -579,8 +579,8 @@ public class PC_One : PlayerControllerBase
         }
         if (myAnimator)
         {
-            myAnimator.SetFloat("X", faceFront.x);
-            myAnimator.SetFloat("Y", faceFront.z);
+            myAnimator.SetFloat("X", faceDir.x);
+            myAnimator.SetFloat("Y", faceDir.z);
         }
 
 #else
@@ -613,8 +613,8 @@ public class PC_One : PlayerControllerBase
 
         if (myAnimator)
         {
-            myAnimator.SetFloat("X", faceFront.x);
-            myAnimator.SetFloat("Y", faceFront.z);
+            myAnimator.SetFloat("X", faceDir.x);
+            myAnimator.SetFloat("Y", faceDir.z);
         }
 #endif
 

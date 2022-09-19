@@ -7,7 +7,7 @@ public class GameSystem : MonoBehaviour
 {
     private GameObject playerCharacterRef = null;
 
-    //Skill 相關
+    //Skill 相關 //TODO: 這部份應該改到 PlayerData 中
     private Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>(); 
 
     static private GameSystem instance;
