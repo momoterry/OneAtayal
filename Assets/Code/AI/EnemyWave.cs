@@ -26,6 +26,19 @@ public class EnemyWave : MonoBehaviour
     protected int numToSpawn;
     protected float traceTime = 0;      //檢查是否全滅的間隔
 
+    protected enum Phase
+    {
+        NONE,
+        WAIT,
+        WAVE,
+        TRACE,  //全 wave 
+        FINISH,
+    }
+    protected Phase currPhase = Phase.NONE;
+    protected Phase nextPhase = Phase.NONE;
+    protected int currWave = 0;
+    protected float waveTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,11 +50,23 @@ public class EnemyWave : MonoBehaviour
                 numToSpawn += spawners[i].num;
             }
         }
+
+        nextPhase = Phase.WAIT;
     }
 
     // Update is called once per frame
     void Update()
     {
+        switch (currPhase)
+        {
+            case Phase.WAVE:
+                UpdateWave();
+                break;
+            case Phase.TRACE:
+                UpdateTraceEnemy();
+                break;
+        }
+        currPhase = nextPhase;
         //if (traceEnemies)
         //{
         //    traceTime -= Time.deltaTime;
@@ -69,8 +94,54 @@ public class EnemyWave : MonoBehaviour
         //}
     }
 
+    void DoOneWave( SpawnerInfo spawner)
+    {
+        if (!spawner.enemyRef)
+            return;
+        Vector3 pos = new Vector3(spawner.posShiftX, 0, spawner.posShiftZ) + transform.position;
+        for (int i = 0; i < spawner.num; i++)
+        {
+            float rw = Random.Range(-spawner.randomWidth * 0.5f, spawner.randomWidth * 0.5f);
+            float rh = Random.Range(-spawner.randomHeight * 0.5f, spawner.randomHeight * 0.5f);
+            GameObject o = BattleSystem.GetInstance().SpawnGameplayObject(spawner.enemyRef, pos + new Vector3(rw, 0, rh));
+
+            //TODO: 記錄
+        }
+    }
+
+    void UpdateWave()
+    {
+        SpawnerInfo sp = spawners[currWave];
+        waveTime += Time.deltaTime;
+        if (waveTime > sp.timeToWait)
+        {
+            //print("Wave No. " + currWave);
+            DoOneWave(sp);
+            waveTime = 0;
+            currWave++;
+            if (currWave == spawners.Length)
+            {
+                nextPhase = Phase.FINISH;
+                //print("全部 Spawn 完!!");
+                //TODO: 如果要 Trace............
+            }
+        }
+    }
+
+    void UpdateTraceEnemy()
+    {
+
+    }
+
     void OnTG(GameObject whoTG)
     {
+        if (currPhase == Phase.WAIT)
+        {
+            if (numToSpawn == 0)
+                nextPhase = Phase.FINISH;
+            else
+                nextPhase = Phase.WAVE;
+        }
     }
 
 
