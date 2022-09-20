@@ -54,7 +54,7 @@ public class Battle_HUD : MonoBehaviour
 
         PlayerData pData = GameSystem.GetPlayerData();
         //print(pData);
-        if (pData)
+        if (pData && moneyText)
         {
             int money = pData.GetMoney();
             if (money != currMoney)
