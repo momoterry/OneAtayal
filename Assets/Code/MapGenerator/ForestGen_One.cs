@@ -87,9 +87,12 @@ public class ForestGen_One : MapGeneratorBase
                     ro.transform.SetParent(theSurface2D.gameObject.transform);
 
                     //Gameplay
-                    GameObject go = Instantiate(gameplayRefs[i], pos, rm, null);
-                    if (go)
-                        go.transform.SetParent(ro.transform);
+                    if (gameplayRefs.Length > i && gameplayRefs[i])
+                    {
+                        GameObject go = Instantiate(gameplayRefs[i], pos, rm, null);
+                        if (go)
+                            go.transform.SetParent(ro.transform);
+                    }
 
                     if (rc && rc.northDoor)
                     {
