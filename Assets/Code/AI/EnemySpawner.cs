@@ -57,7 +57,7 @@ public class EnemySpawner : MonoBehaviour
     void OnTG(GameObject whoTG)
     {
         //根據關卡等級增加數量
-        float fLevelAdd = (float)(BattleSystem.GetInstance().GetCurrLevel()-1);
+        float fLevelAdd = (float)(BattleSystem.GetInstance().GetCurrLevel() - 1);
 
         numToSpawn = num + (int)(fLevelAdd * numAddPerLevel);
 
@@ -81,5 +81,16 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, new Vector3(randomRangeWidth + randomRangeWidth, 2.0f, randomRangeHeight + randomRangeHeight));
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(randomRangeWidth + randomRangeWidth, 2.0f, randomRangeHeight + randomRangeHeight));
+
+    }
+
 }
