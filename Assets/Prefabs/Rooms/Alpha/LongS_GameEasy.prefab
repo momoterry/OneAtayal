@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5418146915626532476}
   m_Father: {fileID: 0}
@@ -58,6 +59,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5418146915626532476}
   m_RootOrder: 1
@@ -75,13 +77,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawners:
-  - timeToWait: 0
-    enemyRef: {fileID: 0}
-    num: 0
-    randomWidth: 0
-    randomHeight: 0
-    posShiftX: 0
-    posShiftZ: 0
   - timeToWait: 0
     enemyRef: {fileID: 7208015447484052683, guid: 77157c922e8b30d49aba0e2b9e5bfaa6, type: 3}
     num: 1
@@ -130,6 +125,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.25, y: 4.2500005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7377803257822891008}
   - {fileID: 5418146914846660410}
