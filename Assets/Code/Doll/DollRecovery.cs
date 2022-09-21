@@ -5,22 +5,29 @@ using UnityEngine;
 //在關卡開始時，將 PlayerData 記錄的 Doll 召喚出來
 public class DollRecovery : MonoBehaviour
 {
+    public GameObject SpawnFX;
     protected enum Phase
     {
         NONE,
         WAIT,
-        SPAW,
+        SPAWN,
         FINISH,
     }
     Phase currPhase = Phase.NONE;
     Phase nextPhase = Phase.WAIT;
 
+    protected string[] allDollIDs = null;
+
     protected float waitTime = 0.1f;
+    protected float stepTime = 0.15f;
+    protected int currSpawn = 0;
+    protected float timeLeft = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         nextPhase = Phase.WAIT;
+        timeLeft = waitTime;
     }
 
     // Update is called once per frame
@@ -29,20 +36,27 @@ public class DollRecovery : MonoBehaviour
         switch (currPhase)
         {
             case Phase.WAIT:
-                waitTime -= Time.deltaTime;
-                if (waitTime <= 0)
+                timeLeft -= Time.deltaTime;
+                if (timeLeft <= 0)
                 {
-                    DoSpawnAll();
-                    nextPhase = Phase.FINISH;
+                    StartSpawn();
+                }
+                break;
+            case Phase.SPAWN:
+                timeLeft -= Time.deltaTime;
+                if (timeLeft <= 0)
+                {
+                    timeLeft += stepTime;
+                    DoSpawnOneDoll();
                 }
                 break;
         }
         currPhase = nextPhase;
     }
 
-    void DoSpawnDoneDoll(string dollID)
+    void DoSpawnOneDoll()
     {
-        //print(">>>>>> Recover Doll: " + dollID);
+        string dollID = allDollIDs[currSpawn];
         GameObject dollRef = GameSystem.GetPlayerData().GetDollRefByID(dollID);
         if (!dollRef)
         {
@@ -50,36 +64,62 @@ public class DollRecovery : MonoBehaviour
             return;
         }
 
-        Vector3 pos = transform.position + Vector3.forward * 2.0f;
-
-        GameObject dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
-
-        Doll theDoll = dollObj.GetComponent<Doll>();
-        if (theDoll == null)
+        Vector3 front = BattleSystem.GetInstance().GetPlayerController().GetDollManager().transform.forward;
+        Doll theDollInRef = dollRef.GetComponent<Doll>();
+        if (theDollInRef == null)
         {
             print("Error!! There is no Doll in dollRef !!");
-            Destroy(dollObj);
             return;
         }
+        switch (theDollInRef.positionType)
+        {
+            case DOLL_POSITION_TYPE.FRONT:
+                front = front * 2.0f;
+                break;
+            case DOLL_POSITION_TYPE.MIDDLE:
+                front = front * 1.0f;
+                break;
+            case DOLL_POSITION_TYPE.BACK:
+                front = front * -2.0f;
+                break;
+        }
+
+        Vector3 pos = transform.position + front;
+
+        GameObject dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
+        if (SpawnFX)
+            BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
+        Doll theDoll = dollObj.GetComponent<Doll>();
 
         if (!theDoll.TryJoinThePlayer())
         {
             print("Woooooooooops.......");
             return;
         }
+
+        currSpawn++;
+        if (currSpawn == allDollIDs.Length)
+        {
+            nextPhase = Phase.FINISH;
+        }
     }
 
-    void DoSpawnAll()
+    void StartSpawn()
     {
-        string[] allDollIDs = GameSystem.GetPlayerData().GetAllUsingDolls();
+        allDollIDs = GameSystem.GetPlayerData().GetAllUsingDolls();
 
-        if (allDollIDs != null)
+        //測試
+        //allDollIDs = new string[]{"DollStone", "DollStone", "DollOne", "DollOne", "DollFire", "DollFire" };
+
+        if (allDollIDs == null || allDollIDs.Length == 0)
         {
-            for (int i= 0; i<allDollIDs.Length; i++)
-            {
-                DoSpawnDoneDoll(allDollIDs[i]);
-            }
+            nextPhase = Phase.FINISH;
         }
+        else
+            nextPhase = Phase.SPAWN;
+
+        timeLeft = 0;   //馬上生第一隻
+
     }
 
 }
