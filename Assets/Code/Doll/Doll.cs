@@ -11,6 +11,7 @@ public enum DOLL_POSITION_TYPE
 
 public class Doll : MonoBehaviour
 {
+    public string ID;
     public DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT;
 
     public GameObject bulletRef;

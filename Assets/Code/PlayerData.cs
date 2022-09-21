@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
+    public DollData theDollData;
+
     protected int Money = 1000;
     protected int Level = 1;
     protected int Exp = 0;
+
+    protected List<string> usingDollList = new List<string>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,4 +45,43 @@ public class PlayerData : MonoBehaviour
 
         return Exp;
     }
+
+    public void AddUsingDoll( string dollID)
+    {
+        usingDollList.Add(dollID);
+
+        print("================== usingDollList: " + usingDollList.Count);
+        //foreach (string s in usingDollList)
+        //{
+        //    print("usingDollList: " + dollID);
+        //}
+    }
+
+    public string[] GetAllUsingDolls()
+    {
+        if (usingDollList.Count > 0)
+        {
+            string[] allDolls = new string[usingDollList.Count];
+            int i = 0;
+            foreach( string ds in usingDollList)
+            {
+                allDolls[i] = ds;
+                i++;
+            }
+
+            return allDolls;
+        }
+
+        return null;
+    }
+
+    public GameObject GetDollRefByID(string ID)
+    {
+        if (theDollData)
+        {
+            return theDollData.GetDollRefByID(ID);
+        }
+        return null;
+    }
+    
 }

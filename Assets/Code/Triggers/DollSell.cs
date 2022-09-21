@@ -77,6 +77,7 @@ public class DollSell : MonoBehaviour
         }
 
         GameSystem.GetPlayerData().AddMoney(-CostMoney);
+        GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
         if (theTalk)
             theTalk.AddSentence("абаб╔За{ !!");
 

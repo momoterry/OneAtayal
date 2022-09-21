@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 327809246}
   - component: {fileID: 327809247}
   - component: {fileID: 327809248}
+  - component: {fileID: 327809249}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -151,6 +152,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -180,3 +182,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314a16add58a5e54b95e9aeb63477818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  theDollData: {fileID: 327809249}
+--- !u!114 &327809249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327809245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c2ce922591016459770d300830c2d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DollRefs:
+  - {fileID: 4032685806379418579, guid: 5d31c47f41f9e574e93dc4dd9bc6f7c3, type: 3}
+  - {fileID: 4032685806379418579, guid: 6f19456bd0e40c844bdf8eeae3684a33, type: 3}
+  - {fileID: 4032685806379418579, guid: bdde668c502bf8240bbbb586077d4817, type: 3}
+  - {fileID: 2876928013832779465, guid: 512d907e328d9874dbf92bab8b778eed, type: 3}
