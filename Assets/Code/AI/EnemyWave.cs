@@ -39,6 +39,8 @@ public class EnemyWave : MonoBehaviour
     protected int currWave = 0;
     protected float waveTime = 0;
 
+    protected int currSpawnedNum = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,35 +65,12 @@ public class EnemyWave : MonoBehaviour
                 UpdateWave();
                 break;
             case Phase.TRACE:
-                UpdateTraceEnemy();
+                UpdateTrace();
                 break;
         }
+        //if (currPhase != nextPhase)
+        //    print("!! ToPhase " + nextPhase);
         currPhase = nextPhase;
-        //if (traceEnemies)
-        //{
-        //    traceTime -= Time.deltaTime;
-        //    if (traceTime <= 0.0f)
-        //    {
-        //        traceTime = 0.2f;
-        //        int liveNum = 0;
-        //        for (int i = 0; i < numToSpawn; i++)
-        //        {
-        //            if (spawnedEnemies[i] != null)
-        //            {
-        //                liveNum++;
-        //            }
-        //        }
-        //        if (liveNum == 0)
-        //        {
-        //            //全滅
-        //            traceEnemies = false;
-        //            foreach (GameObject o in triggerTargetWhenAllKilled)
-        //            {
-        //                o.SendMessage("OnTG", gameObject);
-        //            }
-        //        }
-        //    }
-        //}
     }
 
     void DoOneWave( SpawnerInfo spawner)
@@ -106,6 +85,34 @@ public class EnemyWave : MonoBehaviour
             GameObject o = BattleSystem.GetInstance().SpawnGameplayObject(spawner.enemyRef, pos + new Vector3(rw, 0, rh));
 
             //TODO: 記錄
+            spawnedEnemies[currSpawnedNum + i] = o;
+        }
+        currSpawnedNum += spawner.num;
+    }
+
+    void UpdateTrace()
+    {
+        traceTime -= Time.deltaTime;
+        if (traceTime <= 0.0f)
+        {
+            traceTime = 0.2f;
+            int liveNum = 0;
+            for (int i = 0; i < numToSpawn; i++)
+            {
+                if (spawnedEnemies[i] != null)
+                {
+                    liveNum++;
+                }
+            }
+            if (liveNum == 0)
+            {
+                //全滅
+                foreach (GameObject o in triggerTargetWhenAllKilled)
+                {
+                    o.SendMessage("OnTG", gameObject);
+                }
+                nextPhase = Phase.FINISH;
+            }
         }
     }
 
@@ -121,17 +128,18 @@ public class EnemyWave : MonoBehaviour
             currWave++;
             if (currWave == spawners.Length)
             {
-                nextPhase = Phase.FINISH;
-                //print("全部 Spawn 完!!");
-                //TODO: 如果要 Trace............
+                if (triggerTargetWhenAllKilled.Length > 0)
+                {
+                    nextPhase = Phase.TRACE;
+                }
+                else
+                {
+                    nextPhase = Phase.FINISH;
+                }
             }
         }
     }
 
-    void UpdateTraceEnemy()
-    {
-
-    }
 
     void OnTG(GameObject whoTG)
     {
@@ -140,7 +148,11 @@ public class EnemyWave : MonoBehaviour
             if (numToSpawn == 0)
                 nextPhase = Phase.FINISH;
             else
+            {
                 nextPhase = Phase.WAVE;
+                spawnedEnemies = new GameObject[numToSpawn];
+                currSpawnedNum = 0;
+            }
         }
     }
 
