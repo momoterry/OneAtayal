@@ -264,7 +264,6 @@ public class PC_One : PlayerControllerBase
     //初始化到等級一的狀態
     public override void InitStatus()
     {
-        //print("PlayerController::InitStatus");
         HP_Max = HP_MaxInit;
         MP_Max = MP_MaxInit;
         Attack = Attack_Init;

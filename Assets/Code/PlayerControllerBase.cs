@@ -29,6 +29,9 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual bool IsKilled(){return false;}
 
     // 升級相關 : TODO: 應從 Base 移除，但得拿掉對應物件
+    //2022/9/22 補充
+    //現在已經不再使用這類的直接升物件 Pick Up 可以先保留作為
+    //關卡中暫時變強的物件使用 (變強只限於同關卡，在換關後消失)
     public virtual bool DoHpUp(){return true;}
 
     public virtual bool DoAtkUp(){return true;}

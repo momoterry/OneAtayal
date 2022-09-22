@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PC_Warrior : PlayerController
+public class PC_Warrior : PC_Old
 {
     public float AttackMinTime = 1.0f;
     public float AttackMoveSpeed = 3.0f;

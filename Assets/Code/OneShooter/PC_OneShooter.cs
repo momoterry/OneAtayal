@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PC_OneShooter : PlayerController
+public class PC_OneShooter : PC_One
 {
     public float xMin = -8.0f;
     public float xMax = 8.0f;

@@ -22,7 +22,7 @@ public class SkillDef
 //}
 
 
-public class PlayerController : PlayerControllerBase
+public class PC_Old : PlayerControllerBase
 {
     //public float AttackCD = 1.0f;
     public float WalkSpeed = 8.0f;

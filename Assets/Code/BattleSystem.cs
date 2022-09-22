@@ -331,6 +331,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+
     public bool OnDropItemPickUp(DropItem item)
     {
         DropItem.DROPITEM_TYPE itemType = item.GetItemType();
@@ -344,6 +345,11 @@ public class BattleSystem : MonoBehaviour
                     result = true;
                 }
                 break;
+
+            //2022/9/22 補充
+            //現在已經不再使用這類的直接升物件 Pick Up 可以先保留作為
+            //關卡中暫時變強的物件使用 (變強只限於同關卡，在換關後消失)
+
             case DropItem.DROPITEM_TYPE.POWERUP_MAXHP:
                 //print("血量升級 !!");
                 result = thePC.DoHpUp();
