@@ -801,6 +801,14 @@ public class PC_One : PlayerControllerBase
         }
     }
 
+    public override void OnKillEnemy(Enemy e) 
+    {
+        if (theCharData)
+        {
+            theCharData.OnKillEnemy(e);
+        }
+    }
+
     public override void DoHeal(float healNum)
     {
         hp += healNum;

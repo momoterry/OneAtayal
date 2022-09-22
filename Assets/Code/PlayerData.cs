@@ -7,8 +7,11 @@ public class PlayerData : MonoBehaviour
     public DollData theDollData;
 
     protected int Money = 1000;
-    protected int Level = 1;
-    protected int Exp = 0;
+
+    //Main Character Data: 
+    //protected int LV = 1;
+    //protected int Exp = 0;
+    protected CharacterStat mainCharacterStat = new CharacterStat();
 
     protected List<string> usingDollList = new List<string>();
 
@@ -24,37 +27,41 @@ public class PlayerData : MonoBehaviour
         
     }
 
+    public void SetMainCharacterData(CharacterStat stat)
+    {
+        mainCharacterStat = stat;
+    }
+
+    public CharacterStat GetMainChracterData()
+    {
+        return mainCharacterStat;
+    }
+
     // 介面
     public int GetMoney() { return Money; }
-    public int AddMoney (int value)
+    public int AddMoney(int value)
     {
         Money += value;
         if (Money < 0)
             Money = 0;
-        
+
         return Money;
     }
 
-    public int AddExp( int value)
-    {
-        Exp += value;
-        if (Exp < 0)
-            Exp = 0;
+    //public int AddExp( int value)
+    //{
+    //    Exp += value;
+    //    if (Exp < 0)
+    //        Exp = 0;
 
-        //TODO: 升級作業
+    //    //TODO: 升級作業
 
-        return Exp;
-    }
+    //    return Exp;
+    //}
 
     public void AddUsingDoll( string dollID)
     {
         usingDollList.Add(dollID);
-
-        print("================== usingDollList: " + usingDollList.Count);
-        //foreach (string s in usingDollList)
-        //{
-        //    print("usingDollList: " + dollID);
-        //}
     }
 
     public string[] GetAllUsingDolls()

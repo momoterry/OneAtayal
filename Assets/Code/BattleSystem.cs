@@ -73,6 +73,13 @@ public class BattleSystem : MonoBehaviour
 
     public void OnEnemyKilled( GameObject enemyObj)
     {
+        //TODO: 是否把 enemyList 改成 Enemy 而不是 GameObject ?
+        Enemy e = enemyObj.GetComponent<Enemy>();
+        if (e)
+        {
+            thePC.OnKillEnemy(e);
+        }
+
        if ( !enemyList.Remove(enemyObj))
        {
             //print("ERROR !! OnEnemyKilled() : 指定的敵人不在清單中 : " + enemyObj);
