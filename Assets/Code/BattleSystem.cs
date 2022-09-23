@@ -90,7 +90,7 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            //print("重復擊殺，可能是在同個 Frame 被擊中兩次: " + enemyObj);
+            print("ERROR !! 不應該的重復擊殺!!: " + enemyObj);
         }
     }
 

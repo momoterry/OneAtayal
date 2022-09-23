@@ -340,12 +340,19 @@ public class Enemy : MonoBehaviour
     {
         //if (damageFX)
         //    Instantiate(damageFX, transform.position, Quaternion.identity, null);
-        
+
         //if (myAnimator)
         //    myAnimator.SetTrigger("Hit");
 
+        //已經死了，不要再處理以避免重覆擊殺 !!
+        if (hp <= 0)
+        {
+            //print("你已經死了....");
+            return;
+        }
+
         hp -= theDamage.damage;
-        if (hp < 0)
+        if (hp <= 0)
         {
             hp = 0;
             DoDeath();
