@@ -74,22 +74,23 @@ public class BattleSystem : MonoBehaviour
     public void OnEnemyKilled( GameObject enemyObj)
     {
         //TODO: 是否把 enemyList 改成 Enemy 而不是 GameObject ?
-        Enemy e = enemyObj.GetComponent<Enemy>();
-        if (e)
-        {
-            thePC.OnKillEnemy(e);
-        }
 
-       if ( !enemyList.Remove(enemyObj))
+       if ( enemyList.Remove(enemyObj))
        {
-            //print("ERROR !! OnEnemyKilled() : 指定的敵人不在清單中 : " + enemyObj);
-       }
-       else
-        {
+            Enemy e = enemyObj.GetComponent<Enemy>();
+            if (e)
+            {
+                thePC.OnKillEnemy(e);
+            }
+
             if (GetEnemyCount()==0)
             {
                 OnEnemyClear();
-            }
+            }      
+        }
+        else
+        {
+            //print("重復擊殺，可能是在同個 Frame 被擊中兩次: " + enemyObj);
         }
     }
 

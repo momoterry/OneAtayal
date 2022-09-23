@@ -34,7 +34,7 @@ public class CharacterData : MonoBehaviour
         if (myStat.Exp < 0)
             myStat.Exp = 0;
 
-        while (myStat.Exp > myStat.ExpMax)
+        while (myStat.Exp >= myStat.ExpMax)
         {
             myStat.Exp -= myStat.ExpMax;
             myStat.LV++;
