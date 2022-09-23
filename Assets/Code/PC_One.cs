@@ -357,8 +357,7 @@ public class PC_One : PlayerControllerBase
         if (myHPHandler && currState != PC_STATE.NONE)
         {
             myHPHandler.SetHP(hp, HP_Max);
-            //myHPHandler.SetMP(mp, MP_Max);
-            myHPHandler.SetMP(theCharData.GetExp(), theCharData.GetExpMax());
+            myHPHandler.SetMP(mp, MP_Max);
         }    
 
         if (currState == PC_STATE.NORMAL || currState == PC_STATE.ATTACK_AUTO || currState == PC_STATE.SKILL)

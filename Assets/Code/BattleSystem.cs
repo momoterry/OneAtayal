@@ -197,13 +197,14 @@ public class BattleSystem : MonoBehaviour
         nextState = BATTLE_GAME_STATE.BATTLE;
     }
 
+
     protected virtual void UpdateBattleHUD()
     {
-        if (thePC)
-        {
-            theBattleHUD.SetPlayerInfo(thePC.GetHP(), thePC.GetHPMax(), thePC.GetMP(), thePC.GetMPMax(), thePC.GetATTACK());
-            theBattleHUD.SetPotionNum(currPotion, maxPotion);
-        }
+        //if (thePC)
+        //{
+        //    theBattleHUD.SetPlayerInfo(thePC.GetHP(), thePC.GetHPMax(), thePC.GetMP(), thePC.GetMPMax(), thePC.GetATTACK());
+        //    theBattleHUD.SetPotionNum(currPotion, maxPotion);
+        //}
     }
 
     protected void UpdateFail()

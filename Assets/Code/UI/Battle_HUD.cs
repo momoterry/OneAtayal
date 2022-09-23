@@ -13,6 +13,10 @@ public class Battle_HUD : MonoBehaviour
     public Text hpText;
     public Text mpText;
 
+    // LV / EXP
+    public Text LVText;
+    public Slider expBar;
+
     //關卡資訊
     public Text levelText;
 
@@ -35,6 +39,8 @@ public class Battle_HUD : MonoBehaviour
     public VPad theVPad;
 
     protected int currMoney = int.MinValue;
+    protected int currLV = -1;
+    protected float currExpRatio = -1.0f;
 
     void Start()
     {
@@ -54,15 +60,38 @@ public class Battle_HUD : MonoBehaviour
 
         PlayerData pData = GameSystem.GetPlayerData();
         //print(pData);
-        if (pData && moneyText)
+        if (pData)
         {
-            int money = pData.GetMoney();
-            if (money != currMoney)
+            CharacterStat mData = pData.GetMainChracterData();
+            if (LVText)
             {
-                moneyText.text = money.ToString();
-                currMoney = money;
+                if (currLV != mData.LV)
+                {
+                    currLV = mData.LV;
+                    LVText.text = currLV.ToString();
+                }
+            }
+            if (expBar)
+            {
+                float ratio = (float)mData.Exp / (float)mData.ExpMax;
+                if (currExpRatio != ratio)
+                {
+                    currExpRatio = ratio;
+                    expBar.value = currExpRatio;
+                }
+            }
+            if (moneyText)
+            {
+                int money = pData.GetMoney();
+                if (money != currMoney)
+                {
+                    moneyText.text = money.ToString();
+                    currMoney = money;
+                }
             }
         }
+
+
     }
 
     //public void SetSkillIcon(Sprite sprite, int index)

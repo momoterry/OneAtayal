@@ -6,12 +6,13 @@ public class CharacterStat
 {
     public int LV = 1;
     public int Exp = 0;
+    public int ExpMax = 1000;
 }
 
 public class CharacterData : MonoBehaviour
 {
 
-    protected int ExpMax = 1000;
+    //protected int ExpMax = 1000;
     protected int expDefaultMax = 400;
     protected float expRatioPerLevel = 1.2f;
 
@@ -20,7 +21,7 @@ public class CharacterData : MonoBehaviour
 
     //¤¶­±
     public int GetExp() { return myStat.Exp; }
-    public int GetExpMax() { return ExpMax; }
+    public int GetExpMax() { return myStat.ExpMax; }
     public int GetLV() { return myStat.LV; }
 
     public void OnKillEnemy(Enemy e)
@@ -33,13 +34,13 @@ public class CharacterData : MonoBehaviour
         if (myStat.Exp < 0)
             myStat.Exp = 0;
 
-        while (myStat.Exp > ExpMax)
+        while (myStat.Exp > myStat.ExpMax)
         {
-            myStat.Exp -= ExpMax;
+            myStat.Exp -= myStat.ExpMax;
             myStat.LV++;
             CalcMaxExp();
 
-            print("Level Up!!! " + myStat.LV + " >> " + (myStat.LV + 1));
+            //print("Level Up!!! " + myStat.LV + " >> " + (myStat.LV + 1));
         }
 
 
@@ -71,7 +72,7 @@ public class CharacterData : MonoBehaviour
         float ratioPerLevel = expRatioPerLevel;
         float calcMax = defaultMax * Mathf.Pow(ratioPerLevel, (float)(myStat.LV - 1));
 
-        ExpMax = (int)calcMax;
+        myStat.ExpMax = (int)calcMax;
         //print("CalcMaxExp: " + ExpMax);
     }
 }
