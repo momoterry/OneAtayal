@@ -17,6 +17,10 @@ public class Battle_HUD : MonoBehaviour
     public Text LVText;
     public Slider expBar;
 
+    // Doll 資訊
+    public Text DollNumText;
+    public Text DollMaxText;
+
     //關卡資訊
     public Text levelText;
 
@@ -38,9 +42,11 @@ public class Battle_HUD : MonoBehaviour
     //虛擬搖桿相關
     public VPad theVPad;
 
-    protected int currMoney = int.MinValue;
+    protected int currMoney = -1;
     protected int currLV = -1;
     protected float currExpRatio = -1.0f;
+    protected int currDollNum = -1;
+    protected int currDollMax = -1;
 
     void Start()
     {
@@ -87,6 +93,24 @@ public class Battle_HUD : MonoBehaviour
                 {
                     moneyText.text = money.ToString();
                     currMoney = money;
+                }
+            }
+            if (DollNumText)
+            {
+                int num = pData.GetCurrDollNum();
+                if (num != currDollNum)
+                {
+                    DollNumText.text = num.ToString();
+                    currDollNum = num;
+                }
+            }
+            if (DollMaxText)
+            {
+                int num = pData.GetMaxDollNum();
+                if (num != currDollMax)
+                {
+                    DollMaxText.text = num.ToString();
+                    currDollMax = num;
                 }
             }
         }
