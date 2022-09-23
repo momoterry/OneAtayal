@@ -39,7 +39,6 @@ public class DollSell : MonoBehaviour
         {
             if (theTalk)
                 theTalk.AddSentence("你好像錢不太夠了呀.....");
-            //print("錢不夠喔......." + GameSystem.GetPlayerData().GetMoney());
             return;
         }
 
@@ -48,9 +47,13 @@ public class DollSell : MonoBehaviour
         if (GameSystem.GetPlayerData().GetCurrDollNum() >= GameSystem.GetPlayerData().GetMaxDollNum())
         {
             if (theTalk)
-                theTalk.AddSentence("不能再加人了，放到背包...... ");
+            {
+                //theTalk.AddSentence("不能再加人了，放到背包...... ");
+                theTalk.AddSentence("不能再加人了，去升級再來...... ");
+            }
 
-            GameSystem.GetPlayerData().AddDollToBackpack(refDoll.ID);
+            //GameSystem.GetPlayerData().AddDollToBackpack(refDoll.ID);
+            return;
         }
         else
         {
