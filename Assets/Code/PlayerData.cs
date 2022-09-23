@@ -59,6 +59,16 @@ public class PlayerData : MonoBehaviour
     //    return Exp;
     //}
 
+    public int GetMaxDollNum()
+    {
+        return mainCharacterStat.DollMax;
+    }
+
+    public int GetCurrDollNum()
+    {
+        return usingDollList.Count;
+    }
+
     public void AddUsingDoll( string dollID)
     {
         usingDollList.Add(dollID);

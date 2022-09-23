@@ -27,6 +27,13 @@ public class DollSell : MonoBehaviour
             return;
         }
 
+        if (GameSystem.GetPlayerData().GetCurrDollNum() >= GameSystem.GetPlayerData().GetMaxDollNum())
+        {
+            if (theTalk)
+                theTalk.AddSentence("不能再加人了，先試著升級看看吧 !!");
+            return;
+        }
+
         if (!dm.HasEmpltySlot(refDoll.positionType))
         {
             print("Doll Manager 沒有空間了......");

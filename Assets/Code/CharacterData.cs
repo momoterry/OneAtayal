@@ -7,6 +7,7 @@ public class CharacterStat
     public int LV = 1;
     public int Exp = 0;
     public int ExpMax = 1000;
+    public int DollMax = 2;
 }
 
 public class CharacterData : MonoBehaviour
@@ -39,6 +40,7 @@ public class CharacterData : MonoBehaviour
             myStat.Exp -= myStat.ExpMax;
             myStat.LV++;
             CalcMaxExp();
+            CalcMaxDoll();
 
             //print("Level Up!!! " + myStat.LV + " >> " + (myStat.LV + 1));
         }
@@ -58,6 +60,9 @@ public class CharacterData : MonoBehaviour
         myStat = thePlayerData.GetMainChracterData();
 
         CalcMaxExp();
+        CalcMaxDoll();
+
+        thePlayerData.SetMainCharacterData(myStat); //因為要存回 Max 值
     }
 
     // Update is called once per frame
@@ -75,4 +80,10 @@ public class CharacterData : MonoBehaviour
         myStat.ExpMax = (int)calcMax;
         //print("CalcMaxExp: " + ExpMax);
     }
+
+    protected void CalcMaxDoll()
+    {
+        myStat.DollMax = myStat.LV + 1;
+    }
+
 }
