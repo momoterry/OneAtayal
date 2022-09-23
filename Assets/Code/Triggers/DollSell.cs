@@ -27,12 +27,7 @@ public class DollSell : MonoBehaviour
             return;
         }
 
-        if (GameSystem.GetPlayerData().GetCurrDollNum() >= GameSystem.GetPlayerData().GetMaxDollNum())
-        {
-            if (theTalk)
-                theTalk.AddSentence("不能再加人了，先試著升級看看吧 !!");
-            return;
-        }
+
 
         if (!dm.HasEmpltySlot(refDoll.positionType))
         {
@@ -49,45 +44,53 @@ public class DollSell : MonoBehaviour
         }
 
 
-        Vector3 pos = transform.position + Vector3.back * SpawnDistance;
-        //Vector3 pos = availableSlot.position;
 
-        if (SpawnFX)
-            BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
-
-        //GameObject dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
-
-        GameObject dollObj = Instantiate(dollRef, pos, Quaternion.Euler(90.0f, 0, 0), null);
-        //print("M!! " + dollObj.transform.rotation);
-
-        Doll theDoll = dollObj.GetComponent<Doll>();
-        if (theDoll == null)
+        if (GameSystem.GetPlayerData().GetCurrDollNum() >= GameSystem.GetPlayerData().GetMaxDollNum())
         {
-            print("Error!! There is no Doll in dollRef !!");
-            Destroy(dollObj);
-            return;
+            if (theTalk)
+                theTalk.AddSentence("不能再加人了，放到背包...... ");
+
+            GameSystem.GetPlayerData().AddDollToBackpack(refDoll.ID);
         }
-
-        //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
-        NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
-        if (dAgent)
+        else
         {
-            dAgent.updateRotation = false;
-            dAgent.updateUpAxis = false;
-            dAgent.enabled = false;
-        }
+            Vector3 pos = transform.position + Vector3.back * SpawnDistance;
 
-        if (!theDoll.TryJoinThePlayer())
-        {
-            print("Woooooooooops.......");
-            return;
+            if (SpawnFX)
+                BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
+
+            GameObject dollObj = Instantiate(dollRef, pos, Quaternion.Euler(90.0f, 0, 0), null);
+
+            Doll theDoll = dollObj.GetComponent<Doll>();
+            if (theDoll == null)
+            {
+                print("Error!! There is no Doll in dollRef !!");
+                Destroy(dollObj);
+                return;
+            }
+
+            //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
+            NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
+            if (dAgent)
+            {
+                dAgent.updateRotation = false;
+                dAgent.updateUpAxis = false;
+                dAgent.enabled = false;
+            }
+
+            if (!theDoll.TryJoinThePlayer())
+            {
+                print("Woooooooooops.......");
+                return;
+            }
+
+            GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
+            if (theTalk)
+                theTalk.AddSentence("謝謝光臨 !!");
+
         }
 
         GameSystem.GetPlayerData().AddMoney(-CostMoney);
-        GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
-        if (theTalk)
-            theTalk.AddSentence("謝謝光臨 !!");
-
         whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
     }
 }

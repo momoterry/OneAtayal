@@ -15,6 +15,9 @@ public class PlayerData : MonoBehaviour
 
     protected List<string> usingDollList = new List<string>();
 
+    protected Dictionary<string, int> dollBackpack = new Dictionary<string, int>();
+    protected int backupDollNum = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,17 +51,6 @@ public class PlayerData : MonoBehaviour
         return Money;
     }
 
-    //public int AddExp( int value)
-    //{
-    //    Exp += value;
-    //    if (Exp < 0)
-    //        Exp = 0;
-
-    //    //TODO: ¤É¯Å§@·~
-
-    //    return Exp;
-    //}
-
     public int GetMaxDollNum()
     {
         return mainCharacterStat.DollMax;
@@ -90,6 +82,49 @@ public class PlayerData : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void AddDollToBackpack( string dollID )
+    {
+        if (dollBackpack.ContainsKey(dollID))
+        {
+            dollBackpack[dollID] = dollBackpack[dollID] + 1;
+        }
+        else
+        {
+            dollBackpack.Add(dollID, 1);
+        }
+
+        print("========= Doll BackPack =========");
+        foreach ( KeyValuePair<string, int> k in dollBackpack)
+        {
+            print(k.Key + " : " + k.Value);
+        }
+        print("========= ========= ========= ");
+    }
+
+    public void RemoveDollFromBackpack( string dollID)
+    {
+        if (dollBackpack.ContainsKey(dollID))
+        {
+            dollBackpack[dollID] = dollBackpack[dollID] - 1;
+            if (dollBackpack[dollID] <= 0)
+            {
+                dollBackpack.Remove(dollID);
+            } 
+        }
+        else
+        {
+            //dollBackpack.Add(dollID, 1);
+            print("ERROR!!! The Doll in not in Backpack !!!! : " + dollID);
+        }
+
+        print("========= Doll BackPack =========");
+        foreach (KeyValuePair<string, int> k in dollBackpack)
+        {
+            print(k.Key + " : " + k.Value);
+        }
+        print("========= ========= ========= ");
     }
 
     public GameObject GetDollRefByID(string ID)
