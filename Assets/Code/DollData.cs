@@ -10,8 +10,13 @@ public class DollData : MonoBehaviour
     protected Dictionary<string, GameObject> theMapping = new Dictionary<string, GameObject>();
 
 
-    public GameObject GetDollRefByID( string dollID)
-    {
+    public GameObject GetDollRefByID( string dollID )
+    { 
+        if (!theMapping.ContainsKey(dollID))
+        {
+            print("ERROR!!! Invalid dollID: " + dollID);
+            return null;
+        }
         return theMapping[dollID];
     }
 

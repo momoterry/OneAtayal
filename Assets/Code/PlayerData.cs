@@ -127,6 +127,11 @@ public class PlayerData : MonoBehaviour
         print("========= ========= ========= ");
     }
 
+    public Dictionary<string, int> GetDollBackPack()
+    {
+        return dollBackpack;
+    }
+
     public GameObject GetDollRefByID(string ID)
     {
         if (theDollData)
