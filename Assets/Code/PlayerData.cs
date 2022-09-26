@@ -16,7 +16,7 @@ public class PlayerData : MonoBehaviour
     protected List<string> usingDollList = new List<string>();
 
     protected Dictionary<string, int> dollBackpack = new Dictionary<string, int>();
-    protected int backupDollNum = 0;
+    //protected int backpackDollNum = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +82,11 @@ public class PlayerData : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void RemoveAllUsingDolls()
+    {
+        usingDollList.Clear();
     }
 
     public void AddDollToBackpack( string dollID )

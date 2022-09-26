@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class DollHouse : MonoBehaviour
 {
-    //protected enum Phase
-    //{
-    //    NONE,
-    //    WAIT,
-    //    ACTIVE,
-    //}
-    //Phase currPhase = Phase.NONE;
-    //Phase nextPhase = Phase.NONE;
+    public DollBackpackUI theUI;
 
     bool isPlayerIn = false;
 
@@ -32,6 +25,10 @@ public class DollHouse : MonoBehaviour
         if (col.gameObject.CompareTag("Player") && isPlayerIn == false)
         {
             isPlayerIn = true;
+            if (theUI)
+            {
+                theUI.OpenBackpackUI();
+            }
         }
 
     }
@@ -42,6 +39,10 @@ public class DollHouse : MonoBehaviour
         if (col.gameObject.CompareTag("Player") && isPlayerIn == true)
         {
             isPlayerIn = false;
+            if (theUI)
+            {
+                theUI.CloseBackpackUI();
+            }
         }
     }
 

@@ -52,6 +52,8 @@ public class ButtonDollBackpack : MonoBehaviour
 
     public void OnButtonDown()
     {
+        //TODO: 這邊的處理, 應該交由其它 Manager 處理而不是交給 UI
+
         print("Down!! ID: " + dollID + " currNum = " + dollNum);
         PlayerData pData = GameSystem.GetPlayerData();
         PlayerControllerBase thePC = BattleSystem.GetPC();
