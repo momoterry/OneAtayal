@@ -100,12 +100,12 @@ public class PlayerData : MonoBehaviour
             dollBackpack.Add(dollID, 1);
         }
 
-        print("========= Doll BackPack =========");
-        foreach ( KeyValuePair<string, int> k in dollBackpack)
-        {
-            print(k.Key + " : " + k.Value);
-        }
-        print("========= ========= ========= ");
+        //print("========= Doll BackPack =========");
+        //foreach ( KeyValuePair<string, int> k in dollBackpack)
+        //{
+        //    print(k.Key + " : " + k.Value);
+        //}
+        //print("========= ========= ========= ");
     }
 
     public void RemoveDollFromBackpack( string dollID)
