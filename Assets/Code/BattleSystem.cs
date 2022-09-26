@@ -58,6 +58,7 @@ public class BattleSystem : MonoBehaviour
     public GameObject GetPlayer() { return thePlayer; }
 
     public PlayerControllerBase GetPlayerController() { return thePC; }
+    public static PlayerControllerBase GetPC() { return instance.thePC; }
     public VPad GetVPad() {return theBattleHUD.theVPad; }
 
     public MapGeneratorBase GetMapGenerator() { return theMG; }
@@ -120,6 +121,11 @@ public class BattleSystem : MonoBehaviour
             o.AddComponent<BSObjectTag>();
         }
         return o;
+    }
+
+    public static GameObject SpawnGameObj(GameObject objRef, Vector3 pos, bool clearByBS = false)
+    {
+        return instance.SpawnGameplayObject(objRef, pos, clearByBS);
     }
 
     //TODO: ¥i¥H®³±¼¤F

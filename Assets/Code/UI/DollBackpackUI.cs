@@ -16,7 +16,7 @@ public class DollBackpackUI: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //CreateButtons();
+
     }
 
     protected float testTime = 0.2f;
@@ -66,7 +66,7 @@ public class DollBackpackUI: MonoBehaviour
                 GameObject dObj = pData.GetDollRefByID(k.Key);
                 Doll d = dObj.GetComponent<Doll>();
                 bDoll.SetNum(k.Value);
-                bDoll.SetIcon(d.icon);
+                bDoll.SetDollInfo(k.Key, d.icon);
             }
 
             i++;
