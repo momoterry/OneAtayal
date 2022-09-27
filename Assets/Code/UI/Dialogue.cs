@@ -11,6 +11,8 @@ public class Dialogue : MonoBehaviour
     public GameObject[] EndTriggers;
 
     public Text theText;
+
+    [TextArea(3, 10)]
     public string[] overwriteContents;
 
     MyInputActions theInput;
