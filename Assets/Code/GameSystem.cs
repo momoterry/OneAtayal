@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;  //為了透過 Scene 自動加載 GameSystem
 public class GameSystem : MonoBehaviour
 {
     public PlayerData thePlayerData;
+
+    //TODO: 這部份應該改到 PlayerData 中
     private GameObject playerCharacterRef = null;
 
     //Skill 相關 //TODO: 這部份應該改到 PlayerData 中

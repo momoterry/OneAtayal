@@ -15,6 +15,7 @@ public class BattleSystem : MonoBehaviour
     public Transform initPlayerPos;
     public float initPlayerDirAngle = 0;
     public GameObject playerRef;
+    public bool ForceUsePlayerRef = false;
 
     protected GameObject thePlayer;   //TODO Player Character Spawn 較晚，但 PC 應常駐
     protected List<GameObject> enemyList = new List<GameObject>();
@@ -144,10 +145,17 @@ public class BattleSystem : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        GameObject playerInfoToSet = GameSystem.GetInstance().GetPlayerCharacterRef();
-        if (playerInfoToSet != null)
+        if (!ForceUsePlayerRef)
         {
-            playerRef = playerInfoToSet;
+            GameObject playerInfoToSet = GameSystem.GetInstance().GetPlayerCharacterRef();
+            if (playerInfoToSet != null)
+            {
+                playerRef = playerInfoToSet;
+            }
+            else
+            {
+                GameSystem.GetInstance().SetPlayerCharacterRef(playerRef);
+            }
         }
 
         nextState = BATTLE_GAME_STATE.INIT;
