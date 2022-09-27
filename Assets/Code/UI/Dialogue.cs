@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
@@ -9,7 +10,13 @@ public class Dialogue : MonoBehaviour
     public bool isRepeatable = false;
     public GameObject[] EndTriggers;
 
+    public Text theText;
+    public string[] overwriteContents;
+
     MyInputActions theInput;
+
+    protected bool usingOverwite = false;
+    protected int currOverwiteIndex = 0;
 
     protected enum PHASE
     {
@@ -30,6 +37,12 @@ public class Dialogue : MonoBehaviour
         //Input System Bind
         theInput.TheHero.Attack.performed += ctx => OnClick();
         theInput.TheHero.Action.performed += ctx => OnClick();
+
+        if (theText && overwriteContents.Length > 0)
+        {
+            usingOverwite = true;
+            SetupContent();
+        }
 
         nextState = PHASE.WAIT;
     }
@@ -95,7 +108,7 @@ public class Dialogue : MonoBehaviour
 
     public void OnClick()
     {
-        TryDoFinish();
+        TryDoNext();
     }
 
     void OnTG(GameObject whoTG)
@@ -109,14 +122,27 @@ public class Dialogue : MonoBehaviour
 
     protected void OnMouseDown()
     {
-        TryDoFinish();
+        TryDoNext();
     }
 
-    protected void TryDoFinish()
+    protected void SetupContent()
+    {
+        theText.text = overwriteContents[currOverwiteIndex];
+    }
+
+    protected void TryDoNext()
     {
         if (currState == PHASE.NORMAL)
         {
-            nextState = PHASE.END;
+            if (usingOverwite && currOverwiteIndex < overwriteContents.Length - 1)
+            {
+                currOverwiteIndex++;
+                SetupContent();
+            }
+            else
+            {
+                nextState = PHASE.END;
+            }
         }
     }
 
