@@ -12,7 +12,7 @@ public class Dialogue : MonoBehaviour
 
     public Text theText;
 
-    [TextArea(3, 10)]
+    [TextArea(2, 10)]
     public string[] overwriteContents;
 
     MyInputActions theInput;
