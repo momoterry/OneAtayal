@@ -59,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5418146914581638081}
   m_Layer: 0
-  m_Name: LongS_Game_Middle_A
+  m_Name: LSG_G_S1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,12 +127,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawners:
   - timeToWait: 0
-    enemyRef: {fileID: 7208015447484052683, guid: 87c85ab6dc454c04d80eb63939f24528, type: 3}
-    num: 2
-    randomWidth: 3
+    enemyRef: {fileID: 7208015447484052683, guid: 77157c922e8b30d49aba0e2b9e5bfaa6, type: 3}
+    num: 1
+    randomWidth: 2
     randomHeight: 2
     posShiftX: 0
-    posShiftZ: -2
+    posShiftZ: -4
   - timeToWait: 2
     enemyRef: {fileID: 7208015447484052683, guid: 77157c922e8b30d49aba0e2b9e5bfaa6, type: 3}
     num: 1
@@ -140,27 +140,13 @@ MonoBehaviour:
     randomHeight: 2
     posShiftX: 0
     posShiftZ: 6
-  - timeToWait: 0.2
-    enemyRef: {fileID: 7208015447484052683, guid: 87c85ab6dc454c04d80eb63939f24528, type: 3}
-    num: 2
-    randomWidth: 4
-    randomHeight: 2
-    posShiftX: 0
-    posShiftZ: 8
   - timeToWait: 5
     enemyRef: {fileID: 7208015447484052683, guid: 77157c922e8b30d49aba0e2b9e5bfaa6, type: 3}
-    num: 1
-    randomWidth: 2
-    randomHeight: 2
-    posShiftX: 0
-    posShiftZ: 16
-  - timeToWait: 0.2
-    enemyRef: {fileID: 7208015447484052683, guid: 87c85ab6dc454c04d80eb63939f24528, type: 3}
-    num: 3
+    num: 2
     randomWidth: 3
     randomHeight: 2
     posShiftX: 0
-    posShiftZ: 18
+    posShiftZ: 16
   triggerTargetWhenAllKilled:
   - {fileID: 1668733688}
 --- !u!1 &5418146915626532479

@@ -59,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5418146914581638081}
   m_Layer: 0
-  m_Name: LongS_GameEasy
+  m_Name: LSG_S3B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,26 +127,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawners:
   - timeToWait: 0
-    enemyRef: {fileID: 7208015447484052683, guid: 77157c922e8b30d49aba0e2b9e5bfaa6, type: 3}
-    num: 1
-    randomWidth: 2
+    enemyRef: {fileID: 7208015447484052683, guid: d9d4e27d6fca07843b8a69ec33fa51bc, type: 3}
+    num: 5
+    randomWidth: 4
     randomHeight: 2
     posShiftX: 0
     posShiftZ: -4
-  - timeToWait: 2
-    enemyRef: {fileID: 7208015447484052683, guid: 77157c922e8b30d49aba0e2b9e5bfaa6, type: 3}
-    num: 1
-    randomWidth: 2
+  - timeToWait: 0.2
+    enemyRef: {fileID: 7208015447484052683, guid: 4ec4ca1546184524881ae626ab49e2c8, type: 3}
+    num: 4
+    randomWidth: 4
     randomHeight: 2
     posShiftX: 0
-    posShiftZ: 6
-  - timeToWait: 4
-    enemyRef: {fileID: 7208015447484052683, guid: 77157c922e8b30d49aba0e2b9e5bfaa6, type: 3}
-    num: 2
+    posShiftZ: -2
+  - timeToWait: 3
+    enemyRef: {fileID: 7208015447484052683, guid: d9d4e27d6fca07843b8a69ec33fa51bc, type: 3}
+    num: 7
     randomWidth: 3
     randomHeight: 2
     posShiftX: 0
+    posShiftZ: 6
+  - timeToWait: 0.2
+    enemyRef: {fileID: 7208015447484052683, guid: 4ec4ca1546184524881ae626ab49e2c8, type: 3}
+    num: 6
+    randomWidth: 4
+    randomHeight: 2
+    posShiftX: 0
+    posShiftZ: 8
+  - timeToWait: 6
+    enemyRef: {fileID: 7208015447484052683, guid: d9d4e27d6fca07843b8a69ec33fa51bc, type: 3}
+    num: 8
+    randomWidth: 5
+    randomHeight: 2
+    posShiftX: 0
     posShiftZ: 16
+  - timeToWait: 0.2
+    enemyRef: {fileID: 7208015447484052683, guid: 4ec4ca1546184524881ae626ab49e2c8, type: 3}
+    num: 8
+    randomWidth: 5
+    randomHeight: 2
+    posShiftX: 0
+    posShiftZ: 18
   triggerTargetWhenAllKilled:
   - {fileID: 1668733688}
 --- !u!1 &5418146915626532479
