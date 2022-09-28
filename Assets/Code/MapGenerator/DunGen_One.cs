@@ -8,6 +8,8 @@ public class DunGen_One : MapGeneratorBase
     public GameObject endRoomRef;
     public RoomDungeon initRD;
 
+    public GameObject[] randomGameplays;
+
     protected int RoomNum = 3;
 
     protected enum ExtendType
@@ -149,6 +151,14 @@ public class DunGen_One : MapGeneratorBase
             if (isMain)
             {
                 currRoom = newRoom;
+            }
+
+            //Gameplay
+            if (randomGameplays.Length > 0)
+            {
+                GameObject gRef = randomGameplays[Random.Range(0, randomGameplays.Length)];
+                GameObject newG = BattleSystem.SpawnGameObj(gRef, newRoom.transform.position);
+                newG.transform.SetParent(newRoom.transform);
             }
 
         }
