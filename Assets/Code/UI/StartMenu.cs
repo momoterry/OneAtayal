@@ -37,8 +37,8 @@ public class StartMenu : MonoBehaviour
     {
         print("START!!");
 
-        GameSystem.GetInstance().SetPlayerCharacterRef(cardList[currPlayerCharacterIndex].objRef);
-        SceneManager.LoadScene("DungeonAlpha");
+        //GameSystem.GetInstance().SetPlayerCharacterRef(cardList[currPlayerCharacterIndex].objRef);
+        SceneManager.LoadScene("HubV_Alpha");
         
     }
 
