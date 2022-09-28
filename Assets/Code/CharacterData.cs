@@ -14,8 +14,8 @@ public class CharacterData : MonoBehaviour
 {
 
     //protected int ExpMax = 1000;
-    protected int expDefaultMax = 400;
-    protected float expRatioPerLevel = 1.2f;
+    protected int expDefaultMax = 300;
+    protected float expRatioPerLevel = 1.25f;
 
     protected CharacterStat myStat = new CharacterStat();
     protected PlayerData thePlayerData;
