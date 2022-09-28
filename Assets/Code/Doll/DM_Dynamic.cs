@@ -90,7 +90,7 @@ public class DM_Dynamic : DollManager
         int lastCircleCount = (middleNum - 1) % circleNum + 1;
 
         float slotWidth = 1.0f;
-        float innerWidth = 2.0f;    //最內圈距離
+        float innerWidth = 1.0f;    //最內圈距離
 
         float width = innerWidth;
         for (int c=0; c<nCircle; c++)
