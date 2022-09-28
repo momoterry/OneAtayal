@@ -109,12 +109,12 @@ public class DollRecovery : MonoBehaviour
         //*Debug
         if (GameSystem.GetPlayerData().GetCurrDollNum() == 0)
         {
-            GameSystem.GetPlayerData().AddUsingDoll("DollStone");
-            GameSystem.GetPlayerData().AddUsingDoll("DollStone");
             GameSystem.GetPlayerData().AddUsingDoll("DollOne");
-            GameSystem.GetPlayerData().AddUsingDoll("DollFire");
-            GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-            GameSystem.GetPlayerData().AddUsingDoll("DollFire");
+            GameSystem.GetPlayerData().AddUsingDoll("DollOne");
+            //GameSystem.GetPlayerData().AddUsingDoll("DollOne");
+            //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
+            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
+            //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
         }
         //*/
 
