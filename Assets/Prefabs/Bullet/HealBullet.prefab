@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5370036383317269716}
   m_Father: {fileID: 0}
@@ -59,14 +60,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08e460cf25a0594aa01aea1b8dfa0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phyDamage: 60
   speed: 8
   turnSpeed: 720
   loseAngle: 180
   lifeTime: 2
   hitDistance: 0.5
-  healRatio: 0.06
-  healAbsoluteValue: 12
+  healRatio: 0.05
   healFX: {fileID: 2349360926062933808, guid: 86346f98b53b53443af314932ed834ce, type: 3}
 --- !u!1 &5497387898531642647
 GameObject:
@@ -96,6 +95,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 6.733717}
   m_LocalScale: {x: 1, y: 0.99999976, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3745549176771237189}
   m_RootOrder: 0
@@ -111,6 +111,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -153,7 +154,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &3979950573576769530
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -166,6 +167,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
