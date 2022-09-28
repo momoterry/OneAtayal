@@ -84,6 +84,8 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 300;  //±j­¢ Android ¶}©ñ !!
+
         DontDestroyOnLoad(gameObject);
     }
 
