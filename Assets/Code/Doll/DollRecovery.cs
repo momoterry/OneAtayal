@@ -106,7 +106,7 @@ public class DollRecovery : MonoBehaviour
 
     void StartSpawn()
     {
-        /*Debug
+        //*Debug
         if (GameSystem.GetPlayerData().GetCurrDollNum() == 0)
         {
             GameSystem.GetPlayerData().AddUsingDoll("DollOne");
@@ -118,10 +118,10 @@ public class DollRecovery : MonoBehaviour
             GameSystem.GetPlayerData().AddUsingDoll("DollFire");
             GameSystem.GetPlayerData().AddUsingDoll("DollFire");
 
-            GameSystem.GetPlayerData().AddUsingDoll("DollStone");
-            GameSystem.GetPlayerData().AddUsingDoll("DollStone");
-            GameSystem.GetPlayerData().AddUsingDoll("DollStone");
-            GameSystem.GetPlayerData().AddUsingDoll("DollStone");
+            GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
+            GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
+            GameSystem.GetPlayerData().AddUsingDoll("DollFire");
+            GameSystem.GetPlayerData().AddUsingDoll("DollFire");
 
             GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
             GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");

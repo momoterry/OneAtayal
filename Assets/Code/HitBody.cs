@@ -12,7 +12,7 @@ public class HitBody : MonoBehaviour
 {
     // Start is called before the first frame update
     public float HP_Max = 100.0f;
-
+    public float DamageRatio = 1.0f;
     // 
     protected float hp;
 
@@ -38,7 +38,7 @@ public class HitBody : MonoBehaviour
 
     void OnDamage(Damage theDamage)
     {
-        hp -= theDamage.damage;
+        hp -= theDamage.damage * DamageRatio;
         if (hp <= 0)
         {
             gameObject.SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
