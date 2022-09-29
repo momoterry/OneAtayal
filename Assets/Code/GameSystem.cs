@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;  //為了透過 Scene 自動加載 GameSystem
+using System.IO;    //存讀檔
+using System.Text;  //存讀檔
 
 public class GameSystem : MonoBehaviour
 {
@@ -11,7 +13,9 @@ public class GameSystem : MonoBehaviour
     private GameObject playerCharacterRef = null;
 
     //Skill 相關 //TODO: 這部份應該改到 PlayerData 中
-    private Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>(); 
+    private Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
+
+    protected string strSaveFile = "mySave.txt";
 
     static private GameSystem instance;
 
@@ -27,6 +31,10 @@ public class GameSystem : MonoBehaviour
     private void Awake()
     {
         //print("我被喚醒了");
+        if (!LoadData())
+        {
+            SaveData(); //建立存檔 !!
+        }
     }
 
     static public GameSystem GetInstance()
@@ -87,6 +95,7 @@ public class GameSystem : MonoBehaviour
         Application.targetFrameRate = 300;  //強迫 Android 開放 !!
 
         DontDestroyOnLoad(gameObject);
+
     }
 
     // Update is called once per frame
@@ -94,4 +103,49 @@ public class GameSystem : MonoBehaviour
     {
         
     }
+
+    public void SaveData()
+    {
+        // 測試存檔
+        //print("GameSystem :: SaveData !!.......");
+        //測試存檔
+        //const string strSaveFile = "mySave.txt";
+        string filePath = Application.persistentDataPath + "/" + strSaveFile;
+
+
+        SaveData theSaveData = thePlayerData.GetSaveData();
+        string saveDataStr = JsonUtility.ToJson(theSaveData);
+        //print(saveDataStr);
+        //print("====================");
+
+
+        //print("即將存檔到: " + filePath);
+        byte[] rawData = Encoding.UTF8.GetBytes(saveDataStr);
+        //File.WriteAllBytes(filePath, rawData);
+        File.WriteAllBytesAsync(filePath, rawData);
+    }
+
+
+    public bool LoadData()
+    {
+        //print("GameSystem :: LoadData !!.......");
+
+        string filePath = Application.persistentDataPath + "/" + strSaveFile;
+        if ( !File.Exists(filePath)) 
+        { 
+            return false;
+        }
+
+        //print("有找到存檔，開始讀取 .......");
+        byte[] rawData = File.ReadAllBytes(filePath);
+        string strSave = Encoding.UTF8.GetString(rawData);
+
+        //print(strSave);
+        SaveData loadData = JsonUtility.FromJson<SaveData>(strSave);
+
+        thePlayerData.LoadSavedData(loadData);
+
+        return true;
+    }
+
 }

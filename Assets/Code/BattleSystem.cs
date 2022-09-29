@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
+
 public class BattleSystem : MonoBehaviour
 {
     public Battle_HUD theBattleHUD;
@@ -157,6 +158,8 @@ public class BattleSystem : MonoBehaviour
                 GameSystem.GetInstance().SetPlayerCharacterRef(playerRef);
             }
         }
+
+        GameSystem.GetInstance().SaveData();
 
         nextState = BATTLE_GAME_STATE.INIT;
     }

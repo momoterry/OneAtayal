@@ -2,15 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[System.Serializable]
+public struct SaveDataBackpckItem
+{
+    public string ID;
+    public int num;
+}
+[System.Serializable]
+public class SaveData{
+    public int Money;
+    public CharacterStat mainCharacterStat;
+    public string[] usingDollList;
+    public SaveDataBackpckItem[] dollBackpack;
+}
+
+
 public class PlayerData : MonoBehaviour
 {
     public DollData theDollData;
 
     protected int Money = 1000;
 
-    //Main Character Data: 
-    //protected int LV = 1;
-    //protected int Exp = 0;
     protected CharacterStat mainCharacterStat = new CharacterStat();
 
     protected List<string> usingDollList = new List<string>();
@@ -38,6 +51,60 @@ public class PlayerData : MonoBehaviour
     public CharacterStat GetMainChracterData()
     {
         return mainCharacterStat;
+    }
+
+    //存檔相關
+    public SaveData GetSaveData()
+    {
+        SaveData data = new SaveData();
+        data.Money = Money;
+        data.mainCharacterStat = mainCharacterStat;
+
+        if (usingDollList.Count > 0)
+        {
+            data.usingDollList = new string[usingDollList.Count];
+            for (int i = 0; i < usingDollList.Count; i++)
+            {
+                data.usingDollList[i] = usingDollList[i];
+            }
+        }
+
+        if (dollBackpack.Count > 0)
+        {
+            data.dollBackpack = new SaveDataBackpckItem[dollBackpack.Count];
+            int i = 0;
+            foreach ( KeyValuePair<string, int> k in dollBackpack)
+            {
+                data.dollBackpack[i].ID = k.Key;
+                data.dollBackpack[i].num = k.Value;
+                i++;
+            }
+        }
+
+        return data;
+    }
+
+    public void LoadSavedData( SaveData data)
+    {
+        Money = data.Money;
+        mainCharacterStat = data.mainCharacterStat;
+
+        if (data.usingDollList.Length > 0)
+        {
+            for (int i =0; i< data.usingDollList.Length; i++)
+            {
+                AddUsingDoll(data.usingDollList[i]);
+            }
+        }
+
+        if (data.dollBackpack.Length > 0)
+        {
+            for (int i =0; i<data.dollBackpack.Length; i++)
+            {
+                AddDollToBackpack(data.dollBackpack[i].ID, data.dollBackpack[i].num);
+            }
+        }
+
     }
 
     // 介面
@@ -89,15 +156,15 @@ public class PlayerData : MonoBehaviour
         usingDollList.Clear();
     }
 
-    public void AddDollToBackpack( string dollID )
+    public void AddDollToBackpack( string dollID, int add = 1 )
     {
         if (dollBackpack.ContainsKey(dollID))
         {
-            dollBackpack[dollID] = dollBackpack[dollID] + 1;
+            dollBackpack[dollID] = dollBackpack[dollID] + add;
         }
         else
         {
-            dollBackpack.Add(dollID, 1);
+            dollBackpack.Add(dollID, add);
         }
 
         //print("========= Doll BackPack =========");
