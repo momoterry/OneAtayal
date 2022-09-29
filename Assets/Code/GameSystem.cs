@@ -128,9 +128,9 @@ public class GameSystem : MonoBehaviour
 
     public bool LoadData()
     {
-        //print("GameSystem :: LoadData !!.......");
-
         string filePath = Application.persistentDataPath + "/" + strSaveFile;
+        print("GameSystem :: Try LoadData !! " + filePath);
+
         if ( !File.Exists(filePath)) 
         { 
             return false;

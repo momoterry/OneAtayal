@@ -22,7 +22,7 @@ public class PlayerData : MonoBehaviour
 {
     public DollData theDollData;
 
-    protected int Money = 1000;
+    protected int Money = 400;
 
     protected CharacterStat mainCharacterStat = new CharacterStat();
 
