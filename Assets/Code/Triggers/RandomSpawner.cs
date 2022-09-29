@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct ItemInfo
-{
-    public float RandomPercent;
-    public GameObject[] SpawnRefs;
-}
+
+
 
 public class RandomSpawner : MonoBehaviour
 {
+    [System.Serializable]    
+    public struct ItemInfo
+    {
+        public float RandomPercent;
+        public GameObject[] SpawnRefs;
+    }
+
     public ItemInfo[] itemInfos;
     public bool deleteSpawnedObjectOnDestory = true;
 
