@@ -10,6 +10,8 @@ public class BulletTrace : bullet_base
     public float lifeTime = 2.0f;
     public float hitDistance = 0.25f;
 
+    public GameObject hitFX;
+
     protected float myTime = 0.0f;
     protected bool loseTarget = false;
 
@@ -59,12 +61,22 @@ public class BulletTrace : bullet_base
                 loseTarget = true;
             }
         }
-        //print("Trace..." + targetObj + "  dir  " + targetDir);
+        print("Trace..." + targetObj + "  dir  " + targetDir);
     }
 
     virtual protected void DoHitTarget()
     {
 
         Destroy(gameObject);
+
+        if (hitFX)
+        {
+            BattleSystem.GetInstance().SpawnGameplayObject(hitFX, transform.position, false);
+        }
+
+        Damage myDamage;
+        myDamage.damage = baseDamage;
+        if (targetObj)
+            targetObj.SendMessage("OnDamage", myDamage);
     }
 }
