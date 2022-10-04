@@ -66,13 +66,14 @@ public class DollBackpackUI: MonoBehaviour
         Dictionary<string, int> backPackInfo = pData.GetDollBackPack();
 
         int i = 0;
+        int ih = 0;  //
         foreach ( KeyValuePair<string, int> k in backPackInfo)
         {
             GameObject bo = Instantiate(buttonRef, buttonRoot.transform);
             RectTransform rt = bo.GetComponent<RectTransform>();
             if (rt)
             {
-                rt.anchoredPosition = new Vector2(56.0f, 92.0f - (36 * i));
+                rt.anchoredPosition = new Vector2(56.0f - (36 * ih), 92.0f - (36 * i));
             }
 
             ButtonDollBackpack bDoll = bo.GetComponent<ButtonDollBackpack>();
@@ -87,6 +88,11 @@ public class DollBackpackUI: MonoBehaviour
             }
 
             i++;
+            if ( i >= 4)
+            {
+                i = 0;
+                ih++;
+            }
         }
 
     }
