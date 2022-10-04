@@ -106,9 +106,10 @@ public class DollRecovery : MonoBehaviour
 
     void StartSpawn()
     {
-        /*Debug
+        //*Debug
         if (GameSystem.GetPlayerData().GetCurrDollNum() == 0)
         {
+            GameSystem.GetPlayerData().AddUsingDoll("DollStone");
             GameSystem.GetPlayerData().AddUsingDoll("DollOne");
             GameSystem.GetPlayerData().AddUsingDoll("DollOne");
             GameSystem.GetPlayerData().AddUsingDoll("DollAce");
