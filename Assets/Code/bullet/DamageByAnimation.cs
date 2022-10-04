@@ -70,4 +70,10 @@ public class DamageByAnimation : bullet_base
             }
         }
     }
+
+    void OnFinish()
+    {
+        Destroy(gameObject);
+    }
+
 }
