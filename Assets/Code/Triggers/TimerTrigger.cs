@@ -14,13 +14,15 @@ public class TimerTrigger : MonoBehaviour
     public StepInfo[] allSteps;
 
     public bool isLoop = false;
-    public float timeAfterLoop = 0;
+    public float timeBetweenLoop = 0;
+    public bool triggeredAgainToStop = false;
 
     protected enum Phase
     {
         NONE,
         WAIT,
         ACTIVE,
+        LOOP_WAIT,
         FINISH,
     }
     protected Phase currPhase = Phase.NONE;
@@ -43,6 +45,9 @@ public class TimerTrigger : MonoBehaviour
             case Phase.ACTIVE:
                 UpdateActive();
                 break;
+            case Phase.LOOP_WAIT:
+                UpdateLoopWait();
+                break;
         }
         currPhase = nextPhase;
     }
@@ -62,21 +67,36 @@ public class TimerTrigger : MonoBehaviour
                     if (isLoop)
                     {
                         currStep = 0;
+                        nextPhase = Phase.LOOP_WAIT;
                     }
                     else
                     {
-                        nextPhase = Phase.FINISH;
+                        nextPhase = Phase.FINISH; //TODO: 如果是能反覆開關?
                     }
                 }
             }
         }
     }
 
+    void UpdateLoopWait()
+    {
+        stepTime += Time.deltaTime;
+        if (stepTime >= timeBetweenLoop)
+        {
+            stepTime = 0;
+            nextPhase = Phase.ACTIVE;
+        }
+    }
+
     void OnTG(GameObject whoTG)
     {
-        if (currPhase == Phase.WAIT)
+        if (currPhase == Phase.WAIT )
         {
             nextPhase = Phase.ACTIVE;
+        }
+        else if (triggeredAgainToStop && (currPhase == Phase.ACTIVE || currPhase == Phase.LOOP_WAIT))
+        {
+            nextPhase = Phase.FINISH;   //TODO: 如果是能反覆開關?
         }
     }
 }
