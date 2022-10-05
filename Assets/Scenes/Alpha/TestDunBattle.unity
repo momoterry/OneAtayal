@@ -265,12 +265,12 @@ MonoBehaviour:
   allSteps:
   - timeToWait: 2
     TriggerTarget: {fileID: 1767501776}
-  - timeToWait: 1
+  - timeToWait: 1.5
     TriggerTarget: {fileID: 1767501776}
-  - timeToWait: 1
+  - timeToWait: 1.5
     TriggerTarget: {fileID: 1767501776}
   isLoop: 1
-  timeBetweenLoop: 1
+  timeBetweenLoop: 2
   triggeredAgainToStop: 1
 --- !u!1001 &517973892
 PrefabInstance:
@@ -460,7 +460,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4302184561194235338, guid: dfb82840a771ab947a6f63ee5f4b2ba2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.25
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302184561194235338, guid: dfb82840a771ab947a6f63ee5f4b2ba2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4302184562674408547, guid: dfb82840a771ab947a6f63ee5f4b2ba2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -600,12 +604,12 @@ MonoBehaviour:
   allSteps:
   - timeToWait: 0
     TriggerTarget: {fileID: 921189692}
-  - timeToWait: 1
+  - timeToWait: 1.5
     TriggerTarget: {fileID: 921189692}
-  - timeToWait: 1
+  - timeToWait: 1.5
     TriggerTarget: {fileID: 921189692}
   isLoop: 1
-  timeBetweenLoop: 3
+  timeBetweenLoop: 4
   triggeredAgainToStop: 1
 --- !u!1 &797029918
 GameObject:
