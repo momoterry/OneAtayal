@@ -109,26 +109,32 @@ public class DollRecovery : MonoBehaviour
         /*Debug
         if (GameSystem.GetPlayerData().GetCurrDollNum() == 0)
         {
-            GameSystem.GetPlayerData().AddUsingDoll("DollStone");
-            GameSystem.GetPlayerData().AddUsingDoll("DollOne");
-            GameSystem.GetPlayerData().AddUsingDoll("DollOne");
+            GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
+            GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
+            GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
+            GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
+            GameSystem.GetPlayerData().AddUsingDoll("DollAce");
+            GameSystem.GetPlayerData().AddUsingDoll("DollAce");
             GameSystem.GetPlayerData().AddUsingDoll("DollAce");
             GameSystem.GetPlayerData().AddUsingDoll("DollAce");
 
-            //GameSystem.GetPlayerData().AddUsingDoll("DollOne");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollOne");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
+            GameSystem.GetPlayerData().AddUsingDoll("DollAce");
+            GameSystem.GetPlayerData().AddUsingDoll("DollAce");
+            GameSystem.GetPlayerData().AddUsingDoll("DollAce");
+            GameSystem.GetPlayerData().AddUsingDoll("DollAce");
 
-            //GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
 
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
+
+            GameSystem.GetPlayerData().AddUsingDoll("DollFire");
+            GameSystem.GetPlayerData().AddUsingDoll("DollFire");
+
+
+            GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
+            GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
+            GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
+            GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
+            GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
+            GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
 
         }
         //*/
