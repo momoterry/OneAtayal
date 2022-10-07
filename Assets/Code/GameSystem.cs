@@ -33,8 +33,10 @@ public class GameSystem : MonoBehaviour
         //print("我被喚醒了");
         if (!LoadData())
         {
+            thePlayerData.InitData();
             SaveData(); //建立存檔 !!
         }
+        thePlayerData.SetDataReady();
     }
 
     static public GameSystem GetInstance()

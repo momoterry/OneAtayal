@@ -53,7 +53,7 @@ public class BattleSystem : MonoBehaviour
     public BattleSystem() : base()
     {
         if (instance != null)
-            print("ERROR !! 超過一份 BattleSystem 存在 ");
+            print("ERROR !! 超過一份 BattleSystem 存在: ");
         instance = this;
     }
 

@@ -29,6 +29,8 @@ public class SaveData{
 
 public class PlayerData : MonoBehaviour
 {
+    protected bool isReady = false; //是否已經載入資料或完成初始化
+
     public DollData theDollData;
 
     protected int Money = 400;
@@ -42,10 +44,22 @@ public class PlayerData : MonoBehaviour
     //事件 Flag 
     protected Dictionary<string, bool> eventData = new Dictionary<string, bool>();
 
+    //全新存檔的資料初始化，比  Start() 更早會被呼叫
+    public void InitData()
+    {
+        print("==== PlayerData.InitData()");
+    }
+
+    public void SetDataReady()
+    {
+        isReady = true;
+    }
+    public bool IsReady() { return isReady; }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        //print("==== PlayerData.Start()");
     }
 
     // Update is called once per frame

@@ -55,8 +55,7 @@ public class CharacterData : MonoBehaviour
         thePlayerData.SetMainCharacterData(myStat);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void InitStat()
     {
         thePlayerData = GameSystem.GetPlayerData();
         if (!thePlayerData)
@@ -69,6 +68,22 @@ public class CharacterData : MonoBehaviour
         CalcMaxDoll();
 
         thePlayerData.SetMainCharacterData(myStat); //因為要存回 Max 值
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //thePlayerData = GameSystem.GetPlayerData();
+        //if (!thePlayerData)
+        //{
+        //    print("ERROR!!!! CharacterData Can not Get PlayerData !!!");
+        //}
+        //myStat = thePlayerData.GetMainChracterData();
+
+        //CalcMaxExp();
+        //CalcMaxDoll();
+
+        //thePlayerData.SetMainCharacterData(myStat); //因為要存回 Max 值
     }
 
     // Update is called once per frame
