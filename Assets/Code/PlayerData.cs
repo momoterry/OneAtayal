@@ -9,12 +9,21 @@ public struct SaveDataBackpckItem
     public string ID;
     public int num;
 }
+
+[System.Serializable]
+public struct SaveDataEventItem
+{
+    public string Event;
+    public bool status;
+}
+
 [System.Serializable]
 public class SaveData{
     public int Money;
     public CharacterStat mainCharacterStat;
     public string[] usingDollList;
     public SaveDataBackpckItem[] dollBackpack;
+    public SaveDataEventItem[] eventData;
 }
 
 
@@ -29,7 +38,9 @@ public class PlayerData : MonoBehaviour
     protected List<string> usingDollList = new List<string>();
 
     protected Dictionary<string, int> dollBackpack = new Dictionary<string, int>();
-    //protected int backpackDollNum = 0;
+
+    //事件 Flag 
+    protected Dictionary<string, bool> eventData = new Dictionary<string, bool>();
 
     // Start is called before the first frame update
     void Start()
@@ -81,15 +92,29 @@ public class PlayerData : MonoBehaviour
             }
         }
 
+        if (eventData.Count > 0)
+        {
+            data.eventData = new SaveDataEventItem[eventData.Count];
+            int i = 0;
+            foreach ( KeyValuePair<string, bool> k in eventData)
+            {
+                data.eventData[i].Event = k.Key;
+                data.eventData[i].status = k.Value;
+                i++;
+            }
+        }
+
         return data;
     }
 
     public void LoadSavedData( SaveData data)
     {
+        //TODO: 如果重覆載入資料的處理 ?
+
         Money = data.Money;
         mainCharacterStat = data.mainCharacterStat;
 
-        if (data.usingDollList.Length > 0)
+        if (data.usingDollList != null && data.usingDollList.Length > 0)
         {
             for (int i =0; i< data.usingDollList.Length; i++)
             {
@@ -97,11 +122,19 @@ public class PlayerData : MonoBehaviour
             }
         }
 
-        if (data.dollBackpack.Length > 0)
+        if (data.dollBackpack!= null && data.dollBackpack.Length > 0)
         {
             for (int i =0; i<data.dollBackpack.Length; i++)
             {
                 AddDollToBackpack(data.dollBackpack[i].ID, data.dollBackpack[i].num);
+            }
+        }
+
+        if (data.eventData != null &&data.eventData.Length > 0)
+        {
+            for ( int i=0; i<data.eventData.Length; i++)
+            {
+                SaveEvent(data.eventData[i].Event, data.eventData[i].status);
             }
         }
 
@@ -212,5 +245,27 @@ public class PlayerData : MonoBehaviour
         }
         return null;
     }
-    
+
+    public void SaveEvent(string eventName, bool status = true)
+    {
+        if (eventData.ContainsKey(eventName))
+        {
+            eventData[eventName] = status;
+        }
+        else
+        {
+            eventData.Add(eventName, status);
+        }
+    }
+
+    public bool GetEvent(string eventName)
+    {
+        if (eventData.ContainsKey(eventName))
+        {
+            return eventData[eventName];
+        }
+
+        return false;
+    }
+
 }
