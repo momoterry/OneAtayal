@@ -47,11 +47,20 @@ public class BattleSystem : MonoBehaviour
 
     public int GetEnemyCount() { return enemyList.Count; }
 
-    protected static BattleSystem instance;
+    protected static BattleSystem instance = null;
     public static BattleSystem GetInstance() { return instance; }
 
     public BattleSystem() : base()
     {
+        //if (instance != null)
+        //    print("ERROR !! 超過一份 BattleSystem 存在: ");
+        //instance = this;
+    }
+
+    protected void Awake()
+    {
+        GameSystem.Ensure();    //為了讓任何 Scene 都可以直接 Play !!
+
         if (instance != null)
             print("ERROR !! 超過一份 BattleSystem 存在: ");
         instance = this;
@@ -138,10 +147,6 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    protected void Awake()
-    {
-        GameSystem.Ensure();    //為了讓任何 Scene 都可以直接 Play !!
-    }
 
     // Start is called before the first frame update
     protected virtual void Start()

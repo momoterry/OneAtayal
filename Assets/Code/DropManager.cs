@@ -14,20 +14,24 @@ public class DropManager : MonoBehaviour
 {
     public DropMapping[] dropMappingArray;
 
-    protected static DropManager instance;
+    protected static DropManager instance = null;
     public static DropManager GetInstance() { return instance; }
 
     protected Dictionary<int, DropMapping> dropMap = new Dictionary<int, DropMapping>();
 
     public DropManager() : base()
     {
-        if (instance != null)
-            print("ERROR !! 超過一份 DropManager 存在 ");
-        instance = this;
+        //if (instance != null)
+        //    print("ERROR !! 超過一份 DropManager 存在 ");
+        //instance = this;
     }
 
     private void Awake()
     {
+        if (instance != null)
+            print("ERROR !! 超過一份 DropManager 存在 ");
+        instance = this;
+
         foreach (DropMapping dm in dropMappingArray)
         {
             dropMap.Add(dm.ID, dm);
