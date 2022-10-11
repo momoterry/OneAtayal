@@ -44,7 +44,7 @@ public class OrderAdjust : MonoBehaviour
 #if XZ_PLAN
         int order = -(int)((transform.position.z - bias) * 10.0f);
 #else
-        int order = -(int)(sr.transform.position.y * 10.0f);
+        int order = -(int)(transform.position.y * 10.0f);
 #endif
         foreach (Renderer sr in allSprite)
         {
