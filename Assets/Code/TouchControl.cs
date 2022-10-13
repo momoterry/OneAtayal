@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class TouchControl : MonoBehaviour
 {
-    //public PlayerController thePC; //TODO:  need system to get PC
+
+    protected PlayerControllerBase thePC = null;
+
+    protected bool isTouching = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,27 +32,40 @@ public class TouchControl : MonoBehaviour
         //        //thePC.OnAttackToward(mWorldMousePos);
         //    }
         //}
+
+        if (isTouching)
+        {
+            //print("isTouching !! " + thePC);
+            Vector3 mPos = Input.mousePosition;
+            Vector3 mWorldMousePos = Camera.main.ScreenToWorldPoint(mPos);
+            mWorldMousePos.y = 0.0f;
+            if (thePC)
+            {
+                thePC.OnMoveToPosition(mWorldMousePos);
+            }
+        }
     }
 
     void OnMouseDown()
     {
-        Vector3 mPos = Input.mousePosition;
-        Vector3 mWorldMousePos = Camera.main.ScreenToWorldPoint(mPos);
-        mWorldMousePos.z = 0.0f;
+        //Vector3 mPos = Input.mousePosition;
+        //Vector3 mWorldMousePos = Camera.main.ScreenToWorldPoint(mPos);
+        //mWorldMousePos.z = 0.0f;
 
-        print("Mouse Down !!");
+        //print("Mouse Down !!");
 
-        PlayerControllerBase thePC = BattleSystem.GetPC();
+        thePC = BattleSystem.GetPC();
         if (thePC)
         {
             //thePC.OnMoveToPosition(mWorldMousePos);
-            //thePC.OnAttackToward(mWorldMousePos);
+            isTouching = true;
         }
     }
 
     private void OnMouseUp()
     {
-        print("Mouse Up !!");
+        //print("Mouse Up !!");
+        isTouching = false;
     }
 
     //

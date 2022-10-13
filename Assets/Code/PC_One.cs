@@ -50,6 +50,10 @@ public class PC_One : PlayerControllerBase
 
     protected Animator myAnimator;
 
+    //For Touch Control
+    protected bool isMovingByTouchControl = false;
+    protected Vector3 moveTargetPos;
+
     //互動物件
     protected GameObject actionObject = null;
 
@@ -468,7 +472,26 @@ public class PC_One : PlayerControllerBase
 
         Vector2 inputVec = theInput.TheHero.Move.ReadValue<Vector2>();
 
-        //觸控介面
+        //Touch Control
+#if TOUCH_MOVE
+        if (isMovingByTouchControl)
+        {
+            Vector3 targetVec = moveTargetPos - transform.position;
+            targetVec.y = 0;
+            if (targetVec.sqrMagnitude > 0.25f)
+            {
+                bMove = true;
+                moveVec = targetVec.normalized;
+                //print("Move !! " + moveVec);
+            }
+            //else
+            //{
+            //    print("Too Small...........");
+            //}
+            isMovingByTouchControl = false;
+        }
+#endif
+        //VPad 觸控介面
         Vector2 vPadVec = Vector2.zero;
         if (BattleSystem.GetInstance().GetVPad())
         {
@@ -624,9 +647,12 @@ public class PC_One : PlayerControllerBase
 
     public override void OnMoveToPosition(Vector3 target)
     {
-        if (currState == PC_STATE.NORMAL)
+        //print("OnMoveToPosition!! " + currState);
+        if (currState == PC_STATE.NORMAL || currState == PC_STATE.ATTACK_AUTO)
         {
-            myAgent.SetDestination(target);
+            //myAgent.SetDestination(target);
+            isMovingByTouchControl = true;
+            moveTargetPos = target;
         }
     }
 
