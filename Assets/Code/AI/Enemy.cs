@@ -396,7 +396,6 @@ public class Enemy : MonoBehaviour
 
         Destroy(gameObject);
         // TODO ¦º¤`ºt¥X
-
     }
 
     protected virtual void DoOneAttack()
