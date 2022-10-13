@@ -12,7 +12,7 @@ public class EventEnabler : MonoBehaviour
 
     void Start()
     {
-        print("PlaeyrData Ready ? " + GameSystem.GetPlayerData().IsReady());
+        //print("PlaeyrData Ready ? " + GameSystem.GetPlayerData().IsReady());
 
         if (GameSystem.GetPlayerData().GetEvent(EventName))
         {
