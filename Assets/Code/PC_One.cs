@@ -41,6 +41,7 @@ public class PC_One : PlayerControllerBase
 
     //Input
     protected MyInputActions theInput;
+    protected bool inputActive = false;
 
     //移動和面向
     protected Vector3 faceDir;
@@ -118,6 +119,8 @@ public class PC_One : PlayerControllerBase
         theInput.TheHero.Shoot.performed += ctx => OnShoot();
         theInput.TheHero.Action.performed += ctx => OnActionKey();
         theInput.TheHero.ShootTo.performed += ctx => OnShootTo();
+
+        inputActive = true;
 
         myHPHandler = GetComponent<Hp_BarHandler>();
 
@@ -252,6 +255,7 @@ public class PC_One : PlayerControllerBase
         {
             theInput.Disable();
         }
+        inputActive = enable;
     }
 
     private void OnDestroy()
@@ -648,7 +652,7 @@ public class PC_One : PlayerControllerBase
     public override void OnMoveToPosition(Vector3 target)
     {
         //print("OnMoveToPosition!! " + currState);
-        if (currState == PC_STATE.NORMAL || currState == PC_STATE.ATTACK_AUTO)
+        if (inputActive && (currState == PC_STATE.NORMAL || currState == PC_STATE.ATTACK_AUTO))
         {
             //myAgent.SetDestination(target);
             isMovingByTouchControl = true;
