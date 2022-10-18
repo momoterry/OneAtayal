@@ -523,7 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnableTargets:
   - {fileID: 882056023}
-  SetEnable: 1
+  DisableTargets: []
 --- !u!1 &591234511
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,10 +573,12 @@ MonoBehaviour:
   endRoomRef: {fileID: 5802388970650273427, guid: f45f79fb6888f524bb94892e2935c5aa, type: 3}
   initRD: {fileID: 8551657297017460615}
   randomGameplays:
-  - {fileID: 4354368850358873552, guid: c25d245ec1d484d4eb58a9332b373141, type: 3}
-  - {fileID: 7577150614444199293, guid: e05f1850766911940857063c97531615, type: 3}
-  - {fileID: 8316892461714382594, guid: a18255035397b614088804a5368aef0d, type: 3}
-  finalGameplayRef: {fileID: 7818501488694643320, guid: 82c42e115f66115449e54b3fd58b0704, type: 3}
+  - {fileID: 4354368850358873552, guid: 934093d7a4e288544bc5c5ac9ffa0e71, type: 3}
+  - {fileID: 1499736313822090584, guid: f1b7d891a84606842b82932fa218725d, type: 3}
+  - {fileID: 1881954454558707468, guid: 4c3601f22d2e2954786e738b47db9eda, type: 3}
+  branchGameplays:
+  - {fileID: 4051789852061296329, guid: 71292cec902bf7149b4c95cdad2039d2, type: 3}
+  finalGameplayRef: {fileID: 0}
 --- !u!1 &657190575
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class DunGen_One : MapGeneratorBase
     public RoomDungeon initRD;
 
     public GameObject[] randomGameplays;
-    public GameObject[] branchGameplsys;
+    public GameObject[] branchGameplays;
     public GameObject finalGameplayRef;
 
     protected int RoomNum = 3;
@@ -166,9 +166,9 @@ public class DunGen_One : MapGeneratorBase
                 GameObject newG = BattleSystem.SpawnGameObj(gRef, newRoom.transform.position);
                 newG.transform.SetParent(newRoom.transform);
             }
-            else if ( !isMain && branchGameplsys.Length > 0)
+            else if ( !isMain && branchGameplays.Length > 0)
             {
-                GameObject gRef = branchGameplsys[Random.Range(0, branchGameplsys.Length)];
+                GameObject gRef = branchGameplays[Random.Range(0, branchGameplays.Length)];
                 GameObject newG = BattleSystem.SpawnGameObj(gRef, newRoom.transform.position);
                 newG.transform.SetParent(newRoom.transform);
             }
