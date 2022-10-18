@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TouchControl : MonoBehaviour
 {
@@ -48,9 +49,11 @@ public class TouchControl : MonoBehaviour
 
     void OnMouseDown()
     {
-        //Vector3 mPos = Input.mousePosition;
-        //Vector3 mWorldMousePos = Camera.main.ScreenToWorldPoint(mPos);
-        //mWorldMousePos.z = 0.0f;
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            //ªí¥Ü«ö¨ì UI
+            return;
+        }
 
         //print("Mouse Down !!");
 
