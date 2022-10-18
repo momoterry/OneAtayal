@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 
 public class BattleSystem : MonoBehaviour
@@ -26,6 +27,10 @@ public class BattleSystem : MonoBehaviour
 
     public int MaxLevel = 5;
     protected int currLevel = 1;
+
+    //Input 相關
+    protected int touchLayer;
+    protected List<GameObject> touchDownTracing = new List<GameObject>();
 
     //血瓶
     public int initPotion = 3;
@@ -64,6 +69,8 @@ public class BattleSystem : MonoBehaviour
         if (instance != null)
             print("ERROR !! 超過一份 BattleSystem 存在: ");
         instance = this;
+
+        touchLayer = LayerMask.GetMask("TouchPlane");
     }
 
     public GameObject GetPlayer() { return thePlayer; }
@@ -189,6 +196,7 @@ public class BattleSystem : MonoBehaviour
                 UpdateInit();
                 break;
             case BATTLE_GAME_STATE.BATTLE:
+                UpdateInput();
                 break;
             case BATTLE_GAME_STATE.FAIL:
                 UpdateFail();
@@ -228,6 +236,33 @@ public class BattleSystem : MonoBehaviour
         //    theBattleHUD.SetPlayerInfo(thePC.GetHP(), thePC.GetHPMax(), thePC.GetMP(), thePC.GetMPMax(), thePC.GetATTACK());
         //    theBattleHUD.SetPotionNum(currPotion, maxPotion);
         //}
+    }
+
+    protected virtual void UpdateInput()
+    {
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+
+            RaycastHit hitInfo = new RaycastHit();
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, Mathf.Infinity, touchLayer))
+            {
+                //Debug.Log("Object Hit is " + hitInfo.collider.gameObject.name);
+                hitInfo.collider.gameObject.SendMessage("OnBattleTouchDown", hitInfo.point);
+                touchDownTracing.Add(hitInfo.collider.gameObject);
+            }
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            foreach (GameObject o in touchDownTracing)
+            {
+                if (o)
+                {
+                    o.SendMessage("OnBattleTouchUp");
+                }
+            }
+            touchDownTracing.Clear();
+        }
+        
     }
 
     protected void UpdateFail()

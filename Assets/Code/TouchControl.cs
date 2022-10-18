@@ -47,29 +47,44 @@ public class TouchControl : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
+    //void OnMouseDown()
+    //{
+    //    if (EventSystem.current.IsPointerOverGameObject())
+    //    {
+    //        //表示按到 UI
+    //        return;
+    //    }
+
+    //    //print("Mouse Down !!");
+
+    //    thePC = BattleSystem.GetPC();
+    //    if (thePC)
+    //    {
+    //        //thePC.OnMoveToPosition(mWorldMousePos);
+    //        isTouching = true;
+    //    }
+    //}
+
+    void OnBattleTouchDown(Vector3 point)
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            //表示按到 UI
-            return;
-        }
-
-        //print("Mouse Down !!");
-
+        //print("TouchControl::OnBattleTouchDown!! " + point);
         thePC = BattleSystem.GetPC();
         if (thePC)
         {
-            //thePC.OnMoveToPosition(mWorldMousePos);
             isTouching = true;
         }
     }
 
-    private void OnMouseUp()
+    void OnBattleTouchUp()
     {
-        //print("Mouse Up !!");
         isTouching = false;
     }
+
+    //private void OnMouseUp()
+    //{
+    //    print("Mouse Up !!");
+    //    isTouching = false;
+    //}
 
     //
 }

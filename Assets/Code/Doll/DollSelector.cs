@@ -27,7 +27,7 @@ public class DollSelector : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    private void OnMouseDown_ToRemove()
     {
 
         if (theCanceller)
