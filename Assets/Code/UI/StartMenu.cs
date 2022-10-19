@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class StartMenu : MonoBehaviour
         public CardPlayerCharacter card;
     }
     public PlayerSelectInfo[] cardList;
+
+    public Text title;
+    protected float titleTime = 0;
 
     private int currPlayerCharacterIndex = 0;
 
@@ -30,7 +34,34 @@ public class StartMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+
+        UpdateTitle();
+    }
+
+    void UpdateTitle()
+    {
+        if (title == null)
+            return;
+
+        float Period = 10.0f;
+        float wait = 2.0f;
+        titleTime += Time.deltaTime;
+        if (titleTime >= Period + wait)
+        {
+            titleTime = wait;
+        }
+        else if (titleTime > wait)
+        {
+            float hue = (titleTime - wait) / Period;
+
+            title.color = Color.HSVToRGB(hue, 1.0f, 1.0f);
+        }
+        else if (titleTime < wait)
+        {
+            float sat = titleTime / wait;
+            title.color = Color.HSVToRGB(0, sat, 1.0f);
+        }
     }
 
     public void OnGameStart()
