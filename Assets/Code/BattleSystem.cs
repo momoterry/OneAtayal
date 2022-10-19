@@ -70,7 +70,7 @@ public class BattleSystem : MonoBehaviour
             print("ERROR !! 超過一份 BattleSystem 存在: ");
         instance = this;
 
-        touchLayer = LayerMask.GetMask("TouchPlane");
+        touchLayer = LayerMask.GetMask("TouchPlane", "UI");
     }
 
     public GameObject GetPlayer() { return thePlayer; }
@@ -240,13 +240,15 @@ public class BattleSystem : MonoBehaviour
 
     protected virtual void UpdateInput()
     {
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        //TODO : 避免 UI 衝突的方法有點暴力, 要改
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.currentSelectedGameObject)
         {
+            //print("Mouse Down On : "+ EventSystem.current.currentSelectedGameObject);
 
             RaycastHit hitInfo = new RaycastHit();
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, Mathf.Infinity, touchLayer))
             {
-                //Debug.Log("Object Hit is " + hitInfo.collider.gameObject.name);
+                Debug.Log("Object Hit is " + hitInfo.collider.gameObject.name);
                 hitInfo.collider.gameObject.SendMessage("OnBattleTouchDown", hitInfo.point);
                 touchDownTracing.Add(hitInfo.collider.gameObject);
             }
