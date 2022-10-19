@@ -105,6 +105,61 @@ public class GameSystem : MonoBehaviour
     {
         
     }
+#if SAVE_TO_PLAYERPREFS
+    public void SaveData()
+    {
+        PlayerPrefs.DeleteAll();
+
+        string playerName = "DefTerry_";
+        SaveData theSaveData = thePlayerData.GetSaveData();
+
+        PlayerPrefs.SetString("PlayerName", playerName);
+        PlayerPrefs.SetInt(playerName+"Money", theSaveData.Money);
+        //print("Money: " + theSaveData.Money);
+        PlayerPrefs.SetInt(playerName+"LV", theSaveData.mainCharacterStat.LV);
+        //print("LV: " + theSaveData.mainCharacterStat.LV);
+        PlayerPrefs.SetInt(playerName + "EXP", theSaveData.mainCharacterStat.LV);
+
+
+        PlayerPrefs.Save();
+        print("......PlayerPrefs Save Done !!");
+    }
+
+    public void DeleteData()
+    {
+        print("......PlayerPrefs Deleted !!");
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+    }
+
+    public bool LoadData()
+    {
+        string playerName = PlayerPrefs.GetString("PlayerName", "");
+        if (playerName == "")
+        {
+            print("........ No PlayerPrefs Data !!");
+            return false;
+        }
+
+        print("...... Found Saved PlayerPrefs, PlayerName = " + playerName);
+
+        SaveData loadData = new SaveData();
+        loadData.mainCharacterStat = new CharacterStat();
+        loadData.Money = PlayerPrefs.GetInt(playerName+"Money", 0);
+        loadData.mainCharacterStat.LV = PlayerPrefs.GetInt(playerName+"LV", 0);
+        loadData.mainCharacterStat.Exp = PlayerPrefs.GetInt(playerName+"EXP", 0);
+
+        thePlayerData.LoadSavedData(loadData);
+
+        return true;
+    }
+
+#else
+    public void DeleteData()
+    {
+        print("ERROR!! TODO.... DeleteData");
+    }
+
 
     public void SaveData()
     {
@@ -149,5 +204,5 @@ public class GameSystem : MonoBehaviour
 
         return true;
     }
-
+#endif
 }

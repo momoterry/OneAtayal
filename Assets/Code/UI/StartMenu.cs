@@ -82,4 +82,9 @@ public class StartMenu : MonoBehaviour
         currPlayerCharacterIndex = cardIndex;
     }
 
+    public void OnResetData()
+    {
+        GameSystem.GetInstance().DeleteData();
+    }
+
 }
