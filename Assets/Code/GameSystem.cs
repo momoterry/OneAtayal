@@ -120,6 +120,27 @@ public class GameSystem : MonoBehaviour
         //print("LV: " + theSaveData.mainCharacterStat.LV);
         PlayerPrefs.SetInt(playerName + "EXP", theSaveData.mainCharacterStat.LV);
 
+        //使用中的 Doll
+        if (theSaveData.usingDollList != null)
+        {
+            int usingDollSize = theSaveData.usingDollList.Length;
+            PlayerPrefs.SetInt(playerName + "DollListSize", usingDollSize);
+            for (int i = 0; i < usingDollSize; i++)
+            {
+                PlayerPrefs.SetString(playerName + "DollList_" + i, theSaveData.usingDollList[i]);
+            }
+        }
+        // Doll 背包
+        if (theSaveData.dollBackpack != null)
+        {
+            int backPackSize = theSaveData.dollBackpack.Length;
+            PlayerPrefs.SetInt(playerName + "BackPackSize", backPackSize);
+            for (int i=0; i< backPackSize; i++)
+            {
+                PlayerPrefs.SetString(playerName + "BackPack_ID_" + i, theSaveData.dollBackpack[i].ID);
+                PlayerPrefs.SetInt(playerName + "BackPack_num_" + i, theSaveData.dollBackpack[i].num);
+            }
+        }
 
         PlayerPrefs.Save();
         print("......PlayerPrefs Save Done !!");
@@ -148,6 +169,28 @@ public class GameSystem : MonoBehaviour
         loadData.Money = PlayerPrefs.GetInt(playerName+"Money", 0);
         loadData.mainCharacterStat.LV = PlayerPrefs.GetInt(playerName+"LV", 0);
         loadData.mainCharacterStat.Exp = PlayerPrefs.GetInt(playerName+"EXP", 0);
+
+        //使用中的 Doll
+        int usingDollSize = PlayerPrefs.GetInt(playerName + "DollListSize", 0);
+        if (usingDollSize > 0)
+        {
+            loadData.usingDollList = new string[usingDollSize];
+            for (int i=0; i<usingDollSize; i++)
+            {
+                loadData.usingDollList[i] = PlayerPrefs.GetString(playerName + "DollList_" + i, "");
+            }
+        }
+        // Doll 背包
+        int backPackSize = PlayerPrefs.GetInt(playerName + "BackPackSize", 0);
+        if (backPackSize > 0)
+        {
+            loadData.dollBackpack = new SaveDataBackpckItem[backPackSize];
+            for (int i=0; i<backPackSize; i++)
+            {
+                loadData.dollBackpack[i].ID = PlayerPrefs.GetString(playerName + "BackPack_ID_" + i, "");
+                loadData.dollBackpack[i].num = PlayerPrefs.GetInt(playerName + "BackPack_num_" + i, 0);
+            }
+        }
 
         thePlayerData.LoadSavedData(loadData);
 
