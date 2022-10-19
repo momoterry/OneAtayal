@@ -151,6 +151,8 @@ public class GameSystem : MonoBehaviour
         print("......PlayerPrefs Deleted !!");
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
+
+        thePlayerData.InitData();
     }
 
     public bool LoadData()

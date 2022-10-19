@@ -33,7 +33,7 @@ public class PlayerData : MonoBehaviour
 
     public DollData theDollData;
 
-    protected int Money = 400;
+    protected int Money = 0;
 
     protected CharacterStat mainCharacterStat = new CharacterStat();
 
@@ -48,6 +48,12 @@ public class PlayerData : MonoBehaviour
     public void InitData()
     {
         print("==== PlayerData.InitData()");
+        Money = 400;
+        mainCharacterStat.LV = 1;
+        mainCharacterStat.Exp = 0;
+        usingDollList.Clear();
+        dollBackpack.Clear();
+        eventData.Clear();
     }
 
     public void SetDataReady()
