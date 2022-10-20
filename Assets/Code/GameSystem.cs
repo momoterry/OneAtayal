@@ -15,6 +15,9 @@ public class GameSystem : MonoBehaviour
     //Skill 相關 //TODO: 這部份應該改到 PlayerData 中
     private Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
 
+    //Option 相關 //TODO: 應該移到真正的 PlayerPref 當中
+    protected bool useVpadControl = true;
+
     protected string strSaveFile = "mySave.txt";
 
     static private GameSystem instance;
@@ -37,6 +40,10 @@ public class GameSystem : MonoBehaviour
             SaveData(); //建立存檔 !!
         }
         thePlayerData.SetDataReady();
+
+#if TOUCH_MOVE
+        useVpadControl = false;
+#endif
     }
 
     static public GameSystem GetInstance()
@@ -54,6 +61,9 @@ public class GameSystem : MonoBehaviour
             //print("加載完, instace =" + instance);
         }
     }
+
+    static public void SetUseVPad( bool useVPad ) { instance.useVpadControl = useVPad; }
+    static public bool IsUseVpad() { return instance.useVpadControl; }
 
     static public PlayerData GetPlayerData()
     {

@@ -477,8 +477,7 @@ public class PC_One : PlayerControllerBase
         Vector2 inputVec = theInput.TheHero.Move.ReadValue<Vector2>();
 
         //Touch Control
-#if TOUCH_MOVE
-        if (isMovingByTouchControl)
+        if ( !GameSystem.IsUseVpad() && isMovingByTouchControl)
         {
             Vector3 targetVec = moveTargetPos - transform.position;
             targetVec.y = 0;
@@ -494,7 +493,7 @@ public class PC_One : PlayerControllerBase
             //}
             isMovingByTouchControl = false;
         }
-#endif
+
         //VPad Ä²±±¤¶­±
         Vector2 vPadVec = Vector2.zero;
         if (BattleSystem.GetInstance().GetVPad())

@@ -248,7 +248,7 @@ public class BattleSystem : MonoBehaviour
             RaycastHit hitInfo = new RaycastHit();
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, Mathf.Infinity, touchLayer))
             {
-                Debug.Log("Object Hit is " + hitInfo.collider.gameObject.name);
+                //Debug.Log("Object Hit is " + hitInfo.collider.gameObject.name);
                 hitInfo.collider.gameObject.SendMessage("OnBattleTouchDown", hitInfo.point);
                 touchDownTracing.Add(hitInfo.collider.gameObject);
             }

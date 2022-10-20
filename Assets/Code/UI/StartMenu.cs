@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
+    public GameObject OptionMenu;
     //TODO: 這些資料應該被設定在更好的地方
     [System.Serializable]
     public struct PlayerSelectInfo{
@@ -17,7 +18,7 @@ public class StartMenu : MonoBehaviour
     public Text title;
     protected float titleTime = 0;
 
-    private int currPlayerCharacterIndex = 0;
+    protected int currPlayerCharacterIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,11 @@ public class StartMenu : MonoBehaviour
         {
             cardList[i].card.SetupByStartmenu(this, i);
             cardList[i].card.SetSelected(i == currPlayerCharacterIndex);
+        }
+
+        if (OptionMenu)
+        {
+            OptionMenu.SetActive(false);
         }
     }
 
@@ -64,13 +70,26 @@ public class StartMenu : MonoBehaviour
         }
     }
 
+    protected void DoGameStart()
+    {
+        SceneManager.LoadScene("HubV_Alpha");
+
+    }
+
     public void OnGameStart()
     {
         print("START!!");
 
         //GameSystem.GetInstance().SetPlayerCharacterRef(cardList[currPlayerCharacterIndex].objRef);
-        SceneManager.LoadScene("HubV_Alpha");
-        
+
+        if (OptionMenu)
+        {
+            OptionMenu.SetActive(true);
+        }
+        else
+        {
+            DoGameStart();
+        }
     }
 
     public void OnPlayerCharacterCardSelected(int cardIndex)
@@ -86,5 +105,19 @@ public class StartMenu : MonoBehaviour
     {
         GameSystem.GetInstance().DeleteData();
     }
+
+    public void OnSelectVPad()
+    {
+        GameSystem.SetUseVPad(true);
+        DoGameStart();
+    }
+
+    public void OnSelectTouchControl()
+    {
+        GameSystem.SetUseVPad(false);
+        DoGameStart();
+    }
+
+
 
 }

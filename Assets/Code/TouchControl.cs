@@ -13,9 +13,12 @@ public class TouchControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-#if !TOUCH_MOVE
-        this.enabled = false;
-#endif
+//#if !TOUCH_MOVE
+        if (GameSystem.IsUseVpad())
+        {
+            this.enabled = false;
+        }
+//#endif
     }
 
     // Update is called once per frame
