@@ -142,12 +142,12 @@ MonoBehaviour:
   positionType: 2
   bulletRef: {fileID: 2820250728779406873, guid: 32cf3bce9e2c7724bbaf2abc5f4ac97c, type: 3}
   AttackInit: 10
-  SearchRange: 8
+  SearchRange: 10
   canRevie: 1
   PositionRangeIn: 1
   PositionRangeOut: 2
-  AttackRangeIn: 4
-  AttackRangeOut: 5
+  AttackRangeIn: 6
+  AttackRangeOut: 8
   attackWait: 0.5
   attackCD: 2
   RunSpeed: 10
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP_Max: 100
+  DamageRatio: 1
 --- !u!114 &8638560577857950049
 MonoBehaviour:
   m_ObjectHideFlags: 0
