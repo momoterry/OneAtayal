@@ -56,6 +56,8 @@ public class Battle_HUD : MonoBehaviour
 //#if TOUCH_MOVE
         if (!GameSystem.IsUseVpad() && theVPad)
         {
+            theVPad.vCenter.gameObject.SetActive(false);
+            theVPad.vStick.gameObject.SetActive(false);
             theVPad.gameObject.SetActive(false);
         }
 //#endif

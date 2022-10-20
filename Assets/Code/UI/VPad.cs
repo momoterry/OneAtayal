@@ -14,6 +14,8 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
     protected Vector2 defaultCenter;
     protected Vector2 currVector = Vector2.zero;
 
+    protected bool defaultShowPad = true;
+
     public Vector2 GetCurrVector() { return currVector; }
 
     void Start()
@@ -22,8 +24,8 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         if (actionButton)
             actionButton.SetActive(false);
 
-        vCenter.enabled = false;
-        vStick.enabled = false;
+        vCenter.enabled = defaultShowPad;
+        vStick.enabled = defaultShowPad;
     }
 
     public void OnDrag(PointerEventData data)
@@ -71,8 +73,8 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         vStick.rectTransform.anchoredPosition = Vector2.zero;
         currVector = Vector2.zero;
 
-        vCenter.enabled = false;
-        vStick.enabled = false;
+        vCenter.enabled = defaultShowPad;
+        vStick.enabled = defaultShowPad;
     }
 
 
