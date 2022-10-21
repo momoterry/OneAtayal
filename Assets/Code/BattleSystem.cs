@@ -259,7 +259,7 @@ public class BattleSystem : MonoBehaviour
             {
                 if (o)
                 {
-                    o.SendMessage("OnBattleTouchUp");
+                    o.SendMessage("OnBattleTouchUp", SendMessageOptions.DontRequireReceiver);
                 }
             }
             touchDownTracing.Clear();

@@ -667,7 +667,7 @@ public class PC_One : PlayerControllerBase
             actionObject.SendMessage("OnAction");
 
             actionObject = null;
-            if (BattleSystem.GetInstance().GetVPad())
+            if (GameSystem.IsUseVpad() && BattleSystem.GetInstance().GetVPad())
                 BattleSystem.GetInstance().GetVPad().OnActionOff();
         }
     }
@@ -677,7 +677,7 @@ public class PC_One : PlayerControllerBase
         if (actionObject == null)
         {
             actionObject = obj;
-            if (BattleSystem.GetInstance().GetVPad())
+            if (GameSystem.IsUseVpad() && BattleSystem.GetInstance().GetVPad())
                 BattleSystem.GetInstance().GetVPad().OnActionOn();
             return true;
         }
