@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 147753574740707073}
   - component: {fileID: 6251412425454616289}
   - component: {fileID: 6822689608961949016}
-  - component: {fileID: 7164836772689795819}
+  - component: {fileID: 7744869068792808113}
   - component: {fileID: 4051375774587742031}
   m_Layer: 0
   m_Name: WhiteFirePillar
@@ -107,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7164836772689795819
+--- !u!114 &7744869068792808113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,11 +116,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2845395446973379262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a4260cd3a06c5949887e627d527f2dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ebfdf9b67af680499568512f5e9477d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BoxSize: {x: 1, y: 1}
   hitFX: {fileID: 4216302426155839046, guid: 492a5acd227e36440977f27098111c41, type: 3}
+  loopTime: 2
+  myAnimator: {fileID: 6822689608961949016}
 --- !u!114 &4051375774587742031
 MonoBehaviour:
   m_ObjectHideFlags: 0
