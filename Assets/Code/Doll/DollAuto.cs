@@ -22,6 +22,7 @@ public class DollAuto : Doll
 
     //== 以上其實是 public
     protected float timeToAttack = 0;
+    protected float attackCDLeft = 0;
 
     protected GameObject myMaster;
 
@@ -112,7 +113,7 @@ public class DollAuto : Doll
                 }              
                 break;
             case AutoState.ATTACK:
-                timeToAttack = attackWait;
+                timeToAttack = Mathf.Max( attackWait, attackCDLeft);    //如果上一個 CD 還沒結束, 就要等 (不能用甩槍加速)
                 StopMove();
                 break;
             //case AutoState.WAIT_REVIVE:
@@ -164,6 +165,10 @@ public class DollAuto : Doll
                 //    break;
             }
         }
+
+        attackCDLeft -= Time.deltaTime;
+        if (attackCDLeft < 0)
+            attackCDLeft = 0;
 
     }
 
@@ -317,6 +322,7 @@ public class DollAuto : Doll
         {
             DoOneAttack();
             timeToAttack = attackCD;
+            attackCDLeft = attackCD;    //避免換 State 以後清零
         }
 
     }
