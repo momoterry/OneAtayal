@@ -106,7 +106,7 @@ public class DollRecovery : MonoBehaviour
 
     void StartSpawn()
     {
-        /*Debug
+        //*Debug
         if (GameSystem.GetPlayerData().GetCurrDollNum() == 0)
         {
             GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
@@ -125,18 +125,18 @@ public class DollRecovery : MonoBehaviour
 
 
 
-            //GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
             GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
+            GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
+            GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
+            GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
 
 
             //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
             //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
             GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
             GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
+            GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
+            GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
 
         }
         //*/
