@@ -9,6 +9,7 @@ public class ActionTG : MonoBehaviour
     public GameObject hint = null;
 
     public bool deleteAfterAction = false;
+    public bool continueAction = false;
 
     protected PlayerControllerBase playerToActive = null;
     protected PlayerControllerBase pendingPlayer = null;
@@ -59,17 +60,23 @@ public class ActionTG : MonoBehaviour
     {
         if (result)
         {
-            if (hint) //TODO: 是否加一個參數來關掉提示?
+            if (!deleteAfterAction)
             {
-                hint.gameObject.SetActive(false);
-            }
-            if (playerToActive)
-            {
-                playerToActive.OnUnregisterActionObject(gameObject);
-                playerToActive = null;
-            }
+                if (!continueAction)
+                {
+                    if (hint)
+                    {
+                        hint.gameObject.SetActive(false);
+                    }
 
-            if (deleteAfterAction)
+                    if (playerToActive)
+                    {
+                        playerToActive.OnUnregisterActionObject(gameObject);
+                        playerToActive = null;
+                    }
+                }
+            }
+            else
             {
                 Destroy(gameObject);
             }

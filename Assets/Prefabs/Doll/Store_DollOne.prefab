@@ -237,6 +237,7 @@ Transform:
   - {fileID: 8792527192317695715}
   - {fileID: 623129920481810065}
   - {fileID: 280858144514662176}
+  - {fileID: 7317120009612295202}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -257,6 +258,72 @@ MonoBehaviour:
   CostMoney: 200
   SpawnDistance: 4
   theTalk: {fileID: 3089778460332293235}
+--- !u!1001 &53631034
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2277958548633157608}
+    m_Modifications:
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120009562858523, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_Name
+      value: BillBoard_Money (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317120010817394221, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+      propertyPath: m_Text
+      value: 200
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+--- !u!4 &7317120009612295202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7317120009562858520, guid: 34b38d279290b6841848767c953d91b3, type: 3}
+  m_PrefabInstance: {fileID: 53631034}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3743277302247062493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -276,6 +343,10 @@ PrefabInstance:
       propertyPath: TriggerTarget
       value: 
       objectReference: {fileID: 2277958548633157614}
+    - target: {fileID: 1886899707721466646, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
+      propertyPath: continueAction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1886899707721466646, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
       propertyPath: deleteWhenActive
       value: 0

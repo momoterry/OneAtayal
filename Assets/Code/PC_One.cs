@@ -666,9 +666,10 @@ public class PC_One : PlayerControllerBase
         {
             actionObject.SendMessage("OnAction");
 
-            actionObject = null;
-            if (GameSystem.IsUseVpad() && BattleSystem.GetInstance().GetVPad())
-                BattleSystem.GetInstance().GetVPad().OnActionOff();
+            //Terry: 交給 actionObject 來決定是否能繼續接受 Action
+            //actionObject = null;
+            //if (GameSystem.IsUseVpad() && BattleSystem.GetInstance().GetVPad())
+            //    BattleSystem.GetInstance().GetVPad().OnActionOff();
         }
     }
 
@@ -689,7 +690,7 @@ public class PC_One : PlayerControllerBase
         if (actionObject == obj || actionObject == null)
         {
             actionObject = null;
-            if (BattleSystem.GetInstance().GetVPad())
+            if (GameSystem.IsUseVpad() && BattleSystem.GetInstance().GetVPad())
                 BattleSystem.GetInstance().GetVPad().OnActionOff();
             return true;
         }
