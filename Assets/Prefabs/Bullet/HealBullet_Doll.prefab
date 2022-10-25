@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7358326858321125717}
   - component: {fileID: 5762255056787322916}
   m_Layer: 0
-  m_Name: HealBullet
+  m_Name: HealBullet_Doll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,11 +60,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08e460cf25a0594aa01aea1b8dfa0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 10
   turnSpeed: 720
   loseAngle: 180
   lifeTime: 2
   hitDistance: 0.5
+  hitFX: {fileID: 0}
   healRatio: 0.05
   healFX: {fileID: 2349360926062933808, guid: 86346f98b53b53443af314932ed834ce, type: 3}
 --- !u!1 &5497387898531642647
