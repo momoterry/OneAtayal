@@ -151,6 +151,19 @@ public class GameSystem : MonoBehaviour
                 PlayerPrefs.SetInt(playerName + "BackPack_num_" + i, theSaveData.dollBackpack[i].num);
             }
         }
+        //Event
+        if (theSaveData.eventData != null)
+        {
+            int eventDataSize = theSaveData.eventData.Length;
+            PlayerPrefs.SetInt(playerName + "EventDataSize", eventDataSize);
+            //print("...... Save EventDataSize in PlayerPrefs: " + eventDataSize);
+            for (int i=0; i<eventDataSize; i++)
+            {
+                PlayerPrefs.SetString(playerName + "Event_ID_" + i, theSaveData.eventData[i].Event);
+                PlayerPrefs.SetInt(playerName + "Event_Status_" + i, theSaveData.eventData[i].status ? 1:0);
+                //print("......Save Event Data in PlayerPrefs: " + theSaveData.eventData[i].Event + " status = " + theSaveData.eventData[i].status);
+            }
+        }
 
         PlayerPrefs.Save();
         print("......PlayerPrefs Save Done !!");
@@ -201,6 +214,19 @@ public class GameSystem : MonoBehaviour
             {
                 loadData.dollBackpack[i].ID = PlayerPrefs.GetString(playerName + "BackPack_ID_" + i, "");
                 loadData.dollBackpack[i].num = PlayerPrefs.GetInt(playerName + "BackPack_num_" + i, 0);
+            }
+        }
+        //Event
+        int eventDataSize = PlayerPrefs.GetInt(playerName + "EventDataSize", 0);
+        //print(".....LoadData, eventDataSize = " + eventDataSize);
+        if (eventDataSize > 0)
+        {
+            loadData.eventData = new SaveDataEventItem[eventDataSize];
+            for (int i=0; i< eventDataSize; i++)
+            {
+                loadData.eventData[i].Event = PlayerPrefs.GetString(playerName + "Event_ID_" + i, "");
+                loadData.eventData[i].status = (PlayerPrefs.GetInt(playerName + "Event_Status_" + i, 0) == 1);
+                //print("......Found Event Data in PlayerPrefs: " + loadData.eventData[i].Event + " status = " + loadData.eventData[i].status);
             }
         }
 
