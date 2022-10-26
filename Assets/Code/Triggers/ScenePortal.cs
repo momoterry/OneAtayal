@@ -10,6 +10,9 @@ public class ScenePortal : MonoBehaviour
     public SpriteRenderer fadeBlocker;
     public float fadeTime = 0.5f;
 
+    public bool messageHint = false;
+    public string hintLevelName = "";
+
     protected float currTime = 0;
     void Start()
     {
@@ -36,12 +39,41 @@ public class ScenePortal : MonoBehaviour
         }
     }
 
-    void OnTG(GameObject whoTG)
+    protected void DoTeleport()
     {
         currTime = fadeTime;
         if (fadeBlocker)
             fadeBlocker.gameObject.SetActive(true);
         BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
+    }
+
+    void OnTG(GameObject whoTG)
+    {
+        //currTime = fadeTime;
+        //if (fadeBlocker)
+        //    fadeBlocker.gameObject.SetActive(true);
+        //BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
+        if (messageHint)
+        {
+            BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
+            SystemUI.ShowMessageBox(gameObject, "¶Ç°e¨ì " + hintLevelName + " ¶Ü?");
+        }
+        else
+        {
+            DoTeleport();
+        }
+    }
+
+    public void OnMessageBoxResult(MessageBox.RESULT result)
+    {
+        if (result == MessageBox.RESULT.YES)
+        {
+            DoTeleport();
+        }
+        else
+        {
+            BattleSystem.GetInstance().GetPlayerController().ForceStop(false);
+        }
     }
 
     void DoLoadScene()
