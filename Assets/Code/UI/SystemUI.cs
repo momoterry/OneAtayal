@@ -23,6 +23,7 @@ public class SystemUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         if (theMessageBox)
         {
             theMessageBox.gameObject.SetActive(false);
