@@ -21,12 +21,12 @@ public class HpBar_PA : MonoBehaviour
         
     }
 
-    public void SetValue(float hp, float hpMax)
+    public virtual void SetValue(float hp, float hpMax)
     {
         SetFillRate( hp / hpMax);
     }
 
-    public void SetMPValue(float mp, float mpMax)
+    public virtual void SetMPValue(float mp, float mpMax)
     {
         SetManaFillRate(mp / mpMax);
     }
