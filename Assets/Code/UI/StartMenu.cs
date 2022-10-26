@@ -103,7 +103,16 @@ public class StartMenu : MonoBehaviour
 
     public void OnResetData()
     {
-        GameSystem.GetInstance().DeleteData();
+        //GameSystem.GetInstance().DeleteData();
+        SystemUI.ShowMessageBox(gameObject, "你確定要重設記錄? 所有存檔將被刪除....");
+    }
+
+    public void OnMessageBoxResult(MessageBox.RESULT result)
+    {
+        if (result == MessageBox.RESULT.YES)
+        {
+            GameSystem.GetInstance().DeleteData();
+        }
     }
 
     public void OnSelectVPad()
