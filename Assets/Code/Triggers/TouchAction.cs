@@ -7,10 +7,10 @@ public class TouchAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameSystem.IsUseVpad())
-        {
-            gameObject.SetActive(false);
-        }
+        //if (GameSystem.IsUseVpad())
+        //{
+        //    gameObject.SetActive(false);
+        //}
     }
 
     // Update is called once per frame
