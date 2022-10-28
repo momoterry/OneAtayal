@@ -74,7 +74,7 @@ public class DollMenu : MonoBehaviour
             RectTransform rt = bo.GetComponent<RectTransform>();
             if (rt)
             {
-                rt.anchoredPosition = new Vector2(-56.0f + (36 * i), 92.0f - (36 * ih));
+                rt.anchoredPosition = new Vector2(-54.0f + (36 * i), 92.0f - (36 * ih));
             }
 
             ButtonDollBackpack bDoll = bo.GetComponent<ButtonDollBackpack>();
