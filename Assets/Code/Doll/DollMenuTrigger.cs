@@ -23,6 +23,7 @@ public class DollMenuTrigger : MonoBehaviour
         if (theMenu)
         {
             theMenu.OpenMenu();
+            whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
         }
     }
 

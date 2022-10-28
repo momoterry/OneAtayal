@@ -14,7 +14,10 @@ public class DollMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //OpenBackpackUI();
+        if (buttonRoot)
+        {
+            buttonRoot.gameObject.SetActive(false);
+        }
     }
 
     protected float testTime = 0.2f;
@@ -35,12 +38,13 @@ public class DollMenu : MonoBehaviour
 
     public void OpenMenu()
     {
-
         if (buttonRoot)
         {
             buttonRoot.gameObject.SetActive(true);
+            ClearButtons(); //以免重復開啟造成問題
             CreateButtons();
         }
+        BattleSystem.GetPC().ForceStop(true);
     }
 
     public void CloseMenu()
@@ -50,6 +54,7 @@ public class DollMenu : MonoBehaviour
         {
             buttonRoot.gameObject.SetActive(false);
         }
+        BattleSystem.GetPC().ForceStop(false);
     }
 
  
