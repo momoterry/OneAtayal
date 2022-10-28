@@ -238,7 +238,13 @@ public class GameSystem : MonoBehaviour
 #else
     public void DeleteData()
     {
-        print("ERROR!! TODO.... DeleteData");
+        //print("ERROR!! TODO.... DeleteData");
+        string filePath = Application.persistentDataPath + "/" + strSaveFile;
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+        }
+        thePlayerData.InitData();
     }
 
 
