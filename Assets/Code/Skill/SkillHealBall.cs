@@ -23,12 +23,17 @@ public class SkillHealBall : SkillShoot
         {
             if (!d.gameObject.activeInHierarchy)
                 continue;
-            //if (d == this)
-            //    continue;
+
             HitBody body = d.GetComponent<HitBody>();
             if (body && body.GetHP() < body.GetHPMax())
             {
-                float hpRatio = body.GetHP() / body.GetHPMax();
+                float preHealValue = 0;
+                PreHealInfo pi = d.GetComponent<PreHealInfo>();
+                if (pi)
+                {
+                    preHealValue = pi.GetPreHeal();
+                }
+                float hpRatio = (body.GetHP()+preHealValue) / body.GetHPMax();
                 if (hpRatio < bestTargetHpRatio)
                 {
                     myTarget = body.gameObject;

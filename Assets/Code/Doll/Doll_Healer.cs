@@ -12,7 +12,13 @@ public class Doll_Healer : DollAuto
         if (pc.GetHP() < pc.GetHPMax())
         {
             //print("Player HP  " + pc.GetHP() + " / " + pc.GetHPMax());
-            bestTargetHpRatio = pc.GetHP() / pc.GetHPMax();
+            float preHealValue = 0;
+            PreHealInfo pi = pc.GetComponent<PreHealInfo>();
+            if (pi)
+            {
+                preHealValue = pi.GetPreHeal();
+            }
+            bestTargetHpRatio = ( pc.GetHP()+preHealValue ) / pc.GetHPMax();
             myTarget = pc.gameObject;
         }
         else
@@ -29,7 +35,14 @@ public class Doll_Healer : DollAuto
             HitBody body = d.GetComponent<HitBody>();
             if (body && body.GetHP()< body.GetHPMax())
             {
-                float hpRatio = body.GetHP() / body.GetHPMax();
+                float preHealValue = 0;
+                PreHealInfo pi = d.GetComponent<PreHealInfo>();
+                if (pi)
+                {
+                    preHealValue = pi.GetPreHeal();
+                }
+
+                float hpRatio = (body.GetHP() + preHealValue) / body.GetHPMax();
                 if (hpRatio < bestTargetHpRatio)
                 {
                     myTarget = body.gameObject;

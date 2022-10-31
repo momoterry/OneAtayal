@@ -9,36 +9,75 @@ public class BulletHealer : BulletTrace
     //public float heal
     public GameObject healFX;
 
-    // Start is called before the first frame update
-    protected override void DoHitTarget()
+    protected float predictedHealValue = 0;
+    protected PreHealInfo myPreHeal;
+
+
+    public override void InitValue(DAMAGE_GROUP g, float damage, Vector3 targetVec, GameObject targetObject = null)
     {
-        if (targetObj.activeInHierarchy)
+        base.InitValue(g, damage, targetVec, targetObject);
+
+        predictedHealValue = 0;
+        if (targetObj && targetObj.activeInHierarchy)
         {
-            float healAbsoluteValue = baseDamage;
             PlayerControllerBase pc = targetObj.GetComponent<PlayerControllerBase>();
             if (pc)
             {
-                pc.DoHeal(pc.GetHPMax() * healRatio + healAbsoluteValue);
+                predictedHealValue = (pc.GetHPMax() * healRatio) + baseDamage;
             }
 
             HitBody body = targetObj.GetComponent<HitBody>();
             if (body)
             {
-                body.DoHeal(body.GetHPMax() * healRatio + healAbsoluteValue);
+                predictedHealValue = (body.GetHPMax() * healRatio) + baseDamage;
+            }
+        }
+
+        if (predictedHealValue >= 0)
+        {
+            myPreHeal = targetObj.GetComponent<PreHealInfo>();
+            if (!myPreHeal)
+            {
+                myPreHeal = targetObj.AddComponent<PreHealInfo>();
+            }
+            myPreHeal.AddPreHeal(predictedHealValue);
+        }
+    }
+
+    protected override void DoHitTarget()
+    {
+        if (targetObj.activeInHierarchy)
+        {
+            //float healAbsoluteValue = baseDamage;
+            PlayerControllerBase pc = targetObj.GetComponent<PlayerControllerBase>();
+            if (pc)
+            {
+                //pc.DoHeal(pc.GetHPMax() * healRatio + healAbsoluteValue);
+                pc.DoHeal(predictedHealValue);
+            }
+
+            HitBody body = targetObj.GetComponent<HitBody>();
+            if (body)
+            {
+                //body.DoHeal(body.GetHPMax() * healRatio + healAbsoluteValue);
+                body.DoHeal(predictedHealValue);
             }
 
             if (healFX)
             {
-                //#if XZ_PLAN
-                //                Quaternion rm = Quaternion.Euler(90, 0, 0);
-                //#else
-                //            Quaternion rm = Quaternion.identity;
-                //#endif
-                //                Instantiate(healFX, targetObj.transform.position, rm, targetObj.transform);
                 BattleSystem.GetInstance().SpawnGameplayObject(healFX, targetObj.transform.position, false);
             }
         }
 
         Destroy(gameObject);
     }
+
+    private void OnDestroy()
+    {
+        if (myPreHeal)
+        {
+            myPreHeal.AddPreHeal(-predictedHealValue);
+        }
+    }
+
 }

@@ -22,7 +22,7 @@ public class bullet_base : MonoBehaviour
     protected GameObject targetObj = null;
     protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
 
-    public void InitValue(DAMAGE_GROUP g, float damage, Vector3 targetVec, GameObject targetObject = null)
+    public virtual void InitValue(DAMAGE_GROUP g, float damage, Vector3 targetVec, GameObject targetObject = null)
     {
         group = g;
         targetDir = targetVec.normalized;
