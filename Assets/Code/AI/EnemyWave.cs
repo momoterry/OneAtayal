@@ -21,6 +21,8 @@ public class EnemyWave : MonoBehaviour
 
     public GameObject[] triggerTargetWhenAllKilled;
 
+    public float MaxWaitTimeIfNoEnemy = 2.0f;
+
     protected bool traceEnemies = false;
     protected GameObject[] spawnedEnemies;
     protected int numToSpawn;
@@ -90,7 +92,7 @@ public class EnemyWave : MonoBehaviour
         currSpawnedNum += spawner.num;
     }
 
-    void UpdateTrace()
+    bool CheckIfAllEnemyGone()
     {
         traceTime -= Time.deltaTime;
         if (traceTime <= 0.0f)
@@ -107,13 +109,46 @@ public class EnemyWave : MonoBehaviour
             if (liveNum == 0)
             {
                 //全滅
-                foreach (GameObject o in triggerTargetWhenAllKilled)
-                {
-                    o.SendMessage("OnTG", gameObject);
-                }
-                nextPhase = Phase.FINISH;
+                return true;
             }
         }
+        return false;
+    }
+
+    void UpdateTrace()
+    {
+        if ( CheckIfAllEnemyGone() )
+        {
+            //全滅
+            foreach (GameObject o in triggerTargetWhenAllKilled)
+            {
+                o.SendMessage("OnTG", gameObject);
+            }
+            nextPhase = Phase.FINISH;
+        }
+
+        //traceTime -= Time.deltaTime;
+        //if (traceTime <= 0.0f)
+        //{
+        //    traceTime = 0.2f;
+        //    int liveNum = 0;
+        //    for (int i = 0; i < numToSpawn; i++)
+        //    {
+        //        if (spawnedEnemies[i] != null)
+        //        {
+        //            liveNum++;
+        //        }
+        //    }
+        //    if (liveNum == 0)
+        //    {
+        //        //全滅
+        //        foreach (GameObject o in triggerTargetWhenAllKilled)
+        //        {
+        //            o.SendMessage("OnTG", gameObject);
+        //        }
+        //        nextPhase = Phase.FINISH;
+        //    }
+        //}
     }
 
     void UpdateWave()
@@ -136,6 +171,14 @@ public class EnemyWave : MonoBehaviour
                 {
                     nextPhase = Phase.FINISH;
                 }
+            }
+        }
+        else if ((sp.timeToWait - waveTime) > MaxWaitTimeIfNoEnemy)
+        {
+            if (currWave > 0 && MaxWaitTimeIfNoEnemy >= 0 && CheckIfAllEnemyGone())
+            {
+                //print("WaveAllClear!! 提早進入下一波 " + (sp.timeToWait - waveTime));
+                waveTime = sp.timeToWait - MaxWaitTimeIfNoEnemy;
             }
         }
     }
