@@ -7,7 +7,7 @@ public class DollManager : MonoBehaviour
     public Transform[] DollSlots;
 
     public bool FixDirection = false;
-    public bool AllDirectioin = false;
+    public bool AllDirectioin = false;  //不限於四方向
     public float RotateSpeed = -1.0f;
 
     protected int slotNum = 0;
@@ -121,6 +121,20 @@ public class DollManager : MonoBehaviour
     public void SetMasterPosition(Vector3 pos)
     {
         transform.position = pos;
+    }
+
+    public void ForceSetDirection(float angle)
+    {
+        Quaternion targetRt = Quaternion.Euler(0, angle, 0);
+
+        //if (RotateSpeed > 0.0f)
+        //{
+        //    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRt, Time.deltaTime* RotateSpeed);
+        //}
+        //else
+        {
+            transform.rotation = targetRt;
+        }
     }
 
     public void SetMasterDirection( Vector3 dir, FaceFrontType faceType )

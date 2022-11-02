@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8795086517185366204
+--- !u!1 &3437910405495687203
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,61 +8,56 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6416875103567797305}
-  - component: {fileID: -6525385121701081288}
-  - component: {fileID: -233582337863901429}
+  - component: {fileID: 3437910405495687200}
+  - component: {fileID: 3437910405495687201}
+  - component: {fileID: 3437910405495687202}
   m_Layer: 0
-  m_Name: DM_Dynamic
+  m_Name: DMDirBlender
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6416875103567797305
+--- !u!4 &3437910405495687200
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8795086517185366204}
+  m_GameObject: {fileID: 3437910405495687203}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6525385121701081288
+--- !u!114 &3437910405495687201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8795086517185366204}
+  m_GameObject: {fileID: 3437910405495687203}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b963c33be845341439406579d0940d26, type: 3}
+  m_Script: {fileID: 11500000, guid: ecdedeef3c01fbb4aae4489463f33804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DollSlots: []
-  FixDirection: 1
-  AllDirectioin: 1
-  RotateSpeed: 180
-  MaxSlot: 40
-  FrontWidth: 4
-  MiddleDepth: 3
-  BackWidth: 4
---- !u!114 &-233582337863901429
-MonoBehaviour:
+  angle_1: 0
+  angle_2: 90
+  blendHori: 1
+--- !u!65 &3437910405495687202
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8795086517185366204}
+  m_GameObject: {fileID: 3437910405495687203}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8bda14c5ecc5a489233dfa41ce26df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnFX: {fileID: 1730805568862363463, guid: a317ae504c9dcdf4d8c1206bcc149841, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 6, y: 1, z: 6}
+  m_Center: {x: 0, y: 0, z: 0}
