@@ -202,14 +202,18 @@ public class EnemyWave : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        for (int i = 0; i < spawners.Length; i++)
+        if (spawners != null)
         {
-            SpawnerInfo sp = spawners[i];
-            Vector3 shift = new Vector3(sp.posShiftX, 0, sp.posShiftZ);
-            Vector3 size = new Vector3(sp.randomWidth, 2.0f, sp.randomHeight);
-            Gizmos.DrawWireCube(transform.position + shift, size);
+            Gizmos.color = Color.yellow;
+            for (int i = 0; i < spawners.Length; i++)
+            {
+                SpawnerInfo sp = spawners[i];
+                Vector3 shift = new Vector3(sp.posShiftX, 0, sp.posShiftZ);
+                Vector3 size = new Vector3(sp.randomWidth, 2.0f, sp.randomHeight);
+                Gizmos.DrawWireCube(transform.position + shift, size);
+            }
         }
+
     }
 
 }
