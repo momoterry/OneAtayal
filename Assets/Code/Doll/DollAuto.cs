@@ -246,7 +246,7 @@ public class DollAuto : Doll
 
     protected void UpdateChase()
     {
-        if (myTarget)
+        if (myTarget && myTarget.activeInHierarchy)
         {
             if (myAgent)
                 myAgent.SetDestination(myTarget.transform.position);
@@ -283,7 +283,7 @@ public class DollAuto : Doll
 
     protected virtual void UpdateAttack()
     {
-        if (!myTarget)
+        if (!myTarget || !myTarget.activeInHierarchy)
         {
             if (SearchTarget())
             {
