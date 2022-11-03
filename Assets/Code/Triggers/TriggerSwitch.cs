@@ -34,6 +34,7 @@ public class TriggerSwitch : MonoBehaviour
             {
                 currIndex = loop ? 0 : -1;
             }
+            whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
         }
     }
 }
