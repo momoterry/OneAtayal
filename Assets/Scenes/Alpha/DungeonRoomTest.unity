@@ -648,6 +648,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &686284677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3437910405495687203, guid: 3d3b92ba7b5ae9544bedfbb1c85a8a00, type: 3}
+  m_PrefabInstance: {fileID: 3437910405851829871}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &686284680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686284677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4425f6d9e1c1f054190a365a093b5f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blendHori: 1
 --- !u!1 &701666221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,6 +1719,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3908599062000154700, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6971823420909225927, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
