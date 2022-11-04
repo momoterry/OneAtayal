@@ -58,8 +58,8 @@ public class BoxBlender : MonoBehaviour
     }
 
     protected virtual void ApplyBlendResult() { }
-    //protected virtual void OnStartBlend() { }
-    //protected virtual void OnEndBlend() { }
+    protected virtual void OnStartBlend() { }
+    protected virtual void OnEndBlend() { }
 
     // Update is called once per frame
     void Update()
@@ -78,7 +78,7 @@ public class BoxBlender : MonoBehaviour
 
         thePlayerIn = other.GetComponent<PlayerControllerBase>();
 
-        //OnStartBlend();
+        OnStartBlend();
     }
 
     private void OnTriggerExit(Collider other)
@@ -93,7 +93,7 @@ public class BoxBlender : MonoBehaviour
             ratio = ratio > 0.5f ? 1.0f : 0;
             ApplyBlendResult();
 
-            //OnEndBlend();
+            OnEndBlend();
         }
         thePlayerIn = null;
     }

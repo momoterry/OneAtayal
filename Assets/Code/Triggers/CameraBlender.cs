@@ -30,18 +30,16 @@ public class CameraBlender : BoxBlender
         {
             originalOffset = theBattleCamera.targetOffset;
         }
+
     }
 
     //protected override void OnStartBlend()
     //{
-    //    print("CameraBlender::OnStartBlend");
-    //    //theCamera = Camera.main;
-    //    //originalSize = theCamera.orthographicSize;
-    //    //theBattleCamera = theCamera.GetComponent<BattleCamera>();
-    //    //if (theBattleCamera)
-    //    //{
-    //    //    originalOffset = theBattleCamera.targetOffset;
-    //    //}
+    //    if (theCamera.scaledPixelHeight < theCamera.scaledPixelWidth)
+    //    {
+    //        SizeAdd_1 = SizeAdd_2 = 0;
+    //        OffsetAdd_2 = OffsetAdd_1 = Vector3.zero;
+    //    }
     //}
 
     //protected override void OnEndBlend()
@@ -53,6 +51,12 @@ public class CameraBlender : BoxBlender
     {
         float sizeAdd = ratio * SizeAdd_2 + SizeAdd_1 * (1 - ratio);
         Vector3 OffsetAdd = ratio * OffsetAdd_2 + OffsetAdd_1 * (1 - ratio);
+
+        if (theCamera.scaledPixelHeight < theCamera.scaledPixelWidth)
+        {
+            sizeAdd = 0;
+            OffsetAdd = Vector3.zero;
+        }
 
         theCamera.orthographicSize = originalSize + sizeAdd;
         if (theBattleCamera)
