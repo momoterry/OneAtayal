@@ -58,7 +58,7 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         }
         RectTransform rt = GetComponent<RectTransform>();
         Vector3 pos = rt.anchoredPosition;
-        pos.x = -180.0f * adjustRatio;
+        pos.x = -180.0f * Mathf.Min(1.0f, adjustRatio);
         rt.anchoredPosition = pos;
 
         float scaleRatio = Mathf.Min(2.0f, (1.0f + adjustRatio));
