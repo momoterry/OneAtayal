@@ -48,8 +48,30 @@ public class Battle_HUD : MonoBehaviour
     protected int currDollNum = -1;
     protected int currDollMax = -1;
 
+    //調整解析度相關
+    protected int currSceenWidth = 0;
+    protected int currSceenHeight = 0;
+
+    protected void CheckScreenResolution()
+    {
+        int width = Camera.main.pixelWidth;
+        int height = Camera.main.pixelHeight;
+        if (width != currSceenWidth || height != currSceenHeight)
+        {
+            currSceenWidth = width;
+            currSceenHeight = height;
+            if (theVPad)
+            {
+                theVPad.OnScreenResolution(currSceenWidth, currSceenHeight);
+            }
+        }
+
+    }
+
     void Start()
     {
+        CheckScreenResolution();
+
         failMenu.SetActive(false);
         if (hpBar)
             hpBar.value = 1.0f;
@@ -123,7 +145,8 @@ public class Battle_HUD : MonoBehaviour
             }
         }
 
-
+        //處理解析度變化
+        CheckScreenResolution();
     }
 
     //public void SetSkillIcon(Sprite sprite, int index)

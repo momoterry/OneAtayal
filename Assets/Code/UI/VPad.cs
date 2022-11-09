@@ -16,7 +16,26 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     protected bool defaultShowPad = true;
 
+    protected Vector2 vCenterDefaultSize;
+    protected Vector2 vStickDefaultSize;
+    protected Vector2 myDefaultSize;
+
     public Vector2 GetCurrVector() { return currVector; }
+
+    private void Awake()
+    {
+        if (vCenter)
+        {
+            vCenterDefaultSize = vCenter.rectTransform.sizeDelta;
+        }
+        if (vStick)
+        {
+            vStickDefaultSize = vStick.rectTransform.sizeDelta;
+        }
+
+        RectTransform rt = GetComponent<RectTransform>();
+        myDefaultSize = rt.sizeDelta;
+    }
 
     void Start()
     {
@@ -27,6 +46,35 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         vCenter.enabled = defaultShowPad;
         vStick.enabled = defaultShowPad;
     }
+
+    public void OnScreenResolution(int width, int height)
+    {
+        //print("OnScreenResolution!!!! " + width + " : " + height);
+        float ratio = (float)width / (float)height;
+        float adjustRatio = 0;
+        if (ratio > 1)
+        {
+            adjustRatio = (ratio - 1.0f) * 9.0f / 7.0f;   //以 16:9 為最大基準
+        }
+        RectTransform rt = GetComponent<RectTransform>();
+        Vector3 pos = rt.anchoredPosition;
+        pos.x = -180.0f * adjustRatio;
+        rt.anchoredPosition = pos;
+
+        float scaleRatio = Mathf.Min(2.0f, (1.0f + adjustRatio));
+        //print("Scale !! " + scaleRatio);
+        rt.sizeDelta = myDefaultSize * scaleRatio;
+        if (vCenter)
+        {
+            vCenter.rectTransform.sizeDelta = vCenterDefaultSize * scaleRatio;
+        }
+        if (vStick)
+        {
+            vStick.rectTransform.sizeDelta = vStickDefaultSize * scaleRatio;
+        }
+    }
+
+
 
     public void OnDrag(PointerEventData data)
     {
