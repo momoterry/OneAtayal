@@ -52,18 +52,20 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         //print("OnScreenResolution!!!! " + width + " : " + height);
         float ratio = (float)width / (float)height;
         float adjustRatio = 0;
+        float scaleRatio = 1.0f;
+        float x_shift = 0;
         if (ratio > 1)
         {
             adjustRatio = (ratio - 1.0f) * 9.0f / 7.0f;   //以 16:9 為最大基準
+            scaleRatio = Mathf.Min(2.0f, (1.0f + adjustRatio));
+            x_shift = -160.0f * ratio + ( vCenterDefaultSize.x * scaleRatio * 0.5f ) + 32; ;
         }
         RectTransform rt = GetComponent<RectTransform>();
         Vector3 pos = rt.anchoredPosition;
-        pos.x = -180.0f * Mathf.Min(1.0f, adjustRatio);
-        rt.anchoredPosition = pos;
+        //pos.x = -180.0f * Mathf.Min(1.0f, adjustRatio);
 
-        float scaleRatio = Mathf.Min(2.0f, (1.0f + adjustRatio));
-        //print("Scale !! " + scaleRatio);
         rt.sizeDelta = myDefaultSize * scaleRatio;
+
         if (vCenter)
         {
             vCenter.rectTransform.sizeDelta = vCenterDefaultSize * scaleRatio;
@@ -72,6 +74,10 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         {
             vStick.rectTransform.sizeDelta = vStickDefaultSize * scaleRatio;
         }
+
+        pos.x = x_shift;
+        rt.anchoredPosition = pos;
+
     }
 
 
