@@ -373,6 +373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4529065914337168186}
+  - component: {fileID: 650005630791416757}
   - component: {fileID: 6918030581720156880}
   - component: {fileID: 5890640048265912473}
   - component: {fileID: 198582374504610234}
@@ -407,6 +408,21 @@ RectTransform:
   m_AnchoredPosition: {x: 8, y: -40}
   m_SizeDelta: {x: 140, y: 24}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &650005630791416757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7367261541015997698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c532b7fd20bad947abf65639f309146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 1167965966216964103}
+  nameText: {fileID: 8677167228019169109}
+  descText: {fileID: 8618165059647933963}
 --- !u!222 &6918030581720156880
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -489,9 +505,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DollMenu, Assembly-CSharp
-        m_MethodName: OnDismissAllDoll
+      - m_Target: {fileID: 650005630791416757}
+        m_TargetAssemblyTypeName: DollShopItem, Assembly-CSharp
+        m_MethodName: OnButtonDown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

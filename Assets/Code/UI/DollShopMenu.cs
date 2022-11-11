@@ -5,8 +5,9 @@ using UnityEngine;
 public class DollShopMenu : MonoBehaviour
 {
     public GameObject DollShopItemRef;
-
     public Transform DollShopRoot;
+
+    public DollShopItemInfo[] allItemInfo;
 
 
     protected List<GameObject> itemList = new List<GameObject>();
@@ -56,15 +57,18 @@ public class DollShopMenu : MonoBehaviour
     protected void CreateShopItems()
     {
 
-        for (int i=0; i<7; i++)
+        for (int i=0; i< allItemInfo.Length; i++)
         {
-            GameObject item = Instantiate(DollShopItemRef, DollShopRoot.transform);
-            RectTransform rt = item.GetComponent<RectTransform>();
+            GameObject itemObj = Instantiate(DollShopItemRef, DollShopRoot.transform);
+            RectTransform rt = itemObj.GetComponent<RectTransform>();
             if (rt)
             {
                 rt.anchoredPosition = new Vector2(8.0f, -40.0f - (26.0f * i));
             }
-            itemList.Add(item);
+            itemList.Add(itemObj);
+
+            DollShopItem shopItem = itemObj.GetComponent<DollShopItem>();
+            shopItem.InitInfo(allItemInfo[i]);
         }
     }
 }

@@ -89,10 +89,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3737590721828701757}
+  - component: {fileID: 5490842258349085948}
   - component: {fileID: 3737590721828701758}
   - component: {fileID: 3737590721828701759}
   - component: {fileID: 3737590721828701744}
-  - component: {fileID: 5490842258349085948}
   m_Layer: 5
   m_Name: UI_DollShop
   m_TagString: Untagged
@@ -121,6 +121,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &5490842258349085948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3737590721828701745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9702a0c444952fb40bd26554fe96a43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DollShopItemRef: {fileID: 7367261541015997698, guid: 35b808c9cf0d64746ae9218832408f61, type: 3}
+  DollShopRoot: {fileID: 3049975006154050012}
+  allItemInfo:
+  - ID: DollOne
+    name: "\u65E5\u9748"
+    desc: "\u55AE\u9AD4\u8F38\u51FA\uFF0C\u4E2D\u6392"
+  - ID: DollStone
+    name: "\u77F3\u9748"
+    desc: "\u9AD8\u8840\u91CF\u5766\u514B\uFF0C\u524D\u6392"
+  - ID: DollFire
+    name: "\u706B\u9748"
+    desc: "\u7206\u70B8\u653B\u64CA\uFF0C\u5F8C\u6392"
+  - ID: DollLeaf
+    name: "\u8349\u9748"
+    desc: "\u88DC\u8840\uFF0C\u5F8C\u6392"
 --- !u!223 &3737590721828701758
 Canvas:
   m_ObjectHideFlags: 0
@@ -182,20 +209,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5490842258349085948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3737590721828701745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9702a0c444952fb40bd26554fe96a43d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DollShopItemRef: {fileID: 7367261541015997698, guid: 35b808c9cf0d64746ae9218832408f61, type: 3}
-  DollShopRoot: {fileID: 3049975006154050012}
 --- !u!1 &4134276687920346981
 GameObject:
   m_ObjectHideFlags: 0
