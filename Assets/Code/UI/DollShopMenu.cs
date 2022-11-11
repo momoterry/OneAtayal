@@ -7,16 +7,50 @@ public class DollShopMenu : MonoBehaviour
     public GameObject DollShopItemRef;
 
     public Transform DollShopRoot;
+
+
+    protected List<GameObject> itemList = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
-        CreateShopItems();
+        //CreateShopItems();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void OpenMenu()
+    {
+        if (DollShopRoot)
+        {
+            DollShopRoot.gameObject.SetActive(true);
+            ClearAllItems(); //以免重復開啟造成問題
+            CreateShopItems();
+        }
+        BattleSystem.GetPC().ForceStop(true);
+    }
+
+    public void CloseMenu()
+    {
+        ClearAllItems();
+        if (DollShopRoot)
+        {
+            DollShopRoot.gameObject.SetActive(false);
+        }
+        BattleSystem.GetPC().ForceStop(false);
+    }
+
+    protected void ClearAllItems()
+    {
+        foreach (GameObject item in itemList)
+        {
+            Destroy(item);
+        }
+        itemList.Clear();
     }
 
     protected void CreateShopItems()
@@ -30,6 +64,7 @@ public class DollShopMenu : MonoBehaviour
             {
                 rt.anchoredPosition = new Vector2(8.0f, -40.0f - (26.0f * i));
             }
+            itemList.Add(item);
         }
     }
 }
