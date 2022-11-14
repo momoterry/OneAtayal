@@ -266,6 +266,26 @@ public class PlayerData : MonoBehaviour
         return null;
     }
 
+    public int GetDollNumByID(string ID)
+    {
+        int usingNum = 0;
+        foreach (string s in usingDollList)
+        {
+            if (s == ID)
+            {
+                usingNum++;
+            }
+        }
+        int backNum = 0;
+        if (dollBackpack.ContainsKey(ID))
+        {
+            backNum = dollBackpack[ID];
+        }
+
+
+        return usingNum + backNum;
+    }
+
     public void SaveEvent(string eventName, bool status = true)
     {
         if (eventData.ContainsKey(eventName))

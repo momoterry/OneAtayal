@@ -23,6 +23,7 @@ public class DollShopItem : MonoBehaviour
 
     protected string dollID;
     protected int CostMoney;
+    protected DollShopMenu myMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +31,10 @@ public class DollShopItem : MonoBehaviour
 
     }
 
-    public void InitInfo(DollShopItemInfo info)
+    public void InitInfo(DollShopItemInfo info, DollShopMenu theMenu)
     {
+        myMenu = theMenu;
+
         if (nameText)
         {
             nameText.text = info.name;
@@ -63,7 +66,7 @@ public class DollShopItem : MonoBehaviour
     }
     public void OnButtonDown()
     {
-        print("來了喔!! " + dollID);
+        //print("來了喔!! " + dollID);
         PlayerData pData = GameSystem.GetPlayerData();
         DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
 
@@ -75,17 +78,21 @@ public class DollShopItem : MonoBehaviour
 
         if (pData.GetMoney() < CostMoney)
         {
-            print("你好像錢不太夠了呀.....");
+            //print("你好像錢不太夠了呀.....");
+            myMenu.ShowTempMessage("你好像錢不太夠了呀.....");
+            return;
         }
 
 
-
+        bool isToBackpack = false;
         if (pData.GetCurrDollNum() >= pData.GetMaxDollNum())
         {
-            print("無論如何，先放到背包...... ");
+            //print("無論如何，先放到背包...... ");
 
-            GameSystem.GetPlayerData().AddDollToBackpack(dollID);
+            pData.AddDollToBackpack(dollID);
             //return;
+            //myMenu.ShowTempMessage("購買的巫靈放到背包了");
+            isToBackpack = true;
         }
         else
         {
@@ -119,10 +126,22 @@ public class DollShopItem : MonoBehaviour
                 return;
             }
 
-            GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
-            print("謝謝光臨 !!");
+            pData.AddUsingDoll(dollID);
+            //myMenu.ShowTempMessage("購買成功");
         }
 
-        GameSystem.GetPlayerData().AddMoney(-CostMoney);
+        int totalNum = pData.GetDollNumByID(dollID);
+        string msg;
+        if (isToBackpack)
+        {
+            msg = "購買成功並放到背包, 總共有 " + totalNum + "個 " + nameText.text + ".";
+        }
+        else
+        {
+            msg = "購買成功並召喚, 總共有 " + totalNum + "個 " + nameText.text + ".";
+        }
+        myMenu.ShowTempMessage(msg);
+
+        pData.AddMoney(-CostMoney);
     }
 }

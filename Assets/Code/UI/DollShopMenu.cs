@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DollShopMenu : MonoBehaviour
 {
     public GameObject DollShopItemRef;
     public Transform DollShopRoot;
+    public Text msgText;
 
     public DollShopItemInfo[] allItemInfo;
 
@@ -24,8 +26,16 @@ public class DollShopMenu : MonoBehaviour
         
     }
 
+    public void ShowTempMessage( string msg )
+    {
+        msgText.text = msg;
+    }
+
+
     public void OpenMenu()
     {
+        if (msgText)
+            msgText.text = "選擇要購買的巫靈....";
         if (DollShopRoot)
         {
             DollShopRoot.gameObject.SetActive(true);
@@ -68,7 +78,7 @@ public class DollShopMenu : MonoBehaviour
             itemList.Add(itemObj);
 
             DollShopItem shopItem = itemObj.GetComponent<DollShopItem>();
-            shopItem.InitInfo(allItemInfo[i]);
+            shopItem.InitInfo(allItemInfo[i], this);
         }
     }
 }
