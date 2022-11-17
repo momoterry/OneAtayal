@@ -69,7 +69,7 @@ public class DollShopMenu : MonoBehaviour
 
         for (int i=0; i< allItemInfo.Length; i++)
         {
-            GameObject itemObj = Instantiate(DollShopItemRef, DollShopRoot.transform);
+            GameObject itemObj = Instantiate(DollShopItemRef, DollShopRoot);
             RectTransform rt = itemObj.GetComponent<RectTransform>();
             if (rt)
             {
