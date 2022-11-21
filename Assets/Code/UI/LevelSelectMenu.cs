@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class LevelItemInfo
@@ -14,10 +15,15 @@ public class LevelSelectMenu : MonoBehaviour
 {
     public GameObject LevelMenuItemRef;
     public Transform LevelMenuRoot;
+    public Image FadeBlockImage;
 
     protected List<GameObject> itemList = new List<GameObject>();
     protected LevelItemInfo[] allLevelInfos;
 
+    protected LevelItemInfo levelToGo;
+
+    protected float fadeTime = 0.5f;
+    protected float timeToFade = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +35,20 @@ public class LevelSelectMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (timeToFade > 0)
+        {
+            timeToFade -= Time.deltaTime;
+            if (timeToFade <= 0)
+            {
+                timeToFade = 0;
+                DoGoToLevel();
+            }
 
+            if (FadeBlockImage)
+            {
+                FadeBlockImage.color = new Color(0, 0, 0, 1.0f - (timeToFade / fadeTime));
+            }
+        }
     }
 
     public void OpenMenu(LevelItemInfo[] levelInfos)
@@ -47,6 +66,23 @@ public class LevelSelectMenu : MonoBehaviour
         ClearLevelMenuItems();
         LevelMenuRoot.gameObject.SetActive(false);
         BattleSystem.GetPC().ForceStop(false);
+    }
+
+
+    public void OnLevelItemDown( LevelMenuItem item)
+    {
+        //ClearLevelMenuItems();
+        //LevelMenuRoot.gameObject.SetActive(false);
+        levelToGo = item.GetInfo();
+
+        timeToFade = fadeTime;
+        if (FadeBlockImage)
+            FadeBlockImage.enabled = true;
+    }
+
+    protected void DoGoToLevel()
+    {
+        BattleSystem.GetInstance().OnGotoScene(levelToGo.scene);
     }
 
     protected void ClearLevelMenuItems()
@@ -75,4 +111,5 @@ public class LevelSelectMenu : MonoBehaviour
             item.InitInfo(allLevelInfos[i], this);
         }
     }
+
 }

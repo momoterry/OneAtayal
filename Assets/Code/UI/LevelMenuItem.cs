@@ -11,6 +11,8 @@ public class LevelMenuItem : MonoBehaviour
     protected LevelItemInfo myInfo;
     protected LevelSelectMenu myMenu;
 
+    public LevelItemInfo GetInfo() { return myInfo; }
+
     public void InitInfo(LevelItemInfo info, LevelSelectMenu theMenu)
     {
         myInfo = info;
@@ -40,6 +42,7 @@ public class LevelMenuItem : MonoBehaviour
 
     public void OnButtonDown()
     {
+        myMenu.OnLevelItemDown(this);
     }
 
 
