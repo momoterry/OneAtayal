@@ -20,6 +20,25 @@ public class LevelSelectMenu : MonoBehaviour
 
     }
 
+    public void OpenMenu()
+    {
+        LevelMenuRoot.gameObject.SetActive(true);
+        //CreateLevelMenuItems();
+        BattleSystem.GetPC().ForceStop(true);
+    }
+
+    public void CloseMenu()
+    {
+        //ClearAllItems();
+        LevelMenuRoot.gameObject.SetActive(false);
+        BattleSystem.GetPC().ForceStop(false);
+    }
+
+    protected void ClearLevelMenuItems()
+    {
+
+    }
+
     protected void CreateLevelMenuItems()
     {
         for (int i=0; i<4; i++)
