@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 1657843856119407668}
   - component: {fileID: 2792181143269789309}
   - component: {fileID: 8485223165351925598}
+  - component: {fileID: 6325143641425362422}
   m_Layer: 5
   m_Name: LevelItem
   m_TagString: Untagged
@@ -370,8 +371,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DollShopItem, Assembly-CSharp
+      - m_Target: {fileID: 6325143641425362422}
+        m_TargetAssemblyTypeName: LevelMenuItem, Assembly-CSharp
         m_MethodName: OnButtonDown
         m_Mode: 1
         m_Arguments:
@@ -382,6 +383,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6325143641425362422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242383593512133606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63caf2747259f9647b093ce9b9a55696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 1111102146696837553}
+  descText: {fileID: 43293720279785711}
 --- !u!1 &2009948710109466394
 GameObject:
   m_ObjectHideFlags: 0
