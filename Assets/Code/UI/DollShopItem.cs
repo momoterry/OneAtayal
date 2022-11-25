@@ -5,20 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 
 
-[System.Serializable]
-public class DollShopItemInfo
-{
-    public string ID;
-    public int cost;
-    public string name;
-    public string desc;
-}
+
 
 public class DollShopItem : MonoBehaviour
 {
     public Image icon;
     public Text nameText;
     public Text descText;
+    public Text moneyText;
     public GameObject SpawnFX;  //TODO: 似乎應該放到別的地方更好
 
     protected string dollID;
@@ -42,6 +36,10 @@ public class DollShopItem : MonoBehaviour
         if (descText)
         {
             descText.text = info.desc;
+        }
+        if (moneyText)
+        {
+            moneyText.text = info.cost.ToString();
         }
 
         CostMoney = info.cost;

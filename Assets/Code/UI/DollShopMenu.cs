@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class DollShopItemInfo
+{
+    public string ID;
+    public int cost;
+    public string name;
+    public string desc;
+}
+
 public class DollShopMenu : MonoBehaviour
 {
     public GameObject DollShopItemRef;
     public Transform DollShopRoot;
     public Text msgText;
 
-    public DollShopItemInfo[] allItemInfo;
+    protected DollShopItemInfo[] allItemInfo;
 
 
     protected List<GameObject> itemList = new List<GameObject>();
@@ -32,10 +41,13 @@ public class DollShopMenu : MonoBehaviour
     }
 
 
-    public void OpenMenu()
+    public void OpenMenu(DollShopItemInfo[] infos)
     {
         if (msgText)
             msgText.text = "選擇要購買的巫靈....";
+
+        allItemInfo = infos;
+
         if (DollShopRoot)
         {
             DollShopRoot.gameObject.SetActive(true);
