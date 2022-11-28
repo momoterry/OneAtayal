@@ -53,12 +53,14 @@ public class DollShopMenu : MonoBehaviour
             DollShopRoot.gameObject.SetActive(true);
             ClearAllItems(); //以免重復開啟造成問題
             CreateShopItems();
+            //print("DollShopRoot 啟動 ...." + DollShopRoot.gameObject.activeInHierarchy);
         }
         BattleSystem.GetPC().ForceStop(true);
     }
 
     public void CloseMenu()
     {
+        //print("DollShop CloseMenu !!");
         ClearAllItems();
         if (DollShopRoot)
         {
