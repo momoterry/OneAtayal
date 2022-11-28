@@ -39,6 +39,9 @@ public class Battle_HUD : MonoBehaviour
     //¿ú
     public Text moneyText;
 
+    //Dialogue
+    public Dialogue theDialogue;
+
     //µêÀÀ·n±ì¬ÛÃö
     public VPad theVPad;
 

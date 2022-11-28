@@ -4,13 +4,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+public class DialogueContent
+{
+    public string name;
+    public string[] textContents;
+}
+
 public class Dialogue : MonoBehaviour
 {
     public GameObject theWindow;
-    public bool isRepeatable = false;
+    public bool isRepeatable = true;
     public GameObject[] EndTriggers;
 
     public Text theText;
+    public Text talkerName;
 
     [TextArea(2, 10)]
     public string[] overwriteContents;
@@ -19,6 +26,9 @@ public class Dialogue : MonoBehaviour
 
     protected bool usingOverwite = false;
     protected int currOverwiteIndex = 0;
+
+    //由其它元件來觸發
+    protected GameObject myOwner;
 
     protected enum PHASE
     {
@@ -40,13 +50,19 @@ public class Dialogue : MonoBehaviour
         theInput.TheHero.Attack.performed += ctx => OnClick();
         theInput.TheHero.Action.performed += ctx => OnClick();
 
+        InitContent();
+
+        nextState = PHASE.WAIT;
+    }
+
+    protected void InitContent()
+    {
         if (theText && overwriteContents.Length > 0)
         {
+            currOverwiteIndex = 0;
             usingOverwite = true;
             SetupContent();
         }
-
-        nextState = PHASE.WAIT;
     }
 
     private void Awake()
@@ -79,6 +95,10 @@ public class Dialogue : MonoBehaviour
                     theWindow.SetActive(false);
                 theInput.Disable();
                 BattleSystem.GetInstance().GetPlayerController().SetInputActive(true);
+                if (myOwner)
+                {
+                    myOwner.SendMessage("OnDialogueFinished");
+                }
                 break;
         }
     }
@@ -117,8 +137,25 @@ public class Dialogue : MonoBehaviour
     {
         if (currState == PHASE.WAIT)
         {
+            myOwner = null;
             nextState = PHASE.NORMAL;
             whoTG.SendMessage("OnActionResult", true);
+        }
+    }
+
+    public void StartDialoue(DialogueContent content, GameObject owner)
+    {
+        if (currState == PHASE.WAIT)
+        {
+            myOwner = owner;
+            overwriteContents = content.textContents;
+            if (talkerName)
+            {
+                talkerName.text = content.name;
+            }
+            InitContent();
+
+            nextState = PHASE.NORMAL;
         }
     }
 
