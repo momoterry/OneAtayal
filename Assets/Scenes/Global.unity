@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 327809247}
   - component: {fileID: 327809248}
   - component: {fileID: 327809249}
+  - component: {fileID: 327809250}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -417,6 +418,51 @@ MonoBehaviour:
   - {fileID: 2012205590544976814, guid: 805fe37a6764894409a1c766bcdad2c1, type: 3}
   - {fileID: 4032685806379418579, guid: 5e46ba7bcd1cd6b419b40913150a0511, type: 3}
   - {fileID: 2876928013832779465, guid: fe574d4e4ab68d545bb8cefdaa8d74a1, type: 3}
+--- !u!114 &327809250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327809245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a21117f522616a46b4ddb0bd7743cf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainLevels:
+  - ID: 0_1
+    sceneName: ForestBegin
+    name: "\u68EE\u6797\u5165\u53E3"
+    requireLevel: 1
+  - ID: 1_1
+    sceneName: ForestSmall
+    name: "\u77F3\u4E4B\u602A"
+    requireLevel: 2
+  - ID: 1_2
+    sceneName: ForestS2
+    name: "\u6A39\u5996\u7684\u9006\u8972"
+    requireLevel: 3
+  - ID: 1_3
+    sceneName: ForestS3
+    name: "\u4E0D\u7965\u68EE\u6797"
+    requireLevel: 5
+  - ID: 2_1
+    sceneName: Dun_M1
+    name: "\u5730\u57CE\u5165\u53E3"
+    requireLevel: 8
+  - ID: 2_2
+    sceneName: Dun_H1
+    name: "\u8FF7\u5BAE\u63A2\u7D22"
+    requireLevel: 10
+  - ID: 2_3
+    sceneName: Dun_H_Boss
+    name: "\u53EF\u6015\u7684\u9ED1\u5F71"
+    requireLevel: -1
+  - ID: 3_1
+    sceneName: Dun_E1
+    name: "\u7CBE\u82F1\u6311\u6230"
+    requireLevel: -1
 --- !u!1 &388360118
 GameObject:
   m_ObjectHideFlags: 0
