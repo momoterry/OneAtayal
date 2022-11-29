@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class LevelItemInfo
 {
+    public string ID;
     public string scene;
     public string name;
     public string desc;
@@ -96,19 +97,29 @@ public class LevelSelectMenu : MonoBehaviour
 
     protected void CreateLevelMenuItems()
     {
+        int currLine = 0;
         for (int i=0; i< allLevelInfos.Length; i++)
         {
+            if (allLevelInfos[i] == null)
+                continue;
+            if (!GameSystem.GetLevelManager().IsLevelOpen(allLevelInfos[i].ID))
+            {
+                print("關卡還沒開放 .. " + allLevelInfos[i].ID);
+                continue;
+            }
+
             GameObject itemObj = Instantiate(LevelMenuItemRef, LevelMenuRoot);
             itemObj.SetActive(true);
             RectTransform rt = itemObj.GetComponent<RectTransform>();
             if (rt)
             {
-                rt.anchoredPosition = new Vector2(8.0f, -28.0f - (36.0f * i));
+                rt.anchoredPosition = new Vector2(8.0f, -28.0f - (36.0f * currLine));
             }
             itemList.Add(itemObj);
 
             LevelMenuItem item = itemObj.GetComponent<LevelMenuItem>();
             item.InitInfo(allLevelInfos[i], this);
+            currLine++;
         }
     }
 

@@ -52,7 +52,7 @@ public class ScenePortal : MonoBehaviour
             string currLevelID = GameSystem.GetLevelManager().GetCurrLevelID();
             if (currLevelID != "")
             {
-                print("關卡完成 !! " + currLevelID);
+                //print("關卡完成 !! " + currLevelID);
                 GameSystem.GetLevelManager().SetLevelClear(currLevelID);
             }
         }

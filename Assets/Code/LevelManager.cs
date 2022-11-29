@@ -12,6 +12,7 @@ public class LevelInfo
 {
     public string ID;
     public string sceneName;
+    public string prefix;
     public string name;
     public int requireLevel;    //-1 表示 ??
 }
@@ -86,14 +87,25 @@ public class LevelManager : MonoBehaviour
         return isClear;
     }
 
+    public LevelInfo GetLevelInfo( string levelID)
+    {
+        if (levelMap.ContainsKey(levelID))
+        {
+            return mainLevels[levelMap[levelID]];
+        }
+        return null;
+    }
+
     void Awake()
     {
         for (int i = 0; i < mainLevels.Length; i++)
         {
             levelMap.Add(mainLevels[i].ID, i);
             sceneLevelMap.Add(mainLevels[i].sceneName, mainLevels[i].ID);
-            print(mainLevels[i].ID + " => " + mainLevels[i].sceneName);
         }
+
+        //先暴力洲開放第一關
+        SetLevelOpen(mainLevels[0].ID);
     }
 
 }
