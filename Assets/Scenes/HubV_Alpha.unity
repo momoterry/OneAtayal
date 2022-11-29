@@ -15594,6 +15594,7 @@ Transform:
   - {fileID: 1199828744}
   - {fileID: 260890073530966819}
   - {fileID: 1792941306}
+  - {fileID: 1499062851}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -41823,52 +41824,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &1430299546
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1430299547}
-  - component: {fileID: 1430299548}
-  m_Layer: 0
-  m_Name: SaveEvent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1430299547
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430299546}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1792941306}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1430299548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430299546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8619636d6d57b0439450f78150ba9d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EventName: Rock_DialogueInit
-  EventStatus: 1
 --- !u!1001 &1440044733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42001,6 +41956,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5992393861852875048, guid: e7dfc5d224fdcf844872b104cb8f3c4a, type: 3}
   m_PrefabInstance: {fileID: 1453845938}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1499062850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1499062851}
+  - component: {fileID: 1499062852}
+  m_Layer: 0
+  m_Name: Rock_Dialogue_Chap1Clear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1499062851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499062850}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 446464634}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1499062852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499062850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f736bc16cc8aee848a9ad8d437558762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndTriggers: []
+  dialogueContents:
+  - "\u4E0D\u53EF\u601D\u8B70\uFF0C\u4F60\u89E3\u6C7A\u68EE\u6797\u4E2D\u7684\u5371\u6A5F\u4E86!!"
+  - "\u8B1D\u8B1D\u4F60\uFF0C\u82F1\u96C4"
+  - "\u4E0D\u904E\uFF0C\u6211\u5011\u9084\u6709\u66F4\u53EF\u6015\u7684\u5A01\u8105"
+  - "\u90A3\u500B\u53EF\u6015\u7684\u5730\u57CE\uFF0C\u4F60\u53EF\u4EE5\u53BB\u63A2\u7D22\u770B\u770B\u55CE?"
 --- !u!1001 &1504439746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42899,8 +42904,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1430299547}
+  m_Children: []
   m_Father: {fileID: 446464634}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -42917,7 +42921,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EndTriggers:
-  - {fileID: 1430299546}
   - {fileID: 1874201992}
   - {fileID: 2947275041791608798}
   dialogueContents:
@@ -45711,9 +45714,14 @@ MonoBehaviour:
   deleteAfterAction: 0
   continueAction: 0
   conditionsInOrder:
-  - eventID: Rock_DialogueInit
-    onEventStatus: 0
+  - eventID: 
+    onEventStatus: 1
     triggerTarget: {fileID: 1792941305}
+    SaveCondition: Rock_DialogueInit
+  - eventID: LEVEL_1_3_CLEAR
+    onEventStatus: 1
+    triggerTarget: {fileID: 1499062850}
+    SaveCondition: Rock_Dialogue_Chap1Clear
 --- !u!212 &5184697544486647351
 SpriteRenderer:
   m_ObjectHideFlags: 0
