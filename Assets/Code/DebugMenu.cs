@@ -10,19 +10,16 @@ public class DebugMenu : MonoBehaviour
 
     static DebugMenu instance;
 
-    protected bool isOpenAllLevel = false;
+    protected bool isLevelFree = false;
 
-    public DebugMenu() : base()
+    static public bool GetIsLevelFree() { return instance.isLevelFree; }
+
+    private void Awake()
     {
         if (instance != null)
             print("ERROR !! 超過一份 DebugMenu 存在 ");
         instance = this;
-    }
 
-    static public bool GetIsOpenAllLevel() { return instance.isOpenAllLevel; }
-
-    private void Awake()
-    {
         if (MenuRoot)
         {
             MenuRoot.gameObject.SetActive(false);
@@ -44,7 +41,7 @@ public class DebugMenu : MonoBehaviour
     {
         if (toggleOpenAllLevel)
         {
-            toggleOpenAllLevel.SetIsOnWithoutNotify(isOpenAllLevel);
+            toggleOpenAllLevel.SetIsOnWithoutNotify(isLevelFree);
         }
     }
 
@@ -65,8 +62,12 @@ public class DebugMenu : MonoBehaviour
         }
     }
 
-    public void OnOpenAllLevel( bool value)
+    public void OnLevelFree( bool value)
     {
-        isOpenAllLevel = value;
+        isLevelFree = value;
+    }
+    public void OnClearAllMainLevels()
+    {
+        GameSystem.GetLevelManager().DebugClearAllMainLevels();
     }
 }

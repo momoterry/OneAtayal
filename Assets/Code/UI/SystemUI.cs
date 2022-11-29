@@ -14,10 +14,14 @@ public class SystemUI : MonoBehaviour
 
     public SystemUI() : base()
     {
+        print("SystemUI 創建完成");
+    }
+
+    private void Awake()
+    {
         if (instance != null)
             print("ERROR !! 超過一份 SystemUI 存在 ");
-        instance = this;
-        print("SystemUI 創建完成");
+        instance = this;        
     }
 
     // Start is called before the first frame update

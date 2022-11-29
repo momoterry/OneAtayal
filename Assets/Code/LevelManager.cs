@@ -25,6 +25,18 @@ public class LevelManager : MonoBehaviour
     protected Dictionary<string, int> levelMap = new Dictionary<string, int>();
     protected Dictionary<string, string> sceneLevelMap = new Dictionary<string, string>();
 
+    void Awake()
+    {
+        for (int i = 0; i < mainLevels.Length; i++)
+        {
+            levelMap.Add(mainLevels[i].ID, i);
+            sceneLevelMap.Add(mainLevels[i].sceneName, mainLevels[i].ID);
+        }
+
+        //先暴力洲開放第一關
+        SetLevelOpen(mainLevels[0].ID);
+    }
+
     public string GetCurrLevelID()
     {
         string sceneName = SceneManager.GetActiveScene().name;
@@ -74,7 +86,7 @@ public class LevelManager : MonoBehaviour
 
     public bool IsLevelOpen(string levelID)
     {
-        if (DebugMenu.GetIsOpenAllLevel())
+        if (DebugMenu.GetIsLevelFree())
             return true;
         string str = GetOpenEvent(levelID);
         bool isOpen = GameSystem.GetPlayerData().GetEvent(str);
@@ -97,16 +109,13 @@ public class LevelManager : MonoBehaviour
         return null;
     }
 
-    void Awake()
+    public void DebugClearAllMainLevels()
     {
-        for (int i = 0; i < mainLevels.Length; i++)
+        for (int i=0; i<mainLevels.Length; i++)
         {
-            levelMap.Add(mainLevels[i].ID, i);
-            sceneLevelMap.Add(mainLevels[i].sceneName, mainLevels[i].ID);
+            SetLevelClear(mainLevels[i].ID);
+            print("Clear : " + mainLevels[i].ID);
         }
-
-        //先暴力洲開放第一關
-        SetLevelOpen(mainLevels[0].ID);
     }
 
 }
