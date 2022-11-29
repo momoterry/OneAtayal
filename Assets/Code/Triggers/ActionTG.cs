@@ -16,6 +16,11 @@ public class ActionTG : MonoBehaviour
 
     protected float tryRegisterTime = 0;
 
+    private void Awake()
+    {
+        if (hint)
+            hint.SetActive(false);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +61,7 @@ public class ActionTG : MonoBehaviour
         }
     }
 
-    void OnActionResult( bool result)
+    virtual protected void OnActionResult( bool result)
     {
         if (result)
         {
