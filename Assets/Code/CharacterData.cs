@@ -95,7 +95,7 @@ public class CharacterData : MonoBehaviour
 
     protected void CalcMaxDoll()
     {
-        myStat.DollMax = myStat.LV + 1;
+        myStat.DollMax = myStat.LV + 3; //ªì©l§ï¦¨ 4 °¦
     }
 
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class DollCollect : MonoBehaviour
 {
     public GameObject dollObject;
+    public bool collectForever;
+
 
     protected Doll theDoll;
     // Start is called before the first frame update
@@ -32,6 +34,11 @@ public class DollCollect : MonoBehaviour
         {
             //²æÂ÷
             theDoll.transform.SetParent(null);
+
+            if (collectForever)
+            {
+                GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
+            }
 
             Destroy(gameObject);
         }
