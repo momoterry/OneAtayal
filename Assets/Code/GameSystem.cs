@@ -8,6 +8,7 @@ using System.Text;  //存讀檔
 public class GameSystem : MonoBehaviour
 {
     public PlayerData thePlayerData;
+    public LevelManager theLevelManager;
 
     //TODO: 這部份應該改到 PlayerData 中
     private GameObject playerCharacterRef = null;
@@ -73,6 +74,16 @@ public class GameSystem : MonoBehaviour
             return null;
         }
         return instance.thePlayerData;
+    }
+
+    static public LevelManager GetLevelManager()
+    {
+        if (!instance || !instance.theLevelManager)
+        {
+            print("ERROR !!! GameSystem 找不到 Level Manager !!" + instance);
+            return null;
+        }
+        return instance.theLevelManager;
     }
 
     public void SetPlayerCharacterRef( GameObject objRef)

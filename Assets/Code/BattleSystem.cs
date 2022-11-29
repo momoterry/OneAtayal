@@ -12,7 +12,6 @@ public class BattleSystem : MonoBehaviour
     public string backScene = "StartMenu";
     //public VPad theVPad;
 
-    //public GameObject clearGate;        //TODO: ¥i¥H²¾°£
     public MapGeneratorBase theMG;
     public Transform initPlayerPos;
     public float initPlayerDirAngle = 0;

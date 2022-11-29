@@ -12,6 +12,7 @@ public class ScenePortal : MonoBehaviour
 
     public bool messageHint = false;
     public string hintLevelName = "";
+    public bool isClearLevel = false;
 
     protected float currTime = 0;
     void Start()
@@ -45,6 +46,16 @@ public class ScenePortal : MonoBehaviour
         if (fadeBlocker)
             fadeBlocker.gameObject.SetActive(true);
         BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
+
+        if (isClearLevel)
+        {
+            string currLevelID = GameSystem.GetLevelManager().GetCurrLevelID();
+            if (currLevelID != "")
+            {
+                print("關卡完成 !! " + currLevelID);
+                GameSystem.GetLevelManager().SetLevelClear(currLevelID);
+            }
+        }
     }
 
     void OnTG(GameObject whoTG)
