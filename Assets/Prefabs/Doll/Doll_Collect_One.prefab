@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2364346067030043308}
   - {fileID: 8693450222624821376}
@@ -45,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395c75b308f29fb41a5be81c4978f9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dollObject: {fileID: 0}
+  dollObject: {fileID: 8693450222624821382}
 --- !u!1001 &1988585230883178464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -196,5 +197,10 @@ PrefabInstance:
 --- !u!4 &8693450222624821376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4032685806379418581, guid: 5d31c47f41f9e574e93dc4dd9bc6f7c3, type: 3}
+  m_PrefabInstance: {fileID: 5716102245923590997}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8693450222624821382 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4032685806379418579, guid: 5d31c47f41f9e574e93dc4dd9bc6f7c3, type: 3}
   m_PrefabInstance: {fileID: 5716102245923590997}
   m_PrefabAsset: {fileID: 0}

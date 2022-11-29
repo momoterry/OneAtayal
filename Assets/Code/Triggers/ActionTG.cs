@@ -45,7 +45,7 @@ public class ActionTG : MonoBehaviour
         }
     }
 
-    void OnAction()
+    virtual protected void OnAction()
     {
         if (playerToActive)
         {
@@ -83,7 +83,7 @@ public class ActionTG : MonoBehaviour
         }
     }
 
-    void OnGameObjectIn(GameObject obj)
+    protected virtual void OnGameObjectIn(GameObject obj)
     {
         if (obj.CompareTag("Player"))
         {
@@ -109,7 +109,7 @@ public class ActionTG : MonoBehaviour
         }
     }
 
-    void OnGameObjectOut(GameObject obj)
+    protected virtual void OnGameObjectOut(GameObject obj)
     {
         PlayerControllerBase pc = obj.GetComponent<PlayerControllerBase>();
         if (pc)
