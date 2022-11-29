@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
     protected Dictionary<string, int> levelMap = new Dictionary<string, int>();
     protected Dictionary<string, string> sceneLevelMap = new Dictionary<string, string>();
 
-
     public string GetCurrLevelID()
     {
         string sceneName = SceneManager.GetActiveScene().name;
@@ -75,6 +74,8 @@ public class LevelManager : MonoBehaviour
 
     public bool IsLevelOpen(string levelID)
     {
+        if (DebugMenu.GetIsOpenAllLevel())
+            return true;
         string str = GetOpenEvent(levelID);
         bool isOpen = GameSystem.GetPlayerData().GetEvent(str);
         return isOpen;
