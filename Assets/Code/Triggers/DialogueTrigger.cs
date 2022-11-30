@@ -6,6 +6,7 @@ public class DialogueTrigger : MonoBehaviour
 {
     public GameObject[] EndTriggers;
 
+    public string speakerName;
     [TextArea(2, 10)]
     public string[] dialogueContents;
 
@@ -31,7 +32,7 @@ public class DialogueTrigger : MonoBehaviour
     protected void StartDialogue()
     {
         DialogueContent dc = new DialogueContent();
-        dc.name = "´ú¸Õ¤H­û";
+        dc.name = speakerName;
         dc.textContents = dialogueContents;
         if (theDialogue)
         {

@@ -37230,7 +37230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 678263458}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.08002, y: -2.11988, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37251,6 +37251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndTriggers:
   - {fileID: 220112817}
+  speakerName: "\u7D05\u9AEE\u7CBE\u9748"
   dialogueContents:
   - "\u4F60\u597D\u5440\uFF0C\u82F1\u96C4"
   - "\u77E5\u9053\u55CE?\r\n\u6211\u53EF\u4EE5\u5354\u52A9\u4F60\u53EC\u559A\u66F4\u591A\u5DEB\u9748\u5594!!\r"
@@ -41639,6 +41640,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1375899391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1375899392}
+  - component: {fileID: 1375899393}
+  m_Layer: 0
+  m_Name: DollShopAdv_Dialogue_01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1375899392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375899391}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.58, y: -4.8800006, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3145970}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1375899393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375899391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f736bc16cc8aee848a9ad8d437558762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndTriggers:
+  - {fileID: 1615385100}
+  speakerName: "\u767D\u9AEE\u7CBE\u9748"
+  dialogueContents:
+  - "\u662F\u82F1\u96C4\u5462 ......"
+  - "\u6211 \u2026\u2026 \n\u53EF\u4EE5\u53EC\u559A\u7279\u5225\u7684\u5DEB\u9748
+    \u2026\u2026"
+  - "\u4E0D\u904E \u2026\u2026 \u5F88\u8CB4\u5462 \u2026\u2026"
 --- !u!1001 &1387231379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41743,7 +41796,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398861677}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.25, y: 0, z: 12.25}
+  m_LocalPosition: {x: -0.75, y: -0.00000017881393, z: 13.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42059,6 +42112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EndTriggers: []
+  speakerName: "\u68EE\u6797\u5B88\u885B"
   dialogueContents:
   - "\u4E0D\u53EF\u601D\u8B70\uFF0C\u4F60\u89E3\u6C7A\u68EE\u6797\u4E2D\u7684\u5371\u6A5F\u4E86!!"
   - "\u8B1D\u8B1D\u4F60\uFF0C\u82F1\u96C4"
@@ -42927,6 +42981,7 @@ MonoBehaviour:
   EndTriggers:
   - {fileID: 1874201992}
   - {fileID: 2947275041791608798}
+  speakerName: "\u68EE\u6797\u5B88\u885B"
   dialogueContents:
   - "\u6B61\u8FCE\u4F60\uFF0C\u82F1\u96C4"
   - "\u4F60\u5C31\u662F ....\n\u50B3\u8AAA\u4E2D ....... \u80FD\u64CD\u4F5C\u5DEB\u9748\u7684\u4EBA?"
@@ -44096,6 +44151,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4014196958525496126, guid: 09f7e18c7bd4ff442b82745dcd327d26, type: 3}
+      propertyPath: TriggerTarget
+      value: 
+      objectReference: {fileID: 1615385100}
+    - target: {fileID: 4014196958525496126, guid: 09f7e18c7bd4ff442b82745dcd327d26, type: 3}
+      propertyPath: conditionsInOrder.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014196958525496126, guid: 09f7e18c7bd4ff442b82745dcd327d26, type: 3}
+      propertyPath: conditionsInOrder.Array.data[0].SaveCondition
+      value: DollShopAdv_Dialogue_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014196958525496126, guid: 09f7e18c7bd4ff442b82745dcd327d26, type: 3}
+      propertyPath: conditionsInOrder.Array.data[0].triggerTarget
+      value: 
+      objectReference: {fileID: 1375899391}
     - target: {fileID: 4258399228296095096, guid: 09f7e18c7bd4ff442b82745dcd327d26, type: 3}
       propertyPath: TriggerTarget
       value: 
