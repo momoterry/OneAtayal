@@ -8,7 +8,9 @@ public class DM_Dynamic : DollManager
 
     public int FrontWidth = 4;
     public int MiddleDepth = 3;
-    public int BackWidth = 4; 
+    public int BackWidth = 4;
+
+    protected float allShift = 0.0f;
 
     protected List<Doll> frontList = new List<Doll>();
     protected List<Doll> middleList = new List<Doll>();
@@ -53,7 +55,7 @@ public class DM_Dynamic : DollManager
         int nLine = ((frontNum-1) / FrontWidth ) + 1;
         int lastLineCount = (frontNum-1) % FrontWidth + 1;
 
-        float fPos = Mathf.Max(1.0f, 2.0f - (float)(nLine-1) * 0.5f);  //前方起始
+        float fPos = Mathf.Max(1.0f, 2.0f - (float)(nLine-1) * 0.5f) + allShift;  //前方起始
         float slotDepth = 1.0f;
         fPos += slotDepth * (float)(nLine-1);
 
@@ -101,7 +103,7 @@ public class DM_Dynamic : DollManager
             int nLine = (num - 1) / 2 + 1;
             float slotDepth = Mathf.Max(1.0f, 1.5f - (nLine - 1) * 0.25f);
             float totalDepth = (float)(nLine - 1) * slotDepth;
-            float fPos = totalDepth * 0.5f;
+            float fPos = totalDepth * 0.5f + allShift;
 
             for (int l=0; l<nLine; l++)
             {
@@ -134,7 +136,7 @@ public class DM_Dynamic : DollManager
         int nLine = ((backNum - 1) / BackWidth) + 1;
         int lastLineCount = (backNum - 1) % BackWidth + 1;
 
-        float bkPos = Mathf.Max(1.0f, 2.0f - (float)(nLine - 1) * 0.5f);  //後方起始
+        float bkPos = Mathf.Max(1.0f, 2.0f - (float)(nLine - 1) * 0.5f) - allShift;  //後方起始
         float slotDepth = 1.0f;
         bkPos += slotDepth * (float)(nLine - 1);
 
