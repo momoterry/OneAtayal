@@ -18,8 +18,8 @@ public class DollAuto : Doll
 
     public GameObject deathFX;
 
-    //public bool canRevie = false;
-
+    public Animator myAnimator;
+    
     //== 以上其實是 public
     protected float timeToAttack = 0;
     protected float attackCDLeft = 0;
@@ -46,6 +46,9 @@ public class DollAuto : Doll
     protected HitBody myBody;
     protected Hp_BarHandler myHpHandler;
     protected Collider myCollider;
+
+    //面向
+    Vector3 myFace = Vector3.back;
 
     protected float autoStateTime;
 
@@ -170,6 +173,11 @@ public class DollAuto : Doll
         if (attackCDLeft < 0)
             attackCDLeft = 0;
 
+        if (myAnimator)
+        {
+            myAnimator.SetFloat("X", myFace.x);
+            myAnimator.SetFloat("Y", myFace.z);
+        }
     }
 
     protected virtual bool SearchTarget()
@@ -226,6 +234,9 @@ public class DollAuto : Doll
     {
         if (myAgent)
             myAgent.SetDestination(mySlot.position);
+
+        myFace = BattleSystem.GetPC().GetFaceDir();
+
         if (autoStateTime > 0.1f) 
         { 
 
@@ -250,6 +261,8 @@ public class DollAuto : Doll
         {
             if (myAgent)
                 myAgent.SetDestination(myTarget.transform.position);
+
+            myFace = (myTarget.transform.position - transform.position).normalized;
         }
         else
         {
@@ -323,6 +336,8 @@ public class DollAuto : Doll
             DoOneAttack();
             timeToAttack = attackCD;
             attackCDLeft = attackCD;    //避免換 State 以後清零
+
+            myFace = (myTarget.transform.position - transform.position).normalized;
         }
 
     }
@@ -333,6 +348,9 @@ public class DollAuto : Doll
         {
             myAgent.SetDestination(mySlot.position);
             float dis = (mySlot.position - transform.position).magnitude;
+
+            myFace = (mySlot.position - transform.position).normalized;
+
             //print(dis);
             if (dis < PositionRangeIn)
             {
@@ -439,4 +457,9 @@ public class DollAuto : Doll
 
     //}
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + myFace * 2.0f);
+    }
 }
