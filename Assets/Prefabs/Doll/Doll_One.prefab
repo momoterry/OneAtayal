@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 1842341814915461984}
   - component: {fileID: -7613164011139993473}
   - component: {fileID: 2959209445954240486}
+  - component: {fileID: 7021140444660993118}
   m_Layer: 10
   m_Name: Doll_One
   m_TagString: Doll
@@ -332,3 +333,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cancelObjRef: {fileID: 6182335869324556820, guid: a8e9b478df91f844eb4ebb9977a9151a, type: 3}
+--- !u!114 &7021140444660993118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2548c9fc11156e34d91efb9d946201c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IdleUp:
+    sprites:
+    - {fileID: -432125093, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
+    - {fileID: -1518064467, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
+    FPS: 4
+  IdleDown:
+    sprites:
+    - {fileID: 6611336990635542847, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
+    - {fileID: 4393726222365770804, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
+    FPS: 4
