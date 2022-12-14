@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1734970458584879217}
   - component: {fileID: 1734970458584879216}
-  - component: {fileID: 1734970458584879215}
+  - component: {fileID: 2874423454591729310}
   m_Layer: 0
   m_Name: Doll_Ace_0
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4032685806379418581}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1734970458584879216
 SpriteRenderer:
@@ -85,26 +85,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1734970458584879215
-Animator:
-  serializedVersion: 4
+--- !u!114 &2874423454591729310
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734970458584879214}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fc58eee74120d4a4aaaf1a87884eb1c0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2548c9fc11156e34d91efb9d946201c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1734970458584879216}
+  IdleUp:
+    sprites:
+    - {fileID: 358708041, guid: b9ada76298df31f46acce68ef018f666, type: 3}
+    - {fileID: -1298492892, guid: b9ada76298df31f46acce68ef018f666, type: 3}
+    FPS: 2
+  IdleDown:
+    sprites:
+    - {fileID: -1891856100, guid: b9ada76298df31f46acce68ef018f666, type: 3}
+    - {fileID: 1039955285, guid: b9ada76298df31f46acce68ef018f666, type: 3}
+    FPS: 2
 --- !u!1 &4032685804775328987
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +138,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4032685806379418581}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4032685804775328989
 SpriteRenderer:
@@ -225,8 +228,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4032685804775328988}
   - {fileID: 1734970458584879217}
+  - {fileID: 4032685804775328988}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -257,6 +260,8 @@ MonoBehaviour:
   attackCD: 0.25
   RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
+  myAnimator: {fileID: 0}
+  mySpAnimator: {fileID: 2874423454591729310}
 --- !u!114 &-894024693914061495
 MonoBehaviour:
   m_ObjectHideFlags: 0

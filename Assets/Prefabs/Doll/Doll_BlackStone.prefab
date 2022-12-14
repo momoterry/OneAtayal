@@ -152,6 +152,8 @@ MonoBehaviour:
   attackCD: 0.5
   RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
+  myAnimator: {fileID: 0}
+  mySpAnimator: {fileID: 748296375762661269}
 --- !u!114 &5171906015897617299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4369077747153714607}
   - component: {fileID: 4369077747153714605}
-  - component: {fileID: 4369077747153714606}
+  - component: {fileID: 748296375762661269}
   m_Layer: 0
   m_Name: Doll_BlackStone
   m_TagString: Untagged
@@ -343,23 +345,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4369077747153714606
-Animator:
-  serializedVersion: 4
+--- !u!114 &748296375762661269
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369077747153714608}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c9bf064d0862bcd4590267cc3227c837, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2548c9fc11156e34d91efb9d946201c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 4369077747153714605}
+  IdleUp:
+    sprites:
+    - {fileID: -856333532, guid: 2fce2ece476c79d4aa1c952327cb3257, type: 3}
+    - {fileID: -226734496, guid: 2fce2ece476c79d4aa1c952327cb3257, type: 3}
+    FPS: 4
+  IdleDown:
+    sprites:
+    - {fileID: -727791524, guid: 2fce2ece476c79d4aa1c952327cb3257, type: 3}
+    - {fileID: -782553799, guid: 2fce2ece476c79d4aa1c952327cb3257, type: 3}
+    FPS: 4

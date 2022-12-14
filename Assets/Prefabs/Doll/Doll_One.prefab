@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 4032685806379418581}
   - component: {fileID: 3264087317604759464}
   - component: {fileID: 4032685806379418580}
-  - component: {fileID: 4032685806379418582}
   - component: {fileID: -894024693914061495}
   - component: {fileID: 8817159822340256188}
   - component: {fileID: -2225462949142647}
@@ -154,7 +153,7 @@ MonoBehaviour:
   attackCD: 0.25
   RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
-  myAnimator: {fileID: 4032685806379418582}
+  myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 7021140444660993118}
 --- !u!212 &4032685806379418580
 SpriteRenderer:
@@ -208,26 +207,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4032685806379418582
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4032685806379418579}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c31352509a2fcfb4ba3b006366401c22, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &-894024693914061495
 MonoBehaviour:
   m_ObjectHideFlags: 0
