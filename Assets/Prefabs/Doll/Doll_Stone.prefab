@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4032685806379418581}
   - component: {fileID: 7794630717541975399}
+  - component: {fileID: 6954221647989184902}
   - component: {fileID: -1451147456640922642}
   - component: {fileID: -894024693914061495}
   - component: {fileID: 8817159822340256188}
@@ -152,6 +153,31 @@ MonoBehaviour:
   attackCD: 0.5
   RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
+  myAnimator: {fileID: 0}
+  mySpAnimator: {fileID: 6954221647989184902}
+--- !u!114 &6954221647989184902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2548c9fc11156e34d91efb9d946201c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8665046289553429683}
+  IdleUp:
+    sprites:
+    - {fileID: 1494258863, guid: 0912fa18d6688a54f8734e039c2fd137, type: 3}
+    - {fileID: -1976940904, guid: 0912fa18d6688a54f8734e039c2fd137, type: 3}
+    FPS: 4
+  IdleDown:
+    sprites:
+    - {fileID: 4601728623675395250, guid: 0912fa18d6688a54f8734e039c2fd137, type: 3}
+    - {fileID: -2310080927271966201, guid: 0912fa18d6688a54f8734e039c2fd137, type: 3}
+    FPS: 4
 --- !u!114 &-1451147456640922642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +291,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4032685806379418581}
     m_Modifications:
+    - target: {fileID: 2466625736611008370, guid: 63a77c5cde7a76341a96925bbc16e3fb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3374964500392989698, guid: 63a77c5cde7a76341a96925bbc16e3fb, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -318,5 +348,10 @@ PrefabInstance:
 --- !u!4 &3935568074143939794 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3374964500392989698, guid: 63a77c5cde7a76341a96925bbc16e3fb, type: 3}
+  m_PrefabInstance: {fileID: 1750697506226694352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &8665046289553429683 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6920862385396513891, guid: 63a77c5cde7a76341a96925bbc16e3fb, type: 3}
   m_PrefabInstance: {fileID: 1750697506226694352}
   m_PrefabAsset: {fileID: 0}
