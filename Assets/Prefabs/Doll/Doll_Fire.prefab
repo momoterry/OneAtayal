@@ -68,6 +68,8 @@ MonoBehaviour:
   attackCD: 1.5
   RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
+  myAnimator: {fileID: 0}
+  mySpAnimator: {fileID: 6478144442157520843}
 --- !u!114 &7173624878620016723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP_Max: 200
+  DamageRatio: 1
 --- !u!114 &3948152558790862856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3072405639009285136}
   - component: {fileID: 3072405639009285150}
+  - component: {fileID: 6478144442157520843}
   - component: {fileID: 3072405639009285137}
   m_Layer: 0
   m_Name: Doll_Fire_Sprite
@@ -342,6 +346,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6478144442157520843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072405639009285139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2548c9fc11156e34d91efb9d946201c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 3072405639009285150}
+  IdleUp:
+    sprites:
+    - {fileID: 2014013384, guid: 5f4efc69d1223704c8f8e6aeeeeb97e7, type: 3}
+    - {fileID: -1382299824, guid: 5f4efc69d1223704c8f8e6aeeeeb97e7, type: 3}
+    FPS: 4
+  IdleDown:
+    sprites:
+    - {fileID: -1266561690763772302, guid: 5f4efc69d1223704c8f8e6aeeeeb97e7, type: 3}
+    - {fileID: -3318721999211871108, guid: 5f4efc69d1223704c8f8e6aeeeeb97e7, type: 3}
+    FPS: 4
 --- !u!95 &3072405639009285137
 Animator:
   serializedVersion: 4
@@ -350,7 +377,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3072405639009285139}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: bd620b6ccce52244b86408935ea89355, type: 2}
   m_CullingMode: 0

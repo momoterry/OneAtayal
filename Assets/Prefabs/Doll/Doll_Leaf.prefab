@@ -152,6 +152,8 @@ MonoBehaviour:
   attackCD: 2
   RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
+  myAnimator: {fileID: 0}
+  mySpAnimator: {fileID: 3711203544588713948}
 --- !u!114 &-894024693914061495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8521553403077107317}
   - component: {fileID: 7271087953935242957}
-  - component: {fileID: 239322450553144745}
+  - component: {fileID: 3711203544588713948}
   m_Layer: 10
   m_Name: Doll_Leaf_Body
   m_TagString: Untagged
@@ -343,23 +345,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &239322450553144745
-Animator:
-  serializedVersion: 4
+--- !u!114 &3711203544588713948
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6403853858975233831}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c9b9e53dd6d779b4da0d4fe7233a34fb, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2548c9fc11156e34d91efb9d946201c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 7271087953935242957}
+  IdleUp:
+    sprites:
+    - {fileID: -2095088621, guid: 6007445a52ca83947af697473ec0f17b, type: 3}
+    - {fileID: 1164398407, guid: 6007445a52ca83947af697473ec0f17b, type: 3}
+    FPS: 4
+  IdleDown:
+    sprites:
+    - {fileID: 2980362001193694935, guid: 6007445a52ca83947af697473ec0f17b, type: 3}
+    - {fileID: 7459543780650624370, guid: 6007445a52ca83947af697473ec0f17b, type: 3}
+    FPS: 4

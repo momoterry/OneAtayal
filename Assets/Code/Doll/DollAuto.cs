@@ -338,11 +338,11 @@ public class DollAuto : Doll
         timeToAttack -= Time.deltaTime;
         if (timeToAttack <= 0)
         {
+            myFace = (myTarget.transform.position - transform.position).normalized;
+
             DoOneAttack();
             timeToAttack = attackCD;
             attackCDLeft = attackCD;    //Á×§K´« State ¥H«á²M¹s
-
-            myFace = (myTarget.transform.position - transform.position).normalized;
         }
 
     }
