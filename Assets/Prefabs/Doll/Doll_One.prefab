@@ -155,6 +155,7 @@ MonoBehaviour:
   RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
   myAnimator: {fileID: 4032685806379418582}
+  mySpAnimator: {fileID: 7021140444660993118}
 --- !u!212 &4032685806379418580
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -215,7 +216,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4032685806379418579}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c31352509a2fcfb4ba3b006366401c22, type: 2}
   m_CullingMode: 0
@@ -345,13 +346,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2548c9fc11156e34d91efb9d946201c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 4032685806379418580}
   IdleUp:
     sprites:
     - {fileID: -432125093, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
     - {fileID: -1518064467, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
-    FPS: 4
+    FPS: 2
   IdleDown:
     sprites:
     - {fileID: 6611336990635542847, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
     - {fileID: 4393726222365770804, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
-    FPS: 4
+    FPS: 2

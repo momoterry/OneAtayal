@@ -19,6 +19,7 @@ public class DollAuto : Doll
     public GameObject deathFX;
 
     public Animator myAnimator;
+    public SPAnimator mySpAnimator;
     
     //== 以上其實是 public
     protected float timeToAttack = 0;
@@ -177,6 +178,10 @@ public class DollAuto : Doll
         {
             myAnimator.SetFloat("X", myFace.x);
             myAnimator.SetFloat("Y", myFace.z);
+        }
+        if (mySpAnimator)
+        {
+            mySpAnimator.SetXY(myFace.x, myFace.z);
         }
     }
 
