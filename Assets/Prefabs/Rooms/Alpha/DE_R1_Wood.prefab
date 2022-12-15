@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawners:
   - timeToWait: 0
-    enemyRef: {fileID: 7208015447484052683, guid: 87c85ab6dc454c04d80eb63939f24528, type: 3}
+    enemyRef: {fileID: 7208015447484052683, guid: dc938a71951132b48bd77c37567f6430, type: 3}
     num: 5
     randomWidth: 8
     randomHeight: 2
@@ -92,7 +92,7 @@ MonoBehaviour:
     posShiftX: 0
     posShiftZ: -4
   - timeToWait: 5
-    enemyRef: {fileID: 7208015447484052683, guid: 87c85ab6dc454c04d80eb63939f24528, type: 3}
+    enemyRef: {fileID: 7208015447484052683, guid: dc938a71951132b48bd77c37567f6430, type: 3}
     num: 7
     randomWidth: 10
     randomHeight: 2
@@ -106,7 +106,7 @@ MonoBehaviour:
     posShiftX: 0
     posShiftZ: 4
   - timeToWait: 6
-    enemyRef: {fileID: 7208015447484052683, guid: 87c85ab6dc454c04d80eb63939f24528, type: 3}
+    enemyRef: {fileID: 7208015447484052683, guid: dc938a71951132b48bd77c37567f6430, type: 3}
     num: 8
     randomWidth: 10
     randomHeight: 2
@@ -121,6 +121,7 @@ MonoBehaviour:
     posShiftZ: 14
   triggerTargetWhenAllKilled:
   - {fileID: 6025437205254808788}
+  MaxWaitTimeIfNoEnemy: 2
 --- !u!1 &1778843647598936147
 GameObject:
   m_ObjectHideFlags: 0
