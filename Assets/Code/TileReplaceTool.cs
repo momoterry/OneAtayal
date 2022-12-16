@@ -5,8 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class TileReplaceTool : MonoBehaviour
 {
-    public Tile tileFrom;
-    public Tile tileTo;
+    public Tile[] tilesFrom;
+    public Tile[] tilesTo;
 
     public GameObject mapRoot;
 
@@ -32,7 +32,14 @@ public class TileReplaceTool : MonoBehaviour
         foreach ( Tilemap map in allMaps)
         {
             print(map.name);
-            map.SwapTile(tileFrom, tileTo);
+            for (int i=0; i<tilesFrom.Length; i++)
+            {
+                if (i < tilesTo.Length)
+                {
+                    map.SwapTile(tilesFrom[i], tilesTo[i]);
+                    //map.SwapTile(tilesTo[i], tilesFrom[i]);
+                }
+            }
         }
         print("==== Done ====");
     }
