@@ -19,7 +19,7 @@ public class DollAuto : Doll
     public GameObject deathFX;
 
     public Animator myAnimator;
-    public SPAnimator mySpAnimator;
+    public SPAnimatorUD mySpAnimator;
     
     //== 以上其實是 public
     protected float timeToAttack = 0;
