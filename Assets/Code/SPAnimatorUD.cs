@@ -7,6 +7,7 @@ public class SPAnimationClip
 {
     public Sprite[] sprites;
     public float FPS = 4.0f;
+    public bool Loop = true;
 
     protected float currTime = 0;
     protected int currIndex = 0;
@@ -44,7 +45,14 @@ public class SPAnimationClip
             currIndex++;
             if (currIndex >= totalIndex)
             {
-                currIndex = 0;
+                if (Loop)
+                {
+                    currIndex = 0;
+                }
+                else
+                {
+                    currIndex = totalIndex - 1;
+                }
             }
         }
     }

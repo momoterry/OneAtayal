@@ -7,8 +7,9 @@ public class Enemy : MonoBehaviour
 {
     public int ID = -1;
     public float MaxHP = 100.0f;
-    //public GameObject attackFX;     //TODO 不再需要
-    //public GameObject damageFX;     //TODO 不再需要
+
+    public GameObject spawnFX;
+
     public GameObject deadFX;
     public GameObject debris;
 
@@ -56,6 +57,14 @@ public class Enemy : MonoBehaviour
 
     // Public
     public int GetID() { return ID; }
+
+    private void Awake()
+    {
+        if (spawnFX)
+        {
+            BattleSystem.SpawnGameObj(spawnFX, transform.position);
+        }
+    }
 
     // Start is called before the first frame update
     protected virtual void Start()
