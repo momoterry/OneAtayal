@@ -2,61 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class SPAnimationClip
-{
-    public Sprite[] sprites;
-    public float FPS = 4.0f;
-    public bool Loop = true;
 
-    protected float currTime = 0;
-    protected int currIndex = 0;
-
-    protected int totalIndex;
-    protected float stepTime;
-
-    protected bool isValid = false;
-
-    public bool IsValid() { return isValid; }
-    public Sprite GetCurrSprite() 
-    {
-        if (!isValid)
-            return null;
-        return sprites[currIndex]; 
-    }
-    public void Init()
-    {
-        currIndex = 0;
-        currTime = 0;
-        totalIndex = sprites.Length;
-        stepTime = 1.0f / FPS;
-        isValid = totalIndex > 0 ? true : false;
-    }
-
-    public void Update()
-    {
-        if (!isValid)
-            return;
-
-        currTime += Time.deltaTime;
-        if (currTime > stepTime)
-        {
-            currTime -= stepTime;
-            currIndex++;
-            if (currIndex >= totalIndex)
-            {
-                if (Loop)
-                {
-                    currIndex = 0;
-                }
-                else
-                {
-                    currIndex = totalIndex - 1;
-                }
-            }
-        }
-    }
-}
 
 public class SPAnimatorUD : SPAnimator
 {

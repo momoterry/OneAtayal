@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     public float Attack = 20.0f;
 
     public Animator myAnimator;         //可以指直接外部指定
+    public SPAnimator mySPAimator;
     protected NavMeshAgent myAgent;
     protected float hp;
     protected GameObject targetObj;
@@ -92,6 +93,7 @@ public class Enemy : MonoBehaviour
         faceDir = Vector3.down;
 #endif
         SetupAnimationDirection();
+
     }
 
     public virtual void SetUpLevel( int iLv = 1)
