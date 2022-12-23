@@ -72,16 +72,32 @@ public class SpecificAnimation
     public SPAnimationClip anim;
 }
 
+//============================================================================================
+//          SPAnimator
+//============================================================================================
 public class SPAnimator : MonoBehaviour
 {
     public SpriteRenderer target;
     public SPAnimationClip Idle;
+    public SPAnimationClip InitAnim;
 
     public SpecificAnimation[] specificAnimations;
     public string initSpecific;
 
+    protected enum PHASE
+    {
+        NONE,
+        INIT,
+        LOOP,
+        SPECIFIC,
+        FINISH,
+    }
+
+    protected PHASE currPhase = PHASE.NONE;
+    protected PHASE nextPhase = PHASE.NONE;
+
     protected SPAnimationClip currClip = null;
-    protected SPAnimationClip specificClip = null;
+    //protected SPAnimationClip specificClip = null;
     protected Dictionary<string, SPAnimationClip> specificMaps = new Dictionary<string, SPAnimationClip>();
 
     private void Awake()
@@ -93,14 +109,14 @@ public class SPAnimator : MonoBehaviour
 
         Init();
 
-        if (initSpecific != "")
-        {
-            PlaySpecific(initSpecific);
-            if (target && specificClip != null)
-            {
-                target.sprite = specificClip.GetCurrSprite();
-            }
-        }
+        //if (initSpecific != "")
+        //{
+        //    PlaySpecific(initSpecific);
+        //    if (target && specificClip != null)
+        //    {
+        //        target.sprite = specificClip.GetCurrSprite();
+        //    }
+        //}
     }
 
     // Start is called before the first frame update
@@ -109,47 +125,109 @@ public class SPAnimator : MonoBehaviour
         //Init();
     }
 
+
     virtual protected void Init()
     {
         Idle.Init();
+        InitAnim.Init();
         for (int i=0; i<specificAnimations.Length; i++)
         {
             specificAnimations[i].anim.Init();
         }
-        currClip = Idle;
+        if (InitAnim.IsValid())
+        {
+            currClip = InitAnim;
+            nextPhase = PHASE.INIT;
+        }
+        else
+        {
+            currClip = Idle;
+            nextPhase = PHASE.LOOP;
+        }
+
+        if (currClip.IsValid() && target)
+        {
+            target.sprite = currClip.sprites[0];    //初始化
+        }
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        if (specificClip != null)
+        currPhase = nextPhase;
+
+        if (currPhase == PHASE.FINISH || !currClip.IsValid())
         {
-            specificClip.Update();
-            if (target) //TODO: 應該整合 currClip
+            return;
+        }
+
+        currClip.Update();
+        if (target)
+        {
+            target.sprite = currClip.GetCurrSprite();
+        }
+        if (currClip.IsDone())
+        {
+            switch (currPhase)
             {
-                target.sprite = specificClip.GetCurrSprite();
-            }
-            if (specificClip.IsDone())
-            {
-                StopSpecific();
+                case PHASE.INIT:
+                case PHASE.SPECIFIC:
+                    currClip = Idle;
+                    nextPhase = PHASE.LOOP;
+                    break;
             }
         }
-        else if (currClip != null)
-        {
-            currClip.Update();
-            if (target)
-            {
-                target.sprite = currClip.GetCurrSprite();
-            }
-        }
+
+        //if (specificClip != null)
+        //{
+        //    specificClip.Update();
+        //    if (target) //TODO: 應該整合 currClip
+        //    {
+        //        target.sprite = specificClip.GetCurrSprite();
+        //    }
+        //    if (specificClip.IsDone())
+        //    {
+        //        StopSpecific();
+        //    }
+        //}
+        //else if (currClip != null)
+        //{
+        //    currClip.Update();
+        //    if (target)
+        //    {
+        //        target.sprite = currClip.GetCurrSprite();
+        //    }
+        //    if (currClip.IsDone())
+        //    {
+        //        switch (currPhase)
+        //        {
+        //            case PHASE.INIT:
+        //                if (Idle.IsValid())
+        //                {
+        //                    currClip = Idle;
+        //                    nextPhase = PHASE.LOOP;
+        //                }
+        //                else
+        //                {
+        //                    nextPhase = PHASE.FINISH;
+        //                }
+        //                break;
+        //        }
+        //    }
+        //}
     }
 
     public bool PlaySpecific(string name)
     {
-        specificClip = specificMaps[name];
+        SPAnimationClip specificClip = specificMaps[name];
         if (specificClip != null)
         {
-            specificClip.Init();
+            //specificClip.Init();
+            currClip = specificClip;
+            nextPhase = PHASE.SPECIFIC;
+            
             return true;
         }
         return false;
@@ -157,6 +235,10 @@ public class SPAnimator : MonoBehaviour
 
     public void StopSpecific()
     {
-        specificClip = null;
+        //specificClip = null;
+        if (currPhase == PHASE.SPECIFIC)
+        {
+            nextPhase = PHASE.LOOP;
+        }
     }
 }
