@@ -241,7 +241,6 @@ MonoBehaviour:
     - {fileID: -1698559634904645832, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
     - {fileID: -8654405143892892331, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
     FPS: 4
-    Loop: 1
   InitAnim:
     sprites:
     - {fileID: -1422516958, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
@@ -249,18 +248,7 @@ MonoBehaviour:
     - {fileID: 654362121, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
     - {fileID: -1762504227, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
     FPS: 12
-    Loop: 0
-  specificAnimations:
-  - name: Spawn
-    anim:
-      sprites:
-      - {fileID: -1422516958, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
-      - {fileID: 449793316, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
-      - {fileID: 654362121, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
-      - {fileID: -1762504227, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
-      FPS: 12
-      Loop: 0
-  initSpecific: Spawn
+  specificAnimations: []
 --- !u!1 &7208015447484052683
 GameObject:
   m_ObjectHideFlags: 0

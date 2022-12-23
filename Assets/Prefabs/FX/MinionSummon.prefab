@@ -114,13 +114,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 7107747679109675351}
   Idle:
+    sprites: []
+    FPS: 12
+  InitAnim:
     sprites:
     - {fileID: -1449727369, guid: 26d02a12676d447478bbe9d49864b457, type: 3}
     - {fileID: 670562671, guid: 26d02a12676d447478bbe9d49864b457, type: 3}
     - {fileID: 1640139147, guid: 26d02a12676d447478bbe9d49864b457, type: 3}
     - {fileID: 1535630981, guid: 26d02a12676d447478bbe9d49864b457, type: 3}
     FPS: 12
-    Loop: 0
+  specificAnimations: []
 --- !u!1 &1730805568862363463
 GameObject:
   m_ObjectHideFlags: 0

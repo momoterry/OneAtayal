@@ -7,7 +7,7 @@ public class SPAnimationClip
 {
     public Sprite[] sprites;
     public float FPS = 4.0f;
-    public bool Loop = true;
+    protected bool Loop = true;
 
     protected float currTime = 0;
     protected int currIndex = 0;
@@ -26,7 +26,7 @@ public class SPAnimationClip
             return null;
         return sprites[currIndex];
     }
-    public void Init()
+    public void Init(bool isLoop = true)
     {
         currIndex = 0;
         currTime = 0;
@@ -34,6 +34,7 @@ public class SPAnimationClip
         stepTime = 1.0f / FPS;
         isValid = totalIndex > 0 ? true : false;
         isDone = false;
+        Loop = isLoop;
     }
 
     public void Update()
@@ -82,7 +83,7 @@ public class SPAnimator : MonoBehaviour
     public SPAnimationClip InitAnim;
 
     public SpecificAnimation[] specificAnimations;
-    public string initSpecific;
+    //public string initSpecific;
 
     protected enum PHASE
     {
@@ -129,10 +130,10 @@ public class SPAnimator : MonoBehaviour
     virtual protected void Init()
     {
         Idle.Init();
-        InitAnim.Init();
+        InitAnim.Init(false);
         for (int i=0; i<specificAnimations.Length; i++)
         {
-            specificAnimations[i].anim.Init();
+            specificAnimations[i].anim.Init(false);
         }
         if (InitAnim.IsValid())
         {
