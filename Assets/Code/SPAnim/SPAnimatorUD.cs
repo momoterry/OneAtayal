@@ -11,47 +11,65 @@ public class SPAnimatorUD : SPAnimator
     public SPAnimationClip IdleUp;
     //public SPAnimationClip Idle;
 
-    protected float X = 0;
-    protected float Y = -1.0f;
+    //protected float X = 0;
+    //protected float Y = -1.0f;
 
     //protected SPAnimationClip currClip = null;
 
     //¥~³¡©I¥s
-    override public void SetXY( float x, float y)
-    {
-        X = x;
-        Y = y;
-        CheckCurrClip();
-    }
+    //override public void SetXY( float x, float y)
+    //{
+    //    X = x;
+    //    Y = y;
+    //    //CheckCurrClip();
+    //}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Init();
-    }
+    //// Start is called before the first frame update
+    //void Start()
+    //{
+    //    Init();
+    //}
 
     // Update is called once per frame
-    void Update()
-    {
-        if (currClip != null)
-        {
-            currClip.Update();
-            if (target)
-            {
-                target.sprite = currClip.GetCurrSprite();
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    if (currClip != null)
+    //    {
+    //        currClip.Update();
+    //        if (target)
+    //        {
+    //            target.sprite = currClip.GetCurrSprite();
+    //        }
+    //    }
+    //}
 
-    protected void CheckCurrClip()
+    //protected void CheckCurrClip()
+    //{
+    //    if (Y > 0)
+    //    {
+    //        currClip = IdleUp;
+    //    }
+    //    else
+    //    {
+    //        currClip = Idle;
+    //    }
+    //}
+
+    protected override void UpdateLoop()
     {
-        if (Y > 0)
+        //base.UpdateLoop();
+        Idle.Update();
+        IdleUp.Update();
+        if (target)
         {
-            currClip = IdleUp;
-        }
-        else
-        {
-            currClip = Idle;
+            if (Y > 0)
+            {
+                target.sprite = IdleUp.GetCurrSprite();
+            }
+            else
+            {
+                target.sprite = Idle.GetCurrSprite();
+            }
         }
     }
 
@@ -59,7 +77,7 @@ public class SPAnimatorUD : SPAnimator
     {
         base.Init();
         IdleUp.Init();
-        CheckCurrClip();
+        //CheckCurrClip();
     }
 
 }

@@ -98,12 +98,16 @@ public class SPAnimator : MonoBehaviour
     protected PHASE currPhase = PHASE.NONE;
     protected PHASE nextPhase = PHASE.NONE;
 
-    protected SPAnimationClip currClip = null;
+    //protected SPAnimationClip currClip = null;
     //protected SPAnimationClip specificClip = null;
-    protected Dictionary<string, SPAnimationClip> specificMaps = new Dictionary<string, SPAnimationClip>();
+    //protected Dictionary<string, SPAnimationClip> specificMaps = new Dictionary<string, SPAnimationClip>();
 
-    virtual public void SetXY(float x, float y) { }
-    virtual public void SetIsRun(bool run) { }
+    protected float X = 0;
+    protected float Y = -1.0f;
+    protected bool isRun = false;
+
+    virtual public void SetXY(float x, float y) { X = x; Y = y; }
+    virtual public void SetIsRun(bool run) { isRun = run; }
 
     private void Awake()
     {
@@ -126,19 +130,23 @@ public class SPAnimator : MonoBehaviour
         //}
         if (InitAnim.IsValid())
         {
-            currClip = InitAnim;
+            //currClip = InitAnim;
             nextPhase = PHASE.INIT;
+            if (target)
+            {
+                target.sprite = InitAnim.sprites[0];    //初始化
+            }
         }
         else
         {
-            currClip = Idle;
+            //currClip = Idle;
             nextPhase = PHASE.LOOP;
         }
 
-        if (currClip.IsValid() && target)
-        {
-            target.sprite = currClip.sprites[0];    //初始化
-        }
+        //if (currClip.IsValid() && target)
+        //{
+        //    target.sprite = currClip.sprites[0];    //初始化
+        //}
     }
 
 
@@ -148,28 +156,75 @@ public class SPAnimator : MonoBehaviour
     {
         currPhase = nextPhase;
 
-        if (currPhase == PHASE.FINISH || !currClip.IsValid())
+        //if (currPhase == PHASE.FINISH || !currClip.IsValid())
+        //{
+        //    return;
+        //}
+
+        //currClip.Update();
+        //if (target)
+        //{
+        //    target.sprite = currClip.GetCurrSprite();
+        //}
+        //if (currClip.IsDone())
+        //{
+        //    switch (currPhase)
+        //    {
+        //        case PHASE.INIT:
+        //        //case PHASE.SPECIFIC:
+        //            currClip = Idle;
+        //            nextPhase = PHASE.LOOP;
+        //            break;
+        //    }
+        //}
+
+        if (currPhase == PHASE.FINISH)
         {
             return;
         }
+        switch (currPhase)
+        {
+            case PHASE.INIT:
+                UpdateInit();
+                break;
+            case PHASE.LOOP:
+                UpdateLoop();
+                break;
+        }
 
-        currClip.Update();
+    }
+
+    virtual protected void UpdateInit()
+    {
+        if (!InitAnim.IsValid())
+        {
+            nextPhase = PHASE.LOOP;
+            return;
+        }
+        InitAnim.Update();
+        if (InitAnim.IsDone())
+        {
+            nextPhase = PHASE.LOOP;
+        }
         if (target)
         {
-            target.sprite = currClip.GetCurrSprite();
+            target.sprite = InitAnim.GetCurrSprite();
         }
-        if (currClip.IsDone())
+    }
+    
+    virtual protected void UpdateLoop()
+    {
+        if (!Idle.IsValid())
         {
-            switch (currPhase)
-            {
-                case PHASE.INIT:
-                //case PHASE.SPECIFIC:
-                    currClip = Idle;
-                    nextPhase = PHASE.LOOP;
-                    break;
-            }
+            nextPhase = PHASE.FINISH;
+            return;
         }
 
+        Idle.Update();
+        if (target)
+        {
+            target.sprite = Idle.GetCurrSprite();
+        }
     }
 
     //public bool PlaySpecific(string name)
