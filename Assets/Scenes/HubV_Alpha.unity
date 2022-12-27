@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 290467011334818941, guid: b04abafe2fc6ce841ab40e2108861fce, type: 3}
       propertyPath: m_Radius
-      value: 2.25
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1910154341355013400, guid: b04abafe2fc6ce841ab40e2108861fce, type: 3}
       propertyPath: m_Size.y
@@ -42829,10 +42829,10 @@ MonoBehaviour:
   - {fileID: 1398861677}
   speakerName: "\u795E\u9748\u7684\u8072\u97F3"
   dialogueContents:
-  - "\u82F1\u96C4 \u2026\u2026 \r\n\u9019\u88E1 \u2026\u2026 \u5DEB\u9748 \u2026\u2026
-    \u4F11\u606F \u2026\u2026\r"
-  - "\u5DEB\u9748 \u2026\u2026 \u4E0A\u9650 \u2026\u2026\r\n\u7B49\u7D1A \u2026\u2026
-    \u63D0\u5347 \u2026\u2026\r"
+  - "\u82F1\u96C4 \u2026\u2026 \r\n\u9019\u88E1 \u2026\u2026 \u5DEB\u9748\u7684\u5BB6
+    \u2026\u2026 \u4F11\u606F \u2026\u2026\r"
+  - "\u5DEB\u9748 \u2026\u2026 \u6578\u91CF \u2026\u2026 \u4E0A\u9650 \u2026\u2026\r\n\u7B49\u7D1A
+    \u2026\u2026 \u63D0\u5347 \u2026\u2026\r"
   - "\u8ABF\u6574 \u2026\u2026 \u51FA\u6230 \u2026\u2026 \u5DEB\u9748 \u2026\u2026"
 --- !u!1001 &1683737758
 PrefabInstance:
@@ -44142,6 +44142,10 @@ PrefabInstance:
       propertyPath: deleteAfterAction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7944504477885881133, guid: 1241db243ab8f8944ad84eb0e4b32b10, type: 3}
+      propertyPath: m_Radius
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1241db243ab8f8944ad84eb0e4b32b10, type: 3}
 --- !u!4 &1988776839 stripped
@@ -44290,6 +44294,10 @@ PrefabInstance:
       propertyPath: TriggerTarget
       value: 
       objectReference: {fileID: 1615385100}
+    - target: {fileID: 9200193809843334322, guid: 09f7e18c7bd4ff442b82745dcd327d26, type: 3}
+      propertyPath: m_Radius
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09f7e18c7bd4ff442b82745dcd327d26, type: 3}
 --- !u!1001 &2021709282
@@ -45712,7 +45720,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4381487407848112659
 MonoBehaviour:
