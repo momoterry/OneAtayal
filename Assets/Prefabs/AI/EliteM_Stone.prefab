@@ -127,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3971227516564832848}
   - component: {fileID: 5785047746575723560}
-  - component: {fileID: 3858561315435397617}
+  - component: {fileID: 8833036520464821220}
   m_Layer: 0
   m_Name: MinionStone_0
   m_TagString: Untagged
@@ -202,26 +202,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3858561315435397617
-Animator:
-  serializedVersion: 4
+--- !u!114 &8833036520464821220
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5785121886343777953}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 096f589d56218ee43b3117cad8f2b09e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c068845190a0bd0408567d85da11b586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 5785047746575723560}
+  Idle:
+    sprites:
+    - {fileID: -1698559634904645832, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
+    - {fileID: -8654405143892892331, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
+    FPS: 4
+  InitAnim:
+    sprites:
+    - {fileID: -1422516958, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
+    - {fileID: 449793316, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
+    - {fileID: 654362121, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
+    - {fileID: -1762504227, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
+    FPS: 12
+  specificAnimations: []
 --- !u!1 &7208015447484052683
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +283,7 @@ MonoBehaviour:
   spawnFX: {fileID: 0}
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
   debris: {fileID: 4102302037370830796, guid: f9708512c0100ae4c9393ca2cd4ea6a3, type: 3}
-  SpawnWaitTime: 0.2
+  SpawnWaitTime: 0.4
   ChaseRangeIn: 100
   ChaseRangeOut: 102
   AttackRangeIn: 2
@@ -286,6 +292,7 @@ MonoBehaviour:
   AttackCD: 1.5
   Attack: 30
   myAnimator: {fileID: 0}
+  mySPAimator: {fileID: 0}
   DashTime: 0.1
   BackTime: 0.1
   MinDashLength: 1

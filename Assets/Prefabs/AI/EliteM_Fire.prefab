@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2349680605689910206}
   - component: {fileID: 3771462031177195926}
-  - component: {fileID: 4694452690910918688}
+  - component: {fileID: 5346925312858879686}
   m_Layer: 0
   m_Name: MinionFire_0
   m_TagString: Untagged
@@ -85,26 +85,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4694452690910918688
-Animator:
-  serializedVersion: 4
+--- !u!114 &5346925312858879686
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328688788094193029}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b55fb8ab3bdb9ac4ebcc3f41271a32f1, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c068845190a0bd0408567d85da11b586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 3771462031177195926}
+  Idle:
+    sprites:
+    - {fileID: -5326254471134587065, guid: df405ad348b764b44969209ae514539f, type: 3}
+    - {fileID: 3407419943559555826, guid: df405ad348b764b44969209ae514539f, type: 3}
+    FPS: 4
+  InitAnim:
+    sprites:
+    - {fileID: -1432303693, guid: df405ad348b764b44969209ae514539f, type: 3}
+    - {fileID: 236488107, guid: df405ad348b764b44969209ae514539f, type: 3}
+    - {fileID: 1036288203, guid: df405ad348b764b44969209ae514539f, type: 3}
+    - {fileID: 1208412939, guid: df405ad348b764b44969209ae514539f, type: 3}
+    FPS: 12
+  specificAnimations: []
 --- !u!1 &3007345102686724204
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 5020
   MaxHP: 700
+  spawnFX: {fileID: 0}
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
   debris: {fileID: 4960891124796890515, guid: 5a18f50e1b462cc40bbcafa2b3b03556, type: 3}
   SpawnWaitTime: 0.5
@@ -285,6 +292,7 @@ MonoBehaviour:
   AttackCD: 2
   Attack: 30
   myAnimator: {fileID: 0}
+  mySPAimator: {fileID: 0}
   bulletRef: {fileID: 8101537965375270392, guid: e60d412a5cfd5ad4bb3ecbbd7477d23f, type: 3}
 --- !u!195 &2075649660089510923
 NavMeshAgent:
