@@ -26,6 +26,13 @@ public class SPAnimationClip
             return null;
         return sprites[currIndex];
     }
+
+    public void Reset()
+    {
+        currIndex = 0;
+        currTime = 0;
+    }
+
     public void Init(bool isLoop = true)
     {
         currIndex = 0;
@@ -80,8 +87,8 @@ public class SPAnimationClip
 public class SPAnimator : MonoBehaviour
 {
     public SpriteRenderer target;
-    public SPAnimationClip Idle;
     public SPAnimationClip InitAnim;
+    public SPAnimationClip Idle;
 
     //public SpecificAnimation[] specificAnimations;
     //public string initSpecific;
@@ -106,7 +113,16 @@ public class SPAnimator : MonoBehaviour
     protected float Y = -1.0f;
     protected bool isRun = false;
 
-    virtual public void SetXY(float x, float y) { X = x; Y = y; }
+    virtual public void SetXY(float x, float y) 
+    { 
+        X = x; 
+        Y = y;
+        if (currPhase == PHASE.NONE)
+        {
+            //暴力法解決角色一開始就被轉向的設定
+            SetupInitSprite();
+        }
+    }
     virtual public void SetIsRun(bool run) { isRun = run; }
 
     private void Awake()
@@ -117,6 +133,7 @@ public class SPAnimator : MonoBehaviour
         //}
 
         Init();
+        SetupInitSprite();
     }
 
 
@@ -132,15 +149,16 @@ public class SPAnimator : MonoBehaviour
         {
             //currClip = InitAnim;
             nextPhase = PHASE.INIT;
-            if (target)
-            {
-                target.sprite = InitAnim.sprites[0];    //初始化
-            }
+            //if (target)
+            //{
+            //    target.sprite = InitAnim.sprites[0];    //初始化
+            //}
         }
         else
         {
             //currClip = Idle;
             nextPhase = PHASE.LOOP;
+            //SetupFirstLoopSprite();
         }
 
         //if (currClip.IsValid() && target)
@@ -150,6 +168,21 @@ public class SPAnimator : MonoBehaviour
     }
 
 
+    virtual protected void SetupInitSprite()
+    {
+        if (InitAnim.IsValid())
+            target.sprite = InitAnim.sprites[0];
+        else if (Idle.IsValid())
+            target.sprite = InitAnim.sprites[0];
+    }
+
+    virtual protected void SetupFirstLoopSprite()
+    {
+        if (Idle.IsValid() && target)
+        {
+            target.sprite = Idle.sprites[0];
+        }
+    } 
 
     // Update is called once per frame
     void Update()

@@ -75,9 +75,24 @@ public class SPAnimatorUD : SPAnimator
 
     override protected void Init()
     {
-        base.Init();
         IdleUp.Init();
-        //CheckCurrClip();
+        base.Init();
     }
 
+    protected override void SetupInitSprite()
+    {
+        if (InitAnim.IsValid())
+            target.sprite = InitAnim.sprites[0];
+        else
+        {
+            if (Y > 0)
+            {
+                target.sprite = IdleUp.sprites[0];
+            }
+            else
+            {
+                target.sprite = Idle.sprites[0];
+            }
+        }
+    }
 }
