@@ -572,7 +572,6 @@ public class PC_One : PlayerControllerBase
 
     private void SetupFrontDirection()
     {
-        print("SetupFrontDirection");
 #if XZ_PLAN
         if (faceDir.z > faceDir.x)
         {
@@ -607,7 +606,6 @@ public class PC_One : PlayerControllerBase
         }
         if (mySPAnimator)
         {
-            //print("SetupFrontDirection -- mySPAnimator --" + faceDir);
             mySPAnimator.SetXY(faceDir.x, faceDir.z);
         }
 
