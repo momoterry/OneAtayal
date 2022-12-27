@@ -66,12 +66,13 @@ public class SPAnimationClip
     }
 }
 
-[System.Serializable]
-public class SpecificAnimation
-{
-    public string name;
-    public SPAnimationClip anim;
-}
+//[System.Serializable]
+//public class SpecificAnimation
+//{
+//    public string name;
+//    public SPAnimationClip anim;
+//}
+
 
 //============================================================================================
 //          SPAnimator
@@ -82,7 +83,7 @@ public class SPAnimator : MonoBehaviour
     public SPAnimationClip Idle;
     public SPAnimationClip InitAnim;
 
-    public SpecificAnimation[] specificAnimations;
+    //public SpecificAnimation[] specificAnimations;
     //public string initSpecific;
 
     protected enum PHASE
@@ -90,7 +91,7 @@ public class SPAnimator : MonoBehaviour
         NONE,
         INIT,
         LOOP,
-        SPECIFIC,
+        //SPECIFIC,
         FINISH,
     }
 
@@ -106,21 +107,12 @@ public class SPAnimator : MonoBehaviour
 
     private void Awake()
     {
-        for (int i=0; i<specificAnimations.Length; i++)
-        {
-            specificMaps.Add(specificAnimations[i].name, specificAnimations[i].anim);
-        }
+        //for (int i=0; i<specificAnimations.Length; i++)
+        //{
+        //    specificMaps.Add(specificAnimations[i].name, specificAnimations[i].anim);
+        //}
 
         Init();
-
-        //if (initSpecific != "")
-        //{
-        //    PlaySpecific(initSpecific);
-        //    if (target && specificClip != null)
-        //    {
-        //        target.sprite = specificClip.GetCurrSprite();
-        //    }
-        //}
     }
 
 
@@ -128,10 +120,10 @@ public class SPAnimator : MonoBehaviour
     {
         Idle.Init();
         InitAnim.Init(false);
-        for (int i=0; i<specificAnimations.Length; i++)
-        {
-            specificAnimations[i].anim.Init(false);
-        }
+        //for (int i=0; i<specificAnimations.Length; i++)
+        //{
+        //    specificAnimations[i].anim.Init(false);
+        //}
         if (InitAnim.IsValid())
         {
             currClip = InitAnim;
@@ -171,7 +163,7 @@ public class SPAnimator : MonoBehaviour
             switch (currPhase)
             {
                 case PHASE.INIT:
-                case PHASE.SPECIFIC:
+                //case PHASE.SPECIFIC:
                     currClip = Idle;
                     nextPhase = PHASE.LOOP;
                     break;
@@ -180,26 +172,26 @@ public class SPAnimator : MonoBehaviour
 
     }
 
-    public bool PlaySpecific(string name)
-    {
-        SPAnimationClip specificClip = specificMaps[name];
-        if (specificClip != null)
-        {
-            //specificClip.Init();
-            currClip = specificClip;
-            nextPhase = PHASE.SPECIFIC;
+    //public bool PlaySpecific(string name)
+    //{
+    //    SPAnimationClip specificClip = specificMaps[name];
+    //    if (specificClip != null)
+    //    {
+    //        //specificClip.Init();
+    //        currClip = specificClip;
+    //        nextPhase = PHASE.SPECIFIC;
             
-            return true;
-        }
-        return false;
-    }
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
-    public void StopSpecific()
-    {
-        //specificClip = null;
-        if (currPhase == PHASE.SPECIFIC)
-        {
-            nextPhase = PHASE.LOOP;
-        }
-    }
+    //public void StopSpecific()
+    //{
+    //    //specificClip = null;
+    //    if (currPhase == PHASE.SPECIFIC)
+    //    {
+    //        nextPhase = PHASE.LOOP;
+    //    }
+    //}
 }
