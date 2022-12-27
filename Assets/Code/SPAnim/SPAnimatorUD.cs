@@ -17,7 +17,7 @@ public class SPAnimatorUD : SPAnimator
     //protected SPAnimationClip currClip = null;
 
     //¥~³¡©I¥s
-    public void SetXY( float x, float y)
+    override public void SetXY( float x, float y)
     {
         X = x;
         Y = y;

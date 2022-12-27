@@ -101,6 +101,9 @@ public class SPAnimator : MonoBehaviour
     //protected SPAnimationClip specificClip = null;
     protected Dictionary<string, SPAnimationClip> specificMaps = new Dictionary<string, SPAnimationClip>();
 
+    virtual public void SetXY(float x, float y) { }
+    virtual public void SetIsRun(bool run) { }
+
     private void Awake()
     {
         for (int i=0; i<specificAnimations.Length; i++)
@@ -118,12 +121,6 @@ public class SPAnimator : MonoBehaviour
         //        target.sprite = specificClip.GetCurrSprite();
         //    }
         //}
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Init();
     }
 
 
@@ -181,43 +178,6 @@ public class SPAnimator : MonoBehaviour
             }
         }
 
-        //if (specificClip != null)
-        //{
-        //    specificClip.Update();
-        //    if (target) //TODO: 應該整合 currClip
-        //    {
-        //        target.sprite = specificClip.GetCurrSprite();
-        //    }
-        //    if (specificClip.IsDone())
-        //    {
-        //        StopSpecific();
-        //    }
-        //}
-        //else if (currClip != null)
-        //{
-        //    currClip.Update();
-        //    if (target)
-        //    {
-        //        target.sprite = currClip.GetCurrSprite();
-        //    }
-        //    if (currClip.IsDone())
-        //    {
-        //        switch (currPhase)
-        //        {
-        //            case PHASE.INIT:
-        //                if (Idle.IsValid())
-        //                {
-        //                    currClip = Idle;
-        //                    nextPhase = PHASE.LOOP;
-        //                }
-        //                else
-        //                {
-        //                    nextPhase = PHASE.FINISH;
-        //                }
-        //                break;
-        //        }
-        //    }
-        //}
     }
 
     public bool PlaySpecific(string name)
