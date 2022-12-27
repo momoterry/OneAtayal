@@ -48,7 +48,7 @@ public class PlayerData : MonoBehaviour
     public void InitData()
     {
         print("==== PlayerData.InitData()");
-        Money = 400;
+        Money = 100;
         mainCharacterStat.LV = 1;
         mainCharacterStat.Exp = 0;
         usingDollList.Clear();
