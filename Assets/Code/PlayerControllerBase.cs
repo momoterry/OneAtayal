@@ -51,6 +51,7 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual void ForceStop(bool stop = true) { }
     public virtual void DoTeleport(Vector3 position, float faceAngle) { }
     public virtual void SetupFaceDir(Vector3 dir) { }
+    public virtual void SetupFaceDirByAngle(float angle) { }
     public virtual void SetInputActive(bool enable) { }
     public virtual void SaySomthing(string str) { }
 

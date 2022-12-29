@@ -186,7 +186,7 @@ public class PC_Old : PlayerControllerBase
 
     }
 
-    protected void SetupFaceDirByAngle(float angle)
+    override public void SetupFaceDirByAngle(float angle)
     {
         //faceDir = Vector3.RotateTowards(Vector3.forward, Vector3.right, angle * Mathf.Deg2Rad, 0);
         faceDir = Quaternion.Euler(0, angle, 0) *  Vector3.forward;

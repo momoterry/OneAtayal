@@ -13,7 +13,8 @@ public class PC_One : PlayerControllerBase
     protected const string SKILL_FOUR = "SkillFour";
     protected string[] skillSaveNames = { SKILL_ONE, SKILL_TWO, SKILL_THREE, SKILL_FOUR };
 
-    public Animator theAnimator;
+    public Animator myAnimator;
+    public SPAnimator mySPAnimator;
 
     public SkillBase autoSkillRef;
     public SkillBase[] activeSkillRefs;
@@ -49,7 +50,7 @@ public class PC_One : PlayerControllerBase
     protected Vector3 faceFront;
     protected FaceFrontType faceFrontType;
 
-    protected Animator myAnimator;
+    //protected Animator myAnimator;
 
     //For Touch Control
     protected bool isMovingByTouchControl = false;
@@ -104,9 +105,7 @@ public class PC_One : PlayerControllerBase
             myAgent.updateUpAxis = false;
         }
 
-        if (theAnimator)
-            myAnimator = theAnimator;
-        else
+        if (!myAnimator)
             myAnimator = GetComponent<Animator>();
 
         SetupFaceDirByAngle(initFaceDirAngle);
@@ -287,7 +286,7 @@ public class PC_One : PlayerControllerBase
 
     }
 
-    protected void SetupFaceDirByAngle(float angle)
+    public override void SetupFaceDirByAngle(float angle)
     {
         //faceDir = Vector3.RotateTowards(Vector3.forward, Vector3.right, angle * Mathf.Deg2Rad, 0);
         faceDir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
@@ -560,16 +559,14 @@ public class PC_One : PlayerControllerBase
             }
         }
 
-
+        bool isRun = (myAgent.velocity.magnitude > 0.1f) || bMove;
         if (myAnimator)
         {
-            myAnimator.SetBool("Run", (myAgent.velocity.magnitude > 0.1f) || bMove);
-//            myAnimator.SetFloat("X", faceFront.x);
-//#if XZ_PLAN
-//            myAnimator.SetFloat("Y", faceFront.z);
-//#else
-//            myAnimator.SetFloat("Y", faceFront.y);
-//#endif
+            myAnimator.SetBool("Run", isRun);
+        }
+        if (mySPAnimator)
+        {
+            mySPAnimator.SetIsRun(isRun);
         }
     }
 
@@ -606,6 +603,10 @@ public class PC_One : PlayerControllerBase
         {
             myAnimator.SetFloat("X", faceDir.x);
             myAnimator.SetFloat("Y", faceDir.z);
+        }
+        if (mySPAnimator)
+        {
+            mySPAnimator.SetXY(faceDir.x, faceDir.z);
         }
 
 #else
@@ -864,6 +865,10 @@ public class PC_One : PlayerControllerBase
             nextState = PC_STATE.STOP;
             if (myAnimator)
                 myAnimator.SetBool("Run", false);
+            if (mySPAnimator)
+            {
+                mySPAnimator.SetIsRun(false);
+            }
         }
         else if (!stop && currState == PC_STATE.STOP)
         {

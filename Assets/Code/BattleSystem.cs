@@ -352,6 +352,7 @@ public class BattleSystem : MonoBehaviour
 
                 thePC = thePlayer.GetComponent<PlayerControllerBase>();
                 thePC.initFaceDirAngle = initPlayerDirAngle;
+                thePC.SetupFaceDirByAngle(initPlayerDirAngle);  //確保 First Frame 轉向正確
                 //thePC.InitStatus(); 會在 PC 的 Start 被呼叫
             }    
             else

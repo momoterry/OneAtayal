@@ -174,7 +174,8 @@ MonoBehaviour:
   initFaceDirAngle: 180
   theCharData: {fileID: 893138017444081030}
   DollManagerRef: {fileID: 8795086517185366204, guid: ef8008b54c142ac4cb395f9e67bcfe1d, type: 3}
-  theAnimator: {fileID: 8594792577020195915}
+  myAnimator: {fileID: 0}
+  mySPAnimator: {fileID: 1480594428507841810}
   autoSkillRef: {fileID: -7341246982687760167, guid: ba4e1825d83630247a44cca7024d764f, type: 3}
   activeSkillRefs:
   - {fileID: -7341246982687760167, guid: d8eea54f1d2b6784f8fa3d69508b76e4, type: 3}
@@ -324,6 +325,7 @@ GameObject:
   - component: {fileID: 7906895251526251270}
   - component: {fileID: 7559258333083204086}
   - component: {fileID: 8594792577020195915}
+  - component: {fileID: 1480594428507841810}
   m_Layer: 10
   m_Name: BlackHair_Sprite
   m_TagString: Untagged
@@ -406,7 +408,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7324926409304540158}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0edad9ec3f31f6942b78c96e145bb7b2, type: 2}
   m_CullingMode: 0
@@ -418,6 +420,46 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1480594428507841810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7324926409304540158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e59f3c4c797fb640ac4ff80dee7cce5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 7559258333083204086}
+  InitAnim:
+    sprites: []
+    FPS: 4
+  Idle:
+    sprites:
+    - {fileID: 547635990, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: 547635990, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    FPS: 4
+  IdleUp:
+    sprites:
+    - {fileID: 1644317731, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: 1644317731, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    FPS: 4
+  Run:
+    sprites:
+    - {fileID: -1547907713, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: -1946351506, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: 1562208960, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: -978847449, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    FPS: 8
+  RunUp:
+    sprites:
+    - {fileID: 2107759388, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: 1562852644, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: -1768395236, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: 602545409, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    FPS: 8
 --- !u!1001 &8627065195374925614
 PrefabInstance:
   m_ObjectHideFlags: 0
