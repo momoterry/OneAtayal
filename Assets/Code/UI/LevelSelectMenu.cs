@@ -104,7 +104,7 @@ public class LevelSelectMenu : MonoBehaviour
                 continue;
             if (!GameSystem.GetLevelManager().IsLevelOpen(allLevelInfos[i].ID))
             {
-                print("關卡還沒開放 .. " + allLevelInfos[i].ID);
+                //print("關卡還沒開放 .. " + allLevelInfos[i].ID);
                 continue;
             }
 

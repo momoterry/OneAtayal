@@ -54,6 +54,8 @@ public class PlayerData : MonoBehaviour
         usingDollList.Clear();
         dollBackpack.Clear();
         eventData.Clear();
+
+        GameSystem.GetLevelManager().InitFirstLevel();
     }
 
     public void SetDataReady()

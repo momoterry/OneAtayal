@@ -33,7 +33,13 @@ public class LevelManager : MonoBehaviour
             sceneLevelMap.Add(mainLevels[i].sceneName, mainLevels[i].ID);
         }
 
-        //先暴力洲開放第一關
+        //先暴力法開放第一關
+        //SetLevelOpen(mainLevels[0].ID);
+        //print("先暴力法開放第一關");
+    }
+
+    public void InitFirstLevel()
+    {
         SetLevelOpen(mainLevels[0].ID);
     }
 
