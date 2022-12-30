@@ -17,7 +17,7 @@ public class GameSystem : MonoBehaviour
     private Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
 
     //Option 相關 //TODO: 應該移到真正的 PlayerPref 當中
-    protected bool useVpadControl = false;
+    protected bool useVpadControl = true;
 
     protected string strSaveFile = "mySave.txt";
 

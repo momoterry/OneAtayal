@@ -65,11 +65,15 @@ MonoBehaviour:
   AttackRangeOut: 12
   attackWait: 0.2
   attackCD: 1
-  RunSpeed: 6
+  RunSpeed: 4
   deathFX: {fileID: 0}
   myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 0}
+  hull: {fileID: 8034510613896105999}
+  turret: {fileID: 4180285544457865961}
+  turretLength: 0.75
   hullRotateSpeed: 180
+  turretRotateSpeed: 180
 --- !u!114 &-894024693914061495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +282,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8034510613896105999}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
