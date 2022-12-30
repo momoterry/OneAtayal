@@ -53,20 +53,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5c614ada13ee4479d174d41acf5850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: DollOne
-  icon: {fileID: 6611336990635542847, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
+  ID: TankAlpha
+  icon: {fileID: 89607645, guid: bc497b40a5cee1f4daab94d220e96478, type: 3}
   positionType: 0
   bulletRef: {fileID: 2820250728779406873, guid: 51b72c5b9c5318b46a5b2fd972924a9e, type: 3}
   AttackInit: 30
-  SearchRange: 6
+  SearchRange: 8
   canRevie: 1
   PositionRangeIn: 1
   PositionRangeOut: 2
   AttackRangeIn: 10
   AttackRangeOut: 12
   attackWait: 0.2
-  attackCD: 0.25
-  RunSpeed: 10
+  attackCD: 1
+  RunSpeed: 6
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
   myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 0}
@@ -95,9 +95,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.25
   m_Speed: 10
-  m_Acceleration: 48
+  m_Acceleration: 16
   avoidancePriority: 80
-  m_AngularSpeed: 120
+  m_AngularSpeed: 60
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ceb01d0a9c1a2845ae1690b5683c197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP_Max: 120
+  HP_Max: 300
   DamageRatio: 1
 --- !u!114 &1100153545719211910
 MonoBehaviour:
