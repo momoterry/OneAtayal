@@ -63,13 +63,8 @@ public class TankOne : DollAuto
 
             if (SearchTarget())
             {
-                nextAutoState = AutoState.CHASE;
-                //直接進攻擊
-                float disT = (myTarget.transform.position - transform.position).magnitude;
-                if (disT < AttackRangeIn)
-                {
-                    nextAutoState = AutoState.ATTACK;
-                }
+                //Tank 直接進攻擊
+                nextAutoState = AutoState.ATTACK;
             }
         }
     }
