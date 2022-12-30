@@ -49,7 +49,7 @@ public class DollAuto : Doll
     protected Collider myCollider;
 
     //­±¦V
-    Vector3 myFace = Vector3.back;
+    protected Vector3 myFace = Vector3.back;
 
     protected float autoStateTime;
 
@@ -235,7 +235,7 @@ public class DollAuto : Doll
         return false;
     }
 
-    protected void UpdateFollow()
+    virtual protected void UpdateFollow()
     {
         if (myAgent)
             myAgent.SetDestination(mySlot.position);
@@ -347,7 +347,7 @@ public class DollAuto : Doll
 
     }
 
-    protected void UpdateGoBack()
+    virtual protected void UpdateGoBack()
     {
         if (myAgent)
         {
