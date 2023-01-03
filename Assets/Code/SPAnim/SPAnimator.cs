@@ -173,7 +173,7 @@ public class SPAnimator : MonoBehaviour
         if (InitAnim.IsValid())
             target.sprite = InitAnim.sprites[0];
         else if (Idle.IsValid())
-            target.sprite = InitAnim.sprites[0];
+            target.sprite = Idle.sprites[0];
     }
 
     virtual protected void SetupFirstLoopSprite()
