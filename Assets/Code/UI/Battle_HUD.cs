@@ -55,6 +55,22 @@ public class Battle_HUD : MonoBehaviour
     protected int currSceenWidth = 0;
     protected int currSceenHeight = 0;
 
+    protected float targetRatio = 0.5f;
+    protected float cameraDefaultSize = 10.0f;
+    protected CanvasScaler theScaler;
+
+
+    private void Awake()
+    {
+        cameraDefaultSize = Camera.main.orthographicSize;
+        print("Main Camera Default Size = " + cameraDefaultSize);
+        theScaler = GetComponent<CanvasScaler>();
+        if (theScaler != null)
+        {
+            targetRatio = theScaler.referenceResolution.x / theScaler.referenceResolution.y;
+        }
+    }
+
     protected void CheckScreenResolution()
     {
         int width = Camera.main.pixelWidth;
@@ -68,16 +84,19 @@ public class Battle_HUD : MonoBehaviour
                 theVPad.OnScreenResolution(currSceenWidth, currSceenHeight);
             }
 
-            CanvasScaler theScaler = GetComponent<CanvasScaler>();
+            //CanvasScaler theScaler = GetComponent<CanvasScaler>();
             if (theScaler != null)
             {
-                if ((float)currSceenWidth / (float)currSceenHeight < 0.5f)
+                float currRatio = (float)currSceenWidth / (float)currSceenHeight;
+                if (currRatio < targetRatio)
                 {
                     theScaler.matchWidthOrHeight = 0;
+                    Camera.main.orthographicSize = cameraDefaultSize * targetRatio / currRatio; //太細的螢幕得調整主 Camera
                 }
                 else
                 {
                     theScaler.matchWidthOrHeight = 1.0f;
+                    Camera.main.orthographicSize = cameraDefaultSize;
                 }
             }
         }
