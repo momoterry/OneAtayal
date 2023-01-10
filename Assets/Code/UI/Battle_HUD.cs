@@ -67,6 +67,19 @@ public class Battle_HUD : MonoBehaviour
             {
                 theVPad.OnScreenResolution(currSceenWidth, currSceenHeight);
             }
+
+            CanvasScaler theScaler = GetComponent<CanvasScaler>();
+            if (theScaler != null)
+            {
+                if ((float)currSceenWidth / (float)currSceenHeight < 0.5f)
+                {
+                    theScaler.matchWidthOrHeight = 0;
+                }
+                else
+                {
+                    theScaler.matchWidthOrHeight = 1.0f;
+                }
+            }
         }
 
     }
