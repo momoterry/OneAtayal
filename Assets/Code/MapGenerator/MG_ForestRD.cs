@@ -4,12 +4,40 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.AI;
 
-//[System.Serializable]
-//public struct TileInfo
-//{
-//    public Tile t;
-//    public float percent; //¾÷²v
-//}
+
+public class OneMap
+{
+    public int mapWidth;
+    public int mapHeight;
+
+    public const int EDGE_VALUE = -1;
+    public const int INVALID_VALUE = -9999;
+
+    Vector2Int center;
+    int xMin, xMax;
+    int yMin, yMax;
+    const int edgeWidth = 2;
+    int arrayWidth, arrayHeight;
+
+    int[][] mapArray;
+
+    public void CreateMap(int width, int height)
+    {
+        xMax = width / 2;
+        yMax = height / 2;
+        xMin = xMax - width;
+        yMin = yMax - height;
+        mapWidth = width;
+        mapHeight = height;
+
+        arrayWidth = mapWidth + edgeWidth + edgeWidth;
+        arrayHeight = mapHeight + edgeWidth + edgeWidth;
+
+        //mapArray = new int[arrayWidth][];
+    }
+
+}
+
 
 [System.Serializable]
 public class TileGroup
@@ -23,6 +51,7 @@ public class MG_ForestRD : MapGeneratorBase
 {
     public Tilemap groundTM;
     public TileGroup grassGroup;
+    public TileGroup dirtGroup;
 
     // Start is called before the first frame update
     void Start()
@@ -62,10 +91,30 @@ public class MG_ForestRD : MapGeneratorBase
         }
     }
 
+
     public override void BuildAll(int buildLevel = 1)
     {
-        BuildSquareArea(grassGroup, new Vector3Int(0, 1, 0), 16, 40);
+        int mapWidth = 12;
+        int mapHeight = 20;
+        Vector3Int mapCenter = Vector3Int.zero;
 
+        BuildSquareArea(grassGroup, mapCenter, mapWidth, mapHeight);
+
+        BuildSquareArea(dirtGroup, mapCenter + new Vector3Int(0, 1, 0), mapWidth-4, 2);
+        BuildSquareArea(dirtGroup, mapCenter + new Vector3Int(1, 0, 0), 2, mapHeight-4);
+
+        //TEST
+        int hWidth = mapWidth / 2;
+        int hHeight = mapHeight / 2;
+        Vector3Int coord = Vector3Int.zero;
+        for (int i=-hWidth; i<hWidth; i++)
+        {
+            coord.x = i;
+            //Tile t = groundTM.GetTile(coord).name;
+            print(groundTM.GetTile(coord).name);
+
+        }
+        //
         theSurface2D.BuildNavMesh();
     }
 }
