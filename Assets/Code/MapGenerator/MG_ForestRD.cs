@@ -10,7 +10,7 @@ public class OneMap
     public int mapWidth;
     public int mapHeight;
 
-    public const int EDGE_VALUE = -1;
+    public const int EDGE_VALUE = 4;
     public const int INVALID_VALUE = -9999;
 
     Vector2Int center;
@@ -21,7 +21,7 @@ public class OneMap
 
     int[][] mapArray;
 
-    public void CreateMap(int width, int height)
+    public void InitMap(int width, int height)
     {
         xMax = width / 2;
         yMax = height / 2;
@@ -33,9 +33,49 @@ public class OneMap
         arrayWidth = mapWidth + edgeWidth + edgeWidth;
         arrayHeight = mapHeight + edgeWidth + edgeWidth;
 
-        //mapArray = new int[arrayWidth][];
+        mapArray = new int[arrayWidth][];
+        for (int i=0; i<arrayWidth; i++)
+        {
+            mapArray[i] = new int[arrayHeight];
+            for (int j=0; j< arrayHeight; j++)
+            {
+                mapArray[i][j] = 0;
+            }
+        }
+
+        //Edge
+        for (int x = 0; x < arrayWidth; x++)
+        {
+            for (int e = 0; e < edgeWidth; e++)
+            {
+                mapArray[x][e] = EDGE_VALUE;
+                mapArray[x][arrayHeight - 1 - e] = EDGE_VALUE;
+            }
+        }
+        for (int y = 0; y < arrayHeight; y++)
+        {
+            for (int e = 0; e < edgeWidth; e++)
+            {
+                mapArray[e][y] = EDGE_VALUE;
+                mapArray[arrayWidth-1-e][y] = EDGE_VALUE;
+            }
+        }
     }
 
+    public void PrintMap()
+    {
+        string str = "";
+        for (int y = 0; y < arrayHeight; y++)
+        {
+            //string str = "";
+            for (int x = 0; x < arrayWidth; x++)
+            {
+                str += mapArray[x][y].ToString();
+            }
+            str += "\n";
+        }
+        Debug.Log(str);
+    }
 }
 
 
@@ -52,6 +92,8 @@ public class MG_ForestRD : MapGeneratorBase
     public Tilemap groundTM;
     public TileGroup grassGroup;
     public TileGroup dirtGroup;
+
+    protected OneMap theMap = new OneMap();
 
     // Start is called before the first frame update
     void Start()
@@ -98,23 +140,15 @@ public class MG_ForestRD : MapGeneratorBase
         int mapHeight = 20;
         Vector3Int mapCenter = Vector3Int.zero;
 
+        theMap.InitMap(mapWidth, mapHeight);
+        theMap.PrintMap();
+
         BuildSquareArea(grassGroup, mapCenter, mapWidth, mapHeight);
 
         BuildSquareArea(dirtGroup, mapCenter + new Vector3Int(0, 1, 0), mapWidth-4, 2);
         BuildSquareArea(dirtGroup, mapCenter + new Vector3Int(1, 0, 0), 2, mapHeight-4);
 
-        //TEST
-        int hWidth = mapWidth / 2;
-        int hHeight = mapHeight / 2;
-        Vector3Int coord = Vector3Int.zero;
-        for (int i=-hWidth; i<hWidth; i++)
-        {
-            coord.x = i;
-            //Tile t = groundTM.GetTile(coord).name;
-            print(groundTM.GetTile(coord).name);
 
-        }
-        //
         theSurface2D.BuildNavMesh();
     }
 }
