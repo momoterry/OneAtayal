@@ -5,79 +5,6 @@ using UnityEngine.Tilemaps;
 using UnityEngine.AI;
 
 
-public class OneMap
-{
-    public int mapWidth;
-    public int mapHeight;
-
-    public const int EDGE_VALUE = 4;
-    public const int INVALID_VALUE = -9999;
-
-    Vector2Int center;
-    int xMin, xMax;
-    int yMin, yMax;
-    const int edgeWidth = 2;
-    int arrayWidth, arrayHeight;
-
-    int[][] mapArray;
-
-    public void InitMap(int width, int height)
-    {
-        xMax = width / 2;
-        yMax = height / 2;
-        xMin = xMax - width;
-        yMin = yMax - height;
-        mapWidth = width;
-        mapHeight = height;
-
-        arrayWidth = mapWidth + edgeWidth + edgeWidth;
-        arrayHeight = mapHeight + edgeWidth + edgeWidth;
-
-        mapArray = new int[arrayWidth][];
-        for (int i=0; i<arrayWidth; i++)
-        {
-            mapArray[i] = new int[arrayHeight];
-            for (int j=0; j< arrayHeight; j++)
-            {
-                mapArray[i][j] = 0;
-            }
-        }
-
-        //Edge
-        for (int x = 0; x < arrayWidth; x++)
-        {
-            for (int e = 0; e < edgeWidth; e++)
-            {
-                mapArray[x][e] = EDGE_VALUE;
-                mapArray[x][arrayHeight - 1 - e] = EDGE_VALUE;
-            }
-        }
-        for (int y = 0; y < arrayHeight; y++)
-        {
-            for (int e = 0; e < edgeWidth; e++)
-            {
-                mapArray[e][y] = EDGE_VALUE;
-                mapArray[arrayWidth-1-e][y] = EDGE_VALUE;
-            }
-        }
-    }
-
-    public void PrintMap()
-    {
-        string str = "";
-        for (int y = 0; y < arrayHeight; y++)
-        {
-            //string str = "";
-            for (int x = 0; x < arrayWidth; x++)
-            {
-                str += mapArray[x][y].ToString();
-            }
-            str += "\n";
-        }
-        Debug.Log(str);
-    }
-}
-
 
 [System.Serializable]
 public class TileGroup
@@ -85,6 +12,18 @@ public class TileGroup
     public Tile baseTile;
     public Tile[] decorateTiles;
     public float decorateRate;
+    public Tile GetOneTile()
+    {
+        if (decorateTiles.Length > 0 && decorateRate > 0)
+        {
+            float rd = Random.Range(0, 1.0f);
+            if (rd < decorateRate)
+            {
+                return decorateTiles[Random.Range(0, decorateTiles.Length)];
+            }
+        }
+        return baseTile;
+    }
 }
 
 public class MG_ForestRD : MapGeneratorBase
@@ -92,6 +31,9 @@ public class MG_ForestRD : MapGeneratorBase
     public Tilemap groundTM;
     public TileGroup grassGroup;
     public TileGroup dirtGroup;
+
+    protected int mapWidth = 12;
+    protected int mapHeight = 20;
 
     protected OneMap theMap = new OneMap();
 
@@ -133,22 +75,65 @@ public class MG_ForestRD : MapGeneratorBase
         }
     }
 
+    protected void FillSquareInMap(int value, Vector3Int center, int width, int height)
+    {
+        int hWidth = width / 2;
+        int hHeight = height / 2;
+        Vector3Int cd = Vector3Int.zero;
+        for (int x = -hWidth; x < hWidth; x++)
+        {
+            for (int y = -hHeight; y < hHeight; y++)
+            {
+                cd.x = center.x + x;
+                cd.y = center.y + y;
+                theMap.SetValue((Vector2Int)cd, value);
+            }
+        }
+    }
 
     public override void BuildAll(int buildLevel = 1)
     {
-        int mapWidth = 12;
-        int mapHeight = 20;
+        //int mapWidth = 12;
+        //int mapHeight = 20;
         Vector3Int mapCenter = Vector3Int.zero;
+        theMap.InitMap((Vector2Int)mapCenter, mapWidth, mapHeight);
+        
+        //==== 以下開始畫地圖
 
-        theMap.InitMap(mapWidth, mapHeight);
-        theMap.PrintMap();
+        FillSquareInMap(2, mapCenter, mapWidth, mapHeight);
+        FillSquareInMap(3, mapCenter + new Vector3Int(0, 1, 0), mapWidth - 4, 2);
+        FillSquareInMap(3, mapCenter + new Vector3Int(1, 0, 0), 2, mapHeight - 4);
 
-        BuildSquareArea(grassGroup, mapCenter, mapWidth, mapHeight);
+        //==== 畫地圖結束
 
-        BuildSquareArea(dirtGroup, mapCenter + new Vector3Int(0, 1, 0), mapWidth-4, 2);
-        BuildSquareArea(dirtGroup, mapCenter + new Vector3Int(1, 0, 0), 2, mapHeight-4);
+        //theMap.PrintMap();
+
+        GenerateTiles();
 
 
         theSurface2D.BuildNavMesh();
     }
+
+    protected void GenerateTiles()
+    {
+        Vector2Int cd = Vector2Int.zero;
+        for ( int x = theMap.xMin; x < theMap.xMax; x++ )
+        {
+            for ( int y = theMap.yMin; y < theMap.yMax; y++ )
+            {
+                cd.x = x;
+                cd.y = y;
+                int value = theMap.GetValue(cd);
+                if (value == 2)
+                {
+                    groundTM.SetTile((Vector3Int)cd, grassGroup.GetOneTile());
+                }
+                else if (value == 3)
+                {
+                    groundTM.SetTile((Vector3Int)cd, dirtGroup.GetOneTile());
+                }
+            }
+        }
+    }
+
 }
