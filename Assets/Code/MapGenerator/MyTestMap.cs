@@ -18,6 +18,6 @@ public class MyTestMap : MapGeneratorBase
 
     public override void BuildAll(int buildLevel = 1)
     {
-        base.BuildAll(buildLevel);
+        
     }
 }
