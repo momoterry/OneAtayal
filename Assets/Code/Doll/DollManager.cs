@@ -12,6 +12,7 @@ public class DollManager : MonoBehaviour
 
     protected int slotNum = 0;
     protected Doll[] dolls;
+    protected Quaternion targetRt = Quaternion.identity;
 
     public List<Doll> GetDolls()
     {
@@ -113,9 +114,16 @@ public class DollManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        
+        if (RotateSpeed > 0.0f)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRt, Time.deltaTime * RotateSpeed);
+        }
+        else
+        {
+            transform.rotation = targetRt;
+        }
     }
 
     public void SetMasterPosition(Vector3 pos)
@@ -125,16 +133,11 @@ public class DollManager : MonoBehaviour
 
     public void ForceSetDirection(float angle)
     {
-        Quaternion targetRt = Quaternion.Euler(0, angle, 0);
+        //Quaternion targetRt = Quaternion.Euler(0, angle, 0);
+        targetRt = Quaternion.Euler(0, angle, 0);
 
-        //if (RotateSpeed > 0.0f)
-        //{
-        //    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRt, Time.deltaTime* RotateSpeed);
-        //}
-        //else
-        {
-            transform.rotation = targetRt;
-        }
+        transform.rotation = targetRt;
+
     }
 
     public void SetMasterDirection( Vector3 dir, FaceFrontType faceType )
@@ -142,7 +145,7 @@ public class DollManager : MonoBehaviour
         if (FixDirection)
             return;
 
-        Quaternion targetRt;
+        //Quaternion targetRt;
         if (AllDirectioin)
         {
             targetRt = Quaternion.LookRotation(dir);
@@ -170,14 +173,14 @@ public class DollManager : MonoBehaviour
             targetRt = Quaternion.Euler(0, angle, 0);
         }
 
-        if (RotateSpeed > 0.0f)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRt, Time.deltaTime * RotateSpeed);
-        }
-        else
-        {
-            transform.rotation = targetRt;
-        }
+        //if (RotateSpeed > 0.0f)
+        //{
+        //    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRt, Time.deltaTime * RotateSpeed);
+        //}
+        //else
+        //{
+        //    transform.rotation = targetRt;
+        //}
     }
 
     public void ForceMoveAll()

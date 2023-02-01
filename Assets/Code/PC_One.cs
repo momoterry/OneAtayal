@@ -15,6 +15,7 @@ public class PC_One : PlayerControllerBase
 
     public Animator myAnimator;
     public SPAnimator mySPAnimator;
+    public float DmRotateWait = -1.0f;
 
     public SkillBase autoSkillRef;
     public SkillBase[] activeSkillRefs;
@@ -50,7 +51,7 @@ public class PC_One : PlayerControllerBase
     protected Vector3 faceFront;
     protected FaceFrontType faceFrontType;
 
-    //protected Animator myAnimator;
+    protected float movingTime = 0;
 
     //For Touch Control
     protected bool isMovingByTouchControl = false;
@@ -111,6 +112,7 @@ public class PC_One : PlayerControllerBase
         SetupFaceDirByAngle(initFaceDirAngle);
 
         InitStatus();
+        nextState = PC_STATE.NORMAL;
 
         //TODO: 應該交給 Battle System
         //Input System Bind
@@ -282,7 +284,7 @@ public class PC_One : PlayerControllerBase
         if (myAgent)
             myAgent.speed = WalkSpeed;
 
-        nextState = PC_STATE.NORMAL;
+        //nextState = PC_STATE.NORMAL;
 
     }
 
@@ -354,12 +356,16 @@ public class PC_One : PlayerControllerBase
             OnUpdateState();
         }
 
-        if (myDollManager && currState != PC_STATE.NONE && currState != PC_STATE.DEAD)
+        if (currState != PC_STATE.NONE && currState != PC_STATE.DEAD)
         {
             UpdateStatus();
-            myDollManager.SetMasterPosition(transform.position);
-            myDollManager.SetMasterDirection(faceDir, faceFrontType);
+            //if (myDollManager)
+            //{
+            //    myDollManager.SetMasterPosition(transform.position);
+            //    myDollManager.SetMasterDirection(faceDir, faceFrontType);
+            //}
         }
+
 
         if (myHPHandler && currState != PC_STATE.NONE)
         {
@@ -531,8 +537,7 @@ public class PC_One : PlayerControllerBase
 
         if (bMove)
         {
-            //TODO: 不要每 Frame 進行
-            //OnMoveToPosition(transform.position + moveVec);
+            movingTime += Time.deltaTime;
             transform.position = transform.position + moveVec * WalkSpeed * Time.deltaTime;
 
             faceDir = moveVec;
@@ -543,8 +548,8 @@ public class PC_One : PlayerControllerBase
             faceDir.z = 0;      //XY Plan
 
 #endif
-
             SetupFrontDirection();
+            MoveDollManager();
 
             if (currState == PC_STATE.ATTACK_AUTO)
             {
@@ -553,6 +558,7 @@ public class PC_One : PlayerControllerBase
         }
         else
         {
+            movingTime = 0;
             if (currState == PC_STATE.NORMAL)
             {
                 nextState = PC_STATE.ATTACK_AUTO;
@@ -567,6 +573,19 @@ public class PC_One : PlayerControllerBase
         if (mySPAnimator)
         {
             mySPAnimator.SetIsRun(isRun);
+        }
+    }
+
+    void MoveDollManager()
+    {
+
+        if (myDollManager)
+        {
+            myDollManager.SetMasterPosition(transform.position);
+            if (movingTime > DmRotateWait)
+            {
+                myDollManager.SetMasterDirection(faceDir, faceFrontType);
+            }
         }
     }
 

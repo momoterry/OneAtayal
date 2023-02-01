@@ -95,7 +95,7 @@ public class DM_Trailer : DollManager
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         if ((transform.position - dotArray[currIndex]).sqrMagnitude >= dotDisSqr)
         {
