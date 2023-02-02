@@ -22,6 +22,13 @@ public class OneMap
 
     int[][] mapArray;
 
+    bool IsValid(int x, int y)
+    {
+        if (x < (xMin - edgeWidth) || x > (xMax + edgeWidth)
+            || y < (yMin - edgeWidth) || y > (yMax + edgeWidth))
+            return false;
+        return true;
+    }
     protected bool IsValid(Vector2Int coord)
     {
         if (coord.x < (xMin - edgeWidth) || coord.x > (xMax + edgeWidth)
@@ -30,6 +37,11 @@ public class OneMap
         return true;
     }
 
+    public void SetValue (int x, int y, int value)
+    {
+        if (!IsValid(x, y)) { return; }
+        mapArray[x + arrayXshift][y + arrayYshift] = value;
+    }
     public void SetValue(Vector2Int coord, int value)
     {
         if (!IsValid(coord))
@@ -37,6 +49,15 @@ public class OneMap
             return;
         }
         mapArray[coord.x + arrayXshift][coord.y + arrayYshift] = value;
+    }
+
+    public int GetValue(int x, int y)
+    {
+        if (IsValid(x, y))
+        {
+            return mapArray[x + arrayXshift][y + arrayYshift];
+        }
+        return INVALID_VALUE;
     }
 
     public int GetValue(Vector2Int coord)
@@ -101,7 +122,7 @@ public class OneMap
             //string str = "";
             for (int x = 0; x < arrayWidth; x++)
             {
-                str += mapArray[x][y].ToString();
+                str += (mapArray[x][y].ToString() + ",");
             }
             str += "\n";
         }
