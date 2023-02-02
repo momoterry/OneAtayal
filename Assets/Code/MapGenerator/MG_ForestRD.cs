@@ -104,6 +104,7 @@ public class MG_ForestRD : MapGeneratorBase
     public int borderWidth = 4;
 
     public Tilemap groundTM;
+    public Tilemap blockTM;
     public TileGroup grassGroup;
     public TileGroup dirtGroup;
     public TileGroup blockGroup;
@@ -134,31 +135,38 @@ public class MG_ForestRD : MapGeneratorBase
         
     }
 
-    //protected void BuildSquareArea( TileGroup tg, Vector3Int center, int width, int height)
-    //{
-    //    int hWidth = width / 2;
-    //    int hHeight = height / 2;
-    //    Vector3Int cd = Vector3Int.zero;
-    //    //theSurface2D.BuildNavMesh();
-    //    for (int x = -hWidth; x < hWidth; x++)
-    //    {
-    //        for (int y = -hHeight; y < hHeight; y++)
-    //        {
-    //            cd.x = center.x + x;
-    //            cd.y = center.y + y;
-    //            Tile t = tg.baseTile;
-    //            if (tg.decorateTiles.Length > 0 && tg.decorateRate > 0)
-    //            {
-    //                float rd = Random.Range(0, 1.0f);
-    //                if (rd < tg.decorateRate)
-    //                {
-    //                    t = tg.decorateTiles[Random.Range(0, tg.decorateTiles.Length)];
-    //                }
-    //            }
-    //            groundTM.SetTile(cd, t);
-    //        }
-    //    }
-    //}
+    public override void BuildAll(int buildLevel = 1)
+    {
+        Vector3Int mapCenter = Vector3Int.zero;
+        theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
+
+        //==== 以下開始畫地圖
+
+        FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, mapWidth, mapHeight);
+        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(0, -2, 0), mapWidth - 4, 2);
+        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(2, 0, 0), 2, mapHeight - 4);
+
+        //邊界
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(-mapWidth / 2 - borderWidth / 2, 0, 0), borderWidth, mapHeight + borderWidth + borderWidth);
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(mapWidth / 2 + borderWidth / 2, 0, 0), borderWidth, mapHeight + borderWidth + borderWidth);
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(0, mapHeight / 2 + borderWidth / 2, 0), mapWidth, borderWidth);
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(0, -mapHeight / 2 - borderWidth / 2, 0), mapWidth, borderWidth);
+
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(-4, 4, 0), 4, 4);
+
+        //!! 交界處處理 !!
+        EdgeDetectInMap((int)TILE_TYPE.GRASS, (int)TILE_TYPE.DIRT, (int)TILE_TYPE.GRASS_EDGE, mapCenter, mapWidth, mapHeight);
+        EdgeDetectInMap((int)TILE_TYPE.BLOCK, (int)TILE_TYPE.GRASS, (int)TILE_TYPE.BLOCK_EDGE, mapCenter, mapWidth + borderWidth, mapHeight + borderWidth);
+
+        //==== 畫地圖結束，實裝 Tile
+
+        //theMap.PrintMap();
+
+        GenerateTiles();
+
+
+        theSurface2D.BuildNavMesh();
+    }
 
     protected void FillSquareInMap(int value, Vector3Int center, int width, int height)
     {
@@ -232,39 +240,6 @@ public class MG_ForestRD : MapGeneratorBase
         }
     }
 
-    public override void BuildAll(int buildLevel = 1)
-    {
-        Vector3Int mapCenter = Vector3Int.zero;
-        theMap.InitMap((Vector2Int)mapCenter, mapWidth+ borderWidth+ borderWidth, mapHeight+ borderWidth+ borderWidth);
-        
-        //==== 以下開始畫地圖
-
-        FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, mapWidth, mapHeight);
-        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(0, -2, 0), mapWidth - 4, 2);
-        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(2, 0, 0), 2, mapHeight - 4);
-
-        //邊界
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(-mapWidth / 2 - borderWidth / 2, 0, 0), borderWidth, mapHeight + borderWidth + borderWidth);
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(mapWidth / 2 + borderWidth / 2, 0, 0), borderWidth, mapHeight + borderWidth + borderWidth);
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(0, mapHeight/2 + borderWidth /2, 0), mapWidth, borderWidth);
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(0, -mapHeight / 2 - borderWidth / 2, 0), mapWidth, borderWidth);
-
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(-4, 4, 0), 4, 4);
-
-        //!! 交界處處理 !!
-        EdgeDetectInMap((int)TILE_TYPE.GRASS, (int)TILE_TYPE.DIRT, (int)TILE_TYPE.GRASS_EDGE, mapCenter, mapWidth, mapHeight);
-        EdgeDetectInMap((int)TILE_TYPE.BLOCK, (int)TILE_TYPE.GRASS, (int)TILE_TYPE.BLOCK_EDGE, mapCenter, mapWidth+ borderWidth, mapHeight+ borderWidth);
-
-        //==== 畫地圖結束，實裝 Tile
-
-        //theMap.PrintMap();
-
-        GenerateTiles();
-
-
-        theSurface2D.BuildNavMesh();
-    }
-
 
     protected void GenerateTiles()
     {
@@ -286,15 +261,14 @@ public class MG_ForestRD : MapGeneratorBase
                 }
                 else if (value == (int)TILE_TYPE.BLOCK)
                 {
-                    //TODO: 要用 Block 的 TileMap
-                    groundTM.SetTile((Vector3Int)cd, blockGroup.GetOneTile());
+                    blockTM.SetTile((Vector3Int)cd, blockGroup.GetOneTile());
                 }
                 else if (value >= (int)TILE_TYPE.EDGE_VALUE)
                 {
                     int edgeType = value % 100;
                     int type = value - edgeType;
-                    Tile eT = null;
                     TileEdgeGroup eTG = null;
+                    Tilemap tM = groundTM;
                     if (type == (int)TILE_TYPE.GRASS_EDGE)
                     {
                         eTG = grassEdgeGroup;
@@ -303,10 +277,10 @@ public class MG_ForestRD : MapGeneratorBase
                     {
                         //TODO: 要改用 Block 的 TM
                         eTG = blockEdgeGroup;
+                        tM = blockTM;
                     }
                     
-                    if (eTG!=null)
-                        groundTM.SetTile((Vector3Int)cd, eTG.GetTile((MAP_EDGE_TYPE)edgeType));
+                    tM.SetTile((Vector3Int)cd, eTG.GetTile((MAP_EDGE_TYPE)edgeType));
                 }
             }
         }
