@@ -102,6 +102,7 @@ public class MG_ForestRD : MapGeneratorBase
     public int mapWidth = 12;
     public int mapHeight = 16;
     public int borderWidth = 4;
+    public Vector3Int mapCenter;
 
     public Tilemap groundTM;
     public Tilemap blockTM;
@@ -109,6 +110,7 @@ public class MG_ForestRD : MapGeneratorBase
     public TileGroup dirtGroup;
     public TileGroup blockGroup;
     public TileEdgeGroup grassEdgeGroup;
+    public TileEdgeGroup dirtEdgeGroup;
     public TileEdgeGroup blockEdgeGroup;
 
     protected enum TILE_TYPE
@@ -118,6 +120,7 @@ public class MG_ForestRD : MapGeneratorBase
         BLOCK = 6,
         EDGE_VALUE = 100, //大於等於這個值就是 Edge
         GRASS_EDGE =400,
+        DIRT_EDGE = 500,
         BLOCK_EDGE = 600,
     }
 
@@ -135,27 +138,34 @@ public class MG_ForestRD : MapGeneratorBase
         
     }
 
+
+    virtual protected void CreateForestMap()
+    {
+        FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, mapWidth, mapHeight);
+        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(0, -2, 0), mapWidth - 4, 4);
+        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(2, 0, 0), 4, mapHeight - 4);
+
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(-4, 4, 0), 4, 4);
+    }
+
+
     public override void BuildAll(int buildLevel = 1)
     {
-        Vector3Int mapCenter = Vector3Int.zero;
+        //Vector3Int mapCenter = Vector3Int.zero;
         theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
 
-        //==== 以下開始畫地圖
+        //==== 開始畫地圖
+        CreateForestMap(); //主要地圖設計部份
 
-        FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, mapWidth, mapHeight);
-        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(0, -2, 0), mapWidth - 4, 2);
-        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(2, 0, 0), 2, mapHeight - 4);
 
-        //邊界
+        //四方邊界
         FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(-mapWidth / 2 - borderWidth / 2, 0, 0), borderWidth, mapHeight + borderWidth + borderWidth);
         FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(mapWidth / 2 + borderWidth / 2, 0, 0), borderWidth, mapHeight + borderWidth + borderWidth);
         FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(0, mapHeight / 2 + borderWidth / 2, 0), mapWidth, borderWidth);
         FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(0, -mapHeight / 2 - borderWidth / 2, 0), mapWidth, borderWidth);
 
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(-4, 4, 0), 4, 4);
-
         //!! 交界處處理 !!
-        EdgeDetectInMap((int)TILE_TYPE.GRASS, (int)TILE_TYPE.DIRT, (int)TILE_TYPE.GRASS_EDGE, mapCenter, mapWidth, mapHeight);
+        EdgeDetectInMap((int)TILE_TYPE.DIRT, (int)TILE_TYPE.GRASS, (int)TILE_TYPE.DIRT_EDGE, mapCenter, mapWidth, mapHeight);
         EdgeDetectInMap((int)TILE_TYPE.BLOCK, (int)TILE_TYPE.GRASS, (int)TILE_TYPE.BLOCK_EDGE, mapCenter, mapWidth + borderWidth, mapHeight + borderWidth);
 
         //==== 畫地圖結束，實裝 Tile
@@ -272,6 +282,10 @@ public class MG_ForestRD : MapGeneratorBase
                     if (type == (int)TILE_TYPE.GRASS_EDGE)
                     {
                         eTG = grassEdgeGroup;
+                    }
+                    else if (type == (int)TILE_TYPE.DIRT_EDGE)
+                    {
+                        eTG = dirtEdgeGroup;
                     }
                     else if (type == (int)TILE_TYPE.BLOCK_EDGE)
                     {
