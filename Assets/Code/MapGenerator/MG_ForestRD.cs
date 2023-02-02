@@ -110,7 +110,7 @@ public class MG_ForestRD : MapGeneratorBase
     }
 
     protected int mapWidth = 12;
-    protected int mapHeight = 20;
+    protected int mapHeight = 10;
 
     protected OneMap theMap = new OneMap();
 
@@ -230,8 +230,8 @@ public class MG_ForestRD : MapGeneratorBase
         //==== 以下開始畫地圖
 
         FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, mapWidth, mapHeight);
-        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(0, 1, 0), mapWidth - 4, 2);
-        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(1, 0, 0), 2, mapHeight - 4);
+        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(0, 0, 0), mapWidth - 4, 2);
+        FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(0, 0, 0), 2, mapHeight - 4);
 
         EdgeDetectInMap((int)TILE_TYPE.GRASS, (int)TILE_TYPE.DIRT, mapCenter, mapWidth, mapHeight);
 
