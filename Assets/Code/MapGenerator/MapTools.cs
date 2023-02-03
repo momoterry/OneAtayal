@@ -26,7 +26,10 @@ public class OneMap
     {
         if (x < (xMin - edgeWidth) || x > (xMax + edgeWidth)
             || y < (yMin - edgeWidth) || y > (yMax + edgeWidth))
+        {
+            Debug.Log("OneMap Inavlid Coordinate !! ( " + x + ", " + y + " )");
             return false;
+        }
         return true;
     }
     protected bool IsValid(Vector2Int coord)

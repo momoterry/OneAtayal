@@ -13,11 +13,10 @@ public class MG_ForeAlpha : MG_ForestRD
         int xNum = mapWidth / blockSize;
         int yNum = mapHeight / blockSize;
 
-        int x = 0;
-        int y = -mapHeight / 2 + blockSize / 2;
+        int x = -mapWidth / 2 + blockSize / 2;
         for (int ix =0; ix < xNum; ix++)
         {
-            x = -mapWidth / 2 + blockSize / 2;
+            int y = -mapHeight / 2 + blockSize / 2;
             for (int iy=0; iy < yNum; iy++)
             {
                 float rd = Random.Range(0, 1.0f);
@@ -29,9 +28,12 @@ public class MG_ForeAlpha : MG_ForestRD
                 {
                     FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(x, y, 0), 4, 4);
                 }
-                x += blockSize;
+                y += blockSize;
             }
-            y += blockSize;
+            x += blockSize;
         }
+
+        //確保中央是空的
+        FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, 2, 2);
     }
 }

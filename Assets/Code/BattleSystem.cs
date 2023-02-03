@@ -223,9 +223,9 @@ public class BattleSystem : MonoBehaviour
 
     protected void UpdateInit()
     {
-        //TODO: Loading 結束後等待幾個 Frame ?
-        InitBattle();
+        //避免出 Error 時一直跑，先設定 nextState
         nextState = BATTLE_GAME_STATE.BATTLE;
+        InitBattle();                               
     }
 
 
