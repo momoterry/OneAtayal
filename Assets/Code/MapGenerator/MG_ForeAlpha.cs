@@ -39,6 +39,8 @@ public class MG_ForeAlpha : MG_ForestRD
         int xNum = mapWidth / blockSize;
         int yNum = mapHeight / blockSize;
 
+        int dirtCount = 0;
+        int blockCount = 0;
         int x = -mapWidth / 2 + blockSize / 2;
         for (int ix =0; ix < xNum; ix++)
         {
@@ -49,18 +51,22 @@ public class MG_ForeAlpha : MG_ForestRD
                 if (rd < blockRatio)
                 {
                     FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(x, y, 0), 4, 4);
+                    blockCount++;
                 }
                 else if (rd < blockRatio + dirtRatio)
                 {
                     FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(x, y, 0), 4, 4);
+                    dirtCount++;
                 }
                 y += blockSize;
             }
             x += blockSize;
         }
 
+        print("Dirt Count: " + dirtCount);
+
         //確保中央是空的
-        FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, blockSize, blockSize);
+        FillSquareInMap((int)TILE_TYPE.GRASS, Vector3Int.zero, blockSize, blockSize);
 
         //修正角角對接問題
         CrossFixInMap();
