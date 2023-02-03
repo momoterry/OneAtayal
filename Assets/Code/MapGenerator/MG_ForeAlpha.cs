@@ -6,7 +6,24 @@ public class MG_ForeAlpha : MG_ForestRD
 {
     public float blockRatio = 0.2f;
     public float dirtRatio = 0.1f;
+
+    public GameObject EnemySpawnerRef;
+
     protected int blockSize = 4;
+
+    protected List<GameObject> eSpawnerList = new List<GameObject>();
+    protected float eSpawnTimer = 0;
+    [SerializeField]protected float eSpawnStep = 0.4f;
+
+    private void Update()
+    {
+        eSpawnTimer += Time.deltaTime;
+        if (eSpawnTimer >= eSpawnStep)
+        {
+            eSpawnerList[Random.Range(0, eSpawnerList.Count)].SendMessage("OnTG", gameObject);
+            eSpawnTimer -= eSpawnStep;
+        }
+    }
 
     protected void CrossFixInMap()
     {
@@ -55,7 +72,12 @@ public class MG_ForeAlpha : MG_ForestRD
                 }
                 else if (rd < blockRatio + dirtRatio)
                 {
-                    FillSquareInMap((int)TILE_TYPE.DIRT, mapCenter + new Vector3Int(x, y, 0), 4, 4);
+                    Vector3Int coord = mapCenter + new Vector3Int(x, y, 0);
+                    FillSquareInMap((int)TILE_TYPE.DIRT, coord, 4, 4);
+                    if (EnemySpawnerRef)
+                    {
+                        eSpawnerList.Add(Instantiate(EnemySpawnerRef, new Vector3(coord.x, 0, coord.y), Quaternion.identity));
+                    }
                     dirtCount++;
                 }
                 y += blockSize;

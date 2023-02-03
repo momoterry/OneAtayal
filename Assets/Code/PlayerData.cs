@@ -48,8 +48,8 @@ public class PlayerData : MonoBehaviour
     public void InitData()
     {
         print("==== PlayerData.InitData()");
-        Money = 100;
-        mainCharacterStat.LV = 1;
+        Money = 0;
+        mainCharacterStat.LV = 21;
         mainCharacterStat.Exp = 0;
         usingDollList.Clear();
         dollBackpack.Clear();
