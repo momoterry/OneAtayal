@@ -8,6 +8,32 @@ public class MG_ForeAlpha : MG_ForestRD
     public float dirtRatio = 0.1f;
     protected int blockSize = 4;
 
+    protected void CrossFixInMap()
+    {
+        for (int x = theMap.xMin; x <= theMap.xMax-1; x++)
+        {
+            for (int y = theMap.yMin; y <= theMap.yMax-1; y++)
+            {
+                bool b11 = theMap.GetValue(x, y) == (int)TILE_TYPE.BLOCK;
+                bool b12 = theMap.GetValue(x + 1, y) == (int)TILE_TYPE.BLOCK;
+                bool b21 = theMap.GetValue(x, y + 1) == (int)TILE_TYPE.BLOCK;
+                bool b22 = theMap.GetValue(x + 1, y + 1) == (int)TILE_TYPE.BLOCK;
+
+                if (b11 && b22 && !b21 && !b12)
+                {
+                    theMap.SetValue(x, y, (int)TILE_TYPE.GRASS);
+                    theMap.SetValue(x + 1, y + 1, (int)TILE_TYPE.GRASS);
+                }
+                else if (!b11 && !b22 && b21 && b12)
+                {
+                    theMap.SetValue(x, y + 1, (int)TILE_TYPE.GRASS);
+                    theMap.SetValue(x + 1, y, (int)TILE_TYPE.GRASS);
+                }
+            }
+            
+        }
+    }
+
     protected override void CreateForestMap()
     {
         int xNum = mapWidth / blockSize;
@@ -34,6 +60,9 @@ public class MG_ForeAlpha : MG_ForestRD
         }
 
         //確保中央是空的
-        FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, 2, 2);
+        FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, blockSize, blockSize);
+
+        //修正角角對接問題
+        CrossFixInMap();
     }
 }
