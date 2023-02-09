@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//=================================================================
+//
+//  以 4x4 的 Block 隨機擺放的隨機地圖，以 Dirt 的部份來隨機產生敵人
+//
+//=================================================================
+
 public class MG_ForeAlpha : MG_ForestRD
 {
     public float blockRatio = 0.2f;
