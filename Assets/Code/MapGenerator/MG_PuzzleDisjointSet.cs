@@ -10,44 +10,110 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
 
     protected struct cellInfo
     {
-        bool U, D, L, R;
+        public int ID;
+        public bool U, D, L, R;
     }
+
+    protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
+    protected cellInfo[][] puzzleMap;
+
+    protected class wallInfo
+    {
+        public wallInfo( int _id1, int _id2)
+        {
+            cell_ID_1 = _id1;
+            cell_ID_2 = _id2;
+        }
+        public int cell_ID_1;
+        public int cell_ID_2;
+    }
+    protected List<wallInfo> wallList = new List<wallInfo>();
+
 
     private void Awake()
     {
         mapHeight = puzzleHeight * cellSize;
         mapWidth = puzzleWidth * cellSize;
 
-        mapCenter.y = puzzleHeight / 2 * cellSize - cellSize / 2;
+        mapCenter.y = mapHeight/2 - cellSize / 2;
     }
 
     protected void FillCell(cellInfo cell, int x1, int y1, int width, int height)
     {
-        for (int x = x1; x<x1+width; x++)
+        int x2 = x1 + width - 1;
+        int y2 = y1 + height - 1;
+        theMap.SetValue(x1, y1, (int)TILE_TYPE.BLOCK);
+        theMap.SetValue(x1, y2, (int)TILE_TYPE.BLOCK);
+        theMap.SetValue(x2, y1, (int)TILE_TYPE.BLOCK);
+        theMap.SetValue(x2, y2, (int)TILE_TYPE.BLOCK);
+        if (!cell.U)
         {
-            theMap.SetValue(x, y1, (int)TILE_TYPE.BLOCK);
-            theMap.SetValue(x, y1+height-1, (int)TILE_TYPE.BLOCK);
+            for (int x = x1 + 1; x < x2; x++)
+                theMap.SetValue(x, y1, (int)TILE_TYPE.BLOCK);
         }
-        for (int y = y1+1; y < y1 + height - 1; y++)
+        if (!cell.D)
         {
-            theMap.SetValue(x1, y, (int)TILE_TYPE.BLOCK);
-            theMap.SetValue(x1+width-1, y, (int)TILE_TYPE.BLOCK);
+            for (int x = x1 + 1; x < x2; x++)
+                theMap.SetValue(x, y2, (int)TILE_TYPE.BLOCK);
+        }
+        if (!cell.L)
+        {
+            for (int y = y1 + 1; y < y2; y++)
+                theMap.SetValue(x1, y, (int)TILE_TYPE.BLOCK);
+        }
+        if (!cell.R)
+        {
+            for (int y = y1 + 1; y < y2; y++)
+                theMap.SetValue(x2, y, (int)TILE_TYPE.BLOCK);
         }
     }
 
+    protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
+    protected int GetCellX(int id) { return id % puzzleWidth; }
+    protected int GetCellY(int id) { return id / puzzleWidth; }
+
     protected override void CreateForestMap()
     {
-        cellInfo temp = new cellInfo();
+        //==== Init Puzzle Map
+        puzzleDSU.Init(puzzleHeight * puzzleWidth);
+        puzzleMap = new cellInfo[puzzleWidth][];
+        for (int i=0; i<puzzleWidth; i++)
+        {
+            puzzleMap[i] = new cellInfo[puzzleHeight];
+        }
+        //==== Init Connection Info
+        for (int x=0; x < puzzleWidth-1; x++)
+        {
+            for (int y=0; y < puzzleHeight-1; y++)
+            {
+                wallList.Add(new wallInfo(GetCellID(x, y), GetCellID(x+1,y)));
+                wallList.Add(new wallInfo(GetCellID(x, y), GetCellID(x, y+1)));
+            }
+        }
+
+        foreach (wallInfo w in wallList)
+        {
+            print("wall: " + w.cell_ID_1 + " -- " + w.cell_ID_2);
+        }
+
+        //==== 開始隨機連結 !!
+        for (int loop=0; loop<10; loop++)
+        {
+            int rd = Random.Range(0, wallList.Count);
+            //待續 ......
+
+        }
+
+        //==== Set up all cells
         int mapX1 = mapCenter.x - mapWidth / 2;
         int mapY1 = mapCenter.y - mapHeight / 2;
-        int hCellSize = cellSize / 2;
         for (int i=0; i< puzzleWidth; i++)
         {
             for (int j=0; j<puzzleHeight; j++)
             {
                 int x1 = mapX1 + i * cellSize;
                 int y1 = mapY1 + j * cellSize;
-                FillCell(temp, x1, y1, cellSize, cellSize);
+                FillCell(puzzleMap[i][j], x1, y1, cellSize, cellSize);
             }
         }
     }
