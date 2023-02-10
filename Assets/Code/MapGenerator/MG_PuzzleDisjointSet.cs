@@ -137,16 +137,18 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
             loop++;
             int rd = Random.Range(0, wallList.Count);
             wallInfo w = wallList[rd];
-            ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-            puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+            if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
+            {
+                ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+                puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+            }
+            wallList.Remove(w);
 
             if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
             {
                 print("發現大祕寶啦 !! Loop = " + (loop + 1));
                 bSuccess = true;
             }
-
-            wallList.Remove(w);
         }
 
         //==== Set up all cells
