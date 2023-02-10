@@ -7,7 +7,10 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     public int cellSize = 4;
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
-    public bool allConnect = false;
+    public bool allConnect = true;
+
+    protected int bufferX = 0;
+    protected int bufferY = 0;
 
     protected class cellInfo
     {
@@ -33,9 +36,9 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
 
     private void Awake()
     {
-        mapHeight = puzzleHeight * cellSize;
-        mapWidth = puzzleWidth * cellSize;
-        mapCenter.y = mapHeight / 2 - cellSize / 2;
+        mapHeight = (puzzleHeight + bufferY + bufferY) * cellSize;  //加入上下緩衝
+        mapWidth = (puzzleWidth + bufferX + bufferX) * cellSize;
+        mapCenter.y = puzzleHeight * cellSize / 2 - ( cellSize / 2 );
         //mapCenter.x = -(puzzleWidth % 2) * cellSize / 2;
         if (puzzleWidth % 2 == 0)
         {
@@ -47,6 +50,7 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     {
         int x2 = x1 + width - 1;
         int y2 = y1 + height - 1;
+        //FillSquareInMap((int)TILE_TYPE.GRASS, x1, y1, width, height);
         theMap.SetValue(x1, y1, (int)TILE_TYPE.BLOCK);
         theMap.SetValue(x1, y2, (int)TILE_TYPE.BLOCK);
         theMap.SetValue(x2, y1, (int)TILE_TYPE.BLOCK);
@@ -91,11 +95,12 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
 
     protected void MarkCellbyID( int _id)
     {
-        int mapX1 = mapCenter.x - mapWidth / 2;
-        int mapY1 = mapCenter.y - mapHeight / 2;
-        int x1 = GetCellX(_id) * cellSize + mapX1 + cellSize / 2;
-        int y1 = GetCellY(_id) * cellSize + mapY1 + cellSize / 2;
-        FillSquareInMap((int)TILE_TYPE.DIRT, new Vector3Int(x1, y1, 0), cellSize - 2, cellSize - 2);
+        int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+        int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+        int x1 = GetCellX(_id) * cellSize + puzzleX1;
+        int y1 = GetCellY(_id) * cellSize + puzzleY1;
+        //FillSquareInMap((int)TILE_TYPE.DIRT, new Vector3Int(x1, y1, 0), cellSize, cellSize);
+        FillSquareInMap((int)TILE_TYPE.DIRT, x1, y1, cellSize, cellSize);
     }
 
     protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
@@ -151,20 +156,29 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         }
 
         //==== Set up all cells
-        int mapX1 = mapCenter.x - mapWidth / 2;
-        int mapY1 = mapCenter.y - mapHeight / 2;
+        int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+        int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+
+        MarkCellbyID(iStart);
+        MarkCellbyID(iEnd);
+
+        //== 緩衝區處理
+        int bufferSizeY = bufferY * cellSize;
+        int bufferSizeX = bufferX * cellSize;
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth/2), mapCenter.y - (mapHeight/2), mapWidth, bufferSizeY);
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth/2), mapCenter.y + (mapHeight/2) - bufferSizeY, mapWidth, bufferSizeY);
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth/2), mapCenter.y - (mapHeight/2), bufferSizeX, mapHeight);
+        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x + (mapWidth/2) - bufferSizeX, mapCenter.y - (mapHeight/2), bufferSizeX, mapHeight);
+
         for (int i=0; i< puzzleWidth; i++)
         {
             for (int j=0; j<puzzleHeight; j++)
             {
-                int x1 = mapX1 + i * cellSize;
-                int y1 = mapY1 + j * cellSize;
+                int x1 = puzzleX1 + i * cellSize;
+                int y1 = puzzleY1 + j * cellSize;
                 FillCell(puzzleMap[i][j], x1, y1, cellSize, cellSize);
             }
         }
-
-        MarkCellbyID(iStart);
-        MarkCellbyID(iEnd);
     }
 }
 

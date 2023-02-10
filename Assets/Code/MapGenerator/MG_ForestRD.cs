@@ -183,19 +183,31 @@ public class MG_ForestRD : MapGeneratorBase
         theSurface2D.BuildNavMesh();
     }
 
-    protected void FillSquareInMap(int value, Vector3Int center, int width, int height)
+    protected void FillSquareInMap(int value, int x1, int y1, int width, int height)
     {
-        int xMax = width / 2 + center.x;
-        int yMax = height / 2 + center.y;
-        int xMin = xMax - width;
-        int yMin = yMax - height;
-        for (int x = xMin; x < xMax; x++)
+        for (int x = x1; x < x1+width; x++)
         {
-            for (int y = yMin; y < yMax; y++)
+            for (int y = y1; y < y1+height; y++)
             {
                 theMap.SetValue(x, y, value);
             }
         }
+    }
+
+    protected void FillSquareInMap(int value, Vector3Int center, int width, int height)
+    {
+        //int xMax = width / 2 + center.x;
+        //int yMax = height / 2 + center.y;
+        int xMin = center.x - (width/2);
+        int yMin = center.y - (height/2);
+        //for (int x = xMin; x < xMax; x++)
+        //{
+        //    for (int y = yMin; y < yMax; y++)
+        //    {
+        //        theMap.SetValue(x, y, value);
+        //    }
+        //}
+        FillSquareInMap(value, xMin, yMin, width, height);
     }
 
     protected int CheckEdgeType( int x, int y, int outValue)
