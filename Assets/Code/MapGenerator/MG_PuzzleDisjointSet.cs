@@ -8,9 +8,9 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
 
-    protected struct cellInfo
+    protected class cellInfo
     {
-        public int ID;
+        //public int ID;
         public bool U, D, L, R;
     }
 
@@ -46,12 +46,12 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         theMap.SetValue(x1, y2, (int)TILE_TYPE.BLOCK);
         theMap.SetValue(x2, y1, (int)TILE_TYPE.BLOCK);
         theMap.SetValue(x2, y2, (int)TILE_TYPE.BLOCK);
-        if (!cell.U)
+        if (!cell.D)
         {
             for (int x = x1 + 1; x < x2; x++)
                 theMap.SetValue(x, y1, (int)TILE_TYPE.BLOCK);
         }
-        if (!cell.D)
+        if (!cell.U)
         {
             for (int x = x1 + 1; x < x2; x++)
                 theMap.SetValue(x, y2, (int)TILE_TYPE.BLOCK);
@@ -68,6 +68,31 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         }
     }
 
+    protected void ConnectCellsByID( int id_1, int id_2)
+    {
+        cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
+        cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
+        if (id_1 + 1 == id_2) //左連到右
+        {
+            cell_1.R = true;
+            cell_2.L = true;
+        }
+        else if ( id_1 + puzzleWidth == id_2) //下連到上
+        {
+            cell_1.U = true;
+            cell_2.D = true;
+        }
+    }
+
+    protected void MarkCellbyID( int _id)
+    {
+        int mapX1 = mapCenter.x - mapWidth / 2;
+        int mapY1 = mapCenter.y - mapHeight / 2;
+        int x1 = GetCellX(_id) * cellSize + mapX1 + cellSize / 2;
+        int y1 = GetCellY(_id) * cellSize + mapY1 + cellSize / 2;
+        FillSquareInMap((int)TILE_TYPE.DIRT, new Vector3Int(x1, y1, 0), cellSize - 2, cellSize - 2);
+    }
+
     protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
     protected int GetCellX(int id) { return id % puzzleWidth; }
     protected int GetCellY(int id) { return id / puzzleWidth; }
@@ -80,6 +105,10 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         for (int i=0; i<puzzleWidth; i++)
         {
             puzzleMap[i] = new cellInfo[puzzleHeight];
+            for (int j=0; j<puzzleHeight; j++)
+            {
+                puzzleMap[i][j] = new cellInfo();
+            }
         }
         //==== Init Connection Info
         for (int x=0; x < puzzleWidth-1; x++)
@@ -91,17 +120,33 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
             }
         }
 
-        foreach (wallInfo w in wallList)
-        {
-            print("wall: " + w.cell_ID_1 + " -- " + w.cell_ID_2);
-        }
+        //foreach (wallInfo w in wallList)
+        //{
+        //    print("wall: " + w.cell_ID_1 + " -- " + w.cell_ID_2);
+        //}
 
         //==== 開始隨機連結 !!
-        for (int loop=0; loop<10; loop++)
+        //int iStart = puzzleWidth / 2;
+        //int iEnd = iStart + (puzzleHeight - 1) * puzzleWidth;
+        int iStart = GetCellID(puzzleWidth / 2, 0);
+        int iEnd = GetCellID(puzzleWidth / 2, puzzleHeight-1);
+        bool bSuccess = false;
+        int loop = 0;
+        while (!bSuccess)
         {
+            loop++;
             int rd = Random.Range(0, wallList.Count);
-            //待續 ......
+            wallInfo w = wallList[rd];
+            ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+            puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
 
+            if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
+            {
+                print("發現大祕寶啦 !! Loop = " + (loop + 1));
+                bSuccess = true;
+            }
+
+            wallList.Remove(w);
         }
 
         //==== Set up all cells
@@ -116,6 +161,9 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
                 FillCell(puzzleMap[i][j], x1, y1, cellSize, cellSize);
             }
         }
+
+        MarkCellbyID(iStart);
+        MarkCellbyID(iEnd);
     }
 }
 
