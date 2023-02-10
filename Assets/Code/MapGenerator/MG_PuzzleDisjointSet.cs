@@ -8,6 +8,7 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
     public bool allConnect = true;
+    public bool extendTerminal = true;
 
     protected int bufferX = 0;
     protected int bufferY = 0;
@@ -36,10 +37,22 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
 
     private void Awake()
     {
+        if (extendTerminal)
+        {
+            bufferX = 0;
+            bufferY = 1;
+        }
+        else
+        {
+            bufferY = 0;
+            bufferX = 0;
+        }
         mapHeight = (puzzleHeight + bufferY + bufferY) * cellSize;  //加入上下緩衝
         mapWidth = (puzzleWidth + bufferX + bufferX) * cellSize;
         mapCenter.y = puzzleHeight * cellSize / 2 - ( cellSize / 2 );
-        //mapCenter.x = -(puzzleWidth % 2) * cellSize / 2;
+        if (extendTerminal)
+            mapCenter.y += cellSize;
+
         if (puzzleWidth % 2 == 0)
         {
             mapCenter.x =  - cellSize / 2;
@@ -163,12 +176,27 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         MarkCellbyID(iEnd);
 
         //== 緩衝區處理
-        int bufferSizeY = bufferY * cellSize;
-        int bufferSizeX = bufferX * cellSize;
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth/2), mapCenter.y - (mapHeight/2), mapWidth, bufferSizeY);
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth/2), mapCenter.y + (mapHeight/2) - bufferSizeY, mapWidth, bufferSizeY);
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth/2), mapCenter.y - (mapHeight/2), bufferSizeX, mapHeight);
-        FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x + (mapWidth/2) - bufferSizeX, mapCenter.y - (mapHeight/2), bufferSizeX, mapHeight);
+        if (extendTerminal)
+        {
+            int bufferSizeY = bufferY * cellSize;
+            int bufferSizeX = bufferX * cellSize;
+            FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y - (mapHeight / 2), mapWidth, bufferSizeY);
+            FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y + (mapHeight / 2) - bufferSizeY, mapWidth, bufferSizeY);
+            FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y - (mapHeight / 2), bufferSizeX, mapHeight);
+            FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x + (mapWidth / 2) - bufferSizeX, mapCenter.y - (mapHeight / 2), bufferSizeX, mapHeight);
+
+            //起始區處理
+            cellInfo cStart = new cellInfo();
+            cellInfo cEnd = new cellInfo();
+            cStart.U = true;
+            cEnd.D = true;
+            FillSquareInMap((int)TILE_TYPE.DIRT, puzzleX1 + GetCellX(iStart) * cellSize, puzzleY1 + (GetCellY(iStart) - 1) * cellSize, cellSize, cellSize);
+            FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellSize, puzzleY1 + (GetCellY(iStart) - 1) * cellSize, cellSize, cellSize);
+            FillSquareInMap((int)TILE_TYPE.DIRT, puzzleX1 + GetCellX(iEnd) * cellSize, puzzleY1 + (GetCellY(iEnd) + 1) * cellSize, cellSize, cellSize);
+            FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellSize, puzzleY1 + (GetCellY(iEnd) + 1) * cellSize, cellSize, cellSize);
+            puzzleMap[GetCellX(iStart)][GetCellY(iStart)].D = true;
+            puzzleMap[GetCellX(iEnd)][GetCellY(iEnd)].U = true;
+        }
 
         for (int i=0; i< puzzleWidth; i++)
         {
