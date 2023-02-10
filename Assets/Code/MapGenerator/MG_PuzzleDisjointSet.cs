@@ -7,6 +7,7 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     public int cellSize = 4;
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
+    public bool allConnect = false;
 
     protected class cellInfo
     {
@@ -130,9 +131,10 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         //int iEnd = iStart + (puzzleHeight - 1) * puzzleWidth;
         int iStart = GetCellID(puzzleWidth / 2, 0);
         int iEnd = GetCellID(puzzleWidth / 2, puzzleHeight-1);
-        bool bSuccess = false;
+        //bool bSuccess = false;
         int loop = 0;
-        while (!bSuccess)
+        int wallTotal = wallList.Count;
+        while (loop < wallTotal)
         {
             loop++;
             int rd = Random.Range(0, wallList.Count);
@@ -144,10 +146,10 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
             }
             wallList.Remove(w);
 
-            if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
+            if (!allConnect && (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd)))
             {
                 print("µo²{¤j¯¦Ä_°Õ !! Loop = " + (loop + 1));
-                bSuccess = true;
+                break;
             }
         }
 
