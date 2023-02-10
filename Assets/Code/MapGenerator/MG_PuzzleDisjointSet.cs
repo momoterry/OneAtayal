@@ -35,8 +35,12 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     {
         mapHeight = puzzleHeight * cellSize;
         mapWidth = puzzleWidth * cellSize;
-
-        mapCenter.y = mapHeight/2 - cellSize / 2;
+        mapCenter.y = mapHeight / 2 - cellSize / 2;
+        //mapCenter.x = -(puzzleWidth % 2) * cellSize / 2;
+        if (puzzleWidth % 2 == 0)
+        {
+            mapCenter.x =  - cellSize / 2;
+        }
     }
 
     protected void FillCell(cellInfo cell, int x1, int y1, int width, int height)
@@ -121,17 +125,10 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
             }
         }
 
-        //foreach (wallInfo w in wallList)
-        //{
-        //    print("wall: " + w.cell_ID_1 + " -- " + w.cell_ID_2);
-        //}
-
         //==== 開始隨機連結 !!
-        //int iStart = puzzleWidth / 2;
-        //int iEnd = iStart + (puzzleHeight - 1) * puzzleWidth;
         int iStart = GetCellID(puzzleWidth / 2, 0);
         int iEnd = GetCellID(puzzleWidth / 2, puzzleHeight-1);
-        //bool bSuccess = false;
+
         int loop = 0;
         int wallTotal = wallList.Count;
         while (loop < wallTotal)
