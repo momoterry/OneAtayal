@@ -13,10 +13,10 @@ public class MazeStartMenu : MonoBehaviour
     public GameObject OptionMenu;
     public Text numText;
     //public TextAlignmen
-    protected int mazeSize = 25;
-    protected int minSize = 10;
-    protected int maxSize = 200;
-    protected int sizeStep = 5;
+    public int mazeSize = 25;
+    public int minSize = 10;
+    public int maxSize = 200;
+    public int sizeStep = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -40,8 +40,8 @@ public class MazeStartMenu : MonoBehaviour
 
     protected void DoGameStart()
     {
+        MazeSizeRecorder.SetMazeSize(mazeSize);
         SceneManager.LoadScene("ForestMaze");
-
     }
 
     public void OnGameStart()

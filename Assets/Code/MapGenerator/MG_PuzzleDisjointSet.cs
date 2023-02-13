@@ -34,9 +34,17 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     }
     protected List<wallInfo> wallList = new List<wallInfo>();
 
-
-    private void Awake()
+    protected override void PreCreateMap()
     {
+        //讀取大小
+        int userSetSize = MazeSizeRecorder.GetMazeSize();
+        if (userSetSize > 0)
+        {
+            puzzleHeight = userSetSize;
+            puzzleWidth = userSetSize;
+        }
+        print("MazeSize: " + userSetSize);
+
         if (extendTerminal)
         {
             bufferX = 0;
@@ -49,13 +57,13 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         }
         mapHeight = (puzzleHeight + bufferY + bufferY) * cellSize;  //加入上下緩衝
         mapWidth = (puzzleWidth + bufferX + bufferX) * cellSize;
-        mapCenter.y = puzzleHeight * cellSize / 2 - ( cellSize / 2 );
+        mapCenter.y = puzzleHeight * cellSize / 2 - (cellSize / 2);
         if (extendTerminal)
             mapCenter.y += cellSize;
 
         if (puzzleWidth % 2 == 0)
         {
-            mapCenter.x =  - cellSize / 2;
+            mapCenter.x = -cellSize / 2;
         }
     }
 

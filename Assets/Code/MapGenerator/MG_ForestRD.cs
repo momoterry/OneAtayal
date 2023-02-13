@@ -147,9 +147,15 @@ public class MG_ForestRD : MapGeneratorBase
         FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(-4, 4, 0), 4, 4);
     }
 
+    virtual protected void PreCreateMap()
+    {
+
+    }
 
     public override void BuildAll(int buildLevel = 1)
     {
+        PreCreateMap();
+
         //Vector3Int mapCenter = Vector3Int.zero;
         theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
 
