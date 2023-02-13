@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MG_PuzzleDisjointSet : MG_ForestRD
 {
@@ -10,9 +11,12 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     public bool allConnect = true;
     public bool extendTerminal = true;
     public GameObject finishPortalRef;
+    public GameObject helperRef;
 
     protected int bufferX = 0;
     protected int bufferY = 0;
+
+    protected Vector3 endPos;
 
     protected class cellInfo
     {
@@ -182,6 +186,7 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
 
         MarkCellbyID(iStart);
         MarkCellbyID(iEnd);
+        endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellSize + cellSize / 2, 1, puzzleY1 + GetCellY(iEnd)* cellSize + cellSize / 2);
 
         //== 緩衝區處理
         if (extendTerminal)
@@ -204,6 +209,8 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
             FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellSize, puzzleY1 + (GetCellY(iEnd) + 1) * cellSize, cellSize, cellSize);
             puzzleMap[GetCellX(iStart)][GetCellY(iStart)].D = true;
             puzzleMap[GetCellX(iEnd)][GetCellY(iEnd)].U = true;
+
+            endPos.z += cellSize;
         }
 
         for (int i=0; i< puzzleWidth; i++)
@@ -217,10 +224,25 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         }
 
         //破關門
-        Vector3 pos = new Vector3(puzzleX1+GetCellX(iEnd)*cellSize+ cellSize/2, 1, puzzleY1+(GetCellY(iEnd)+1)*cellSize+ cellSize / 2);
         if (finishPortalRef)
-            BattleSystem.SpawnGameObj(finishPortalRef, pos);
+            BattleSystem.SpawnGameObj(finishPortalRef, endPos);
     }
+
+    public void OnCallHelp()
+    {
+        if (helperRef)
+        {
+            GameObject hObj = BattleSystem.SpawnGameObj(helperRef, BattleSystem.GetPC().transform.position);
+            NavMeshAgent navH = hObj.GetComponent<NavMeshAgent>();
+            if (navH)
+            {
+                navH.updateRotation = false;
+                navH.updateUpAxis = false;
+                navH.SetDestination(endPos);
+            }
+        }
+    }
+
 }
 
 
