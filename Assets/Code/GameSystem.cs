@@ -19,6 +19,11 @@ public class GameSystem : MonoBehaviour
     //Option 相關 //TODO: 應該移到真正的 PlayerPref 當中
     protected bool useVpadControl = true;
 
+    //迷宮小遊戲相關
+    protected int MazeUserSize = -1;        // -1 表示玩家沒有設定
+    public int GetMazeUserSize() { return MazeUserSize; }
+    public void SetMazeUserSize(int _size) { MazeUserSize = _size; }
+
     protected string strSaveFile = "mySave.txt";
 
     static private GameSystem instance;

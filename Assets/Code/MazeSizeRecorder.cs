@@ -10,7 +10,7 @@ public class MazeSizeRecorder : MonoBehaviour
     int mazeSize = -1;      // <0 表示沒有設定
 
     static MazeSizeRecorder instance;
-
+    static public MazeSizeRecorder GetInstace() { return instance; }
     public MazeSizeRecorder() : base()
     {
         if (instance != null)

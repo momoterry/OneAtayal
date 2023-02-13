@@ -9,6 +9,7 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     public int puzzleWidth = 6;
     public bool allConnect = true;
     public bool extendTerminal = true;
+    public GameObject finishPortalRef;
 
     protected int bufferX = 0;
     protected int bufferY = 0;
@@ -37,13 +38,12 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     protected override void PreCreateMap()
     {
         //讀取大小
-        int userSetSize = MazeSizeRecorder.GetMazeSize();
+        int userSetSize = GameSystem.GetInstance().GetMazeUserSize();
         if (userSetSize > 0)
         {
             puzzleHeight = userSetSize;
             puzzleWidth = userSetSize;
         }
-        print("MazeSize: " + userSetSize);
 
         if (extendTerminal)
         {
@@ -215,6 +215,11 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
                 FillCell(puzzleMap[i][j], x1, y1, cellSize, cellSize);
             }
         }
+
+        //破關門
+        Vector3 pos = new Vector3(puzzleX1+GetCellX(iEnd)*cellSize+ cellSize/2, 1, puzzleY1+(GetCellY(iEnd)+1)*cellSize+ cellSize / 2);
+        if (finishPortalRef)
+            BattleSystem.SpawnGameObj(finishPortalRef, pos);
     }
 }
 

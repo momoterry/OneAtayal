@@ -23,6 +23,21 @@ public class MazeStartMenu : MonoBehaviour
     {
         GameSystem.Ensure();
 
+        if (!MazeSizeRecorder.GetInstace())
+        {
+            GameObject o = new GameObject("MazeSizeRecorder");
+            o.AddComponent<MazeSizeRecorder>();
+        }
+        else
+        {
+
+            int userSetSize = GameSystem.GetInstance().GetMazeUserSize();
+            if (userSetSize > 0)
+            {
+                mazeSize = userSetSize;
+            }
+            print("--userSetSize " + userSetSize);
+        }
 
         SetupNumText();
 
@@ -40,14 +55,12 @@ public class MazeStartMenu : MonoBehaviour
 
     protected void DoGameStart()
     {
-        MazeSizeRecorder.SetMazeSize(mazeSize);
+        GameSystem.GetInstance().SetMazeUserSize(mazeSize);
         SceneManager.LoadScene("ForestMaze");
     }
 
     public void OnGameStart()
     {
-        print("START!!");
-
 
         if (OptionMenu)
         {
