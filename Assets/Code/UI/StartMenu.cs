@@ -8,28 +8,28 @@ public class StartMenu : MonoBehaviour
 {
     public GameObject OptionMenu;
     //TODO: 這些資料應該被設定在更好的地方
-    [System.Serializable]
-    public struct PlayerSelectInfo{
-        public GameObject objRef;
-        public CardPlayerCharacter card;
-    }
-    public PlayerSelectInfo[] cardList;
+    //[System.Serializable]
+    //public struct PlayerSelectInfo{
+    //    public GameObject objRef;
+    //    public CardPlayerCharacter card;
+    //}
+    //public PlayerSelectInfo[] cardList;
 
     public Text title;
     protected float titleTime = 0;
 
-    protected int currPlayerCharacterIndex = 0;
+    //protected int currPlayerCharacterIndex = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         GameSystem.Ensure();
 
-        for (int i = 0; i < cardList.Length; i++)
-        {
-            cardList[i].card.SetupByStartmenu(this, i);
-            cardList[i].card.SetSelected(i == currPlayerCharacterIndex);
-        }
+        //for (int i = 0; i < cardList.Length; i++)
+        //{
+        //    cardList[i].card.SetupByStartmenu(this, i);
+        //    cardList[i].card.SetSelected(i == currPlayerCharacterIndex);
+        //}
 
         if (OptionMenu)
         {
@@ -92,14 +92,14 @@ public class StartMenu : MonoBehaviour
         }
     }
 
-    public void OnPlayerCharacterCardSelected(int cardIndex)
-    {
-        for (int i = 0; i < cardList.Length; i++)
-        {
-            cardList[i].card.SetSelected(i == cardIndex);
-        }
-        currPlayerCharacterIndex = cardIndex;
-    }
+    //public void OnPlayerCharacterCardSelected(int cardIndex)
+    //{
+    //    for (int i = 0; i < cardList.Length; i++)
+    //    {
+    //        cardList[i].card.SetSelected(i == cardIndex);
+    //    }
+    //    currPlayerCharacterIndex = cardIndex;
+    //}
 
     public void OnResetData()
     {
