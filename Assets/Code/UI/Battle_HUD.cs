@@ -24,7 +24,8 @@ public class Battle_HUD : MonoBehaviour
     //關卡資訊
     public Text levelText;
 
-    //失敗畫面
+    //勝敗畫面
+    public GameObject winMenu;
     public GameObject failMenu;
 
     //血瓶
@@ -59,6 +60,8 @@ public class Battle_HUD : MonoBehaviour
     protected float cameraDefaultSize = 10.0f;
     protected CanvasScaler theScaler;
 
+    //勝敗頁面相關
+    protected System.Action winMenuCB;
 
     private void Awake()
     {
@@ -107,6 +110,7 @@ public class Battle_HUD : MonoBehaviour
     {
         CheckScreenResolution();
 
+        winMenu.SetActive(false);
         failMenu.SetActive(false);
         if (hpBar)
             hpBar.value = 1.0f;
@@ -249,6 +253,29 @@ public class Battle_HUD : MonoBehaviour
         //print("想回主選單呀，關不掉呀");
         failMenu.SetActive(false);
         BattleSystem.GetInstance().OnBackToStartMenu();
+    }
+
+    public void OnOpenWinMenu(System.Action cb)
+    {
+        if (winMenu)
+        {
+            winMenu.SetActive(true);
+        }
+        winMenuCB = cb;
+    }
+
+    public void OnCloseWinMenu()
+    {
+        if (winMenu)
+        {
+            winMenu.SetActive(false);
+        }
+        //BattleSystem.GetInstance().OnBackPrevScene();
+        if (winMenuCB != null)
+        {
+            winMenuCB();
+        }
+
     }
 
     public void OnBackToScene()

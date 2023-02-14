@@ -13,6 +13,7 @@ public class ScenePortal : MonoBehaviour
     public bool messageHint = false;
     public string hintLevelName = "";
     public bool isClearLevel = false;
+    public bool showWinUI = false;
 
     protected float currTime = 0;
     void Start()
@@ -58,6 +59,11 @@ public class ScenePortal : MonoBehaviour
         }
     }
 
+    public void OnWinMenuDone()
+    {
+        DoTeleport();
+    }
+
     void OnTG(GameObject whoTG)
     {
         //currTime = fadeTime;
@@ -68,6 +74,11 @@ public class ScenePortal : MonoBehaviour
         {
             BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
             SystemUI.ShowYesNoMessageBox(gameObject, "¶Ç°e¨ì " + hintLevelName + " ¶Ü?");
+        }
+        else if (showWinUI)
+        {
+            BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
+            BattleSystem.GetInstance().theBattleHUD.OnOpenWinMenu(OnWinMenuDone);
         }
         else
         {
