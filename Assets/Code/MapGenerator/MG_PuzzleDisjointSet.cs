@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class MG_PuzzleDisjointSet : MG_ForestRD
 {
@@ -241,13 +242,13 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     //方向順序: 上(0)、左(1)、右(2)、下(3)
     protected bool SearchCell( cellInfo cell, int fromDir, int x, int y )
     {
-        print("Search: " + x + ", "+y);
+        //print("Search: " + x + ", "+y);
         Vector2Int newNode = new Vector2Int(x, y);
         correctPathList.Add(newNode);
 
         if (GetCellID(x, y) == iEnd)
         {
-            print("找到終點啦 !!");
+            //print("找到終點啦 !!");
             return true;
         }
 
@@ -292,29 +293,60 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         bool result = SearchCell(puzzleMap[x][y], 3, x, y);
         if (result)
         {
-            print("=========把路徑印出來 !!=============");
+            //print("=========把路徑印出來 !!=============");
+            for (int i=0; i<correctPathList.Count-1; i++)
+            {
+                Vector2Int p = correctPathList[i];
+                Vector2Int pNext = correctPathList[i+1];
+                MarkPathWithNext(p.x, p.y, pNext.x, pNext.y);
+            }
             foreach (Vector2Int p in correctPathList)
             {
-                MarkPath(p.x, p.y);
+                GeneratePathTile(p.x, p.y);
             }
         }
     }
 
-    protected void MarkPath(int x, int y)
+    protected void MarkPathWithNext(int x1, int y1, int x2, int y2)
+    {
+        int x = Mathf.Min(x1, x2);
+        int y = Mathf.Min(y1, y2);
+        int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+        int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+        int x0 = x * cellSize + puzzleX1 + 1;
+        int y0 = y * cellSize + puzzleY1 + 1;
+        int width = Mathf.Abs(x1 - x2) * cellSize + cellSize - 2;
+        int height = Mathf.Abs(y1 - y2) * cellSize + cellSize - 2;
+        FillSquareInMap((int)TILE_TYPE.DIRT, x0, y0, width, height);
+    }
+
+    protected void GeneratePathTile(int x, int y)
     {
         int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
         int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
-        int x1 = x * cellSize + puzzleX1 + cellSize / 2;
-        int y1 = y * cellSize + puzzleY1 + cellSize / 2;
-        //FillSquareInMap((int)TILE_TYPE.DIRT, new Vector3Int(x1, y1, 0), cellSize-2, cellSize-2);
-        //FillSquareInMap((int)TILE_TYPE.DIRT, x1, y1, cellSize, cellSize);
-
-        Vector3 pos = new Vector3(x1, 0, y1);
-        if (hintRef)
-        {
-            BattleSystem.SpawnGameObj(hintRef, pos);
-        }
+        int x1 = x * cellSize + puzzleX1;
+        int y1 = y * cellSize + puzzleY1;
+        EdgeDetectInMap((int)TILE_TYPE.DIRT, (int)TILE_TYPE.DIRT_EDGE, x1, y1, cellSize, cellSize);
+        GenerateTiles(x1, y1, cellSize, cellSize);
     }
+
+    //protected void MarkPath(int x, int y)
+    //{
+    //    int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+    //    int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+    //    int x1 = x * cellSize + puzzleX1 + 1;
+    //    int y1 = y * cellSize + puzzleY1 + 1;
+    //    FillSquareInMap((int)TILE_TYPE.DIRT, x1, y1, cellSize-2, cellSize-2);
+    //    EdgeDetectInMap((int)TILE_TYPE.DIRT, (int)TILE_TYPE.DIRT_EDGE, x1, y1, cellSize - 2, cellSize - 2);
+    //    GenerateTiles(x1, y1, cellSize - 2, cellSize - 2);
+
+
+    //    //Vector3 pos = new Vector3(x1, 0, y1);
+    //    //if (hintRef)
+    //    //{
+    //    //    BattleSystem.SpawnGameObj(hintRef, pos);
+    //    //}
+    //}
 
     //==========================================================================
     //      連接操作介面用 

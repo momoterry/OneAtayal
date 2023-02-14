@@ -301,32 +301,53 @@ public class MG_ForestRD : MapGeneratorBase
         return (int)MAP_EDGE_TYPE.NOT;
     }
 
-    protected void EdgeDetectInMap( int value, int edgeTypeValue, Vector3Int center, int width, int height)
+    protected void EdgeDetectInMap(int value, int edgeTypeValue, int x1, int y1, int width, int height)
     {
-        int xMax = width / 2 + center.x;
-        int yMax = height / 2 + center.y;
-        int xMin = xMax - width;
-        int yMin = yMax - height;
-        for (int x = xMin; x < xMax; x++)
+        int x2 = x1 + width;
+        int y2 = y1 + height;
+        for (int x = x1; x < x2; x++)
         {
-            for (int y = yMin; y < yMax; y++) 
-            { 
-                if (theMap.GetValue(x, y) == value )
+            for (int y = y1; y < y2; y++)
+            {
+                if (theMap.GetValue(x, y) == value)
                 {
                     int newValue = CheckEdgeType(x, y, value, edgeTypeValue);
-                    //if (outValue < 0)
-                    //{
-                    //    newValue = CheckEdgeType(x, y, value, edgeTypeValue);
-                    //}
-                    //else
-                    //{
-                    //    newValue = CheckEdgeType(x, y, outValue);
-                    //}
                     if (newValue != (int)MAP_EDGE_TYPE.NOT)
                         theMap.SetValue(x, y, edgeTypeValue + newValue);
                 }
             }
         }
+    }
+
+    protected void EdgeDetectInMap( int value, int edgeTypeValue, Vector3Int center, int width, int height)
+    {
+        int x1 =  center.x - width / 2;
+        int y1 = center.y - height / 2;
+        EdgeDetectInMap(value, edgeTypeValue, x1, y1, width, height);
+        //int xMax = width / 2 + center.x;
+        //int yMax = height / 2 + center.y;
+        //int xMin = xMax - width;
+        //int yMin = yMax - height;
+        //for (int x = xMin; x < xMax; x++)
+        //{
+        //    for (int y = yMin; y < yMax; y++) 
+        //    { 
+        //        if (theMap.GetValue(x, y) == value )
+        //        {
+        //            int newValue = CheckEdgeType(x, y, value, edgeTypeValue);
+        //            //if (outValue < 0)
+        //            //{
+        //            //    newValue = CheckEdgeType(x, y, value, edgeTypeValue);
+        //            //}
+        //            //else
+        //            //{
+        //            //    newValue = CheckEdgeType(x, y, outValue);
+        //            //}
+        //            if (newValue != (int)MAP_EDGE_TYPE.NOT)
+        //                theMap.SetValue(x, y, edgeTypeValue + newValue);
+        //        }
+        //    }
+        //}
     }
 
     protected void GenerateTiles( int x1, int y1, int width, int height)
