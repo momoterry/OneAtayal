@@ -12,11 +12,16 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     public bool extendTerminal = true;
     public GameObject finishPortalRef;
     public GameObject helperRef;
+    public GameObject hintRef;
 
     protected int bufferX = 0;
     protected int bufferY = 0;
 
+    protected int iStart;
+    protected int iEnd;
     protected Vector3 endPos;
+
+    List<Vector2Int> correctPathList = new List<Vector2Int>();
 
     protected class cellInfo
     {
@@ -156,8 +161,8 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         }
 
         //==== 開始隨機連結 !!
-        int iStart = GetCellID(puzzleWidth / 2, 0);
-        int iEnd = GetCellID(puzzleWidth / 2, puzzleHeight-1);
+        iStart = GetCellID(puzzleWidth / 2, 0);
+        iEnd = GetCellID(puzzleWidth / 2, puzzleHeight-1);
 
         int loop = 0;
         int wallTotal = wallList.Count;
@@ -226,27 +231,114 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         //破關門
         if (finishPortalRef)
             BattleSystem.SpawnGameObj(finishPortalRef, endPos);
+
+    }
+    
+    //==========================================================================
+    //      找出正確路徑 
+    //==========================================================================
+
+    //方向順序: 上(0)、左(1)、右(2)、下(3)
+    protected bool SearchCell( cellInfo cell, int fromDir, int x, int y )
+    {
+        print("Search: " + x + ", "+y);
+        Vector2Int newNode = new Vector2Int(x, y);
+        correctPathList.Add(newNode);
+
+        if (GetCellID(x, y) == iEnd)
+        {
+            print("找到終點啦 !!");
+            return true;
+        }
+
+        bool result = false;
+        if (fromDir != 0 && cell.U)
+        {
+            result = SearchCell(puzzleMap[x][y + 1], 3, x, y + 1);
+            if (result)
+                return true;
+        }
+        if (fromDir != 1 && cell.L)
+        {
+            result = SearchCell(puzzleMap[x - 1][y], 2, x - 1, y);
+            if (result)
+                return true;
+        }
+        if (fromDir != 2 && cell.R)
+        {
+            result = SearchCell(puzzleMap[x + 1][y], 1, x + 1, y);
+            if (result)
+                return true;
+        }
+        if (fromDir != 3 && cell.D)
+        {
+            result = SearchCell(puzzleMap[x][y - 1], 0, x, y - 1);
+            if (result)
+                return true;
+        }
+
+        correctPathList.Remove(newNode);
+        return false;
     }
 
-    //======================== 連接操作介面用 =========================
-    
+    protected void ShowCorrectPath()
+    {
+        if (correctPathList.Count > 0)
+        {
+            return;
+        }
+        int x = GetCellX(iStart);
+        int y = GetCellY(iStart);
+        bool result = SearchCell(puzzleMap[x][y], 3, x, y);
+        if (result)
+        {
+            print("=========把路徑印出來 !!=============");
+            foreach (Vector2Int p in correctPathList)
+            {
+                MarkPath(p.x, p.y);
+            }
+        }
+    }
+
+    protected void MarkPath(int x, int y)
+    {
+        int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+        int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+        int x1 = x * cellSize + puzzleX1 + cellSize / 2;
+        int y1 = y * cellSize + puzzleY1 + cellSize / 2;
+        //FillSquareInMap((int)TILE_TYPE.DIRT, new Vector3Int(x1, y1, 0), cellSize-2, cellSize-2);
+        //FillSquareInMap((int)TILE_TYPE.DIRT, x1, y1, cellSize, cellSize);
+
+        Vector3 pos = new Vector3(x1, 0, y1);
+        if (hintRef)
+        {
+            BattleSystem.SpawnGameObj(hintRef, pos);
+        }
+    }
+
+    //==========================================================================
+    //      連接操作介面用 
+    //==========================================================================
+
     public void OnCallHelp()
     {
         SystemUI.ShowYesNoMessageBox(OnHelpMessageBoxResult, "使用提示嗎? ");
+        //ShowCorrectPath();
     }
 
     public void OnHelpMessageBoxResult(MessageBox.RESULT result)
     {
         if (result == MessageBox.RESULT.YES && helperRef)
         {
-            GameObject hObj = BattleSystem.SpawnGameObj(helperRef, BattleSystem.GetPC().transform.position);
-            NavMeshAgent navH = hObj.GetComponent<NavMeshAgent>();
-            if (navH)
-            {
-                navH.updateRotation = false;
-                navH.updateUpAxis = false;
-                navH.SetDestination(endPos);
-            }
+            //GameObject hObj = BattleSystem.SpawnGameObj(helperRef, BattleSystem.GetPC().transform.position);
+            //NavMeshAgent navH = hObj.GetComponent<NavMeshAgent>();
+            //if (navH)
+            //{
+            //    navH.updateRotation = false;
+            //    navH.updateUpAxis = false;
+            //    navH.SetDestination(endPos);
+            //}
+            ShowCorrectPath();
         }
     }
 
