@@ -26,6 +26,9 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     protected Vector3 startPos;
     protected Vector3 endPos;
 
+    protected NavMeshAgent pcAgent;
+    protected int pcNaveAgentToSleep = -1;
+
     List<Vector2Int> correctPathList = new List<Vector2Int>();
 
     protected class cellInfo
@@ -48,6 +51,22 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         public int cell_ID_2;
     }
     protected List<wallInfo> wallList = new List<wallInfo>();
+
+    private void Update()
+    {
+        if (pcNaveAgentToSleep > 0)
+        {
+            pcNaveAgentToSleep--;
+            if (pcNaveAgentToSleep <=0)
+            {
+                if (pcAgent)
+                {
+                    pcAgent.enabled = true;
+                }
+                pcNaveAgentToSleep = -1;
+            }
+        }
+    }
 
     protected override void PreCreateMap()
     {
@@ -345,24 +364,6 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         GenerateTiles(x1, y1, cellSize, cellSize);
     }
 
-    //protected void MarkPath(int x, int y)
-    //{
-    //    int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-    //    int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
-    //    int x1 = x * cellSize + puzzleX1 + 1;
-    //    int y1 = y * cellSize + puzzleY1 + 1;
-    //    FillSquareInMap((int)TILE_TYPE.DIRT, x1, y1, cellSize-2, cellSize-2);
-    //    EdgeDetectInMap((int)TILE_TYPE.DIRT, (int)TILE_TYPE.DIRT_EDGE, x1, y1, cellSize - 2, cellSize - 2);
-    //    GenerateTiles(x1, y1, cellSize - 2, cellSize - 2);
-
-
-    //    //Vector3 pos = new Vector3(x1, 0, y1);
-    //    //if (hintRef)
-    //    //{
-    //    //    BattleSystem.SpawnGameObj(hintRef, pos);
-    //    //}
-    //}
-
     //==========================================================================
     //      連接操作介面用 
     //==========================================================================
@@ -376,14 +377,6 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     {
         if (result == MessageBox.RESULT.YES && helperRef)
         {
-            //GameObject hObj = BattleSystem.SpawnGameObj(helperRef, BattleSystem.GetPC().transform.position);
-            //NavMeshAgent navH = hObj.GetComponent<NavMeshAgent>();
-            //if (navH)
-            //{
-            //    navH.updateRotation = false;
-            //    navH.updateUpAxis = false;
-            //    navH.SetDestination(endPos);
-            //}
             ShowCorrectPath();
         }
     }
@@ -398,6 +391,12 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         if (result == MessageBox.RESULT.YES)
         {
             BattleSystem.GetPC().DoTeleport(startPos, 0);
+            pcAgent = BattleSystem.GetPC().gameObject.GetComponentInChildren<NavMeshAgent>();
+            if (pcAgent)
+            {
+                pcAgent.enabled = false;
+                pcNaveAgentToSleep = 5;
+            }
         }
     }
 
