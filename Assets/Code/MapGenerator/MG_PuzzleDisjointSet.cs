@@ -21,6 +21,9 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     protected int bufferX = 0;
     protected int bufferY = 0;
 
+    protected int puzzleX1;
+    protected int puzzleY1;
+
     protected int iStart;
     protected int iEnd;
     protected Vector3 startPos;
@@ -153,8 +156,8 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
 
     protected void MarkCellbyID( int _id)
     {
-        int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-        int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+        //int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+        //int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
         int x1 = GetCellX(_id) * cellSize + puzzleX1;
         int y1 = GetCellY(_id) * cellSize + puzzleY1;
         //FillSquareInMap((int)TILE_TYPE.DIRT, new Vector3Int(x1, y1, 0), cellSize, cellSize);
@@ -214,8 +217,8 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         }
 
         //==== Set up all cells
-        int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-        int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+        puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+        puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
 
         MarkCellbyID(iStart);
         MarkCellbyID(iEnd);
@@ -345,8 +348,8 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     {
         int x = Mathf.Min(x1, x2);
         int y = Mathf.Min(y1, y2);
-        int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-        int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+        //int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+        //int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
         int x0 = x * cellSize + puzzleX1 + 1;
         int y0 = y * cellSize + puzzleY1 + 1;
         int width = Mathf.Abs(x1 - x2) * cellSize + cellSize - 2;
@@ -356,8 +359,8 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
 
     protected void GeneratePathTile(int x, int y)
     {
-        int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-        int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+        //int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+        //int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
         int x1 = x * cellSize + puzzleX1;
         int y1 = y * cellSize + puzzleY1;
         EdgeDetectInMap((int)TILE_TYPE.DIRT, (int)TILE_TYPE.DIRT_EDGE, x1, y1, cellSize, cellSize);
