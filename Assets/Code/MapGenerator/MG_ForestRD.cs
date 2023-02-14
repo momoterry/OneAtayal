@@ -175,8 +175,8 @@ public class MG_ForestRD : MapGeneratorBase
         //!! 交界處處理 !!
         //EdgeDetectInMap((int)TILE_TYPE.DIRT, (int)TILE_TYPE.GRASS, (int)TILE_TYPE.DIRT_EDGE, mapCenter, mapWidth, mapHeight);
         //EdgeDetectInMap((int)TILE_TYPE.BLOCK, (int)TILE_TYPE.GRASS, (int)TILE_TYPE.BLOCK_EDGE, mapCenter, mapWidth + borderWidth, mapHeight + borderWidth);
-        EdgeDetectInMap((int)TILE_TYPE.DIRT, -1, (int)TILE_TYPE.DIRT_EDGE, mapCenter, mapWidth, mapHeight);
-        EdgeDetectInMap((int)TILE_TYPE.BLOCK, -1, (int)TILE_TYPE.BLOCK_EDGE, mapCenter, mapWidth + borderWidth, mapHeight + borderWidth);
+        EdgeDetectInMap((int)TILE_TYPE.DIRT, (int)TILE_TYPE.DIRT_EDGE, mapCenter, mapWidth, mapHeight);
+        EdgeDetectInMap((int)TILE_TYPE.BLOCK, (int)TILE_TYPE.BLOCK_EDGE, mapCenter, mapWidth + borderWidth, mapHeight + borderWidth);
 
 
         //==== 畫地圖結束，實裝 Tile
@@ -216,42 +216,42 @@ public class MG_ForestRD : MapGeneratorBase
         FillSquareInMap(value, xMin, yMin, width, height);
     }
 
-    protected int CheckEdgeType( int x, int y, int outValue)
-    {
-        bool bL = (theMap.GetValue(x - 1, y) == outValue);
-        bool bR = (theMap.GetValue(x + 1, y) == outValue);
-        if (theMap.GetValue(x, y+1) == outValue)        //上方有邊界
-        {
-            if (bL)  //左方也有邊界
-                return (int)MAP_EDGE_TYPE.LU;
-            else if (bR)  //右方也有邊界
-                return (int)MAP_EDGE_TYPE.RU;
-            return (int)MAP_EDGE_TYPE.UU;
-        }
-        if (theMap.GetValue(x, y - 1) == outValue)        //下方有邊界
-        {
-            if (bL)  //左方也有邊界
-                return (int)MAP_EDGE_TYPE.LD;
-            else if (bR)  //右方也有邊界
-                return (int)MAP_EDGE_TYPE.RD;
-            return (int)MAP_EDGE_TYPE.DD;
-        }
-        if (bL)
-            return (int)MAP_EDGE_TYPE.LL;
-        if (bR)
-            return (int)MAP_EDGE_TYPE.RR;
+    //protected int CheckEdgeType( int x, int y, int outValue)
+    //{
+    //    bool bL = (theMap.GetValue(x - 1, y) == outValue);
+    //    bool bR = (theMap.GetValue(x + 1, y) == outValue);
+    //    if (theMap.GetValue(x, y+1) == outValue)        //上方有邊界
+    //    {
+    //        if (bL)  //左方也有邊界
+    //            return (int)MAP_EDGE_TYPE.LU;
+    //        else if (bR)  //右方也有邊界
+    //            return (int)MAP_EDGE_TYPE.RU;
+    //        return (int)MAP_EDGE_TYPE.UU;
+    //    }
+    //    if (theMap.GetValue(x, y - 1) == outValue)        //下方有邊界
+    //    {
+    //        if (bL)  //左方也有邊界
+    //            return (int)MAP_EDGE_TYPE.LD;
+    //        else if (bR)  //右方也有邊界
+    //            return (int)MAP_EDGE_TYPE.RD;
+    //        return (int)MAP_EDGE_TYPE.DD;
+    //    }
+    //    if (bL)
+    //        return (int)MAP_EDGE_TYPE.LL;
+    //    if (bR)
+    //        return (int)MAP_EDGE_TYPE.RR;
         
-        if (theMap.GetValue(x - 1, y + 1) == outValue)
-            return (int)MAP_EDGE_TYPE.LU_S;
-        if (theMap.GetValue(x + 1, y + 1) == outValue)
-            return (int)MAP_EDGE_TYPE.RU_S;
-        if (theMap.GetValue(x - 1, y - 1) == outValue)
-            return (int)MAP_EDGE_TYPE.LD_S;
-        if (theMap.GetValue(x + 1, y - 1) == outValue)
-            return (int)MAP_EDGE_TYPE.RD_S;
+    //    if (theMap.GetValue(x - 1, y + 1) == outValue)
+    //        return (int)MAP_EDGE_TYPE.LU_S;
+    //    if (theMap.GetValue(x + 1, y + 1) == outValue)
+    //        return (int)MAP_EDGE_TYPE.RU_S;
+    //    if (theMap.GetValue(x - 1, y - 1) == outValue)
+    //        return (int)MAP_EDGE_TYPE.LD_S;
+    //    if (theMap.GetValue(x + 1, y - 1) == outValue)
+    //        return (int)MAP_EDGE_TYPE.RD_S;
 
-        return (int)MAP_EDGE_TYPE.NOT;
-    }
+    //    return (int)MAP_EDGE_TYPE.NOT;
+    //}
 
     bool CheckIsOut(int toCompare, int inValue, int edgeValue)
     {
@@ -264,7 +264,7 @@ public class MG_ForestRD : MapGeneratorBase
         return true;
     }
 
-    protected int CheckEdgeTypeIgnoreOut(int x, int y, int value, int edgeValue)
+    protected int CheckEdgeType(int x, int y, int value, int edgeValue)
     {
         bool bL = CheckIsOut(theMap.GetValue(x - 1, y), value, edgeValue);
         bool bR = CheckIsOut(theMap.GetValue(x + 1, y), value, edgeValue);
@@ -301,7 +301,7 @@ public class MG_ForestRD : MapGeneratorBase
         return (int)MAP_EDGE_TYPE.NOT;
     }
 
-    protected void EdgeDetectInMap( int value, int outValue, int edgeTypeValue, Vector3Int center, int width, int height)
+    protected void EdgeDetectInMap( int value, int edgeTypeValue, Vector3Int center, int width, int height)
     {
         int xMax = width / 2 + center.x;
         int yMax = height / 2 + center.y;
@@ -313,15 +313,15 @@ public class MG_ForestRD : MapGeneratorBase
             { 
                 if (theMap.GetValue(x, y) == value )
                 {
-                    int newValue;
-                    if (outValue < 0)
-                    {
-                        newValue = CheckEdgeTypeIgnoreOut(x, y, value, edgeTypeValue);
-                    }
-                    else
-                    {
-                        newValue = CheckEdgeType(x, y, outValue);
-                    }
+                    int newValue = CheckEdgeType(x, y, value, edgeTypeValue);
+                    //if (outValue < 0)
+                    //{
+                    //    newValue = CheckEdgeType(x, y, value, edgeTypeValue);
+                    //}
+                    //else
+                    //{
+                    //    newValue = CheckEdgeType(x, y, outValue);
+                    //}
                     if (newValue != (int)MAP_EDGE_TYPE.NOT)
                         theMap.SetValue(x, y, edgeTypeValue + newValue);
                 }
@@ -329,13 +329,14 @@ public class MG_ForestRD : MapGeneratorBase
         }
     }
 
-
-    protected void GenerateTiles()
+    protected void GenerateTiles( int x1, int y1, int width, int height)
     {
+        int x2 = x1 + width;
+        int y2 = y1 + height;
         Vector2Int cd = Vector2Int.zero;
-        for ( int x = theMap.xMin; x < theMap.xMax; x++ )
+        for (int x = x1; x < x2; x++)
         {
-            for ( int y = theMap.yMin; y < theMap.yMax; y++ )
+            for (int y = y1; y < y2; y++)
             {
                 cd.x = x;
                 cd.y = y;
@@ -372,11 +373,61 @@ public class MG_ForestRD : MapGeneratorBase
                         eTG = blockEdgeGroup;
                         tM = blockTM;
                     }
-                    
+
                     tM.SetTile((Vector3Int)cd, eTG.GetTile((MAP_EDGE_TYPE)edgeType));
                 }
             }
         }
+    }
+
+    protected void GenerateTiles()
+    {
+        GenerateTiles(theMap.xMin, theMap.yMin, theMap.mapWidth, theMap.mapHeight);
+        //Vector2Int cd = Vector2Int.zero;
+        //for ( int x = theMap.xMin; x < theMap.xMax; x++ )
+        //{
+        //    for ( int y = theMap.yMin; y < theMap.yMax; y++ )
+        //    {
+        //        cd.x = x;
+        //        cd.y = y;
+        //        int value = theMap.GetValue(x, y);
+        //        if (value == (int)TILE_TYPE.GRASS)
+        //        {
+        //            groundTM.SetTile((Vector3Int)cd, grassGroup.GetOneTile());
+        //        }
+        //        else if (value == (int)TILE_TYPE.DIRT)
+        //        {
+        //            groundTM.SetTile((Vector3Int)cd, dirtGroup.GetOneTile());
+        //        }
+        //        else if (value == (int)TILE_TYPE.BLOCK)
+        //        {
+        //            blockTM.SetTile((Vector3Int)cd, blockGroup.GetOneTile());
+        //        }
+        //        else if (value >= (int)TILE_TYPE.EDGE_VALUE)
+        //        {
+        //            int edgeType = value % 100;
+        //            int type = value - edgeType;
+        //            TileEdgeGroup eTG = null;
+        //            Tilemap tM = groundTM;
+        //            if (type == (int)TILE_TYPE.GRASS_EDGE)
+        //            {
+        //                eTG = grassEdgeGroup;
+        //            }
+        //            else if (type == (int)TILE_TYPE.DIRT_EDGE)
+        //            {
+        //                eTG = dirtEdgeGroup;
+        //            }
+        //            else if (type == (int)TILE_TYPE.BLOCK_EDGE)
+        //            {
+        //                //TODO: 要改用 Block 的 TM
+        //                eTG = blockEdgeGroup;
+        //                tM = blockTM;
+        //            }
+
+        //            tM.SetTile((Vector3Int)cd, eTG.GetTile((MAP_EDGE_TYPE)edgeType));
+        //        }
+        //    }
+        //}
     }
 
 }
