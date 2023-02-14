@@ -11,6 +11,7 @@ public class SystemUI : MonoBehaviour
 
     //MessageBox
     protected GameObject messageBoxOwner;
+    protected System.Action<MessageBox.RESULT> messageCB = null;
 
     public SystemUI() : base()
     {
@@ -42,9 +43,14 @@ public class SystemUI : MonoBehaviour
 
     //==== Message Box ¬ÛÃö
 
-    static public void ShowMessageBox( GameObject owner, string msg)
+    static public void ShowYesNoMessageBox( GameObject owner, string msg)
     {
-        instance._ShowMessageBox(owner, msg);
+        instance._ShowYesNoMessageBox(owner, msg);
+    }
+
+    static public void ShowYesNoMessageBox(System.Action<MessageBox.RESULT> cb, string msg)
+    {
+        instance._ShowYesNoMessageBox(cb, msg);
     }
 
     static public void OnMessageBoxFinish(MessageBox.RESULT result)
@@ -52,14 +58,38 @@ public class SystemUI : MonoBehaviour
         instance._OnMessageBoxFinish(result);
     }
 
-    protected void _ShowMessageBox(GameObject owner, string msg)
+
+    protected void _ShowYesNoMessageBox(GameObject owner, string msg)
     {
         if (messageBoxOwner != null)
         {
-            print("ERROR!!!! ShowMessageBox without close previous one !!");
+            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
             messageBoxOwner.SendMessage("OnMessageBoxResult", MessageBox.RESULT.CLOSE);
         }
+        if (messageCB != null)
+        {
+            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+            messageCB(MessageBox.RESULT.CLOSE);
+        }
         messageBoxOwner = owner;
+        messageCB = null;
+        theMessageBox.theText.text = msg;
+        theMessageBox.gameObject.SetActive(true);
+    }
+
+    protected void _ShowYesNoMessageBox(System.Action<MessageBox.RESULT> cb, string msg)
+    {
+        if (messageBoxOwner != null)
+        {
+            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+            messageBoxOwner.SendMessage("OnMessageBoxResult", MessageBox.RESULT.CLOSE);
+        }
+        if (messageCB != null)
+        {
+            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+        }
+        messageBoxOwner = null;
+        messageCB = cb;
         theMessageBox.theText.text = msg;
         theMessageBox.gameObject.SetActive(true);
     }
@@ -73,7 +103,12 @@ public class SystemUI : MonoBehaviour
         {
             messageBoxOwner.SendMessage("OnMessageBoxResult", result);
         }
+        if (messageCB != null)
+        {
+            messageCB(result);
+        }
         messageBoxOwner = null;
+        messageCB = null;
     }
 
 }

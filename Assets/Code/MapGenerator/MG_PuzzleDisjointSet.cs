@@ -228,9 +228,16 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
             BattleSystem.SpawnGameObj(finishPortalRef, endPos);
     }
 
+    //======================== 連接操作介面用 =========================
+    
     public void OnCallHelp()
     {
-        if (helperRef)
+        SystemUI.ShowYesNoMessageBox(OnHelpMessageBoxResult, "使用提示嗎? ");
+    }
+
+    public void OnHelpMessageBoxResult(MessageBox.RESULT result)
+    {
+        if (result == MessageBox.RESULT.YES && helperRef)
         {
             GameObject hObj = BattleSystem.SpawnGameObj(helperRef, BattleSystem.GetPC().transform.position);
             NavMeshAgent navH = hObj.GetComponent<NavMeshAgent>();
@@ -243,6 +250,17 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         }
     }
 
+    public void OnExitMaze()
+    {
+        SystemUI.ShowYesNoMessageBox(OnExitMessageBoxResult, "你確定要離開迷宮嗎? ");
+    }
+    public void OnExitMessageBoxResult(MessageBox.RESULT result)
+    {
+        if (result == MessageBox.RESULT.YES)
+        {
+            BattleSystem.GetInstance().OnBackPrevScene();
+        }
+    }
 }
 
 

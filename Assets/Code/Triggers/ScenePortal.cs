@@ -67,7 +67,7 @@ public class ScenePortal : MonoBehaviour
         if (messageHint)
         {
             BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
-            SystemUI.ShowMessageBox(gameObject, "傳送到 " + hintLevelName + " 嗎?");
+            SystemUI.ShowYesNoMessageBox(gameObject, "傳送到 " + hintLevelName + " 嗎?");
         }
         else
         {
