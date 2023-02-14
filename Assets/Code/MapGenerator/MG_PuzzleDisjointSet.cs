@@ -20,6 +20,7 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
 
     protected int iStart;
     protected int iEnd;
+    protected Vector3 startPos;
     protected Vector3 endPos;
 
     List<Vector2Int> correctPathList = new List<Vector2Int>();
@@ -192,6 +193,7 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
 
         MarkCellbyID(iStart);
         MarkCellbyID(iEnd);
+        startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellSize + cellSize / 2, 1, puzzleY1 + GetCellY(iStart) * cellSize + cellSize / 2);
         endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellSize + cellSize / 2, 1, puzzleY1 + GetCellY(iEnd)* cellSize + cellSize / 2);
 
         //== 緩衝區處理
@@ -216,6 +218,7 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
             puzzleMap[GetCellX(iStart)][GetCellY(iStart)].D = true;
             puzzleMap[GetCellX(iEnd)][GetCellY(iEnd)].U = true;
 
+            startPos.z -= cellSize;
             endPos.z += cellSize;
         }
 
@@ -355,7 +358,6 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     public void OnCallHelp()
     {
         SystemUI.ShowYesNoMessageBox(OnHelpMessageBoxResult, "使用提示嗎? ");
-        //ShowCorrectPath();
     }
 
     public void OnHelpMessageBoxResult(MessageBox.RESULT result)
@@ -374,10 +376,24 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         }
     }
 
+    public void OnReturnToStart()
+    {
+        SystemUI.ShowYesNoMessageBox(OnReturnMessageBoxResult, "你確定要回到起點嗎? ");
+    }
+
+    public void OnReturnMessageBoxResult(MessageBox.RESULT result)
+    {
+        if (result == MessageBox.RESULT.YES)
+        {
+            BattleSystem.GetPC().DoTeleport(startPos, 0);
+        }
+    }
+
     public void OnExitMaze()
     {
         SystemUI.ShowYesNoMessageBox(OnExitMessageBoxResult, "你確定要離開迷宮嗎? ");
     }
+
     public void OnExitMessageBoxResult(MessageBox.RESULT result)
     {
         if (result == MessageBox.RESULT.YES)
