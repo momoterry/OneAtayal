@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MG_PuzzleDisjointSet : MG_ForestRD
 {
@@ -14,6 +15,8 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
     public GameObject finishPortalRef;
     public GameObject helperRef;
     public GameObject hintRef;
+
+    public Text winMessage;
 
     protected int bufferX = 0;
     protected int bufferY = 0;
@@ -54,6 +57,10 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
         {
             puzzleHeight = userSetSize;
             puzzleWidth = userSetSize;
+        }
+        if (winMessage)
+        {
+            winMessage.text = "恭喜你突破了\n" + puzzleWidth + " x " + puzzleHeight + "\n的迷宮挑戰";
         }
 
         if (extendTerminal)
@@ -307,6 +314,11 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
             {
                 GeneratePathTile(p.x, p.y);
             }
+        }
+
+        if (winMessage)
+        {
+            winMessage.text = "到達出口......";
         }
     }
 
