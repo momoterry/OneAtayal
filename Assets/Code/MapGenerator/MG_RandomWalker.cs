@@ -9,6 +9,10 @@ public class MG_RandomWalker : MapGeneratorBase
 
     public TileGroup grassTG;
 
+    protected OneMap theMap= new OneMap();
+    protected int cellMapSize = 10;
+    protected int cellSize = 4;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,8 +42,21 @@ public class MG_RandomWalker : MapGeneratorBase
 
     public override void BuildAll(int buildLevel = 1)
     {
+        int size = (cellMapSize + cellMapSize + 1) * cellSize;
+        theMap.InitMap(Vector2Int.zero, size, size);
+
         IEnumerator theC = BuildMapIterator();
         StartCoroutine(theC);
+    }
+
+    //===========================================================
+    // Random Walker
+    //===========================================================
+
+    public class RandomWalker
+    {
+        Vector2Int pos;
+        Vector2Int dir;
     }
 
 }
