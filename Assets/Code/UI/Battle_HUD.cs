@@ -114,14 +114,15 @@ public class Battle_HUD : MonoBehaviour
         failMenu.SetActive(false);
         if (hpBar)
             hpBar.value = 1.0f;
-//#if TOUCH_MOVE
-        if (!GameSystem.IsUseVpad() && theVPad)
+
+        if (theVPad)
         {
-            theVPad.vCenter.gameObject.SetActive(false);
-            theVPad.vStick.gameObject.SetActive(false);
-            theVPad.gameObject.SetActive(false);
+            bool isVPad = GameSystem.IsUseVpad();
+            theVPad.vCenter.gameObject.SetActive(isVPad);
+            theVPad.vStick.gameObject.SetActive(isVPad);
+            theVPad.gameObject.SetActive(isVPad);
+            print("IsVpad == " + isVPad);
         }
-//#endif
     }
 
     // Update is called once per frame

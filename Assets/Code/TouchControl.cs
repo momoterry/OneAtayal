@@ -39,7 +39,7 @@ public class TouchControl : MonoBehaviour
 
         if (isTouching)
         {
-            //print("isTouching !! " + thePC);
+            print("isTouching !! " + thePC);
             Vector3 mPos = Input.mousePosition;
             Vector3 mWorldMousePos = Camera.main.ScreenToWorldPoint(mPos);
             mWorldMousePos.y = 0.0f;
