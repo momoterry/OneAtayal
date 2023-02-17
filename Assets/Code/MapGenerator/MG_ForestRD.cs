@@ -105,6 +105,7 @@ public class MG_ForestRD : MapGeneratorBase
     public Vector3Int mapCenter;
 
     public Tilemap groundTM;
+    public Tilemap highTM;
     public Tilemap blockTM;
     public TileGroup grassGroup;
     public TileGroup dirtGroup;
@@ -390,9 +391,12 @@ public class MG_ForestRD : MapGeneratorBase
                     }
                     else if (type == (int)TILE_TYPE.BLOCK_EDGE)
                     {
-                        //TODO: 要改用 Block 的 TM
                         eTG = blockEdgeGroup;
                         tM = blockTM;
+                        //if (highTM && edgeType == (int)MAP_EDGE_TYPE.UU)
+                        //    tM = highTM;
+                        //else
+                        //    tM = blockTM;
                     }
 
                     tM.SetTile((Vector3Int)cd, eTG.GetTile((MAP_EDGE_TYPE)edgeType));

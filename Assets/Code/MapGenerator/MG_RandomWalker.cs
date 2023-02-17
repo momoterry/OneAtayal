@@ -10,6 +10,8 @@ public class MG_RandomWalker : MapGeneratorBase
     public TileGroup grassTG;
     public Tile blockTile;
 
+    public int cellMapSize = 10;
+
     public int cellNumMax = 160;
     public int initWalkerNum = 1;
     public int maxWalkers = 6;
@@ -17,8 +19,9 @@ public class MG_RandomWalker : MapGeneratorBase
     public float deadRatio = 0.15f;
     public float cloneRatio = 0.2f;
 
+    public float stepTime = 0.025f;
+
     protected OneMap theMap= new OneMap();
-    protected int cellMapSize = 10;
     protected int cellSize = 4;
     protected int mapXMin, mapXMax, mapYMin, mapYMax;
 
@@ -36,7 +39,6 @@ public class MG_RandomWalker : MapGeneratorBase
 
     protected IEnumerator BuildMapIterator()
     {
-        float stepTime = 0.025f;
         for (int i = 0; i < initWalkerNum; i++)
         {
             RandomWalker w = new RandomWalker(Vector2Int.zero);

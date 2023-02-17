@@ -299,20 +299,21 @@ MonoBehaviour:
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
   grassTG:
-    baseTile: {fileID: 11400000, guid: a52410225b1b87042a69eb18dece0da3, type: 2}
+    baseTile: {fileID: 11400000, guid: ffcfb49ae046be045bd74b4efdec988b, type: 2}
     decorateTiles:
-    - {fileID: 11400000, guid: 094f9522d9924624f9e94dca90ce502d, type: 2}
-    - {fileID: 11400000, guid: 6aac4b9c54c18cd4fa725527e4b26778, type: 2}
-    - {fileID: 11400000, guid: 3d72eb588770cc04f9bc9b384fb43b6e, type: 2}
-    - {fileID: 11400000, guid: b2c00971e5fb7864d84b06102d4a3c4d, type: 2}
+    - {fileID: 11400000, guid: 3e31bec6357d6d6468e51f6c2a8d9253, type: 2}
+    - {fileID: 11400000, guid: f97f75bb9d5053448aa28714499964e1, type: 2}
+    - {fileID: 11400000, guid: da893d32e3d6f3a45964ad6d52d0a8ff, type: 2}
     decorateRate: 0.25
   blockTile: {fileID: 11400000, guid: d57459401e06f7f438836d7b6975b583, type: 2}
-  cellNumMax: 300
+  cellMapSize: 30
+  cellNumMax: 2000
   initWalkerNum: 1
-  maxWalkers: 8
+  maxWalkers: 10
   changeDirRatio: 0.15
   deadRatio: 0.2
   cloneRatio: 0.25
+  stepTime: 0.005
 --- !u!1 &631198555
 GameObject:
   m_ObjectHideFlags: 0
