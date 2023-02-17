@@ -6,14 +6,18 @@ using UnityEngine.Tilemaps;
 public class MG_RandomWalker : MapGeneratorBase
 {
     public Tilemap groundTM;
-
+    public Tilemap blockTM;
     public TileGroup grassTG;
+    public Tile blockTile;
+
+    public int cellNumMax = 160;
 
     protected OneMap theMap= new OneMap();
     protected int cellMapSize = 10;
     protected int cellSize = 4;
-
     protected int mapXMin, mapXMax, mapYMin, mapYMax;
+
+    protected int cellNum = 0;
 
     //===== Random Walker
     protected List<RandomWalker> walkerList = new List<RandomWalker>();
@@ -43,10 +47,24 @@ public class MG_RandomWalker : MapGeneratorBase
         //    }
         //}
 
-        for (int i = 0; i < 100; i++)
+
+        while ( cellNum < cellNumMax)
         {
-            UpdateWalkers();
-            yield return new WaitForSeconds(stepTime);
+            if (UpdateWalkers())
+            {
+                yield return new WaitForSeconds(stepTime);
+            }
+        }
+
+        for (int x = mapXMin; x <= mapXMax; x++)
+        {
+            for (int y = mapYMin; y<= mapYMax; y++)
+            {
+                if (theMap.GetValue(x, y) == OneMap.DEFAULT_VALUE)
+                {
+                    blockTM.SetTile(new Vector3Int(x, y, 0), blockTile);
+                }
+            }
         }
 
         theSurface2D.BuildNavMesh();
@@ -69,12 +87,20 @@ public class MG_RandomWalker : MapGeneratorBase
 
     protected bool UpdateWalkers()
     {
+        bool isCellGen = false;
         foreach( RandomWalker walker in walkerList)
         {
             if (theMap.GetValue(walker.pos) == OneMap.DEFAULT_VALUE)
             {
                 theMap.SetValue(walker.pos, 2);
                 groundTM.SetTile((Vector3Int)walker.pos, grassTG.GetOneTile());
+                cellNum++;
+                isCellGen = true;
+                if (cellNum == cellNumMax)
+                {
+                    print("功德圓滿 !!");
+                    return true;
+                }
             }
             //移動一步
             walker.pos += walker.dir;
@@ -87,7 +113,7 @@ public class MG_RandomWalker : MapGeneratorBase
             //print("Walker GO: ( " + walker.pos.x + ", " + walker.pos.y + " )");
         }
 
-        return true;
+        return isCellGen;
     }
 
     public class RandomWalker
