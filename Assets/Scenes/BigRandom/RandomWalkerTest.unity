@@ -307,7 +307,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b2c00971e5fb7864d84b06102d4a3c4d, type: 2}
     decorateRate: 0.25
   blockTile: {fileID: 11400000, guid: d57459401e06f7f438836d7b6975b583, type: 2}
-  cellNumMax: 200
+  cellNumMax: 300
+  initWalkerNum: 1
+  maxWalkers: 8
+  changeDirRatio: 0.15
+  deadRatio: 0.2
+  cloneRatio: 0.25
 --- !u!1 &631198555
 GameObject:
   m_ObjectHideFlags: 0

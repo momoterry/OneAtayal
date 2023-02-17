@@ -11,6 +11,11 @@ public class MG_RandomWalker : MapGeneratorBase
     public Tile blockTile;
 
     public int cellNumMax = 160;
+    public int initWalkerNum = 1;
+    public int maxWalkers = 6;
+    public float changeDirRatio = 0.2f;
+    public float deadRatio = 0.15f;
+    public float cloneRatio = 0.2f;
 
     protected OneMap theMap= new OneMap();
     protected int cellMapSize = 10;
@@ -32,21 +37,11 @@ public class MG_RandomWalker : MapGeneratorBase
     protected IEnumerator BuildMapIterator()
     {
         float stepTime = 0.025f;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < initWalkerNum; i++)
         {
             RandomWalker w = new RandomWalker(Vector2Int.zero);
             walkerList.Add(w);
         }
-
-        //for (int x = -5; x < 5; x++)
-        //{
-        //    for (int y = -5; y < 5; y++)
-        //    {
-        //        groundTM.SetTile(new Vector3Int(x, y, 0), grassTG.GetOneTile());
-        //        yield return new WaitForSeconds(stepTime);
-        //    }
-        //}
-
 
         while ( cellNum < cellNumMax)
         {
@@ -98,7 +93,7 @@ public class MG_RandomWalker : MapGeneratorBase
                 isCellGen = true;
                 if (cellNum == cellNumMax)
                 {
-                    print("功德圓滿 !!");
+                    //print("功德圓滿 !!");
                     return true;
                 }
             }
@@ -106,12 +101,28 @@ public class MG_RandomWalker : MapGeneratorBase
             walker.pos += walker.dir;
             walker.pos.x = Mathf.Max(Mathf.Min(walker.pos.x, mapXMax), mapXMin);
             walker.pos.y = Mathf.Max(Mathf.Min(walker.pos.y, mapYMax), mapYMin);
-            if (Random.Range(0, 1) < 0.2f)
+
+            if (Random.Range(0, 1) < changeDirRatio)
             {
                 walker.SetRandomDir();
             }
-            //print("Walker GO: ( " + walker.pos.x + ", " + walker.pos.y + " )");
+
+            //float rd = Random.Range(0, 1.0f);
+            if (walkerList.Count > 1 && Random.Range(0, 1.0f) < deadRatio)
+            {
+                //print("Death !!");
+                walkerList.Remove(walker);
+                break;
+            }
+            if (walkerList.Count < maxWalkers && Random.Range(0, 1.0f) < cloneRatio)
+            {
+                //print("Clone !!");
+                RandomWalker newWalker = new RandomWalker(walker.pos);
+                walkerList.Add(newWalker);
+                break;
+            }
         }
+        //print("Walker GO: ( " + walkerList.Count + " )");
 
         return isCellGen;
     }
