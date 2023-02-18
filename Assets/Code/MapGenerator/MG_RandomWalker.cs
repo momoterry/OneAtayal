@@ -204,7 +204,99 @@ public class MG_RandomWalker : MapGeneratorBase
                 FillTile(vMin.x + cellSize, vMin.y, 1, 1, blockTM, islandEG.RU_S);
             }
         }
+    }
 
+    protected void FillGroundCell_2(int x, int y)
+    {
+        Vector2Int vMin = theCellMap.GetCellMinCoord(x, y) + Vector2Int.one;
+        int cellSize = theCellMap.GetCellSize() - 2;
+        for (int ix = -1; ix < cellSize+1; ix++)
+        {
+            for (int iy = -1; iy < cellSize+1; iy++)
+            {
+                Vector2Int pos = vMin + new Vector2Int(ix, iy);
+                groundTM.SetTile((Vector3Int)pos, grassTG.GetOneTile());
+                blockTM.SetTile((Vector3Int)pos, null);
+            }
+        }
+        //邊界處理
+        //上
+        if (theCellMap.GetValue(x, y + 1) == 0)
+        {
+            FillTile(vMin.x, vMin.y + cellSize, cellSize, 1, blockTM, islandEG.UU);
+            if (theCellMap.GetValue(x - 1, y) == 0)
+                FillTile(vMin.x - 1, vMin.y + cellSize, 1, 1, blockTM, islandEG.LU);
+            if (theCellMap.GetValue(x + 1, y) == 0)
+                FillTile(vMin.x + cellSize, vMin.y + cellSize, 1, 1, blockTM, islandEG.RU);
+            //凹陷處理
+            if (theCellMap.GetValue(x - 1, y + 1) != 0)
+            {
+                FillTile(vMin.x, vMin.y + cellSize, 1, 1, blockTM, islandEG.RU_S);
+            }
+            if (theCellMap.GetValue(x + 1, y + 1) != 0)
+            {
+                FillTile(vMin.x + cellSize - 1, vMin.y + cellSize, 1, 1, blockTM, islandEG.LU_S);
+            }
+        }
+        //下
+        if (theCellMap.GetValue(x, y - 1) == 0)
+        {
+            FillTile(vMin.x, vMin.y - 1, cellSize, 1, blockTM, islandEG.DD);
+            FillTile(vMin.x, vMin.y - 2, cellSize, 1, blockTM, islandEG.DD2);
+            if (theCellMap.GetValue(x - 1, y) == 0)
+            {
+                FillTile(vMin.x - 1, vMin.y - 1, 1, 1, blockTM, islandEG.LD);
+                FillTile(vMin.x - 1, vMin.y - 2, 1, 1, blockTM, islandEG.LD2);
+            }
+            if (theCellMap.GetValue(x + 1, y) == 0)
+            {
+                FillTile(vMin.x + cellSize, vMin.y - 1, 1, 1, blockTM, islandEG.RD);
+                FillTile(vMin.x + cellSize, vMin.y - 2, 1, 1, blockTM, islandEG.RD2);
+            }
+            //凹陷處理
+            if (theCellMap.GetValue(x - 1, y - 1) != 0)
+            {
+                FillTile(vMin.x, vMin.y - 1, 1, 1, blockTM, islandEG.RD_S);
+                FillTile(vMin.x, vMin.y - 2, 1, 1, blockTM, islandEG.RD_S2);
+            }
+            if (theCellMap.GetValue(x + 1, y - 1) != 0)
+            {
+                FillTile(vMin.x + cellSize - 1, vMin.y - 1, 1, 1, blockTM, islandEG.LD_S);
+                FillTile(vMin.x + cellSize - 1, vMin.y - 2, 1, 1, blockTM, islandEG.LD_S2);
+            }
+        }
+
+        //左
+        if (theCellMap.GetValue(x - 1, y) == 0)
+        {
+            FillTile(vMin.x - 1, vMin.y, 1, cellSize, blockTM, islandEG.LL);
+            //凹陷處理
+            if (theCellMap.GetValue(x - 1, y + 1) != 0)
+            {
+                FillTile(vMin.x - 1, vMin.y + cellSize - 1, 1, 1, blockTM, islandEG.LD_S);
+                FillTile(vMin.x - 1, vMin.y + cellSize - 2, 1, 1, blockTM, islandEG.LD_S2);
+            }
+            if (theCellMap.GetValue(x - 1, y - 1) != 0)
+            {
+                FillTile(vMin.x - 1, vMin.y, 1, 1, blockTM, islandEG.LU_S);
+            }
+        }
+
+        //右
+        if (theCellMap.GetValue(x + 1, y) == 0)
+        {
+            FillTile(vMin.x + cellSize, vMin.y, 1, cellSize, blockTM, islandEG.RR);
+            //凹陷處理
+            if (theCellMap.GetValue(x + 1, y + 1) != 0)
+            {
+                FillTile(vMin.x + cellSize, vMin.y + cellSize - 1, 1, 1, blockTM, islandEG.RD_S);
+                FillTile(vMin.x + cellSize, vMin.y + cellSize - 2, 1, 1, blockTM, islandEG.RD_S2);
+            }
+            if (theCellMap.GetValue(x + 1, y - 1) != 0)
+            {
+                FillTile(vMin.x + cellSize, vMin.y, 1, 1, blockTM, islandEG.RU_S);
+            }
+        }
     }
 
     protected bool UpdateWalkers()
