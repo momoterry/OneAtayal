@@ -23,7 +23,7 @@ public class MG_RandomWalker : MapGeneratorBase
 
     public float stepTime = 0.025f;
 
-    //protected OneMap theMap= new OneMap();
+    protected OneMap theMap= new OneMap();
     protected CellMap theCellMap = new CellMap();
     //protected int cellSize = 4;
     protected int mapXMin, mapXMax, mapYMin, mapYMax;
@@ -77,6 +77,7 @@ public class MG_RandomWalker : MapGeneratorBase
         //        }
         //    }
         //}
+        //theMap.PrintMap();
 
         theSurface2D.BuildNavMesh();
     }
@@ -85,8 +86,9 @@ public class MG_RandomWalker : MapGeneratorBase
     {
         mapYMin = mapXMin = -mapHalfSize;
         mapYMax = mapXMax = mapHalfSize;
-        //theMap.InitMap(Vector2Int.zero, mapHalfSize*2+1, mapHalfSize*2+1);
         theCellMap.InitMap(mapHalfSize, cellHalfSize);
+        int allSize = (mapHalfSize * 2 + 1) * (cellHalfSize + cellHalfSize);
+        theMap.InitMap(Vector2Int.zero, allSize, allSize, 0);
 
         IEnumerator theC = BuildMapIterator();
         StartCoroutine(theC);
@@ -231,6 +233,18 @@ public class MG_RandomWalker : MapGeneratorBase
         }
     }
 
+    protected void FillGroundCell_2(int x, int y)
+    {
+        Vector2Int vMin = theCellMap.GetCellMinCoord(x, y);
+        int cellSize = theCellMap.GetCellSize();
+
+        theMap.FillValue(vMin.x, vMin.y, cellSize, cellSize, 1);
+        theMap.FillTile(vMin.x, vMin.y, cellSize, cellSize, 1, blockTM, null);
+        theMap.FillTile(vMin.x - 2, vMin.y - 2, cellSize + 4, cellSize + 4, 1, groundTM, blockTM, grassTG, islandEG);
+
+
+    }
+
     protected bool UpdateWalkers()
     {
         bool isCellGen = false;
@@ -242,7 +256,7 @@ public class MG_RandomWalker : MapGeneratorBase
                 //theMap.SetValue(walker.pos.x, walker.pos.y, 2);
                 //groundTM.SetTile((Vector3Int)walker.pos, grassTG.GetOneTile());
                 theCellMap.SetValue(walker.pos.x, walker.pos.y, 2);
-                FillGroundCell(walker.pos.x, walker.pos.y);
+                FillGroundCell_2(walker.pos.x, walker.pos.y);
                 blockNum++;
                 isCellGen = true;
                 if (blockNum == blockNumMax)
@@ -315,18 +329,19 @@ public class MG_RandomWalker : MapGeneratorBase
         }
     }
 
-    // ============================ 水邊界處理 =============================
-    // TODO : 應該集中到別處
-    [System.Serializable]
-    public class TileIslandEdgeGroup : TileEdgeGroup
-    {
-        //下
-        public Tile DD2;
-        //左下、右下
-        public Tile LD2;
-        public Tile RD2;
-        //左下陷、右下陷
-        public Tile LD_S2;
-        public Tile RD_S2;
-    }
+}
+
+// ============================ 水邊界處理 =============================
+// TODO : 應該集中到別處
+[System.Serializable]
+public class TileIslandEdgeGroup : TileEdgeGroup
+{
+    //下
+    public Tile DD2;
+    //左下、右下
+    public Tile LD2;
+    public Tile RD2;
+    //左下陷、右下陷
+    public Tile LD_S2;
+    public Tile RD_S2;
 }
