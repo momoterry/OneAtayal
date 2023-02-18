@@ -304,10 +304,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3e31bec6357d6d6468e51f6c2a8d9253, type: 2}
     - {fileID: 11400000, guid: f97f75bb9d5053448aa28714499964e1, type: 2}
     - {fileID: 11400000, guid: da893d32e3d6f3a45964ad6d52d0a8ff, type: 2}
-    decorateRate: 0.25
+    decorateRate: 0.15
   blockTile: {fileID: 11400000, guid: d57459401e06f7f438836d7b6975b583, type: 2}
-  cellMapSize: 30
-  cellNumMax: 2000
+  mapHalfSize: 30
+  cellHalfSize: 2
+  blockNumMax: 200
   initWalkerNum: 1
   maxWalkers: 10
   changeDirRatio: 0.15

@@ -10,9 +10,10 @@ public class MG_RandomWalker : MapGeneratorBase
     public TileGroup grassTG;
     public Tile blockTile;
 
-    public int cellMapSize = 10;
+    public int mapHalfSize = 50;
+    public int cellHalfSize = 2;
 
-    public int cellNumMax = 160;
+    public int blockNumMax = 800;
     public int initWalkerNum = 1;
     public int maxWalkers = 6;
     public float changeDirRatio = 0.2f;
@@ -21,11 +22,12 @@ public class MG_RandomWalker : MapGeneratorBase
 
     public float stepTime = 0.025f;
 
-    protected OneMap theMap= new OneMap();
-    protected int cellSize = 4;
+    //protected OneMap theMap= new OneMap();
+    protected CellMap theCellMap = new CellMap();
+    //protected int cellSize = 4;
     protected int mapXMin, mapXMax, mapYMin, mapYMax;
 
-    protected int cellNum = 0;
+    protected int blockNum = 0;
 
     //===== Random Walker
     protected List<RandomWalker> walkerList = new List<RandomWalker>();
@@ -45,7 +47,7 @@ public class MG_RandomWalker : MapGeneratorBase
             walkerList.Add(w);
         }
 
-        while ( cellNum < cellNumMax)
+        while ( blockNum < blockNumMax)
         {
             if (UpdateWalkers())
             {
@@ -57,9 +59,13 @@ public class MG_RandomWalker : MapGeneratorBase
         {
             for (int y = mapYMin; y<= mapYMax; y++)
             {
-                if (theMap.GetValue(x, y) == OneMap.DEFAULT_VALUE)
+                //if (theMap.GetValue(x, y) == OneMap.DEFAULT_VALUE)
+                //{
+                //    blockTM.SetTile(new Vector3Int(x, y, 0), blockTile);
+                //}
+                if (theCellMap.GetValue(x, y) == 0)
                 {
-                    blockTM.SetTile(new Vector3Int(x, y, 0), blockTile);
+                    FillCell(x, y, blockTM, blockTile);
                 }
             }
         }
@@ -69,10 +75,10 @@ public class MG_RandomWalker : MapGeneratorBase
 
     public override void BuildAll(int buildLevel = 1)
     {
-        int size = (cellMapSize + cellMapSize + 1) * cellSize;
-        mapYMin = mapXMin = -size / 2;
-        mapYMax = mapXMax = size / 2;
-        theMap.InitMap(Vector2Int.zero, size, size);
+        mapYMin = mapXMin = -mapHalfSize;
+        mapYMax = mapXMax = mapHalfSize;
+        //theMap.InitMap(Vector2Int.zero, mapHalfSize*2+1, mapHalfSize*2+1);
+        theCellMap.InitMap(mapHalfSize, cellHalfSize);
 
         IEnumerator theC = BuildMapIterator();
         StartCoroutine(theC);
@@ -82,18 +88,47 @@ public class MG_RandomWalker : MapGeneratorBase
     // Random Walker
     //===========================================================
 
+    protected void FillCell(int x, int y, Tilemap tm, Tile tile)
+    {
+        Vector2Int vMin = theCellMap.GetCellMinCoord(x, y);
+        for (int ix = 0; ix<theCellMap.GetCellSize(); ix++)
+        {
+            for (int iy = 0; iy<theCellMap.GetCellSize(); iy++)
+            {
+                Vector2Int pos = vMin + new Vector2Int(ix, iy);
+                tm.SetTile((Vector3Int)pos, tile);
+            }
+        }
+    }
+
+    protected void FillGroundCell(int x, int y)
+    {
+        Vector2Int vMin = theCellMap.GetCellMinCoord(x, y);
+        for (int ix = 0; ix < theCellMap.GetCellSize(); ix++)
+        {
+            for (int iy = 0; iy < theCellMap.GetCellSize(); iy++)
+            {
+                Vector2Int pos = vMin + new Vector2Int(ix, iy);
+                groundTM.SetTile((Vector3Int)pos, grassTG.GetOneTile());
+            }
+        }
+    }
+
     protected bool UpdateWalkers()
     {
         bool isCellGen = false;
         foreach( RandomWalker walker in walkerList)
         {
-            if (theMap.GetValue(walker.pos) == OneMap.DEFAULT_VALUE)
+            //if (theMap.GetValue(walker.pos) == OneMap.DEFAULT_VALUE)
+            if (theCellMap.GetValue(walker.pos.x, walker.pos.y) == 0)
             {
-                theMap.SetValue(walker.pos, 2);
-                groundTM.SetTile((Vector3Int)walker.pos, grassTG.GetOneTile());
-                cellNum++;
+                //theMap.SetValue(walker.pos.x, walker.pos.y, 2);
+                //groundTM.SetTile((Vector3Int)walker.pos, grassTG.GetOneTile());
+                theCellMap.SetValue(walker.pos.x, walker.pos.y, 2);
+                FillGroundCell(walker.pos.x, walker.pos.y);
+                blockNum++;
                 isCellGen = true;
-                if (cellNum == cellNumMax)
+                if (blockNum == blockNumMax)
                 {
                     //print("¥\¼w¶êº¡ !!");
                     return true;

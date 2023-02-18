@@ -121,7 +121,6 @@ public class Battle_HUD : MonoBehaviour
             theVPad.vCenter.gameObject.SetActive(isVPad);
             theVPad.vStick.gameObject.SetActive(isVPad);
             theVPad.gameObject.SetActive(isVPad);
-            print("IsVpad == " + isVPad);
         }
     }
 
