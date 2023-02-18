@@ -8,6 +8,7 @@ public class MG_RandomWalker : MapGeneratorBase
     public Tilemap groundTM;
     public Tilemap blockTM;
     public TileGroup grassTG;
+    public TileIslandEdgeGroup islandEG;
     public Tile blockTile;
 
     public int mapHalfSize = 50;
@@ -35,7 +36,7 @@ public class MG_RandomWalker : MapGeneratorBase
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
 
@@ -47,7 +48,7 @@ public class MG_RandomWalker : MapGeneratorBase
             walkerList.Add(w);
         }
 
-        while ( blockNum < blockNumMax)
+        while (blockNum < blockNumMax)
         {
             if (UpdateWalkers())
             {
@@ -55,20 +56,16 @@ public class MG_RandomWalker : MapGeneratorBase
             }
         }
 
-        for (int x = mapXMin; x <= mapXMax; x++)
-        {
-            for (int y = mapYMin; y<= mapYMax; y++)
-            {
-                //if (theMap.GetValue(x, y) == OneMap.DEFAULT_VALUE)
-                //{
-                //    blockTM.SetTile(new Vector3Int(x, y, 0), blockTile);
-                //}
-                if (theCellMap.GetValue(x, y) == 0)
-                {
-                    FillCell(x, y, blockTM, blockTile);
-                }
-            }
-        }
+        //for (int x = mapXMin; x <= mapXMax; x++)
+        //{
+        //    for (int y = mapYMin; y <= mapYMax; y++)
+        //    {
+        //        if (theCellMap.GetValue(x, y) == 0)
+        //        {
+        //            FillCell(x, y, blockTM, blockTile);
+        //        }
+        //    }
+        //}
 
         theSurface2D.BuildNavMesh();
     }
@@ -91,9 +88,9 @@ public class MG_RandomWalker : MapGeneratorBase
     protected void FillCell(int x, int y, Tilemap tm, Tile tile)
     {
         Vector2Int vMin = theCellMap.GetCellMinCoord(x, y);
-        for (int ix = 0; ix<theCellMap.GetCellSize(); ix++)
+        for (int ix = 0; ix < theCellMap.GetCellSize(); ix++)
         {
-            for (int iy = 0; iy<theCellMap.GetCellSize(); iy++)
+            for (int iy = 0; iy < theCellMap.GetCellSize(); iy++)
             {
                 Vector2Int pos = vMin + new Vector2Int(ix, iy);
                 tm.SetTile((Vector3Int)pos, tile);
@@ -101,23 +98,119 @@ public class MG_RandomWalker : MapGeneratorBase
         }
     }
 
+    protected void FillTile(int xMin, int yMin, int width, int height, Tilemap tm, Tile tile)
+    {
+        Vector3Int pos = new Vector3Int(xMin, yMin, 0);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                tm.SetTile(pos, tile);
+                pos.y++;
+            }
+            pos.x++;
+            pos.y = yMin;
+        }
+    }
+
     protected void FillGroundCell(int x, int y)
     {
         Vector2Int vMin = theCellMap.GetCellMinCoord(x, y);
-        for (int ix = 0; ix < theCellMap.GetCellSize(); ix++)
+        int cellSize = theCellMap.GetCellSize();
+        for (int ix = 0; ix < cellSize; ix++)
         {
-            for (int iy = 0; iy < theCellMap.GetCellSize(); iy++)
+            for (int iy = 0; iy < cellSize; iy++)
             {
                 Vector2Int pos = vMin + new Vector2Int(ix, iy);
                 groundTM.SetTile((Vector3Int)pos, grassTG.GetOneTile());
+                blockTM.SetTile((Vector3Int)pos, null);
             }
         }
+        //邊界處理
+        //上
+        if (theCellMap.GetValue(x, y + 1) == 0)
+        {
+            FillTile(vMin.x, vMin.y + cellSize, cellSize, 1, blockTM, islandEG.UU);
+            if (theCellMap.GetValue(x - 1, y) == 0)
+                FillTile(vMin.x-1, vMin.y + cellSize, 1, 1, blockTM, islandEG.LU);
+            if (theCellMap.GetValue(x + 1, y) == 0)
+                FillTile(vMin.x + cellSize, vMin.y + cellSize, 1, 1, blockTM, islandEG.RU);
+            //凹陷處理
+            if (theCellMap.GetValue(x - 1, y + 1) != 0)
+            {
+                FillTile(vMin.x, vMin.y + cellSize, 1, 1, blockTM, islandEG.RU_S);
+            }
+            if (theCellMap.GetValue(x + 1, y + 1) != 0)
+            {
+                FillTile(vMin.x + cellSize - 1, vMin.y + cellSize, 1, 1, blockTM, islandEG.LU_S);
+            }
+        }
+        //下
+        if (theCellMap.GetValue(x, y - 1) == 0)
+        {
+            FillTile(vMin.x, vMin.y - 1, cellSize, 1, blockTM, islandEG.DD);
+            FillTile(vMin.x, vMin.y - 2, cellSize, 1, blockTM, islandEG.DD2);
+            if (theCellMap.GetValue(x - 1, y) == 0)
+            {
+                FillTile(vMin.x - 1, vMin.y - 1, 1, 1, blockTM, islandEG.LD);
+                FillTile(vMin.x - 1, vMin.y - 2, 1, 1, blockTM, islandEG.LD2);
+            }
+            if (theCellMap.GetValue(x + 1, y) == 0)
+            {
+                FillTile(vMin.x + cellSize, vMin.y - 1, 1, 1, blockTM, islandEG.RD);
+                FillTile(vMin.x + cellSize, vMin.y - 2, 1, 1, blockTM, islandEG.RD2);
+            }
+            //凹陷處理
+            if (theCellMap.GetValue(x - 1, y - 1) != 0)
+            {
+                FillTile(vMin.x, vMin.y - 1 , 1, 1, blockTM, islandEG.RD_S);
+                FillTile(vMin.x, vMin.y - 2, 1, 1, blockTM, islandEG.RD_S2);
+            }
+            if (theCellMap.GetValue(x + 1, y - 1) != 0)
+            {
+                FillTile(vMin.x + cellSize - 1, vMin.y - 1, 1, 1, blockTM, islandEG.LD_S);
+                FillTile(vMin.x + cellSize - 1, vMin.y - 2, 1, 1, blockTM, islandEG.LD_S2);
+            }
+        }
+
+        //左
+        if (theCellMap.GetValue(x - 1, y) == 0)
+        {
+            FillTile(vMin.x-1, vMin.y, 1, cellSize, blockTM, islandEG.LL);
+            //凹陷處理
+            if (theCellMap.GetValue(x - 1, y + 1) != 0)
+            {
+                FillTile(vMin.x - 1, vMin.y + cellSize - 1, 1, 1, blockTM, islandEG.LD_S);
+                FillTile(vMin.x - 1, vMin.y + cellSize - 2, 1, 1, blockTM, islandEG.LD_S2);
+            }
+            if (theCellMap.GetValue(x - 1, y - 1) != 0)
+            {
+                FillTile(vMin.x - 1, vMin.y, 1, 1, blockTM, islandEG.LU_S);
+            }
+        }
+
+        //右
+        if (theCellMap.GetValue(x + 1, y) == 0)
+        {
+            FillTile(vMin.x + cellSize, vMin.y, 1, cellSize, blockTM, islandEG.RR);
+            //凹陷處理
+            if (theCellMap.GetValue(x + 1, y + 1) != 0)
+            {
+                FillTile(vMin.x + cellSize, vMin.y + cellSize - 1, 1, 1, blockTM, islandEG.RD_S);
+                FillTile(vMin.x + cellSize, vMin.y + cellSize - 2, 1, 1, blockTM, islandEG.RD_S2);
+            }
+            if (theCellMap.GetValue(x + 1, y - 1) != 0)
+            {
+                FillTile(vMin.x + cellSize, vMin.y, 1, 1, blockTM, islandEG.RU_S);
+            }
+        }
+
     }
 
     protected bool UpdateWalkers()
     {
         bool isCellGen = false;
-        foreach( RandomWalker walker in walkerList)
+        foreach (RandomWalker walker in walkerList)
         {
             //if (theMap.GetValue(walker.pos) == OneMap.DEFAULT_VALUE)
             if (theCellMap.GetValue(walker.pos.x, walker.pos.y) == 0)
@@ -136,8 +229,8 @@ public class MG_RandomWalker : MapGeneratorBase
             }
             //移動一步
             walker.pos += walker.dir;
-            walker.pos.x = Mathf.Max(Mathf.Min(walker.pos.x, mapXMax), mapXMin);
-            walker.pos.y = Mathf.Max(Mathf.Min(walker.pos.y, mapYMax), mapYMin);
+            walker.pos.x = Mathf.Max(Mathf.Min(walker.pos.x, mapXMax-1), mapXMin+1);
+            walker.pos.y = Mathf.Max(Mathf.Min(walker.pos.y, mapYMax-1), mapYMin+1);
 
             if (Random.Range(0, 1) < changeDirRatio)
             {
@@ -186,7 +279,7 @@ public class MG_RandomWalker : MapGeneratorBase
                     dir.x = -1;
                     dir.y = 0;
                     break;
-                case 2: 
+                case 2:
                     dir.x = 1;
                     dir.y = 0;
                     break;
@@ -198,5 +291,18 @@ public class MG_RandomWalker : MapGeneratorBase
         }
     }
 
-
+    // ============================ 水邊界處理 =============================
+    // TODO : 應該集中到別處
+    [System.Serializable]
+    public class TileIslandEdgeGroup : TileEdgeGroup
+    {
+        //下
+        public Tile DD2;
+        //左下、右下
+        public Tile LD2;
+        public Tile RD2;
+        //左下陷、右下陷
+        public Tile LD_S2;
+        public Tile RD_S2;
+    }
 }
