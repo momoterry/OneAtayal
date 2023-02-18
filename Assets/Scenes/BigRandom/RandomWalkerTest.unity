@@ -324,15 +324,15 @@ MonoBehaviour:
     LD_S2: {fileID: 11400000, guid: c193fc23bfa1a8843a1bbaa3ab2f899a, type: 2}
     RD_S2: {fileID: 11400000, guid: 999e77e5a34123842b3ec2c6206e3b01, type: 2}
   blockTile: {fileID: 11400000, guid: d57459401e06f7f438836d7b6975b583, type: 2}
-  mapHalfSize: 10
+  mapHalfSize: 30
   cellHalfSize: 2
-  blockNumMax: 50
+  blockNumMax: 300
   initWalkerNum: 1
   maxWalkers: 10
   changeDirRatio: 0.15
   deadRatio: 0.2
   cloneRatio: 0.25
-  stepTime: 0.5
+  stepTime: 0.01
 --- !u!1 &631198555
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,6 +48,17 @@ public class MG_RandomWalker : MapGeneratorBase
             walkerList.Add(w);
         }
 
+        for (int x = mapXMin; x <= mapXMax; x++)
+        {
+            for (int y = mapYMin; y <= mapYMax; y++)
+            {
+                if (theCellMap.GetValue(x, y) == 0)
+                {
+                    FillCell(x, y, blockTM, blockTile);
+                }
+            }
+        }
+
         while (blockNum < blockNumMax)
         {
             if (UpdateWalkers())
@@ -131,9 +142,9 @@ public class MG_RandomWalker : MapGeneratorBase
         if (theCellMap.GetValue(x, y + 1) == 0)
         {
             FillTile(vMin.x, vMin.y + cellSize, cellSize, 1, blockTM, islandEG.UU);
-            if (theCellMap.GetValue(x - 1, y) == 0)
+            if (theCellMap.GetValue(x - 1, y) == 0 && theCellMap.GetValue(x - 1, y + 1) == 0)
                 FillTile(vMin.x-1, vMin.y + cellSize, 1, 1, blockTM, islandEG.LU);
-            if (theCellMap.GetValue(x + 1, y) == 0)
+            if (theCellMap.GetValue(x + 1, y) == 0 && theCellMap.GetValue(x + 1, y + 1) == 0)
                 FillTile(vMin.x + cellSize, vMin.y + cellSize, 1, 1, blockTM, islandEG.RU);
             //¥W³´³B²z
             if (theCellMap.GetValue(x - 1, y + 1) != 0)
@@ -150,12 +161,12 @@ public class MG_RandomWalker : MapGeneratorBase
         {
             FillTile(vMin.x, vMin.y - 1, cellSize, 1, blockTM, islandEG.DD);
             FillTile(vMin.x, vMin.y - 2, cellSize, 1, blockTM, islandEG.DD2);
-            if (theCellMap.GetValue(x - 1, y) == 0)
+            if (theCellMap.GetValue(x - 1, y) == 0 && theCellMap.GetValue(x - 1, y - 1) == 0)
             {
                 FillTile(vMin.x - 1, vMin.y - 1, 1, 1, blockTM, islandEG.LD);
                 FillTile(vMin.x - 1, vMin.y - 2, 1, 1, blockTM, islandEG.LD2);
             }
-            if (theCellMap.GetValue(x + 1, y) == 0)
+            if (theCellMap.GetValue(x + 1, y) == 0 && theCellMap.GetValue(x + 1, y - 1) == 0)
             {
                 FillTile(vMin.x + cellSize, vMin.y - 1, 1, 1, blockTM, islandEG.RD);
                 FillTile(vMin.x + cellSize, vMin.y - 2, 1, 1, blockTM, islandEG.RD2);
