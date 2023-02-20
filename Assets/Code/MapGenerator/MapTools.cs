@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Tilemaps;
 
 public class OneMap
 {
@@ -72,7 +72,7 @@ public class OneMap
         return INVALID_VALUE;
     }
 
-    public void InitMap(Vector2Int center, int width, int height)
+    public void InitMap(Vector2Int center, int width, int height, int initValue = DEFAULT_VALUE)
     {
         mapCenter = center;
         xMax = width / 2 + mapCenter.x;
@@ -94,7 +94,7 @@ public class OneMap
             mapArray[i] = new int[arrayHeight];
             for (int j = 0; j < arrayHeight; j++)
             {
-                mapArray[i][j] = DEFAULT_VALUE;
+                mapArray[i][j] = initValue;
             }
         }
 
@@ -117,6 +117,17 @@ public class OneMap
         }
     }
 
+    public void FillValue( int xMin, int yMin, int width, int height, int value)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y=0; y<height; y++)
+            {
+                mapArray[x + xMin + arrayXshift][y + yMin + arrayYshift] = value;
+            }
+        }
+    }
+
     public void PrintMap()
     {
         string str = "";
@@ -131,5 +142,108 @@ public class OneMap
         }
         Debug.Log(str);
     }
+
+    public void FillTile(int xMin, int yMin, int width, int height, int checkValue, Tilemap tm, Tile tile)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (mapArray[x + xMin + arrayXshift][y + yMin + arrayYshift] == checkValue)
+                {
+                    tm.SetTile(new Vector3Int(xMin + x, yMin + y, 0), tile);
+                }
+            }
+        }
+    }
+
+    public void FillTile( int xMin , int yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileIslandEdgeGroup te)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (mapArray[x + xMin + arrayXshift][y + yMin + arrayYshift] == checkValue)
+                {
+                    tm.SetTile(new Vector3Int(xMin + x, yMin + y, 0), tg.GetOneTile());
+                }
+                else
+                {
+                    CheckEdgeTile(xMin + x, yMin + y, checkValue, egdeTM, te);
+                }
+            }
+        }
+    }
+
+    protected void CheckEdgeTile(int x, int y, int value, Tilemap tm, TileIslandEdgeGroup te)
+    {
+        Vector3Int pos = new Vector3Int(x, y, 0);
+        Vector3Int posD = new Vector3Int(x, y-1, 0);
+        bool UU = GetValue(x, y + 1) == value;
+        bool DD = GetValue(x, y - 1) == value;
+        bool LL = GetValue(x - 1, y) == value;
+        bool RR = GetValue(x + 1, y) == value;
+        if (UU)
+        {
+            if (LL)
+            {
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RD_S));
+                tm.SetTile(posD, te.RD_S2);
+            }
+            else if (RR)
+            {
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LD_S));
+                tm.SetTile(posD, te.LD_S2);
+            }
+            else
+            {
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.DD));
+                tm.SetTile(posD, te.DD2);
+            }
+            return;
+        }
+        if (DD)
+        {
+            if (LL)
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RU_S));
+            else if (RR)
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LU_S));
+            else
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.UU));
+            return;
+        }
+
+        if (LL)
+        {
+            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RR));
+            return;
+        }
+        if (RR)
+        {
+            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LL));
+            return;
+        }
+
+        bool LU = GetValue(x - 1, y + 1) == value;
+        bool RU = GetValue(x + 1, y + 1) == value;
+        bool LD = GetValue(x - 1, y - 1) == value;
+        bool RD = GetValue(x + 1, y - 1) == value;
+        if (LU)
+        {
+            tm.SetTile(pos, te.RD);
+            tm.SetTile(posD, te.RD2);
+        }
+        else if (RU)
+        {
+            tm.SetTile(pos, te.LD);
+            tm.SetTile(posD, te.LD2);
+        }
+        else if (LD)
+            tm.SetTile(pos, te.RU);
+        else if (RD)
+            tm.SetTile(pos, te.LU);
+
+    }
+
 }
 
