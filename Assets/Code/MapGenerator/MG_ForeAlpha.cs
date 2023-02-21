@@ -61,27 +61,6 @@ public class MG_ForeAlpha : MG_ForestRD
         }
     }
 
-    protected void CreatePerlinNoiseMap()
-    {
-        int xNum = mapWidth / blockSize;
-        int yNum = mapHeight / blockSize;
-
-        float noiseScale = 10.0f;
-        float randomShiftX = Random.Range(0, noiseScale * 10.0f);
-        float randomShiftY = Random.Range(0, noiseScale * 10.0f);
-
-        int x = -mapWidth / 2 + blockSize / 2;
-        for (int ix = 0; ix < xNum; ix++)
-        {
-            float xCoord = (float)x / (float)xNum * noiseScale + randomShiftX;
-            int y = -mapHeight / 2 + blockSize / 2;
-            for (int iy = 0; iy < yNum; iy++)
-            {
-                float yCoord = (float)x / (float)xNum * noiseScale + randomShiftX;
-                float rd = Mathf.PerlinNoise(xCoord, yCoord);
-            }
-        }
-    }
 
     protected override void CreateForestMap()
     {
@@ -89,7 +68,7 @@ public class MG_ForeAlpha : MG_ForestRD
         int yNum = mapHeight / blockSize;
 
         float noiseScale = 5.0f;
-        float randomScale = 10.0f;
+        float randomScale = 3.0f;
         float randomShiftX = Random.Range(0, noiseScale * randomScale);
         float randomShiftY = Random.Range(0, noiseScale * randomScale);
 
