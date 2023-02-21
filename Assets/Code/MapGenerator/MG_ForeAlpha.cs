@@ -18,7 +18,7 @@ public class MG_ForeAlpha : MG_ForestRD
 
     public bool usePerlinNoise = false;
 
-    protected int blockSize = 4;
+    [SerializeField]protected int blockSize = 4;
 
     protected List<GameObject> eSpawnerList = new List<GameObject>();
     protected float eSpawnTimer = 0;
