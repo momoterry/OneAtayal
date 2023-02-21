@@ -30,6 +30,8 @@ public class MG_RandomWalker : MapGeneratorBase
 
     protected int blockNum = 0;
 
+    protected int cameraSizeNeeded = 0;
+
     //===== Random Walker
     protected List<RandomWalker> walkerList = new List<RandomWalker>();
 
@@ -42,6 +44,7 @@ public class MG_RandomWalker : MapGeneratorBase
 
     protected IEnumerator BuildMapIterator()
     {
+        float defalutCameraSize = Camera.main.orthographicSize;
         for (int i = 0; i < initWalkerNum; i++)
         {
             RandomWalker w = new RandomWalker(Vector2Int.zero);
@@ -63,23 +66,24 @@ public class MG_RandomWalker : MapGeneratorBase
         {
             if (UpdateWalkers())
             {
-                yield return new WaitForSeconds(stepTime);
+                Camera.main.orthographicSize = Mathf.Max( (cameraSizeNeeded + 2) * cellHalfSize * 2, defalutCameraSize);
+                float waitTime = stepTime;
+                if (blockNum < 16)
+                    waitTime = Mathf.Max(0.1f, stepTime);
+                else if (blockNum < 64)
+                {
+                    waitTime = Mathf.Max(0.03f, stepTime);
+                }
+                else if (blockNum > 300)
+                    waitTime = stepTime / 3.0f;
+                yield return new WaitForSeconds(waitTime);
             }
         }
 
-        //for (int x = mapXMin; x <= mapXMax; x++)
-        //{
-        //    for (int y = mapYMin; y <= mapYMax; y++)
-        //    {
-        //        if (theCellMap.GetValue(x, y) == 0)
-        //        {
-        //            FillCell(x, y, blockTM, blockTile);
-        //        }
-        //    }
-        //}
-        //theMap.PrintMap();
+        Camera.main.orthographicSize = defalutCameraSize;
 
-        theSurface2D.BuildNavMesh();
+        theSurface2D.BuildNavMeshAsync();
+        yield return new WaitForSeconds(1.0f);
     }
 
     public override void BuildAll(int buildLevel = 1)
@@ -250,18 +254,15 @@ public class MG_RandomWalker : MapGeneratorBase
         bool isCellGen = false;
         foreach (RandomWalker walker in walkerList)
         {
-            //if (theMap.GetValue(walker.pos) == OneMap.DEFAULT_VALUE)
             if (theCellMap.GetValue(walker.pos.x, walker.pos.y) == 0)
             {
-                //theMap.SetValue(walker.pos.x, walker.pos.y, 2);
-                //groundTM.SetTile((Vector3Int)walker.pos, grassTG.GetOneTile());
+                cameraSizeNeeded = Mathf.Max(Mathf.Max(cameraSizeNeeded, Mathf.Abs(walker.pos.x), Mathf.Abs(walker.pos.y)));
                 theCellMap.SetValue(walker.pos.x, walker.pos.y, 2);
                 FillGroundCell_2(walker.pos.x, walker.pos.y);
                 blockNum++;
                 isCellGen = true;
                 if (blockNum == blockNumMax)
                 {
-                    //print("¥\¼w¶êº¡ !!");
                     return true;
                 }
             }
