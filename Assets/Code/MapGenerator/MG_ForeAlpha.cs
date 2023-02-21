@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Profiling;
 using UnityEngine;
 
 
@@ -15,6 +16,8 @@ public class MG_ForeAlpha : MG_ForestRD
     public float dirtRatio = 0.1f;
 
     public GameObject EnemySpawnerRef;
+
+    public bool usePerlinNoise = false;
 
     protected int blockSize = 4;
 
@@ -58,26 +61,63 @@ public class MG_ForeAlpha : MG_ForestRD
         }
     }
 
+    protected void CreatePerlinNoiseMap()
+    {
+        int xNum = mapWidth / blockSize;
+        int yNum = mapHeight / blockSize;
+
+        float noiseScale = 10.0f;
+        float randomShiftX = Random.Range(0, noiseScale * 10.0f);
+        float randomShiftY = Random.Range(0, noiseScale * 10.0f);
+
+        int x = -mapWidth / 2 + blockSize / 2;
+        for (int ix = 0; ix < xNum; ix++)
+        {
+            float xCoord = (float)x / (float)xNum * noiseScale + randomShiftX;
+            int y = -mapHeight / 2 + blockSize / 2;
+            for (int iy = 0; iy < yNum; iy++)
+            {
+                float yCoord = (float)x / (float)xNum * noiseScale + randomShiftX;
+                float rd = Mathf.PerlinNoise(xCoord, yCoord);
+            }
+        }
+    }
+
     protected override void CreateForestMap()
     {
         int xNum = mapWidth / blockSize;
         int yNum = mapHeight / blockSize;
+
+        float noiseScale = 5.0f;
+        float randomScale = 10.0f;
+        float randomShiftX = Random.Range(0, noiseScale * randomScale);
+        float randomShiftY = Random.Range(0, noiseScale * randomScale);
 
         int dirtCount = 0;
         int blockCount = 0;
         int x = -mapWidth / 2 + blockSize / 2;
         for (int ix =0; ix < xNum; ix++)
         {
+            float xCoord = (float)ix / (float)xNum * noiseScale + randomShiftX;
             int y = -mapHeight / 2 + blockSize / 2;
             for (int iy=0; iy < yNum; iy++)
             {
-                float rd = Random.Range(0, 1.0f);
-                if (rd < blockRatio)
+                float yCoord = (float)iy / (float)yNum * noiseScale + randomShiftY;
+                float rd;
+                if (usePerlinNoise)
+                {
+                    rd = Mathf.PerlinNoise(xCoord, yCoord);
+                }
+                else
+                {
+                    rd = Random.Range(0, 1.0f);
+                }
+                if (rd > 1.0f - blockRatio)
                 {
                     FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter + new Vector3Int(x, y, 0), 4, 4);
                     blockCount++;
                 }
-                else if (rd < blockRatio + dirtRatio)
+                else if (rd < dirtRatio)
                 {
                     Vector3Int coord = mapCenter + new Vector3Int(x, y, 0);
                     FillSquareInMap((int)TILE_TYPE.DIRT, coord, 4, 4);
