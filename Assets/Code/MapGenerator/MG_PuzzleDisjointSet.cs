@@ -182,12 +182,14 @@ public class MG_PuzzleDisjointSet : MG_ForestRD
             }
         }
         //==== Init Connection Info
-        for (int x=0; x < puzzleWidth-1; x++)
+        for (int x=0; x < puzzleWidth; x++)
         {
-            for (int y=0; y < puzzleHeight-1; y++)
+            for (int y=0; y < puzzleHeight; y++)
             {
-                wallList.Add(new wallInfo(GetCellID(x, y), GetCellID(x+1,y)));
-                wallList.Add(new wallInfo(GetCellID(x, y), GetCellID(x, y+1)));
+                if (x < puzzleWidth - 1)
+                    wallList.Add(new wallInfo(GetCellID(x, y), GetCellID(x+1,y)));
+                if (y < puzzleHeight - 1)
+                    wallList.Add(new wallInfo(GetCellID(x, y), GetCellID(x, y+1)));
             }
         }
 
