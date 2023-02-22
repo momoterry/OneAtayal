@@ -28,7 +28,7 @@ public class MG_ForeAlpha : MG_ForestRD
     private void Update()
     {
         eSpawnTimer += Time.deltaTime;
-        if (eSpawnTimer >= eSpawnStep)
+        if (eSpawnTimer >= eSpawnStep && eSpawnerList.Count > 0)
         {
             eSpawnerList[Random.Range(0, eSpawnerList.Count)].SendMessage("OnTG", gameObject);
             eSpawnTimer -= eSpawnStep;

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public enum TILE_GROUP_ID
 {
+    NONE,
     GRASS,
     DIRT,
+    HIGH,
     DIRT_EDGE,
     HIGH_EDGE,
     ISLAND_EDGE,
@@ -15,7 +17,7 @@ public class TileGroupLibrary : MonoBehaviour
 {
     public TileGroup grassGroup;
     public TileGroup dirtGroup;
-    public TileGroup blockGroup;
+    public TileGroup highGroup;
     public TileEdgeGroup grassEdgeGroup;
     public TileEdgeGroup dirtEdgeGroup;
     public TileEdgeGroup highEdgeGroup;
@@ -29,6 +31,8 @@ public class TileGroupLibrary : MonoBehaviour
                 return grassGroup;
             case TILE_GROUP_ID.DIRT:
                 return dirtGroup;
+            case TILE_GROUP_ID.HIGH:
+                return highGroup;
         }
         return null;
     }

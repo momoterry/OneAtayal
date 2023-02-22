@@ -274,7 +274,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486938133}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10b7967cca3b7944582e88e9fb3efbb8, type: 3}
   m_Name: 
@@ -594,13 +594,15 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 094f9522d9924624f9e94dca90ce502d, type: 2}
     decorateRate: 0.15
   dirtGroup:
-    baseTile: {fileID: 0}
+    baseTile: {fileID: 11400000, guid: 6b1224328ef8ee54e939b9f6e5d96268, type: 2}
     decorateTiles: []
     decorateRate: 0
-  blockGroup:
-    baseTile: {fileID: 0}
-    decorateTiles: []
-    decorateRate: 0
+  highGroup:
+    baseTile: {fileID: 11400000, guid: a52410225b1b87042a69eb18dece0da3, type: 2}
+    decorateTiles:
+    - {fileID: 11400000, guid: b2c00971e5fb7864d84b06102d4a3c4d, type: 2}
+    - {fileID: 11400000, guid: 094f9522d9924624f9e94dca90ce502d, type: 2}
+    decorateRate: 0.3
   grassEdgeGroup:
     UU: {fileID: 0}
     DD: {fileID: 0}
@@ -627,7 +629,7 @@ MonoBehaviour:
     RU_S: {fileID: 0}
     LD_S: {fileID: 0}
     RD_S: {fileID: 0}
-  blockEdgeGroup:
+  highEdgeGroup:
     UU: {fileID: 0}
     DD: {fileID: 0}
     LL: {fileID: 0}
@@ -1506,7 +1508,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358f730bf2041334ea80c9bb37df25b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theSurface2D: {fileID: 0}
+  theSurface2D: {fileID: 1252285824}
+  CellSize: 4
+  cellMapWidthH: 15
+  cellMapHeightH: 10
+  theTileGroupLib: {fileID: 695449407}
+  groundTM: {fileID: 1946328705}
+  planID: 3
+  lowAreaID: 1
+  lowAreaEdgeID: 2
+  highAreaID: 0
+  highAreaEdgeID: 3
 --- !u!1001 &2067636182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2106,7 +2118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theBattleHUD: {fileID: 210802122}
   backScene: HubV_Alpha
-  theMG: {fileID: 486938136}
+  theMG: {fileID: 2024804846}
   initPlayerPos: {fileID: 846517816}
   initPlayerDirAngle: 0
   playerRef: {fileID: 6214839875520186894, guid: 1d464cc18043c634e95ebb5461db4dd6, type: 3}
