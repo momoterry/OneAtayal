@@ -69,7 +69,7 @@ public class MG_ForeAlpha : MG_ForestRD
 
         //float noiseScale = 5.0f;    //TODO 參數化
         float randomScale = 30.0f;
-        float nScale = NoiseScale / mapWidth;
+        float nScale = NoiseScale * blockSize / 256.0f;     //以 256 為標準大小
         float randomShiftX = Random.Range(0, NoiseScale * randomScale);
         float randomShiftY = Random.Range(0, NoiseScale * randomScale);
 
