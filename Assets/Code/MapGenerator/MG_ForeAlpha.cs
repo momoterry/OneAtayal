@@ -17,6 +17,7 @@ public class MG_ForeAlpha : MG_ForestRD
     public GameObject EnemySpawnerRef;
 
     public bool usePerlinNoise = false;
+    public float NoiseScale = 5.0f;
 
     [SerializeField]protected int blockSize = 4;
 
@@ -66,21 +67,22 @@ public class MG_ForeAlpha : MG_ForestRD
         int xNum = mapWidth / blockSize;
         int yNum = mapHeight / blockSize;
 
-        float noiseScale = 5.0f;
-        float randomScale = 3.0f;
-        float randomShiftX = Random.Range(0, noiseScale * randomScale);
-        float randomShiftY = Random.Range(0, noiseScale * randomScale);
+        //float noiseScale = 5.0f;    //TODO °Ñ¼Æ¤Æ
+        float randomScale = 30.0f;
+        float nScale = NoiseScale / mapWidth;
+        float randomShiftX = Random.Range(0, NoiseScale * randomScale);
+        float randomShiftY = Random.Range(0, NoiseScale * randomScale);
 
         int dirtCount = 0;
         int blockCount = 0;
         int x = -mapWidth / 2 + blockSize / 2;
         for (int ix =0; ix < xNum; ix++)
         {
-            float xCoord = (float)ix / (float)xNum * noiseScale + randomShiftX;
+            float xCoord = (float)ix * nScale + randomShiftX;
             int y = -mapHeight / 2 + blockSize / 2;
             for (int iy=0; iy < yNum; iy++)
             {
-                float yCoord = (float)iy / (float)yNum * noiseScale + randomShiftY;
+                float yCoord = (float)iy * nScale + randomShiftY;
                 float rd;
                 if (usePerlinNoise)
                 {
