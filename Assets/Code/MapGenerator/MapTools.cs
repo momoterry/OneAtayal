@@ -117,13 +117,13 @@ public class OneMap
         }
     }
 
-    public void FillValue( int xMin, int yMin, int width, int height, int value)
+    public void FillValue( int _xMin, int _yMin, int width, int height, int value)
     {
         for (int x = 0; x < width; x++)
         {
             for (int y=0; y<height; y++)
             {
-                mapArray[x + xMin + arrayXshift][y + yMin + arrayYshift] = value;
+                mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] = value;
             }
         }
     }
@@ -143,33 +143,65 @@ public class OneMap
         Debug.Log(str);
     }
 
-    public void FillTile(int xMin, int yMin, int width, int height, int checkValue, Tilemap tm, Tile tile)
+    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, Tile tile)
     {
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                if (mapArray[x + xMin + arrayXshift][y + yMin + arrayYshift] == checkValue)
+                if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
                 {
-                    tm.SetTile(new Vector3Int(xMin + x, yMin + y, 0), tile);
+                    tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tile);
                 }
             }
         }
     }
 
-    public void FillTile( int xMin , int yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
+    public void FillTile( int _xMin , int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
     {
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                if (mapArray[x + xMin + arrayXshift][y + yMin + arrayYshift] == checkValue)
+                if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
                 {
-                    tm.SetTile(new Vector3Int(xMin + x, yMin + y, 0), tg.GetOneTile());
+                    tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
                 }
                 else
                 {
-                    CheckEdgeTile(xMin + x, yMin + y, checkValue, egdeTM, te);
+                    CheckEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
+                }
+            }
+        }
+    }
+
+    public void FillTileAll(int checkValue, Tilemap tm, Tile tile)
+    {
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = yMin; y <= yMax; y++)
+            {
+                if (mapArray[x + arrayXshift][y + arrayYshift] == checkValue)
+                {
+                    tm.SetTile(new Vector3Int(x, y, 0), tile);
+                }
+            }
+        }
+    }
+
+    public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
+    {
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = yMin; y <= yMax; y++)
+            {
+                if (mapArray[x + arrayXshift][y + arrayYshift] == checkValue)
+                {
+                    tm.SetTile(new Vector3Int(x, y, 0), tg.GetOneTile());
+                }
+                else
+                {
+                    CheckEdgeTile(x, y, checkValue, egdeTM, te);
                 }
             }
         }
