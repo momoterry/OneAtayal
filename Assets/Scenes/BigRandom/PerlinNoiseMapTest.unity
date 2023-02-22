@@ -541,6 +541,123 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &695449405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 695449406}
+  - component: {fileID: 695449407}
+  m_Layer: 0
+  m_Name: TileGroupLib
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &695449406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695449405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2024804845}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &695449407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695449405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45fd1e3213af77e48926b3878bd014d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassGroup:
+    baseTile: {fileID: 11400000, guid: a52410225b1b87042a69eb18dece0da3, type: 2}
+    decorateTiles:
+    - {fileID: 11400000, guid: b2c00971e5fb7864d84b06102d4a3c4d, type: 2}
+    - {fileID: 11400000, guid: 3d72eb588770cc04f9bc9b384fb43b6e, type: 2}
+    - {fileID: 11400000, guid: 6aac4b9c54c18cd4fa725527e4b26778, type: 2}
+    - {fileID: 11400000, guid: 094f9522d9924624f9e94dca90ce502d, type: 2}
+    decorateRate: 0.15
+  dirtGroup:
+    baseTile: {fileID: 0}
+    decorateTiles: []
+    decorateRate: 0
+  blockGroup:
+    baseTile: {fileID: 0}
+    decorateTiles: []
+    decorateRate: 0
+  grassEdgeGroup:
+    UU: {fileID: 0}
+    DD: {fileID: 0}
+    LL: {fileID: 0}
+    RR: {fileID: 0}
+    LU: {fileID: 0}
+    RU: {fileID: 0}
+    LD: {fileID: 0}
+    RD: {fileID: 0}
+    LU_S: {fileID: 0}
+    RU_S: {fileID: 0}
+    LD_S: {fileID: 0}
+    RD_S: {fileID: 0}
+  dirtEdgeGroup:
+    UU: {fileID: 0}
+    DD: {fileID: 0}
+    LL: {fileID: 0}
+    RR: {fileID: 0}
+    LU: {fileID: 0}
+    RU: {fileID: 0}
+    LD: {fileID: 0}
+    RD: {fileID: 0}
+    LU_S: {fileID: 0}
+    RU_S: {fileID: 0}
+    LD_S: {fileID: 0}
+    RD_S: {fileID: 0}
+  blockEdgeGroup:
+    UU: {fileID: 0}
+    DD: {fileID: 0}
+    LL: {fileID: 0}
+    RR: {fileID: 0}
+    LU: {fileID: 0}
+    RU: {fileID: 0}
+    LD: {fileID: 0}
+    RD: {fileID: 0}
+    LU_S: {fileID: 0}
+    RU_S: {fileID: 0}
+    LD_S: {fileID: 0}
+    RD_S: {fileID: 0}
+  islandEG:
+    UU: {fileID: 0}
+    DD: {fileID: 0}
+    LL: {fileID: 0}
+    RR: {fileID: 0}
+    LU: {fileID: 0}
+    RU: {fileID: 0}
+    LD: {fileID: 0}
+    RD: {fileID: 0}
+    LU_S: {fileID: 0}
+    RU_S: {fileID: 0}
+    LD_S: {fileID: 0}
+    RD_S: {fileID: 0}
+    DD2: {fileID: 0}
+    LD2: {fileID: 0}
+    RD2: {fileID: 0}
+    LD_S2: {fileID: 0}
+    RD_S2: {fileID: 0}
 --- !u!1 &846517815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1470,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2024804845}
+  - component: {fileID: 2024804846}
   m_Layer: 0
   m_Name: MapGen_New
   m_TagString: Untagged
@@ -1371,10 +1489,24 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 695449406}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2024804846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024804844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 358f730bf2041334ea80c9bb37df25b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theSurface2D: {fileID: 0}
 --- !u!1001 &2067636182
 PrefabInstance:
   m_ObjectHideFlags: 0

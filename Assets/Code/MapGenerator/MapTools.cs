@@ -157,7 +157,7 @@ public class OneMap
         }
     }
 
-    public void FillTile( int xMin , int yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileIslandEdgeGroup te)
+    public void FillTile( int xMin , int yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
     {
         for (int x = 0; x < width; x++)
         {
@@ -175,7 +175,7 @@ public class OneMap
         }
     }
 
-    protected void CheckEdgeTile(int x, int y, int value, Tilemap tm, TileIslandEdgeGroup te)
+    protected void CheckEdgeTile(int x, int y, int value, Tilemap tm, TileEdge2LGroup te)
     {
         Vector3Int pos = new Vector3Int(x, y, 0);
         Vector3Int posD = new Vector3Int(x, y-1, 0);

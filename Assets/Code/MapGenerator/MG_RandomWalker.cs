@@ -8,7 +8,7 @@ public class MG_RandomWalker : MapGeneratorBase
     public Tilemap groundTM;
     public Tilemap blockTM;
     public TileGroup grassTG;
-    public TileIslandEdgeGroup islandEG;
+    public TileEdge2LGroup islandEG;
     public Tile blockTile;
 
     public int mapHalfSize = 50;
@@ -335,7 +335,7 @@ public class MG_RandomWalker : MapGeneratorBase
 // ============================ 水邊界處理 =============================
 // TODO : 應該集中到別處
 [System.Serializable]
-public class TileIslandEdgeGroup : TileEdgeGroup
+public class TileEdge2LGroup : TileEdgeGroup
 {
     //下
     public Tile DD2;
