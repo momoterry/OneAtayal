@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEditor.PlayerSettings;
 
 public class OneMap
 {
@@ -13,7 +15,7 @@ public class OneMap
     public const int INVALID_VALUE = -9999;
 
     public Vector2Int mapCenter;
-    public int xMin, xMax;
+    public int xMin, xMax;      //Min, Max ³£¬O Included
     public int yMin, yMax;
 
     const int edgeWidth = 2;
@@ -75,10 +77,12 @@ public class OneMap
     public void InitMap(Vector2Int center, int width, int height, int initValue = DEFAULT_VALUE)
     {
         mapCenter = center;
-        xMax = width / 2 + mapCenter.x;
-        yMax = height / 2 + mapCenter.y;
-        xMin = xMax - width;
-        yMin = yMax - height;
+        //xMax = width / 2 + mapCenter.x;
+        //yMax = height / 2 + mapCenter.y;
+        //xMin = xMax - width;
+        //yMin = yMax - height;
+        xMin = -width / 2 + mapCenter.x; yMin = -height / 2 + mapCenter.y;
+        xMax = xMin + width - 1; yMax = yMin + height - 1;
         mapWidth = width;
         mapHeight = height;
 
@@ -124,6 +128,17 @@ public class OneMap
             for (int y=0; y<height; y++)
             {
                 mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] = value;
+            }
+        }
+    }
+
+    public void FillValueAll( int value)
+    {
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = yMin; y <= yMax; y++)
+            {
+                mapArray[x + arrayXshift][y + arrayYshift] = value;
             }
         }
     }

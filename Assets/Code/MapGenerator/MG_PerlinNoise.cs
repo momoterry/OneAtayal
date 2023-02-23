@@ -37,14 +37,15 @@ public class MG_PerlinNoise : MapGeneratorBase
         highTG = theTileGroupLib.GetTileGroup(highID);
 
         //¥ý´ú¸Õ CellMap
-        for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
-        {
-            for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
-            {
-                //groundTM.SetTile(new Vector3Int(x, y, 0), planTG.GetOneTile());
-                theCellMap.SetValue(x, y, 1);
-            }
-        }
+        //for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
+        //{
+        //    for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
+        //    {
+        //        //groundTM.SetTile(new Vector3Int(x, y, 0), planTG.GetOneTile());
+        //        theCellMap.SetValue(x, y, 1);
+        //    }
+        //}
+        theCellMap.GetOneMap().FillValueAll(1);
 
         for (int x = -3; x <= 3; x++)
         {
@@ -55,7 +56,7 @@ public class MG_PerlinNoise : MapGeneratorBase
         }
         theCellMap.SetValue(0, 0, 3);
 
-        theCellMap.GetOneMap().PrintMap();
+        //theCellMap.GetOneMap().PrintMap();
 
         theCellMap.GetOneMap().FillTileAll(2, groundTM, lowTG.baseTile);
         theCellMap.GetOneMap().FillTileAll(1, groundTM, planTG.baseTile);

@@ -100,7 +100,7 @@ public class OneCellMap : CellMap
     {
         base.SetValue(x, y, value);
         int x1 = x * cellSize - cellSizeH, y1 = y * cellSize - cellSizeH;
-        Debug.Log("To Fill Value From: " + x1 +", " + y1);
+        //Debug.Log("To Fill Value From: " + x1 +", " + y1);
         myOneMap.FillValue(x1, y1, cellSize, cellSize, value);
     }
 }
