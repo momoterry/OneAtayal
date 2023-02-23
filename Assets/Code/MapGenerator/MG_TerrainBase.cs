@@ -35,7 +35,7 @@ public class MG_TerrainBase : MapGeneratorBase
 
         for (int x = -3; x <= 3; x++)
         {
-            for (int y = -3; y <= 3; y++)
+            for (int y = 2; y <= 3; y++)
             {
                 theCellMap.SetValue(x, y, 2);
             }
@@ -43,9 +43,15 @@ public class MG_TerrainBase : MapGeneratorBase
         theCellMap.SetValue(0, 0, 3);
     }
 
+    protected virtual void FillTiles()
+    {
+        theCellMap.GetOneMap().FillTileAll(1, groundTM, planTG.baseTile);
+        theCellMap.GetOneMap().FillTileAll(2, groundTM, groundTM, lowTG, lowEdgeTG);
+        theCellMap.GetOneMap().FillTileAll(3, groundTM, groundTM, highTG, highEdgeTG);
+    }
+
     public override void BuildAll(int buildLevel = 1)
     {
-        //theMap.InitMap(cellMapWidthH, cellMapHeightH)
         theCellMap.InitCellMap(mapCellWidthH, mapCellHeightH, CellSize);
 
         planTG = theTileGroupLib.GetTileGroup(planID);
@@ -58,9 +64,8 @@ public class MG_TerrainBase : MapGeneratorBase
         GenerateCellMap();
 
         //theCellMap.GetOneMap().PrintMap();
-        theCellMap.GetOneMap().FillTileAll(1, groundTM, planTG.baseTile);
-        theCellMap.GetOneMap().FillTileAll(2, groundTM, groundTM, lowTG, lowEdgeTG);
-        theCellMap.GetOneMap().FillTileAll(3, groundTM, highTG.baseTile);
+
+        FillTiles();
 
         theSurface2D.BuildNavMesh();
     }
