@@ -190,6 +190,24 @@ public class OneMap
         }
     }
 
+    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
+                {
+                    tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
+                }
+                else
+                {
+                    CheckEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
+                }
+            }
+        }
+    }
+
     public void FillTileAll(int checkValue, Tilemap tm, Tile tile)
     {
         for (int x = xMin; x <= xMax; x++)
@@ -222,6 +240,88 @@ public class OneMap
         }
     }
 
+    public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te)
+    {
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = yMin; y <= yMax; y++)
+            {
+                if (mapArray[x + arrayXshift][y + arrayYshift] == checkValue)
+                {
+                    tm.SetTile(new Vector3Int(x, y, 0), tg.GetOneTile());
+                }
+                else
+                {
+                    CheckEdgeTile(x, y, checkValue, egdeTM, te);
+                }
+            }
+        }
+    }
+
+    protected void CheckEdgeTile(int x, int y, int value, Tilemap tm, TileEdgeGroup te)
+    {
+        Vector3Int pos = new Vector3Int(x, y, 0);
+        Vector3Int posD = new Vector3Int(x, y - 1, 0);
+        bool UU = GetValue(x, y + 1) == value;
+        bool DD = GetValue(x, y - 1) == value;
+        bool LL = GetValue(x - 1, y) == value;
+        bool RR = GetValue(x + 1, y) == value;
+        if (UU)
+        {
+            if (LL)
+            {
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RD_S));
+            }
+            else if (RR)
+            {
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LD_S));
+            }
+            else
+            {
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.DD));
+            }
+            return;
+        }
+        if (DD)
+        {
+            if (LL)
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RU_S));
+            else if (RR)
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LU_S));
+            else
+                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.UU));
+            return;
+        }
+
+        if (LL)
+        {
+            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RR));
+            return;
+        }
+        if (RR)
+        {
+            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LL));
+            return;
+        }
+
+        bool LU = GetValue(x - 1, y + 1) == value;
+        bool RU = GetValue(x + 1, y + 1) == value;
+        bool LD = GetValue(x - 1, y - 1) == value;
+        bool RD = GetValue(x + 1, y - 1) == value;
+        if (LU)
+        {
+            tm.SetTile(pos, te.RD);
+        }
+        else if (RU)
+        {
+            tm.SetTile(pos, te.LD);
+        }
+        else if (LD)
+            tm.SetTile(pos, te.RU);
+        else if (RD)
+            tm.SetTile(pos, te.LU);
+
+    }
     protected void CheckEdgeTile(int x, int y, int value, Tilemap tm, TileEdge2LGroup te)
     {
         Vector3Int pos = new Vector3Int(x, y, 0);

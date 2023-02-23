@@ -18,7 +18,7 @@ public class TileGroupLibrary : MonoBehaviour
     public TileGroup grassGroup;
     public TileGroup dirtGroup;
     public TileGroup highGroup;
-    public TileEdgeGroup grassEdgeGroup;
+    //public TileEdgeGroup grassEdgeGroup;
     public TileEdgeGroup dirtEdgeGroup;
     public TileEdgeGroup highEdgeGroup;
     public TileEdge2LGroup islandEG;

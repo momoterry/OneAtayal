@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MG_PerlinNoise : MapGeneratorBase
+public class MG_TerrainBase : MapGeneratorBase
 {
     public int CellSize = 4;
     public int mapCellWidthH = 15;
@@ -29,6 +29,20 @@ public class MG_PerlinNoise : MapGeneratorBase
     protected OneCellMap theCellMap = new OneCellMap();
     //protected OneMap theMap = new OneMap();
 
+    protected virtual void GenerateCellMap()
+    {
+        theCellMap.GetOneMap().FillValueAll(1);
+
+        for (int x = -3; x <= 3; x++)
+        {
+            for (int y = -3; y <= 3; y++)
+            {
+                theCellMap.SetValue(x, y, 2);
+            }
+        }
+        theCellMap.SetValue(0, 0, 3);
+    }
+
     public override void BuildAll(int buildLevel = 1)
     {
         //theMap.InitMap(cellMapWidthH, cellMapHeightH)
@@ -40,16 +54,8 @@ public class MG_PerlinNoise : MapGeneratorBase
         lowEdgeTG = theTileGroupLib.GetTileEdgeGroup(lowEdgeID);
         highEdgeTG = theTileGroupLib.GetTileEdgeGroup(highEdgeID);
 
-        theCellMap.GetOneMap().FillValueAll(1);
 
-        for (int x = -3; x <= 3; x++)
-        {
-            for (int y = -3; y <= 3; y++)
-            {
-                theCellMap.SetValue(x, y, 2);
-            }
-        }
-        theCellMap.SetValue(0, 0, 3);
+        GenerateCellMap();
 
         //theCellMap.GetOneMap().PrintMap();
         theCellMap.GetOneMap().FillTileAll(1, groundTM, planTG.baseTile);
