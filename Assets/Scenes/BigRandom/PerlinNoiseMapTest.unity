@@ -1496,9 +1496,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285824}
-  CellSize: 2
-  mapCellWidthH: 5
-  mapCellHeightH: 5
+  CellSize: 1
+  mapCellWidthH: 100
+  mapCellHeightH: 100
   theTileGroupLib: {fileID: 695449407}
   groundTM: {fileID: 1946328705}
   planID: 1
@@ -1506,6 +1506,9 @@ MonoBehaviour:
   lowEdgeID: 4
   highID: 3
   highEdgeID: 5
+  NoiseScaleOn256: 10
+  highRatio: 0.35
+  lowRatio: 0.35
 --- !u!1001 &2067636182
 PrefabInstance:
   m_ObjectHideFlags: 0
