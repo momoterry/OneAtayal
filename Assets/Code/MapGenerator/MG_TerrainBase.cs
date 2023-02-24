@@ -13,6 +13,7 @@ public class MG_TerrainBase : MapGeneratorBase
     public TileGroupLibrary theTileGroupLib;
 
     public Tilemap groundTM;
+    public Tilemap blockTM;
 
     public TILE_GROUP_ID planID = TILE_GROUP_ID.GRASS;
     public TILE_GROUP_ID lowID = TILE_GROUP_ID.DIRT;

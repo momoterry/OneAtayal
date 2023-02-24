@@ -21,7 +21,14 @@ public class MG_PerlinNoise : MG_TerrainBase
                 float rd = Mathf.PerlinNoise((float)x * noiseScale + xShift, (float)y * noiseScale + yShift);
                 if ( rd > 1.0f - highRatio)
                 {
-                    theCellMap.SetValue(x, y, 3);
+                    if (rd > 1.0f - highRatio + 0.3f)
+                        theCellMap.SetValue(x, y, 6);
+                    else if (rd > 1.0f - highRatio + 0.2f)
+                        theCellMap.SetValue(x, y, 5);
+                    else if (rd > 1.0f - highRatio + 0.1f)
+                        theCellMap.SetValue(x, y, 4);
+                    else
+                        theCellMap.SetValue(x, y, 3);
                 }
                 else if (rd < lowRatio)
                 {
@@ -32,4 +39,17 @@ public class MG_PerlinNoise : MG_TerrainBase
             }
         }
     }
+
+    protected override void FillTiles()
+    {
+        base.FillTiles();
+
+        theCellMap.GetOneMap().FillTileAll(4, groundTM, groundTM, highTG, highEdgeTG);
+        theCellMap.GetOneMap().FillTileAll(5, groundTM, groundTM, highTG, highEdgeTG);
+        theCellMap.GetOneMap().FillTileAll(6, groundTM, groundTM, highTG, highEdgeTG);
+
+
+
+    }
+
 }
