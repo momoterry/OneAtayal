@@ -48,7 +48,7 @@ public class MG_TerrainBase : MapGeneratorBase
     {
         theCellMap.GetOneMap().FillTileAll(1, groundTM, planTG.baseTile);
         theCellMap.GetOneMap().FillTileAll(2, groundTM, groundTM, lowTG, lowEdgeTG);
-        theCellMap.GetOneMap().FillTileAll(3, groundTM, groundTM, highTG, highEdgeTG);
+        theCellMap.GetOneMap().FillTileAll(3, blockTM, blockTM, highTG, highEdgeTG);
     }
 
     public override void BuildAll(int buildLevel = 1)

@@ -44,9 +44,9 @@ public class MG_PerlinNoise : MG_TerrainBase
     {
         base.FillTiles();
 
-        theCellMap.GetOneMap().FillTileAll(4, groundTM, groundTM, highTG, highEdgeTG);
-        theCellMap.GetOneMap().FillTileAll(5, groundTM, groundTM, highTG, highEdgeTG);
-        theCellMap.GetOneMap().FillTileAll(6, groundTM, groundTM, highTG, highEdgeTG);
+        theCellMap.GetOneMap().FillTileAll(4, blockTM, blockTM, highTG, highEdgeTG);
+        theCellMap.GetOneMap().FillTileAll(5, blockTM, blockTM, highTG, highEdgeTG);
+        theCellMap.GetOneMap().FillTileAll(6, blockTM, blockTM, highTG, highEdgeTG);
 
 
 
