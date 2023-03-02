@@ -172,23 +172,23 @@ public class OneMap
         }
     }
 
-    public void FillTile( int _xMin , int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
-                {
-                    tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
-                }
-                else
-                {
-                    CheckEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
-                }
-            }
-        }
-    }
+    //public void FillTile( int _xMin , int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
+    //{
+    //    for (int x = 0; x < width; x++)
+    //    {
+    //        for (int y = 0; y < height; y++)
+    //        {
+    //            if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
+    //            {
+    //                tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
+    //            }
+    //            else
+    //            {
+    //                CheckAndSetEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
+    //            }
+    //        }
+    //    }
+    //}
 
     public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te)
     {
@@ -202,7 +202,7 @@ public class OneMap
                 }
                 else
                 {
-                    CheckEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
+                    CheckAndSetEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
                 }
             }
         }
@@ -211,189 +211,173 @@ public class OneMap
     public void FillTileAll(int checkValue, Tilemap tm, Tile tile)
     {
         FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, tile);
-        //for (int x = xMin; x <= xMax; x++)
-        //{
-        //    for (int y = yMin; y <= yMax; y++)
-        //    {
-        //        if (mapArray[x + arrayXshift][y + arrayYshift] == checkValue)
-        //        {
-        //            tm.SetTile(new Vector3Int(x, y, 0), tile);
-        //        }
-        //    }
-        //}
     }
 
-    public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
-    {
-        FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te);
-        //for (int x = xMin; x <= xMax; x++)
-        //{
-        //    for (int y = yMin; y <= yMax; y++)
-        //    {
-        //        if (mapArray[x + arrayXshift][y + arrayYshift] == checkValue)
-        //        {
-        //            tm.SetTile(new Vector3Int(x, y, 0), tg.GetOneTile());
-        //        }
-        //        else
-        //        {
-        //            CheckEdgeTile(x, y, checkValue, egdeTM, te);
-        //        }
-        //    }
-        //}
-    }
+    //public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
+    //{
+    //    FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te);
+    //}
 
     public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te)
     {
         FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te);
-        //for (int x = xMin; x <= xMax; x++)
-        //{
-        //    for (int y = yMin; y <= yMax; y++)
-        //    {
-        //        if (mapArray[x + arrayXshift][y + arrayYshift] == checkValue)
-        //        {
-        //            tm.SetTile(new Vector3Int(x, y, 0), tg.GetOneTile());
-        //        }
-        //        else
-        //        {
-        //            CheckEdgeTile(x, y, checkValue, egdeTM, te);
-        //        }
-        //    }
-        //}
     }
 
-    protected void CheckEdgeTile(int x, int y, int value, Tilemap tm, TileEdgeGroup te)
+    protected void CheckAndSetEdgeTile(int x, int y, int outValue, Tilemap tm, TileEdgeGroup te)
     {
         Vector3Int pos = new Vector3Int(x, y, 0);
         Vector3Int posD = new Vector3Int(x, y - 1, 0);
-        bool UU = GetValue(x, y + 1) == value;
-        bool DD = GetValue(x, y - 1) == value;
-        bool LL = GetValue(x - 1, y) == value;
-        bool RR = GetValue(x + 1, y) == value;
+        bool UU = GetValue(x, y + 1) == outValue;
+        bool DD = GetValue(x, y - 1) == outValue;
+        bool LL = GetValue(x - 1, y) == outValue;
+        bool RR = GetValue(x + 1, y) == outValue;
         if (UU)
         {
             if (LL)
             {
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RD_S));
+                //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RD_S));
+                te.SetTile(tm, MAP_EDGE_TYPE.RD_S, pos);
             }
             else if (RR)
             {
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LD_S));
+                //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LD_S));
+                te.SetTile(tm, MAP_EDGE_TYPE.LD_S, pos);
             }
             else
             {
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.DD));
+                //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.DD));
+                te.SetTile(tm, MAP_EDGE_TYPE.DD, pos);
             }
             return;
         }
         if (DD)
         {
             if (LL)
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RU_S));
+            {
+                //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RU_S));
+                te.SetTile(tm, MAP_EDGE_TYPE.RU_S, pos);
+            }
             else if (RR)
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LU_S));
+            {
+                //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LU_S));
+                te.SetTile(tm, MAP_EDGE_TYPE.LU_S, pos);
+            }
             else
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.UU));
+            {
+                //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.UU));
+                te.SetTile(tm, MAP_EDGE_TYPE.UU, pos);
+            }
             return;
         }
 
         if (LL)
         {
-            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RR));
+            //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RR));
+            te.SetTile(tm, MAP_EDGE_TYPE.RR, pos);
             return;
         }
         if (RR)
         {
-            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LL));
+            //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LL));
+            te.SetTile(tm, MAP_EDGE_TYPE.LL, pos);
             return;
         }
 
-        bool LU = GetValue(x - 1, y + 1) == value;
-        bool RU = GetValue(x + 1, y + 1) == value;
-        bool LD = GetValue(x - 1, y - 1) == value;
-        bool RD = GetValue(x + 1, y - 1) == value;
+        bool LU = GetValue(x - 1, y + 1) == outValue;
+        bool RU = GetValue(x + 1, y + 1) == outValue;
+        bool LD = GetValue(x - 1, y - 1) == outValue;
+        bool RD = GetValue(x + 1, y - 1) == outValue;
         if (LU)
         {
-            tm.SetTile(pos, te.RD);
+            //tm.SetTile(pos, te.RD);
+            te.SetTile(tm, MAP_EDGE_TYPE.RD, pos);
         }
         else if (RU)
         {
-            tm.SetTile(pos, te.LD);
+            //tm.SetTile(pos, te.LD);
+            te.SetTile(tm, MAP_EDGE_TYPE.LD, pos);
         }
         else if (LD)
-            tm.SetTile(pos, te.RU);
+        {
+            //tm.SetTile(pos, te.RU);
+            te.SetTile(tm, MAP_EDGE_TYPE.RU, pos);
+        }
         else if (RD)
-            tm.SetTile(pos, te.LU);
+        {
+            //tm.SetTile(pos, te.LU);
+            te.SetTile(tm, MAP_EDGE_TYPE.LU, pos);
+        }
 
     }
-    protected void CheckEdgeTile(int x, int y, int value, Tilemap tm, TileEdge2LGroup te)
-    {
-        Vector3Int pos = new Vector3Int(x, y, 0);
-        Vector3Int posD = new Vector3Int(x, y-1, 0);
-        bool UU = GetValue(x, y + 1) == value;
-        bool DD = GetValue(x, y - 1) == value;
-        bool LL = GetValue(x - 1, y) == value;
-        bool RR = GetValue(x + 1, y) == value;
-        if (UU)
-        {
-            if (LL)
-            {
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RD_S));
-                tm.SetTile(posD, te.RD_S2);
-            }
-            else if (RR)
-            {
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LD_S));
-                tm.SetTile(posD, te.LD_S2);
-            }
-            else
-            {
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.DD));
-                tm.SetTile(posD, te.DD2);
-            }
-            return;
-        }
-        if (DD)
-        {
-            if (LL)
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RU_S));
-            else if (RR)
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LU_S));
-            else
-                tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.UU));
-            return;
-        }
+    //protected void CheckAndSetEdgeTile(int x, int y, int outValue, Tilemap tm, TileEdge2LGroup te)
+    //{
+    //    Vector3Int pos = new Vector3Int(x, y, 0);
+    //    Vector3Int posD = new Vector3Int(x, y-1, 0);
+    //    bool UU = GetValue(x, y + 1) == outValue;
+    //    bool DD = GetValue(x, y - 1) == outValue;
+    //    bool LL = GetValue(x - 1, y) == outValue;
+    //    bool RR = GetValue(x + 1, y) == outValue;
+    //    if (UU)
+    //    {
+    //        if (LL)
+    //        {
+    //            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RD_S));
+    //            tm.SetTile(posD, te.RD_S2);
+    //        }
+    //        else if (RR)
+    //        {
+    //            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LD_S));
+    //            tm.SetTile(posD, te.LD_S2);
+    //        }
+    //        else
+    //        {
+    //            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.DD));
+    //            tm.SetTile(posD, te.DD2);
+    //        }
+    //        return;
+    //    }
+    //    if (DD)
+    //    {
+    //        if (LL)
+    //            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RU_S));
+    //        else if (RR)
+    //            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LU_S));
+    //        else
+    //            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.UU));
+    //        return;
+    //    }
 
-        if (LL)
-        {
-            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RR));
-            return;
-        }
-        if (RR)
-        {
-            tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LL));
-            return;
-        }
+    //    if (LL)
+    //    {
+    //        tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RR));
+    //        return;
+    //    }
+    //    if (RR)
+    //    {
+    //        tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LL));
+    //        return;
+    //    }
 
-        bool LU = GetValue(x - 1, y + 1) == value;
-        bool RU = GetValue(x + 1, y + 1) == value;
-        bool LD = GetValue(x - 1, y - 1) == value;
-        bool RD = GetValue(x + 1, y - 1) == value;
-        if (LU)
-        {
-            tm.SetTile(pos, te.RD);
-            tm.SetTile(posD, te.RD2);
-        }
-        else if (RU)
-        {
-            tm.SetTile(pos, te.LD);
-            tm.SetTile(posD, te.LD2);
-        }
-        else if (LD)
-            tm.SetTile(pos, te.RU);
-        else if (RD)
-            tm.SetTile(pos, te.LU);
+    //    bool LU = GetValue(x - 1, y + 1) == outValue;
+    //    bool RU = GetValue(x + 1, y + 1) == outValue;
+    //    bool LD = GetValue(x - 1, y - 1) == outValue;
+    //    bool RD = GetValue(x + 1, y - 1) == outValue;
+    //    if (LU)
+    //    {
+    //        tm.SetTile(pos, te.RD);
+    //        tm.SetTile(posD, te.RD2);
+    //    }
+    //    else if (RU)
+    //    {
+    //        tm.SetTile(pos, te.LD);
+    //        tm.SetTile(posD, te.LD2);
+    //    }
+    //    else if (LD)
+    //        tm.SetTile(pos, te.RU);
+    //    else if (RD)
+    //        tm.SetTile(pos, te.LU);
 
-    }
+    //}
 
 }
 

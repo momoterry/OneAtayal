@@ -332,17 +332,4 @@ public class MG_RandomWalker : MapGeneratorBase
 
 }
 
-// ============================ 水邊界處理 =============================
-// TODO : 應該集中到別處
-[System.Serializable]
-public class TileEdge2LGroup : TileEdgeGroup
-{
-    //下
-    public Tile DD2;
-    //左下、右下
-    public Tile LD2;
-    public Tile RD2;
-    //左下陷、右下陷
-    public Tile LD_S2;
-    public Tile RD_S2;
-}
+
