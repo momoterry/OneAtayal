@@ -190,19 +190,36 @@ public class OneMap
     //    }
     //}
 
-    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te)
+    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true)
     {
-        for (int x = 0; x < width; x++)
+        if (outEdge)
         {
-            for (int y = 0; y < height; y++)
+            for (int x = 0; x < width; x++)
             {
-                if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
+                for (int y = 0; y < height; y++)
                 {
-                    tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
+                    if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
+                    {
+                        tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
+                    }
+                    else
+                    {
+                        CheckAndSetOutsideEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
+                    }
                 }
-                else
+            }
+        }
+        else
+        {
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
                 {
-                    CheckAndSetEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
+                    if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
+                    {
+                        if (!CheckAndSetInsideEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te))
+                            tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
+                    }
                 }
             }
         }
@@ -218,19 +235,20 @@ public class OneMap
     //    FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te);
     //}
 
-    public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te)
+    public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true)
     {
-        FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te);
+        FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te, outEdge);
     }
 
-    protected void CheckAndSetEdgeTile(int x, int y, int outValue, Tilemap tm, TileEdgeGroup te)
+    //指定位置已經是外部 Tile ，檢查是否為邊界 Tile
+    protected bool CheckAndSetOutsideEdgeTile(int x, int y, int inValue, Tilemap tm, TileEdgeGroup te)
     {
         Vector3Int pos = new Vector3Int(x, y, 0);
         Vector3Int posD = new Vector3Int(x, y - 1, 0);
-        bool UU = GetValue(x, y + 1) == outValue;
-        bool DD = GetValue(x, y - 1) == outValue;
-        bool LL = GetValue(x - 1, y) == outValue;
-        bool RR = GetValue(x + 1, y) == outValue;
+        bool UU = GetValue(x, y + 1) == inValue;
+        bool DD = GetValue(x, y - 1) == inValue;
+        bool LL = GetValue(x - 1, y) == inValue;
+        bool RR = GetValue(x + 1, y) == inValue;
         if (UU)
         {
             if (LL)
@@ -248,7 +266,7 @@ public class OneMap
                 //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.DD));
                 te.SetTile(tm, MAP_EDGE_TYPE.DD, pos);
             }
-            return;
+            return true;
         }
         if (DD)
         {
@@ -267,48 +285,133 @@ public class OneMap
                 //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.UU));
                 te.SetTile(tm, MAP_EDGE_TYPE.UU, pos);
             }
-            return;
+            return true;
         }
 
         if (LL)
         {
             //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.RR));
             te.SetTile(tm, MAP_EDGE_TYPE.RR, pos);
-            return;
+            return true;
         }
         if (RR)
         {
             //tm.SetTile(pos, te.GetTile(MAP_EDGE_TYPE.LL));
             te.SetTile(tm, MAP_EDGE_TYPE.LL, pos);
-            return;
+            return true;
         }
 
-        bool LU = GetValue(x - 1, y + 1) == outValue;
-        bool RU = GetValue(x + 1, y + 1) == outValue;
-        bool LD = GetValue(x - 1, y - 1) == outValue;
-        bool RD = GetValue(x + 1, y - 1) == outValue;
+        bool LU = GetValue(x - 1, y + 1) == inValue;
+        bool RU = GetValue(x + 1, y + 1) == inValue;
+        bool LD = GetValue(x - 1, y - 1) == inValue;
+        bool RD = GetValue(x + 1, y - 1) == inValue;
         if (LU)
         {
             //tm.SetTile(pos, te.RD);
             te.SetTile(tm, MAP_EDGE_TYPE.RD, pos);
+            return true;
         }
         else if (RU)
         {
             //tm.SetTile(pos, te.LD);
             te.SetTile(tm, MAP_EDGE_TYPE.LD, pos);
+            return true;
         }
         else if (LD)
         {
             //tm.SetTile(pos, te.RU);
             te.SetTile(tm, MAP_EDGE_TYPE.RU, pos);
+            return true;
         }
         else if (RD)
         {
             //tm.SetTile(pos, te.LU);
             te.SetTile(tm, MAP_EDGE_TYPE.LU, pos);
+            return true;
+        }
+        return false;
+    }
+
+    //指定位置已經是內部 Tile ，檢查是否為邊界 Tile
+    protected bool CheckAndSetInsideEdgeTile(int x, int y, int inValue, Tilemap tm, TileEdgeGroup te)
+    {
+        Vector3Int pos = new Vector3Int(x, y, 0);
+        Vector3Int posD = new Vector3Int(x, y - 1, 0);
+        bool UU = GetValue(x, y + 1) != inValue;
+        bool DD = GetValue(x, y - 1) != inValue;
+        bool LL = GetValue(x - 1, y) != inValue;
+        bool RR = GetValue(x + 1, y) != inValue;
+        if (UU)
+        {
+            if (LL)
+            {
+                te.SetTile(tm, MAP_EDGE_TYPE.LU, pos);
+            }
+            else if (RR)
+            {
+                te.SetTile(tm, MAP_EDGE_TYPE.RU, pos);
+            }
+            else
+            {
+                te.SetTile(tm, MAP_EDGE_TYPE.UU, pos);
+            }
+            return true;
+        }
+        if (DD)
+        {
+            if (LL)
+            {
+                te.SetTile(tm, MAP_EDGE_TYPE.LD, pos);
+            }
+            else if (RR)
+            {
+                te.SetTile(tm, MAP_EDGE_TYPE.RD, pos);
+            }
+            else
+            {
+                te.SetTile(tm, MAP_EDGE_TYPE.DD, pos);
+            }
+            return true;
         }
 
+        if (LL)
+        {
+            te.SetTile(tm, MAP_EDGE_TYPE.LL, pos);
+            return true;
+        }
+        if (RR)
+        {
+            te.SetTile(tm, MAP_EDGE_TYPE.RR, pos);
+            return true;
+        }
+
+        bool LU = GetValue(x - 1, y + 1) != inValue;
+        bool RU = GetValue(x + 1, y + 1) != inValue;
+        bool LD = GetValue(x - 1, y - 1) != inValue;
+        bool RD = GetValue(x + 1, y - 1) != inValue;
+        if (LU)
+        {
+            te.SetTile(tm, MAP_EDGE_TYPE.LU_S, pos);
+            return true;
+        }
+        else if (RU)
+        {
+            te.SetTile(tm, MAP_EDGE_TYPE.RU_S, pos);
+            return true;
+        }
+        else if (LD)
+        {
+            te.SetTile(tm, MAP_EDGE_TYPE.LD_S, pos);
+            return true;
+        }
+        else if (RD)
+        {
+            te.SetTile(tm, MAP_EDGE_TYPE.RD_S, pos);
+            return true;
+        }
+        return false;
     }
+
     //protected void CheckAndSetEdgeTile(int x, int y, int outValue, Tilemap tm, TileEdge2LGroup te)
     //{
     //    Vector3Int pos = new Vector3Int(x, y, 0);
