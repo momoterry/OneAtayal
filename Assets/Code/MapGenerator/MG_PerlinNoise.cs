@@ -8,9 +8,10 @@ public class MG_PerlinNoise : MG_TerrainBase
     public int NoiseScaleOn256 = 5;
     public float highRatio = 0.35f;
     public float lowRatio = 0.35f;
+    public bool outEdge = true;
     protected override void GenerateCellMap()
     {
-        float noiseScale = (float)NoiseScaleOn256 * CellSize / 256.0f;
+        float noiseScale = (float)NoiseScaleOn256  / 256.0f;
         float randomSscale = 10.0f;
         float xShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
         float yShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
@@ -42,14 +43,12 @@ public class MG_PerlinNoise : MG_TerrainBase
 
     protected override void FillTiles()
     {
-        base.FillTiles();
-
-        theCellMap.GetOneMap().FillTileAll(4, blockTM, blockTM, highTG, highEdgeTG);
-        theCellMap.GetOneMap().FillTileAll(5, blockTM, blockTM, highTG, highEdgeTG);
-        theCellMap.GetOneMap().FillTileAll(6, blockTM, blockTM, highTG, highEdgeTG);
-
-
-
+        theCellMap.GetOneMap().FillTileAll(1, groundTM, planTG.baseTile);
+        theCellMap.GetOneMap().FillTileAll(2, groundTM, groundTM, lowTG, lowEdgeTG, outEdge);
+        theCellMap.GetOneMap().FillTileAll(3, blockTM, blockTM, highTG, highEdgeTG, outEdge);
+        theCellMap.GetOneMap().FillTileAll(4, blockTM, blockTM, highTG, highEdgeTG, outEdge);
+        theCellMap.GetOneMap().FillTileAll(5, blockTM, blockTM, highTG, highEdgeTG, outEdge);
+        theCellMap.GetOneMap().FillTileAll(6, blockTM, blockTM, highTG, highEdgeTG, outEdge);
     }
 
 }
