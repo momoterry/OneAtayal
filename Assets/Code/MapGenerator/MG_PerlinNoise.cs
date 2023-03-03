@@ -44,11 +44,11 @@ public class MG_PerlinNoise : MG_TerrainBase
     protected override void FillTiles()
     {
         theCellMap.GetOneMap().FillTileAll(1, groundTM, planTG.baseTile);
-        theCellMap.GetOneMap().FillTileAll(2, groundTM, groundTM, lowTG, lowEdgeTG, outEdge);
-        theCellMap.GetOneMap().FillTileAll(3, blockTM, blockTM, highTG, highEdgeTG, outEdge);
-        theCellMap.GetOneMap().FillTileAll(4, blockTM, blockTM, highTG, highEdgeTG, outEdge);
-        theCellMap.GetOneMap().FillTileAll(5, blockTM, blockTM, highTG, highEdgeTG, outEdge);
-        theCellMap.GetOneMap().FillTileAll(6, blockTM, blockTM, highTG, highEdgeTG, outEdge);
+        theCellMap.GetOneMap().FillTileAll(2, groundTM, groundTM, lowTG, lowEdgeTG, outEdge, 1);
+        theCellMap.GetOneMap().FillTileAll(3, blockTM, blockTM, highTG, highEdgeTG, outEdge, 1);
+        theCellMap.GetOneMap().FillTileAll(4, blockTM, blockTM, highTG, highEdgeTG, outEdge, 3);
+        theCellMap.GetOneMap().FillTileAll(5, blockTM, blockTM, highTG, highEdgeTG, outEdge, 4);
+        theCellMap.GetOneMap().FillTileAll(6, blockTM, blockTM, highTG, highEdgeTG, outEdge, 5);
     }
 
 }

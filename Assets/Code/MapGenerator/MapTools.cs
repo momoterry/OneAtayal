@@ -190,7 +190,12 @@ public class OneMap
     //    }
     //}
 
-    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true)
+    protected bool IsOut( int value, int inValue, int outValue)
+    {
+        return value != inValue && (outValue == OneMap.INVALID_VALUE || value == outValue);
+    }
+
+    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true, int outValue = OneMap.INVALID_VALUE)
     {
         if (outEdge)
         {
@@ -198,13 +203,15 @@ public class OneMap
             {
                 for (int y = 0; y < height; y++)
                 {
-                    if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
+                    int value = mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift];
+                    if (value == checkValue)
                     {
                         tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
                     }
                     else
                     {
-                        CheckAndSetOutsideEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
+                        if (IsOut(value, checkValue, outValue))
+                            CheckAndSetOutsideEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
                     }
                 }
             }
@@ -217,7 +224,7 @@ public class OneMap
                 {
                     if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
                     {
-                        if (!CheckAndSetInsideEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te))
+                        if (!CheckAndSetInsideEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te, outValue))
                             tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
                     }
                 }
@@ -235,9 +242,9 @@ public class OneMap
     //    FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te);
     //}
 
-    public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true)
+    public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true, int outValue = OneMap.INVALID_VALUE)
     {
-        FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te, outEdge);
+        FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te, outEdge, outValue);
     }
 
     //指定位置已經是外部 Tile ，檢查是否為邊界 Tile
@@ -333,14 +340,18 @@ public class OneMap
     }
 
     //指定位置已經是內部 Tile ，檢查是否為邊界 Tile
-    protected bool CheckAndSetInsideEdgeTile(int x, int y, int inValue, Tilemap tm, TileEdgeGroup te)
+    protected bool CheckAndSetInsideEdgeTile(int x, int y, int inValue, Tilemap tm, TileEdgeGroup te, int outValue = OneMap.INVALID_VALUE)
     {
         Vector3Int pos = new Vector3Int(x, y, 0);
         Vector3Int posD = new Vector3Int(x, y - 1, 0);
-        bool UU = GetValue(x, y + 1) != inValue;
-        bool DD = GetValue(x, y - 1) != inValue;
-        bool LL = GetValue(x - 1, y) != inValue;
-        bool RR = GetValue(x + 1, y) != inValue;
+        //bool UU = GetValue(x, y + 1) != inValue;
+        //bool DD = GetValue(x, y - 1) != inValue;
+        //bool LL = GetValue(x - 1, y) != inValue;
+        //bool RR = GetValue(x + 1, y) != inValue;
+        bool UU = IsOut(GetValue(x, y + 1), inValue, outValue);
+        bool DD = IsOut(GetValue(x, y - 1), inValue, outValue);
+        bool LL = IsOut(GetValue(x - 1, y), inValue, outValue);
+        bool RR = IsOut(GetValue(x + 1, y), inValue, outValue);
         if (UU)
         {
             if (LL)
@@ -385,10 +396,10 @@ public class OneMap
             return true;
         }
 
-        bool LU = GetValue(x - 1, y + 1) != inValue;
-        bool RU = GetValue(x + 1, y + 1) != inValue;
-        bool LD = GetValue(x - 1, y - 1) != inValue;
-        bool RD = GetValue(x + 1, y - 1) != inValue;
+        bool LU = IsOut(GetValue(x - 1, y + 1), inValue, outValue);
+        bool RU = IsOut(GetValue(x + 1, y + 1), inValue, outValue);
+        bool LD = IsOut(GetValue(x - 1, y - 1), inValue, outValue);
+        bool RD = IsOut(GetValue(x + 1, y - 1), inValue, outValue);
         if (LU)
         {
             te.SetTile(tm, MAP_EDGE_TYPE.LU_S, pos);
