@@ -77,10 +77,7 @@ public class OneMap
     public void InitMap(Vector2Int center, int width, int height, int initValue = DEFAULT_VALUE)
     {
         mapCenter = center;
-        //xMax = width / 2 + mapCenter.x;
-        //yMax = height / 2 + mapCenter.y;
-        //xMin = xMax - width;
-        //yMin = yMax - height;
+
         xMin = -width / 2 + mapCenter.x; yMin = -height / 2 + mapCenter.y;
         xMax = xMin + width - 1; yMax = yMin + height - 1;
         mapWidth = width;
@@ -172,23 +169,6 @@ public class OneMap
         }
     }
 
-    //public void FillTile( int _xMin , int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
-    //{
-    //    for (int x = 0; x < width; x++)
-    //    {
-    //        for (int y = 0; y < height; y++)
-    //        {
-    //            if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
-    //            {
-    //                tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
-    //            }
-    //            else
-    //            {
-    //                CheckAndSetEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te);
-    //            }
-    //        }
-    //    }
-    //}
 
     protected bool IsOut( int value, int inValue, int outValue)
     {
@@ -202,6 +182,7 @@ public class OneMap
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
+                //for (int y = height-1; y >=0 ; y--)
                 {
                     int value = mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift];
                     if (value == checkValue)
@@ -237,10 +218,6 @@ public class OneMap
         FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, tile);
     }
 
-    //public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdge2LGroup te)
-    //{
-    //    FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te);
-    //}
 
     public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true, int outValue = OneMap.INVALID_VALUE)
     {

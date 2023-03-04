@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileEdge2LGroupData : TileEdgeGroupDataBase
 {
-    TileEdge2LGroup data;
+    public TileEdge2LGroup data;
 
     public override TileEdgeGroup GetTileEdgeGroup()
     {

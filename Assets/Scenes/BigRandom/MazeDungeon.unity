@@ -512,6 +512,86 @@ MonoBehaviour:
   helperRef: {fileID: 8663039052864005658, guid: 3c35eaa8fb3da91479b29a405ee72a95, type: 3}
   hintRef: {fileID: 8143502755978418841, guid: 02b52fce1f87c0f4d945309081f6a49d, type: 3}
   winMessage: {fileID: 1146088104}
+--- !u!1 &617628352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 617628353}
+  - component: {fileID: 617628355}
+  - component: {fileID: 617628354}
+  m_Layer: 0
+  m_Name: WallTileGroupEdge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &617628353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617628352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &617628354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617628352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976bc3aa30f9ff844993996d93bea74f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    UU: {fileID: 0}
+    DD: {fileID: 0}
+    LL: {fileID: 0}
+    RR: {fileID: 0}
+    LU: {fileID: 0}
+    RU: {fileID: 0}
+    LD: {fileID: 0}
+    RD: {fileID: 0}
+    LU_S: {fileID: 0}
+    RU_S: {fileID: 0}
+    LD_S: {fileID: 0}
+    RD_S: {fileID: 0}
+    DD2: {fileID: 0}
+    LD2: {fileID: 0}
+    RD2: {fileID: 0}
+    LD_S2: {fileID: 0}
+    RD_S2: {fileID: 0}
+--- !u!114 &617628355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617628352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4bc83c655d36f4a808fc12c660e692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    baseTile: {fileID: 11400000, guid: 22b2f44bb8ef7bc4dac46951e1a7f948, type: 2}
+    decorateTiles:
+    - {fileID: 11400000, guid: 4a3f82930e4a9db4fadbbf0e669f8c3c, type: 2}
+    decorateRate: 0.05
 --- !u!1 &631198555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,7 +1260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285824}
-  cellSize: 4
+  cellSize: 6
   puzzleHeight: 6
   puzzleWidth: 6
   allConnect: 1
@@ -1202,6 +1282,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1014529278}
+  - {fileID: 617628353}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
