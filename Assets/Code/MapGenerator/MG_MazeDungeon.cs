@@ -4,23 +4,26 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 public class MG_MazeDungeon : MapGeneratorBase
 {
+    // 迷宮資料相關
     public int cellSize = 4;
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
     public bool allConnect = true;
     public bool extendTerminal = true;
     public GameObject finishPortalRef;
-    public GameObject helperRef;
-    public GameObject hintRef;
 
-    public Text winMessage;
+    // Tile 資料相關
+    public TileGroupData groundTileGroupData;
+    public Tilemap groundTM;
+    public Tilemap blockTM;
 
-    //基底地圖相關
-    protected int mapWidth = 12;
-    protected int mapHeight = 16;
+    //基底地圖相關 TODO: 希望獨立出去
+    protected int mapWidth = 0;
+    protected int mapHeight = 0;
     protected int borderWidth = 4;
     protected Vector3Int mapCenter;
     protected OneMap theMap = new OneMap();
@@ -34,6 +37,9 @@ public class MG_MazeDungeon : MapGeneratorBase
         DIRT_EDGE = 500,
         BLOCK_EDGE = 600,
     }
+
+    //Tile 資料
+    protected TileGroup groundTG;
 
     protected int bufferX = 0;
     protected int bufferY = 0;
@@ -88,20 +94,27 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
     }
 
+    public override void BuildAll(int buildLevel = 1)
+    {
+        groundTG = groundTileGroupData.GetTileGroup();
+
+        PreCreateMap();
+
+        theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
+
+
+        //主要地圖設計部份
+        CreateForestMap();
+
+        //theMap.PrintMap();
+
+        theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTG.baseTile);
+
+        theSurface2D.BuildNavMesh();
+    }
+
     protected void PreCreateMap()
     {
-        //讀取大小
-        int userSetSize = GameSystem.GetInstance().GetMazeUserSize();
-        if (userSetSize > 0)
-        {
-            puzzleHeight = userSetSize;
-            puzzleWidth = userSetSize;
-        }
-        if (winMessage)
-        {
-            winMessage.text = "恭喜你突破了\n" + puzzleWidth + " x " + puzzleHeight + "\n的迷宮挑戰";
-        }
-
         if (extendTerminal)
         {
             bufferX = 0;
@@ -126,9 +139,11 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     protected void FillCell(cellInfo cell, int x1, int y1, int width, int height)
     {
+        //print("FillCell: " + x1 + ", " + y1 + "(" + width + ", " + height + ")");
         int x2 = x1 + width - 1;
         int y2 = y1 + height - 1;
-        //FillSquareInMap((int)TILE_TYPE.GRASS, x1, y1, width, height);
+        theMap.FillValue(x1, y1, width, height, (int)TILE_TYPE.GRASS);
+
         theMap.SetValue(x1, y1, (int)TILE_TYPE.BLOCK);
         theMap.SetValue(x1, y2, (int)TILE_TYPE.BLOCK);
         theMap.SetValue(x2, y1, (int)TILE_TYPE.BLOCK);
@@ -172,26 +187,26 @@ public class MG_MazeDungeon : MapGeneratorBase
     }
 
     //TODO: 這個要換掉
-    protected void FillSquareInMap(int value, int x1, int y1, int width, int height)
-    {
-        for (int x = x1; x < x1 + width; x++)
-        {
-            for (int y = y1; y < y1 + height; y++)
-            {
-                theMap.SetValue(x, y, value);
-            }
-        }
-    }
+    //protected void FillSquareInMap(int value, int x1, int y1, int width, int height)
+    //{
+    //    for (int x = x1; x < x1 + width; x++)
+    //    {
+    //        for (int y = y1; y < y1 + height; y++)
+    //        {
+    //            theMap.SetValue(x, y, value);
+    //        }
+    //    }
+    //}
 
-    protected void MarkCellbyID(int _id)
-    {
-        //int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-        //int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
-        int x1 = GetCellX(_id) * cellSize + puzzleX1;
-        int y1 = GetCellY(_id) * cellSize + puzzleY1;
-        //FillSquareInMap((int)TILE_TYPE.DIRT, new Vector3Int(x1, y1, 0), cellSize, cellSize);
-        FillSquareInMap((int)TILE_TYPE.DIRT, x1, y1, cellSize, cellSize);
-    }
+    //protected void MarkCellbyID(int _id)
+    //{
+    //    //int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
+    //    //int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+    //    int x1 = GetCellX(_id) * cellSize + puzzleX1;
+    //    int y1 = GetCellY(_id) * cellSize + puzzleY1;
+    //    //FillSquareInMap((int)TILE_TYPE.DIRT, new Vector3Int(x1, y1, 0), cellSize, cellSize);
+    //    FillSquareInMap((int)TILE_TYPE.DIRT, x1, y1, cellSize, cellSize);
+    //}
 
     protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
     protected int GetCellX(int id) { return id % puzzleWidth; }
@@ -251,29 +266,29 @@ public class MG_MazeDungeon : MapGeneratorBase
         puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
         puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
 
-        MarkCellbyID(iStart);
-        MarkCellbyID(iEnd);
+        //MarkCellbyID(iStart);
+        //MarkCellbyID(iEnd);
         startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellSize + cellSize / 2, 1, puzzleY1 + GetCellY(iStart) * cellSize + cellSize / 2);
         endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellSize + cellSize / 2, 1, puzzleY1 + GetCellY(iEnd) * cellSize + cellSize / 2);
 
         //== 緩衝區處理
         if (extendTerminal)
         {
-            int bufferSizeY = bufferY * cellSize;
-            int bufferSizeX = bufferX * cellSize;
-            FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y - (mapHeight / 2), mapWidth, bufferSizeY);
-            FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y + (mapHeight / 2) - bufferSizeY, mapWidth, bufferSizeY);
-            FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y - (mapHeight / 2), bufferSizeX, mapHeight);
-            FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x + (mapWidth / 2) - bufferSizeX, mapCenter.y - (mapHeight / 2), bufferSizeX, mapHeight);
+            //int bufferSizeY = bufferY * cellSize;
+            //int bufferSizeX = bufferX * cellSize;
+            //FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y - (mapHeight / 2), mapWidth, bufferSizeY);
+            //FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y + (mapHeight / 2) - bufferSizeY, mapWidth, bufferSizeY);
+            //FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y - (mapHeight / 2), bufferSizeX, mapHeight);
+            //FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x + (mapWidth / 2) - bufferSizeX, mapCenter.y - (mapHeight / 2), bufferSizeX, mapHeight);
 
             //起始區處理
             cellInfo cStart = new cellInfo();
             cellInfo cEnd = new cellInfo();
             cStart.U = true;
             cEnd.D = true;
-            FillSquareInMap((int)TILE_TYPE.DIRT, puzzleX1 + GetCellX(iStart) * cellSize, puzzleY1 + (GetCellY(iStart) - 1) * cellSize, cellSize, cellSize);
+            //FillSquareInMap((int)TILE_TYPE.DIRT, puzzleX1 + GetCellX(iStart) * cellSize, puzzleY1 + (GetCellY(iStart) - 1) * cellSize, cellSize, cellSize);
             FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellSize, puzzleY1 + (GetCellY(iStart) - 1) * cellSize, cellSize, cellSize);
-            FillSquareInMap((int)TILE_TYPE.DIRT, puzzleX1 + GetCellX(iEnd) * cellSize, puzzleY1 + (GetCellY(iEnd) + 1) * cellSize, cellSize, cellSize);
+            //FillSquareInMap((int)TILE_TYPE.DIRT, puzzleX1 + GetCellX(iEnd) * cellSize, puzzleY1 + (GetCellY(iEnd) + 1) * cellSize, cellSize, cellSize);
             FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellSize, puzzleY1 + (GetCellY(iEnd) + 1) * cellSize, cellSize, cellSize);
             puzzleMap[GetCellX(iStart)][GetCellY(iStart)].D = true;
             puzzleMap[GetCellX(iEnd)][GetCellY(iEnd)].U = true;
@@ -298,168 +313,6 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     }
 
-    public override void BuildAll(int buildLevel = 1)
-    {
-        PreCreateMap();
 
-        //Vector3Int mapCenter = Vector3Int.zero;
-        theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
-
-        //==== 開始畫地圖
-        //基本地板
-        //FillSquareInMap((int)TILE_TYPE.GRASS, mapCenter, mapWidth, mapHeight);
-        //主要地圖設計部份
-        CreateForestMap();
-    }
-
-    //==========================================================================
-    //      找出正確路徑 
-    //==========================================================================
-
-    //方向順序: 上(0)、左(1)、右(2)、下(3)
-    protected bool SearchCell(cellInfo cell, int fromDir, int x, int y)
-    {
-        //print("Search: " + x + ", "+y);
-        Vector2Int newNode = new Vector2Int(x, y);
-        correctPathList.Add(newNode);
-
-        if (GetCellID(x, y) == iEnd)
-        {
-            //print("找到終點啦 !!");
-            return true;
-        }
-
-        bool result = false;
-        if (fromDir != 0 && cell.U)
-        {
-            result = SearchCell(puzzleMap[x][y + 1], 3, x, y + 1);
-            if (result)
-                return true;
-        }
-        if (fromDir != 1 && cell.L)
-        {
-            result = SearchCell(puzzleMap[x - 1][y], 2, x - 1, y);
-            if (result)
-                return true;
-        }
-        if (fromDir != 2 && cell.R)
-        {
-            result = SearchCell(puzzleMap[x + 1][y], 1, x + 1, y);
-            if (result)
-                return true;
-        }
-        if (fromDir != 3 && cell.D)
-        {
-            result = SearchCell(puzzleMap[x][y - 1], 0, x, y - 1);
-            if (result)
-                return true;
-        }
-
-        correctPathList.Remove(newNode);
-        return false;
-    }
-
-    protected void ShowCorrectPath()
-    {
-        //if (correctPathList.Count > 0)
-        //{
-        //    return;
-        //}
-        //int x = GetCellX(iStart);
-        //int y = GetCellY(iStart);
-        //bool result = SearchCell(puzzleMap[x][y], 3, x, y);
-        //if (result)
-        //{
-        //    //print("=========把路徑印出來 !!=============");
-        //    for (int i = 0; i < correctPathList.Count - 1; i++)
-        //    {
-        //        Vector2Int p = correctPathList[i];
-        //        Vector2Int pNext = correctPathList[i + 1];
-        //        MarkPathWithNext(p.x, p.y, pNext.x, pNext.y);
-        //    }
-        //    foreach (Vector2Int p in correctPathList)
-        //    {
-        //        GeneratePathTile(p.x, p.y);
-        //    }
-        //}
-
-        //if (winMessage)
-        //{
-        //    winMessage.text = "到達出口......";
-        //}
-    }
-
-    //protected void MarkPathWithNext(int x1, int y1, int x2, int y2)
-    //{
-    //    int x = Mathf.Min(x1, x2);
-    //    int y = Mathf.Min(y1, y2);
-    //    //int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-    //    //int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
-    //    int x0 = x * cellSize + puzzleX1 + 1;
-    //    int y0 = y * cellSize + puzzleY1 + 1;
-    //    int width = Mathf.Abs(x1 - x2) * cellSize + cellSize - 2;
-    //    int height = Mathf.Abs(y1 - y2) * cellSize + cellSize - 2;
-    //    FillSquareInMap((int)TILE_TYPE.DIRT, x0, y0, width, height);
-    //}
-
-    ////TODO: 這個無法使用
-    //protected void GeneratePathTile(int x, int y)
-    //{
-    //    //int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-    //    //int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
-    //    int x1 = x * cellSize + puzzleX1;
-    //    int y1 = y * cellSize + puzzleY1;
-    //    //EdgeDetectInMap((int)TILE_TYPE.DIRT, (int)TILE_TYPE.DIRT_EDGE, x1, y1, cellSize, cellSize);
-    //    //GenerateTiles(x1, y1, cellSize, cellSize);
-    //}
-
-    //==========================================================================
-    //      連接操作介面用 
-    //==========================================================================
-
-    public void OnCallHelp()
-    {
-        SystemUI.ShowYesNoMessageBox(OnHelpMessageBoxResult, "使用提示嗎? ");
-    }
-
-    public void OnHelpMessageBoxResult(MessageBox.RESULT result)
-    {
-        if (result == MessageBox.RESULT.YES && helperRef)
-        {
-            ShowCorrectPath();
-        }
-    }
-
-    public void OnReturnToStart()
-    {
-        SystemUI.ShowYesNoMessageBox(OnReturnMessageBoxResult, "你確定要回到起點嗎? ");
-    }
-
-    public void OnReturnMessageBoxResult(MessageBox.RESULT result)
-    {
-        if (result == MessageBox.RESULT.YES)
-        {
-            BattleSystem.GetPC().DoTeleport(startPos, 0);
-            pcAgent = BattleSystem.GetPC().gameObject.GetComponentInChildren<NavMeshAgent>();
-            if (pcAgent)
-            {
-                pcAgent.enabled = false;
-                pcNaveAgentToSleep = 5;
-            }
-        }
-    }
-
-    public void OnExitMaze()
-    {
-        SystemUI.ShowYesNoMessageBox(OnExitMessageBoxResult, "你確定要離開迷宮嗎? ");
-    }
-
-    public void OnExitMessageBoxResult(MessageBox.RESULT result)
-    {
-        if (result == MessageBox.RESULT.YES)
-        {
-            BattleSystem.GetInstance().OnBackPrevScene();
-        }
-    }
 }
 

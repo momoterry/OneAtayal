@@ -139,3 +139,12 @@ public class TileEdge2LGroup : TileEdgeGroup
         }
     }
 }
+
+public class TileGroupDataBase : MonoBehaviour
+{
+    public virtual TileGroup GetTileGroup() { return null; }
+}
+public class TileEdgeGroupDataBase : MonoBehaviour
+{
+    public virtual TileEdgeGroup GetTileEdgeGroup() { return null; }
+}
