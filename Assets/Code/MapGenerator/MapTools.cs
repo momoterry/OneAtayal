@@ -205,8 +205,13 @@ public class OneMap
                 {
                     if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
                     {
-                        if (!CheckAndSetInsideEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te, outValue))
+                        //if (!CheckAndSetInsideEdgeTile(_xMin + x, _yMin + y, checkValue, egdeTM, te, outValue))
+                        //    tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
+                        Tile t = te.GetInEdgeTile(this, _xMin + x, _yMin + y, checkValue, outValue);
+                        if (t == null)
                             tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
+                        else
+                            egdeTM.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), t);
                     }
                 }
             }

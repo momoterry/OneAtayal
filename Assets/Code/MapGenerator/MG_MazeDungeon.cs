@@ -110,7 +110,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         //theMap.PrintMap();
 
         //theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTG.baseTile);
-        theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, blockTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), true);
+        theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, blockTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false);
 
         theSurface2D.BuildNavMesh();
     }

@@ -60,13 +60,85 @@ public class TileEdgeGroup
     public Tile LD_S;
     public Tile RD_S;
 
+    protected bool IsOut(int value, int inValue, int outValue)
+    {
+        return value != inValue && (outValue == OneMap.INVALID_VALUE || value == outValue);
+    }
+
+    //確認這個點是否是外部邊界，必須檢查週邊是否為 in
     virtual public Tile GetOutEdgeTile(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
     {
         return null;
     }
 
+    //確認這個點是否是內部邊界，必須檢查週邊是否為 out
     virtual public Tile GetInEdgeTile(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
     {
+        bool bUU = IsOut(theMap.GetValue(x, y + 1), inValue, outValue);
+        bool bDD = IsOut(theMap.GetValue(x, y - 1), inValue, outValue);
+        bool bLL = IsOut(theMap.GetValue(x - 1, y), inValue, outValue);
+        bool bRR = IsOut(theMap.GetValue(x + 1, y), inValue, outValue);
+        //Debug.Log(""+bUU+bDD+bLL+bRR);
+        if (bUU)
+        {
+            if (bLL)
+            {
+                return LU;
+            }
+            else if (bRR)
+            {
+                return RU;
+            }
+            else
+            {
+                return UU;
+            }
+        }
+        if (bDD)
+        {
+            if (bLL)
+            {
+                return LD;
+            }
+            else if (bRR)
+            {
+                return RD;
+            }
+            else
+            {
+                return DD;
+            }
+        }
+
+        if (bLL)
+        {
+            return LL;
+        }
+        if (bRR)
+        {
+            return RR;
+        }
+
+        bool bLU = IsOut(theMap.GetValue(x - 1, y + 1), inValue, outValue);
+        bool bRU = IsOut(theMap.GetValue(x + 1, y + 1), inValue, outValue);
+        bool bLD = IsOut(theMap.GetValue(x - 1, y - 1), inValue, outValue);
+        bool bRD = IsOut(theMap.GetValue(x + 1, y - 1), inValue, outValue);
+        if (bLU)
+        {
+            return LU_S;
+        }
+        else if (bRU)
+        {
+            return RU_S;
+        }
+        else if (bLD)
+        {
+            return LD_S;
+        }
+        else if (bRD)
+        {
+            return RD_S;
+        }
         return null;
     }
 
