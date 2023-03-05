@@ -60,6 +60,24 @@ public class TileEdgeGroup
     public Tile LD_S;
     public Tile RD_S;
 
+    virtual public Tile GetOutEdgeTile(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
+    {
+        return null;
+    }
+
+    virtual public Tile GetInEdgeTile(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
+    {
+        return null;
+    }
+
+    virtual public Tile GetTileByMap(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE, bool outEdge = true)
+    {
+        if (outEdge)
+        {
+            return GetOutEdgeTile(theMap, x, y, inValue, outValue);
+        }
+        return null;
+    }
 
     //TODO: ÂÂ¤èªk¡A§Æ±æ®³±¼
     public Tile GetTile(MAP_EDGE_TYPE type)

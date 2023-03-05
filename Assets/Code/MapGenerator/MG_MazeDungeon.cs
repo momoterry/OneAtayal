@@ -17,7 +17,8 @@ public class MG_MazeDungeon : MapGeneratorBase
     public GameObject finishPortalRef;
 
     // Tile 資料相關
-    public TileGroupData groundTileGroupData;
+    public TileGroupData groundTileGroup;
+    public TileEdgeGroupData groundEdgeTileGroup;
     public Tilemap groundTM;
     public Tilemap blockTM;
 
@@ -39,7 +40,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     }
 
     //Tile 資料
-    protected TileGroup groundTG;
+    //protected TileGroup groundTG;
 
     protected int bufferX = 0;
     protected int bufferY = 0;
@@ -96,7 +97,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     public override void BuildAll(int buildLevel = 1)
     {
-        groundTG = groundTileGroupData.GetTileGroup();
+        //groundTG = groundTileGroupData.GetTileGroup();
 
         PreCreateMap();
 
@@ -104,11 +105,12 @@ public class MG_MazeDungeon : MapGeneratorBase
 
 
         //主要地圖設計部份
-        CreateForestMap();
+        CreatMazeMap();
 
         //theMap.PrintMap();
 
-        theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTG.baseTile);
+        //theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTG.baseTile);
+        theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, blockTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), true);
 
         theSurface2D.BuildNavMesh();
     }
@@ -212,7 +214,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected int GetCellX(int id) { return id % puzzleWidth; }
     protected int GetCellY(int id) { return id / puzzleWidth; }
 
-    protected  void CreateForestMap()
+    protected  void CreatMazeMap()
     {
         //==== Init Puzzle Map
         puzzleDSU.Init(puzzleHeight * puzzleWidth);

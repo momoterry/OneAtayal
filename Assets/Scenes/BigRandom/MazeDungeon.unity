@@ -123,6 +123,58 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &70346782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 70346784}
+  - component: {fileID: 70346783}
+  m_Layer: 0
+  m_Name: GrassTileGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &70346783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70346782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4bc83c655d36f4a808fc12c660e692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    baseTile: {fileID: 11400000, guid: a52410225b1b87042a69eb18dece0da3, type: 2}
+    decorateTiles:
+    - {fileID: 11400000, guid: 3d72eb588770cc04f9bc9b384fb43b6e, type: 2}
+    - {fileID: 11400000, guid: b2c00971e5fb7864d84b06102d4a3c4d, type: 2}
+    - {fileID: 11400000, guid: 6aac4b9c54c18cd4fa725527e4b26778, type: 2}
+    - {fileID: 11400000, guid: 094f9522d9924624f9e94dca90ce502d, type: 2}
+    decorateRate: 0.15
+--- !u!4 &70346784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70346782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &210802122 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2946355047569297642, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
@@ -521,7 +573,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 617628353}
-  - component: {fileID: 617628355}
   - component: {fileID: 617628354}
   m_Layer: 0
   m_Name: WallTileGroupEdge
@@ -575,23 +626,6 @@ MonoBehaviour:
     RD2: {fileID: 0}
     LD_S2: {fileID: 0}
     RD_S2: {fileID: 0}
---- !u!114 &617628355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617628352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4bc83c655d36f4a808fc12c660e692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data:
-    baseTile: {fileID: 11400000, guid: 22b2f44bb8ef7bc4dac46951e1a7f948, type: 2}
-    decorateTiles:
-    - {fileID: 11400000, guid: 4a3f82930e4a9db4fadbbf0e669f8c3c, type: 2}
-    decorateRate: 0.05
 --- !u!1 &631198555
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,6 +983,63 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1261523378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1261523379}
+  - component: {fileID: 1261523380}
+  m_Layer: 0
+  m_Name: HighEdgeTileGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1261523379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261523378}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1261523380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261523378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fcd6705922feb40a9d0b20adb957d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    UU: {fileID: 11400000, guid: ce5c00ad3f6aa11469c3a869a68c539d, type: 2}
+    DD: {fileID: 11400000, guid: 3c60cd8b824fff0418b8aa57045b6c9c, type: 2}
+    LL: {fileID: 11400000, guid: 0d2002363077b714db67fedb367b8f80, type: 2}
+    RR: {fileID: 11400000, guid: eb77351994ec76741b24ba2e81a9f3f7, type: 2}
+    LU: {fileID: 11400000, guid: 741f56aa413a65d46b46a085d7e3c594, type: 2}
+    RU: {fileID: 11400000, guid: 99adc075d16997f44a8195b461330aa3, type: 2}
+    LD: {fileID: 11400000, guid: 1b307f48b5a7d0f49adfb9aaf176be51, type: 2}
+    RD: {fileID: 11400000, guid: c02ed1ab1980b0742877e4200f76eb4e, type: 2}
+    LU_S: {fileID: 11400000, guid: 87bbb900b44dda24ea9ebaa2cc0afd6e, type: 2}
+    RU_S: {fileID: 11400000, guid: ecc7836295275bc42a5a9c4c5738c549, type: 2}
+    LD_S: {fileID: 11400000, guid: 30e9a92e899575847ba528de8f23f992, type: 2}
+    RD_S: {fileID: 11400000, guid: 82afa7dee820e5547952b61e7aa30a2f, type: 2}
 --- !u!1 &1337571695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,7 +1388,8 @@ MonoBehaviour:
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 0}
-  groundTileGroupData: {fileID: 1014529279}
+  groundTileGroup: {fileID: 70346783}
+  groundEdgeTileGroup: {fileID: 1261523380}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
 --- !u!4 &1806008470
@@ -1315,6 +1407,8 @@ Transform:
   - {fileID: 1014529278}
   - {fileID: 1337571696}
   - {fileID: 617628353}
+  - {fileID: 70346784}
+  - {fileID: 1261523379}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
