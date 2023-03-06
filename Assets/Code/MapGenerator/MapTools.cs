@@ -34,7 +34,7 @@ public class OneMap
         }
         return true;
     }
-    protected bool IsValid(Vector2Int coord)
+    public bool IsValid(Vector2Int coord)
     {
         if (coord.x < (xMin - edgeWidth) || coord.x > (xMax + edgeWidth)
             || coord.y < (yMin - edgeWidth) || coord.y > (yMax + edgeWidth))

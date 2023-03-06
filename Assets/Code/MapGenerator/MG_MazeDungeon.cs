@@ -18,7 +18,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     // Tile 資料相關
     public TileGroupData groundTileGroup;
-    public TileEdgeGroupData groundEdgeTileGroup;
+    public TileEdgeGroupDataBase groundEdgeTileGroup;
     public Tilemap groundTM;
     public Tilemap blockTM;
 

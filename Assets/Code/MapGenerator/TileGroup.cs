@@ -40,7 +40,11 @@ public enum MAP_EDGE_TYPE
     LD_S,// = 33,
     RD_S,// = 34,
 
-    
+    DD2,
+    LD2,
+    RD2,
+    LD_S2,
+    RD_S2,    
 }
 
 [System.Serializable]
@@ -61,6 +65,7 @@ public class TileEdgeGroup
     public Tile RU_S;
     public Tile LD_S;
     public Tile RD_S;
+
 
     protected bool IsOut(int value, int inValue, int outValue)
     {
@@ -230,8 +235,12 @@ public class TileEdgeGroup
         return null;
     }
 
-    //TODO: 舊方法，希望拿掉
-    public Tile GetTile(MAP_EDGE_TYPE type)
+    public Tile GetTile(int type)
+    {
+        return GetTile((MAP_EDGE_TYPE) type);
+    }
+
+    virtual public Tile GetTile(MAP_EDGE_TYPE type)
     {
         switch (type)
         {
@@ -307,8 +316,50 @@ public class TileEdge2LGroup : TileEdgeGroup
                 return;
         }
     }
+
+    public override Tile GetTile(MAP_EDGE_TYPE type)
+    {
+        switch (type)
+        {
+            case MAP_EDGE_TYPE.DD2:
+                return DD2;
+            case MAP_EDGE_TYPE.LD2:
+                return LD2;
+            case MAP_EDGE_TYPE.RD2:
+                return RD2;
+            case MAP_EDGE_TYPE.LD_S2:
+                return LD_S2;
+            case MAP_EDGE_TYPE.RD_S2:
+                return RD_S2;
+        }
+        return base.GetTile(type);
+    }
+
+    public override int GetInEdgeType(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
+    {
+        if (theMap.IsValid(new Vector2Int(x, y+1)))
+        {
+            int upEType = base.GetInEdgeType(theMap, x, y+1, inValue, outValue);
+            switch (upEType)
+            {
+                case (int)MAP_EDGE_TYPE.DD:
+                    return (int)MAP_EDGE_TYPE.DD2;
+                case (int)MAP_EDGE_TYPE.LD:
+                    return (int)MAP_EDGE_TYPE.LD2;
+                case (int)MAP_EDGE_TYPE.RD:
+                    return (int)MAP_EDGE_TYPE.RD2;
+                case (int)MAP_EDGE_TYPE.LD_S:
+                    return (int)MAP_EDGE_TYPE.LD_S2;
+                case (int)MAP_EDGE_TYPE.RD_S:
+                    return (int)MAP_EDGE_TYPE.RD_S2;
+            }
+        }
+        return base.GetInEdgeType(theMap, x, y, inValue, outValue);
+    }
 }
 
+
+//為了能共用 TileEdgeGtoup 的編輯，用來可獨立成一個 Component 的容器
 public class TileGroupDataBase : MonoBehaviour
 {
     public virtual TileGroup GetTileGroup() { return null; }
