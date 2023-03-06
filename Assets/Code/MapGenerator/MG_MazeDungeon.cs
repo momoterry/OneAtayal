@@ -10,6 +10,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 {
     // 迷宮資料相關
     public int cellSize = 4;
+    public int wallThick = 1;
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
     public bool allConnect = true;
@@ -110,7 +111,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         //theMap.PrintMap();
 
         //theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTG.baseTile);
-        theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, blockTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false);
+        theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, blockTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), true);
 
         theSurface2D.BuildNavMesh();
     }
@@ -141,34 +142,44 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     protected void FillCell(cellInfo cell, int x1, int y1, int width, int height)
     {
-        //print("FillCell: " + x1 + ", " + y1 + "(" + width + ", " + height + ")");
-        int x2 = x1 + width - 1;
-        int y2 = y1 + height - 1;
+        //int wallThick = 2;
+
+        int x2 = x1 + width - wallThick;
+        int y2 = y1 + height - wallThick;
         theMap.FillValue(x1, y1, width, height, (int)TILE_TYPE.GRASS);
 
-        theMap.SetValue(x1, y1, (int)TILE_TYPE.BLOCK);
-        theMap.SetValue(x1, y2, (int)TILE_TYPE.BLOCK);
-        theMap.SetValue(x2, y1, (int)TILE_TYPE.BLOCK);
-        theMap.SetValue(x2, y2, (int)TILE_TYPE.BLOCK);
+        //theMap.SetValue(x1, y1, (int)TILE_TYPE.BLOCK);
+        //theMap.SetValue(x1, y2, (int)TILE_TYPE.BLOCK);
+        //theMap.SetValue(x2, y1, (int)TILE_TYPE.BLOCK);
+        //theMap.SetValue(x2, y2, (int)TILE_TYPE.BLOCK);
+        theMap.FillValue(x1, y1, wallThick, wallThick, (int)TILE_TYPE.BLOCK);
+        theMap.FillValue(x1, y2, wallThick, wallThick, (int)TILE_TYPE.BLOCK);
+        theMap.FillValue(x2, y1, wallThick, wallThick, (int)TILE_TYPE.BLOCK);
+        theMap.FillValue(x2, y2, wallThick, wallThick, (int)TILE_TYPE.BLOCK);
+
         if (!cell.D)
         {
-            for (int x = x1 + 1; x < x2; x++)
-                theMap.SetValue(x, y1, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x1+ wallThick, y1, width- wallThick- wallThick, wallThick, (int)TILE_TYPE.BLOCK);
+            //for (int x = x1 + 1; x < x2; x++)
+            //    theMap.SetValue(x, y1, (int)TILE_TYPE.BLOCK);
         }
         if (!cell.U)
         {
-            for (int x = x1 + 1; x < x2; x++)
-                theMap.SetValue(x, y2, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x1 + wallThick, y2, width - wallThick - wallThick, wallThick, (int)TILE_TYPE.BLOCK);
+            //for (int x = x1 + 1; x < x2; x++)
+            //    theMap.SetValue(x, y2, (int)TILE_TYPE.BLOCK);
         }
         if (!cell.L)
         {
-            for (int y = y1 + 1; y < y2; y++)
-                theMap.SetValue(x1, y, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x1, y1 + wallThick, wallThick, height - wallThick - wallThick, (int)TILE_TYPE.BLOCK);
+            //for (int y = y1 + 1; y < y2; y++)
+            //    theMap.SetValue(x1, y, (int)TILE_TYPE.BLOCK);
         }
         if (!cell.R)
         {
-            for (int y = y1 + 1; y < y2; y++)
-                theMap.SetValue(x2, y, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x2, y1 + wallThick, wallThick, height - wallThick - wallThick, (int)TILE_TYPE.BLOCK);
+            //for (int y = y1 + 1; y < y2; y++)
+            //    theMap.SetValue(x2, y, (int)TILE_TYPE.BLOCK);
         }
     }
 

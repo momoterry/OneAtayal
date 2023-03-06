@@ -72,9 +72,11 @@ public class TileEdgeGroup
         return value != inValue && (outValue == OneMap.INVALID_VALUE || value == outValue);
     }
 
-    //確認這個點是否是外部邊界，必須檢查週邊是否為 in
+    //確認這個點是否是外部邊界，首先必須是外部，必須檢查週邊是否為 in
     virtual public int GetOutEdgeType(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
     {
+        if (!IsOut(theMap.GetValue(x, y), inValue, outValue))
+            return (int)MAP_EDGE_TYPE.NOT;
         bool bUU = theMap.GetValue(x, y + 1) == inValue;
         bool bDD = theMap.GetValue(x, y - 1) == inValue;
         bool bLL = theMap.GetValue(x - 1, y) == inValue;
@@ -146,6 +148,8 @@ public class TileEdgeGroup
     //確認這個點是否是內部邊界，必須檢查週邊是否為 out
     virtual public int GetInEdgeType(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
     {
+        if (theMap.GetValue(x, y) != inValue)
+            return (int)MAP_EDGE_TYPE.NOT;
         bool bUU = IsOut(theMap.GetValue(x, y + 1), inValue, outValue);
         bool bDD = IsOut(theMap.GetValue(x, y - 1), inValue, outValue);
         bool bLL = IsOut(theMap.GetValue(x - 1, y), inValue, outValue);
@@ -232,7 +236,10 @@ public class TileEdgeGroup
         {
             return GetOutEdgeTile(theMap, x, y, inValue, outValue);
         }
-        return null;
+        else
+        {
+            return GetInEdgeTile(theMap, x, y, inValue, outValue);
+        }
     }
 
     public Tile GetTile(int type)
@@ -355,6 +362,28 @@ public class TileEdge2LGroup : TileEdgeGroup
             }
         }
         return base.GetInEdgeType(theMap, x, y, inValue, outValue);
+    }
+
+    public override int GetOutEdgeType(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
+    {
+        if (theMap.IsValid(new Vector2Int(x, y + 1)))
+        {
+            int upEType = base.GetOutEdgeType(theMap, x, y + 1, inValue, outValue);
+            switch (upEType)
+            {
+                case (int)MAP_EDGE_TYPE.DD:
+                    return (int)MAP_EDGE_TYPE.DD2;
+                case (int)MAP_EDGE_TYPE.LD:
+                    return (int)MAP_EDGE_TYPE.LD2;
+                case (int)MAP_EDGE_TYPE.RD:
+                    return (int)MAP_EDGE_TYPE.RD2;
+                case (int)MAP_EDGE_TYPE.LD_S:
+                    return (int)MAP_EDGE_TYPE.LD_S2;
+                case (int)MAP_EDGE_TYPE.RD_S:
+                    return (int)MAP_EDGE_TYPE.RD_S2;
+            }
+        }
+        return base.GetOutEdgeType(theMap, x, y, inValue, outValue);
     }
 }
 
