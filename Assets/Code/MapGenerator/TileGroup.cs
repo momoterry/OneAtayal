@@ -44,7 +44,13 @@ public enum MAP_EDGE_TYPE
     LD2,
     RD2,
     LD_S2,
-    RD_S2,    
+    RD_S2,
+
+    UU2,
+    LU2,
+    RU2,
+    LU_S2,
+    RU_S2,
 }
 
 [System.Serializable]
@@ -244,12 +250,12 @@ public class TileEdgeGroup
 
     public Tile GetTile(int type)
     {
-        return GetTile((MAP_EDGE_TYPE) type);
+        return GetTile((MAP_EDGE_TYPE)type);
     }
 
     virtual public Tile GetTile(MAP_EDGE_TYPE type)
     {
-        switch (type)
+        switch ((MAP_EDGE_TYPE)type)
         {
             case MAP_EDGE_TYPE.UU:
                 return UU;

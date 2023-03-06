@@ -1253,6 +1253,73 @@ Transform:
   m_Father: {fileID: 1252285825}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1696140725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1696140726}
+  - component: {fileID: 1696140727}
+  m_Layer: 0
+  m_Name: WallEdgeTileGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1696140726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696140725}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1696140727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696140725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68ab9311db8512458b922dd67af2328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    UU: {fileID: 11400000, guid: 5161f0ac2def52d4ab420fbeaf79a3ce, type: 2}
+    DD: {fileID: 11400000, guid: 042c972a8e092ad46a1fd0334905f0e7, type: 2}
+    LL: {fileID: 11400000, guid: 113297f5b4bd7984aa7a7059bfa67311, type: 2}
+    RR: {fileID: 11400000, guid: 43223a2e73d10a54c87c589f3ee4c860, type: 2}
+    LU: {fileID: 11400000, guid: 113297f5b4bd7984aa7a7059bfa67311, type: 2}
+    RU: {fileID: 11400000, guid: 43223a2e73d10a54c87c589f3ee4c860, type: 2}
+    LD: {fileID: 11400000, guid: 14038a4c03b53ca489a1ef8ee162dcd5, type: 2}
+    RD: {fileID: 11400000, guid: e74ca7a4c20a2034fa64c43bcc0e65fd, type: 2}
+    LU_S: {fileID: 11400000, guid: bbf3799e930572943b7f3e4689a8352b, type: 2}
+    RU_S: {fileID: 11400000, guid: 4f4daa0743461e24f82977ce7079016f, type: 2}
+    LD_S: {fileID: 11400000, guid: b5c11f905ea07d34aa2972f19a2dc41d, type: 2}
+    RD_S: {fileID: 11400000, guid: 99985bc4bb45ef94b99d16e4757f281c, type: 2}
+    DD2: {fileID: 11400000, guid: 5161f0ac2def52d4ab420fbeaf79a3ce, type: 2}
+    LD2: {fileID: 11400000, guid: 249e6223c133742489691dd01f48bc83, type: 2}
+    RD2: {fileID: 11400000, guid: bc05d36908fd16f4ca78631d60397dd1, type: 2}
+    LD_S2: {fileID: 11400000, guid: a680b9ae2b2adb74d921c22d4921e50d, type: 2}
+    RD_S2: {fileID: 11400000, guid: 66de47510e5369340a1ee5307adc2fa8, type: 2}
+    UU2: {fileID: 11400000, guid: 042c972a8e092ad46a1fd0334905f0e7, type: 2}
+    LU2: {fileID: 11400000, guid: c86907c56b3b66d498d85b0354f031be, type: 2}
+    RU2: {fileID: 11400000, guid: f988b8636d1455d49acfa01b77dca066, type: 2}
+    LU_S2: {fileID: 11400000, guid: 7dfcc66948771f442afd6ce19441a781, type: 2}
+    RU_S2: {fileID: 11400000, guid: f927eac8c8339f441b615bcda367349e, type: 2}
 --- !u!1 &1767760862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,15 +1418,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285824}
-  cellSize: 8
-  wallThick: 2
+  cellSize: 10
+  wallThick: 3
   puzzleHeight: 6
   puzzleWidth: 6
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 0}
-  groundTileGroup: {fileID: 70346783}
-  groundEdgeTileGroup: {fileID: 617628354}
+  groundTileGroup: {fileID: 1014529279}
+  groundEdgeTileGroup: {fileID: 1696140727}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
 --- !u!4 &1806008470
@@ -1378,6 +1445,7 @@ Transform:
   - {fileID: 617628353}
   - {fileID: 70346784}
   - {fileID: 1261523379}
+  - {fileID: 1696140726}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
