@@ -26,19 +26,21 @@ public class TileGroup
 
 public enum MAP_EDGE_TYPE
 {
-    NOT = 0,
-    UU = 11,
-    DD = 12,
-    LL = 13,
-    RR = 14,
-    LU = 21,
-    RU = 22,
-    LD = 23,
-    RD = 24,
-    LU_S = 31,
-    RU_S = 32,
-    LD_S = 33,
-    RD_S = 34,
+    NOT,// = 0,
+    UU,// = 11,
+    DD,// = 12,
+    LL,// = 13,
+    RR,// = 14,
+    LU,// = 21,
+    RU,// = 22,
+    LD,// = 23,
+    RD,// = 24,
+    LU_S,// = 31,
+    RU_S,// = 32,
+    LD_S,// = 33,
+    RD_S,// = 34,
+
+    
 }
 
 [System.Serializable]
@@ -66,57 +68,122 @@ public class TileEdgeGroup
     }
 
     //確認這個點是否是外部邊界，必須檢查週邊是否為 in
-    virtual public Tile GetOutEdgeTile(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
+    virtual public int GetOutEdgeType(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
     {
-        return null;
-    }
+        bool bUU = theMap.GetValue(x, y + 1) == inValue;
+        bool bDD = theMap.GetValue(x, y - 1) == inValue;
+        bool bLL = theMap.GetValue(x - 1, y) == inValue;
+        bool bRR = theMap.GetValue(x + 1, y) == inValue;
 
-    //確認這個點是否是內部邊界，必須檢查週邊是否為 out
-    virtual public Tile GetInEdgeTile(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
-    {
-        bool bUU = IsOut(theMap.GetValue(x, y + 1), inValue, outValue);
-        bool bDD = IsOut(theMap.GetValue(x, y - 1), inValue, outValue);
-        bool bLL = IsOut(theMap.GetValue(x - 1, y), inValue, outValue);
-        bool bRR = IsOut(theMap.GetValue(x + 1, y), inValue, outValue);
-        //Debug.Log(""+bUU+bDD+bLL+bRR);
         if (bUU)
         {
             if (bLL)
             {
-                return LU;
+                return (int)MAP_EDGE_TYPE.RD_S;
             }
             else if (bRR)
             {
-                return RU;
+                return (int)MAP_EDGE_TYPE.LD_S;
             }
             else
             {
-                return UU;
+                return (int)MAP_EDGE_TYPE.DD;
             }
         }
         if (bDD)
         {
             if (bLL)
             {
-                return LD;
+                return (int)MAP_EDGE_TYPE.RU_S;
             }
             else if (bRR)
             {
-                return RD;
+                return (int)MAP_EDGE_TYPE.LU_S;
             }
             else
             {
-                return DD;
+                return (int)MAP_EDGE_TYPE.UU;
             }
         }
 
         if (bLL)
         {
-            return LL;
+            return (int)MAP_EDGE_TYPE.RR;
         }
         if (bRR)
         {
-            return RR;
+            return (int)MAP_EDGE_TYPE.LL;
+        }
+
+        bool bLU = theMap.GetValue(x - 1, y + 1) == inValue;
+        bool bRU = theMap.GetValue(x + 1, y + 1) == inValue;
+        bool bLD = theMap.GetValue(x - 1, y - 1) == inValue;
+        bool bRD = theMap.GetValue(x + 1, y - 1) == inValue;
+        if (bLU)
+        {
+            return (int)MAP_EDGE_TYPE.RD;
+        }
+        else if (bRU)
+        {
+            return (int)MAP_EDGE_TYPE.LD;
+        }
+        else if (bLD)
+        {
+            return (int)MAP_EDGE_TYPE.RU;
+        }
+        else if (bRD)
+        {
+            return (int)MAP_EDGE_TYPE.LU;
+        }
+        return (int)MAP_EDGE_TYPE.NOT;
+    }
+
+    //確認這個點是否是內部邊界，必須檢查週邊是否為 out
+    virtual public int GetInEdgeType(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
+    {
+        bool bUU = IsOut(theMap.GetValue(x, y + 1), inValue, outValue);
+        bool bDD = IsOut(theMap.GetValue(x, y - 1), inValue, outValue);
+        bool bLL = IsOut(theMap.GetValue(x - 1, y), inValue, outValue);
+        bool bRR = IsOut(theMap.GetValue(x + 1, y), inValue, outValue);
+
+        if (bUU)
+        {
+            if (bLL)
+            {
+                return (int)MAP_EDGE_TYPE.LU;
+            }
+            else if (bRR)
+            {
+                return (int)MAP_EDGE_TYPE.RU;
+            }
+            else
+            {
+                return (int)MAP_EDGE_TYPE.UU;
+            }
+        }
+        if (bDD)
+        {
+            if (bLL)
+            {
+                return (int)MAP_EDGE_TYPE.LD;
+            }
+            else if (bRR)
+            {
+                return (int)MAP_EDGE_TYPE.RD;
+            }
+            else
+            {
+                return (int)MAP_EDGE_TYPE.DD;
+            }
+        }
+
+        if (bLL)
+        {
+            return (int)MAP_EDGE_TYPE.LL;
+        }
+        if (bRR)
+        {
+            return (int)MAP_EDGE_TYPE.RR;
         }
 
         bool bLU = IsOut(theMap.GetValue(x - 1, y + 1), inValue, outValue);
@@ -125,21 +192,33 @@ public class TileEdgeGroup
         bool bRD = IsOut(theMap.GetValue(x + 1, y - 1), inValue, outValue);
         if (bLU)
         {
-            return LU_S;
+            return (int)MAP_EDGE_TYPE.LU_S;
         }
         else if (bRU)
         {
-            return RU_S;
+            return (int)MAP_EDGE_TYPE.RU_S;
         }
         else if (bLD)
         {
-            return LD_S;
+            return (int)MAP_EDGE_TYPE.LD_S;
         }
         else if (bRD)
         {
-            return RD_S;
+            return (int)MAP_EDGE_TYPE.RD_S;
         }
-        return null;
+        return (int)MAP_EDGE_TYPE.NOT;
+    }
+
+    //確認這個點是否是外部邊界，必須檢查週邊是否為 in
+    virtual public Tile GetOutEdgeTile(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
+    {
+        return GetTile((MAP_EDGE_TYPE)GetOutEdgeType(theMap, x, y, inValue, outValue));
+    }
+
+    //確認這個點是否是內部邊界，必須檢查週邊是否為 out
+    virtual public Tile GetInEdgeTile(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
+    {
+        return GetTile((MAP_EDGE_TYPE)GetInEdgeType(theMap, x, y, inValue, outValue));
     }
 
     virtual public Tile GetTileByMap(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE, bool outEdge = true)
