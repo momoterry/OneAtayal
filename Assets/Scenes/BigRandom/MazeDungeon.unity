@@ -1514,8 +1514,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285824}
-  cellSize: 12
-  wallThick: 3
+  cellWidth: 10
+  cellHeight: 12
+  wallWidth: 2
+  wallHeight: 3
   puzzleHeight: 6
   puzzleWidth: 6
   allConnect: 1
@@ -1800,10 +1802,14 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 16
-    m_Data: {fileID: 11400000, guid: a52410225b1b87042a69eb18dece0da3, type: 2}
+    m_Data: {fileID: 11400000, guid: 22b2f44bb8ef7bc4dac46951e1a7f948, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 16
-    m_Data: {fileID: -1564217899101464215, guid: a31c258059cdb1d4eb7af13a5cd8fa4a, type: 3}
+    m_Data: {fileID: -3595157876990494288, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 16
     m_Data:

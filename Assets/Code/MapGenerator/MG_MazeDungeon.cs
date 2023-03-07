@@ -10,8 +10,11 @@ using System.Dynamic;
 public class MG_MazeDungeon : MapGeneratorBase
 {
     // 迷宮資料相關
-    public int cellSize = 4;
-    public int wallThick = 1;
+    //public int cellSize = 4;
+    public int cellWidth = 4;
+    public int cellHeight = 4;
+    public int wallWidth = 2;
+    public int wallHeight = 2;
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
     public bool allConnect = true;
@@ -130,15 +133,15 @@ public class MG_MazeDungeon : MapGeneratorBase
             bufferY = 0;
             bufferX = 0;
         }
-        mapHeight = (puzzleHeight + bufferY + bufferY) * cellSize;  //加入上下緩衝
-        mapWidth = (puzzleWidth + bufferX + bufferX) * cellSize;
-        mapCenter.y = puzzleHeight * cellSize / 2 - (cellSize / 2);
+        mapHeight = (puzzleHeight + bufferY + bufferY) * cellHeight;  //加入上下緩衝
+        mapWidth = (puzzleWidth + bufferX + bufferX) * cellWidth;
+        mapCenter.y = puzzleHeight * cellHeight / 2 - (cellHeight / 2);
         if (extendTerminal)
-            mapCenter.y += cellSize;
+            mapCenter.y += cellHeight;
 
         if (puzzleWidth % 2 == 0)
         {
-            mapCenter.x = -cellSize / 2;
+            mapCenter.x = -cellWidth / 2;
         }
     }
 
@@ -146,40 +149,40 @@ public class MG_MazeDungeon : MapGeneratorBase
     {
         //int wallThick = 2;
 
-        int x2 = x1 + width - wallThick;
-        int y2 = y1 + height - wallThick;
+        int x2 = x1 + width - wallWidth;
+        int y2 = y1 + height - wallHeight;
         theMap.FillValue(x1, y1, width, height, (int)TILE_TYPE.GRASS);
 
         //theMap.SetValue(x1, y1, (int)TILE_TYPE.BLOCK);
         //theMap.SetValue(x1, y2, (int)TILE_TYPE.BLOCK);
         //theMap.SetValue(x2, y1, (int)TILE_TYPE.BLOCK);
         //theMap.SetValue(x2, y2, (int)TILE_TYPE.BLOCK);
-        theMap.FillValue(x1, y1, wallThick, wallThick, (int)TILE_TYPE.BLOCK);
-        theMap.FillValue(x1, y2, wallThick, wallThick, (int)TILE_TYPE.BLOCK);
-        theMap.FillValue(x2, y1, wallThick, wallThick, (int)TILE_TYPE.BLOCK);
-        theMap.FillValue(x2, y2, wallThick, wallThick, (int)TILE_TYPE.BLOCK);
+        theMap.FillValue(x1, y1, wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
+        theMap.FillValue(x1, y2, wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
+        theMap.FillValue(x2, y1, wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
+        theMap.FillValue(x2, y2, wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
 
         if (!cell.D)
         {
-            theMap.FillValue(x1+ wallThick, y1, width- wallThick- wallThick, wallThick, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x1+ wallWidth, y1, width- wallWidth - wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
             //for (int x = x1 + 1; x < x2; x++)
             //    theMap.SetValue(x, y1, (int)TILE_TYPE.BLOCK);
         }
         if (!cell.U)
         {
-            theMap.FillValue(x1 + wallThick, y2, width - wallThick - wallThick, wallThick, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x1 + wallWidth, y2, width - wallWidth - wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
             //for (int x = x1 + 1; x < x2; x++)
             //    theMap.SetValue(x, y2, (int)TILE_TYPE.BLOCK);
         }
         if (!cell.L)
         {
-            theMap.FillValue(x1, y1 + wallThick, wallThick, height - wallThick - wallThick, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x1, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)TILE_TYPE.BLOCK);
             //for (int y = y1 + 1; y < y2; y++)
             //    theMap.SetValue(x1, y, (int)TILE_TYPE.BLOCK);
         }
         if (!cell.R)
         {
-            theMap.FillValue(x2, y1 + wallThick, wallThick, height - wallThick - wallThick, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x2, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)TILE_TYPE.BLOCK);
             //for (int y = y1 + 1; y < y2; y++)
             //    theMap.SetValue(x2, y, (int)TILE_TYPE.BLOCK);
         }
@@ -200,28 +203,6 @@ public class MG_MazeDungeon : MapGeneratorBase
             cell_2.D = true;
         }
     }
-
-    //TODO: 這個要換掉
-    //protected void FillSquareInMap(int value, int x1, int y1, int width, int height)
-    //{
-    //    for (int x = x1; x < x1 + width; x++)
-    //    {
-    //        for (int y = y1; y < y1 + height; y++)
-    //        {
-    //            theMap.SetValue(x, y, value);
-    //        }
-    //    }
-    //}
-
-    //protected void MarkCellbyID(int _id)
-    //{
-    //    //int puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-    //    //int puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
-    //    int x1 = GetCellX(_id) * cellSize + puzzleX1;
-    //    int y1 = GetCellY(_id) * cellSize + puzzleY1;
-    //    //FillSquareInMap((int)TILE_TYPE.DIRT, new Vector3Int(x1, y1, 0), cellSize, cellSize);
-    //    FillSquareInMap((int)TILE_TYPE.DIRT, x1, y1, cellSize, cellSize);
-    //}
 
     protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
     protected int GetCellX(int id) { return id % puzzleWidth; }
@@ -312,11 +293,11 @@ public class MG_MazeDungeon : MapGeneratorBase
 
 
         //==== Set up all cells
-        puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
-        puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
+        puzzleX1 = mapCenter.x - (puzzleWidth * cellWidth / 2);
+        puzzleY1 = mapCenter.y - (puzzleHeight * cellHeight / 2);
 
-        startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellSize + cellSize / 2, 1, puzzleY1 + GetCellY(iStart) * cellSize + cellSize / 2);
-        endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellSize + cellSize / 2, 1, puzzleY1 + GetCellY(iEnd) * cellSize + cellSize / 2);
+        startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iStart) * cellHeight + cellHeight / 2);
+        endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
 
         //== 緩衝區處理
         if (extendTerminal)
@@ -326,13 +307,13 @@ public class MG_MazeDungeon : MapGeneratorBase
             cellInfo cEnd = new cellInfo();
             cStart.U = true;
             cEnd.D = true;
-            FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellSize, puzzleY1 + (GetCellY(iStart) - 1) * cellSize, cellSize, cellSize);
-            FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellSize, puzzleY1 + (GetCellY(iEnd) + 1) * cellSize, cellSize, cellSize);
+            FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellWidth, puzzleY1 + (GetCellY(iStart) - 1) * cellHeight, cellWidth, cellHeight);
+            FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellWidth, puzzleY1 + (GetCellY(iEnd) + 1) * cellHeight, cellWidth, cellHeight);
             puzzleMap[GetCellX(iStart)][GetCellY(iStart)].D = true;
             puzzleMap[GetCellX(iEnd)][GetCellY(iEnd)].U = true;
 
-            startPos.z -= cellSize;
-            endPos.z += cellSize;
+            startPos.z -= cellHeight;
+            endPos.z += cellHeight;
         }
 
         int startValue = puzzleDSU.Find(iStart);
@@ -340,12 +321,12 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             for (int j = 0; j < puzzleHeight; j++)
             {
-                int x1 = puzzleX1 + i * cellSize;
-                int y1 = puzzleY1 + j * cellSize;
+                int x1 = puzzleX1 + i * cellWidth;
+                int y1 = puzzleY1 + j * cellHeight;
                 if (allConnect)
-                    FillCell(puzzleMap[i][j], x1, y1, cellSize, cellSize);
+                    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
                 else if (puzzleDSU.Find(GetCellID(i, j)) == startValue)
-                    FillCell(puzzleMap[i][j], x1, y1, cellSize, cellSize);
+                    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
             }
         }
 
