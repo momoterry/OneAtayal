@@ -18,8 +18,9 @@ public class MG_MazeDungeon : MapGeneratorBase
     public GameObject finishPortalRef;
 
     // Tile 資料相關
-    public TileGroupData groundTileGroup;
+    public TileGroupDataBase groundTileGroup;
     public TileEdgeGroupDataBase groundEdgeTileGroup;
+    public TileEdgeGroupDataBase wallEdgeTileGroup;
     public Tilemap groundTM;
     public Tilemap blockTM;
 
@@ -110,8 +111,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
         //theMap.PrintMap();
 
-        //theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTG.baseTile);
-        theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, blockTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), true);
+        theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false);
+        theMap.FillTileAll((int)TILE_TYPE.GRASS, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true);
 
         theSurface2D.BuildNavMesh();
     }

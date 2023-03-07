@@ -186,7 +186,8 @@ public class OneMap
                     int value = mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift];
                     if (value == checkValue)
                     {
-                        tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
+                        if (tm && tg!=null)
+                            tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
                     }
                     else
                     {
@@ -230,7 +231,8 @@ public class OneMap
                     }
                     else if (GetValue(x, y) == checkValue)
                     {
-                        tm.SetTile(new Vector3Int(x, y, 0), tg.GetOneTile());
+                        if (tm && tg != null)
+                            tm.SetTile(new Vector3Int(x, y, 0), tg.GetOneTile());
                     }
                 }
             }
