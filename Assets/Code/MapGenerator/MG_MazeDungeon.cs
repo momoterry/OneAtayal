@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using System.Dynamic;
 
 public class MG_MazeDungeon : MapGeneratorBase
 {
@@ -13,7 +14,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     public int wallThick = 1;
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
-    public bool allConnect = true;
+    //public bool allConnect = true;
     public bool extendTerminal = true;
     public GameObject finishPortalRef;
 
@@ -240,6 +241,7 @@ public class MG_MazeDungeon : MapGeneratorBase
             }
         }
         //==== Init Connection Info
+
         for (int x = 0; x < puzzleWidth; x++)
         {
             for (int y = 0; y < puzzleHeight; y++)
@@ -251,28 +253,47 @@ public class MG_MazeDungeon : MapGeneratorBase
             }
         }
 
+
         //==== 開始隨機連結 !!
         iStart = GetCellID(puzzleWidth / 2, 0);
         iEnd = GetCellID(puzzleWidth / 2, puzzleHeight - 1);
 
-        int loop = 0;
-        int wallTotal = wallList.Count;
-        while (loop < wallTotal)
+        //int loop = 0;
+        //int wallTotal = wallList.Count;
+        //while (loop < wallTotal)
+        //{
+        //    loop++;
+        //    int rd = Random.Range(0, wallList.Count);
+        //    wallInfo w = wallList[rd];
+        //    if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
+        //    {
+        //        ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+        //        puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+        //    }
+        //    wallList.Remove(w);
+
+        //    if (!allConnect && (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd)))
+        //    {
+        //        print("發現大祕寶啦 !! Loop = " + (loop + 1));
+        //        break;
+        //    }
+        //}
+
+        //使用隨機排序
+        OneUtility.Shuffle(wallList);
+        //for (int i = wallList.Count - 1; i > 0; i--)
+        //{
+        //    int j = Random.Range(0, i + 1);
+        //    wallInfo temp = wallList[i];
+        //    wallList[i] = wallList[j];
+        //    wallList[j] = temp;
+        //}
+        foreach (wallInfo w in wallList)
         {
-            loop++;
-            int rd = Random.Range(0, wallList.Count);
-            wallInfo w = wallList[rd];
             if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
             {
                 ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
                 puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-            }
-            wallList.Remove(w);
-
-            if (!allConnect && (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd)))
-            {
-                print("發現大祕寶啦 !! Loop = " + (loop + 1));
-                break;
             }
         }
 
