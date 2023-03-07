@@ -5,7 +5,7 @@ using UnityEngine;
 
 class OneUtility
 {
-    //改寫自 ChatGPT
+    //改寫自 AI
     static public void Shuffle<T>(T[] array)
     {
         for (int i = array.Length - 1; i > 0; i--)
@@ -17,7 +17,7 @@ class OneUtility
         }
     }
 
-    //改寫自 ChatGPT
+    //改寫自 AI
     static public void Shuffle<T>(List<T> list)
     {
         int n = list.Count;
