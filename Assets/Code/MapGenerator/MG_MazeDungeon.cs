@@ -14,7 +14,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     public int wallThick = 1;
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
-    //public bool allConnect = true;
+    public bool allConnect = true;
     public bool extendTerminal = true;
     public GameObject finishPortalRef;
 
@@ -258,72 +258,75 @@ public class MG_MazeDungeon : MapGeneratorBase
         iStart = GetCellID(puzzleWidth / 2, 0);
         iEnd = GetCellID(puzzleWidth / 2, puzzleHeight - 1);
 
-        //int loop = 0;
-        //int wallTotal = wallList.Count;
-        //while (loop < wallTotal)
-        //{
-        //    loop++;
-        //    int rd = Random.Range(0, wallList.Count);
-        //    wallInfo w = wallList[rd];
-        //    if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
-        //    {
-        //        ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-        //        puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-        //    }
-        //    wallList.Remove(w);
-
-        //    if (!allConnect && (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd)))
-        //    {
-        //        print("發現大祕寶啦 !! Loop = " + (loop + 1));
-        //        break;
-        //    }
-        //}
-
-        //使用隨機排序
-        OneUtility.Shuffle(wallList);
-        //for (int i = wallList.Count - 1; i > 0; i--)
-        //{
-        //    int j = Random.Range(0, i + 1);
-        //    wallInfo temp = wallList[i];
-        //    wallList[i] = wallList[j];
-        //    wallList[j] = temp;
-        //}
-        foreach (wallInfo w in wallList)
+        if (allConnect)
         {
-            if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
+            //使用隨機排序
+            OneUtility.Shuffle(wallList);
+            foreach (wallInfo w in wallList)
             {
-                ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-                puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+                if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
+                {
+                    ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+                    puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+                }
             }
         }
+        else
+        {
+            //使用隨機排序
+            OneUtility.Shuffle(wallList);
+            foreach (wallInfo w in wallList)
+            {
+                if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
+                {
+                    ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+                    puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+                    if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
+                    {
+                        //print("發現大祕寶啦 !! Loop = " + (loop + 1));
+                        break;
+                    }
+                }
+            }
+            //int loop = 0;
+            //int wallTotal = wallList.Count;
+            //while (loop < wallTotal)
+            //{
+            //    loop++;
+            //    int rd = Random.Range(0, wallList.Count);
+            //    wallInfo w = wallList[rd];
+            //    if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
+            //    {
+            //        ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+            //        puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+            //    }
+            //    wallList.Remove(w);
+
+            //    if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
+            //    {
+            //        //print("發現大祕寶啦 !! Loop = " + (loop + 1));
+            //        break;
+            //    }
+            //}
+        }
+
 
         //==== Set up all cells
         puzzleX1 = mapCenter.x - (puzzleWidth * cellSize / 2);
         puzzleY1 = mapCenter.y - (puzzleHeight * cellSize / 2);
 
-        //MarkCellbyID(iStart);
-        //MarkCellbyID(iEnd);
         startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellSize + cellSize / 2, 1, puzzleY1 + GetCellY(iStart) * cellSize + cellSize / 2);
         endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellSize + cellSize / 2, 1, puzzleY1 + GetCellY(iEnd) * cellSize + cellSize / 2);
 
         //== 緩衝區處理
         if (extendTerminal)
         {
-            //int bufferSizeY = bufferY * cellSize;
-            //int bufferSizeX = bufferX * cellSize;
-            //FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y - (mapHeight / 2), mapWidth, bufferSizeY);
-            //FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y + (mapHeight / 2) - bufferSizeY, mapWidth, bufferSizeY);
-            //FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x - (mapWidth / 2), mapCenter.y - (mapHeight / 2), bufferSizeX, mapHeight);
-            //FillSquareInMap((int)TILE_TYPE.BLOCK, mapCenter.x + (mapWidth / 2) - bufferSizeX, mapCenter.y - (mapHeight / 2), bufferSizeX, mapHeight);
-
             //起始區處理
             cellInfo cStart = new cellInfo();
             cellInfo cEnd = new cellInfo();
             cStart.U = true;
             cEnd.D = true;
-            //FillSquareInMap((int)TILE_TYPE.DIRT, puzzleX1 + GetCellX(iStart) * cellSize, puzzleY1 + (GetCellY(iStart) - 1) * cellSize, cellSize, cellSize);
             FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellSize, puzzleY1 + (GetCellY(iStart) - 1) * cellSize, cellSize, cellSize);
-            //FillSquareInMap((int)TILE_TYPE.DIRT, puzzleX1 + GetCellX(iEnd) * cellSize, puzzleY1 + (GetCellY(iEnd) + 1) * cellSize, cellSize, cellSize);
             FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellSize, puzzleY1 + (GetCellY(iEnd) + 1) * cellSize, cellSize, cellSize);
             puzzleMap[GetCellX(iStart)][GetCellY(iStart)].D = true;
             puzzleMap[GetCellX(iEnd)][GetCellY(iEnd)].U = true;
@@ -332,13 +335,17 @@ public class MG_MazeDungeon : MapGeneratorBase
             endPos.z += cellSize;
         }
 
+        int startValue = puzzleDSU.Find(iStart);
         for (int i = 0; i < puzzleWidth; i++)
         {
             for (int j = 0; j < puzzleHeight; j++)
             {
                 int x1 = puzzleX1 + i * cellSize;
                 int y1 = puzzleY1 + j * cellSize;
-                FillCell(puzzleMap[i][j], x1, y1, cellSize, cellSize);
+                if (allConnect)
+                    FillCell(puzzleMap[i][j], x1, y1, cellSize, cellSize);
+                else if (puzzleDSU.Find(GetCellID(i, j)) == startValue)
+                    FillCell(puzzleMap[i][j], x1, y1, cellSize, cellSize);
             }
         }
 
