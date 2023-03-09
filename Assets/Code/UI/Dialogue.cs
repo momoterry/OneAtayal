@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DialogueContent
 {
     public string name;
+    public Sprite headImage;
     public string[] textContents;
 }
 
@@ -18,6 +19,8 @@ public class Dialogue : MonoBehaviour
 
     public Text theText;
     public Text talkerName;
+    public GameObject headWindow;
+    public Image headImage;
 
     [TextArea(2, 10)]
     public string[] overwriteContents;
@@ -152,6 +155,18 @@ public class Dialogue : MonoBehaviour
             if (talkerName)
             {
                 talkerName.text = content.name;
+            }
+            if (headWindow)
+            {
+                if (content.headImage && headImage)
+                {
+                    headWindow.SetActive(true);
+                    headImage.sprite = content.headImage;
+                }
+                else
+                {
+                    headWindow.SetActive(false);
+                }
             }
             InitContent();
 

@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.UI;
 
 public class DialogueTrigger : MonoBehaviour
 {
     public GameObject[] EndTriggers;
 
     public string speakerName;
+    public Sprite speakerImage;
     [TextArea(2, 10)]
     public string[] dialogueContents;
 
@@ -33,6 +35,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         DialogueContent dc = new DialogueContent();
         dc.name = speakerName;
+        dc.headImage = speakerImage;
         dc.textContents = dialogueContents;
         if (theDialogue)
         {
