@@ -9,6 +9,39 @@ public class MG_PerlinNoise : MG_TerrainBase
     public float highRatio = 0.35f;
     public float lowRatio = 0.35f;
     public bool outEdge = true;
+
+    protected enum MY_VALUE
+    {
+        NORMAL = 1,
+        LOW = 2,
+        HIGH = 3,
+        HIGH_2 = 4,
+        HIGH_3 = 5,
+        HIGH_4 = 6,
+    }
+
+
+    protected virtual int GetMapValue(float perlinValue)
+    {
+        if (perlinValue > 1.0f - highRatio)
+        {
+            if (perlinValue > 1.0f - highRatio + 0.3f)
+                return (int)MY_VALUE.HIGH_4;
+            else if (perlinValue > 1.0f - highRatio + 0.2f)
+                return  (int)MY_VALUE.HIGH_3;
+            else if (perlinValue > 1.0f - highRatio + 0.1f)
+                return  (int)MY_VALUE.HIGH_2;
+            else
+                return (int)MY_VALUE.HIGH;
+        }
+        else if (perlinValue < lowRatio)
+        {
+            return (int)MY_VALUE.LOW;
+        }
+        else
+            return (int)MY_VALUE.NORMAL;
+    }
+
     protected override void GenerateCellMap()
     {
         float noiseScale = (float)NoiseScaleOn256  / 256.0f;
@@ -20,35 +53,36 @@ public class MG_PerlinNoise : MG_TerrainBase
             for (int y= theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
             {
                 float rd = Mathf.PerlinNoise((float)x * noiseScale + xShift, (float)y * noiseScale + yShift);
-                if ( rd > 1.0f - highRatio)
-                {
-                    if (rd > 1.0f - highRatio + 0.3f)
-                        theCellMap.SetValue(x, y, 6);
-                    else if (rd > 1.0f - highRatio + 0.2f)
-                        theCellMap.SetValue(x, y, 5);
-                    else if (rd > 1.0f - highRatio + 0.1f)
-                        theCellMap.SetValue(x, y, 4);
-                    else
-                        theCellMap.SetValue(x, y, 3);
-                }
-                else if (rd < lowRatio)
-                {
-                    theCellMap.SetValue(x, y, 2);
-                }
-                else
-                    theCellMap.SetValue(x, y, 1);
+                //if ( rd > 1.0f - highRatio)
+                //{
+                //    if (rd > 1.0f - highRatio + 0.3f)
+                //        theCellMap.SetValue(x, y, (int)MY_VALUE.HIGH_4);
+                //    else if (rd > 1.0f - highRatio + 0.2f)
+                //        theCellMap.SetValue(x, y, (int)MY_VALUE.HIGH_3);
+                //    else if (rd > 1.0f - highRatio + 0.1f)
+                //        theCellMap.SetValue(x, y, (int)MY_VALUE.HIGH_2);
+                //    else
+                //        theCellMap.SetValue(x, y, (int)MY_VALUE.HIGH);
+                //}
+                //else if (rd < lowRatio)
+                //{
+                //    theCellMap.SetValue(x, y, (int)MY_VALUE.LOW);
+                //}
+                //else
+                //    theCellMap.SetValue(x, y, (int)MY_VALUE.NORMAL);
+                theCellMap.SetValue(x, y, GetMapValue(rd));
             }
         }
     }
 
     protected override void FillTiles()
     {
-        theCellMap.GetOneMap().FillTileAll(1, groundTM, planTG.baseTile);
-        theCellMap.GetOneMap().FillTileAll(2, groundTM, groundTM, lowTG, lowEdgeTG, outEdge, 1);
-        theCellMap.GetOneMap().FillTileAll(3, blockTM, blockTM, highTG, highEdgeTG, outEdge, 1);
-        theCellMap.GetOneMap().FillTileAll(4, blockTM, blockTM, highTG, highEdgeTG, outEdge, 3);
-        theCellMap.GetOneMap().FillTileAll(5, blockTM, blockTM, highTG, highEdgeTG, outEdge, 4);
-        theCellMap.GetOneMap().FillTileAll(6, blockTM, blockTM, highTG, highEdgeTG, outEdge, 5);
+        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.NORMAL, groundTM, planTG.baseTile);
+        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.LOW, groundTM, groundTM, lowTG, lowEdgeTG, outEdge, (int)MY_VALUE.NORMAL);
+        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.NORMAL);
+        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH_2, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.HIGH);
+        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH_3, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.HIGH_2);
+        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH_4, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.HIGH_3);
     }
 
 }
