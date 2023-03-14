@@ -39,11 +39,16 @@ public class MiniMap : MonoBehaviour
         RevealMap(x, y);
     }
 
+    protected int px, py;
+
     public void RevealMap(int _x, int _y)
     {
         //Align
-        _x = (_x + 4) / 8 * 8;
-        _y = (_y + 4) / 8 * 8;
+        _x = (_x ) / 8 * 8;
+        _y = (_y ) / 8 * 8;
+        //print(_x + ", " + _y);
+        px = _x;
+        py = _y;
 
         int x = _x - xMin;
         int y = _y - yMin;
@@ -131,5 +136,10 @@ public class MiniMap : MonoBehaviour
         {
             MaskImage.sprite = maskSprite;
         }
+    }
+
+    private void OnGUI()
+    {
+        GUI.TextArea(new Rect(100, 100, 100, 50), "( " + px + ", " + py + " )");
     }
 }
