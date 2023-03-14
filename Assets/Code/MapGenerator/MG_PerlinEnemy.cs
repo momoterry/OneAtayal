@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 
 public class MG_PerlinEnemy : MG_PerlinNoise
 {
     public GameObject stoneSpawnerRef;
-    public Image MiniMapImageTest;
+    //public Image MiniMapImageTest;
+    public MiniMap theMiniMap;  //TODO: 改用 Global 呼叫的方式取得
     protected override void FillTiles()
     {
         base.FillTiles();
@@ -27,95 +28,105 @@ public class MG_PerlinEnemy : MG_PerlinNoise
         //    }
         //}
 
-        if (MiniMapImageTest)
+        //if (MiniMapImageTest)
+        //{
+        //    float tSep = Time.realtimeSinceStartup;
+        //    MiniMapImageTest.sprite = CreateMiniMapSprite();
+        //    tSep = Time.realtimeSinceStartup - tSep;
+        //    print("小地圖創建時間: " + tSep);
+        //}
+        if (theMiniMap)
         {
-            float tSep = Time.realtimeSinceStartup;
-            //Texture2D newTexture = CreateTextures();
-            MiniMapImageTest.sprite = CreateMiniMapSprite();
-            tSep = Time.realtimeSinceStartup - tSep;
-            print("小地圖創建時間: " + tSep);
+            theMiniMap.CreateMinMap(theCellMap.GetOneMap());
         }
     }
 
-    Sprite CreateMiniMapSprite()
-    {
-        OneMap theMap = theCellMap.GetOneMap();
-        int tWidth = Mathf.NextPowerOfTwo(theMap.mapWidth);
-        int tHeight = Mathf.NextPowerOfTwo(theMap.mapHeight);
-        Color[] colorMap = new Color[tWidth * tHeight];
+    //Sprite CreateMiniMapSprite()
+    //{
+    //    OneMap theMap = theCellMap.GetOneMap();
+    //    int tWidth = Mathf.NextPowerOfTwo(theMap.mapWidth);
+    //    int tHeight = Mathf.NextPowerOfTwo(theMap.mapHeight);
+    //    Color[] colorMap = new Color[tWidth * tHeight];
 
-        for (int y = 0; y < theMap.mapHeight; y++)
-        {
-            for (int x = 0; x < theMap.mapWidth; x++)
-            {
-                int value = theMap.GetValue(x + theMap.xMin, y + theMap.yMin);
-                Color color = Color.black;
-                switch (value)
-                {
-                    case (int)MY_VALUE.NORMAL:
-                        color = Color.green;
-                        break;
-                    case (int)MY_VALUE.LOW:
-                        color = Color.yellow;
-                        break;
-                    case (int)MY_VALUE.HIGH:
-                    case (int)MY_VALUE.HIGH_2:
-                    case (int)MY_VALUE.HIGH_3:
-                        color = new Color(0, 0.5f, 0);
-                        break;
+    //    for (int y = 0; y < theMap.mapHeight; y++)
+    //    {
+    //        for (int x = 0; x < theMap.mapWidth; x++)
+    //        {
+    //            int value = theMap.GetValue(x + theMap.xMin, y + theMap.yMin);
+    //            Color color = Color.black;
+    //            switch (value)
+    //            {
+    //                case (int)MY_VALUE.NORMAL:
+    //                    color = new Color(0, 0.8f, 0);
+    //                    break;
+    //                case (int)MY_VALUE.LOW:
+    //                    color = new Color(1.0f, 0.8f, 0);
+    //                    break;
+    //                case (int)MY_VALUE.HIGH:
+    //                    color = new Color(0, 0.65f, 0);
+    //                    break;
+    //                case (int)MY_VALUE.HIGH_2:
+    //                    color = new Color(0, 0.5f, 0);
+    //                    break;
+    //                case (int)MY_VALUE.HIGH_3:
+    //                    color = new Color(0, 0.35f, 0);
+    //                    break;
+    //                case (int)MY_VALUE.HIGH_4:
+    //                    color = new Color(0, 0.2f, 0);
+    //                    break;
 
-                }
-                //color = new Color(0, 0.5f, 0);
-                colorMap[y * tWidth + x] = color;
-            }
-        }
+    //            }
+    //            //color = new Color(0, 0.5f, 0);
+    //            colorMap[y * tWidth + x] = color;
+    //        }
+    //    }
 
-        Texture2D texture = new Texture2D(tWidth, tHeight);
-        texture.SetPixels(colorMap);
-        texture.Apply();
-        Sprite s = Sprite.Create(texture, new Rect(0, 0, theMap.mapWidth, theMap.mapHeight), Vector2.zero);
-        return s;
-    }
+    //    Texture2D texture = new Texture2D(tWidth, tHeight);
+    //    texture.SetPixels(colorMap);
+    //    texture.Apply();
+    //    Sprite s = Sprite.Create(texture, new Rect(0, 0, theMap.mapWidth, theMap.mapHeight), Vector2.zero);
+    //    return s;
+    //}
 
-    Texture2D CreateTextures()
-    {
-        OneMap theMap = theCellMap.GetOneMap();
-        int tWidth = Mathf.NextPowerOfTwo(theMap.mapWidth);
-        int tHeight = Mathf.NextPowerOfTwo(theMap.mapHeight);
-        Color[] colorMap = new Color[tWidth * tHeight];
+    //Texture2D CreateTextures()
+    //{
+    //    OneMap theMap = theCellMap.GetOneMap();
+    //    int tWidth = Mathf.NextPowerOfTwo(theMap.mapWidth);
+    //    int tHeight = Mathf.NextPowerOfTwo(theMap.mapHeight);
+    //    Color[] colorMap = new Color[tWidth * tHeight];
 
         
-        for (int y = 0; y < theMap.mapHeight; y++)
-            {
-            for (int x = 0; x < theMap.mapWidth; x++)
-                {
-                int value = theMap.GetValue(x + theMap.xMin, y + theMap.yMin);
-                Color color = Color.black;
-                switch (value)
-                {
-                    case (int)MY_VALUE.NORMAL:
-                        color = Color.green;
-                        break;
-                    case (int)MY_VALUE.LOW:
-                        color = Color.yellow;
-                        break;
-                    case (int)MY_VALUE.HIGH:
-                    case (int)MY_VALUE.HIGH_2:
-                    case (int)MY_VALUE.HIGH_3:
-                        color = new Color(0, 0.5f, 0);
-                        break;
+    //    for (int y = 0; y < theMap.mapHeight; y++)
+    //        {
+    //        for (int x = 0; x < theMap.mapWidth; x++)
+    //            {
+    //            int value = theMap.GetValue(x + theMap.xMin, y + theMap.yMin);
+    //            Color color = Color.black;
+    //            switch (value)
+    //            {
+    //                case (int)MY_VALUE.NORMAL:
+    //                    color = Color.green;
+    //                    break;
+    //                case (int)MY_VALUE.LOW:
+    //                    color = Color.yellow;
+    //                    break;
+    //                case (int)MY_VALUE.HIGH:
+    //                case (int)MY_VALUE.HIGH_2:
+    //                case (int)MY_VALUE.HIGH_3:
+    //                    color = new Color(0, 0.5f, 0);
+    //                    break;
 
-                }
-                //color = new Color(0, 0.5f, 0);
-                colorMap[y * tWidth + x] = color;
-            }
-        }
+    //            }
+    //            //color = new Color(0, 0.5f, 0);
+    //            colorMap[y * tWidth + x] = color;
+    //        }
+    //    }
 
-        Texture2D texture = new Texture2D(tWidth, tHeight);
-        texture.SetPixels(colorMap);
-        texture.Apply();
-        return texture;
-    }
+    //    Texture2D texture = new Texture2D(tWidth, tHeight);
+    //    texture.SetPixels(colorMap);
+    //    texture.Apply();
+    //    return texture;
+    //}
 
     //Texture2D CreateTextures_Old()
     //{
