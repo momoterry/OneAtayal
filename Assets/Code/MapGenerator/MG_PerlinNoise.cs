@@ -53,23 +53,6 @@ public class MG_PerlinNoise : MG_TerrainBase
             for (int y= theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
             {
                 float rd = Mathf.PerlinNoise((float)x * noiseScale + xShift, (float)y * noiseScale + yShift);
-                //if ( rd > 1.0f - highRatio)
-                //{
-                //    if (rd > 1.0f - highRatio + 0.3f)
-                //        theCellMap.SetValue(x, y, (int)MY_VALUE.HIGH_4);
-                //    else if (rd > 1.0f - highRatio + 0.2f)
-                //        theCellMap.SetValue(x, y, (int)MY_VALUE.HIGH_3);
-                //    else if (rd > 1.0f - highRatio + 0.1f)
-                //        theCellMap.SetValue(x, y, (int)MY_VALUE.HIGH_2);
-                //    else
-                //        theCellMap.SetValue(x, y, (int)MY_VALUE.HIGH);
-                //}
-                //else if (rd < lowRatio)
-                //{
-                //    theCellMap.SetValue(x, y, (int)MY_VALUE.LOW);
-                //}
-                //else
-                //    theCellMap.SetValue(x, y, (int)MY_VALUE.NORMAL);
                 theCellMap.SetValue(x, y, GetMapValue(rd));
             }
         }

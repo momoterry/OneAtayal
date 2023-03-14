@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class CellMap
 
     protected int[,] cells;
 
+    public int GetWidth() { return mapSizeX; }
+    public int GetHeight() { return mapSizeY; }
     public int GetXMin() { return xMin; }
     public int GetXMax() { return xMax; }
     public int GetYMin() { return yMin; }
@@ -56,7 +59,6 @@ public class OneCellMap : CellMap
 
     protected int oneMapXMin, oneMapXMax;
     protected int oneMapYMin, oneMapYMax;
-
 
     public int GetOneMapXMin() { return oneMapXMin; }
     public int GetOneMapXMax() { return oneMapXMax; }
