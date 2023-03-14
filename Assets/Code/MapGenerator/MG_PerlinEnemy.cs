@@ -47,7 +47,7 @@ public class MG_PerlinEnemy : MG_PerlinNoise
             case 4:
             case 5:
             case 6:
-                return new Color(0.1f, 0.2f, 0.1f);
+                return new Color(0.25f, 0.4f, 0.15f);
         }
         return Color.black;
     }
