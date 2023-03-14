@@ -72,6 +72,7 @@ public class MG_DS : MG_TerrainBase
     void GenerateHeightMap()
     {
         int size = dsMapSize;
+        //print("¦a¹Ï Size: " + size);
         heightMap = new float[size, size];
 
         // set initial corner values
