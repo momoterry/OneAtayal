@@ -8,6 +8,8 @@ public class MiniMap : MonoBehaviour
     public Image MiniMapImage;
     public Image MaskImage;
 
+    public delegate Color GetColorCB(int value);
+
     public int alignH = 2;
     public int cRange = 10;
 
@@ -16,6 +18,8 @@ public class MiniMap : MonoBehaviour
 
     protected Sprite maskSprite;
     protected Texture2D maskTexture;
+
+    protected GetColorCB getColorCB = null;
 
     protected int width;
     protected int height;
@@ -71,8 +75,31 @@ public class MiniMap : MonoBehaviour
         maskTexture.Apply();
     }
 
-    public void CreateMinMap(OneMap theMap)
+    protected Color DefaultGetColor(int value)
     {
+        switch (value)
+        {
+            case 1:
+                return new Color(0, 0.8f, 0);
+            case 2:
+                return new Color(1.0f, 0.8f, 0);
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                return new Color(0, 0.2f, 0);
+        }
+        return Color.black;
+    }
+
+    public void CreateMinMap(OneMap theMap, GetColorCB _getColorCB = null)
+    {
+        gameObject.SetActive(true);
+
+        getColorCB = _getColorCB;
+        if (getColorCB == null)
+            getColorCB = DefaultGetColor;
+
         width = theMap.mapWidth;
         height = theMap.mapHeight;
         xMin = theMap.xMin;
@@ -86,29 +113,30 @@ public class MiniMap : MonoBehaviour
             for (int x = 0; x < width; x++)
             {
                 int value = theMap.GetValue(x + theMap.xMin, y + theMap.yMin);
-                Color color = Color.black;
-                switch (value)
-                {
-                    case 1:
-                        color = new Color(0, 0.8f, 0);
-                        break;
-                    case 2:
-                        color = new Color(1.0f, 0.8f, 0);
-                        break;
-                    case 3:
-                        color = new Color(0, 0.65f, 0);
-                        break;
-                    case 4:
-                        color = new Color(0, 0.5f, 0);
-                        break;
-                    case 5:
-                        color = new Color(0, 0.35f, 0);
-                        break;
-                    case 6:
-                        color = new Color(0, 0.2f, 0);
-                        break;
+                Color color = getColorCB(value);
+                //Color color = Color.black;
+                //switch (value)
+                //{
+                //    case 1:
+                //        color = new Color(0, 0.8f, 0);
+                //        break;
+                //    case 2:
+                //        color = new Color(1.0f, 0.8f, 0);
+                //        break;
+                //    case 3:
+                //        color = new Color(0, 0.65f, 0);
+                //        break;
+                //    case 4:
+                //        color = new Color(0, 0.5f, 0);
+                //        break;
+                //    case 5:
+                //        color = new Color(0, 0.35f, 0);
+                //        break;
+                //    case 6:
+                //        color = new Color(0, 0.2f, 0);
+                //        break;
 
-                }
+                //}
                 //color = new Color(0, 0.5f, 0);
                 colorMap[y * tWidth + x] = color;
             }
