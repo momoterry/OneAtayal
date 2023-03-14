@@ -8,6 +8,9 @@ public class MiniMap : MonoBehaviour
     public Image MiniMapImage;
     public Image MaskImage;
 
+    public int alignH = 2;
+    public int cRange = 10;
+
     protected Sprite miniMapSprite;
     protected Texture2D miniMapTexture;
 
@@ -21,10 +24,14 @@ public class MiniMap : MonoBehaviour
     protected int xMin;
     protected int yMin;
 
+    protected int align;
+    protected float alignF;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        align = alignH + alignH;
+        alignF = (float)align;
     }
 
     // Update is called once per frame
@@ -44,18 +51,15 @@ public class MiniMap : MonoBehaviour
     public void RevealMap(int _x, int _y)
     {
         //Align
-        _x = (_x ) / 8 * 8;
-        _y = (_y ) / 8 * 8;
-        //print(_x + ", " + _y);
-        px = _x;
-        py = _y;
+        _x = (int)Mathf.Floor((_x + alignH) / alignF) * align;
+        _y = (int)Mathf.Floor((_y + alignH) / alignF) * align; ;
 
         int x = _x - xMin;
         int y = _y - yMin;
 
-        for (int i=-12; i<=12; i++)
+        for (int i=-cRange; i<= cRange; i++)
         {
-            for (int j = -12; j <= 12; j++)
+            for (int j = -cRange; j <= cRange; j++)
             {
                 int xi = x + i; int yj = y + j;
                 if (xi >= 0 && xi < tWidth && yj >= 0 && yj < tHeight)
@@ -138,8 +142,8 @@ public class MiniMap : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        GUI.TextArea(new Rect(100, 100, 100, 50), "( " + px + ", " + py + " )");
-    }
+    //private void OnGUI()
+    //{
+    //    GUI.TextArea(new Rect(100, 100, 100, 50), "( " + px + ", " + py + " )");
+    //}
 }

@@ -1058,8 +1058,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285824}
   CellSize: 2
-  mapCellWidthH: 30
-  mapCellHeightH: 30
+  mapCellWidthH: 100
+  mapCellHeightH: 100
   theTileGroupLib: {fileID: 695449407}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
@@ -2417,7 +2417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7074974753410198217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2449,6 +2449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MiniMapImage: {fileID: 8796127501631142765}
   MaskImage: {fileID: 1122731486}
+  alignH: 4
+  cRange: 12
 --- !u!1 &7074974753475053856
 GameObject:
   m_ObjectHideFlags: 0
