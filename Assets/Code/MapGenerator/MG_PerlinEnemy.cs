@@ -7,7 +7,7 @@ public class MG_PerlinEnemy : MG_PerlinNoise
 {
     public GameObject stoneSpawnerRef;
     //public Image MiniMapImageTest;
-    public MiniMap theMiniMap;  //TODO: 改用 Global 呼叫的方式取得
+    //public MiniMap theMiniMap;  //TODO: 改用 Global 呼叫的方式取得
     protected override void FillTiles()
     {
         base.FillTiles();
@@ -29,6 +29,8 @@ public class MG_PerlinEnemy : MG_PerlinNoise
         //}
 
 
+        //if (theMiniMap)
+        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
         if (theMiniMap)
         {
             theMiniMap.CreateMinMap(theCellMap.GetOneMap(), MyGetColorCB);

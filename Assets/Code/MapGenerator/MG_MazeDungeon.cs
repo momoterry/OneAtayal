@@ -119,6 +119,24 @@ public class MG_MazeDungeon : MapGeneratorBase
         theMap.FillTileAll((int)TILE_TYPE.GRASS, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true);
 
         theSurface2D.BuildNavMesh();
+
+        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+        if (theMiniMap)
+        {
+            theMiniMap.CreateMinMap(theMap, MyGetColorCB);
+        }
+    }
+
+    public Color MyGetColorCB(int value)
+    {
+        switch (value)
+        {
+            case (int)TILE_TYPE.GRASS:
+                return new Color(0.5f, 0.5f, 0.5f);
+            //case (int)TILE_TYPE.BLOCK:
+            //    return new Color(1.0f, 1.0f, 1.0f);
+        }
+        return Color.black;
     }
 
     protected void PreCreateMap()

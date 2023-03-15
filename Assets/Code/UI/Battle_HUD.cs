@@ -8,10 +8,10 @@ public class Battle_HUD : MonoBehaviour
     // Start is called before the first frame update
 
     // HP / MP
-    public Slider hpBar;
-    public Slider mpBar;
-    public Text hpText;
-    public Text mpText;
+    //public Slider hpBar;
+    //public Slider mpBar;
+    //public Text hpText;
+    //public Text mpText;
 
     // LV / EXP
     public Text LVText;
@@ -24,13 +24,16 @@ public class Battle_HUD : MonoBehaviour
     //關卡資訊
     public Text levelText;
 
+    //Mini Map
+    public MiniMap miniMap;
+
     //勝敗畫面
     public GameObject winMenu;
     public GameObject failMenu;
 
     //血瓶
-    public Text PotionNumText;
-    public Text PotionMaxText;
+    //public Text PotionNumText;
+    //public Text PotionMaxText;
 
     //技能
     public Text AttackText;
@@ -112,8 +115,8 @@ public class Battle_HUD : MonoBehaviour
 
         winMenu.SetActive(false);
         failMenu.SetActive(false);
-        if (hpBar)
-            hpBar.value = 1.0f;
+        //if (hpBar)
+        //    hpBar.value = 1.0f;
 
         if (theVPad)
         {
@@ -213,23 +216,23 @@ public class Battle_HUD : MonoBehaviour
         return SkillButtons[index];
     }
 
-    public void SetPlayerInfo( float hp, float maxHp, float mp, float maxMP, float Attack)
-    {
-        if (hpBar)
-            hpBar.value = hp / maxHp;
-        if (mpBar)
-            mpBar.value = mp / maxMP;
+    //public void SetPlayerInfo( float hp, float maxHp, float mp, float maxMP, float Attack)
+    //{
+    //    if (hpBar)
+    //        hpBar.value = hp / maxHp;
+    //    if (mpBar)
+    //        mpBar.value = mp / maxMP;
 
-        if (hpText)
-            hpText.text = hp.ToString("F0") + " / " + maxHp.ToString("F0");
-        if (mpText)
-            mpText.text = mp.ToString("F0") + " / " + maxMP.ToString("F0");
+    //    if (hpText)
+    //        hpText.text = hp.ToString("F0") + " / " + maxHp.ToString("F0");
+    //    if (mpText)
+    //        mpText.text = mp.ToString("F0") + " / " + maxMP.ToString("F0");
 
-        if (AttackText)
-            AttackText.text = "ATK: " + Attack.ToString("F1");
+    //    if (AttackText)
+    //        AttackText.text = "ATK: " + Attack.ToString("F1");
 
-        //Money !! TODO: 移到正確的地方
-    }
+    //    //Money !! TODO: 移到正確的地方
+    //}
 
     public void SetLevelText(string text)
     {
@@ -285,13 +288,13 @@ public class Battle_HUD : MonoBehaviour
         BattleSystem.GetInstance().OnBackPrevScene();
     }
 
-    public void SetPotionNum( int num, int maxNum)
-    {
-        if (PotionNumText)
-            PotionNumText.text = "x " + num.ToString();
-        if (PotionMaxText)
-            PotionMaxText.gameObject.SetActive(num == maxNum);
-    }
+    //public void SetPotionNum( int num, int maxNum)
+    //{
+    //    if (PotionNumText)
+    //        PotionNumText.text = "x " + num.ToString();
+    //    if (PotionMaxText)
+    //        PotionMaxText.gameObject.SetActive(num == maxNum);
+    //}
 
     public void OnButtonPotion()
     {
