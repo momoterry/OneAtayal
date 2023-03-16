@@ -33,7 +33,7 @@ public class MG_PerlinEnemy : MG_PerlinNoise
         MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
         if (theMiniMap)
         {
-            theMiniMap.CreateMinMap(theCellMap.GetOneMap(), MyGetColorCB);
+            theMiniMap.CreateMiniMap(theCellMap.GetOneMap(), MyGetColorCB);
         }
     }
 

@@ -123,7 +123,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
         if (theMiniMap)
         {
-            theMiniMap.CreateMinMap(theMap, MyGetColorCB);
+            theMiniMap.CreateMiniMap(theMap, MyGetColorCB);
         }
     }
 

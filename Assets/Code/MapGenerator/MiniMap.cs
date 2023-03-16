@@ -16,6 +16,10 @@ public class MiniMap : MonoBehaviour
     public int alignH = 2;
     public int cRange = 10;
 
+    //Test
+    public Camera renderCamera;
+    public bool useRenderCamera = false;
+
     protected Sprite miniMapSprite;
     protected Texture2D miniMapTexture;
 
@@ -66,7 +70,7 @@ public class MiniMap : MonoBehaviour
         UpdateCurrMap(pos.x, pos.z);
     }
 
-    protected int px, py;
+    //protected int px, py;
 
     public void RevealMap(int _x, int _y)
     {
@@ -107,7 +111,42 @@ public class MiniMap : MonoBehaviour
         return Color.black;
     }
 
-    public void CreateMinMap(OneMap theMap, GetColorCB _getColorCB = null)
+    public void CreateMiniMapByCamera(OneMap theMap)
+    {
+        mapCenter = theMap.mapCenter;
+        width = theMap.mapWidth;
+        height = theMap.mapHeight;
+
+        tWidth = tHeight = Mathf.NextPowerOfTwo(Mathf.Max(theMap.mapWidth, theMap.mapHeight));
+        width = height = tWidth;
+        xMin = theMap.mapCenter .x - tWidth/2;
+        yMin = theMap.mapCenter .y - tHeight/2;
+        miniMapTexture = new Texture2D(tWidth, tHeight);
+
+        RenderTexture rtBackUp = RenderTexture.active;
+        RenderTexture miniMapRT = new RenderTexture(tWidth, tHeight, 24);
+
+        //Camera renderCamera = new();
+        //print("renderCamera:" + renderCamera);
+        renderCamera.orthographic = true;
+        renderCamera.transform.rotation = Quaternion.Euler(90.0f, 0, 0);
+        renderCamera.targetTexture = miniMapRT;
+        renderCamera.orthographicSize = tWidth / 2;
+        renderCamera.transform.position = new Vector3(theMap.mapCenter.x, 10, theMap.mapCenter.y);
+        RenderTexture.active = renderCamera.targetTexture;
+
+        renderCamera.Render();
+        miniMapTexture.ReadPixels(new Rect(0, 0, tWidth, tHeight), 0, 0);
+
+        miniMapTexture.Apply();
+        miniMapSprite = Sprite.Create(miniMapTexture, new Rect(0, 0, tWidth, tHeight), Vector2.zero);
+
+        //Destroy(renderCamera.gameObject);
+        RenderTexture.active = rtBackUp;
+    }
+
+
+    public void CreateMiniMap(OneMap theMap, GetColorCB _getColorCB = null)
     {
         gameObject.SetActive(true);
 
@@ -115,29 +154,38 @@ public class MiniMap : MonoBehaviour
         if (getColorCB == null)
             getColorCB = DefaultGetColor;
 
-        mapCenter = theMap.mapCenter;
-        width = theMap.mapWidth;
-        height = theMap.mapHeight;
-        xMin = theMap.xMin;
-        yMin = theMap.yMin;
-        tWidth = Mathf.NextPowerOfTwo(width);
-        tHeight = Mathf.NextPowerOfTwo(height);
-        Color[] colorMap = new Color[tWidth * tHeight];
-
-        for (int y = 0; y < height; y++)
+        //TODO: °ÊºA³Ð«Ø Camera ?
+        if (renderCamera && useRenderCamera)
         {
-            for (int x = 0; x < width; x++)
+            CreateMiniMapByCamera(theMap);
+            renderCamera.gameObject.SetActive(false);
+        }
+        else
+        {
+            mapCenter = theMap.mapCenter;
+            width = theMap.mapWidth;
+            height = theMap.mapHeight;
+            xMin = theMap.xMin;
+            yMin = theMap.yMin;
+            tWidth = Mathf.NextPowerOfTwo(width);
+            tHeight = Mathf.NextPowerOfTwo(height);
+            Color[] colorMap = new Color[tWidth * tHeight];
+
+            for (int y = 0; y < height; y++)
             {
-                int value = theMap.GetValue(x + theMap.xMin, y + theMap.yMin);
-                Color color = getColorCB(value);
-                colorMap[y * tWidth + x] = color;
+                for (int x = 0; x < width; x++)
+                {
+                    int value = theMap.GetValue(x + theMap.xMin, y + theMap.yMin);
+                    Color color = getColorCB(value);
+                    colorMap[y * tWidth + x] = color;
+                }
             }
+            miniMapTexture = new Texture2D(tWidth, tHeight);
+            miniMapTexture.SetPixels(colorMap);
+            miniMapTexture.Apply();
+            miniMapSprite = Sprite.Create(miniMapTexture, new Rect(0, 0, width, height), Vector2.zero);
         }
 
-        miniMapTexture = new Texture2D(tWidth, tHeight);
-        miniMapTexture.SetPixels(colorMap);
-        miniMapTexture.Apply();
-        miniMapSprite = Sprite.Create(miniMapTexture, new Rect(0, 0, width, height), Vector2.zero);
 
         if (MiniMapImage)
         {
@@ -145,15 +193,16 @@ public class MiniMap : MonoBehaviour
         }
 
         //Mask
+        Color[] colorMask = new Color[tWidth * tHeight];
         for (int y = 0; y < tHeight; y++)
         {
             for (int x = 0; x < tWidth; x++)
             {
-                colorMap[y * tWidth + x] = Color.black;
+                colorMask[y * tWidth + x] = Color.black;
             }
         }
         maskTexture = new Texture2D(tWidth, tHeight);
-        maskTexture.SetPixels(colorMap);
+        maskTexture.SetPixels(colorMask);
         maskTexture.Apply();
         maskSprite = Sprite.Create(maskTexture, new Rect(0, 0, width, height), Vector2.zero);
         if (MaskImage)
@@ -169,10 +218,9 @@ public class MiniMap : MonoBehaviour
         CMScaleY = (float)height / (float)currMapHeight;
         if (CurrMapImage)
         {
-            //CurrMapImage.sprite = currMapSprite;
             CurrMapImage.sprite = miniMapSprite;
             CMmoveScale = CurrMapImage.rectTransform.sizeDelta / new Vector2(currMapWidth, currMapHeight);
-            print("CMmoveScale: " + CMmoveScale);
+            //print("CMmoveScale: " + CMmoveScale);
             CurrMapImage.rectTransform.localScale = new Vector2(CMScaleX, CMScaleY);
             if (CurrMaskImage)
             {
