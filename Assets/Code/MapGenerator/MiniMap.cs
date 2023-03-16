@@ -7,6 +7,9 @@ public class MiniMap : MonoBehaviour
 {
     public Image MiniMapImage;
     public Image MaskImage;
+    public Image CurrMapImage;
+    public Image CurrMaskImage;
+    public Image UIMaskImage;
 
     public delegate Color GetColorCB(int value);
 
@@ -21,6 +24,8 @@ public class MiniMap : MonoBehaviour
 
     protected GetColorCB getColorCB = null;
 
+    protected Vector2 mapCenter;
+
     protected int width;
     protected int height;
     protected int tWidth;
@@ -30,6 +35,14 @@ public class MiniMap : MonoBehaviour
 
     protected int align;
     protected float alignF;
+
+    //CurrMap 相關
+    protected Texture2D currMapTexture;
+    protected int currMapWidth = 64;
+    protected int currMapHeight = 64;
+    protected float CMScaleX = 1.0f;
+    protected float CMScaleY = 1.0f;
+    protected Vector2 CMmoveScale;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +61,9 @@ public class MiniMap : MonoBehaviour
         int x = (int)pos.x;
         int y = (int)pos.z;
         RevealMap(x, y);
+
+        //UpdateCurrMap(x, y);
+        UpdateCurrMap(pos.x, pos.z);
     }
 
     protected int px, py;
@@ -71,7 +87,6 @@ public class MiniMap : MonoBehaviour
             }
         }
 
-        //maskTexture.SetPixel(x, y, new Color(0, 0, 0, 0));
         maskTexture.Apply();
     }
 
@@ -100,6 +115,7 @@ public class MiniMap : MonoBehaviour
         if (getColorCB == null)
             getColorCB = DefaultGetColor;
 
+        mapCenter = theMap.mapCenter;
         width = theMap.mapWidth;
         height = theMap.mapHeight;
         xMin = theMap.xMin;
@@ -114,30 +130,6 @@ public class MiniMap : MonoBehaviour
             {
                 int value = theMap.GetValue(x + theMap.xMin, y + theMap.yMin);
                 Color color = getColorCB(value);
-                //Color color = Color.black;
-                //switch (value)
-                //{
-                //    case 1:
-                //        color = new Color(0, 0.8f, 0);
-                //        break;
-                //    case 2:
-                //        color = new Color(1.0f, 0.8f, 0);
-                //        break;
-                //    case 3:
-                //        color = new Color(0, 0.65f, 0);
-                //        break;
-                //    case 4:
-                //        color = new Color(0, 0.5f, 0);
-                //        break;
-                //    case 5:
-                //        color = new Color(0, 0.35f, 0);
-                //        break;
-                //    case 6:
-                //        color = new Color(0, 0.2f, 0);
-                //        break;
-
-                //}
-                //color = new Color(0, 0.5f, 0);
                 colorMap[y * tWidth + x] = color;
             }
         }
@@ -168,10 +160,58 @@ public class MiniMap : MonoBehaviour
         {
             MaskImage.sprite = maskSprite;
         }
+
+        //小型地圖
+        //currMapTexture = new Texture2D(currMapWidth, currMapHeight);
+        //Sprite currMapSprite = Sprite.Create(currMapTexture, new Rect(0, 0, currMapWidth, currMapHeight), Vector2.zero);
+
+        CMScaleX = (float)width / (float)currMapWidth;
+        CMScaleY = (float)height / (float)currMapHeight;
+        if (CurrMapImage)
+        {
+            //CurrMapImage.sprite = currMapSprite;
+            CurrMapImage.sprite = miniMapSprite;
+            CMmoveScale = CurrMapImage.rectTransform.sizeDelta / new Vector2(currMapWidth, currMapHeight);
+            print("CMmoveScale: " + CMmoveScale);
+            CurrMapImage.rectTransform.localScale = new Vector2(CMScaleX, CMScaleY);
+            if (CurrMaskImage)
+            {
+                CurrMaskImage.sprite = maskSprite;
+            }
+        }
+
+        //小地圖底色
+        if (UIMaskImage)
+        {
+            UIMaskImage.color = Camera.main.backgroundColor;
+        }
+    }
+
+    protected void UpdateCurrMap(float x, float y)
+    {
+        if (CurrMapImage)
+        {
+            Vector2 relativePos = new Vector2(x, y) - mapCenter;
+            CurrMapImage.rectTransform.localPosition = new Vector2( -relativePos.x, -relativePos.y) * CMmoveScale;
+        }
+    }
+
+    protected void UpdateCurrMap( int _x, int _y)
+    {
+        //float prevTime = Time.realtimeSinceStartup;
+        //int x = _x - xMin - currMapWidth/2;
+        //int y = _y - yMin - currMapHeight/2;
+        //Color[] currMapData = miniMapTexture.GetPixels(x, y, currMapWidth, currMapHeight);
+        //currMapTexture.SetPixels(currMapData);
+        //currMapTexture.Apply();
+
+        //pTime = Time.realtimeSinceStartup - prevTime;
+
     }
 
     //private void OnGUI()
     //{
-    //    GUI.TextArea(new Rect(100, 100, 100, 50), "( " + px + ", " + py + " )");
+    //    //GUI.TextArea(new Rect(100, 100, 100, 50), "( " + px + ", " + py + " )");
+    //    //GUI.TextArea(new Rect(100, 100, 100, 50), "Time: " + pTime);
     //}
 }
