@@ -51,6 +51,8 @@ public class MiniMap : MonoBehaviour
     protected Vector2 CMmoveScale;      //小地圖移動的比例
     protected Vector2 BMmoveScale;      //大地圖移動的比例
 
+    protected float currTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,15 +67,18 @@ public class MiniMap : MonoBehaviour
         if (!pc)
             return;
         Vector3 pos = BattleSystem.GetPC().transform.position;
-        int x = (int)pos.x;
-        int y = (int)pos.z;
-        RevealMap(x, y);
-
-        //UpdateCurrMap(x, y);
         UpdateCurrMap(pos.x, pos.z);
+
+        currTime += Time.deltaTime;
+        if (currTime > 0.2f) 
+        {
+            currTime = 0;
+            int x = (int)pos.x;
+            int y = (int)pos.z;
+            RevealMap(x, y);
+        }
     }
 
-    //protected int px, py;
 
     public void RevealMap(int _x, int _y)
     {
