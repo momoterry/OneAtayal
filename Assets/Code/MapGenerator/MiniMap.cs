@@ -163,6 +163,8 @@ public class MiniMap : MonoBehaviour
         xMin = theMap.mapCenter .x - tWidth/2;
         yMin = theMap.mapCenter .y - tHeight/2;
         miniMapTexture = new Texture2D(tWidth, tHeight);
+        miniMapTexture.filterMode = FilterMode.Point;
+        miniMapTexture.wrapMode = TextureWrapMode.Clamp;
 
         RenderTexture rtBackUp = RenderTexture.active;
         RenderTexture miniMapRT = new RenderTexture(tWidth, tHeight, 24);
@@ -221,6 +223,8 @@ public class MiniMap : MonoBehaviour
                 }
             }
             miniMapTexture = new Texture2D(tWidth, tHeight);
+            miniMapTexture.filterMode = FilterMode.Point;
+            miniMapTexture.wrapMode = TextureWrapMode.Clamp;
             miniMapTexture.SetPixels(colorMap);
             miniMapTexture.Apply();
             miniMapSprite = Sprite.Create(miniMapTexture, new Rect(0, 0, width, height), Vector2.zero);
@@ -245,6 +249,7 @@ public class MiniMap : MonoBehaviour
             }
         }
         maskTexture = new Texture2D(tWidth, tHeight);
+        maskTexture.filterMode = FilterMode.Point;
         maskTexture.SetPixels(colorMask);
         maskTexture.Apply();
         maskSprite = Sprite.Create(maskTexture, new Rect(0, 0, width, height), Vector2.zero);
