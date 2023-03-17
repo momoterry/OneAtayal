@@ -10,6 +10,7 @@ public class MiniMap : MonoBehaviour
     public Image CurrMapImage;
     public Image CurrMaskImage;
     public Image UIMaskImage;
+    public GameObject BigMapRoot;
 
     public delegate Color GetColorCB(int value);
 
@@ -244,17 +245,18 @@ public class MiniMap : MonoBehaviour
         }
     }
 
-    protected void UpdateCurrMap( int _x, int _y)
+    public void OnOpenBigMap()
     {
-        //float prevTime = Time.realtimeSinceStartup;
-        //int x = _x - xMin - currMapWidth/2;
-        //int y = _y - yMin - currMapHeight/2;
-        //Color[] currMapData = miniMapTexture.GetPixels(x, y, currMapWidth, currMapHeight);
-        //currMapTexture.SetPixels(currMapData);
-        //currMapTexture.Apply();
+        print("OnOpenBigMap");
+        if (BigMapRoot)
+            BigMapRoot.SetActive(true);
+    }
 
-        //pTime = Time.realtimeSinceStartup - prevTime;
-
+    public void OnCloseBigMap()
+    {
+        print("OnCloseBigMap");
+        if (BigMapRoot)
+            BigMapRoot.SetActive(false);
     }
 
     //private void OnGUI()
