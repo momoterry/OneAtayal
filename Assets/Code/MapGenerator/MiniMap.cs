@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class MiniMap : MonoBehaviour
 {
-    public Image MiniMapImage;
-    public Image MaskImage;
-    public Image CurrMapImage;
-    public Image CurrMaskImage;
-    public Image UIMaskImage;
+    public Image BigMapImage;
+    public Image BigMaskImage;
+    public Image SmallMapImage;
+    public Image SmallMaskImage;
+    public Image SmallUIMaskImage;
     public GameObject BigMapRoot;
     public RectTransform bigMapPlayerPoint;
 
@@ -189,12 +189,12 @@ public class MiniMap : MonoBehaviour
         }
 
 
-        if (MiniMapImage)
+        if (BigMapImage)
         {
-            MiniMapImage.sprite = miniMapSprite;
+            BigMapImage.sprite = miniMapSprite;
             //BMmoveScale.x = M
-            Vector2 bigMapSize = MiniMapImage.rectTransform.rect.size;
-            BMmoveScale = MiniMapImage.rectTransform.rect.size / new Vector2(width, height);
+            //Vector2 bigMapSize = BigMapImage.rectTransform.rect.size;
+            BMmoveScale = BigMapImage.rectTransform.rect.size / new Vector2(width, height);
         }
 
         //Mask
@@ -210,9 +210,9 @@ public class MiniMap : MonoBehaviour
         maskTexture.SetPixels(colorMask);
         maskTexture.Apply();
         maskSprite = Sprite.Create(maskTexture, new Rect(0, 0, width, height), Vector2.zero);
-        if (MaskImage)
+        if (BigMaskImage)
         {
-            MaskImage.sprite = maskSprite;
+            BigMaskImage.sprite = maskSprite;
         }
 
         //小型地圖
@@ -221,31 +221,31 @@ public class MiniMap : MonoBehaviour
 
         CMScaleX = (float)width / (float)currMapWidth;
         CMScaleY = (float)height / (float)currMapHeight;
-        if (CurrMapImage)
+        if (SmallMapImage)
         {
-            CurrMapImage.sprite = miniMapSprite;
-            CMmoveScale = CurrMapImage.rectTransform.rect.size / new Vector2(currMapWidth, currMapHeight);
+            SmallMapImage.sprite = miniMapSprite;
+            CMmoveScale = SmallMapImage.rectTransform.rect.size / new Vector2(currMapWidth, currMapHeight);
             //print("CMmoveScale: " + CMmoveScale);
-            CurrMapImage.rectTransform.localScale = new Vector2(CMScaleX, CMScaleY);
-            if (CurrMaskImage)
+            SmallMapImage.rectTransform.localScale = new Vector2(CMScaleX, CMScaleY);
+            if (SmallMaskImage)
             {
-                CurrMaskImage.sprite = maskSprite;
+                SmallMaskImage.sprite = maskSprite;
             }
         }
 
         //小地圖底色
-        if (UIMaskImage)
+        if (SmallUIMaskImage)
         {
-            UIMaskImage.color = Camera.main.backgroundColor;
+            SmallUIMaskImage.color = Camera.main.backgroundColor;
         }
     }
 
     protected void UpdateCurrMap(float x, float y)
     {
         Vector2 relativePos = new Vector2(x, y) - mapCenter;
-        if (CurrMapImage)
+        if (SmallMapImage)
         {
-            CurrMapImage.rectTransform.localPosition = -relativePos * CMmoveScale;
+            SmallMapImage.rectTransform.localPosition = -relativePos * CMmoveScale;
         }
         if (bigMapPlayerPoint)
         {
