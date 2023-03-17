@@ -17,6 +17,8 @@ public class MiniMap : MonoBehaviour
 
     public int alignH = 2;
     public int cRange = 10;
+    public int border = 6;
+
 
     //Test
     public Camera renderCamera;
@@ -89,15 +91,46 @@ public class MiniMap : MonoBehaviour
         int x = _x - xMin;
         int y = _y - yMin;
 
+        int x1 = Mathf.Max(x - cRange - border, 0);
+        int x2 = Mathf.Min(x + cRange + border, tWidth);
+        int y1 = Mathf.Max(y - cRange - border, 0);
+        int y2 = Mathf.Min(y + cRange + border, tHeight);
+        Color[] maskColors = maskTexture.GetPixels(x1, y1, x2 - x1, y2 - y1);
+
+        int kValue = cRange;
+        float b = (float)border;
+        for (int i = x1; i < x2; i++)
+        {
+            for (int j = y1; j < y2; j++)
+            {
+                int d = Mathf.Max(0, Mathf.Abs(i - x) - kValue) + Mathf.Max(0, Mathf.Abs(j - y) - kValue);
+                float a = Mathf.Min(1.0f, d / b);
+                //float a = Mathf.Max(Mathf.Max(Mathf.Abs(i - x), Mathf.Abs(j - y)) - kValue, 0) / (float)b;
+                maskColors[(j - y1) * (x2 - x1) + (i - x1)].a = Mathf.Min(a, maskColors[(j - y1) * (x2 - x1) + (i - x1)].a);
+            }
+        }
+        maskTexture.SetPixels(x1, y1, x2 - x1, y2 - y1, maskColors);
+
+        /*/
         for (int i=-cRange; i<= cRange; i++)
         {
             for (int j = -cRange; j <= cRange; j++)
             {
                 int xi = x + i; int yj = y + j;
                 if (xi >= 0 && xi < tWidth && yj >= 0 && yj < tHeight)
-                    maskTexture.SetPixel(xi, yj, new Color(0, 0, 0, 0));
+                {
+                    if (i<-cRange+2||i>=cRange-2|| j < -cRange + 2 || j >= cRange - 2) 
+                    {
+                        Color c = maskTexture.GetPixel(xi, yj);
+                        c.a = Mathf.Min(c.a, 0.5f);
+                        maskTexture.SetPixel(xi, yj, c);
+                    }
+                    else
+                        maskTexture.SetPixel(xi, yj, new Color(0, 0, 0, 0));
+                }
             }
         }
+        //*/
 
         maskTexture.Apply();
     }
