@@ -11,6 +11,7 @@ public class MiniMap : MonoBehaviour
     public Image CurrMaskImage;
     public Image UIMaskImage;
     public GameObject BigMapRoot;
+    public RectTransform bigMapPlayerPoint;
 
     public delegate Color GetColorCB(int value);
 
@@ -47,7 +48,8 @@ public class MiniMap : MonoBehaviour
     protected int currMapHeight = 64;
     protected float CMScaleX = 1.0f;
     protected float CMScaleY = 1.0f;
-    protected Vector2 CMmoveScale;
+    protected Vector2 CMmoveScale;      //小地圖移動的比例
+    protected Vector2 BMmoveScale;      //大地圖移動的比例
 
     // Start is called before the first frame update
     void Start()
@@ -155,7 +157,6 @@ public class MiniMap : MonoBehaviour
         if (getColorCB == null)
             getColorCB = DefaultGetColor;
 
-        //TODO: 動態創建 Camera ?
         if (renderCamera && useRenderCamera)
         {
             CreateMiniMapByCamera(theMap);
@@ -191,6 +192,9 @@ public class MiniMap : MonoBehaviour
         if (MiniMapImage)
         {
             MiniMapImage.sprite = miniMapSprite;
+            //BMmoveScale.x = M
+            Vector2 bigMapSize = MiniMapImage.rectTransform.rect.size;
+            BMmoveScale = MiniMapImage.rectTransform.rect.size / new Vector2(width, height);
         }
 
         //Mask
@@ -220,7 +224,7 @@ public class MiniMap : MonoBehaviour
         if (CurrMapImage)
         {
             CurrMapImage.sprite = miniMapSprite;
-            CMmoveScale = CurrMapImage.rectTransform.sizeDelta / new Vector2(currMapWidth, currMapHeight);
+            CMmoveScale = CurrMapImage.rectTransform.rect.size / new Vector2(currMapWidth, currMapHeight);
             //print("CMmoveScale: " + CMmoveScale);
             CurrMapImage.rectTransform.localScale = new Vector2(CMScaleX, CMScaleY);
             if (CurrMaskImage)
@@ -238,23 +242,25 @@ public class MiniMap : MonoBehaviour
 
     protected void UpdateCurrMap(float x, float y)
     {
+        Vector2 relativePos = new Vector2(x, y) - mapCenter;
         if (CurrMapImage)
         {
-            Vector2 relativePos = new Vector2(x, y) - mapCenter;
-            CurrMapImage.rectTransform.localPosition = new Vector2( -relativePos.x, -relativePos.y) * CMmoveScale;
+            CurrMapImage.rectTransform.localPosition = -relativePos * CMmoveScale;
+        }
+        if (bigMapPlayerPoint)
+        {
+            bigMapPlayerPoint.localPosition = relativePos * BMmoveScale;
         }
     }
 
     public void OnOpenBigMap()
     {
-        print("OnOpenBigMap");
         if (BigMapRoot)
             BigMapRoot.SetActive(true);
     }
 
     public void OnCloseBigMap()
     {
-        print("OnCloseBigMap");
         if (BigMapRoot)
             BigMapRoot.SetActive(false);
     }
