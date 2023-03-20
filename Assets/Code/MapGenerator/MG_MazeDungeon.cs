@@ -263,11 +263,11 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         // ==== 測試產生大 Room
-        bool isCreateBigRoom = false;
+        bool isCreateBigRoom = true;
+        int rX = 2; int rY = 2;
+        int rW = 3; int rH = 4;
         if (isCreateBigRoom)
         {
-            int rX = 2; int rY = 2;
-            int rW = 3; int rH = 4;
             List<wallInfo> roomWalls = new List<wallInfo>();
             for (int x = rX; x < rX + rW; x++)
             {
@@ -342,26 +342,6 @@ public class MG_MazeDungeon : MapGeneratorBase
                     }
                 }
             }
-            //int loop = 0;
-            //int wallTotal = wallList.Count;
-            //while (loop < wallTotal)
-            //{
-            //    loop++;
-            //    int rd = Random.Range(0, wallList.Count);
-            //    wallInfo w = wallList[rd];
-            //    if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
-            //    {
-            //        ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-            //        puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-            //    }
-            //    wallList.Remove(w);
-
-            //    if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
-            //    {
-            //        //print("發現大祕寶啦 !! Loop = " + (loop + 1));
-            //        break;
-            //    }
-            //}
         }
 
 
@@ -401,6 +381,13 @@ public class MG_MazeDungeon : MapGeneratorBase
                 else if (puzzleDSU.Find(GetCellID(i, j)) == startValue)
                     FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
             }
+        }
+
+        //==== Big Room 的部份處理
+        if (isCreateBigRoom)
+        {
+            theMap.FillValue(puzzleX1 + rX * cellWidth + borderWidth, puzzleY1 + rY * cellHeight + borderWidth,
+                rW * cellWidth - borderWidth - borderWidth, rH * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.GRASS);
         }
 
         //破關門
