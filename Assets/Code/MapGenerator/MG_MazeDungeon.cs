@@ -240,18 +240,73 @@ public class MG_MazeDungeon : MapGeneratorBase
             }
         }
         //==== Init Connection Info
+        wallInfo[,] lrWalls = new wallInfo[puzzleWidth - 1, puzzleHeight];
+        wallInfo[,] udWalls = new wallInfo[puzzleWidth, puzzleHeight + 1];
 
         for (int x = 0; x < puzzleWidth; x++)
         {
             for (int y = 0; y < puzzleHeight; y++)
             {
                 if (x < puzzleWidth - 1)
-                    wallList.Add(new wallInfo(GetCellID(x, y), GetCellID(x + 1, y)));
+                {
+                    wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x + 1, y));
+                    wallList.Add(w);
+                    lrWalls[x, y] = w;
+                }
                 if (y < puzzleHeight - 1)
-                    wallList.Add(new wallInfo(GetCellID(x, y), GetCellID(x, y + 1)));
+                {
+                    wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x, y + 1));
+                    wallList.Add(w);
+                    udWalls[x, y] = w;
+                }
             }
         }
 
+        // ==== 測試產生大 Room
+        bool isCreateBigRoom = false;
+        if (isCreateBigRoom)
+        {
+            int rX = 2; int rY = 2;
+            int rW = 3; int rH = 4;
+            List<wallInfo> roomWalls = new List<wallInfo>();
+            for (int x = rX; x < rX + rW; x++)
+            {
+                wallList.Remove(udWalls[x, rY - 1]);
+                wallList.Remove(udWalls[x, rY + rH - 1]);
+                roomWalls.Add(udWalls[x, rY - 1]);
+                roomWalls.Add(udWalls[x, rY + rH - 1]);
+            }
+            for (int y = rY; y < rY + rH; y++)
+            {
+                wallList.Remove(lrWalls[rX - 1, y]);
+                wallList.Remove(lrWalls[rX + rW - 1, y]);
+                roomWalls.Add(lrWalls[rX - 1, y]);
+                roomWalls.Add(lrWalls[rX + rW - 1, y]);
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                wallInfo w = roomWalls[Random.Range(0, roomWalls.Count)];
+                ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+                puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+                wallList.Remove(w);
+            }
+            for (int x = rX; x < rX + rW; x++)
+            {
+                for (int y = rY; y < rY + rH; y++)
+                {
+                    if (x + 1 < rX + rW)
+                    {
+                        ConnectCellsByID(GetCellID(x, y), GetCellID(x + 1, y));
+                        puzzleDSU.Union(GetCellID(x, y), GetCellID(x + 1, y));
+                    }
+                    if (y + 1 < rY + rH)
+                    {
+                        ConnectCellsByID(GetCellID(x, y), GetCellID(x, y + 1));
+                        puzzleDSU.Union(GetCellID(x, y), GetCellID(x, y + 1));
+                    }
+                }
+            }
+        }
 
         //==== 開始隨機連結 !!
         iStart = GetCellID(puzzleWidth / 2, 0);
