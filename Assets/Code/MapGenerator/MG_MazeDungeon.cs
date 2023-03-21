@@ -275,19 +275,18 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             int rX = rc.x; int rY = rc.y;
             int rW = rc.width; int rH = rc.height;
-            //print("rect into: " + rc);
-            List<wallInfo> roomWalls = new List<wallInfo>();
+            //List<wallInfo> roomWalls = new List<wallInfo>();
             for (int x = rX; x < rX + rW; x++)
             {
                 if (rY > 0)
                 {
                     wallList.Remove(udWalls[x, rY - 1]);
-                    roomWalls.Add(udWalls[x, rY - 1]);
+                    //roomWalls.Add(udWalls[x, rY - 1]);
                 }
                 if (rY + rH < puzzleHeight)
                 {
                     wallList.Remove(udWalls[x, rY + rH - 1]);
-                    roomWalls.Add(udWalls[x, rY + rH - 1]);
+                    //roomWalls.Add(udWalls[x, rY + rH - 1]);
                 }
             }
             for (int y = rY; y < rY + rH; y++)
@@ -295,23 +294,21 @@ public class MG_MazeDungeon : MapGeneratorBase
                 if (rX > 0)
                 {
                     wallList.Remove(lrWalls[rX - 1, y]);
-                    roomWalls.Add(lrWalls[rX - 1, y]);
+                    //roomWalls.Add(lrWalls[rX - 1, y]);
                 }
                 if (rX + rW < puzzleWidth)
                 {
                     wallList.Remove(lrWalls[rX + rW - 1, y]);
-                    roomWalls.Add(lrWalls[rX + rW - 1, y]);
+                    //roomWalls.Add(lrWalls[rX + rW - 1, y]);
                 }
             }
-            //print("RoomWalls Num: " + roomWalls.Count);
-            for (int c = 0; c < 1; c++)
-            {
-                wallInfo w = roomWalls[Random.Range(0, roomWalls.Count)];
-                ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-                puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-                roomWalls.Remove(w);
-                //print("-RoomWalls Num: " + roomWalls.Count);
-            }
+            //for (int c = 0; c < 1; c++)
+            //{
+            //    wallInfo w = roomWalls[Random.Range(0, roomWalls.Count)];
+            //    ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+            //    puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+            //    roomWalls.Remove(w);
+            //}
             for (int x = rX; x < rX + rW; x++)
             {
                 for (int y = rY; y < rY + rH; y++)
@@ -366,6 +363,41 @@ public class MG_MazeDungeon : MapGeneratorBase
             }
         }
 
+        //==== 連結完再處理 Big Room 的開口
+        foreach (RectInt rc in rectList)
+        {
+            List<wallInfo> roomWalls = new List<wallInfo>();
+            for (int x = rc.x; x < rc.xMax; x++)
+            {
+                if (rc.y > 0)
+                {
+                    roomWalls.Add(udWalls[x, rc.y - 1]);
+                }
+                if (rc.yMax < puzzleHeight)
+                {
+                    roomWalls.Add(udWalls[x, rc.yMax - 1]);
+                }
+            }
+            for (int y = rc.y; y < rc.yMax; y++)
+            {
+                if (rc.x > 0)
+                {
+                    roomWalls.Add(lrWalls[rc.x - 1, y]);
+                }
+                if (rc.xMax < puzzleWidth)
+                {
+                    roomWalls.Add(lrWalls[rc.xMax - 1, y]);
+                }
+            }
+            //TODO: 每個 Room 各別設定開口數
+            for (int c = 0; c < 2; c++)
+            {
+                wallInfo w = roomWalls[Random.Range(0, roomWalls.Count)];
+                ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+                puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+                roomWalls.Remove(w);
+            }
+        }
 
         //==== Set up all cells
         puzzleX1 = mapCenter.x - (puzzleWidth * cellWidth / 2);
@@ -408,8 +440,6 @@ public class MG_MazeDungeon : MapGeneratorBase
         //==== Big Room 的部份處理
         foreach (RectInt rc in rectList)
         {
-            //int rX = rc.x; int rY = rc.y;
-            //int rW = rc.width; int rH = rc.height;
             theMap.FillValue(puzzleX1 + rc.x * cellWidth + borderWidth, puzzleY1 + rc.y * cellHeight + borderWidth,
                 rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.GRASS);
         }
@@ -417,7 +447,6 @@ public class MG_MazeDungeon : MapGeneratorBase
         //破關門
         if (finishPortalRef)
             BattleSystem.SpawnGameObj(finishPortalRef, endPos);
-
     }
 
     protected List<RectInt> CreateNonOverlappingRects(Vector2Int[] sizes)
