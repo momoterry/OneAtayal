@@ -30,6 +30,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     // Big Room 用
     public Vector2Int[] roomSize;
+    public int noRoomBuffer = 1;    //避免入口就遇到 Room 的緩衝
 
     //基底地圖相關 TODO: 希望獨立出去
     protected int mapWidth = 0;
@@ -267,13 +268,8 @@ public class MG_MazeDungeon : MapGeneratorBase
             }
         }
 
-        // ==== 測試產生大 Room
-        //bool isCreateBigRoom = true;
-        //rectList.Add(new RectInt(2, 2, 3, 4));
-        //int rX = 2; int rY = 2;
-        //int rW = 3; int rH = 4;
-        //if (isCreateBigRoom)
-        rectList = CreateNonOverlappingRects(roomSize);
+        // ==== 產生大 Room
+        rectList = CreateNonOverlappingRects(roomSize, new RectInt(0, noRoomBuffer, puzzleWidth, puzzleHeight - noRoomBuffer));
 
         foreach (RectInt rc in rectList)
         {
@@ -426,6 +422,11 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     protected List<RectInt> CreateNonOverlappingRects(Vector2Int[] sizes)
     {
+        return CreateNonOverlappingRects(sizes, new RectInt(0, 0, puzzleWidth, puzzleHeight));
+    }
+
+    protected List<RectInt> CreateNonOverlappingRects(Vector2Int[] sizes, RectInt bound)
+    {
         int maxAttempts = 1000;
         int retryCount = 0;
         int maxRetryCount = 100;
@@ -442,8 +443,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
             while (attempts < maxAttempts)
             {
-                int startX = Random.Range(0, puzzleWidth - size.x + 1);
-                int startY = Random.Range(0, puzzleHeight - size.y + 1);
+                int startX = Random.Range(bound.xMin, bound.xMax - size.x + 1);
+                int startY = Random.Range(bound.yMin, bound.yMax - size.y + 1);
 
                 RectInt newRect = new RectInt(startX, startY, size.x, size.y);
 
