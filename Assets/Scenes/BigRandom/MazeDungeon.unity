@@ -1522,8 +1522,8 @@ MonoBehaviour:
   cellHeight: 10
   wallWidth: 2
   wallHeight: 3
-  puzzleHeight: 10
-  puzzleWidth: 8
+  puzzleHeight: 9
+  puzzleWidth: 14
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 28701d22c39761f4d86e24ca4fe20b40, type: 3}
@@ -1533,9 +1533,11 @@ MonoBehaviour:
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
   roomSize:
-  - {x: 3, y: 4}
+  - {x: 4, y: 4}
   - {x: 3, y: 3}
   - {x: 3, y: 3}
+  - {x: 2, y: 2}
+  - {x: 2, y: 2}
   noRoomBuffer: 1
 --- !u!4 &1806008470
 Transform:
