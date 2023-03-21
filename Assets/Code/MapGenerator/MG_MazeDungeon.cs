@@ -427,10 +427,17 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected List<RectInt> CreateNonOverlappingRects(Vector2Int[] sizes)
     {
         int maxAttempts = 1000;
+        int retryCount = 0;
+        int maxRetryCount = 100;
         List<RectInt>  rects = new List<RectInt>();
 
-        foreach (Vector2Int size in sizes)
+        //TEST
+        //rects.Add(new RectInt(2, 3, 3, 3));
+        //rects.Add(new RectInt(3, 7, 3, 3));
+
+        while (rects.Count < sizes.Length)
         {
+            Vector2Int size = sizes[rects.Count];
             int attempts = 0;
 
             while (attempts < maxAttempts)
@@ -445,21 +452,23 @@ public class MG_MazeDungeon : MapGeneratorBase
                     rects.Add(newRect);
                     break;
                 }
-                //else
-                //{
-                //    print("這個不行: " + newRect + "Max " + newRect.xMax + "," + newRect.yMax);
-                //}
 
                 attempts++;
             }
             if (attempts >= maxAttempts)
             {
-                print("ERROR!!!! CreateNonOverlappingRects 試半天試不出來啦 !!");
+                retryCount++;
+                if (retryCount > maxRetryCount)
+                {
+                    print("ERROR!!!! CreateNonOverlappingRects 一直退回也試不出來，放棄!!!!!!!!!!!!!!");
+                    break;
+                }
+                if (rects.Count > 0)
+                {
+                    print("目前試不出來，回到上一層，目前 rects Count = " + rects.Count);
+                    rects.RemoveAt(rects.Count - 1);
+                }
             }
-            //else
-            //{
-            //    print("試了這麼多次! " + attempts);
-            //}
         }
         return rects;
     }
