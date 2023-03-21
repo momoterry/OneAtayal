@@ -28,6 +28,9 @@ public class MG_MazeDungeon : MapGeneratorBase
     public Tilemap groundTM;
     public Tilemap blockTM;
 
+    // Big Room 用
+    public Vector2Int[] roomSize;
+
     //基底地圖相關 TODO: 希望獨立出去
     protected int mapWidth = 0;
     protected int mapHeight = 0;
@@ -59,10 +62,10 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected Vector3 startPos;
     protected Vector3 endPos;
 
-    protected NavMeshAgent pcAgent;
-    protected int pcNaveAgentToSleep = -1;
+    //protected NavMeshAgent pcAgent;
+    //protected int pcNaveAgentToSleep = -1;
 
-    List<Vector2Int> correctPathList = new List<Vector2Int>();
+    //List<Vector2Int> correctPathList = new List<Vector2Int>();
 
     protected class cellInfo
     {
@@ -87,18 +90,18 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     private void Update()
     {
-        if (pcNaveAgentToSleep > 0)
-        {
-            pcNaveAgentToSleep--;
-            if (pcNaveAgentToSleep <= 0)
-            {
-                if (pcAgent)
-                {
-                    pcAgent.enabled = true;
-                }
-                pcNaveAgentToSleep = -1;
-            }
-        }
+        //if (pcNaveAgentToSleep > 0)
+        //{
+        //    pcNaveAgentToSleep--;
+        //    if (pcNaveAgentToSleep <= 0)
+        //    {
+        //        if (pcAgent)
+        //        {
+        //            pcAgent.enabled = true;
+        //        }
+        //        pcNaveAgentToSleep = -1;
+        //    }
+        //}
     }
 
     public override void BuildAll(int buildLevel = 1)
@@ -226,6 +229,8 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected int GetCellX(int id) { return id % puzzleWidth; }
     protected int GetCellY(int id) { return id / puzzleWidth; }
 
+    protected List<RectInt> rectList;
+
     protected  void CreatMazeMap()
     {
         //==== Init Puzzle Map
@@ -263,32 +268,53 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         // ==== 測試產生大 Room
-        bool isCreateBigRoom = true;
-        int rX = 2; int rY = 2;
-        int rW = 3; int rH = 4;
-        if (isCreateBigRoom)
+        //bool isCreateBigRoom = true;
+        //rectList.Add(new RectInt(2, 2, 3, 4));
+        //int rX = 2; int rY = 2;
+        //int rW = 3; int rH = 4;
+        //if (isCreateBigRoom)
+        rectList = CreateNonOverlappingRects(roomSize);
+
+        foreach (RectInt rc in rectList)
         {
+            int rX = rc.x; int rY = rc.y;
+            int rW = rc.width; int rH = rc.height;
+            //print("rect into: " + rc);
             List<wallInfo> roomWalls = new List<wallInfo>();
             for (int x = rX; x < rX + rW; x++)
             {
-                wallList.Remove(udWalls[x, rY - 1]);
-                wallList.Remove(udWalls[x, rY + rH - 1]);
-                roomWalls.Add(udWalls[x, rY - 1]);
-                roomWalls.Add(udWalls[x, rY + rH - 1]);
+                if (rY > 0)
+                {
+                    wallList.Remove(udWalls[x, rY - 1]);
+                    roomWalls.Add(udWalls[x, rY - 1]);
+                }
+                if (rY + rH < puzzleHeight)
+                {
+                    wallList.Remove(udWalls[x, rY + rH - 1]);
+                    roomWalls.Add(udWalls[x, rY + rH - 1]);
+                }
             }
             for (int y = rY; y < rY + rH; y++)
             {
-                wallList.Remove(lrWalls[rX - 1, y]);
-                wallList.Remove(lrWalls[rX + rW - 1, y]);
-                roomWalls.Add(lrWalls[rX - 1, y]);
-                roomWalls.Add(lrWalls[rX + rW - 1, y]);
+                if (rX > 0)
+                {
+                    wallList.Remove(lrWalls[rX - 1, y]);
+                    roomWalls.Add(lrWalls[rX - 1, y]);
+                }
+                if (rX + rW < puzzleWidth)
+                {
+                    wallList.Remove(lrWalls[rX + rW - 1, y]);
+                    roomWalls.Add(lrWalls[rX + rW - 1, y]);
+                }
             }
-            for (int i = 0; i < 1; i++)
+            //print("RoomWalls Num: " + roomWalls.Count);
+            for (int c = 0; c < 1; c++)
             {
                 wallInfo w = roomWalls[Random.Range(0, roomWalls.Count)];
                 ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
                 puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-                wallList.Remove(w);
+                roomWalls.Remove(w);
+                //print("-RoomWalls Num: " + roomWalls.Count);
             }
             for (int x = rX; x < rX + rW; x++)
             {
@@ -384,10 +410,12 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //==== Big Room 的部份處理
-        if (isCreateBigRoom)
+        foreach (RectInt rc in rectList)
         {
-            theMap.FillValue(puzzleX1 + rX * cellWidth + borderWidth, puzzleY1 + rY * cellHeight + borderWidth,
-                rW * cellWidth - borderWidth - borderWidth, rH * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.GRASS);
+            //int rX = rc.x; int rY = rc.y;
+            //int rW = rc.width; int rH = rc.height;
+            theMap.FillValue(puzzleX1 + rc.x * cellWidth + borderWidth, puzzleY1 + rc.y * cellHeight + borderWidth,
+                rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.GRASS);
         }
 
         //破關門
@@ -396,6 +424,62 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     }
 
+    protected List<RectInt> CreateNonOverlappingRects(Vector2Int[] sizes)
+    {
+        int maxAttempts = 1000;
+        List<RectInt>  rects = new List<RectInt>();
+
+        foreach (Vector2Int size in sizes)
+        {
+            int attempts = 0;
+
+            while (attempts < maxAttempts)
+            {
+                int startX = Random.Range(0, puzzleWidth - size.x + 1);
+                int startY = Random.Range(0, puzzleHeight - size.y + 1);
+
+                RectInt newRect = new RectInt(startX, startY, size.x, size.y);
+
+                if (!IsOverlappingOrAdjacent(rects, newRect))
+                {
+                    rects.Add(newRect);
+                    break;
+                }
+                //else
+                //{
+                //    print("這個不行: " + newRect + "Max " + newRect.xMax + "," + newRect.yMax);
+                //}
+
+                attempts++;
+            }
+            if (attempts >= maxAttempts)
+            {
+                print("ERROR!!!! CreateNonOverlappingRects 試半天試不出來啦 !!");
+            }
+            //else
+            //{
+            //    print("試了這麼多次! " + attempts);
+            //}
+        }
+        return rects;
+    }
+
+    private bool IsOverlappingOrAdjacent(List<RectInt> rects, RectInt newRect)
+    {
+        foreach (RectInt existingRect in rects)
+        {
+            //if (existingRect.xMax + 1 >= newRect.x - 1 && existingRect.xMin - 1 <= newRect.xMax + 1 &&
+            //    existingRect.yMax + 1 >= newRect.y - 1 && existingRect.yMin - 1 <= newRect.yMax + 1)
+            if (existingRect.xMax >= newRect.xMin && existingRect.xMin <= newRect.xMax && 
+                existingRect.yMax >= newRect.yMin && existingRect.yMin <= newRect.yMax )
+            {
+                //print("相交: " + newRect + "--" + existingRect);
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 }
 

@@ -1523,7 +1523,7 @@ MonoBehaviour:
   wallWidth: 2
   wallHeight: 3
   puzzleHeight: 10
-  puzzleWidth: 8
+  puzzleWidth: 10
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 28701d22c39761f4d86e24ca4fe20b40, type: 3}
@@ -1532,6 +1532,10 @@ MonoBehaviour:
   wallEdgeTileGroup: {fileID: 1696140727}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
+  roomSize:
+  - {x: 3, y: 3}
+  - {x: 3, y: 3}
+  - {x: 3, y: 3}
 --- !u!4 &1806008470
 Transform:
   m_ObjectHideFlags: 0
