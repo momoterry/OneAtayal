@@ -8,7 +8,8 @@ public class EnemyGroup : MonoBehaviour
     public EnemyInfo[] enemyInfos;
     public int width = 4;
     public int height = 3;
-    public float spwanDistance = 5.0f;
+    public float spwanDistance = 15.0f;
+    public float alertDistance = 10.0f;
 
     [System.Serializable]
     public class EnemyInfo
@@ -28,6 +29,8 @@ public class EnemyGroup : MonoBehaviour
     protected PHASE currPhase = PHASE.NONE;
     protected PHASE nexPhase = PHASE.NONE;
     protected float stateTime = 0;
+
+    protected float gridWidth = 1.0f; protected float gridHeight = 1.0f;
 
     void Start()
     {
@@ -57,14 +60,14 @@ public class EnemyGroup : MonoBehaviour
     protected void SpawnEnemies()
     {
         int[,] oGrid = new int[width+1, height+1];
-        float xShift = -(float)width * 0.5f;
-        float yShift = -(float)height * 0.5f;
+        float xShift = -(float)width * 0.5f * gridWidth;
+        float yShift = -(float)height * 0.5f * gridHeight;
         foreach (EnemyInfo enemyInfo in enemyInfos)
         {
             List<Vector2Int> slots = GetConnectedCells(enemyInfo.num, width + 1, height + 1, oGrid);
             foreach (Vector2Int slot in slots) 
             {
-                Vector3 localPos = new Vector3(slot.x + xShift, 0, slot.y + yShift);
+                Vector3 localPos = new Vector3(slot.x * gridWidth + xShift, 0, slot.y * gridHeight + yShift);
                 BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
                 oGrid[slot.x, slot.y] = 1;
             }
@@ -107,7 +110,7 @@ public class EnemyGroup : MonoBehaviour
                 failureCount++;
                 if (failureCount >= maxFailures)
                 {
-                    print("超級失敗的");
+                    print("SpawnEnemies 超級失敗的");
                     return slots;
                 }
             }
@@ -156,7 +159,7 @@ public class EnemyGroup : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(transform.position, new Vector3(width, 2.0f, height));
+        Gizmos.DrawWireCube(transform.position, new Vector3(width * gridWidth, 2.0f, height * gridHeight));
     }
 
 }

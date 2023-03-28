@@ -70,4 +70,13 @@ public class DebugMenu : MonoBehaviour
     {
         GameSystem.GetLevelManager().DebugClearAllMainLevels();
     }
+
+    public void OnBackLevel()
+    {
+        if (BattleSystem.GetInstance())
+        {
+            BattleSystem.GetInstance().OnBackPrevScene();
+            OnCloseMenu();
+        }
+    }
 }
