@@ -1,0 +1,155 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class EnemyGroup : MonoBehaviour
+{
+    public EnemyInfo[] enemyInfos;
+    public float spwanDistance = 5.0f;
+
+    [System.Serializable]
+    public class EnemyInfo
+    {
+        public GameObject enemyRef;
+        public int num;
+    }
+
+    protected enum PHASE
+    {
+        NONE,
+        SLEEP,
+        WAIT,
+        BATTLE,
+        FINISH,
+    }
+    protected PHASE currPhase = PHASE.NONE;
+    protected PHASE nexPhase = PHASE.NONE;
+    protected float stateTime = 0;
+
+    void Start()
+    {
+        nexPhase = PHASE.SLEEP;
+    }
+
+    void Update()
+    {
+        if (nexPhase != currPhase)
+        {
+            currPhase = nexPhase;
+        }
+        else
+        {
+            stateTime += Time.deltaTime;
+            switch (currPhase)
+            {
+                case PHASE.SLEEP:
+                    UpdateSleep();
+                    break;
+                case PHASE.WAIT:
+                    break;
+            }
+        }
+    }
+
+    protected void SpawnEnemies()
+    {
+        print("SpawnEnemy !!");
+        int width = 4;
+        int height = 3;
+        float xShift = -(float)width * 0.5f;
+        float yShift = -(float)height * 0.5f;
+        foreach (EnemyInfo enemyInfo in enemyInfos)
+        {
+            List<Vector2Int> slots = GetConnectedCells(enemyInfo.num, width + 1, height + 1);
+            foreach (Vector2Int slot in slots) 
+            {
+                Vector3 localPos = new Vector3(slot.x + xShift, 0, slot.y + yShift);
+                BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
+            }
+
+        }
+    }
+
+    private List<Vector2Int> GetConnectedCells(int numberOfCells, int width, int height)
+    {
+        int failureCount = 0;
+        int maxFailures = 100;
+        int x = Random.Range(0, width);
+        int y = Random.Range(0, height);
+
+        List<Vector2Int> slots = new List<Vector2Int>();
+        int[,] grid = new int[width, height];       //裡面預設值為 0
+
+        for (int i = 0; i < numberOfCells;)
+        {
+            slots.Add(new Vector2Int(x, y));
+            grid[x, y] = 1;
+
+            int[] dx = { -1, 1, 0, 0 };
+            int[] dy = { 0, 0, -1, 1 };
+            List<int> validDirections = new List<int>();
+
+            for (int dir = 0; dir < 4; dir++)
+            {
+                int newX = x + dx[dir];
+                int newY = y + dy[dir];
+
+                if (newX >= 0 && newX < width && newY >= 0 && newY < height && grid[newX, newY] == 0)
+                {
+                    validDirections.Add(dir);
+                }
+            }
+
+            if (validDirections.Count == 0)
+            {
+                failureCount++;
+                if (failureCount >= maxFailures)
+                {
+                    print("超級失敗的");
+                    return slots;
+                }
+            }
+            else
+            {
+                int randomDirection = validDirections[Random.Range(0, validDirections.Count)];
+                x += dx[randomDirection];
+                y += dy[randomDirection];
+                i++;
+            }
+        }
+
+        return slots;
+    }
+
+    protected void UpdateSleep()
+    {
+        if (stateTime > 0.2f)
+        {
+            if (GetPlayerDistance() < spwanDistance)
+            {
+                SpawnEnemies();
+                nexPhase = PHASE.WAIT;
+            }
+        }
+    }
+
+    protected float GetPlayerDistance()
+    {
+        if (BattleSystem.GetPC() == null)
+            return Mathf.Infinity;
+        Vector3 playerPos = BattleSystem.GetPC().transform.position;
+        NavMeshPath path = new NavMeshPath();
+        if (NavMesh.CalculatePath(transform.position, playerPos, NavMesh.AllAreas, path))
+        {
+            float pathLength = 0f;
+            for (int i = 1; i < path.corners.Length; i++)
+            {
+                pathLength += Vector3.Distance(path.corners[i - 1], path.corners[i]);
+            }
+            return pathLength;
+        }
+        return Mathf.Infinity;
+    }
+
+}
