@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class EnemyGroup : MonoBehaviour
 {
     public EnemyInfo[] enemyInfos;
+    public int width = 4;
+    public int height = 3;
     public float spwanDistance = 5.0f;
 
     [System.Serializable]
@@ -54,24 +56,23 @@ public class EnemyGroup : MonoBehaviour
 
     protected void SpawnEnemies()
     {
-        print("SpawnEnemy !!");
-        int width = 4;
-        int height = 3;
+        int[,] oGrid = new int[width+1, height+1];
         float xShift = -(float)width * 0.5f;
         float yShift = -(float)height * 0.5f;
         foreach (EnemyInfo enemyInfo in enemyInfos)
         {
-            List<Vector2Int> slots = GetConnectedCells(enemyInfo.num, width + 1, height + 1);
+            List<Vector2Int> slots = GetConnectedCells(enemyInfo.num, width + 1, height + 1, oGrid);
             foreach (Vector2Int slot in slots) 
             {
                 Vector3 localPos = new Vector3(slot.x + xShift, 0, slot.y + yShift);
                 BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
+                oGrid[slot.x, slot.y] = 1;
             }
 
         }
     }
 
-    private List<Vector2Int> GetConnectedCells(int numberOfCells, int width, int height)
+    private List<Vector2Int> GetConnectedCells(int numberOfCells, int width, int height, int[,] oGrid)
     {
         int failureCount = 0;
         int maxFailures = 100;
@@ -86,16 +87,16 @@ public class EnemyGroup : MonoBehaviour
             slots.Add(new Vector2Int(x, y));
             grid[x, y] = 1;
 
-            int[] dx = { -1, 1, 0, 0 };
-            int[] dy = { 0, 0, -1, 1 };
+            int[] dx = { -1, 1, 0, 0, -1, -1, 1, 1 };
+            int[] dy = { 0, 0, -1, 1, -1, 1, -1, 1 };
             List<int> validDirections = new List<int>();
 
-            for (int dir = 0; dir < 4; dir++)
+            for (int dir = 0; dir < 8; dir++)
             {
                 int newX = x + dx[dir];
                 int newY = y + dy[dir];
 
-                if (newX >= 0 && newX < width && newY >= 0 && newY < height && grid[newX, newY] == 0)
+                if (newX >= 0 && newX < width && newY >= 0 && newY < height && grid[newX, newY] == 0 && oGrid[newX, newY] == 0)
                 {
                     validDirections.Add(dir);
                 }
@@ -150,6 +151,12 @@ public class EnemyGroup : MonoBehaviour
             return pathLength;
         }
         return Mathf.Infinity;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(transform.position, new Vector3(width, 2.0f, height));
     }
 
 }
