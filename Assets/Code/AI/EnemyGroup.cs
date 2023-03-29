@@ -10,6 +10,8 @@ public class EnemyGroup : MonoBehaviour
     public int height = 3;
     public float spwanDistance = 15.0f;
     public float alertDistance = 10.0f;
+    public float speed = 4.0f;
+    public float closeDistance = 4.0f;
 
     [System.Serializable]
     public class EnemyInfo
@@ -33,8 +35,8 @@ public class EnemyGroup : MonoBehaviour
     protected float gridWidth = 1.0f; protected float gridHeight = 1.0f;
 
     //°}«¬
-    List<GameObject> enemyList = new List<GameObject>();
-    List<Transform> slotList = new List<Transform>();
+    List<GameObject> enemies = new List<GameObject>();
+    List<Transform> slots = new List<Transform>();
 
     void Start()
     {
@@ -72,16 +74,23 @@ public class EnemyGroup : MonoBehaviour
         float yShift = -(float)height * 0.5f * gridHeight;
         foreach (EnemyInfo enemyInfo in enemyInfos)
         {
-            List<Vector2Int> slots = GetConnectedCells(enemyInfo.num, width + 1, height + 1, oGrid);
-            foreach (Vector2Int slot in slots) 
+            List<Vector2Int> iSlots = GetConnectedCells(enemyInfo.num, width + 1, height + 1, oGrid);
+            foreach (Vector2Int slot in iSlots) 
             {
                 oGrid[slot.x, slot.y] = 1;
                 Vector3 localPos = new Vector3(slot.x * gridWidth + xShift, 0, slot.y * gridHeight + yShift);
-                enemyList.Add(BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos));
-                GameObject o = new GameObject("Slot" + slotList.Count);
+                GameObject eo = BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
+                enemies.Add(eo);
+                GameObject o = new GameObject("Slot" + slots.Count);
                 o.transform.position = transform.position + localPos;
                 o.transform.parent = transform;
-                slotList.Add(o.transform);
+                slots.Add(o.transform);
+
+                Enemy e = eo.GetComponent<Enemy>();
+                if (e)
+                {
+                    e.SetSlot(o.transform);
+                }
             }
 
         }
@@ -161,8 +170,6 @@ public class EnemyGroup : MonoBehaviour
         }
     }
 
-    protected float speed = 4.0f;
-    protected float closeDistance = 4.0f;
     protected void UpdateBattle()
     {
         if (!BattleSystem.GetPC())

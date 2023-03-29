@@ -18,11 +18,13 @@ public class Enemy : MonoBehaviour
     public float ChaseRangeOut = 12.0f;
     public float AttackRangeIn = 1.0f;
     public float AttackRangeOut = 1.2f;
-   // public float MeleeRange = 1.5f;     //TODO 不再需要
     public float AttackWait = 0.2f;
     public float AttackCD = 1.0f;
 
     public float Attack = 20.0f;
+
+    public float SlotRangeOut = 3.0f;   //如果有指定 Slot 時
+    public float SlotRangeIn = 2.0f;
 
     public Animator myAnimator;         //可以指直接外部指定
     public SPAnimator mySPAimator;
@@ -30,6 +32,8 @@ public class Enemy : MonoBehaviour
     protected float hp;
     protected GameObject targetObj;
     protected Vector3 targetPos;
+
+    protected Transform mySlot = null;
 
     protected float chaseCheckTime = 0.2f;
     protected float stateTime = 0.0f;
@@ -50,6 +54,7 @@ public class Enemy : MonoBehaviour
         IDLE,
         CHASE,
         ATTACK,
+        TO_SLOT,
         STOP,   //Whem Game Fail
     }
     protected AI_STATE currState = AI_STATE.NONE;
@@ -58,6 +63,7 @@ public class Enemy : MonoBehaviour
 
     // Public
     public int GetID() { return ID; }
+    public void SetSlot( Transform slot) { mySlot = slot; }
 
     private void Awake()
     {
@@ -134,6 +140,9 @@ public class Enemy : MonoBehaviour
                 case AI_STATE.ATTACK:
                     UpdateAttack();
                     break;
+                case AI_STATE.TO_SLOT:
+                    UpdateMoveToSlot();
+                    break;
             }
         }
 
@@ -166,6 +175,11 @@ public class Enemy : MonoBehaviour
                 if (myAgent)
                     myAgent.SetDestination(targetPos);
                 stateTime = 0; //確保一開始先找一次目標
+                if (myAnimator)
+                    myAnimator.SetBool("Run", true);
+                break;
+            case AI_STATE.TO_SLOT:
+                stateTime = 0;
                 if (myAnimator)
                     myAnimator.SetBool("Run", true);
                 break;
@@ -219,7 +233,11 @@ public class Enemy : MonoBehaviour
     protected virtual void UpdateIdle()
     {
         stateTime -= Time.deltaTime;
-
+        if (CheckSlotTooFar())
+        {
+            nextState = AI_STATE.TO_SLOT;
+            return;
+        }
         if (stateTime <= 0)
         {
             stateTime = 0.1f;
@@ -243,6 +261,35 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    protected bool CheckSlotTooFar()
+    {
+        return mySlot && Vector3.Distance(mySlot.transform.position, transform.position) > SlotRangeOut;
+    }
+
+    protected virtual void UpdateMoveToSlot()
+    {
+        if (!mySlot)
+        {
+            nextState = AI_STATE.IDLE;
+            return;
+        }
+        stateTime -= Time.deltaTime;
+
+        if (stateTime <= 0)
+        {
+            stateTime = 0.1f;
+            if (Vector3.Distance(transform.position, mySlot.position) > SlotRangeIn)
+            {
+                if (myAgent)
+                    myAgent.SetDestination(mySlot.transform.position);
+            }
+            else
+            {
+                nextState = AI_STATE.IDLE;
+            }
+        }
+    }
+
     protected virtual void UpdateChase()
     {
         if (!myAgent || !targetObj)
@@ -250,6 +297,13 @@ public class Enemy : MonoBehaviour
             nextState = AI_STATE.IDLE;
             return;
         }
+
+        if (CheckSlotTooFar())
+        {
+            nextState = AI_STATE.TO_SLOT;
+            return;
+        }
+
         PlayerControllerBase thePC = targetObj.GetComponent<PlayerControllerBase>();
         if (thePC && thePC.IsKilled())
         {
@@ -309,6 +363,11 @@ public class Enemy : MonoBehaviour
         if ( !myAgent || !targetObj || !targetObj.activeInHierarchy)
         {
             nextState = AI_STATE.IDLE;
+            return;
+        }
+        if (CheckSlotTooFar())
+        {
+            nextState = AI_STATE.TO_SLOT;
             return;
         }
         PlayerControllerBase thePC = targetObj.GetComponent<PlayerControllerBase>();

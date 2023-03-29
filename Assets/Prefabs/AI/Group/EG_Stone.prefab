@@ -278,18 +278,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 3010
-  MaxHP: 300
+  MaxHP: 900
   spawnFX: {fileID: 0}
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
   debris: {fileID: 4102302037370830796, guid: f9708512c0100ae4c9393ca2cd4ea6a3, type: 3}
   SpawnWaitTime: 0.4
-  ChaseRangeIn: 1
-  ChaseRangeOut: 2
-  AttackRangeIn: 1
-  AttackRangeOut: 2
+  ChaseRangeIn: 4
+  ChaseRangeOut: 5
+  AttackRangeIn: 3
+  AttackRangeOut: 4
   AttackWait: 0.2
-  AttackCD: 1.5
+  AttackCD: 2.5
   Attack: 10
+  SlotRangeOut: 3
+  SlotRangeIn: 1
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 1381435553913394138}
   DashTime: 0.1
