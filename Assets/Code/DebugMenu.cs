@@ -79,4 +79,18 @@ public class DebugMenu : MonoBehaviour
             OnCloseMenu();
         }
     }
+
+    public void OnLvUp()
+    {
+        if (BattleSystem.GetPC())
+        {
+            CharacterData mData = BattleSystem.GetPC().theCharData;
+            mData.AddExp(mData.GetExpMax());
+        }
+    }
+
+    public void OnAddMoney()
+    {
+        GameSystem.GetPlayerData().AddMoney(10000);
+    }
 }

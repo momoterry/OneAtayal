@@ -49,7 +49,7 @@ public class PlayerData : MonoBehaviour
     {
         print("==== PlayerData.InitData()");
         Money = 0;
-        mainCharacterStat.LV = 21;
+        mainCharacterStat.LV = 1;
         mainCharacterStat.Exp = 0;
         usingDollList.Clear();
         dollBackpack.Clear();
@@ -246,12 +246,12 @@ public class PlayerData : MonoBehaviour
             print("ERROR!!! The Doll in not in Backpack !!!! : " + dollID);
         }
 
-        print("========= Doll BackPack =========");
-        foreach (KeyValuePair<string, int> k in dollBackpack)
-        {
-            print(k.Key + " : " + k.Value);
-        }
-        print("========= ========= ========= ");
+    //    print("========= Doll BackPack =========");
+    //    foreach (KeyValuePair<string, int> k in dollBackpack)
+    //    {
+    //        print(k.Key + " : " + k.Value);
+    //    }
+    //    print("========= ========= ========= ");
     }
 
     public Dictionary<string, int> GetDollBackPack()
