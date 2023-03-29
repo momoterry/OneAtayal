@@ -32,6 +32,10 @@ public class EnemyGroup : MonoBehaviour
 
     protected float gridWidth = 1.0f; protected float gridHeight = 1.0f;
 
+    //°}«¬
+    List<GameObject> enemyList = new List<GameObject>();
+    List<Transform> slotList = new List<Transform>();
+
     void Start()
     {
         nexPhase = PHASE.SLEEP;
@@ -52,6 +56,10 @@ public class EnemyGroup : MonoBehaviour
                     UpdateSleep();
                     break;
                 case PHASE.WAIT:
+                    UpdateWait();
+                    break;
+                case PHASE.BATTLE:
+                    UpdateBattle();
                     break;
             }
         }
@@ -67,9 +75,13 @@ public class EnemyGroup : MonoBehaviour
             List<Vector2Int> slots = GetConnectedCells(enemyInfo.num, width + 1, height + 1, oGrid);
             foreach (Vector2Int slot in slots) 
             {
-                Vector3 localPos = new Vector3(slot.x * gridWidth + xShift, 0, slot.y * gridHeight + yShift);
-                BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
                 oGrid[slot.x, slot.y] = 1;
+                Vector3 localPos = new Vector3(slot.x * gridWidth + xShift, 0, slot.y * gridHeight + yShift);
+                enemyList.Add(BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos));
+                GameObject o = new GameObject("Slot" + slotList.Count);
+                o.transform.position = transform.position + localPos;
+                o.transform.parent = transform;
+                slotList.Add(o.transform);
             }
 
         }
@@ -138,6 +150,31 @@ public class EnemyGroup : MonoBehaviour
         }
     }
 
+    protected void UpdateWait()
+    {
+        if (stateTime > 0.2f)
+        {
+            if (GetPlayerDistance() < alertDistance)
+            {
+                nexPhase = PHASE.BATTLE;
+            }
+        }
+    }
+
+    protected float speed = 4.0f;
+    protected float closeDistance = 4.0f;
+    protected void UpdateBattle()
+    {
+        if (!BattleSystem.GetPC())
+        {
+            nexPhase = PHASE.FINISH;
+        }
+        if (Vector3.Distance(transform.position, BattleSystem.GetPC().transform.position) > closeDistance)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, BattleSystem.GetPC().transform.position, Time.deltaTime * speed);
+        }
+    }
+
     protected float GetPlayerDistance()
     {
         if (BattleSystem.GetPC() == null)
@@ -162,4 +199,11 @@ public class EnemyGroup : MonoBehaviour
         Gizmos.DrawWireCube(transform.position, new Vector3(width * gridWidth, 2.0f, height * gridHeight));
     }
 
+    //private void OnGUI()
+    //{
+    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currPhase.ToString());
+
+    //}
 }
