@@ -38,6 +38,10 @@ public class MG_MazeDungeon : MapGeneratorBase
     //public Vector2Int[] roomSize;
     public int noRoomBuffer = 1;    //避免入口就遇到 Room 的緩衝
 
+    //戰鬥 Gameplay 用
+    public EnemyGroup normalGroup;
+
+
     //基底地圖相關 TODO: 希望獨立出去
     protected int mapWidth = 0;
     protected int mapHeight = 0;
@@ -72,6 +76,10 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected class cellInfo
     {
         public bool U, D, L, R;
+        public int value = NORMAL;
+
+        public const int NORMAL = 0;
+        public const int ROOM = 1;
     }
 
     protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
@@ -287,6 +295,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                         ConnectCellsByID(GetCellID(x, y), GetCellID(x, y + 1));
                         puzzleDSU.Union(GetCellID(x, y), GetCellID(x, y + 1));
                     }
+                    puzzleMap[x][y].value = cellInfo.ROOM;
                 }
             }
         }
@@ -400,6 +409,21 @@ public class MG_MazeDungeon : MapGeneratorBase
                     FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
                 else if (puzzleDSU.Find(GetCellID(i, j)) == startValue)
                     FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
+
+                if (puzzleMap[i][j].value == cellInfo.NORMAL)
+                {
+                    Vector3 pos = new Vector3(x1 + cellWidth/2, 0, y1 + cellHeight/2);
+                    if (normalGroup && Vector3.Distance(pos, startPos) > 20.0f)
+                    {
+                        if (Random.Range(0, 1.0f) < 0.2f)
+                        {
+                            GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
+                            EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
+                            eg.isRandomEnemyTotal = true;
+                            eg.randomEnemyTotal = 4 + (j * (4 + 1) / puzzleHeight);
+                        }
+                    }
+                }
             }
         }
 
@@ -414,6 +438,9 @@ public class MG_MazeDungeon : MapGeneratorBase
         if (finishPortalRef)
             BattleSystem.SpawnGameObj(finishPortalRef, endPos);
     }
+
+
+    // ============================= 產生複數 Big Room 的判斷用 =============================================
 
     protected List<RectInt> CreateNonOverlappingRects(List<Vector2Int> sizes)
     {

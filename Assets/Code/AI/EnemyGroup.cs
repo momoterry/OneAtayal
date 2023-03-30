@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class EnemyGroup : MonoBehaviour
 {
     public EnemyInfo[] enemyInfos;
+    public bool isRandomEnemyTotal = false;
+    public int randomEnemyTotal = 0;
     public int width = 4;
     public int height = 3;
     public float spwanDistance = 15.0f;
@@ -40,6 +42,29 @@ public class EnemyGroup : MonoBehaviour
 
     void Start()
     {
+        if (isRandomEnemyTotal)
+        {
+            int[] rds = new int[enemyInfos.Length - 1];
+            for (int i = 0; i < enemyInfos.Length - 1; i++)
+            {
+                rds[i] = Random.Range(0, randomEnemyTotal + 1);
+            }
+            System.Array.Sort(rds);
+            int prev = 0;
+            for (int i = 0; i < enemyInfos.Length - 1; i++)
+            {
+                enemyInfos[i].num = rds[i] - prev;
+                prev = rds[i];
+            }
+            enemyInfos[enemyInfos.Length - 1].num = randomEnemyTotal - prev;
+
+            //for (int i = 0; i < enemyInfos.Length; i++)
+            //{
+            //    print("RandomEnemyNum: " + enemyInfos[i].num);
+            //}
+        }
+
+
         nexPhase = PHASE.SLEEP;
     }
 
