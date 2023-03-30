@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Dynamic;
+using static UnityEditor.PlayerSettings;
 
 public class MG_MazeDungeon : MapGeneratorBase
 {
@@ -430,8 +431,18 @@ public class MG_MazeDungeon : MapGeneratorBase
         //==== Big Room 的部份處理
         foreach (RectInt rc in rectList)
         {
-            theMap.FillValue(puzzleX1 + rc.x * cellWidth + borderWidth, puzzleY1 + rc.y * cellHeight + borderWidth,
+            int x1 = puzzleX1 + rc.x * cellWidth;
+            int y1 = puzzleY1 + rc.y * cellHeight;
+            theMap.FillValue(x1 + borderWidth, y1 + borderWidth,
                 rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.GRASS);
+
+            Vector3 pos = new Vector3(x1 + rc.width * cellWidth / 2, 0, y1 + rc.height * cellHeight / 2);
+            GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
+            EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
+            eg.isRandomEnemyTotal = true;
+            eg.randomEnemyTotal = rc.width * rc.height * 2;
+            eg.height = rc.height * 4;
+            eg.width = rc.width * 4;
         }
 
         //破關門
