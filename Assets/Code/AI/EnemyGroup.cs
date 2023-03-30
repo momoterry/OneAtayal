@@ -98,50 +98,87 @@ public class EnemyGroup : MonoBehaviour
 
     private List<Vector2Int> GetConnectedCells(int numberOfCells, int width, int height, int[,] oGrid)
     {
-        int failureCount = 0;
-        int maxFailures = 100;
-        int x = Random.Range(0, width);
-        int y = Random.Range(0, height);
+        //int failureCount = 0;
+        //int maxFailures = 100;
+
+        int x = 0, y = 0;
 
         List<Vector2Int> slots = new List<Vector2Int>();
         int[,] grid = new int[width, height];       //裡面預設值為 0
 
-        for (int i = 0; i < numberOfCells;)
+        List<Vector2Int> validStart = new List<Vector2Int>();
+        for (int i=0; i<width; i++)
         {
-            slots.Add(new Vector2Int(x, y));
-            grid[x, y] = 1;
-
-            int[] dx = { -1, 1, 0, 0, -1, -1, 1, 1 };
-            int[] dy = { 0, 0, -1, 1, -1, 1, -1, 1 };
-            List<int> validDirections = new List<int>();
-
-            for (int dir = 0; dir < 8; dir++)
+            for (int j=0; j<height; j++)
             {
-                int newX = x + dx[dir];
-                int newY = y + dy[dir];
-
-                if (newX >= 0 && newX < width && newY >= 0 && newY < height && grid[newX, newY] == 0 && oGrid[newX, newY] == 0)
+                if (oGrid[i,j] == 0)
                 {
-                    validDirections.Add(dir);
+                    validStart.Add(new Vector2Int(i, j));
                 }
             }
+        }
+        if (validStart.Count == 0)
+            return slots;
 
-            if (validDirections.Count == 0)
+        for (int i = 0; i < numberOfCells;)
+        {
+            bool isSuccessStep = false;
+            //slots.Add(new Vector2Int(x, y));
+            //grid[x, y] = 1;
+            if (i == 0)
             {
-                failureCount++;
-                if (failureCount >= maxFailures)
-                {
-                    print("SpawnEnemies 超級失敗的");
-                    return slots;
-                }
+                Vector2Int randomStart = validStart[Random.Range(0, validStart.Count)];
+                x = randomStart.x; y = randomStart.y;
+                isSuccessStep = true;
             }
             else
             {
-                int randomDirection = validDirections[Random.Range(0, validDirections.Count)];
-                x += dx[randomDirection];
-                y += dy[randomDirection];
-                i++;
+                int[] dx = { -1, 1, 0, 0, -1, -1, 1, 1 };
+                int[] dy = { 0, 0, -1, 1, -1, 1, -1, 1 };
+                List<int> validDirections = new List<int>();
+
+                for (int dir = 0; dir < 8; dir++)
+                {
+                    int newX = x + dx[dir];
+                    int newY = y + dy[dir];
+
+                    if (newX >= 0 && newX < width && newY >= 0 && newY < height && grid[newX, newY] == 0 && oGrid[newX, newY] == 0)
+                    {
+                        validDirections.Add(dir);
+                    }
+                }
+
+                if (validDirections.Count == 0)
+                {
+                    //failureCount++;
+                    //if (failureCount >= maxFailures)
+                    //{
+                    //    print("SpawnEnemies 超級失敗的");
+                    //    break;
+                    //}
+                    ////這一步沒有下一步可走，退回上一步，還原到上一步
+                    //print("回頭再試一次 !! " + i + "失敗次數: " + failureCount);
+                    //i--;
+                    //slots.RemoveAt(i);
+                    //grid[x, y] = 0;
+                    print("沒路可走了，先結束.... ");
+                    break;
+                }
+                else
+                {
+                    int randomDirection = validDirections[Random.Range(0, validDirections.Count)];
+                    x += dx[randomDirection];
+                    y += dy[randomDirection];
+                    isSuccessStep = true;
+                }
             }
+            if (isSuccessStep)
+            {
+                i++;
+                slots.Add(new Vector2Int(x, y));
+                grid[x, y] = 1;
+            }
+
         }
 
         return slots;
