@@ -88,6 +88,9 @@ public class EnemyGroup : MonoBehaviour
                 case PHASE.BATTLE:
                     UpdateBattle();
                     break;
+                case PHASE.FINISH:
+                    Destroy(gameObject);
+                    break;
             }
         }
     }
@@ -241,6 +244,22 @@ public class EnemyGroup : MonoBehaviour
         if (Vector3.Distance(transform.position, BattleSystem.GetPC().transform.position) > closeDistance)
         {
             transform.position = Vector3.MoveTowards(transform.position, BattleSystem.GetPC().transform.position, Time.deltaTime * speed);
+        }
+        if (stateTime > 0.2f)
+        {
+            stateTime = 0;
+            for (int i=0; i<enemies.Count; i++)
+            {
+                if (enemies[i] == null)
+                {
+                    enemies.RemoveAt(i);
+                    if (enemies.Count == 0)
+                    {
+                        nexPhase = PHASE.FINISH;
+                    }
+                    break;  //Á×§K³sÄò§R°£
+                }
+            }
         }
     }
 
