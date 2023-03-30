@@ -34,6 +34,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     {
         public Vector2Int size;
         public int numDoor;
+        public GameObject gameplayRef;
     }
     public BigRoomInfo[] bigRooms;
     //public Vector2Int[] roomSize;
@@ -429,20 +430,29 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //==== Big Room 的部份處理
-        foreach (RectInt rc in rectList)
+        //foreach (RectInt rc in rectList)
+        for (int i=0; i<rectList.Count; i++)
         {
+            RectInt rc = rectList[i];
             int x1 = puzzleX1 + rc.x * cellWidth;
             int y1 = puzzleY1 + rc.y * cellHeight;
             theMap.FillValue(x1 + borderWidth, y1 + borderWidth,
                 rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.GRASS);
 
             Vector3 pos = new Vector3(x1 + rc.width * cellWidth / 2, 0, y1 + rc.height * cellHeight / 2);
-            GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
-            EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
-            eg.isRandomEnemyTotal = true;
-            eg.randomEnemyTotal = rc.width * rc.height * 2;
-            eg.height = rc.height * 4;
-            eg.width = rc.width * 4;
+            if (bigRooms[i].gameplayRef)
+            {
+                BattleSystem.SpawnGameObj(bigRooms[i].gameplayRef, pos);
+            }
+            else
+            {
+                GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
+                EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
+                eg.isRandomEnemyTotal = true;
+                eg.randomEnemyTotal = rc.width * rc.height * 2;
+                eg.height = rc.height * 4;
+                eg.width = rc.width * 4;
+            }
         }
 
         //破關門
