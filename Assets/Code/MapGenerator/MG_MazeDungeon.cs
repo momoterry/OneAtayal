@@ -1,12 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using UnityEngine.Tilemaps;
-using System.Dynamic;
-using static UnityEditor.PlayerSettings;
 
 public class MG_MazeDungeon : MapGeneratorBase
 {
