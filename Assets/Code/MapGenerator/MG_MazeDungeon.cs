@@ -37,11 +37,11 @@ public class MG_MazeDungeon : MapGeneratorBase
         public GameObject gameplayRef;
     }
     public BigRoomInfo[] bigRooms;
-    //public Vector2Int[] roomSize;
     public int noRoomBuffer = 1;    //避免入口就遇到 Room 的緩衝
 
-    //戰鬥 Gameplay 用
+    //Gameplay 用
     public EnemyGroup normalGroup;
+    public GameObject[] exploreRewards;
 
 
     //基底地圖相關 TODO: 希望獨立出去
@@ -209,6 +209,11 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected int GetCellX(int id) { return id % puzzleWidth; }
     protected int GetCellY(int id) { return id / puzzleWidth; }
 
+    protected Vector3 GetCellCenterPos(int x, int y) 
+    {
+        return new Vector3(puzzleX1 + cellWidth * (x + 0.5f), 0, puzzleY1 + cellHeight * (y + 0.5f));
+    }
+
     protected List<RectInt> rectList;
 
     protected void CreatMazeMap()
@@ -339,7 +344,6 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //==== 連結完再處理 Big Room 的開口
-        //foreach (RectInt rc in rectList)
         for (int i=0; i<rectList.Count; i++)
         {
             RectInt rc = rectList[i];
@@ -383,7 +387,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iStart) * cellHeight + cellHeight / 2);
         endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
 
-        //== 緩衝區處理
+        //==== 緩衝區處理
         if (extendTerminal)
         {
             //起始區處理
@@ -400,6 +404,8 @@ public class MG_MazeDungeon : MapGeneratorBase
             endPos.z += cellHeight;
         }
 
+        //==== 一般通道處理
+        List<Vector2Int> deadEnds = new List<Vector2Int>();
         int startValue = puzzleDSU.Find(iStart);
         for (int i = 0; i < puzzleWidth; i++)
         {
@@ -414,7 +420,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
                 if (puzzleMap[i][j].value == cellInfo.NORMAL)
                 {
-                    Vector3 pos = new Vector3(x1 + cellWidth/2, 0, y1 + cellHeight/2);
+                    //Vector3 pos = new Vector3(x1 + cellWidth/2, 0, y1 + cellHeight/2);
+                    Vector3 pos = GetCellCenterPos(i, j);
                     if (normalGroup && Vector3.Distance(pos, startPos) > 20.0f)
                     {
                         if (Random.Range(0, 1.0f) < 0.2f)
@@ -425,12 +432,26 @@ public class MG_MazeDungeon : MapGeneratorBase
                             eg.randomEnemyTotal = 4 + (j * (4 + 1) / puzzleHeight);
                         }
                     }
+
+                    int wallCount = (puzzleMap[i][j].U ? 0 : 1) + (puzzleMap[i][j].D ? 0 : 1) 
+                        + (puzzleMap[i][j].L ? 0 : 1) + +(puzzleMap[i][j].R ? 0 : 1);
+                    if (wallCount == 3)
+                    {
+                        deadEnds.Add(new Vector2Int(i,j));
+                    }
                 }
             }
         }
+        print("總共找到的終端:" + deadEnds.Count);
+        int expRewardCount = Mathf.Min(exploreRewards.Length, deadEnds.Count);
+        OneUtility.Shuffle(deadEnds);
+        for ( int i=0; i<expRewardCount; i++)
+        {
+            Vector3 pos = GetCellCenterPos(deadEnds[i].x, deadEnds[i].y );
+            BattleSystem.SpawnGameObj(exploreRewards[i], pos);
+        }
 
         //==== Big Room 的部份處理
-        //foreach (RectInt rc in rectList)
         for (int i=0; i<rectList.Count; i++)
         {
             RectInt rc = rectList[i];
@@ -444,7 +465,7 @@ public class MG_MazeDungeon : MapGeneratorBase
             {
                 BattleSystem.SpawnGameObj(bigRooms[i].gameplayRef, pos);
             }
-            else
+            else if (normalGroup)
             {
                 GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
                 EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
