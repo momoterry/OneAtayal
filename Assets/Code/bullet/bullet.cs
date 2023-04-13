@@ -6,6 +6,19 @@ using UnityEngine;
 public struct Damage
 {
     public float damage;
+    //public DamageApplyerInfo applyerInfo;
+}
+
+public class DamageApplyerInfo{
+    public enum Type
+    {
+        DOLL,
+        PLAYER,
+        ENEMY,
+    }
+    public GameObject applyer;
+    public Type type;
+    public string ID;
 }
 
 public enum DAMAGE_GROUP
