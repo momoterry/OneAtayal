@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OSE_FlyingRock : OSEnemy
 {
+    //protected Damage myDamage;
     public override void SetUpLevel(int iLv = 1)
     {
         Score *= iLv;
@@ -11,8 +12,11 @@ public class OSE_FlyingRock : OSEnemy
 
     private void OnTriggerEnter(Collider col)
     {
-        Damage myDamage;
+        //Damage myDamage;
         myDamage.damage = Attack;
+        //myDamage.ID = gameObject.name;
+        //myDamage.type = Damage.OwnerType.ENEMY;
+        //myDamage.Owner = gameObject;
         bool hit = false;
         if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) )
         {

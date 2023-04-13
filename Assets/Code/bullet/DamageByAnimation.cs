@@ -10,7 +10,7 @@ public class DamageByAnimation : bullet_base
     public GameObject hitFX;
 
     //private DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
-    protected Damage myDamage;
+    //protected Damage myDamage;
 
     ////Public Functions
     //public void SetGroup(DAMAGE_GROUP g)

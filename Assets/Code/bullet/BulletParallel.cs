@@ -25,7 +25,7 @@ public class BulletParallel : bullet_base
                 if (newBullet)
                 {
 
-                    newBullet.InitValue(group, baseDamage, targetDir, targetObj);
+                    newBullet.InitValue(group, myDamage, targetDir, targetObj);
                 }
             }
             shift += stepWidth;

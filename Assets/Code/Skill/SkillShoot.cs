@@ -104,7 +104,8 @@ public class SkillShoot : SkillBase
             bullet_base newBullet = newObj.GetComponent<bullet_base>();
             if (newBullet)
             {
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, thePC.GetATTACK() * damageRatio, td, target);
+                myDamage.damage = thePC.GetATTACK() * damageRatio;
+                newBullet.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, target);
             }
         }
 

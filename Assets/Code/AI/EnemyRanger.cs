@@ -32,7 +32,7 @@ public class EnemyRanger : Enemy
 #endif
                     //newBullet.targetDir = td.normalized;
                     //newBullet.baseDamage = Attack;
-                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, Attack, td);
+                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, td);
                 }
             }
         }

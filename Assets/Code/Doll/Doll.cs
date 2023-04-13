@@ -25,6 +25,8 @@ public class Doll : MonoBehaviour
     protected DollManager theDollManager;
     protected Transform mySlot;
 
+    protected Damage myDamage;
+
     protected enum DOLL_STATE
     {
         NONE,
@@ -43,6 +45,8 @@ public class Doll : MonoBehaviour
     {
         if (nextState == DOLL_STATE.NONE)   //以確保一開始就被加入玩家的情況能正確
             nextState = DOLL_STATE.WAIT;
+
+        myDamage.Init(AttackInit, Damage.OwnerType.DOLL, ID, gameObject);
     }
 
     void OnStateExit()
@@ -195,7 +199,7 @@ public class Doll : MonoBehaviour
                 td.z = 0;
 #endif
                 //b.targetDir = td.normalized;
-                b.InitValue(DAMAGE_GROUP.PLAYER, AttackInit, td);
+                b.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td);
             }
         }
     }

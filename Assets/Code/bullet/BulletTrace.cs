@@ -12,6 +12,8 @@ public class BulletTrace : bullet_base
 
     public GameObject hitFX;
 
+    //protected Damage myDamage;
+
     protected float myTime = 0.0f;
     protected bool loseTarget = false;
 
@@ -74,7 +76,7 @@ public class BulletTrace : bullet_base
             BattleSystem.GetInstance().SpawnGameplayObject(hitFX, transform.position, false);
         }
 
-        Damage myDamage;
+        //Damage myDamage;
         myDamage.damage = baseDamage;
         if (targetObj)
             targetObj.SendMessage("OnDamage", myDamage);

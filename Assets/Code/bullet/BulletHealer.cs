@@ -13,9 +13,9 @@ public class BulletHealer : BulletTrace
     protected PreHealInfo myPreHeal;
 
 
-    public override void InitValue(DAMAGE_GROUP g, float damage, Vector3 targetVec, GameObject targetObject = null)
+    public override void InitValue(DAMAGE_GROUP g, Damage _damage, Vector3 targetVec, GameObject targetObject = null)
     {
-        base.InitValue(g, damage, targetVec, targetObject);
+        base.InitValue(g, _damage, targetVec, targetObject);
 
         predictedHealValue = 0;
         if (targetObj && targetObj.activeInHierarchy)

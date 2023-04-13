@@ -9,7 +9,7 @@ public class DamageOverTime : bullet_base
     public GameObject hitFX;
 
     protected float damageTime = 0.0f;
-    protected Damage myDamage;
+    //protected Damage myDamage;
 
     // Start is called before the first frame update
     void Start()

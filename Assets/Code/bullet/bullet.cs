@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,20 +6,25 @@ using UnityEngine;
 //Damage 定義的部份
 public struct Damage
 {
-    public float damage;
-    //public DamageApplyerInfo applyerInfo;
-}
-
-public class DamageApplyerInfo{
-    public enum Type
+    public enum OwnerType
     {
+        NONE,
         DOLL,
         PLAYER,
         ENEMY,
     }
-    public GameObject applyer;
-    public Type type;
+    public float damage;
+    public OwnerType type;
     public string ID;
+    public GameObject Owner;
+
+    public void Init(float _d, OwnerType _type, string _ID, GameObject _Owner)
+    {
+        damage = _d;
+        type = _type;
+        ID = _ID;
+        Owner = _Owner;
+    }
 }
 
 public enum DAMAGE_GROUP
@@ -34,29 +40,27 @@ public class bullet_base : MonoBehaviour
     protected Vector3 targetDir = Vector3.up;
     protected GameObject targetObj = null;
     protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
+    protected Damage myDamage;
 
-    public virtual void InitValue(DAMAGE_GROUP g, float damage, Vector3 targetVec, GameObject targetObject = null)
+    public virtual void InitValue(DAMAGE_GROUP g, Damage theDamage, Vector3 targetVec, GameObject targetObject = null)
     {
         group = g;
         targetDir = targetVec.normalized;
-        baseDamage = damage;
+        myDamage = theDamage;
+        baseDamage = theDamage.damage;
         targetObj = targetObject;
     }
 }
 
 public class bullet : bullet_base
 {
-    //public float baseDamage = 60.0f;
     public float speed = 20.0f;
-    //public Vector3 targetDir = Vector3.up;
     public float lifeTime = 0.5f;
     public GameObject hitFX;
 
-    //protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
-
     protected float myTime = 1.0f;
 
-    protected Damage myDamage;
+    //protected Damage myDamage;
 
 
     // Public Functions
@@ -90,55 +94,6 @@ public class bullet : bullet_base
 
     }
 
-    //private void OnCollisionEnter2D(Collision2D col)
-    //{
-    //    print("OnCollisionEnter2D : " + col);
-    //    if (col.gameObject.CompareTag("Enemy"))
-    //    {
-    //        //print("Hit Enemy !!  .. Collision");
-    //    }
-    //}
-
-    //private void OnTriggerEnter2D(Collider2D col)
-    //{
-    //    //print("OnTriggernEnter2D : " + col);
-    //    bool hit = false;
-    //    bool flashShift = true;// 打中角色的話, 擊中特效往鏡頭放以免被擋
-    //    if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
-    //    {
-    //        //print("Trigger:  Hit Enemy !!");
-    //        hit = true;
-    //        col.gameObject.SendMessage("OnDamage", myDamage);
-    //    }
-    //    else if (col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll") && group == DAMAGE_GROUP.ENEMY)
-    //    {
-    //        //print("Trigger:  Hit Player or Doll !!");
-    //        hit = true;
-    //        col.gameObject.SendMessage("OnDamage", myDamage);
-    //    }
-    //    else if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
-    //    {
-    //        //print("Trigger:  HitWall !!");
-    //        hit = true;
-    //        flashShift = false;
-    //    }
-
-
-    //    if (hit)
-    //    {
-    //        Vector3 hitPos = col.ClosestPoint(transform.position);
-    //        if (flashShift)
-    //        {
-    //            hitPos.z = col.transform.position.z - 0.125f;   //角色的話用對方的 Z 來調整
-    //        }
-    //        else
-    //            hitPos.z = hitPos.y;
-
-    //        Instantiate(hitFX, hitPos, Quaternion.identity, null);
-    //        Destroy(gameObject);
-    //    }
-
-    //}
 
     private void OnTriggerEnter(Collider col)
     {
@@ -172,14 +127,8 @@ public class bullet : bullet_base
         {
             Vector3 hitPos = col.ClosestPoint(transform.position);
 
-            //#if XZ_PLAN
-            //            Instantiate(hitFX, hitPos, Quaternion.Euler(90, 0, 0), null);
-            //#else
-            //            Instantiate(hitFX, hitPos, Quaternion.identity, null);
-            //#endif
             BattleSystem.GetInstance().SpawnGameplayObject(hitFX, hitPos, false);
 
-            //Destroy(gameObject);
             destroy = true;
         }
 

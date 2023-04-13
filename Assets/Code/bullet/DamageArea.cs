@@ -7,11 +7,13 @@ public class DamageArea : AreaEffectBase
     public float defaultDamage = 20.0f;
     public GameObject damageFX;
 
+    //protected Damage myDamage;
+
     protected override void ApplyEffect(GameObject obj)
     {
         //float healAbsoluteValue = baseDamage;
 
-        Damage myDamage;
+        //Damage myDamage;
         myDamage.damage = defaultDamage;
 
         //PlayerControllerBase pc = obj.GetComponent<PlayerControllerBase>();

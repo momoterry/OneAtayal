@@ -59,7 +59,7 @@ public class BulletStep : bullet_base
                 if (newBullet)
                 {
 
-                    newBullet.InitValue(group, baseDamage, targetDir);
+                    newBullet.InitValue(group, myDamage, targetDir);
                 }
             }
         }

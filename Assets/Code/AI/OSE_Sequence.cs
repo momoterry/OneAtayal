@@ -112,7 +112,8 @@ public class OSE_Sequence : OSEnemy
                 bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
-                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, Attack * skill.damageRatio, faceDir);
+                    myDamage.damage = Attack * skill.damageRatio;
+                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, faceDir);
                 }
             }
         }

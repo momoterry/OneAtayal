@@ -384,7 +384,7 @@ public class DollAuto : Doll
             td.z = 0;
 #endif
             //b.targetDir = td.normalized;
-            b.InitValue(DAMAGE_GROUP.PLAYER, AttackInit, td, myTarget);
+            b.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, myTarget);
         }
     }
 

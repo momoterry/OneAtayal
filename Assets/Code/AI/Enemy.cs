@@ -85,7 +85,8 @@ public class Enemy : MonoBehaviour
             myAgent.updateUpAxis = false;
         }
         hp = MaxHP;
-        myDamage.damage = Attack;
+        //myDamage.damage = Attack;
+        myDamage.Init(Attack, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
 
         myHPHandler = GetComponent<Hp_BarHandler>();
 
@@ -99,7 +100,6 @@ public class Enemy : MonoBehaviour
         faceDir = Vector3.down;
 #endif
         SetupAnimationDirection();
-
     }
 
     public virtual void SetUpLevel( int iLv = 1)

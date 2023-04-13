@@ -28,6 +28,8 @@ public class SkillBase : MonoBehaviour
     protected SkillButton theButton;
     protected int skillIndex = 0;
 
+    protected Damage myDamage;
+
     //Button ¬ÛÃö
 
     public void OnButtonClicked()
@@ -114,4 +116,8 @@ public class SkillBase : MonoBehaviour
         }
     }
 
+    protected virtual void Start()
+    {
+        myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+    }
 }

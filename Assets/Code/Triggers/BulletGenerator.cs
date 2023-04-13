@@ -8,10 +8,11 @@ public class BulletGenerator : MonoBehaviour
     public Transform dirRef;
     public float initDis = 1.0f;
     public float damage = 20.0f;
+    protected Damage myDamage;
     // Start is called before the first frame update
     void Start()
     {
-        
+        myDamage.Init(damage, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
     }
 
     void OnTG(GameObject whoTG)
@@ -29,7 +30,7 @@ public class BulletGenerator : MonoBehaviour
             bullet_base bullet = bObj.GetComponent<bullet_base>();
             if (bullet)
             {
-                bullet.InitValue(DAMAGE_GROUP.ENEMY, damage, dir);
+                bullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, dir);
             }
         }
     }

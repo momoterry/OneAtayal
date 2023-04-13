@@ -13,6 +13,7 @@ public class OSEnemy : MonoBehaviour
     public float SpawnWaitTime = 0.1f;
     public float SpawnWaitFlyingDistance = 0.0f;
 
+    protected Damage myDamage;
     protected Vector3 flyingStartPos = new Vector3();
 
     protected enum PHASE

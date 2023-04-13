@@ -29,7 +29,7 @@ public class EnemyThrower : Enemy
                 if (newBullet)
                 {
 
-                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, Attack, faceDir);
+                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, faceDir);
                 }
             }
         }

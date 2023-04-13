@@ -41,7 +41,7 @@ public class Doll_Wing : Doll
             if (newBullet)
             {
 
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, AttackInit, shootTo);
+                newBullet.InitValue(DAMAGE_GROUP.PLAYER, myDamage, shootTo);
             }
         }
     }

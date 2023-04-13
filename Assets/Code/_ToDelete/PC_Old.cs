@@ -778,7 +778,8 @@ public class PC_Old : PlayerControllerBase
                 //newBullet.targetDir = td;
                 //傷害值，由自己來給
                 //newBullet.baseDamage = rangeSkillDef.baseDamage; //TODO:  升級?
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, rangeSkillDef.baseDamage, td);
+                myDamage.damage = rangeSkillDef.baseDamage;
+                newBullet.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td);
             }
         }
 

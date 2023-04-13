@@ -71,7 +71,8 @@ public class SkillMelee : SkillBase
             bullet_base newBullet = newObj.GetComponent<bullet_base>();
             if (newBullet)
             {
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, thePC.GetATTACK() * damageRatio, td);
+                myDamage.damage = thePC.GetATTACK() * damageRatio;
+                newBullet.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td);
             }
         }
 

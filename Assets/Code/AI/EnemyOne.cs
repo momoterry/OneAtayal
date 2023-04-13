@@ -129,7 +129,8 @@ public class EnemyOne : Enemy
 #else
                     td.z = 0;
 #endif
-                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, Attack*skill.damageRatio, td);
+                    myDamage.damage = Attack * skill.damageRatio;
+                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, td);
                 }
             }
         }
@@ -160,7 +161,8 @@ public class EnemyOne : Enemy
                     bullet_base newBullet = myTrackDamageFX.GetComponent<bullet_base>();
                     if (newBullet)
                     {
-                        newBullet.InitValue(DAMAGE_GROUP.ENEMY, Attack * skill.damageRatio, faceDir);
+                        myDamage.damage = Attack * skill.damageRatio;
+                        newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, faceDir);
                     }
                 }
             }

@@ -42,7 +42,7 @@ public class BulletMultiShoot : bullet_base
                 if (newBullet)
                 {
 
-                    newBullet.InitValue(group, baseDamage, shootTo, targetObj);
+                    newBullet.InitValue(group, myDamage, shootTo, targetObj);
                 }
             }
             currAngle += angleStep;
