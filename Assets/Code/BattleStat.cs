@@ -2,23 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//==================
-//TODO: 先嘗試看看以動態 Instace 的方式實作，之後考慮直接掛在 BattleSystem 下
-//==================
-
 public class BattleStat : MonoBehaviour
 {
     static private BattleStat instance;
 
-    //protected 
+    protected Dictionary<string, float> dollDamageTotal = new Dictionary<string, float>();
 
-    public BattleStat GetInstance()
+    private void Awake()
     {
-        if (instance == null)
-        {
-            instance = new BattleStat();
-        }
+        if (instance != null)
+            print("ERROR !! 超過一份 BattleStat 存在 ");
+        instance = this;
+    }
+
+    static public BattleStat GetInstance()
+    {
+        //if (instance == null)
+        //{
+        //    instance = new BattleStat();
+        //}
         return instance;
+    }
+
+    //各種包裝成 Static 的函式
+    static public void AddOneDamage(Damage damage, float damageDone)
+    {
+        GetInstance()._AddOneDamage(damage, damageDone);
+    }
+    public void _AddOneDamage(Damage damage, float damageDone)
+    {
+        if (damage.type == Damage.OwnerType.DOLL && damage.ID != "")
+        {
+            if (dollDamageTotal.ContainsKey(damage.ID))
+            {
+                dollDamageTotal[damage.ID] += damageDone;
+            }
+            else
+            {
+                dollDamageTotal.Add(damage.ID, damageDone);
+            }
+        }
+    }
+
+    public void DebugPrintAll()
+    {
+        foreach (KeyValuePair<string, float> kvp in dollDamageTotal)
+        {
+            print(kvp.Key + "造成了總傷: " + kvp.Value.ToString()); 
+        }
     }
 
     // Start is called before the first frame update

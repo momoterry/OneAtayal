@@ -93,4 +93,12 @@ public class DebugMenu : MonoBehaviour
     {
         GameSystem.GetPlayerData().AddMoney(10000);
     }
+
+    public void OnBattleStat()
+    {
+        if (BattleStat.GetInstance())
+        {
+            BattleStat.GetInstance().DebugPrintAll();
+        }
+    }
 }

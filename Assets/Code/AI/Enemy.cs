@@ -408,12 +408,6 @@ public class Enemy : MonoBehaviour
     //被傷害
     void OnDamage(Damage theDamage)
     {
-        //if (damageFX)
-        //    Instantiate(damageFX, transform.position, Quaternion.identity, null);
-
-        //if (myAnimator)
-        //    myAnimator.SetTrigger("Hit");
-
         //已經死了，不要再處理以避免重覆擊殺 !!
         if (hp <= 0)
         {
@@ -421,12 +415,18 @@ public class Enemy : MonoBehaviour
             return;
         }
 
+        float hpPrev = hp;
         hp -= theDamage.damage;
         if (hp <= 0)
         {
             hp = 0;
             DoDeath();
         }
+        //if (theDamage.type == Damage.OwnerType.DOLL)
+        //{
+        //    print(theDamage.ID + " 造成了 " + (hpPrev - hp) + "的傷害, 它的類型是: " + theDamage.type);
+        //}
+        BattleStat.AddOneDamage(theDamage, hpPrev - hp);
 
         //從 Idle 中醒來
         if (currState == AI_STATE.IDLE)
