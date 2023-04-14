@@ -48,9 +48,15 @@ public class BattleStat : MonoBehaviour
     {
         foreach (KeyValuePair<string, float> kvp in dollDamageTotal)
         {
-            print(kvp.Key + "造成了總傷: " + kvp.Value.ToString()); 
+            print(kvp.Key + "造成了總傷: " + kvp.Value.ToString());
         }
     }
+
+    public void DebugClearAll()
+    {
+        dollDamageTotal.Clear();
+    }
+
 
     // Start is called before the first frame update
     void Start()

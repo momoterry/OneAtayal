@@ -101,4 +101,12 @@ public class DebugMenu : MonoBehaviour
             BattleStat.GetInstance().DebugPrintAll();
         }
     }
+
+    public void OnResetBattleStat()
+    {
+        if (BattleStat.GetInstance())
+        {
+            BattleStat.GetInstance().DebugClearAll();
+        }
+    }
 }
