@@ -26,7 +26,7 @@ public class ChatGPT : MonoBehaviour
 
         //byte[] encrypted = OneUtility.EncryptString(message, key);
         //string enStr = System.Convert.ToBase64String(encrypted);
-        //string myEnStr = "Ui6c4S3gmUUG9zkfh+NyRpcdoXfHa1lv4cKelLn0qe4XfSmC8bN+SK672i9u0ca1VvkVzwML22SLKP6TAgyaUA==";
+        //string myEnStr = "aDa54kBkHErQjK93J5AAXmkTcKjor/GsDitXB/a6FVI=";
         //print(enStr);
         //print("解出來就是: " + OneUtility.DecryptString(myEnStr, key));
 
