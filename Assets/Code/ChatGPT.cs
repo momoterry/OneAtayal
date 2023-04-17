@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
+
 public class ChatGPT : MonoBehaviour
 {
     [TextArea(2, 10)]
@@ -17,8 +18,18 @@ public class ChatGPT : MonoBehaviour
     protected ChatResultCallback chatCB;
     protected bool isWaiting = false;
 
+    private string key = "cQeThWmZq4t7w!z%";
+
     void Start()
     {
+        //string message = "我是一個好寶寶";
+
+        //byte[] encrypted = OneUtility.EncryptString(message, key);
+        //string enStr = System.Convert.ToBase64String(encrypted);
+        //string myEnStr = "Ui6c4S3gmUUG9zkfh+NyRpcdoXfHa1lv4cKelLn0qe4XfSmC8bN+SK672i9u0ca1VvkVzwML22SLKP6TAgyaUA==";
+        //print(enStr);
+        //print("解出來就是: " + OneUtility.DecryptString(myEnStr, key));
+
         StartCoroutine(GetOpenAPIKey());
     }
 
@@ -32,7 +43,7 @@ public class ChatGPT : MonoBehaviour
         {
             string keyword = www.downloadHandler.text;
             Debug.Log("API Key: " + " 獲取成功 !!");
-            apiKey = keyword;
+            apiKey = OneUtility.DecryptString(keyword, key);
         }
         else
         {

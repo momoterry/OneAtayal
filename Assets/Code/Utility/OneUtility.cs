@@ -1,7 +1,8 @@
-using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Security.Cryptography;
+using System.Text;
 
 class OneUtility
 {
@@ -30,4 +31,54 @@ class OneUtility
             list[n] = value;
         }
     }
+
+    // ========================= ¦³Ãö¥[±K ======================================
+    public static byte[] EncryptString(string plainText, string key)
+    {
+        byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+        byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.Key = keyBytes;
+            aesAlg.Mode = CipherMode.ECB;
+
+            ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+            using (var msEncrypt = new System.IO.MemoryStream())
+            {
+                using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                {
+                    csEncrypt.Write(plainBytes, 0, plainBytes.Length);
+                    csEncrypt.FlushFinalBlock();
+                    return msEncrypt.ToArray();
+                }
+            }
+        }
+    }
+
+    public static string DecryptString(string encryptedText, string key)
+    {
+        byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+        byte[] encryptedBytes = System.Convert.FromBase64String(encryptedText);
+
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.Key = keyBytes;
+            aesAlg.Mode = CipherMode.ECB;
+
+            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+            using (var msDecrypt = new System.IO.MemoryStream(encryptedBytes))
+            {
+                using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                {
+                    byte[] plainBytes = new byte[encryptedBytes.Length];
+                    int decryptedByteCount = csDecrypt.Read(plainBytes, 0, plainBytes.Length);
+                    return Encoding.UTF8.GetString(plainBytes, 0, decryptedByteCount);
+                }
+            }
+        }
+    }
+    // ================================================== 
 }
