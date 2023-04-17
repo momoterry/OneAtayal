@@ -6,10 +6,9 @@ using UnityEngine.UI;
 
 public class ChatGPT : MonoBehaviour
 {
-    //public Text theText;
     [TextArea(2, 10)]
     public string prompt = "你好";
-    public string apiKey = "your_api_key_here";
+    protected string apiKey = "";
     public int maxToken = 100;
     private string url = "https://api.openai.com/v1/completions";
 
@@ -20,19 +19,20 @@ public class ChatGPT : MonoBehaviour
 
     void Start()
     {
-        //StartCoroutine(GetOpenAPIKey());
+        StartCoroutine(GetOpenAPIKey());
     }
 
     public IEnumerator GetOpenAPIKey()
     {
-        string url = "https://yeshouse.tplinkdns.com/one/k.txt";
+        string url = "http://yeshouse.tplinkdns.com/one/k.txt";
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)
         {
-            string password = www.downloadHandler.text;
-            Debug.Log("API Key: " + password);
+            string keyword = www.downloadHandler.text;
+            Debug.Log("API Key: " + " 獲取成功 !!");
+            apiKey = keyword;
         }
         else
         {
@@ -77,15 +77,9 @@ public class ChatGPT : MonoBehaviour
         }
         else
         {
-            //print("成功了喲.........");
-            //print(request.downloadHandler.text);
-            var jsonResponse = JsonUtility.FromJson<GPTResponse>(request.downloadHandler.text);
-            //Debug.Log("Response: " + jsonResponse.choices[0].text);
 
-            //if (theText)
-            //{
-            //    theText.text = jsonResponse.choices[0].text;
-            //}
+            var jsonResponse = JsonUtility.FromJson<GPTResponse>(request.downloadHandler.text);
+
             if (chatCB != null)
             {
                 chatCB(jsonResponse.choices[0].text);
