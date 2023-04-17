@@ -52,7 +52,7 @@ public class ChatGPT : MonoBehaviour
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
             //print("沒有成功.........");
-            //Debug.LogError(request.error);
+            Debug.LogError(request.error);
             if (chatCB != null)
             {
                 chatCB("....說不出話來....");
