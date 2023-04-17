@@ -18,10 +18,27 @@ public class ChatGPT : MonoBehaviour
     protected ChatResultCallback chatCB;
     protected bool isWaiting = false;
 
-    //void Start()
-    //{
-    //    //StartCoroutine(SendMessageToGPT(prompt));
-    //}
+    void Start()
+    {
+        //StartCoroutine(GetOpenAPIKey());
+    }
+
+    public IEnumerator GetOpenAPIKey()
+    {
+        string url = "https://yeshouse.tplinkdns.com/one/k.txt";
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            string password = www.downloadHandler.text;
+            Debug.Log("API Key: " + password);
+        }
+        else
+        {
+            Debug.Log("Error: " + www.error);
+        }
+    }
 
     public void StartChat(ChatResultCallback _chatCB)
     {
