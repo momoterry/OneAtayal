@@ -122,7 +122,8 @@ public class DebugMenu : MonoBehaviour
     {
         string filename = "testsave.txt";
         string progressData = "我現在很厲害喔，總共有 " + GameSystem.GetPlayerData().GetAllUsingDolls().Length + " 個巫靈!!";
-        string url = "http://localhost/one/saveprogress.php";
+        //string url = "http://localhost/one/saveprogress.php";
+        string url = "http://yeshouse.tplinkdns.com/one/save/saveprogress.php";     //TODO: 從 GameSystem 拿
         UnityWebRequest request = new UnityWebRequest(url, "POST");
 
         // 將進度數據作為參數添加到請求中
