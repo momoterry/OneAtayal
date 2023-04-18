@@ -49,6 +49,8 @@ public class ChatGPT : MonoBehaviour
         {
             Debug.Log("Error: " + www.error);
         }
+
+        www.Dispose();
     }
 
     public void StartChat(ChatResultCallback _chatCB)
@@ -97,6 +99,8 @@ public class ChatGPT : MonoBehaviour
             }
         }
         isWaiting = false;
+
+        request.Dispose();
     }
 
     [System.Serializable]
