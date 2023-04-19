@@ -5,7 +5,8 @@ using UnityEngine.Networking;
 
 public class OnlineSaveLoad : MonoBehaviour
 {
-    private const string urlRoot = "http://localhost/one/";
+    //private const string urlRoot = "http://localhost/one/game/";
+    private const string urlRoot = "http://yeshouse.tplinkdns.com/one/game/";
     private const string urlGetID = "getid.php";
 
 
