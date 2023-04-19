@@ -13,13 +13,13 @@ public class GameSystem : MonoBehaviour
     public bool isOnlineSave = false;
     public OnlineSaveLoad theOnlineSaveLoad;
 
-    private string onlineID = "";
+    protected string onlineID = "";
 
     //TODO: 這部份應該改到 PlayerData 中
-    private GameObject playerCharacterRef = null;
+    protected GameObject playerCharacterRef = null;
 
     //Skill 相關 //TODO: 這部份應該改到 PlayerData 中
-    private Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
+    protected Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
 
     //Option 相關 //TODO: 應該移到真正的 PlayerPref 當中
     protected bool useVpadControl = true;
@@ -53,10 +53,10 @@ public class GameSystem : MonoBehaviour
         {
             isOnlineSave = false;
         }
-        if (isOnlineSave)
-        {
-            onlineID = theOnlineSaveLoad.GetNewID();
-        }
+        //if (isOnlineSave)
+        //{
+        //    onlineID = theOnlineSaveLoad.GetNewID();
+        //}
 
         if (!LoadData())
         {
@@ -152,18 +152,60 @@ public class GameSystem : MonoBehaviour
 
     public void SaveData()
     {
-        SaveDataLocal();
+        if (isOnlineSave)
+            SaveDataOnline();
+        else
+            SaveDataLocal();
     }
 
     bool LoadData()
     {
-        return LoadDataLocal();
+        if (isOnlineSave)
+            return LoadDataOnline();
+        else
+            return LoadDataLocal();
     }
 
     public void DeleteData()
     {
-        DeleteDataLocal();
+        if (isOnlineSave)
+            DeleteDataOnline();
+        else
+            DeleteDataLocal();
     }
+
+    protected void SaveDataOnline()
+    {
+        //TODO: 從 PlayerRef 中取得 ID
+        if (onlineID == "")
+        {
+            onlineID = theOnlineSaveLoad.GetNewID();
+        }
+
+        if (onlineID == "")
+        {
+            print("ERROR !! 無法取得 Online ID，改用 Local Save");
+            isOnlineSave = false;
+            SaveDataLocal();
+            return;
+        }
+
+        SaveData theSaveData = thePlayerData.GetSaveData();
+        string saveDataStr = JsonUtility.ToJson(theSaveData);
+
+        theOnlineSaveLoad.SaveGameData(onlineID, saveDataStr);
+    }
+
+    protected bool LoadDataOnline()
+    {
+        return false;
+    }
+
+    protected void DeleteDataOnline()
+    {
+
+    }
+
 
 #if SAVE_TO_PLAYERPREFS
     protected void SaveDataLocal()
