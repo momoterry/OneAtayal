@@ -44,8 +44,7 @@ public class OnlineSaveLoad : MonoBehaviour
     public string LoadGameData(string game_ID)
     {
         string url = urlRoot + urlLoadGame + "?game_id=" + game_ID;
-        UnityWebRequest request = new UnityWebRequest(url, "GET");
-        request.downloadHandler = new DownloadHandlerBuffer();
+        UnityWebRequest request = UnityWebRequest.Get(url);
         request.timeout = 10;
 
         request.SendWebRequest();

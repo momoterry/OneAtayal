@@ -37,6 +37,7 @@ public class ChatGPT : MonoBehaviour
     {
         string url = "http://yeshouse.tplinkdns.com/one/k.txt";
         UnityWebRequest www = UnityWebRequest.Get(url);
+        www.timeout = 5;
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)

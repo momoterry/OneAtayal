@@ -115,39 +115,39 @@ public class DebugMenu : MonoBehaviour
 
     public void OnSaveToServerTest()
     {
-        StartCoroutine(TestSaveProgressToServer());
+        //StartCoroutine(TestSaveProgressToServer());
     }
 
-    IEnumerator TestSaveProgressToServer()
-    {
-        string filename = "testsave.txt";
-        string progressData = "我現在很厲害喔，總共有 " + GameSystem.GetPlayerData().GetAllUsingDolls().Length + " 個巫靈!!";
-        //string url = "http://localhost/one/saveprogress.php";
-        string url = "http://yeshouse.tplinkdns.com/one/save/saveprogress.php";     //TODO: 從 GameSystem 拿
-        UnityWebRequest request = new UnityWebRequest(url, "POST");
+    //IEnumerator TestSaveProgressToServer()
+    //{
+    //    string filename = "testsave.txt";
+    //    string progressData = "我現在很厲害喔，總共有 " + GameSystem.GetPlayerData().GetAllUsingDolls().Length + " 個巫靈!!";
+    //    //string url = "http://localhost/one/saveprogress.php";
+    //    string url = "http://yeshouse.tplinkdns.com/one/save/saveprogress.php";     //TODO: 從 GameSystem 拿
+    //    UnityWebRequest request = new UnityWebRequest(url, "POST");
 
-        // 將進度數據作為參數添加到請求中
-        WWWForm form = new WWWForm();
-        form.AddField("filename", filename);
-        form.AddField("progress", progressData);
-        request.uploadHandler = new UploadHandlerRaw(form.data);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //    // 將進度數據作為參數添加到請求中
+    //    WWWForm form = new WWWForm();
+    //    form.AddField("filename", filename);
+    //    form.AddField("progress", progressData);
+    //    request.uploadHandler = new UploadHandlerRaw(form.data);
+    //    request.downloadHandler = new DownloadHandlerBuffer();
+    //    request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        yield return request.SendWebRequest();
+    //    yield return request.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.ConnectionError ||
-            request.result == UnityWebRequest.Result.ProtocolError)
-        {
-            Debug.Log(request.error);
-        }
-        else
-        {
-            Debug.Log("進度數據已成功保存到伺服器");
-            print("PhP 回傳資訊:\n" + request.downloadHandler.text);
-        }
+    //    if (request.result == UnityWebRequest.Result.ConnectionError ||
+    //        request.result == UnityWebRequest.Result.ProtocolError)
+    //    {
+    //        Debug.Log(request.error);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("進度數據已成功保存到伺服器");
+    //        print("PhP 回傳資訊:\n" + request.downloadHandler.text);
+    //    }
 
-        request.Dispose();
-    }
+    //    request.Dispose();
+    //}
 
 }
