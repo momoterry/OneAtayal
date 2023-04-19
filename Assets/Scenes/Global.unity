@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 327809248}
   - component: {fileID: 327809249}
   - component: {fileID: 327809250}
+  - component: {fileID: 327809251}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -172,6 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thePlayerData: {fileID: 327809248}
   theLevelManager: {fileID: 327809250}
+  isOnlineSave: 1
+  theOnlineSaveLoad: {fileID: 327809251}
 --- !u!114 &327809248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,6 +261,18 @@ MonoBehaviour:
     prefix: "\u7D42\u7AE0"
     name: "\u7CBE\u82F1\u6311\u6230"
     requireLevel: -1
+--- !u!114 &327809251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327809245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0fe0bb1facc1d4caac18cea65dba98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7834770927938505534
 PrefabInstance:
   m_ObjectHideFlags: 0

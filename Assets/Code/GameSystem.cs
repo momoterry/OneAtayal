@@ -10,6 +10,11 @@ public class GameSystem : MonoBehaviour
     public PlayerData thePlayerData;
     public LevelManager theLevelManager;
 
+    public bool isOnlineSave = false;
+    public OnlineSaveLoad theOnlineSaveLoad;
+
+    private string onlineID = "";
+
     //TODO: 這部份應該改到 PlayerData 中
     private GameObject playerCharacterRef = null;
 
@@ -18,6 +23,9 @@ public class GameSystem : MonoBehaviour
 
     //Option 相關 //TODO: 應該移到真正的 PlayerPref 當中
     protected bool useVpadControl = true;
+
+    //網路存檔相關
+    public string GetID() { return onlineID; }
 
     //迷宮小遊戲相關
     protected int MazeUserSize = -1;        // -1 表示玩家沒有設定
@@ -40,6 +48,16 @@ public class GameSystem : MonoBehaviour
     private void Awake()
     {
         //print("我被喚醒了");
+        //先測試網路
+        if (!theOnlineSaveLoad)
+        {
+            isOnlineSave = false;
+        }
+        if (isOnlineSave)
+        {
+            onlineID = theOnlineSaveLoad.GetNewID();
+        }
+
         if (!LoadData())
         {
             thePlayerData.InitData();
