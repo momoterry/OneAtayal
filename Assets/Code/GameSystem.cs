@@ -149,8 +149,24 @@ public class GameSystem : MonoBehaviour
     {
         
     }
-#if SAVE_TO_PLAYERPREFS
+
     public void SaveData()
+    {
+        SaveDataLocal();
+    }
+
+    bool LoadData()
+    {
+        return LoadDataLocal();
+    }
+
+    public void DeleteData()
+    {
+        DeleteDataLocal();
+    }
+
+#if SAVE_TO_PLAYERPREFS
+    protected void SaveDataLocal()
     {
         PlayerPrefs.DeleteAll();
 
@@ -203,7 +219,7 @@ public class GameSystem : MonoBehaviour
         print("......PlayerPrefs Save Done !!");
     }
 
-    public void DeleteData()
+    protected void DeleteDataLocal()
     {
         print("......PlayerPrefs Deleted !!");
         PlayerPrefs.DeleteAll();
@@ -212,7 +228,7 @@ public class GameSystem : MonoBehaviour
         thePlayerData.InitData();
     }
 
-    public bool LoadData()
+    protected bool LoadDataLocal()
     {
         string playerName = PlayerPrefs.GetString("PlayerName", "");
         if (playerName == "")
@@ -270,7 +286,7 @@ public class GameSystem : MonoBehaviour
     }
 
 #else
-    public void DeleteData()
+    protected void DeleteDataLocal()
     {
         //print("ERROR!! TODO.... DeleteData");
         string filePath = Application.persistentDataPath + "/" + strSaveFile;
@@ -282,7 +298,7 @@ public class GameSystem : MonoBehaviour
     }
 
 
-    public void SaveData()
+    protected void SaveDataLocal()
     {
         // ´ú¸Õ¦sÀÉ
         //print("GameSystem :: SaveData !!.......");
@@ -304,7 +320,7 @@ public class GameSystem : MonoBehaviour
     }
 
 
-    public bool LoadData()
+    protected bool LoadDataLocal()
     {
         string filePath = Application.persistentDataPath + "/" + strSaveFile;
         print("GameSystem :: Try LoadData !! " + filePath);
