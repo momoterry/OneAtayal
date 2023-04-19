@@ -53,10 +53,15 @@ public class GameSystem : MonoBehaviour
         {
             isOnlineSave = false;
         }
-        //if (isOnlineSave)
-        //{
-        //    onlineID = theOnlineSaveLoad.GetNewID();
-        //}
+        if (isOnlineSave)
+        {
+            //onlineID = theOnlineSaveLoad.GetNewID();
+            if (onlineID == "")
+            {
+                onlineID = PlayerPrefs.GetString("ONLINE_ID", "");
+                print("Online ID = " + onlineID);
+            }
+        }
 
         if (!LoadData())
         {
@@ -180,6 +185,7 @@ public class GameSystem : MonoBehaviour
         if (onlineID == "")
         {
             onlineID = theOnlineSaveLoad.GetNewID();
+
         }
 
         if (onlineID == "")
@@ -188,6 +194,12 @@ public class GameSystem : MonoBehaviour
             isOnlineSave = false;
             SaveDataLocal();
             return;
+        }
+        else
+        {
+            PlayerPrefs.SetString("ONLINE_ID", onlineID);
+            PlayerPrefs.Save();
+            print("取得新的 Online ID 並存到 PlayerPrefs: " + onlineID);
         }
 
         SaveData theSaveData = thePlayerData.GetSaveData();
@@ -198,6 +210,21 @@ public class GameSystem : MonoBehaviour
 
     protected bool LoadDataOnline()
     {
+        if (onlineID != "")
+        {
+            string strSave = theOnlineSaveLoad.LoadGameData(onlineID);
+            if (strSave == "")
+            {
+                //TODO: 不應該直接清 ID，應保持 Off-line 狀態
+                print("LoadDataOnline 無資料......清除 Online ID" + onlineID);
+                onlineID = "";
+                return false;
+            }
+            SaveData loadData = JsonUtility.FromJson<SaveData>(strSave);
+
+            thePlayerData.LoadSavedData(loadData);
+            return true;
+        }
         return false;
     }
 

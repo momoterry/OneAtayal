@@ -5,10 +5,13 @@ using UnityEngine.Networking;
 
 public class OnlineSaveLoad : MonoBehaviour
 {
-    private const string urlRoot = "http://localhost/one/game/";
-    //private const string urlRoot = "http://yeshouse.tplinkdns.com/one/game/";
+    //private const string urlRoot = "http://localhost/one/game/";
+    private const string urlRoot = "http://yeshouse.tplinkdns.com/one/game/";
     private const string urlGetID = "getid.php";
     private const string urlSaveGame = "savegame.php";
+    private const string urlLoadGame = "loadgame.php";
+
+    private const string ONLINE_ERROR_PREFIX = "ERROR";
 
 
     public string GetNewID()
@@ -27,20 +30,56 @@ public class OnlineSaveLoad : MonoBehaviour
         {
 
             string id = request.downloadHandler.text;
-            Debug.Log("獲得的新 ID 是：" + id);
+            //Debug.Log("獲得的新 ID 是：" + id);
             return id;
         }
         else
         {
-            Debug.Log(request.error);
+            print(request.error);
+            print("ERROR!!!! OnlineSaveLoad::GetNewID 失敗 ....");
             return "";
         }
     }
 
+    public string LoadGameData(string game_ID)
+    {
+        string url = urlRoot + urlLoadGame + "?game_id=" + game_ID;
+        UnityWebRequest request = new UnityWebRequest(url, "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.timeout = 10;
+
+        request.SendWebRequest();
+
+        while (!request.isDone)
+        {
+            // 等待請求完成
+        }
+        string resultStr = "";
+        if (request.result == UnityWebRequest.Result.Success)    
+        {
+            resultStr = request.downloadHandler.text;
+            if (resultStr.StartsWith(ONLINE_ERROR_PREFIX))
+            {
+                //為錯誤訊息
+                print("OnlineSaveLoad::LoadGameDat " + game_ID);
+                resultStr = "";
+            }
+            else
+            {
+                print("OnlineSaveLoad::LoadGameData 回傳成功!! " + game_ID);
+            }
+        }
+        else
+        {
+            print("ERROR: OnlineSaveLoad::LoadGameData UnityWebRequest 失敗");
+            print(request.error);
+        }
+        request.Dispose();
+        return resultStr;
+    }
+
     public void SaveGameData(string game_ID, string dataStr)
     {
-        //string the_ID = GameSystem.GetInstance().GetID();
-        //string progressData = "我現在很厲害喔，總共有 " + GameSystem.GetPlayerData().GetAllUsingDolls().Length + " 個巫靈!!";
         string url = urlRoot + urlSaveGame;
         UnityWebRequest request = new UnityWebRequest(url, "POST");
 
