@@ -5,8 +5,8 @@ using UnityEngine.Networking;
 
 public class OnlineSaveLoad : MonoBehaviour
 {
-    //private const string urlRoot = "http://localhost/one/game/";
-    private const string urlRoot = "http://yeshouse.tplinkdns.com/one/game/";
+    private const string urlRoot = "http://localhost/one/oaserver/";
+    //private const string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
     private const string urlGetID = "getid.php";
     private const string urlSaveGame = "savegame.php";
     private const string urlLoadGame = "loadgame.php";
