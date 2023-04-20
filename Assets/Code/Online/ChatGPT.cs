@@ -30,7 +30,37 @@ public class ChatGPT : MonoBehaviour
         //print(enStr);
         //print("解出來就是: " + OneUtility.DecryptString(myEnStr, key));
 
-        StartCoroutine(GetOpenAPIKey());
+        //StartCoroutine(GetOpenAPIKey());
+        GetKeyByPHP();
+    }
+
+    protected void GetKeyByPHP()
+    {
+        string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
+        string url = urlRoot + "getkey.php";
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        request.timeout = 5;
+        request.SendWebRequest();
+
+        while (!request.isDone)
+        {
+            // 等待請求完成
+        }
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+
+            string data = request.downloadHandler.text;
+            apiKey = OneUtility.DecryptString(data, key);
+            print("API Key: " + " 獲取成功 !!");
+        }
+        else
+        {
+            print(request.error);
+            print("ERROR!!!! GetKeyByPHP 失敗 ....");
+        }
+
+        request.Dispose();
     }
 
     public IEnumerator GetOpenAPIKey()

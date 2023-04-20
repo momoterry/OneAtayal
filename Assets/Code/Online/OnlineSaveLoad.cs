@@ -5,14 +5,15 @@ using UnityEngine.Networking;
 
 public class OnlineSaveLoad : MonoBehaviour
 {
-    private const string urlRoot = "http://localhost/one/oaserver/";
-    //private const string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
+    //private const string urlRoot = "http://localhost/one/oaserver/";
+    private const string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
     private const string urlGetID = "getid.php";
     private const string urlSaveGame = "savegame.php";
     private const string urlLoadGame = "loadgame.php";
 
     private const string ONLINE_ERROR_PREFIX = "ERROR";
 
+    public static string GetUrlRoot() { return urlRoot; }
 
     public string GetNewID()
     {
@@ -21,6 +22,7 @@ public class OnlineSaveLoad : MonoBehaviour
         request.timeout = 5;
         request.SendWebRequest();
 
+        string id = "";
         while (!request.isDone)
         {
             // 等待請求完成
@@ -29,16 +31,18 @@ public class OnlineSaveLoad : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
 
-            string id = request.downloadHandler.text;
+            id = request.downloadHandler.text;
             //Debug.Log("獲得的新 ID 是：" + id);
-            return id;
+            //return id;
         }
         else
         {
             print(request.error);
             print("ERROR!!!! OnlineSaveLoad::GetNewID 失敗 ....");
-            return "";
+            //return "";
         }
+        request.Dispose();
+        return id;
     }
 
     public string LoadGameData(string game_ID)
