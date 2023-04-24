@@ -13,6 +13,8 @@ public class GameSystem : MonoBehaviour
     public bool isOnlineSave = false;
     public OnlineSaveLoad theOnlineSaveLoad;
 
+    protected bool hasSaveGame = false;
+
     protected string onlineID = "";
 
     //TODO: 這部份應該改到 PlayerData 中
@@ -23,6 +25,9 @@ public class GameSystem : MonoBehaviour
 
     //Option 相關 //TODO: 應該移到真正的 PlayerPref 當中
     protected bool useVpadControl = true;
+
+
+    public bool IsHasSaveGame() { return hasSaveGame; }
 
     //網路存檔相關
     public string GetID() { return onlineID; }
@@ -66,8 +71,11 @@ public class GameSystem : MonoBehaviour
         if (!LoadData())
         {
             thePlayerData.InitData();
-            SaveData(); //建立存檔 !!
+            //SaveData(); //建立存檔 !!     //如果沒有存檔，先保持 New Game 狀態，直到第一次存檔出現 (換關等)
+            hasSaveGame = false;
         }
+        else
+            hasSaveGame = true;
         thePlayerData.SetDataReady();
 
 #if TOUCH_MOVE
@@ -161,6 +169,8 @@ public class GameSystem : MonoBehaviour
             SaveDataOnline();
         else
             SaveDataLocal();
+
+        hasSaveGame = true;
     }
 
     bool LoadData()
