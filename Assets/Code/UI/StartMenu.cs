@@ -7,13 +7,7 @@ using UnityEngine.UI;
 public class StartMenu : MonoBehaviour
 {
     public GameObject OptionMenu;
-    //TODO: 這些資料應該被設定在更好的地方
-    //[System.Serializable]
-    //public struct PlayerSelectInfo{
-    //    public GameObject objRef;
-    //    public CardPlayerCharacter card;
-    //}
-    //public PlayerSelectInfo[] cardList;
+    public GameObject AccountMenu;
 
     public Text title;
     protected float titleTime = 0;
@@ -103,8 +97,12 @@ public class StartMenu : MonoBehaviour
 
     public void OnResetData()
     {
-        //GameSystem.GetInstance().DeleteData();
-        SystemUI.ShowYesNoMessageBox(gameObject, "你確定要重設記錄? 所有存檔將被刪除....");
+        if (!GameSystem.GetInstance().isOnlineSave)
+            SystemUI.ShowYesNoMessageBox(gameObject, "你確定要重設記錄? 所有存檔將被刪除....");
+        else
+        {
+            AccountMenu.SetActive(true);
+        }
     }
 
     public void OnMessageBoxResult(MessageBox.RESULT result)
