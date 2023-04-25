@@ -16,7 +16,7 @@ public class StartMenu : MonoBehaviour
 
     //protected int currPlayerCharacterIndex = 0;
     //protected bool checkLoadGame = false;
-    protected int checkLoadGameCount = 3;
+    protected int checkLoadGameCount = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +53,17 @@ public class StartMenu : MonoBehaviour
         }
         else
             ResetButton.SetActive(GameSystem.GetInstance().IsHasSaveGame());
+
+        if (GameSystem.GetInstance().GetID() == GameSystem.INVALID_ID)
+        {
+            print("線上存檔無效，顯示錯誤訊息");
+            SystemUI.ShowMessageBox(LoadDataFailMessageCB, "無法載入線上存檔，請檢查網路狀態或建新帳號");
+        }
+    }
+
+    public void LoadDataFailMessageCB(MessageBox.RESULT result)
+    {
+        print("關掉錯誤訊息框 ......");
     }
 
     // Update is called once per frame
@@ -67,33 +78,8 @@ public class StartMenu : MonoBehaviour
             }
         }
 
-        //UpdateTitle();
     }
 
-    //void UpdateTitle()
-    //{
-    //    if (title == null)
-    //        return;
-
-    //    float Period = 10.0f;
-    //    float wait = 2.0f;
-    //    titleTime += Time.deltaTime;
-    //    if (titleTime >= Period + wait)
-    //    {
-    //        titleTime = wait;
-    //    }
-    //    else if (titleTime > wait)
-    //    {
-    //        float hue = (titleTime - wait) / Period;
-
-    //        title.color = Color.HSVToRGB(hue, 1.0f, 1.0f);
-    //    }
-    //    else if (titleTime < wait)
-    //    {
-    //        float sat = titleTime / wait;
-    //        title.color = Color.HSVToRGB(0, sat, 1.0f);
-    //    }
-    //}
 
     protected void DoGameStart()
     {
@@ -105,7 +91,6 @@ public class StartMenu : MonoBehaviour
     {
         print("START!!");
 
-        //GameSystem.GetInstance().SetPlayerCharacterRef(cardList[currPlayerCharacterIndex].objRef);
 
         if (OptionMenu)
         {
@@ -117,14 +102,6 @@ public class StartMenu : MonoBehaviour
         }
     }
 
-    //public void OnPlayerCharacterCardSelected(int cardIndex)
-    //{
-    //    for (int i = 0; i < cardList.Length; i++)
-    //    {
-    //        cardList[i].card.SetSelected(i == cardIndex);
-    //    }
-    //    currPlayerCharacterIndex = cardIndex;
-    //}
 
     public void OnResetData()
     {

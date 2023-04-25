@@ -53,6 +53,11 @@ public class SystemUI : MonoBehaviour
         instance._ShowYesNoMessageBox(cb, msg);
     }
 
+    static public void ShowMessageBox(System.Action<MessageBox.RESULT> cb, string msg)
+    {
+        instance._ShowMessageBox(cb, msg);
+    }
+
     static public void OnMessageBoxFinish(MessageBox.RESULT result)
     {
         instance._OnMessageBoxFinish(result);
@@ -74,6 +79,7 @@ public class SystemUI : MonoBehaviour
         messageBoxOwner = owner;
         messageCB = null;
         theMessageBox.theText.text = msg;
+        theMessageBox.SetType(MessageBox.TYPE.YES_NO);
         theMessageBox.gameObject.SetActive(true);
     }
 
@@ -91,6 +97,25 @@ public class SystemUI : MonoBehaviour
         messageBoxOwner = null;
         messageCB = cb;
         theMessageBox.theText.text = msg;
+        theMessageBox.SetType(MessageBox.TYPE.YES_NO);
+        theMessageBox.gameObject.SetActive(true);
+    }
+
+    protected void _ShowMessageBox(System.Action<MessageBox.RESULT> cb, string msg)
+    {
+        if (messageBoxOwner != null)
+        {
+            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+            messageBoxOwner.SendMessage("OnMessageBoxResult", MessageBox.RESULT.CLOSE);
+        }
+        if (messageCB != null)
+        {
+            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+        }
+        messageBoxOwner = null;
+        messageCB = cb;
+        theMessageBox.theText.text = msg;
+        theMessageBox.SetType(MessageBox.TYPE.SIMPLE);
         theMessageBox.gameObject.SetActive(true);
     }
 

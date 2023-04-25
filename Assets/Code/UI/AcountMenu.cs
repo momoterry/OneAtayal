@@ -34,10 +34,10 @@ public class AcountMenu : MonoBehaviour
 
     public void OnNewAccoount()
     {
-        SystemUI.ShowYesNoMessageBox(gameObject, "你確定創新帳號? 原有記錄將被刪除....");
+        SystemUI.ShowYesNoMessageBox(OnNewAccoountConfirmResult, "你確定創新帳號? 原有記錄將被刪除....");
     }
 
-    public void OnMessageBoxResult(MessageBox.RESULT result)
+    public void OnNewAccoountConfirmResult(MessageBox.RESULT result)
     {
         if (result == MessageBox.RESULT.YES)
         {

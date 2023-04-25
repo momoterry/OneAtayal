@@ -16,7 +16,7 @@ public class GameSystem : MonoBehaviour
     protected bool hasSaveGame = false;
 
     protected string onlineID = "";
-
+    public const string INVALID_ID = "INVALID_ID";
     //TODO: 這部份應該改到 PlayerData 中
     protected GameObject playerCharacterRef = null;
 
@@ -194,23 +194,32 @@ public class GameSystem : MonoBehaviour
         //TODO: 從 PlayerRef 中取得 ID
         if (onlineID == "")
         {
-            onlineID = theOnlineSaveLoad.GetNewID();
-
+            string newID = theOnlineSaveLoad.GetNewID();
+            if (newID == "")
+            {
+                //print("ERROR !! 無法取得 Online ID，改用 Local Save");
+                //isOnlineSave = false;
+                //SaveDataLocal();
+                print("ERROR !! 無法取得 Online ID，顯示錯誤訊息....");
+                SystemUI.ShowMessageBox(OnlineFailMessageCB, "線上存檔失敗，請檢查網路狀態....");
+                return;
+            }
+            else
+            {
+                //PlayerPrefs.SetString("ONLINE_ID", onlineID);
+                //PlayerPrefs.Save();
+                SetAndSaveOnlineID(newID);
+                print("取得新的 Online ID 並存到 PlayerPrefs: " + newID);
+            }
         }
-
-        if (onlineID == "")
+        else if (onlineID == INVALID_ID)
         {
-            print("ERROR !! 無法取得 Online ID，改用 Local Save");
-            isOnlineSave = false;
-            SaveDataLocal();
+            print("ERROR !! 在錯誤狀態下進行線上存檔...." + INVALID_ID);
+            SystemUI.ShowMessageBox(OnlineFailMessageCB, "無效的帳號，請檢查網路並重啟遊戲....");
             return;
         }
-        else
-        {
-            PlayerPrefs.SetString("ONLINE_ID", onlineID);
-            PlayerPrefs.Save();
-            print("取得新的 Online ID 並存到 PlayerPrefs: " + onlineID);
-        }
+
+
 
         SaveData theSaveData = thePlayerData.GetSaveData();
         string saveDataStr = JsonUtility.ToJson(theSaveData);
@@ -225,9 +234,10 @@ public class GameSystem : MonoBehaviour
             string strSave = theOnlineSaveLoad.LoadGameData(onlineID);
             if (strSave == "")
             {
-                //TODO: 不應該直接清 ID，應保持 Off-line 狀態
-                print("LoadDataOnline 無資料......清除 Online ID" + onlineID);
-                onlineID = "";
+                //ID 有問題，保持錯誤狀態
+                print("LoadDataOnline 無資料......設定為錯誤 Online ID" + onlineID);
+                onlineID = INVALID_ID;
+                //SystemUI.ShowMessageBox(LoadDataFailMessageCB, "");
                 return false;
             }
             SaveData loadData = JsonUtility.FromJson<SaveData>(strSave);
@@ -238,9 +248,22 @@ public class GameSystem : MonoBehaviour
         return false;
     }
 
+
     protected void DeleteDataOnline()
     {
+        SetAndSaveOnlineID("");
+    }
 
+    protected void SetAndSaveOnlineID(string _id)
+    {
+        onlineID = _id;
+        PlayerPrefs.SetString("ONLINE_ID", onlineID);
+        PlayerPrefs.Save();
+    }
+
+    public void OnlineFailMessageCB(MessageBox.RESULT result)
+    {
+        print("關掉線上錯誤訊息框 ......");
     }
 
 
