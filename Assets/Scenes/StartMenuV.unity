@@ -1424,6 +1424,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nickNameMenu: {fileID: 96961576}
+  newAccountButton: {fileID: 383480231}
+  text_ID: {fileID: 1444165255}
 --- !u!1 &782076666
 GameObject:
   m_ObjectHideFlags: 0
@@ -2877,7 +2879,7 @@ GameObject:
   - component: {fileID: 1444165256}
   - component: {fileID: 1444165255}
   m_Layer: 5
-  m_Name: Name
+  m_Name: ID
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2925,7 +2927,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 167ae8c93ffdfb845937e0749a409813, type: 3}
-    m_FontSize: 12
+    m_FontSize: 8
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -2936,7 +2938,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Godbless8
+  m_Text: 999999
 --- !u!222 &1444165256
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3258,7 +3260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: 60}
+  m_AnchoredPosition: {x: 24, y: 60}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1666839181
@@ -3283,7 +3285,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 167ae8c93ffdfb845937e0749a409813, type: 3}
-    m_FontSize: 12
+    m_FontSize: 8
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -3294,7 +3296,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u76EE\u524D\u66B1\u7A31:"
+  m_Text: 'ID:'
 --- !u!222 &1666839182
 CanvasRenderer:
   m_ObjectHideFlags: 0

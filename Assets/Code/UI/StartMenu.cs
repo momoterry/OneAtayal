@@ -14,20 +14,12 @@ public class StartMenu : MonoBehaviour
     public Text title;
     protected float titleTime = 0;
 
-    //protected int currPlayerCharacterIndex = 0;
-    //protected bool checkLoadGame = false;
     protected int checkLoadGameCount = 2;
 
     // Start is called before the first frame update
     void Start()
     {
         GameSystem.Ensure();
-
-        //for (int i = 0; i < cardList.Length; i++)
-        //{
-        //    cardList[i].card.SetupByStartmenu(this, i);
-        //    cardList[i].card.SetSelected(i == currPlayerCharacterIndex);
-        //}
 
         if (OptionMenu)
         {
@@ -101,7 +93,6 @@ public class StartMenu : MonoBehaviour
             DoGameStart();
         }
     }
-
 
     public void OnResetData()
     {

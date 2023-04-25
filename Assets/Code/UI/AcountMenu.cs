@@ -1,20 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AcountMenu : MonoBehaviour
 {
     public GameObject nickNameMenu;
-    // Start is called before the first frame update
-    void Start()
+    public GameObject newAccountButton;
+    public Text text_ID;
+
+    protected void OnEnable()
     {
-        
+        Init();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    protected void Init()
     {
-        
+        string online_id = GameSystem.GetInstance().GetID();
+        if (text_ID)
+        {
+            text_ID.text = online_id;
+        }
+        if (newAccountButton)
+        {
+            newAccountButton.SetActive(online_id != "");
+        }
     }
 
     public void OnSetNickNameMenu()
@@ -43,11 +54,12 @@ public class AcountMenu : MonoBehaviour
         {
             GameSystem.GetInstance().DeleteData();
         }
+        Init();
     }
 
     public void OnLoadAccountMenu()
     {
-
+        Init();
     }
 
 
