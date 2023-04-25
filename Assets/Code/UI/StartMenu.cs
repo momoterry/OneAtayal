@@ -9,6 +9,7 @@ public class StartMenu : MonoBehaviour
     public GameObject OptionMenu;
     public GameObject AccountMenu;
     public GameObject ResetButton;
+    public GameObject AccountOptionButton;
 
     public Text title;
     protected float titleTime = 0;
@@ -37,12 +38,21 @@ public class StartMenu : MonoBehaviour
         {
             ResetButton.SetActive(false);
         }
+        if (AccountOptionButton)
+        {
+            AccountOptionButton.SetActive(false);
+        }
     }
 
     void InitSaveLoadStatus()
     {
         print("有沒有存檔? " + GameSystem.GetInstance().IsHasSaveGame());
-        ResetButton.SetActive(GameSystem.GetInstance().IsHasSaveGame());
+        if (GameSystem.GetInstance().isOnlineSave)
+        {
+            AccountOptionButton.SetActive(true);
+        }
+        else
+            ResetButton.SetActive(GameSystem.GetInstance().IsHasSaveGame());
     }
 
     // Update is called once per frame
@@ -118,12 +128,12 @@ public class StartMenu : MonoBehaviour
 
     public void OnResetData()
     {
-        if (!GameSystem.GetInstance().isOnlineSave)
-            SystemUI.ShowYesNoMessageBox(gameObject, "你確定要重設記錄? 所有存檔將被刪除....");
-        else
-        {
-            AccountMenu.SetActive(true);
-        }
+        SystemUI.ShowYesNoMessageBox(gameObject, "你確定要重設記錄? 所有存檔將被刪除....");
+    }
+
+    public void OnAccountOption()
+    {
+        AccountMenu.SetActive(true);
     }
 
     public void OnMessageBoxResult(MessageBox.RESULT result)
