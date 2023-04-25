@@ -17,6 +17,9 @@ public class GameSystem : MonoBehaviour
 
     protected string onlineID = "";
     public const string INVALID_ID = "INVALID_ID";
+
+    protected string nickName = "";
+
     //TODO: 這部份應該改到 PlayerData 中
     protected GameObject playerCharacterRef = null;
 
@@ -31,6 +34,7 @@ public class GameSystem : MonoBehaviour
 
     //網路存檔相關
     public string GetID() { return onlineID; }
+    public string GetNickName() { return nickName; }
 
     //迷宮小遊戲相關
     protected int MazeUserSize = -1;        // -1 表示玩家沒有設定
@@ -61,11 +65,15 @@ public class GameSystem : MonoBehaviour
         if (isOnlineSave)
         {
             //onlineID = theOnlineSaveLoad.GetNewID();
-            if (onlineID == "")
-            {
-                onlineID = PlayerPrefs.GetString("ONLINE_ID", "");
-                print("Online ID = " + onlineID);
-            }
+            //if (onlineID == "")
+            //{
+            //    onlineID = PlayerPrefs.GetString("ONLINE_ID", "");
+            //    print("Online ID = " + onlineID);
+            //}
+            onlineID = PlayerPrefs.GetString("ONLINE_ID", "");
+            print("Online ID = " + onlineID);
+            nickName = PlayerPrefs.GetString("NICK_NAME", "");
+            print("Nick Name = " + nickName);
         }
 
         if (!LoadData())
@@ -189,6 +197,19 @@ public class GameSystem : MonoBehaviour
             DeleteDataLocal();
     }
 
+    public bool SetNickName(string _nickName)
+    {
+        if (!isOnlineSave)
+            return false;
+
+        if ( theOnlineSaveLoad.SetNickName(onlineID, _nickName))
+        {
+            SetAndSaveNickName(_nickName);
+            return true;
+        }
+        return false;
+    }
+
     protected void SaveDataOnline()
     {
         //TODO: 從 PlayerRef 中取得 ID
@@ -258,6 +279,13 @@ public class GameSystem : MonoBehaviour
     {
         onlineID = _id;
         PlayerPrefs.SetString("ONLINE_ID", onlineID);
+        PlayerPrefs.Save();
+    }
+
+    protected void SetAndSaveNickName(string _nickname)
+    {
+        nickName = _nickname;
+        PlayerPrefs.SetString("NICK_NAME", _nickname);
         PlayerPrefs.Save();
     }
 

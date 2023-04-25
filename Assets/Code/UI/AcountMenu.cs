@@ -8,6 +8,9 @@ public class AcountMenu : MonoBehaviour
     public GameObject nickNameMenu;
     public GameObject newAccountButton;
     public Text text_ID;
+    public Text text_NickName;
+
+    public Text NickNameToSet;
 
     protected void OnEnable()
     {
@@ -22,6 +25,10 @@ public class AcountMenu : MonoBehaviour
         {
             text_ID.text = online_id;
         }
+        if (text_NickName)
+        {
+            text_NickName.text = GameSystem.GetInstance().GetNickName();
+        }
         if (newAccountButton)
         {
             newAccountButton.SetActive(online_id != "");
@@ -35,7 +42,25 @@ public class AcountMenu : MonoBehaviour
 
     public void OnSetNickNameConfirm()
     {
-
+        string online_id = GameSystem.GetInstance().GetID();
+        string nickName = NickNameToSet.text;
+        if (online_id != GameSystem.INVALID_ID && online_id != "")
+        {
+            if (GameSystem.GetInstance().SetNickName(nickName))
+            {
+                nickNameMenu.SetActive(false);
+            }
+            else
+            {
+                print("ERROR!! Set Nick Name Fail !!" + nickName);
+            }
+        }
+        else
+        {
+            print("ERROR!! Wrong ID to set nick name !!");
+        }
+        //nickNameMenu.SetActive(false);
+        Init();
     }
 
     public void OnSetNickNameCancel()
