@@ -64,7 +64,7 @@ public class GameSystem : MonoBehaviour
         {
             isOnlineSave = false;
         }
-        //TODO: 整理所有網路資訊的初始化
+        OnlineInit();
 
         if (isOnlineSave)
         {
@@ -102,6 +102,12 @@ public class GameSystem : MonoBehaviour
             SceneManager.LoadScene("Global", LoadSceneMode.Additive);
         }
     }
+
+    protected void OnlineInit()
+    {
+        ChatGPT.GetKeyStatic();
+    }
+
 
     static public void SetUseVPad( bool useVPad ) { instance.useVpadControl = useVPad; }
     static public bool IsUseVpad() { return instance.useVpadControl; }
