@@ -258,7 +258,7 @@ public class GameSystem : MonoBehaviour
                 //ID 有問題，保持錯誤狀態
                 print("LoadDataOnline 無資料......設定為錯誤 Online ID" + onlineID);
                 onlineID = INVALID_ID;
-                //SystemUI.ShowMessageBox(LoadDataFailMessageCB, "");
+                nickName = "";
                 return false;
             }
             SaveData loadData = JsonUtility.FromJson<SaveData>(strSave);
@@ -273,6 +273,7 @@ public class GameSystem : MonoBehaviour
     protected void DeleteDataOnline()
     {
         SetAndSaveOnlineID("");
+        SetAndSaveNickName("");
     }
 
     protected void SetAndSaveOnlineID(string _id)
