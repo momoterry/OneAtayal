@@ -129,9 +129,11 @@ GameObject:
   - component: {fileID: 2584888658509635285}
   - component: {fileID: 893138017444081030}
   - component: {fileID: 6214839875520186890}
+  - component: {fileID: 7587803398858142271}
   - component: {fileID: 7023887932998668797}
   - component: {fileID: 9163872462802235576}
   - component: {fileID: 2595805060564117435}
+  - component: {fileID: 7026385911095670961}
   - component: {fileID: 2044128945087870318}
   m_Layer: 10
   m_Name: OneGirlMaze
@@ -173,7 +175,7 @@ MonoBehaviour:
   theCharData: {fileID: 893138017444081030}
   DollManagerRef: {fileID: 8795086517185366204, guid: ef8008b54c142ac4cb395f9e67bcfe1d, type: 3}
   myAnimator: {fileID: 0}
-  mySPAnimator: {fileID: 1480594428507841810}
+  mySPAnimator: {fileID: 1246832319071395464}
   DmRotateWait: 0.2
   autoSkillRef: {fileID: -7341246982687760167, guid: 3a4888fc2f624204398ce3732cd05a45, type: 3}
   activeSkillRefs:
@@ -222,6 +224,27 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7587803398858142271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214839875520186894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59700f7143ff96a44b8ad3bdf5cecb63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FXObjs:
+  - {fileID: 0}
+  - {fileID: 917858075405889911, guid: a698daa3a831b7d4cb1bcfc2a9d693a0, type: 3}
+  - {fileID: 8004896492545301754, guid: dcd7efeccc0a5ce448ad1cc384c4edc1, type: 3}
+  - {fileID: 6945291638678450936, guid: d0e418258f92a1145bc52717322b8e72, type: 3}
+  - {fileID: 5865822088399175402, guid: 6c27fa0b2cab31842b05fa4b63ebb028, type: 3}
+  - {fileID: 0}
+  - {fileID: 5678441915601921286, guid: d3abc18f7e731534b8052a8c2d468a7d, type: 3}
+  - {fileID: 5839710596819418940, guid: e0c069ca7725f0246b5498eb918a37f1, type: 3}
 --- !u!114 &7023887932998668797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +288,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7026385911095670961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214839875520186894}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73172fc6794736341bc242f6334ad36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barRef: {fileID: 3890801454975395505, guid: eed8e0bc40ca3d249aaa3a18c14f25ba, type: 3}
+  barHeight: 1.5
 --- !u!114 &2044128945087870318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,8 +325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7906895251526251270}
   - component: {fileID: 7559258333083204086}
-  - component: {fileID: 8594792577020195915}
-  - component: {fileID: 1480594428507841810}
+  - component: {fileID: 1246832319071395464}
   m_Layer: 10
   m_Name: BlackHair_Sprite
   m_TagString: Untagged
@@ -364,27 +400,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &8594792577020195915
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7324926409304540158}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0edad9ec3f31f6942b78c96e145bb7b2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1480594428507841810
+--- !u!114 &1246832319071395464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -393,7 +409,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7324926409304540158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e59f3c4c797fb640ac4ff80dee7cce5, type: 3}
+  m_Script: {fileID: 11500000, guid: 53ed42a4c40725c4dbc64e2dfb0f78a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 7559258333083204086}
@@ -423,6 +439,30 @@ MonoBehaviour:
     - {fileID: 1562852644, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
     - {fileID: -1768395236, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
     - {fileID: 602545409, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    FPS: 8
+  IdleLeft:
+    sprites:
+    - {fileID: -1478923840, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: -1478923840, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    FPS: 4
+  IdleRight:
+    sprites:
+    - {fileID: -1551609452, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: -1551609452, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    FPS: 4
+  RunLeft:
+    sprites:
+    - {fileID: 5523048, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: -480653436, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: -1919463525, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: 682622182, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    FPS: 8
+  RunRight:
+    sprites:
+    - {fileID: -485344367, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: -221762175, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: 1624379293, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
+    - {fileID: -1580745365, guid: 6888e59d7b76efc4eadae7c56786ade2, type: 3}
     FPS: 8
 --- !u!1001 &8627065195374925614
 PrefabInstance:
