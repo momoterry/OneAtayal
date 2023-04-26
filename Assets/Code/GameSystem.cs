@@ -311,6 +311,7 @@ public class GameSystem : MonoBehaviour
     {
         SetAndSaveOnlineID("");
         SetAndSaveNickName("");
+        thePlayerData.InitData();
     }
 
     protected void SetAndSaveOnlineID(string _id)

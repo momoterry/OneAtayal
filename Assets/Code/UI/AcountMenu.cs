@@ -106,7 +106,7 @@ public class AcountMenu : MonoBehaviour
     //================  創新帳號
     public void OnNewAccoount()
     {
-        SystemUI.ShowYesNoMessageBox(OnNewAccoountConfirmResult, "你確定創新帳號? 原有記錄將被刪除....");
+        SystemUI.ShowYesNoMessageBox(OnNewAccoountConfirmResult, "你確定創新帳號?");
     }
 
     public void OnNewAccoountConfirmResult(MessageBox.RESULT result)
