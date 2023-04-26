@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class AcountMenu : MonoBehaviour
 {
     public GameObject nickNameMenu;
+    public GameObject retrieveAccountMenu;
     public GameObject newAccountButton;
     public Text text_ID;
     public Text text_NickName;
 
     public Text NickNameToSet;
+    public Text nickNameToRetrieveAccount;
 
     protected void OnEnable()
     {
@@ -35,6 +37,8 @@ public class AcountMenu : MonoBehaviour
         }
     }
 
+    public void OnMessageBoxEmptyCB(MessageBox.RESULT _r) { }
+
     public void OnSetNickNameMenu()
     {
         nickNameMenu.SetActive(true);
@@ -53,6 +57,7 @@ public class AcountMenu : MonoBehaviour
             else
             {
                 print("ERROR!! Set Nick Name Fail !!" + nickName);
+                SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "無法設定這個暱稱 !!");
             }
         }
         else
@@ -68,6 +73,37 @@ public class AcountMenu : MonoBehaviour
         nickNameMenu.SetActive(false);
     }
 
+    //================  取回帳號
+    public void OnRetrieveAccountMenu()
+    {
+        retrieveAccountMenu.SetActive(true);
+    }
+
+    public void OnRetrieveAccountClose()
+    {
+        retrieveAccountMenu.SetActive(false);
+    }
+
+    public void OnRetrieveAccountConfirm()
+    {
+        string nickname = nickNameToRetrieveAccount.text;
+        if (nickname != "")
+        {
+            if (GameSystem.GetInstance().RetriveAccountByNickname(nickname))
+            {
+                Init();
+                retrieveAccountMenu.SetActive(false);
+                SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "取回帳號成功 !!");
+            }
+            else
+            {
+                print("ERROR!!!! OnRetrieveAccountConfirm Fail");
+                SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "取回帳號失敗 ....");
+            }
+        }
+    }
+
+    //================  創新帳號
     public void OnNewAccoount()
     {
         SystemUI.ShowYesNoMessageBox(OnNewAccoountConfirmResult, "你確定創新帳號? 原有記錄將被刪除....");

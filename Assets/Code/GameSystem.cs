@@ -226,6 +226,22 @@ public class GameSystem : MonoBehaviour
         return false;
     }
 
+    public bool RetriveAccountByNickname(string _nickName)
+    {
+        string newID = theOnlineSaveLoad.GetIDByNickName(_nickName);
+        if (!newID.StartsWith("ERROR")) {
+            print("用暱稱找到有效 ID: " + newID);
+
+            SetAndSaveOnlineID(newID);
+            SetAndSaveNickName(_nickName);
+
+            return LoadData();
+        }
+        return false;
+    }
+
+    // ======================================================================
+
     public void LoadOnlineAgain()
     {
         onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");

@@ -12,6 +12,8 @@ public class OnlineSaveLoad : MonoBehaviour
     private const string urlLoadGame = "loadgame.php";
     private const string urlSetNickName = "setnickname.php";
     private const string urlCheckID = "checkidnickname.php";
+    private const string urlRetrieveAccount = "retrieveaccount.php";
+
     private const string urlGAME_ID = "game_id";
     private const string urlNICK_NAME = "nickname";
     private const string ONLINE_ERROR_PREFIX = "ERROR";
@@ -137,40 +139,14 @@ public class OnlineSaveLoad : MonoBehaviour
 
         string str = GetRequest(url);
         return !str.StartsWith("ERROR");
+    }
 
-        //bool setResult = false;
-        //UnityWebRequest request = UnityWebRequest.Get(url);
-        //request.timeout = 10;
-
-        //request.SendWebRequest();
-
-        //while (!request.isDone)
-        //{
-        //    // 等待請求完成
-        //}
-
-        //if (request.result == UnityWebRequest.Result.Success)
-        //{
-        //    string resultStr = request.downloadHandler.text;
-        //    if (resultStr.StartsWith(ONLINE_ERROR_PREFIX))
-        //    {
-        //        //為錯誤訊息
-        //        print("OnlineSaveLoad::SetNickName " + nickName);
-        //        setResult = false;
-        //    }
-        //    else
-        //    {
-        //        print("OnlineSaveLoad::SetNickName 回傳成功!! " + nickName);
-        //        setResult = true;
-        //    }
-        //}
-        //else
-        //{
-        //    print("ERROR: OnlineSaveLoad::SetNickName UnityWebRequest 失敗");
-        //    print(request.error);
-        //}
-        //request.Dispose();
-        //return setResult;
+    public string GetIDByNickName( string nickname)
+    {
+        string url = urlRoot + urlRetrieveAccount + "?" + urlNICK_NAME + "=" + nickname;
+        print("GetIDByNickName url = " + url);
+        string str = GetRequest(url);
+        return str;
     }
 
     //通用 Get 函式
