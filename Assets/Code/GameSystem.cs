@@ -36,6 +36,9 @@ public class GameSystem : MonoBehaviour
     public string GetID() { return onlineID; }
     public string GetNickName() { return nickName; }
 
+    protected const string PREF_ONLINE_ID = "ONLINE_ID";
+    protected const string PREF_NICK_NAME = "NICK_NAME";
+
     //迷宮小遊戲相關
     protected int MazeUserSize = -1;        // -1 表示玩家沒有設定
     public int GetMazeUserSize() { return MazeUserSize; }
@@ -64,15 +67,9 @@ public class GameSystem : MonoBehaviour
         }
         if (isOnlineSave)
         {
-            //onlineID = theOnlineSaveLoad.GetNewID();
-            //if (onlineID == "")
-            //{
-            //    onlineID = PlayerPrefs.GetString("ONLINE_ID", "");
-            //    print("Online ID = " + onlineID);
-            //}
-            onlineID = PlayerPrefs.GetString("ONLINE_ID", "");
+            onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
             print("Online ID = " + onlineID);
-            nickName = PlayerPrefs.GetString("NICK_NAME", "");
+            nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
             print("Nick Name = " + nickName);
         }
 
@@ -93,7 +90,6 @@ public class GameSystem : MonoBehaviour
 
     static public GameSystem GetInstance()
     {
-        //print("GetInstance() 結果 = " + instance);
         return instance;
     }
 
@@ -103,7 +99,6 @@ public class GameSystem : MonoBehaviour
         {
             print("還沒有創建 GameSystem，需要加載 Scene: GameSystem!!");
             SceneManager.LoadScene("Global", LoadSceneMode.Additive);
-            //print("加載完, instace =" + instance);
         }
     }
 
@@ -210,6 +205,14 @@ public class GameSystem : MonoBehaviour
         return false;
     }
 
+    public void LoadOnlineAgain()
+    {
+        onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
+        nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
+        print("LoadOnlineAgain ID = " + onlineID + ", NickName = " + nickName);
+        LoadData();
+    }
+
     protected void SaveDataOnline()
     {
         //TODO: 從 PlayerRef 中取得 ID
@@ -279,14 +282,14 @@ public class GameSystem : MonoBehaviour
     protected void SetAndSaveOnlineID(string _id)
     {
         onlineID = _id;
-        PlayerPrefs.SetString("ONLINE_ID", onlineID);
+        PlayerPrefs.SetString(PREF_ONLINE_ID, onlineID);
         PlayerPrefs.Save();
     }
 
     protected void SetAndSaveNickName(string _nickname)
     {
         nickName = _nickname;
-        PlayerPrefs.SetString("NICK_NAME", _nickname);
+        PlayerPrefs.SetString(PREF_NICK_NAME, _nickname);
         PlayerPrefs.Save();
     }
 
