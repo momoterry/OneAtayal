@@ -34,7 +34,7 @@ public class ChatGPT : MonoBehaviour
         //GetKeyByPHP();
     }
 
-    [RuntimeInitializeOnLoadMethod]     //TODO: 網路的初始化還是應該放到 GameSytem 中
+    //[RuntimeInitializeOnLoadMethod]     //TODO: 網路的初始化還是應該放到 GameSytem 中
     static public void GetKeyStatic()
     {
         string url = OnlineSaveLoad.GetUrlRoot() + "k.k";

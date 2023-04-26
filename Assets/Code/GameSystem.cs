@@ -66,13 +66,6 @@ public class GameSystem : MonoBehaviour
         }
         OnlineInit();
 
-        if (isOnlineSave)
-        {
-            onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
-            print("Online ID = " + onlineID);
-            nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
-            print("Nick Name = " + nickName);
-        }
 
         if (!LoadData())
         {
@@ -106,6 +99,27 @@ public class GameSystem : MonoBehaviour
     protected void OnlineInit()
     {
         ChatGPT.GetKeyStatic();
+        if (isOnlineSave)
+        {
+            onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
+            nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
+            print("Online ID = " + onlineID + "  Nick Name = " + nickName);
+
+            //檢查 ID 正確性
+            if (onlineID != "")
+            {
+                if (theOnlineSaveLoad.CheckID(onlineID, nickName))
+                {
+                    print("帳號暱稱檢查通過 .....");
+                }
+                else
+                {
+                    print("帳號暱稱檢查失敗，設為錯誤帳號錯誤狀態 .....");
+                    onlineID = INVALID_ID;
+                    nickName = "";
+                }
+            }
+        }
     }
 
 

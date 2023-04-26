@@ -11,7 +11,7 @@ public class OnlineSaveLoad : MonoBehaviour
     private const string urlSaveGame = "savegame.php";
     private const string urlLoadGame = "loadgame.php";
     private const string urlSetNickName = "setnickname.php";
-
+    private const string urlCheckID = "checkidnickname.php";
     private const string urlGAME_ID = "game_id";
     private const string urlNICK_NAME = "nickname";
     private const string ONLINE_ERROR_PREFIX = "ERROR";
@@ -46,6 +46,15 @@ public class OnlineSaveLoad : MonoBehaviour
         }
         request.Dispose();
         return id;
+    }
+
+    public bool CheckID(string game_id, string nickname)
+    {
+        string url = urlRoot + urlCheckID + "?" + urlGAME_ID + "=" + game_id + "&" + urlNICK_NAME + "=" + nickname;
+        print(url);
+        string result = GetRequest(url);
+
+        return result.StartsWith("SUCCESS");
     }
 
     public string LoadGameData(string game_ID)
