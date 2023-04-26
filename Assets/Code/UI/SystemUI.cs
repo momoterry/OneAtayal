@@ -22,17 +22,19 @@ public class SystemUI : MonoBehaviour
     {
         if (instance != null)
             print("ERROR !! 超過一份 SystemUI 存在 ");
-        instance = this;        
-    }
+        instance = this;
 
-    // Start is called before the first frame update
-    void Start()
-    {
         DontDestroyOnLoad(gameObject);
         if (theMessageBox)
         {
             theMessageBox.gameObject.SetActive(false);
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     // Update is called once per frame

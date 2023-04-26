@@ -236,7 +236,6 @@ public class GameSystem : MonoBehaviour
 
     protected void SaveDataOnline()
     {
-        //TODO: 從 PlayerRef 中取得 ID
         if (onlineID == "")
         {
             string newID = theOnlineSaveLoad.GetNewID();
@@ -264,8 +263,6 @@ public class GameSystem : MonoBehaviour
             return;
         }
 
-
-
         SaveData theSaveData = thePlayerData.GetSaveData();
         string saveDataStr = JsonUtility.ToJson(theSaveData);
 
@@ -274,7 +271,7 @@ public class GameSystem : MonoBehaviour
 
     protected bool LoadDataOnline()
     {
-        if (onlineID != "")
+        if (onlineID != "" && onlineID != INVALID_ID)
         {
             string strSave = theOnlineSaveLoad.LoadGameData(onlineID);
             if (strSave == "")
