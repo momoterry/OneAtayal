@@ -48,6 +48,14 @@ public class AcountMenu : MonoBehaviour
     {
         string online_id = GameSystem.GetInstance().GetID();
         string nickName = NickNameToSet.text;
+
+        if (online_id == "")
+        {
+            //先進行第一次存檔
+            GameSystem.GetInstance().SaveData();
+            online_id = GameSystem.GetInstance().GetID();
+        }
+
         if (online_id != GameSystem.INVALID_ID && online_id != "")
         {
             if (GameSystem.GetInstance().SetNickName(nickName))
