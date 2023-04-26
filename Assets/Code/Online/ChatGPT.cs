@@ -9,16 +9,16 @@ public class ChatGPT : MonoBehaviour
 {
     [TextArea(2, 10)]
     public string prompt = "你好";
-    protected string apiKey = "";
+    protected static string apiKey = "";
     public int maxToken = 100;
-    private string url = "https://api.openai.com/v1/completions";
+    private const string url = "https://api.openai.com/v1/completions";
 
     public delegate void ChatResultCallback(string result);
 
     protected ChatResultCallback chatCB;
     protected bool isWaiting = false;
 
-    private string key = "cQeThWmZq4t7w!z%";
+    private const string key = "cQeThWmZq4t7w!z%";
 
     void Start()
     {
@@ -31,7 +31,24 @@ public class ChatGPT : MonoBehaviour
         //print("解出來就是: " + OneUtility.DecryptString(myEnStr, key));
 
         //StartCoroutine(GetOpenAPIKey());
-        GetKeyByPHP();
+        //GetKeyByPHP();
+    }
+
+    [RuntimeInitializeOnLoadMethod]
+    static void GetKeyStatic()
+    {
+        string url = OnlineSaveLoad.GetUrlRoot() + "k.k";
+        string str = OnlineSaveLoad.GetRequest(url);
+        if (!str.StartsWith("ERROR"))
+        {
+            apiKey = OneUtility.DecryptString(str, key);
+            print("API Key 獲取成功 !!");
+        }
+        else
+        {
+            print("API Key 獲取失敗");
+            print(str);
+        }
     }
 
     protected void GetKeyByPHP()

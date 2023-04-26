@@ -59,12 +59,13 @@ public class GameSystem : MonoBehaviour
 
     private void Awake()
     {
-        //print("我被喚醒了");
         //先測試網路
         if (!theOnlineSaveLoad)
         {
             isOnlineSave = false;
         }
+        //TODO: 整理所有網路資訊的初始化
+
         if (isOnlineSave)
         {
             onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");

@@ -123,41 +123,66 @@ public class OnlineSaveLoad : MonoBehaviour
 
     public bool SetNickName( string game_ID, string nickName)
     {
-        bool setResult = false;
         string url = urlRoot + urlSetNickName + "?" + urlGAME_ID + "=" + game_ID + "&"+ urlNICK_NAME +"=" + nickName;
         print("SetNickName url = " + url);
-        UnityWebRequest request = UnityWebRequest.Get(url);
-        request.timeout = 10;
 
-        request.SendWebRequest();
+        string str = GetRequest(url);
+        return !str.StartsWith("ERROR");
 
-        while (!request.isDone)
+        //bool setResult = false;
+        //UnityWebRequest request = UnityWebRequest.Get(url);
+        //request.timeout = 10;
+
+        //request.SendWebRequest();
+
+        //while (!request.isDone)
+        //{
+        //    // 等待請求完成
+        //}
+
+        //if (request.result == UnityWebRequest.Result.Success)
+        //{
+        //    string resultStr = request.downloadHandler.text;
+        //    if (resultStr.StartsWith(ONLINE_ERROR_PREFIX))
+        //    {
+        //        //為錯誤訊息
+        //        print("OnlineSaveLoad::SetNickName " + nickName);
+        //        setResult = false;
+        //    }
+        //    else
+        //    {
+        //        print("OnlineSaveLoad::SetNickName 回傳成功!! " + nickName);
+        //        setResult = true;
+        //    }
+        //}
+        //else
+        //{
+        //    print("ERROR: OnlineSaveLoad::SetNickName UnityWebRequest 失敗");
+        //    print(request.error);
+        //}
+        //request.Dispose();
+        //return setResult;
+    }
+
+    //通用 Get 函式
+    public static string GetRequest(string url)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.timeout = 5;
+        www.SendWebRequest();
+        while (!www.isDone) { }
+        string restulStr = "ERROR";
+        if (www.result == UnityWebRequest.Result.Success)
         {
-            // 等待請求完成
-        }
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            string resultStr = request.downloadHandler.text;
-            if (resultStr.StartsWith(ONLINE_ERROR_PREFIX))
-            {
-                //為錯誤訊息
-                print("OnlineSaveLoad::SetNickName " + nickName);
-                setResult = false;
-            }
-            else
-            {
-                print("OnlineSaveLoad::SetNickName 回傳成功!! " + nickName);
-                setResult = true;
-            }
+            restulStr = www.downloadHandler.text;
         }
         else
         {
-            print("ERROR: OnlineSaveLoad::SetNickName UnityWebRequest 失敗");
-            print(request.error);
+            print("ERROR: " + url);
+            print("OnlineSaveLoad ERROR!!" + www.error);
         }
-        request.Dispose();
-        return setResult;
+        www.Dispose();
+        return restulStr;
     }
 
 }
