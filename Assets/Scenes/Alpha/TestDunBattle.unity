@@ -232,7 +232,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &465885882
 Transform:
   m_ObjectHideFlags: 0
@@ -1620,6 +1620,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 465885882}
     m_Modifications:
+    - target: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
+      propertyPath: width
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
+      propertyPath: height
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
+      propertyPath: alertDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
+      propertyPath: isRandomEnemyTotal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
+      propertyPath: enemyInfos.Array.data[0].num
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
+      propertyPath: enemyInfos.Array.data[1].num
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2283165509847586996, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
       propertyPath: m_Name
       value: EnemyGroupAlpha
@@ -1768,7 +1792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3520747066166820063
 Transform:
   m_ObjectHideFlags: 0
