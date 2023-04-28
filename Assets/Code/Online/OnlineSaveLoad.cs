@@ -6,16 +6,16 @@ using UnityEngine.Networking;
 public class OnlineSaveLoad : MonoBehaviour
 {
     //private const string urlRoot = "http://localhost/one/oaserver/";
-    private const string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
-    private const string urlGetID = "getid.php";
-    private const string urlSaveGame = "savegame.php";
-    private const string urlLoadGame = "loadgame.php";
-    private const string urlSetNickName = "setnickname.php";
-    private const string urlCheckID = "checkidnickname.php";
-    private const string urlRetrieveAccount = "retrieveaccount.php";
+    public const string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
+    public const string urlGetID = "getid.php";
+    public const string urlSaveGame = "savegame.php";
+    public const string urlLoadGame = "loadgame.php";
+    public const string urlSetNickName = "setnickname.php";
+    public const string urlCheckID = "checkidnickname.php";
+    public const string urlRetrieveAccount = "retrieveaccount.php";
 
-    private const string urlGAME_ID = "game_id";
-    private const string urlNICK_NAME = "nickname";
+    public const string urlGAME_ID = "game_id";
+    public const string urlNICK_NAME = "nickname";
     public const string ONLINE_ERROR_PREFIX = "ERROR";
 
     public static string GetUrlRoot() { return urlRoot; }
@@ -208,4 +208,6 @@ public class OnlineSaveLoad : MonoBehaviour
         cb(restulStr);
         www.Dispose();
     }
+
+    // ====================== 非同步的各種 Online 程序
 }

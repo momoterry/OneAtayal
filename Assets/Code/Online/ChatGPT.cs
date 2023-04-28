@@ -75,6 +75,11 @@ public class ChatGPT : MonoBehaviour
         }
     }
 
+    static public void SetAPIKeyEncrypted(string encryStr)
+    {
+        apiKey = OneUtility.DecryptString(encryStr, key);
+    }
+
     //protected void GetKeyByPHP()
     //{
     //    string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";

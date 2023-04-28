@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;  //為了透過 Scene 自動加載 GameSystem
+using UnityEngine.Networking;
 using System.IO;    //存讀檔
 using System.Text;  //存讀檔
 
 public class GameSystem : MonoBehaviour
 {
+    //網路存檔路徑相關
+    //public const string urlRoot = "http://localhost/one/oaserver/";
+    public const string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
+
     public PlayerData thePlayerData;
     public LevelManager theLevelManager;
 
@@ -17,7 +22,6 @@ public class GameSystem : MonoBehaviour
 
     protected string onlineID = "";
     public const string INVALID_ID = "INVALID_ID";
-
     protected string nickName = "";
 
     //TODO: 這部份應該改到 PlayerData 中
@@ -59,23 +63,25 @@ public class GameSystem : MonoBehaviour
 
     private void Awake()
     {
-        //先測試網路
-        if (!theOnlineSaveLoad)
+        if (isOnlineSave)
         {
-            isOnlineSave = false;
-        }
-        OnlineInit();
-
-
-        if (!LoadData())
-        {
-            thePlayerData.InitData();
-            //SaveData(); //建立存檔 !!     //如果沒有存檔，先保持 New Game 狀態，直到第一次存檔出現 (換關等)
-            hasSaveGame = false;
+            OnlineInitAsync();
         }
         else
-            hasSaveGame = true;
-        thePlayerData.SetDataReady();
+        {
+            OfflineInit();
+        }
+        //OnlineInit();
+
+        //if (!LoadData())
+        //{
+        //    thePlayerData.InitData();
+        //    //SaveData(); //建立存檔 !!     //如果沒有存檔，先保持 New Game 狀態，直到第一次存檔出現 (換關等)
+        //    hasSaveGame = false;
+        //}
+        //else
+        //    hasSaveGame = true;
+        //thePlayerData.SetDataReady();
 
 #if TOUCH_MOVE
         useVpadControl = false;
@@ -95,6 +101,7 @@ public class GameSystem : MonoBehaviour
             SceneManager.LoadScene("Global", LoadSceneMode.Additive);
         }
     }
+
 
 
     protected void OnlineInit()
@@ -512,4 +519,141 @@ public class GameSystem : MonoBehaviour
         return true;
     }
 #endif
+
+    protected void OfflineInit()
+    {
+        ChatGPT.GetKeyStaticAsync();
+        if (!LoadData())
+        {
+            thePlayerData.InitData();
+            hasSaveGame = false;
+        }
+        else
+            hasSaveGame = true;
+        thePlayerData.SetDataReady();
+    }
+
+    protected void OnlineInitAsync()
+    {
+        onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
+        nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
+        print("Online ID = " + onlineID + "  Nick Name = " + nickName);
+
+        thePlayerData.InitData();   //無論如何先初始化
+        StartCoroutine(OnlineInitProcess());
+    }
+
+    //======================= 網路處理程序 ===========================
+    //
+    public const string urlGetID = "getid.php";
+    public const string urlSaveGame = "savegame.php";
+    public const string urlLoadGame = "loadgame.php";
+    public const string urlSetNickName = "setnickname.php";
+    public const string urlCheckID = "checkidnickname.php";
+    public const string urlRetrieveAccount = "retrieveaccount.php";
+
+    public const string urlGAME_ID = "game_id";
+    public const string urlNICK_NAME = "nickname";
+    public const string ONLINE_ERROR_PREFIX = "ERROR";
+
+    protected  IEnumerator OnlineInitProcess()
+    {
+        //首先是 API key
+        string url = urlRoot + "k.k";
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            print("API Key 獲取成功 (OnlineInitProcess)");
+            ChatGPT.SetAPIKeyEncrypted(www.downloadHandler.text);
+        }
+        else
+        {
+            print(ONLINE_ERROR_PREFIX + " : " + url);
+            print("ERROR !! API Key 獲取失敗");
+        }
+        www.Dispose();
+
+        //接下來檢查 ID 跟 nickname
+
+        //檢查 ID 正確性
+        if (onlineID != "")
+        {
+            url = urlRoot + urlCheckID + "?" + urlGAME_ID + "=" + onlineID + "&" + urlNICK_NAME + "=" + nickName;
+            www = UnityWebRequest.Get(url);
+            yield return www.SendWebRequest();
+
+            bool isOK = false;
+            string erMsg = "";
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                if (www.downloadHandler.text.StartsWith("SUCCESS"))
+                {
+                    print("帳號暱稱檢查通過 .....(OnlineInitProcess)");
+                    isOK = true;
+                }
+                else
+                    erMsg += www.downloadHandler.text;
+            }
+            else
+            {
+                erMsg += www.error;
+            }
+
+            if (!isOK)
+            {
+                print("帳號暱稱檢查失敗 " + erMsg);
+                onlineID = INVALID_ID;
+                nickName = "";
+                SystemUI.ShowMessageBox(null, "帳號暱稱檢查失敗 .... 請檢查網路或開新帳號 " + erMsg);
+            }
+            www.Dispose();
+        }
+
+        // =============== 載入存檔 ====================
+        if (onlineID != INVALID_ID && onlineID != "")
+        {
+            url = urlRoot + urlLoadGame + "?" + urlGAME_ID + "=" + onlineID;
+            www = UnityWebRequest.Get(url);
+            yield return www.SendWebRequest();
+
+            string errorStr = "";
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                string strSave = www.downloadHandler.text;
+                if (strSave == "" || strSave.StartsWith(ONLINE_ERROR_PREFIX))
+                {
+                    //ID 有問題，保持錯誤狀態
+                    print("載入存檔有誤......設定為錯誤 Online ID" + onlineID);
+                    onlineID = INVALID_ID;
+                    nickName = "";
+                    errorStr = "載入存檔內容錯誤...." + strSave;
+                }
+                else
+                {
+                    print("載入存檔成功......(OnlineInitProcess) " + onlineID);
+                    SaveData loadData = JsonUtility.FromJson<SaveData>(strSave);
+                    thePlayerData.LoadSavedData(loadData);
+                    
+                    thePlayerData.SetDataReady();
+                    hasSaveGame = true;
+                }
+            }
+            else
+            {
+                print("載入存檔失敗......" + www.error);
+                onlineID = INVALID_ID;
+                nickName = "";
+                errorStr = "載入存檔錯誤...." + www.error;
+            }
+            if (errorStr != "")
+            {
+                SystemUI.ShowMessageBox(null, errorStr);
+            }
+
+            www.Dispose();
+        }
+
+    }
 }
