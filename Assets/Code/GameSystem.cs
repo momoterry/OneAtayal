@@ -96,9 +96,10 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+
     protected void OnlineInit()
     {
-        ChatGPT.GetKeyStatic();
+        ChatGPT.GetKeyStaticAsync();
         if (isOnlineSave)
         {
             onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");

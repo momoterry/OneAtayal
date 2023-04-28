@@ -43,63 +43,91 @@ public class ChatGPT : MonoBehaviour
         {
             apiKey = OneUtility.DecryptString(str, key);
             print("API Key 獲取成功 !!");
+            //SystemUI.ShowMessageBox(null, "GetKeyStatic 成功:" + OnlineSaveLoad.GetUrlRoot());
         }
         else
         {
             print("API Key 獲取失敗");
             print(str);
+            //SystemUI.ShowMessageBox(null, "GetKeyStatic 失敗:" + OnlineSaveLoad.GetUrlRoot());
         }
+
     }
 
-    protected void GetKeyByPHP()
+    static public void GetKeyStaticAsync()
     {
-        string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
-        string url = urlRoot + "getkey.php";
-        UnityWebRequest request = UnityWebRequest.Get(url);
-        request.timeout = 5;
-        request.SendWebRequest();
+        string url = OnlineSaveLoad.GetUrlRoot() + "k.k";
+        OnlineSaveLoad.GetRequestAsync(url, GetKeyResult);
+    }
 
-        while (!request.isDone)
+    static public void GetKeyResult(string resultMsg)
+    {
+        if (resultMsg.StartsWith("ERROR"))
         {
-            // 等待請求完成
-        }
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-
-            string data = request.downloadHandler.text;
-            apiKey = OneUtility.DecryptString(data, key);
-            print("API Key: " + " 獲取成功 !!");
+            //SystemUI.ShowMessageBox(null, "GetKeyResult 錯誤: " + resultMsg);
+            print("API Key Anync 獲取失敗 !!");
         }
         else
         {
-            print(request.error);
-            print("ERROR!!!! GetKeyByPHP 失敗 ....");
+            apiKey = OneUtility.DecryptString(resultMsg, key);
+            //SystemUI.ShowMessageBox(null, "GetKeyResult 成功:" + OnlineSaveLoad.GetUrlRoot());
+            print("API Key Anync 獲取成功 !!");
         }
-
-        request.Dispose();
     }
 
-    public IEnumerator GetOpenAPIKey()
-    {
-        string url = "http://yeshouse.tplinkdns.com/one/k.txt";
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        www.timeout = 5;
-        yield return www.SendWebRequest();
+    //protected void GetKeyByPHP()
+    //{
+    //    string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
+    //    string url = urlRoot + "getkey.php";
+    //    UnityWebRequest request = UnityWebRequest.Get(url);
+    //    request.timeout = 5;
+    //    request.SendWebRequest();
 
-        if (www.result == UnityWebRequest.Result.Success)
-        {
-            string keyword = www.downloadHandler.text;
-            Debug.Log("API Key: " + " 獲取成功 !!");
-            apiKey = OneUtility.DecryptString(keyword, key);
-        }
-        else
-        {
-            Debug.Log("Error: " + www.error);
-        }
+    //    while (!request.isDone)
+    //    {
+    //        // 等待請求完成
+    //    }
 
-        www.Dispose();
-    }
+    //    if (request.result == UnityWebRequest.Result.Success)
+    //    {
+
+    //        string data = request.downloadHandler.text;
+    //        apiKey = OneUtility.DecryptString(data, key);
+    //        print("API Key: " + " 獲取成功 !!");
+    //        SystemUI.ShowMessageBox(null, "API Key:  獲取成功 !!");
+    //    }
+    //    else
+    //    {
+    //        print(request.error);
+    //        print("ERROR!!!! GetKeyByPHP 失敗 ....");
+    //        SystemUI.ShowMessageBox(null, "ERROR!!!! GetKeyByPHP 失敗 ....");
+    //    }
+
+    //    request.Dispose();
+    //}
+
+    //public IEnumerator GetOpenAPIKey()
+    //{
+    //    string url = "http://localhost/one/oaserver/k.k";
+    //    UnityWebRequest www = UnityWebRequest.Get(url);
+    //    www.timeout = 5;
+    //    yield return www.SendWebRequest();
+
+    //    if (www.result == UnityWebRequest.Result.Success)
+    //    {
+    //        string keyword = www.downloadHandler.text;
+    //        Debug.Log("API Key: " + " 獲取成功 !!");
+    //        apiKey = OneUtility.DecryptString(keyword, key);
+    //        SystemUI.ShowMessageBox(null, "API Key:  獲取成功 !!");
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Error: " + www.error);
+    //        SystemUI.ShowMessageBox(null, "ERROR!!!! GetOpenAPIKey 失敗 ...." + www.error);
+    //    }
+
+    //    www.Dispose();
+    //}
 
     public void StartChat(ChatResultCallback _chatCB)
     {
