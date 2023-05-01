@@ -638,7 +638,7 @@ public class GameSystem : MonoBehaviour
                 print("帳號暱稱檢查失敗 " + erMsg);
                 onlineID = INVALID_ID;
                 nickName = "";
-                SystemUI.ShowMessageBox(null, "帳號暱稱檢查失敗 .... 請檢查網路或開新帳號 " + erMsg);
+                SystemUI.ShowMessageBox(null, "帳號暱稱檢查失敗 .... 請檢查網路或開新帳號 ");
             }
             www.Dispose();
         }
