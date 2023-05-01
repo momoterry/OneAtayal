@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;  //為了透過 Scene 自動加載 GameSystem
 using UnityEngine.Networking;
 using System.IO;    //存讀檔
 using System.Text;  //存讀檔
+using System.Data;
+using UnityEngine.InputSystem;
+using System;
 
 public class GameSystem : MonoBehaviour
 {
@@ -198,7 +201,7 @@ public class GameSystem : MonoBehaviour
     public void SaveData()
     {
         if (isOnlineSave)
-            SaveDataOnline();
+            SaveDataOnlineAsync();
         else
             SaveDataLocal();
 
@@ -250,6 +253,7 @@ public class GameSystem : MonoBehaviour
 
     // ======================================================================
 
+    //Debug 測試用
     public void LoadOnlineAgain()
     {
         onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
@@ -277,6 +281,7 @@ public class GameSystem : MonoBehaviour
                 //PlayerPrefs.SetString("ONLINE_ID", onlineID);
                 //PlayerPrefs.Save();
                 SetAndSaveOnlineID(newID);
+                SetAndSaveNickName("");
                 print("取得新的 Online ID 並存到 PlayerPrefs: " + newID);
             }
         }
@@ -523,7 +528,7 @@ public class GameSystem : MonoBehaviour
     protected void OfflineInit()
     {
         ChatGPT.GetKeyStaticAsync();
-        if (!LoadData())
+        if (!LoadDataLocal())
         {
             thePlayerData.InitData();
             hasSaveGame = false;
@@ -541,6 +546,11 @@ public class GameSystem : MonoBehaviour
 
         thePlayerData.InitData();   //無論如何先初始化
         StartCoroutine(OnlineInitProcess());
+    }
+
+    protected void SaveDataOnlineAsync()
+    {
+        StartCoroutine(OnlineSaveProcess());
     }
 
     //======================= 網路處理程序 ===========================
@@ -656,4 +666,66 @@ public class GameSystem : MonoBehaviour
         }
 
     }
+
+
+    protected IEnumerator OnlineSaveProcess()
+    {
+        string url;
+        UnityWebRequest www;
+        SaveData theSaveData = thePlayerData.GetSaveData();
+        string dataStr = JsonUtility.ToJson(theSaveData);
+
+        if (onlineID == "")
+        {
+            url = urlRoot + urlGetID;
+            www = UnityWebRequest.Get(url);
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+
+                string id = www.downloadHandler.text;
+                print("獲得的新 ID 是 (OnlineSaveProcess)：" + id);
+                SetAndSaveOnlineID(id);
+                SetAndSaveNickName("");
+            }
+            else
+            {
+                print("ERROR!!!! OnlineSaveLoad::GetNewID 失敗 ...." + url);
+                print(www.error);
+                SystemUI.ShowMessageBox(null, "存檔失敗，無法建新帳號");
+                yield break;
+            }
+            www.Dispose();
+        }
+
+        url = urlRoot + urlSaveGame;
+        www = new UnityWebRequest(url, "POST");
+
+        // 將進度數據作為參數添加到請求中
+        WWWForm form = new WWWForm();
+        form.AddField("game_id", onlineID);
+        form.AddField("game_data", dataStr);
+        www.uploadHandler = new UploadHandlerRaw(form.data);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.ConnectionError ||
+            www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            print("ERROR !! 存檔失敗 (OnlineSaveProcess) !!");
+            print(www.error);
+            SystemUI.ShowMessageBox(null, "存檔失敗" + www.error);
+        }
+        else
+        {
+            print("OnlineSaveProcess 存檔成功回傳資訊:\n" + www.downloadHandler.text);
+            SystemUI.ShowMessageBox(null, "存檔成功 !!");
+        }
+
+        www.Dispose();
+    }
+
 }
