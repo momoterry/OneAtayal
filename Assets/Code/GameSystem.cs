@@ -254,13 +254,13 @@ public class GameSystem : MonoBehaviour
     // ======================================================================
 
     //Debug ´ú¸Õ¥Î
-    public void LoadOnlineAgain()
-    {
-        onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
-        nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
-        print("LoadOnlineAgain ID = " + onlineID + ", NickName = " + nickName);
-        LoadData();
-    }
+    //public void LoadOnlineAgain()
+    //{
+    //    onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
+    //    nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
+    //    print("LoadOnlineAgain ID = " + onlineID + ", NickName = " + nickName);
+    //    LoadData();
+    //}
 
     protected void SaveDataOnline()
     {

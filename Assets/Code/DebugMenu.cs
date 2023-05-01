@@ -113,11 +113,11 @@ public class DebugMenu : MonoBehaviour
     }
 
 
-    public void OnSaveToServerTest()
-    {
-        //StartCoroutine(TestSaveProgressToServer());
-        GameSystem.GetInstance().LoadOnlineAgain();
-    }
+    //public void OnSaveToServerTest()
+    //{
+    //    //StartCoroutine(TestSaveProgressToServer());
+    //    GameSystem.GetInstance().LoadOnlineAgain();
+    //}
 
     //IEnumerator TestSaveProgressToServer()
     //{
