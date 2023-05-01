@@ -14,6 +14,8 @@ public class AcountMenu : MonoBehaviour
     public Text NickNameToSet;
     public Text nickNameToRetrieveAccount;
 
+    protected bool isWating = false;
+
     protected void OnEnable()
     {
         Init();
@@ -46,35 +48,55 @@ public class AcountMenu : MonoBehaviour
 
     public void OnSetNickNameConfirm()
     {
-        string online_id = GameSystem.GetInstance().GetID();
+        if (isWating)
+            return;
         string nickName = NickNameToSet.text;
+        GameSystem.GetInstance().SetNickNameAsync(nickName, SetNickNameAsyncResult);
+        isWating = true;
+    }
 
-        if (online_id == "")
+    public void SetNickNameAsyncResult(bool isOK, string erroMsg)
+    {
+        print("SetNickNameAsyncResult 完成");
+        isWating = false;       //TODO: 直接改成 Block 輸入
+        if (isOK)
         {
-            //先進行第一次存檔
-            GameSystem.GetInstance().SaveData();
-            online_id = GameSystem.GetInstance().GetID();
+            nickNameMenu.SetActive(false);
         }
-
-        if (online_id != GameSystem.INVALID_ID && online_id != "")
-        {
-            if (GameSystem.GetInstance().SetNickName(nickName))
-            {
-                nickNameMenu.SetActive(false);
-            }
-            else
-            {
-                print("ERROR!! Set Nick Name Fail !!" + nickName);
-                SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "無法設定這個暱稱 !!");
-            }
-        }
-        else
-        {
-            print("ERROR!! Wrong ID to set nick name !!");
-        }
-        //nickNameMenu.SetActive(false);
         Init();
     }
+
+    //public void OnSetNickNameConfirm_backup()
+    //{
+    //    string online_id = GameSystem.GetInstance().GetID();
+    //    string nickName = NickNameToSet.text;
+
+    //    if (online_id == "")
+    //    {
+    //        //先進行第一次存檔
+    //        GameSystem.GetInstance().SaveData();
+    //        online_id = GameSystem.GetInstance().GetID();
+    //    }
+
+    //    if (online_id != GameSystem.INVALID_ID && online_id != "")
+    //    {
+    //        if (GameSystem.GetInstance().SetNickName(nickName))
+    //        {
+    //            nickNameMenu.SetActive(false);
+    //        }
+    //        else
+    //        {
+    //            print("ERROR!! Set Nick Name Fail !!" + nickName);
+    //            SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "無法設定這個暱稱 !!");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        print("ERROR!! Wrong ID to set nick name !!");
+    //    }
+    //    //nickNameMenu.SetActive(false);
+    //    Init();
+    //}
 
     public void OnSetNickNameCancel()
     {
@@ -92,25 +114,45 @@ public class AcountMenu : MonoBehaviour
         retrieveAccountMenu.SetActive(false);
     }
 
+
+    public void RetriveAccountAsyncResult( bool isOK, string errorMsg)
+    {
+        isWating = false;
+        if (isOK)
+        {
+            Init();
+            retrieveAccountMenu.SetActive(false);
+        }
+    }
+
     public void OnRetrieveAccountConfirm()
     {
         string nickname = nickNameToRetrieveAccount.text;
         if (nickname != "")
         {
-            if (GameSystem.GetInstance().RetriveAccountByNickname(nickname))
-            {
-                Init();
-                retrieveAccountMenu.SetActive(false);
-                SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "取回帳號成功 !!");
-            }
-            else
-            {
-                print("ERROR!!!! OnRetrieveAccountConfirm Fail");
-                SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "取回帳號失敗 ....");
-            }
+            isWating = true;
+            GameSystem.GetInstance().RetriveAccountByNicknameAsync(nickname, RetriveAccountAsyncResult);
         }
     }
 
+    //public void OnRetrieveAccountConfirm_backup()
+    //{
+    //    string nickname = nickNameToRetrieveAccount.text;
+    //    if (nickname != "")
+    //    {
+    //        if (GameSystem.GetInstance().RetriveAccountByNickname(nickname))
+    //        {
+    //            Init();
+    //            retrieveAccountMenu.SetActive(false);
+    //            SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "取回帳號成功 !!");
+    //        }
+    //        else
+    //        {
+    //            print("ERROR!!!! OnRetrieveAccountConfirm Fail");
+    //            SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "取回帳號失敗 ....");
+    //        }
+    //    }
+    //}
     //================  創新帳號
     public void OnNewAccoount()
     {

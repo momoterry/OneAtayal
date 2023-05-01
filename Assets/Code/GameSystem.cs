@@ -525,6 +525,21 @@ public class GameSystem : MonoBehaviour
     }
 #endif
 
+    //
+    //======================= 非同步網路函式 ===========================
+    //
+    public delegate void OnlineProcessCallBack(bool resultOK, string errorMsg);
+
+    public void SetNickNameAsync(string _nickname, OnlineProcessCallBack cb)
+    {
+        StartCoroutine(OnlineSaveProcess(false, _nickname, cb));
+    }
+
+    public void RetriveAccountByNicknameAsync(string _nackname, OnlineProcessCallBack cb)
+    {
+        StartCoroutine(OnlineInitProcess(_nackname, cb));
+    }
+
     protected void OfflineInit()
     {
         ChatGPT.GetKeyStaticAsync();
@@ -553,6 +568,7 @@ public class GameSystem : MonoBehaviour
         StartCoroutine(OnlineSaveProcess());
     }
 
+    //
     //======================= 網路處理程序 ===========================
     //
     public const string urlGetID = "getid.php";
@@ -566,29 +582,35 @@ public class GameSystem : MonoBehaviour
     public const string urlNICK_NAME = "nickname";
     public const string ONLINE_ERROR_PREFIX = "ERROR";
 
-    protected  IEnumerator OnlineInitProcess()
+    protected  IEnumerator OnlineInitProcess( string _nickname = "", OnlineProcessCallBack cb = null)
     {
-        //首先是 API key
-        string url = urlRoot + "k.k";
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        yield return www.SendWebRequest();
+        string url;
+        UnityWebRequest www;
+        bool isRetriveAccount = _nickname != "";    //如果是用暱稱取回存檔的情況，不取 API key，也不檢查 ID，但要取回 ID
 
-        if (www.result == UnityWebRequest.Result.Success)
+        //首先是 API key
+        if (!isRetriveAccount)
         {
-            print("API Key 獲取成功 (OnlineInitProcess)");
-            ChatGPT.SetAPIKeyEncrypted(www.downloadHandler.text);
+            url = urlRoot + "k.k";
+            www = UnityWebRequest.Get(url);
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                print("API Key 獲取成功 (OnlineInitProcess)");
+                ChatGPT.SetAPIKeyEncrypted(www.downloadHandler.text);
+            }
+            else
+            {
+                print(ONLINE_ERROR_PREFIX + " : " + url);
+                print("ERROR !! API Key 獲取失敗");
+            }
+            www.Dispose();
         }
-        else
-        {
-            print(ONLINE_ERROR_PREFIX + " : " + url);
-            print("ERROR !! API Key 獲取失敗");
-        }
-        www.Dispose();
 
         //接下來檢查 ID 跟 nickname
-
         //檢查 ID 正確性
-        if (onlineID != "")
+        if (!isRetriveAccount && onlineID != "")
         {
             url = urlRoot + urlCheckID + "?" + urlGAME_ID + "=" + onlineID + "&" + urlNICK_NAME + "=" + nickName;
             www = UnityWebRequest.Get(url);
@@ -619,6 +641,48 @@ public class GameSystem : MonoBehaviour
                 SystemUI.ShowMessageBox(null, "帳號暱稱檢查失敗 .... 請檢查網路或開新帳號 " + erMsg);
             }
             www.Dispose();
+        }
+
+        //=============== 取回存檔 ====================
+        if (isRetriveAccount)
+        {
+            url = urlRoot + urlRetrieveAccount + "?" + urlNICK_NAME + "=" + _nickname;
+            www = UnityWebRequest.Get(url);
+            yield return www.SendWebRequest();
+
+            string errorMsg = "";
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                string newID = www.downloadHandler.text;
+                if (!newID.StartsWith("ERROR"))
+                {
+                    print("用暱稱找到有效 ID(OnlineInitProcess): " + newID);
+
+                    SetAndSaveOnlineID(newID);
+                    SetAndSaveNickName(_nickname);
+                }
+                else
+                {
+                    errorMsg = newID;
+                }
+            }
+            else {
+                errorMsg = "ERROR!!!! 取回帳號失敗" + www.error;
+                SystemUI.ShowMessageBox(null, "取回帳號失敗，連線錯誤");
+            }
+            if (errorMsg != "") 
+            {
+                print(errorMsg);
+                SystemUI.ShowMessageBox(null, "取回帳號錯誤");
+                if (cb != null)
+                    cb(false, errorMsg);
+                yield break;
+            }
+            else
+            {
+                if (cb != null)
+                    cb(true, "");
+            }
         }
 
         // =============== 載入存檔 ====================
@@ -668,15 +732,18 @@ public class GameSystem : MonoBehaviour
     }
 
 
-    protected IEnumerator OnlineSaveProcess()
+    protected IEnumerator OnlineSaveProcess( bool mustSave = true, string _nickname = "", OnlineProcessCallBack cb = null)
     {
+        print("OnlineSaveProcess ....................... " + _nickname);
         string url;
         UnityWebRequest www;
         SaveData theSaveData = thePlayerData.GetSaveData();
         string dataStr = JsonUtility.ToJson(theSaveData);
+        bool isSave = mustSave; //如果不是 mustSave，只在 ID 空時進行存檔 (設定 NickName 用的)
 
         if (onlineID == "")
         {
+            isSave = true;
             url = urlRoot + urlGetID;
             www = UnityWebRequest.Get(url);
             yield return www.SendWebRequest();
@@ -699,33 +766,69 @@ public class GameSystem : MonoBehaviour
             www.Dispose();
         }
 
-        url = urlRoot + urlSaveGame;
-        www = new UnityWebRequest(url, "POST");
-
-        // 將進度數據作為參數添加到請求中
-        WWWForm form = new WWWForm();
-        form.AddField("game_id", onlineID);
-        form.AddField("game_data", dataStr);
-        www.uploadHandler = new UploadHandlerRaw(form.data);
-        www.downloadHandler = new DownloadHandlerBuffer();
-        www.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.ConnectionError ||
-            www.result == UnityWebRequest.Result.ProtocolError)
+        if (isSave)
         {
-            print("ERROR !! 存檔失敗 (OnlineSaveProcess) !!");
-            print(www.error);
-            SystemUI.ShowMessageBox(null, "存檔失敗" + www.error);
-        }
-        else
-        {
-            print("OnlineSaveProcess 存檔成功回傳資訊:\n" + www.downloadHandler.text);
-            //SystemUI.ShowMessageBox(null, "存檔成功 !!");
+            url = urlRoot + urlSaveGame;
+            www = new UnityWebRequest(url, "POST");
+
+            // 將進度數據作為參數添加到請求中
+            WWWForm form = new WWWForm();
+            form.AddField("game_id", onlineID);
+            form.AddField("game_data", dataStr);
+            www.uploadHandler = new UploadHandlerRaw(form.data);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                print("OnlineSaveProcess 存檔成功回傳資訊:\n" + www.downloadHandler.text);
+                //SystemUI.ShowMessageBox(null, "存檔成功 !!");
+            }
+            else
+            {
+                print("ERROR !! 存檔失敗 (OnlineSaveProcess) !!");
+                print(www.error);
+                SystemUI.ShowMessageBox(null, "存檔失敗" + www.error);
+            }
+
+            www.Dispose();
         }
 
-        www.Dispose();
+        if (_nickname != "")
+        {
+            url = urlRoot + urlSetNickName + "?" + urlGAME_ID + "=" + onlineID + "&" + urlNICK_NAME + "=" + _nickname;
+            www = UnityWebRequest.Get(url);
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                string msg = www.downloadHandler.text;
+                if (!msg.StartsWith(ONLINE_ERROR_PREFIX))
+                {
+                    SetAndSaveNickName(_nickname);
+                    print("暱稱設定成功 (" + onlineID + " ) : " + nickName);
+                    if (cb != null)
+                        cb(true, ""); 
+                }
+                else
+                {
+                    print(msg);
+                    SystemUI.ShowMessageBox(null, "設定暱稱錯誤，請換個暱稱 !!");
+                    if (cb != null)
+                        cb(false, msg);
+                }
+            }
+            else
+            {
+                print("ERROR !! 設定暱稱失敗 (OnlineSaveProcess) !!" + _nickname);
+                print(www.error);
+                SystemUI.ShowMessageBox(null, "設定暱稱失敗 !!");
+                if (cb != null)
+                    cb(false, www.error);
+            }
+        }
     }
 
 }
