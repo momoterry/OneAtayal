@@ -722,7 +722,7 @@ public class GameSystem : MonoBehaviour
         else
         {
             print("OnlineSaveProcess 存檔成功回傳資訊:\n" + www.downloadHandler.text);
-            SystemUI.ShowMessageBox(null, "存檔成功 !!");
+            //SystemUI.ShowMessageBox(null, "存檔成功 !!");
         }
 
         www.Dispose();
