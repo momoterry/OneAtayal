@@ -12,36 +12,62 @@ public static class FixNavmeshTool
     static public void DoFix()
     {
         GameObject[] selectedObjects = Selection.gameObjects;
-        foreach (GameObject o in selectedObjects)
+        if (selectedObjects.Length > 0)
         {
-            processOneObject(o);
+            foreach (GameObject o in selectedObjects)
+            {
+                processOneObject(o);
+            }
+            return;
         }
-        return;
+        Debug.Log("---- 沒有選到的物件，只進行 MapGenerator 測試 ");
 
         //var nModifier = Object.FindObjectsOfType<Unity.AI.Navigation.NavMeshModifier>();
         //Debug.Log("============ 總共找到的 Modifier 數: " + nModifier.Length);
 
-        //foreach (Unity.AI.Navigation.NavMeshModifier m in nModifier)
-        //{
-        //    Debug.Log("舊的 Modifier: " + m  + " -- " + m.area);
+        var nMGs = Object.FindObjectsOfType<MapGeneratorBase>();
+        Debug.Log("總共找到的 MapGeneratorBase 數: " + nMGs.Length);
+        if (nMGs.Length > 1)
+            Debug.Log("ERROR!!!! 超過一份 MapGeneratorBase 存在 !!");
+        if (nMGs.Length == 0)
+        {
+            Debug.Log("沒有 MapGeneratorBase 存在，結束");
+            return;
+        }
 
-        //    NavMeshPlus.Components.NavMeshModifier newM = m.gameObject.AddComponent<NavMeshPlus.Components.NavMeshModifier>();
-        //    newM.overrideArea = m.overrideArea;
-        //    newM.area = m.area;
-        //    Debug.Log("加入新的 Modifier: " + newM + " -- " + newM.area);
-        //}
+        //尋找之前的 Nav2D Root，這算是暴力法
+        GameObject gNav;
+        NavMeshPlus.Components.NavMeshSurface theSurface = Object.FindAnyObjectByType<NavMeshPlus.Components.NavMeshSurface>();
+        if (theSurface)
+        {
+            theSurface.defaultArea = 1;
+            Debug.Log("已經有 Surface 存在，改一下 Defaut Area, Bye Bye");
+            EditorUtility.SetDirty(theSurface.gameObject);
+            return;
+        }
+        Grid g = Object.FindAnyObjectByType<Grid>();
+        if (g)
+        {
+            gNav = g.transform.root.gameObject;
+        }
+        else
+            gNav = nMGs[0].gameObject;
 
-        //var newMs = Object.FindObjectsOfType<NavMeshPlus.Components.NavMeshModifier>();
-        //Debug.Log("============ 總共找到的 新的 Modifier 數: " + newMs.Length);
-        //foreach (NavMeshPlus.Components.NavMeshModifier newM in newMs)
-        //{
-        //    Unity.AI.Navigation.NavMeshModifier oldM = newM.gameObject.GetComponent<Unity.AI.Navigation.NavMeshModifier>();
-        //    if (oldM)
-        //    {
-        //        Debug.Log("刪除舊的 Component: " + oldM);
-        //        Object.DestroyImmediate(oldM);
-        //    }
-        //}
+        theSurface = gNav.AddComponent<NavMeshPlus.Components.NavMeshSurface>();
+        theSurface.defaultArea = 1;
+        gNav.AddComponent<NavMeshPlus.Extensions.CollectSources2d>();
+
+        foreach ( MapGeneratorBase mg in nMGs)
+        {
+            //Debug.Log("MG: " + mg.name + " => " + mg.theSurface2D);
+            if (mg.theSurface2D)
+            {
+                //Debug.Log("theSurface2D : " + mg.theSurface2D.gameObject);
+            }
+            mg.theSurface2D = theSurface;
+            Debug.Log("MG: " + mg.name + " => " + mg.theSurface2D);
+            EditorUtility.SetDirty(mg.gameObject);
+        }
 
     }
 
