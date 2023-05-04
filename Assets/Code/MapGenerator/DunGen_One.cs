@@ -188,46 +188,6 @@ public class DunGen_One : MapGeneratorBase
 
     }
 
-    //public override void BuildAll(int buildLevel = 1)
-    //{
-    //    base.BuildAll(buildLevel);
-
-    //    if (!initRD)
-    //        return;
-
-    //    GameObject currRoom = initRD.gameObject;
-    //    GameObject newRoom = null;
-
-    //    for (int i= 0; i< RoomNum; i++)
-    //    {
-    //        newRoom = CreateRoom(roomRef, currRoom, DoorDir.N, DoorDir.S);
-    //        if (newRoom)
-    //        {
-    //            print("NewRoom: " + newRoom.transform.position);
-    //            roomList.Add(newRoom);
-    //            //newRoom.transform.SetParent(theSurface2D.gameObject.transform);
-    //        }
-    //        else
-    //        {
-    //            print("ERROR !!!! CreatRoom Fail....");
-    //            return;
-    //        }
-    //        currRoom = newRoom;
-
-    //        if (i == 0)
-    //        {
-    //            //Try Branch
-    //            roomList.Add(CreateRoom(roomRef, newRoom, DoorDir.W1, DoorDir.E2));
-    //            roomList.Add(CreateRoom(roomRef, newRoom, DoorDir.E2, DoorDir.W1));
-    //        }
-    //    }
-
-    //    foreach¡@(GameObject ro in roomList)
-    //    {
-    //        ro.transform.SetParent(theSurface2D.transform);
-    //    }
-
-    //}
 
     protected GameObject CreateRoom( GameObject roRef, GameObject fromRoom, DoorDir fromDoor, DoorDir toDoor)
     {

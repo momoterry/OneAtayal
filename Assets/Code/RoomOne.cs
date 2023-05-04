@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using NavMeshPlus.Components;
 
 public class RoomOne : MonoBehaviour
 {
-    public NavMeshSurface2d theSurface2D;
+    public NavMeshSurface theSurface2D;
     // Start is called before the first frame update
     void Start()
     {
