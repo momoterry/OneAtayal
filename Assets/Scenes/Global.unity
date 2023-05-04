@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thePlayerData: {fileID: 327809248}
   theLevelManager: {fileID: 327809250}
-  isOnlineSave: 1
+  isOnlineSave: 0
   theOnlineSaveLoad: {fileID: 327809251}
 --- !u!114 &327809248
 MonoBehaviour:
@@ -278,6 +278,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1721574759717755531, guid: 0ba5131b14cab4d438409e3a6b10eecb, type: 3}
@@ -385,4 +386,7 @@ PrefabInstance:
       value: SystemUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ba5131b14cab4d438409e3a6b10eecb, type: 3}
