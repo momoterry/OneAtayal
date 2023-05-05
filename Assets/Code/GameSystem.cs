@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;  //¬°¤F³z¹L Scene ¦Û°Ê¥[¸ü GameSystem
+using UnityEngine.SceneManagement;  //ç‚ºäº†é€é Scene è‡ªå‹•åŠ è¼‰ GameSystem
 using UnityEngine.Networking;
-using System.IO;    //¦sÅªÀÉ
-using System.Text;  //¦sÅªÀÉ
+using System.IO;    //å­˜è®€æª”
+using System.Text;  //å­˜è®€æª”
 using System.Data;
 using UnityEngine.InputSystem;
 using System;
 
 public class GameSystem : MonoBehaviour
 {
-    //ºô¸ô¦sÀÉ¸ô®|¬ÛÃö
+    //ç¶²è·¯å­˜æª”è·¯å¾‘ç›¸é—œ
     //public const string urlRoot = "http://localhost/one/oaserver/";
     public const string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
 
@@ -27,27 +27,27 @@ public class GameSystem : MonoBehaviour
     public const string INVALID_ID = "INVALID_ID";
     protected string nickName = "";
 
-    //TODO: ³o³¡¥÷À³¸Ó§ï¨ì PlayerData ¤¤
+    //TODO: é€™éƒ¨ä»½æ‡‰è©²æ”¹åˆ° PlayerData ä¸­
     protected GameObject playerCharacterRef = null;
 
-    //Skill ¬ÛÃö //TODO: ³o³¡¥÷À³¸Ó§ï¨ì PlayerData ¤¤
+    //Skill ç›¸é—œ //TODO: é€™éƒ¨ä»½æ‡‰è©²æ”¹åˆ° PlayerData ä¸­
     protected Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
 
-    //Option ¬ÛÃö //TODO: À³¸Ó²¾¨ì¯u¥¿ªº PlayerPref ·í¤¤
+    //Option ç›¸é—œ //TODO: æ‡‰è©²ç§»åˆ°çœŸæ­£çš„ PlayerPref ç•¶ä¸­
     protected bool useVpadControl = true;
 
 
     public bool IsHasSaveGame() { return hasSaveGame; }
 
-    //ºô¸ô¦sÀÉ¬ÛÃö
+    //ç¶²è·¯å­˜æª”ç›¸é—œ
     public string GetID() { return onlineID; }
     public string GetNickName() { return nickName; }
 
     protected const string PREF_ONLINE_ID = "ONLINE_ID";
     protected const string PREF_NICK_NAME = "NICK_NAME";
 
-    //°g®c¤p¹CÀ¸¬ÛÃö
-    protected int MazeUserSize = -1;        // -1 ªí¥Üª±®a¨S¦³³]©w
+    //è¿·å®®å°éŠæˆ²ç›¸é—œ
+    protected int MazeUserSize = -1;        // -1 è¡¨ç¤ºç©å®¶æ²’æœ‰è¨­å®š
     public int GetMazeUserSize() { return MazeUserSize; }
     public void SetMazeUserSize(int _size) { MazeUserSize = _size; }
 
@@ -57,11 +57,11 @@ public class GameSystem : MonoBehaviour
 
     public GameSystem() : base()
     {
-        print("GameSystem : §Ú³Q³Ğ«Ø¤F!!!");
+        //print("GameSystem : æˆ‘è¢«å‰µå»ºäº†!!!");
         if (instance != null)
-            print("ERROR !! ¶W¹L¤@¥÷ Game System ¦s¦b ");
+            print("ERROR !! è¶…éä¸€ä»½ Game System å­˜åœ¨ ");
         instance = this;
-        print("GameSystem ³Ğ«Ø§¹¦¨");
+        //print("GameSystem å‰µå»ºå®Œæˆ");
     }
 
     private void Awake()
@@ -79,7 +79,7 @@ public class GameSystem : MonoBehaviour
         //if (!LoadData())
         //{
         //    thePlayerData.InitData();
-        //    //SaveData(); //«Ø¥ß¦sÀÉ !!     //¦pªG¨S¦³¦sÀÉ¡A¥ı«O«ù New Game ª¬ºA¡Aª½¨ì²Ä¤@¦¸¦sÀÉ¥X²{ (´«Ãöµ¥)
+        //    //SaveData(); //å»ºç«‹å­˜æª” !!     //å¦‚æœæ²’æœ‰å­˜æª”ï¼Œå…ˆä¿æŒ New Game ç‹€æ…‹ï¼Œç›´åˆ°ç¬¬ä¸€æ¬¡å­˜æª”å‡ºç¾ (æ›é—œç­‰)
         //    hasSaveGame = false;
         //}
         //else
@@ -100,38 +100,38 @@ public class GameSystem : MonoBehaviour
     {
         if (instance == null)
         {
-            print("ÁÙ¨S¦³³Ğ«Ø GameSystem¡A»İ­n¥[¸ü Scene: GameSystem!!");
+            print("é‚„æ²’æœ‰å‰µå»º GameSystemï¼Œéœ€è¦åŠ è¼‰ Scene: GameSystem!!");
             SceneManager.LoadScene("Global", LoadSceneMode.Additive);
         }
     }
 
 
 
-    protected void OnlineInit()
-    {
-        ChatGPT.GetKeyStaticAsync();
-        if (isOnlineSave)
-        {
-            onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
-            nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
-            print("Online ID = " + onlineID + "  Nick Name = " + nickName);
+    //protected void OnlineInit()
+    //{
+    //    ChatGPT.GetKeyStaticAsync();
+    //    if (isOnlineSave)
+    //    {
+    //        onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
+    //        nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
+    //        print("Online ID = " + onlineID + "  Nick Name = " + nickName);
 
-            //ÀË¬d ID ¥¿½T©Ê
-            if (onlineID != "")
-            {
-                if (theOnlineSaveLoad.CheckID(onlineID, nickName))
-                {
-                    print("±b¸¹¼ÊºÙÀË¬d³q¹L .....");
-                }
-                else
-                {
-                    print("±b¸¹¼ÊºÙÀË¬d¥¢±Ñ¡A³]¬°¿ù»~±b¸¹¿ù»~ª¬ºA .....");
-                    onlineID = INVALID_ID;
-                    nickName = "";
-                }
-            }
-        }
-    }
+    //        //æª¢æŸ¥ ID æ­£ç¢ºæ€§
+    //        if (onlineID != "")
+    //        {
+    //            if (theOnlineSaveLoad.CheckID(onlineID, nickName))
+    //            {
+    //                print("å¸³è™Ÿæš±ç¨±æª¢æŸ¥é€šé .....");
+    //            }
+    //            else
+    //            {
+    //                print("å¸³è™Ÿæš±ç¨±æª¢æŸ¥å¤±æ•—ï¼Œè¨­ç‚ºéŒ¯èª¤å¸³è™ŸéŒ¯èª¤ç‹€æ…‹ .....");
+    //                onlineID = INVALID_ID;
+    //                nickName = "";
+    //            }
+    //        }
+    //    }
+    //}
 
 
     static public void SetUseVPad( bool useVPad ) { instance.useVpadControl = useVPad; }
@@ -141,7 +141,7 @@ public class GameSystem : MonoBehaviour
     {
         if (!instance || !instance.thePlayerData)
         {
-            print("ERROR !!! GameSystem §ä¤£¨ì PlayerData !!" + instance);
+            print("ERROR !!! GameSystem æ‰¾ä¸åˆ° PlayerData !!" + instance);
             return null;
         }
         return instance.thePlayerData;
@@ -151,7 +151,7 @@ public class GameSystem : MonoBehaviour
     {
         if (!instance || !instance.theLevelManager)
         {
-            print("ERROR !!! GameSystem §ä¤£¨ì Level Manager !!" + instance);
+            print("ERROR !!! GameSystem æ‰¾ä¸åˆ° Level Manager !!" + instance);
             return null;
         }
         return instance.theLevelManager;
@@ -186,7 +186,7 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = 300;  //±j­¢ Android ¶}©ñ !!
+        Application.targetFrameRate = 300;  //å¼·è¿« Android é–‹æ”¾ !!
 
         DontDestroyOnLoad(gameObject);
 
@@ -241,7 +241,7 @@ public class GameSystem : MonoBehaviour
     {
         string newID = theOnlineSaveLoad.GetIDByNickName(_nickName);
         if (!newID.StartsWith("ERROR")) {
-            print("¥Î¼ÊºÙ§ä¨ì¦³®Ä ID: " + newID);
+            print("ç”¨æš±ç¨±æ‰¾åˆ°æœ‰æ•ˆ ID: " + newID);
 
             SetAndSaveOnlineID(newID);
             SetAndSaveNickName(_nickName);
@@ -253,7 +253,7 @@ public class GameSystem : MonoBehaviour
 
     // ======================================================================
 
-    //Debug ´ú¸Õ¥Î
+    //Debug æ¸¬è©¦ç”¨
     //public void LoadOnlineAgain()
     //{
     //    onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
@@ -269,11 +269,11 @@ public class GameSystem : MonoBehaviour
             string newID = theOnlineSaveLoad.GetNewID();
             if (newID == "")
             {
-                //print("ERROR !! µLªk¨ú±o Online ID¡A§ï¥Î Local Save");
+                //print("ERROR !! ç„¡æ³•å–å¾— Online IDï¼Œæ”¹ç”¨ Local Save");
                 //isOnlineSave = false;
                 //SaveDataLocal();
-                print("ERROR !! µLªk¨ú±o Online ID¡AÅã¥Ü¿ù»~°T®§....");
-                SystemUI.ShowMessageBox(OnlineFailMessageCB, "½u¤W¦sÀÉ¥¢±Ñ¡A½ĞÀË¬dºô¸ôª¬ºA....");
+                print("ERROR !! ç„¡æ³•å–å¾— Online IDï¼Œé¡¯ç¤ºéŒ¯èª¤è¨Šæ¯....");
+                SystemUI.ShowMessageBox(OnlineFailMessageCB, "ç·šä¸Šå­˜æª”å¤±æ•—ï¼Œè«‹æª¢æŸ¥ç¶²è·¯ç‹€æ…‹....");
                 return;
             }
             else
@@ -282,13 +282,13 @@ public class GameSystem : MonoBehaviour
                 //PlayerPrefs.Save();
                 SetAndSaveOnlineID(newID);
                 SetAndSaveNickName("");
-                print("¨ú±o·sªº Online ID ¨Ã¦s¨ì PlayerPrefs: " + newID);
+                print("å–å¾—æ–°çš„ Online ID ä¸¦å­˜åˆ° PlayerPrefs: " + newID);
             }
         }
         else if (onlineID == INVALID_ID)
         {
-            print("ERROR !! ¦b¿ù»~ª¬ºA¤U¶i¦æ½u¤W¦sÀÉ...." + INVALID_ID);
-            SystemUI.ShowMessageBox(OnlineFailMessageCB, "µL®Äªº±b¸¹¡A½ĞÀË¬dºô¸ô¨Ã­«±Ò¹CÀ¸....");
+            print("ERROR !! åœ¨éŒ¯èª¤ç‹€æ…‹ä¸‹é€²è¡Œç·šä¸Šå­˜æª”...." + INVALID_ID);
+            SystemUI.ShowMessageBox(OnlineFailMessageCB, "ç„¡æ•ˆçš„å¸³è™Ÿï¼Œè«‹æª¢æŸ¥ç¶²è·¯ä¸¦é‡å•ŸéŠæˆ²....");
             return;
         }
 
@@ -305,8 +305,8 @@ public class GameSystem : MonoBehaviour
             string strSave = theOnlineSaveLoad.LoadGameData(onlineID);
             if (strSave == "")
             {
-                //ID ¦³°İÃD¡A«O«ù¿ù»~ª¬ºA
-                print("LoadDataOnline µL¸ê®Æ......³]©w¬°¿ù»~ Online ID" + onlineID);
+                //ID æœ‰å•é¡Œï¼Œä¿æŒéŒ¯èª¤ç‹€æ…‹
+                print("LoadDataOnline ç„¡è³‡æ–™......è¨­å®šç‚ºéŒ¯èª¤ Online ID" + onlineID);
                 onlineID = INVALID_ID;
                 nickName = "";
                 return false;
@@ -343,7 +343,7 @@ public class GameSystem : MonoBehaviour
 
     public void OnlineFailMessageCB(MessageBox.RESULT result)
     {
-        print("Ãö±¼½u¤W¿ù»~°T®§®Ø ......");
+        print("é—œæ‰ç·šä¸ŠéŒ¯èª¤è¨Šæ¯æ¡† ......");
     }
 
 
@@ -362,7 +362,7 @@ public class GameSystem : MonoBehaviour
         //print("LV: " + theSaveData.mainCharacterStat.LV);
         PlayerPrefs.SetInt(playerName + "EXP", theSaveData.mainCharacterStat.LV);
 
-        //¨Ï¥Î¤¤ªº Doll
+        //ä½¿ç”¨ä¸­çš„ Doll
         if (theSaveData.usingDollList != null)
         {
             int usingDollSize = theSaveData.usingDollList.Length;
@@ -372,7 +372,7 @@ public class GameSystem : MonoBehaviour
                 PlayerPrefs.SetString(playerName + "DollList_" + i, theSaveData.usingDollList[i]);
             }
         }
-        // Doll ­I¥]
+        // Doll èƒŒåŒ…
         if (theSaveData.dollBackpack != null)
         {
             int backPackSize = theSaveData.dollBackpack.Length;
@@ -427,7 +427,7 @@ public class GameSystem : MonoBehaviour
         loadData.mainCharacterStat.LV = PlayerPrefs.GetInt(playerName+"LV", 0);
         loadData.mainCharacterStat.Exp = PlayerPrefs.GetInt(playerName+"EXP", 0);
 
-        //¨Ï¥Î¤¤ªº Doll
+        //ä½¿ç”¨ä¸­çš„ Doll
         int usingDollSize = PlayerPrefs.GetInt(playerName + "DollListSize", 0);
         if (usingDollSize > 0)
         {
@@ -437,7 +437,7 @@ public class GameSystem : MonoBehaviour
                 loadData.usingDollList[i] = PlayerPrefs.GetString(playerName + "DollList_" + i, "");
             }
         }
-        // Doll ­I¥]
+        // Doll èƒŒåŒ…
         int backPackSize = PlayerPrefs.GetInt(playerName + "BackPackSize", 0);
         if (backPackSize > 0)
         {
@@ -482,9 +482,9 @@ public class GameSystem : MonoBehaviour
 
     protected void SaveDataLocal()
     {
-        // ´ú¸Õ¦sÀÉ
+        // æ¸¬è©¦å­˜æª”
         //print("GameSystem :: SaveData !!.......");
-        //´ú¸Õ¦sÀÉ
+        //æ¸¬è©¦å­˜æª”
         //const string strSaveFile = "mySave.txt";
         string filePath = Application.persistentDataPath + "/" + strSaveFile;
 
@@ -495,7 +495,7 @@ public class GameSystem : MonoBehaviour
         //print("====================");
 
 
-        //print("§Y±N¦sÀÉ¨ì: " + filePath);
+        //print("å³å°‡å­˜æª”åˆ°: " + filePath);
         byte[] rawData = Encoding.UTF8.GetBytes(saveDataStr);
         //File.WriteAllBytes(filePath, rawData);
         File.WriteAllBytesAsync(filePath, rawData);
@@ -512,7 +512,7 @@ public class GameSystem : MonoBehaviour
             return false;
         }
 
-        //print("¦³§ä¨ì¦sÀÉ¡A¶}©lÅª¨ú .......");
+        //print("æœ‰æ‰¾åˆ°å­˜æª”ï¼Œé–‹å§‹è®€å– .......");
         byte[] rawData = File.ReadAllBytes(filePath);
         string strSave = Encoding.UTF8.GetString(rawData);
 
@@ -526,7 +526,7 @@ public class GameSystem : MonoBehaviour
 #endif
 
     //
-    //======================= «D¦P¨Bºô¸ô¨ç¦¡ ===========================
+    //======================= éåŒæ­¥ç¶²è·¯å‡½å¼ ===========================
     //
     public delegate void OnlineProcessCallBack(bool resultOK, string errorMsg);
 
@@ -559,7 +559,7 @@ public class GameSystem : MonoBehaviour
         nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
         print("Online ID = " + onlineID + "  Nick Name = " + nickName);
 
-        thePlayerData.InitData();   //µL½×¦p¦ó¥ıªì©l¤Æ
+        thePlayerData.InitData();   //ç„¡è«–å¦‚ä½•å…ˆåˆå§‹åŒ–
         StartCoroutine(OnlineInitProcess());
     }
 
@@ -569,7 +569,7 @@ public class GameSystem : MonoBehaviour
     }
 
     //
-    //======================= ºô¸ô³B²zµ{§Ç ===========================
+    //======================= ç¶²è·¯è™•ç†ç¨‹åº ===========================
     //
     public const string urlGetID = "getid.php";
     public const string urlSaveGame = "savegame.php";
@@ -586,9 +586,9 @@ public class GameSystem : MonoBehaviour
     {
         string url;
         UnityWebRequest www;
-        bool isRetriveAccount = _nickname != "";    //¦pªG¬O¥Î¼ÊºÙ¨ú¦^¦sÀÉªº±¡ªp¡A¤£¨ú API key¡A¤]¤£ÀË¬d ID¡A¦ı­n¨ú¦^ ID
+        bool isRetriveAccount = _nickname != "";    //å¦‚æœæ˜¯ç”¨æš±ç¨±å–å›å­˜æª”çš„æƒ…æ³ï¼Œä¸å– API keyï¼Œä¹Ÿä¸æª¢æŸ¥ IDï¼Œä½†è¦å–å› ID
 
-        //­º¥ı¬O API key
+        //é¦–å…ˆæ˜¯ API key
         if (!isRetriveAccount)
         {
             url = urlRoot + "k.k";
@@ -597,19 +597,19 @@ public class GameSystem : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                print("API Key Àò¨ú¦¨¥\ (OnlineInitProcess)");
+                print("API Key ç²å–æˆåŠŸ (OnlineInitProcess)");
                 ChatGPT.SetAPIKeyEncrypted(www.downloadHandler.text);
             }
             else
             {
                 print(ONLINE_ERROR_PREFIX + " : " + url);
-                print("ERROR !! API Key Àò¨ú¥¢±Ñ");
+                print("ERROR !! API Key ç²å–å¤±æ•—");
             }
             www.Dispose();
         }
 
-        //±µ¤U¨ÓÀË¬d ID ¸ò nickname
-        //ÀË¬d ID ¥¿½T©Ê
+        //æ¥ä¸‹ä¾†æª¢æŸ¥ ID è·Ÿ nickname
+        //æª¢æŸ¥ ID æ­£ç¢ºæ€§
         if (!isRetriveAccount && onlineID != "")
         {
             url = urlRoot + urlCheckID + "?" + urlGAME_ID + "=" + onlineID + "&" + urlNICK_NAME + "=" + nickName;
@@ -622,7 +622,7 @@ public class GameSystem : MonoBehaviour
             {
                 if (www.downloadHandler.text.StartsWith("SUCCESS"))
                 {
-                    print("±b¸¹¼ÊºÙÀË¬d³q¹L .....(OnlineInitProcess)");
+                    print("å¸³è™Ÿæš±ç¨±æª¢æŸ¥é€šé .....(OnlineInitProcess)");
                     isOK = true;
                 }
                 else
@@ -635,15 +635,17 @@ public class GameSystem : MonoBehaviour
 
             if (!isOK)
             {
-                print("±b¸¹¼ÊºÙÀË¬d¥¢±Ñ " + erMsg);
+                print("å¸³è™Ÿæš±ç¨±æª¢æŸ¥å¤±æ•— " + erMsg);
                 onlineID = INVALID_ID;
                 nickName = "";
-                SystemUI.ShowMessageBox(null, "±b¸¹¼ÊºÙÀË¬d¥¢±Ñ .... ½ĞÀË¬dºô¸ô©Î¶}·s±b¸¹ ");
+                LoadFailProcess();
+                SystemUI.ShowMessageBox(null, "å¸³è™Ÿæš±ç¨±æª¢æŸ¥å¤±æ•— .... è«‹æª¢æŸ¥ç¶²è·¯æˆ–é–‹æ–°å¸³è™Ÿ ");
+
             }
             www.Dispose();
         }
 
-        //=============== ¨ú¦^¦sÀÉ ====================
+        //=============== å–å›å­˜æª” ====================
         if (isRetriveAccount)
         {
             url = urlRoot + urlRetrieveAccount + "?" + urlNICK_NAME + "=" + _nickname;
@@ -656,7 +658,7 @@ public class GameSystem : MonoBehaviour
                 string newID = www.downloadHandler.text;
                 if (!newID.StartsWith("ERROR"))
                 {
-                    print("¥Î¼ÊºÙ§ä¨ì¦³®Ä ID(OnlineInitProcess): " + newID);
+                    print("ç”¨æš±ç¨±æ‰¾åˆ°æœ‰æ•ˆ ID(OnlineInitProcess): " + newID);
 
                     SetAndSaveOnlineID(newID);
                     SetAndSaveNickName(_nickname);
@@ -667,13 +669,13 @@ public class GameSystem : MonoBehaviour
                 }
             }
             else {
-                errorMsg = "ERROR!!!! ¨ú¦^±b¸¹¥¢±Ñ" + www.error;
-                SystemUI.ShowMessageBox(null, "¨ú¦^±b¸¹¥¢±Ñ¡A³s½u¿ù»~");
+                errorMsg = "ERROR!!!! å–å›å¸³è™Ÿå¤±æ•—" + www.error;
+                SystemUI.ShowMessageBox(null, "å–å›å¸³è™Ÿå¤±æ•—ï¼Œé€£ç·šéŒ¯èª¤");
             }
             if (errorMsg != "") 
             {
                 print(errorMsg);
-                SystemUI.ShowMessageBox(null, "¨ú¦^±b¸¹¿ù»~");
+                SystemUI.ShowMessageBox(null, "å–å›å¸³è™ŸéŒ¯èª¤");
                 if (cb != null)
                     cb(false, errorMsg);
                 yield break;
@@ -685,7 +687,7 @@ public class GameSystem : MonoBehaviour
             }
         }
 
-        // =============== ¸ü¤J¦sÀÉ ====================
+        // =============== è¼‰å…¥å­˜æª” ====================
         if (onlineID != INVALID_ID && onlineID != "")
         {
             url = urlRoot + urlLoadGame + "?" + urlGAME_ID + "=" + onlineID;
@@ -698,37 +700,50 @@ public class GameSystem : MonoBehaviour
                 string strSave = www.downloadHandler.text;
                 if (strSave == "" || strSave.StartsWith(ONLINE_ERROR_PREFIX))
                 {
-                    //ID ¦³°İÃD¡A«O«ù¿ù»~ª¬ºA
-                    print("¸ü¤J¦sÀÉ¦³»~......³]©w¬°¿ù»~ Online ID" + onlineID);
+                    //ID æœ‰å•é¡Œï¼Œä¿æŒéŒ¯èª¤ç‹€æ…‹
+                    print("è¼‰å…¥å­˜æª”æœ‰èª¤......è¨­å®šç‚ºéŒ¯èª¤ Online ID" + onlineID);
                     onlineID = INVALID_ID;
                     nickName = "";
-                    errorStr = "¸ü¤J¦sÀÉ¤º®e¿ù»~...." + strSave;
+                    errorStr = "è¼‰å…¥å­˜æª”å…§å®¹éŒ¯èª¤...." + strSave;
                 }
                 else
                 {
-                    print("¸ü¤J¦sÀÉ¦¨¥\......(OnlineInitProcess) " + onlineID);
+                    print("è¼‰å…¥å­˜æª”æˆåŠŸ......(OnlineInitProcess) " + onlineID);
                     SaveData loadData = JsonUtility.FromJson<SaveData>(strSave);
                     thePlayerData.LoadSavedData(loadData);
                     
                     thePlayerData.SetDataReady();
                     hasSaveGame = true;
+
+                    //å¦‚æœæ˜¯åœ¨é—œå¡ä¸­è¼‰å…¥é€²åº¦ï¼Œéœ€è¦å†åˆå§‹åŒ–ä¸€æ¬¡ CharacterData
+                    //TODO: æ‡‰è©²è¦æ”¹æˆç­‰è¼‰å…¥å®Œæˆæ‰é€²è¡Œ BattleSystem çš„é—œå¡åˆå§‹åŒ–å’Œå‰µå»º !!!!!!!!!!!!!
+                    //if (BattleSystem.GetInstance() && BattleSystem.GetPC())
+                    //{
+                    //    BattleSystem.GetPC().theCharData.SetupStat();
+                    //}
                 }
             }
             else
             {
-                print("¸ü¤J¦sÀÉ¥¢±Ñ......" + www.error);
+                print("è¼‰å…¥å­˜æª”å¤±æ•—......" + www.error);
                 onlineID = INVALID_ID;
                 nickName = "";
-                errorStr = "¸ü¤J¦sÀÉ¿ù»~...." + www.error;
+                errorStr = "è¼‰å…¥å­˜æª”éŒ¯èª¤...." + www.error;
             }
             if (errorStr != "")
             {
+                LoadFailProcess();
                 SystemUI.ShowMessageBox(null, errorStr);
             }
 
             www.Dispose();
         }
 
+    }
+
+    protected void LoadFailProcess()
+    {
+        thePlayerData.SetDataReady();
     }
 
 
@@ -739,7 +754,7 @@ public class GameSystem : MonoBehaviour
         UnityWebRequest www;
         SaveData theSaveData = thePlayerData.GetSaveData();
         string dataStr = JsonUtility.ToJson(theSaveData);
-        bool isSave = mustSave; //¦pªG¤£¬O mustSave¡A¥u¦b ID ªÅ®É¶i¦æ¦sÀÉ (³]©w NickName ¥Îªº)
+        bool isSave = mustSave; //å¦‚æœä¸æ˜¯ mustSaveï¼Œåªåœ¨ ID ç©ºæ™‚é€²è¡Œå­˜æª” (è¨­å®š NickName ç”¨çš„)
 
         if (onlineID == "")
         {
@@ -752,15 +767,15 @@ public class GameSystem : MonoBehaviour
             {
 
                 string id = www.downloadHandler.text;
-                print("Àò±oªº·s ID ¬O (OnlineSaveProcess)¡G" + id);
+                print("ç²å¾—çš„æ–° ID æ˜¯ (OnlineSaveProcess)ï¼š" + id);
                 SetAndSaveOnlineID(id);
                 SetAndSaveNickName("");
             }
             else
             {
-                print("ERROR!!!! OnlineSaveLoad::GetNewID ¥¢±Ñ ...." + url);
+                print("ERROR!!!! OnlineSaveLoad::GetNewID å¤±æ•— ...." + url);
                 print(www.error);
-                SystemUI.ShowMessageBox(null, "¦sÀÉ¥¢±Ñ¡AµLªk«Ø·s±b¸¹");
+                SystemUI.ShowMessageBox(null, "å­˜æª”å¤±æ•—ï¼Œç„¡æ³•å»ºæ–°å¸³è™Ÿ");
                 yield break;
             }
             www.Dispose();
@@ -771,7 +786,7 @@ public class GameSystem : MonoBehaviour
             url = urlRoot + urlSaveGame;
             www = new UnityWebRequest(url, "POST");
 
-            // ±N¶i«×¼Æ¾Ú§@¬°°Ñ¼Æ²K¥[¨ì½Ğ¨D¤¤
+            // å°‡é€²åº¦æ•¸æ“šä½œç‚ºåƒæ•¸æ·»åŠ åˆ°è«‹æ±‚ä¸­
             WWWForm form = new WWWForm();
             form.AddField("game_id", onlineID);
             form.AddField("game_data", dataStr);
@@ -783,14 +798,14 @@ public class GameSystem : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                print("OnlineSaveProcess ¦sÀÉ¦¨¥\¦^¶Ç¸ê°T:\n" + www.downloadHandler.text);
-                //SystemUI.ShowMessageBox(null, "¦sÀÉ¦¨¥\ !!");
+                print("OnlineSaveProcess å­˜æª”æˆåŠŸå›å‚³è³‡è¨Š:\n" + www.downloadHandler.text);
+                //SystemUI.ShowMessageBox(null, "å­˜æª”æˆåŠŸ !!");
             }
             else
             {
-                print("ERROR !! ¦sÀÉ¥¢±Ñ (OnlineSaveProcess) !!");
+                print("ERROR !! å­˜æª”å¤±æ•— (OnlineSaveProcess) !!");
                 print(www.error);
-                SystemUI.ShowMessageBox(null, "¦sÀÉ¥¢±Ñ" + www.error);
+                SystemUI.ShowMessageBox(null, "å­˜æª”å¤±æ•—" + www.error);
             }
 
             www.Dispose();
@@ -808,23 +823,23 @@ public class GameSystem : MonoBehaviour
                 if (!msg.StartsWith(ONLINE_ERROR_PREFIX))
                 {
                     SetAndSaveNickName(_nickname);
-                    print("¼ÊºÙ³]©w¦¨¥\ (" + onlineID + " ) : " + nickName);
+                    print("æš±ç¨±è¨­å®šæˆåŠŸ (" + onlineID + " ) : " + nickName);
                     if (cb != null)
                         cb(true, ""); 
                 }
                 else
                 {
                     print(msg);
-                    SystemUI.ShowMessageBox(null, "³]©w¼ÊºÙ¿ù»~¡A½Ğ´«­Ó¼ÊºÙ !!");
+                    SystemUI.ShowMessageBox(null, "è¨­å®šæš±ç¨±éŒ¯èª¤ï¼Œè«‹æ›å€‹æš±ç¨± !!");
                     if (cb != null)
                         cb(false, msg);
                 }
             }
             else
             {
-                print("ERROR !! ³]©w¼ÊºÙ¥¢±Ñ (OnlineSaveProcess) !!" + _nickname);
+                print("ERROR !! è¨­å®šæš±ç¨±å¤±æ•— (OnlineSaveProcess) !!" + _nickname);
                 print(www.error);
-                SystemUI.ShowMessageBox(null, "³]©w¼ÊºÙ¥¢±Ñ !!");
+                SystemUI.ShowMessageBox(null, "è¨­å®šæš±ç¨±å¤±æ•— !!");
                 if (cb != null)
                     cb(false, www.error);
             }

@@ -37,6 +37,7 @@ public class CharacterData : MonoBehaviour
     }
     public void AddExp(int value)
     {
+        //print("AddExp... original LV = " + myStat.LV);
         myStat.Exp += value;
         if (myStat.Exp < 0)
             myStat.Exp = 0;
@@ -57,7 +58,7 @@ public class CharacterData : MonoBehaviour
 
     public void SetupStat()
     {
-        print("CharacterData Init !!");
+        print("PC ªº CharacterData Init !!");
         thePlayerData = GameSystem.GetPlayerData();
         if (!thePlayerData)
         {

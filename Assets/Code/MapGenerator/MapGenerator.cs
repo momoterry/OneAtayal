@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.AI;
+using NavMeshPlus.Components;
 
 public class MapGeneratorBase : MonoBehaviour
 {
-    public NavMeshSurface2d theSurface2D;
+    public NavMeshSurface theSurface2D;
 
     public virtual void BuildAll(int buildLevel = 1)
     {
@@ -23,7 +23,6 @@ public class MapGenerator : MapGeneratorBase
 {
     public Tile wall;
     public Tile hole;
-    //public NavMeshSurface2d theSurface2D;
     public Tilemap theTM;
     public GameObject wallBlocker;
 

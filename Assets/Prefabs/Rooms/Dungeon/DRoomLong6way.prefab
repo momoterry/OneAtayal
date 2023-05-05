@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7652406805049357840}
   - component: {fileID: 1716706401444228688}
   - component: {fileID: 1553158378720908998}
-  - component: {fileID: 251436470120348786}
+  - component: {fileID: 5663859158092038533}
   m_Layer: 0
   m_Name: W_Temp
   m_TagString: Untagged
@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6134353847355723970}
   m_RootOrder: 1
@@ -174,6 +175,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -211,7 +213,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &251436470120348786
+--- !u!114 &5663859158092038533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,7 +222,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 35920813742499781}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -253,6 +255,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -5.0246673, y: 26.654589, z: 2.2189999}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5557460129822430279}
   - {fileID: 2944105128237399837}
@@ -285,6 +288,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.0246673, y: 2.2190037, z: -26.654593}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6672615187553414765}
   - {fileID: 5729000369699003709}
@@ -317,6 +321,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.0246673, y: 2.2190037, z: -26.654593}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4124730215886771019}
   - {fileID: 7645100600834204374}
@@ -334,7 +339,7 @@ GameObject:
   - component: {fileID: 638193681123266856}
   - component: {fileID: 638193681123266870}
   - component: {fileID: 638193681123266871}
-  - component: {fileID: 638193681123266869}
+  - component: {fileID: 7178005773024301658}
   m_Layer: 0
   m_Name: DGround
   m_TagString: Untagged
@@ -352,6 +357,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 638193682640577412}
   m_RootOrder: 4
@@ -4073,6 +4079,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -4110,7 +4117,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &638193681123266869
+--- !u!114 &7178005773024301658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4119,7 +4126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 638193681123266857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -4153,6 +4160,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 638193682640577412}
   - {fileID: 2637255973790300059}
@@ -4206,7 +4214,7 @@ GameObject:
   - component: {fileID: 638193681489288269}
   - component: {fileID: 638193681489288266}
   - component: {fileID: 638193681489288267}
-  - component: {fileID: 638193681489288268}
+  - component: {fileID: 8581805828525017988}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -4224,6 +4232,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 638193682640577412}
   m_RootOrder: 5
@@ -5129,6 +5138,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -5166,7 +5176,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &638193681489288268
+--- !u!114 &8581805828525017988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5175,7 +5185,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 638193681489288270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -5209,6 +5219,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1369966591016115419}
   - {fileID: 1686632449472368974}
@@ -5245,7 +5256,7 @@ GameObject:
   - component: {fileID: 1169089610905675985}
   - component: {fileID: 3857632824277685639}
   - component: {fileID: 3427772404429059732}
-  - component: {fileID: 5012934016284145845}
+  - component: {fileID: 6227185507500421753}
   m_Layer: 0
   m_Name: G_OpenW1
   m_TagString: Untagged
@@ -5263,6 +5274,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6627760377423993490}
   m_RootOrder: 0
@@ -5624,6 +5636,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -5661,7 +5674,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &5012934016284145845
+--- !u!114 &6227185507500421753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5670,7 +5683,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 825528955754501845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -5703,6 +5716,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.0246673, y: 2.2190037, z: -26.654593}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1503662523982771346}
   - {fileID: 8693417603417439376}
@@ -5720,7 +5734,7 @@ GameObject:
   - component: {fileID: 4124730215886771019}
   - component: {fileID: 5110906562375668941}
   - component: {fileID: 4905648276853527775}
-  - component: {fileID: 8982647583229599238}
+  - component: {fileID: 9124970495446460067}
   m_Layer: 0
   m_Name: G_OpenE1
   m_TagString: Untagged
@@ -5738,6 +5752,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5557460129822430279}
   m_RootOrder: 0
@@ -5925,7 +5940,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 8
-      m_TileSpriteIndex: 8
+      m_TileSpriteIndex: 10
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6034,12 +6049,12 @@ Tilemap:
     m_Data: {fileID: -5591892339261724115, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: -7816621335456868937, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -6001573366015020274, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
-  - m_RefCount: 15
-    m_Data: {fileID: -3595157876990494288, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 15
+    m_Data: {fileID: -3595157876990494288, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -6001573366015020274, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -3520675590622509386, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
   m_TileMatrixArray:
@@ -6099,6 +6114,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -6136,7 +6152,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &8982647583229599238
+--- !u!114 &9124970495446460067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6145,7 +6161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 926408981521636878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -6178,6 +6194,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 279418970220156140}
   - {fileID: 7652406805049357840}
@@ -6195,7 +6212,7 @@ GameObject:
   - component: {fileID: 7703524172289856171}
   - component: {fileID: 6053690408675285713}
   - component: {fileID: 8995123459546804635}
-  - component: {fileID: 1865622418171397451}
+  - component: {fileID: 5534878531147977278}
   m_Layer: 0
   m_Name: W_CloseE1
   m_TagString: Untagged
@@ -6213,6 +6230,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2944105128237399837}
   m_RootOrder: 1
@@ -6438,6 +6456,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -6475,7 +6494,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &1865622418171397451
+--- !u!114 &5534878531147977278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6484,7 +6503,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1874667970569374281}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -6517,6 +6536,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.0246673, y: 2.2190037, z: -26.654593}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2446327121140712560}
   - {fileID: 2159770136970453572}
@@ -6549,6 +6569,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.0246673, y: 2.2190037, z: -26.654593}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2267076576778273990}
   - {fileID: 7703524172289856171}
@@ -6581,6 +6602,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.0246673, y: 2.2190037, z: -26.654593}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1169089610905675985}
   - {fileID: 4726703127064302821}
@@ -6613,6 +6635,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2637255973790300059}
   m_RootOrder: 1
@@ -6643,6 +6666,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -5.0246673, y: 26.654589, z: 2.2189999}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2031582150177733370}
   - {fileID: 8791283306099650391}
@@ -6675,6 +6699,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10, y: 32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2637255973790300059}
   m_RootOrder: 2
@@ -6705,6 +6730,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2637255973790300059}
   m_RootOrder: 0
@@ -6720,7 +6746,7 @@ GameObject:
   - component: {fileID: 562852568915222182}
   - component: {fileID: 7567235953100224556}
   - component: {fileID: 6779139054152785095}
-  - component: {fileID: 3298303229341285315}
+  - component: {fileID: 3880062733763369000}
   m_Layer: 0
   m_Name: W_EndN
   m_TagString: Untagged
@@ -6738,6 +6764,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1724490728158439493}
   m_RootOrder: 1
@@ -7243,6 +7270,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -7280,7 +7308,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &3298303229341285315
+--- !u!114 &3880062733763369000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7289,7 +7317,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4091198027613282050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -7307,7 +7335,7 @@ GameObject:
   - component: {fileID: 2267076576778273990}
   - component: {fileID: 717562802563042805}
   - component: {fileID: 263418076358046110}
-  - component: {fileID: 7473322653526542397}
+  - component: {fileID: 7312457947832227696}
   m_Layer: 0
   m_Name: G_CloseE1
   m_TagString: Untagged
@@ -7325,6 +7353,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2944105128237399837}
   m_RootOrder: 0
@@ -7526,6 +7555,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -7563,7 +7593,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &7473322653526542397
+--- !u!114 &7312457947832227696
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7572,7 +7602,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4171669122571667650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -7590,7 +7620,7 @@ GameObject:
   - component: {fileID: 279418970220156140}
   - component: {fileID: 4208894159364975606}
   - component: {fileID: 3808989220102258880}
-  - component: {fileID: 3755501129963311311}
+  - component: {fileID: 1628833594744968114}
   m_Layer: 0
   m_Name: G_Temp
   m_TagString: Untagged
@@ -7608,6 +7638,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6134353847355723970}
   m_RootOrder: 0
@@ -7729,6 +7760,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -7766,7 +7798,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &3755501129963311311
+--- !u!114 &1628833594744968114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7775,7 +7807,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4180994445472845827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -7793,7 +7825,7 @@ GameObject:
   - component: {fileID: 4726703127064302821}
   - component: {fileID: 6798037356980306421}
   - component: {fileID: 7873392303052966820}
-  - component: {fileID: 5557737277323450083}
+  - component: {fileID: 712719150235010264}
   m_Layer: 0
   m_Name: W_OpenW1
   m_TagString: Untagged
@@ -7811,6 +7843,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6627760377423993490}
   m_RootOrder: 1
@@ -8116,6 +8149,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -8153,7 +8187,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &5557737277323450083
+--- !u!114 &712719150235010264
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8162,7 +8196,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4287779086411486318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -8195,6 +8229,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -5.0246673, y: 26.654589, z: 2.2189999}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9118145202066746261}
   - {fileID: 7854480967762785405}
@@ -8227,6 +8262,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8660534625890928376}
   - {fileID: 1525204334419375027}
@@ -8263,6 +8299,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -5.0246673, y: 26.654589, z: 2.2189999}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6627760377423993490}
   - {fileID: 3794760757814772277}
@@ -8295,6 +8332,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8747902481892196636}
   - {fileID: 562852568915222182}
@@ -8312,7 +8350,7 @@ GameObject:
   - component: {fileID: 5397942215738202373}
   - component: {fileID: 9078117167189070608}
   - component: {fileID: 3745258941570810721}
-  - component: {fileID: 2768914255776876950}
+  - component: {fileID: 2880031251243595898}
   m_Layer: 0
   m_Name: W_CloseW2
   m_TagString: Untagged
@@ -8330,6 +8368,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7854480967762785405}
   m_RootOrder: 1
@@ -8555,6 +8594,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -8592,7 +8632,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &2768914255776876950
+--- !u!114 &2880031251243595898
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8601,7 +8641,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5726789967611331772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -8619,7 +8659,7 @@ GameObject:
   - component: {fileID: 2446327121140712560}
   - component: {fileID: 292054564704462099}
   - component: {fileID: 8159391074619272224}
-  - component: {fileID: 5978863063813128758}
+  - component: {fileID: 171076752668065694}
   m_Layer: 0
   m_Name: G_CloseE2
   m_TagString: Untagged
@@ -8637,6 +8677,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8791283306099650391}
   m_RootOrder: 0
@@ -8838,6 +8879,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -8875,7 +8917,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &5978863063813128758
+--- !u!114 &171076752668065694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8884,7 +8926,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5750816668062451657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -8902,7 +8944,7 @@ GameObject:
   - component: {fileID: 8758225004962187008}
   - component: {fileID: 7024556651287651816}
   - component: {fileID: 2489109990415500303}
-  - component: {fileID: 3531767131339885651}
+  - component: {fileID: 4505443704200245522}
   m_Layer: 0
   m_Name: W_EndS
   m_TagString: Untagged
@@ -8920,6 +8962,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3167165693825234012}
   m_RootOrder: 1
@@ -9425,6 +9468,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -9462,7 +9506,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &3531767131339885651
+--- !u!114 &4505443704200245522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9471,7 +9515,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5941108031056009931}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -9489,7 +9533,7 @@ GameObject:
   - component: {fileID: 6672615187553414765}
   - component: {fileID: 6945412793983006198}
   - component: {fileID: 5828890486784127348}
-  - component: {fileID: 3130284530580693359}
+  - component: {fileID: 1864574296148681400}
   m_Layer: 0
   m_Name: G_OpenW2
   m_TagString: Untagged
@@ -9507,6 +9551,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9118145202066746261}
   m_RootOrder: 0
@@ -9534,7 +9579,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 6
-      m_TileSpriteIndex: 6
+      m_TileSpriteIndex: 8
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -9799,12 +9844,12 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 6730602139563067051, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
-  - m_RefCount: 3
-    m_Data: {fileID: -8680864111572495946, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 3
+    m_Data: {fileID: -8680864111572495946, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 6730602139563067051, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: -7816621335456868937, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
   - m_RefCount: 1
@@ -9868,6 +9913,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -9905,7 +9951,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &3130284530580693359
+--- !u!114 &1864574296148681400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9914,7 +9960,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5956368623508000431}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -9932,7 +9978,7 @@ GameObject:
   - component: {fileID: 6519799523710803697}
   - component: {fileID: 408748520371623989}
   - component: {fileID: 1880318606209041131}
-  - component: {fileID: 4591969301390697010}
+  - component: {fileID: 3636242086858404861}
   m_Layer: 0
   m_Name: G_CloseW2
   m_TagString: Untagged
@@ -9950,6 +9996,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7854480967762785405}
   m_RootOrder: 0
@@ -10151,6 +10198,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -10188,7 +10236,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &4591969301390697010
+--- !u!114 &3636242086858404861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10197,7 +10245,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6095925840880868278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -10215,7 +10263,7 @@ GameObject:
   - component: {fileID: 5916502225703678376}
   - component: {fileID: 5698968231105100319}
   - component: {fileID: 7408065770254613649}
-  - component: {fileID: 9026714371190311120}
+  - component: {fileID: 2944337719354369225}
   m_Layer: 0
   m_Name: W_CloseW1
   m_TagString: Untagged
@@ -10233,6 +10281,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3794760757814772277}
   m_RootOrder: 1
@@ -10458,6 +10507,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -10495,7 +10545,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &9026714371190311120
+--- !u!114 &2944337719354369225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10504,7 +10554,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6363184502886045531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -10522,7 +10572,7 @@ GameObject:
   - component: {fileID: 2159770136970453572}
   - component: {fileID: 2810824147311077320}
   - component: {fileID: 4604503005243318892}
-  - component: {fileID: 6730372105024292550}
+  - component: {fileID: 8163293230200621129}
   m_Layer: 0
   m_Name: W_CloseE2
   m_TagString: Untagged
@@ -10540,6 +10590,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8791283306099650391}
   m_RootOrder: 1
@@ -10765,6 +10816,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -10802,7 +10854,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &6730372105024292550
+--- !u!114 &8163293230200621129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10811,7 +10863,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6416365365749184739}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -10844,6 +10896,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7849469290153623137}
   - {fileID: 8758225004962187008}
@@ -10876,6 +10929,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.0246673, y: 2.2190037, z: -26.654593}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6519799523710803697}
   - {fileID: 5397942215738202373}
@@ -10893,7 +10947,7 @@ GameObject:
   - component: {fileID: 5729000369699003709}
   - component: {fileID: 4623434044486526865}
   - component: {fileID: 4372983486102274962}
-  - component: {fileID: 5513752788692648796}
+  - component: {fileID: 5210631015423198305}
   m_Layer: 0
   m_Name: W_OpenW2
   m_TagString: Untagged
@@ -10911,6 +10965,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9118145202066746261}
   m_RootOrder: 1
@@ -11216,6 +11271,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -11253,7 +11309,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &5513752788692648796
+--- !u!114 &5210631015423198305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11262,7 +11318,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6932788532865571667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -11295,6 +11351,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 14.000003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2637255973790300059}
   m_RootOrder: 5
@@ -11310,7 +11367,7 @@ GameObject:
   - component: {fileID: 7645100600834204374}
   - component: {fileID: 6845299779911864845}
   - component: {fileID: 7985782725642904458}
-  - component: {fileID: 3648173998960833039}
+  - component: {fileID: 6883617679714160749}
   m_Layer: 0
   m_Name: W_OpenE1
   m_TagString: Untagged
@@ -11328,6 +11385,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5557460129822430279}
   m_RootOrder: 1
@@ -11633,6 +11691,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -11670,7 +11729,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &3648173998960833039
+--- !u!114 &6883617679714160749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11679,7 +11738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7093599544691756494}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -11712,6 +11771,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2637255973790300059}
   m_RootOrder: 4
@@ -11727,7 +11787,7 @@ GameObject:
   - component: {fileID: 8747902481892196636}
   - component: {fileID: 51290922690027683}
   - component: {fileID: 4961386038272668278}
-  - component: {fileID: 365632243891824047}
+  - component: {fileID: 1661012466409404889}
   m_Layer: 0
   m_Name: G_EndN
   m_TagString: Untagged
@@ -11745,6 +11805,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1724490728158439493}
   m_RootOrder: 0
@@ -12314,6 +12375,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -12351,7 +12413,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &365632243891824047
+--- !u!114 &1661012466409404889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12360,7 +12422,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7395917582325395814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -12378,7 +12440,7 @@ GameObject:
   - component: {fileID: 3281412310322585970}
   - component: {fileID: 4385299834418777722}
   - component: {fileID: 8227960444590779880}
-  - component: {fileID: 2648406477602878164}
+  - component: {fileID: 8306820851209298854}
   m_Layer: 0
   m_Name: G_CloseW1
   m_TagString: Untagged
@@ -12396,6 +12458,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3794760757814772277}
   m_RootOrder: 0
@@ -12597,6 +12660,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -12634,7 +12698,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &2648406477602878164
+--- !u!114 &8306820851209298854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12643,7 +12707,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7832842387973936274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -12661,7 +12725,7 @@ GameObject:
   - component: {fileID: 8693417603417439376}
   - component: {fileID: 3605457825164208967}
   - component: {fileID: 5201373949176884709}
-  - component: {fileID: 224218192687062261}
+  - component: {fileID: 8700740732892124050}
   m_Layer: 0
   m_Name: W_OpenW2
   m_TagString: Untagged
@@ -12679,6 +12743,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2031582150177733370}
   m_RootOrder: 1
@@ -12984,6 +13049,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -13021,7 +13087,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &224218192687062261
+--- !u!114 &8700740732892124050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13030,7 +13096,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7944189484110315371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -13063,6 +13129,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10, y: 14.000003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2637255973790300059}
   m_RootOrder: 3
@@ -13078,7 +13145,7 @@ GameObject:
   - component: {fileID: 7849469290153623137}
   - component: {fileID: 1735471560855621246}
   - component: {fileID: 1564743746691702852}
-  - component: {fileID: 550441995939941088}
+  - component: {fileID: 5492238190737342870}
   m_Layer: 0
   m_Name: G_EndS
   m_TagString: Untagged
@@ -13096,6 +13163,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3167165693825234012}
   m_RootOrder: 0
@@ -13657,6 +13725,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -13694,7 +13763,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &550441995939941088
+--- !u!114 &5492238190737342870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13703,7 +13772,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8406197131954586487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
@@ -13736,6 +13805,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.0246673, y: 2.2190037, z: -26.654593}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3281412310322585970}
   - {fileID: 5916502225703678376}
@@ -13753,7 +13823,7 @@ GameObject:
   - component: {fileID: 1503662523982771346}
   - component: {fileID: 2278300176952166482}
   - component: {fileID: 5071958939394863218}
-  - component: {fileID: 2242909266576786102}
+  - component: {fileID: 5281095625972586547}
   m_Layer: 0
   m_Name: G_OpenE2
   m_TagString: Untagged
@@ -13771,6 +13841,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2031582150177733370}
   m_RootOrder: 0
@@ -14132,6 +14203,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -14169,7 +14241,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &2242909266576786102
+--- !u!114 &5281095625972586547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14178,7 +14250,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9067385393908221117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1

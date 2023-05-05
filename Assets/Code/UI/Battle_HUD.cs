@@ -69,7 +69,7 @@ public class Battle_HUD : MonoBehaviour
     private void Awake()
     {
         cameraDefaultSize = Camera.main.orthographicSize;
-        print("Main Camera Default Size = " + cameraDefaultSize);
+        //print("Main Camera Default Size = " + cameraDefaultSize);
         theScaler = GetComponent<CanvasScaler>();
         if (theScaler != null)
         {

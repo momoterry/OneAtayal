@@ -47,7 +47,7 @@ public class PlayerData : MonoBehaviour
     //全新存檔的資料初始化，比  Start() 更早會被呼叫
     public void InitData()
     {
-        print("==== PlayerData.InitData()");
+        print("==== GameSystem 的 PlayerData.InitData()");
         Money = 0;
         mainCharacterStat.LV = 1;
         mainCharacterStat.Exp = 0;

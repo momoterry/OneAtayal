@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class ForestGen_One : MapGeneratorBase
 {
@@ -13,7 +12,7 @@ public class ForestGen_One : MapGeneratorBase
 
     public RoomController startRC;
 
-    int toBuild = 5;
+    //int toBuild = 5;
 
     protected List<GameObject> roomList;
 
@@ -26,13 +25,13 @@ public class ForestGen_One : MapGeneratorBase
     // Update is called once per frame
     void Update()
     {
-        //TODO: 還不知道為什麼，但等多個 Frame 之後才產生 NavMesh 不然會出錯
-        if (toBuild > 0)
-        {
-            toBuild--;
-            if (toBuild == 0)
-                theSurface2D.BuildNavMesh();
-        }
+        ////TODO: 還不知道為什麼，但等多個 Frame 之後才產生 NavMesh 不然會出錯
+        //if (toBuild > 0)
+        //{
+        //    toBuild--;
+        //    if (toBuild == 0)
+        //        theSurface2D.BuildNavMesh();
+        //}
     }
 
 
@@ -128,6 +127,7 @@ public class ForestGen_One : MapGeneratorBase
             }
         }
 
+        theSurface2D.BuildNavMesh();
     }
 
     void ClearAll()

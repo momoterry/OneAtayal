@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using NavMeshPlus.Components;
 
 public class MG_TerrainBase : MapGeneratorBase
 {

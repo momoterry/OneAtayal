@@ -171,7 +171,7 @@ public class BattleSystem : MonoBehaviour
             }
         }
 
-        GameSystem.GetInstance().SaveData();
+        //GameSystem.GetInstance().SaveData();
 
         nextState = BATTLE_GAME_STATE.INIT;
     }
@@ -223,9 +223,17 @@ public class BattleSystem : MonoBehaviour
 
     protected void UpdateInit()
     {
-        //避免出 Error 時一直跑，先設定 nextState
-        nextState = BATTLE_GAME_STATE.BATTLE;
-        InitBattle();                               
+        if (GameSystem.GetPlayerData().IsReady())
+        {
+            //避免出 Error 時一直跑，先設定 nextState
+            nextState = BATTLE_GAME_STATE.BATTLE;
+            InitBattle();
+        }
+        //else
+        //{
+        //    //TODO: 黑畫面?
+        //    print("還沒好哩 ...... 要來打我嗎?");
+        //}
     }
 
 
@@ -454,6 +462,7 @@ public class BattleSystem : MonoBehaviour
             print("ERROR !!!!! OnLevelRestart() called but not in fail state !!");
         }
 
+        GameSystem.GetInstance().SaveData();
 
         Scene scene = SceneManager.GetActiveScene(); 
         SceneManager.LoadScene(scene.name);
@@ -464,17 +473,26 @@ public class BattleSystem : MonoBehaviour
 
     public void OnBackToStartMenu()
     {
+        GameSystem.GetInstance().SaveData();
         SceneManager.LoadScene("StartMenu");
     }
 
     public void OnGotoScene(string sceneName)
     {
+        GameSystem.GetInstance().SaveData();
         SceneManager.LoadScene(sceneName);
     }
 
     public void OnBackPrevScene()
     {
+        GameSystem.GetInstance().SaveData();
         SceneManager.LoadScene(backScene);
+    }
+
+
+    protected void OnExitBattle()
+    {
+        GameSystem.GetInstance().SaveData();
     }
 
     //private void OnGUI()

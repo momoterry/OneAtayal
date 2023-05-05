@@ -22,7 +22,7 @@ public class DunGen_One : MapGeneratorBase
 
     protected List<GameObject> roomList = new List<GameObject>();
 
-    int toBuild = 5;
+    //int toBuild = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -33,13 +33,13 @@ public class DunGen_One : MapGeneratorBase
     // Update is called once per frame
     void Update()
     {
-        //TODO: 還不知道為什麼，但等多個 Frame 之後才產生 NavMesh 不然會出錯
-        if (toBuild > 0)
-        {
-            toBuild--;
-            if (toBuild == 0)
-                theSurface2D.BuildNavMesh();
-        }
+        ////TODO: 還不知道為什麼，但等多個 Frame 之後才產生 NavMesh 不然會出錯
+        //if (toBuild > 0)
+        //{
+        //    toBuild--;
+        //    if (toBuild == 0)
+        //        theSurface2D.BuildNavMesh();
+        //}
 
     }
 
@@ -186,48 +186,9 @@ public class DunGen_One : MapGeneratorBase
             ro.transform.SetParent(theSurface2D.transform);
         }
 
+        theSurface2D.BuildNavMesh();
     }
 
-    //public override void BuildAll(int buildLevel = 1)
-    //{
-    //    base.BuildAll(buildLevel);
-
-    //    if (!initRD)
-    //        return;
-
-    //    GameObject currRoom = initRD.gameObject;
-    //    GameObject newRoom = null;
-
-    //    for (int i= 0; i< RoomNum; i++)
-    //    {
-    //        newRoom = CreateRoom(roomRef, currRoom, DoorDir.N, DoorDir.S);
-    //        if (newRoom)
-    //        {
-    //            print("NewRoom: " + newRoom.transform.position);
-    //            roomList.Add(newRoom);
-    //            //newRoom.transform.SetParent(theSurface2D.gameObject.transform);
-    //        }
-    //        else
-    //        {
-    //            print("ERROR !!!! CreatRoom Fail....");
-    //            return;
-    //        }
-    //        currRoom = newRoom;
-
-    //        if (i == 0)
-    //        {
-    //            //Try Branch
-    //            roomList.Add(CreateRoom(roomRef, newRoom, DoorDir.W1, DoorDir.E2));
-    //            roomList.Add(CreateRoom(roomRef, newRoom, DoorDir.E2, DoorDir.W1));
-    //        }
-    //    }
-
-    //    foreach　(GameObject ro in roomList)
-    //    {
-    //        ro.transform.SetParent(theSurface2D.transform);
-    //    }
-
-    //}
 
     protected GameObject CreateRoom( GameObject roRef, GameObject fromRoom, DoorDir fromDoor, DoorDir toDoor)
     {
