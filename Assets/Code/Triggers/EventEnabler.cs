@@ -10,10 +10,37 @@ public class EventEnabler : MonoBehaviour
     public GameObject[] EnableTargets;
     public GameObject[] DisableTargets;
 
+    protected bool isPending = false;
+
     void Start()
     {
         //print("PlaeyrData Ready ? " + GameSystem.GetPlayerData().IsReady());
 
+        if (GameSystem.GetPlayerData().IsReady())
+        {
+            DoIt();
+        }
+        else
+        {
+            isPending = true;
+        }
+    }
+
+    void Update()
+    {
+        if (isPending)
+        {
+            if (GameSystem.GetPlayerData().IsReady())
+            {
+                DoIt();
+                isPending = false;
+            }
+        }
+    }
+
+    protected void DoIt()
+    {
+        //print("DoIt()");
         if (GameSystem.GetPlayerData().GetEvent(EventName))
         {
             foreach (GameObject o in EnableTargets)
@@ -36,6 +63,7 @@ public class EventEnabler : MonoBehaviour
                 o.SetActive(false);
             }
         }
-    }
 
+        enabled = false;
+    }
 }
