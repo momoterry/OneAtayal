@@ -15,7 +15,7 @@ public class SystemUI : MonoBehaviour
 
     public SystemUI() : base()
     {
-        print("SystemUI 創建完成");
+        //print("SystemUI 創建完成");
     }
 
     private void Awake()

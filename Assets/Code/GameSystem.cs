@@ -57,11 +57,11 @@ public class GameSystem : MonoBehaviour
 
     public GameSystem() : base()
     {
-        print("GameSystem : 我被創建了!!!");
+        //print("GameSystem : 我被創建了!!!");
         if (instance != null)
             print("ERROR !! 超過一份 Game System 存在 ");
         instance = this;
-        print("GameSystem 創建完成");
+        //print("GameSystem 創建完成");
     }
 
     private void Awake()
