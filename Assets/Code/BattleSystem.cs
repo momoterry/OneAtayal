@@ -223,9 +223,17 @@ public class BattleSystem : MonoBehaviour
 
     protected void UpdateInit()
     {
-        //避免出 Error 時一直跑，先設定 nextState
-        nextState = BATTLE_GAME_STATE.BATTLE;
-        InitBattle();                               
+        if (GameSystem.GetPlayerData().IsReady())
+        {
+            //避免出 Error 時一直跑，先設定 nextState
+            nextState = BATTLE_GAME_STATE.BATTLE;
+            InitBattle();
+        }
+        //else
+        //{
+        //    //TODO: 黑畫面?
+        //    print("還沒好哩 ...... 要來打我嗎?");
+        //}
     }
 
 

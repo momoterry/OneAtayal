@@ -638,6 +638,7 @@ public class GameSystem : MonoBehaviour
                 print("帳號暱稱檢查失敗 " + erMsg);
                 onlineID = INVALID_ID;
                 nickName = "";
+                LoadFailProcess();
                 SystemUI.ShowMessageBox(null, "帳號暱稱檢查失敗 .... 請檢查網路或開新帳號 " + erMsg);
             }
             www.Dispose();
@@ -715,10 +716,10 @@ public class GameSystem : MonoBehaviour
 
                     //如果是在關卡中載入進度，需要再初始化一次 CharacterData
                     //TODO: 應該要改成等載入完成才進行 BattleSystem 的關卡初始化和創建 !!!!!!!!!!!!!
-                    if (BattleSystem.GetInstance() && BattleSystem.GetPC())
-                    {
-                        BattleSystem.GetPC().theCharData.SetupStat();
-                    }
+                    //if (BattleSystem.GetInstance() && BattleSystem.GetPC())
+                    //{
+                    //    BattleSystem.GetPC().theCharData.SetupStat();
+                    //}
                 }
             }
             else
@@ -730,12 +731,18 @@ public class GameSystem : MonoBehaviour
             }
             if (errorStr != "")
             {
+                LoadFailProcess();
                 SystemUI.ShowMessageBox(null, errorStr);
             }
 
             www.Dispose();
         }
 
+    }
+
+    protected void LoadFailProcess()
+    {
+        thePlayerData.SetDataReady();
     }
 
 
