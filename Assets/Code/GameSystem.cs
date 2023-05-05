@@ -107,31 +107,31 @@ public class GameSystem : MonoBehaviour
 
 
 
-    protected void OnlineInit()
-    {
-        ChatGPT.GetKeyStaticAsync();
-        if (isOnlineSave)
-        {
-            onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
-            nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
-            print("Online ID = " + onlineID + "  Nick Name = " + nickName);
+    //protected void OnlineInit()
+    //{
+    //    ChatGPT.GetKeyStaticAsync();
+    //    if (isOnlineSave)
+    //    {
+    //        onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
+    //        nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
+    //        print("Online ID = " + onlineID + "  Nick Name = " + nickName);
 
-            //檢查 ID 正確性
-            if (onlineID != "")
-            {
-                if (theOnlineSaveLoad.CheckID(onlineID, nickName))
-                {
-                    print("帳號暱稱檢查通過 .....");
-                }
-                else
-                {
-                    print("帳號暱稱檢查失敗，設為錯誤帳號錯誤狀態 .....");
-                    onlineID = INVALID_ID;
-                    nickName = "";
-                }
-            }
-        }
-    }
+    //        //檢查 ID 正確性
+    //        if (onlineID != "")
+    //        {
+    //            if (theOnlineSaveLoad.CheckID(onlineID, nickName))
+    //            {
+    //                print("帳號暱稱檢查通過 .....");
+    //            }
+    //            else
+    //            {
+    //                print("帳號暱稱檢查失敗，設為錯誤帳號錯誤狀態 .....");
+    //                onlineID = INVALID_ID;
+    //                nickName = "";
+    //            }
+    //        }
+    //    }
+    //}
 
 
     static public void SetUseVPad( bool useVPad ) { instance.useVpadControl = useVPad; }
@@ -712,6 +712,13 @@ public class GameSystem : MonoBehaviour
                     
                     thePlayerData.SetDataReady();
                     hasSaveGame = true;
+
+                    //如果是在關卡中載入進度，需要再初始化一次 CharacterData
+                    //TODO: 應該要改成等載入完成才進行 BattleSystem 的關卡初始化和創建 !!!!!!!!!!!!!
+                    if (BattleSystem.GetInstance() && BattleSystem.GetPC())
+                    {
+                        BattleSystem.GetPC().theCharData.SetupStat();
+                    }
                 }
             }
             else
