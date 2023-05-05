@@ -131,7 +131,8 @@ public class PlayerData : MonoBehaviour
 
     public void LoadSavedData( SaveData data)
     {
-        //TODO: 如果重覆載入資料的處理 ?
+        //先清空以避免重覆加載的 Bug
+        InitData();
 
         Money = data.Money;
         mainCharacterStat = data.mainCharacterStat;
