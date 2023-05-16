@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4032685806379418581}
-  - component: {fileID: 3264087317604759464}
+  - component: {fileID: 6130152624237473546}
   - component: {fileID: 4032685806379418580}
   - component: {fileID: -894024693914061495}
   - component: {fileID: 8817159822340256188}
@@ -126,7 +126,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &3264087317604759464
+--- !u!114 &6130152624237473546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,14 +135,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4032685806379418579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c5c614ada13ee4479d174d41acf5850, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bf26bdcfb9f90f43aab177bbcf9cf27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: DollCrystall
+  ID: DollCrystal
   icon: {fileID: -1981760688, guid: eed462e8300a157449db3793c512b89f, type: 3}
-  positionType: 1
-  bulletRef: {fileID: 2820250728779406873, guid: 51b72c5b9c5318b46a5b2fd972924a9e, type: 3}
-  AttackInit: 30
+  positionType: 0
+  bulletRef: {fileID: 2820250728779406873, guid: 643742643be00894ea99e808074e6e26, type: 3}
+  AttackInit: 10
   SearchRange: 6
   canRevie: 1
   PositionRangeIn: 1
@@ -150,11 +150,12 @@ MonoBehaviour:
   AttackRangeIn: 10
   AttackRangeOut: 12
   attackWait: 0.2
-  attackCD: 0.25
+  attackCD: 0.5
   RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
   myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 7021140444660993118}
+  theLaserRef: {fileID: 404306278161372763, guid: 7f5bef73c94720b45a20d99fc91ab9d9, type: 3}
 --- !u!212 &4032685806379418580
 SpriteRenderer:
   m_ObjectHideFlags: 0
