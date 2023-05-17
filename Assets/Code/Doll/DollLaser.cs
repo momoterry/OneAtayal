@@ -17,6 +17,7 @@ public class DollLaser : DollAuto
     //{
 
     //}
+
     protected override void UpdateBattle()
     {
         base.UpdateBattle();
