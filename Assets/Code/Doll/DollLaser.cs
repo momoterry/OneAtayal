@@ -24,7 +24,7 @@ public class DollLaser : DollAuto
 
         if (myLaser)
         {
-            if (myTarget)
+            if (myTarget != null && myTarget.activeInHierarchy)
             {
                 myLaser.UpdateLaser(myTarget, transform.position);
             }
