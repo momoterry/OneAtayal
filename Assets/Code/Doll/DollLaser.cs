@@ -22,7 +22,7 @@ public class DollLaser : DollAuto
     {
         base.UpdateBattle();
 
-        if (myLaser)
+        if (myLaser && myLaser.gameObject.activeInHierarchy)
         {
             if (myTarget != null && myTarget.activeInHierarchy)
             {
@@ -31,6 +31,7 @@ public class DollLaser : DollAuto
             else
             {
                 myLaser.gameObject.SetActive(false);
+                print("Target Off !!");
             }
         }
     }
@@ -43,6 +44,7 @@ public class DollLaser : DollAuto
             GameObject o = BattleSystem.SpawnGameObj(theLaserRef, transform.position);
             myLaser = o.GetComponent<BulletLaser>();
         }
+        print("Target On !!");
         myLaser.gameObject.SetActive(true);
         Vector3 td = myTarget.transform.position - transform.position;
         myLaser.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, myTarget);
