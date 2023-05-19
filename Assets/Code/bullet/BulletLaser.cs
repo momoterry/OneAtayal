@@ -5,11 +5,13 @@ using UnityEngine;
 public class BulletLaser : bullet_base
 {
     public GameObject theBeam;
+    public GameObject hitFXRef;
     public float attackPeriod = 0.2f;
 
     protected float startShift = 0.0f;
 
     protected float timeToAttack = 0;
+    //protected 
 
     //protected Vector3 debugFrom;
     //protected Vector3 debugTo;
