@@ -243,7 +243,8 @@ public class MG_RandomWalker : MapGeneratorBase
         int cellSize = theCellMap.GetCellSize();
 
         theMap.FillValue(vMin.x, vMin.y, cellSize, cellSize, 1);
-        theMap.FillTile(vMin.x, vMin.y, cellSize, cellSize, 1, blockTM, null);
+        Tile emptyTile = null;
+        theMap.FillTile(vMin.x, vMin.y, cellSize, cellSize, 1, blockTM, emptyTile);
         theMap.FillTile(vMin.x - 2, vMin.y - 2, cellSize + 4, cellSize + 4, 1, groundTM, blockTM, grassTG, islandEG);
 
 

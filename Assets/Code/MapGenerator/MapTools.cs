@@ -167,6 +167,20 @@ public class OneMap
         }
     }
 
+    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, TileGroup tg)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (mapArray[x + _xMin + arrayXshift][y + _yMin + arrayYshift] == checkValue)
+                {
+                    tm.SetTile(new Vector3Int(_xMin + x, _yMin + y, 0), tg.GetOneTile());
+                }
+            }
+        }
+    }
+
 
     protected bool IsOut( int value, int inValue, int outValue)
     {
@@ -242,6 +256,10 @@ public class OneMap
         FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, tile);
     }
 
+    public void FillTileAll(int checkValue, Tilemap tm, TileGroup tg)
+    {
+        FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, tg);
+    }
 
     public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true, int outValue = OneMap.INVALID_VALUE)
     {

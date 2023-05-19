@@ -51,4 +51,16 @@ public class DollLaser : DollAuto
         myLaser.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, myTarget);
         myLaser.UpdateLaser(myTarget, transform.position);
     }
+
+    protected override void OnDeath()
+    {
+        //print("被打死了 !!");
+        if (myLaser)
+        {
+            //print("雷射清除");
+            Destroy(myLaser.gameObject);
+            myLaser = null;
+        }
+        base.OnDeath();
+    }
 }
