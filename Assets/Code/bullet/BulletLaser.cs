@@ -22,14 +22,14 @@ public class BulletLaser : bullet_base
         theDamage.damage = baseDamage;
     }
 
-    protected void DoOneDamage()
+    protected void DoOneDamage(GameObject targetO)
     {
-        targetObj.SendMessage("OnDamage", myDamage);
+        targetO.SendMessage("OnDamage", myDamage);
     }
 
-    public void UpdateLaser( GameObject targetObj, Vector3 fromPos )
+    public void UpdateLaser( GameObject targetO, Vector3 fromPos )
     {
-        Vector3 targetPos = targetObj.transform.position;
+        Vector3 targetPos = targetO.transform.position;
         targetPos.y = 0;
         fromPos.y = 0;
         Vector3 targetVec = (targetPos - fromPos).normalized;
@@ -44,12 +44,12 @@ public class BulletLaser : bullet_base
         timeToAttack -= Time.deltaTime;
         if (timeToAttack <= 0)
         {
-            DoOneDamage();
+            DoOneDamage(targetO);
             timeToAttack += attackPeriod;
         }
 
         //debugFrom = fromPos;
-        //debugTo = targetObj.transform.position;
+        //debugTo = targetO.transform.position;
     }
 
     // Start is called before the first frame update
