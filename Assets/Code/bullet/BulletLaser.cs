@@ -5,10 +5,11 @@ using UnityEngine;
 public class BulletLaser : bullet_base
 {
     public GameObject theBeam;
-    public GameObject hitFXRef;
+    public GameObject hitFX;
     public float attackPeriod = 0.2f;
 
-    protected float startShift = 0.0f;
+    protected float startShift = 0.25f;
+    protected float endShift = 0.25f;
 
     protected float timeToAttack = 0;
     //protected 
@@ -37,6 +38,7 @@ public class BulletLaser : bullet_base
         Vector3 targetVec = (targetPos - fromPos).normalized;
 
         fromPos += targetVec * startShift;
+        targetPos -= targetVec * endShift;
         Vector3 vec = targetPos - fromPos;
 
         theBeam.transform.position = (targetPos + fromPos) * 0.5f;
@@ -48,6 +50,11 @@ public class BulletLaser : bullet_base
         {
             DoOneDamage(targetO);
             timeToAttack += attackPeriod;
+        }
+
+        if (hitFX)
+        {
+            hitFX.transform.position = targetPos;
         }
 
         //debugFrom = fromPos;
