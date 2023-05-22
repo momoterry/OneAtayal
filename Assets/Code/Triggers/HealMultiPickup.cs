@@ -116,7 +116,8 @@ public class HealMultiPickup : MonoBehaviour
 
             if (healFX)
             {
-                BattleSystem.SpawnGameObj(healFX, targetObj.transform.position);
+                GameObject f = BattleSystem.SpawnGameObj(healFX, targetObj.transform.position);
+                f.transform.parent = targetObj.transform;
             }
         }
     }
