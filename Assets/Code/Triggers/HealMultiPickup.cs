@@ -1,21 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class HealMultiPickup : MonoBehaviour
 {
     public GameObject healFX;
-    public int healTotal = 100;
+    //public int healTotal = 100;
+    public int healCount = 10;
+    public float healEach = 10;
 
-    void OnTG(GameObject whoTG)
+    protected class HealInfo
     {
-        print("heal....");
+        public GameObject obj;
+        public float hp;
+        public float hpMax;
+        public float hpToHeal = 0;
+        public float hpRatio;
+        public HealInfo(GameObject obj, float hp, float hpMax, float hpToHeal, float hpRatio)
+        {
+            this.obj = obj;
+            this.hp = hp;
+            this.hpMax = hpMax;
+            this.hpToHeal = hpToHeal;
+            this.hpRatio = hpRatio;
+        }
+    }
+    public void OnTG(GameObject whoTG)
+    {
+        List<HealInfo> hList = new List<HealInfo>();
 
-        GameObject bestHealTarget = null;
-
-        float bestTargetHpRatio = 1.0f;
         PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
+
         if (pc.GetHP() < pc.GetHPMax())
         {
             float preHealValue = 0;
@@ -24,8 +40,9 @@ public class HealMultiPickup : MonoBehaviour
             {
                 preHealValue = pi.GetPreHeal();
             }
-            bestTargetHpRatio = (pc.GetHP() + preHealValue) / pc.GetHPMax();
-            bestHealTarget = pc.gameObject;
+            float ratio = (pc.GetHP() + preHealValue) / pc.GetHPMax();
+
+            hList.Add(new HealInfo(pc.gameObject, (pc.GetHP() + preHealValue), pc.GetHPMax(), 0, ratio));
         }
 
 
@@ -48,18 +65,35 @@ public class HealMultiPickup : MonoBehaviour
                 }
 
                 float hpRatio = (body.GetHP() + preHealValue) / body.GetHPMax();
-                if (hpRatio < bestTargetHpRatio)
-                {
-                    bestHealTarget = body.gameObject;
-                    bestTargetHpRatio = hpRatio;
-                }
+                hList.Add(new HealInfo(body.gameObject, (body.GetHP() + preHealValue), body.GetHPMax(), 0, hpRatio));
             }
         }
 
-        if (bestHealTarget)
+        if (hList.Count > 0)
         {
-            HealTarget(bestHealTarget, healTotal);
-            //whoTG.
+            for (int i=0; i<healCount; i++)
+            {
+                HealInfo theHeal = hList.OrderBy(obj => (float)obj.hpRatio).FirstOrDefault();
+
+                if (theHeal.hpToHeal + theHeal.hp >= theHeal.hpMax)
+                {
+                    //print("沒有可以回的了，結束");
+                    break;
+                }
+                //print("hList Best !!" + theHeal.obj + " hp " + (theHeal.hp + theHeal.hpToHeal) + " / max: " + theHeal.hpMax);
+                theHeal.hpToHeal = Mathf.Min(theHeal.hpToHeal + healEach, theHeal.hpMax - theHeal.hp);
+                //print("heal to " + theHeal.hpToHeal);
+                theHeal.hpRatio = (theHeal.hp + theHeal.hpToHeal) / theHeal.hpMax;
+            }
+
+            foreach (HealInfo h in hList)
+            {
+                if (h.hpToHeal > 0)
+                {
+                    HealTarget(h.obj, h.hpToHeal);
+                }
+            }
+
             Destroy(gameObject);
         }
     }
