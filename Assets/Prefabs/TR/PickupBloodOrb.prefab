@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5738852675871354694}
   - component: {fileID: 3906463391647340876}
-  - component: {fileID: -1271234994834618757}
+  - component: {fileID: 7011506537119469714}
   - component: {fileID: -3382607425636238324}
   m_Layer: 0
   m_Name: PickupBloodOrb
@@ -172,7 +172,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1271234994834618757
+--- !u!114 &7011506537119469714
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,10 +181,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8143502755978418841}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c8b5bf5ecf601488ab9636d59cb860, type: 3}
+  m_Script: {fileID: 11500000, guid: 95e3719826e0d694ba264283db9173d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyAdd: 100
+  healFX: {fileID: 2349360926062933808, guid: 86346f98b53b53443af314932ed834ce, type: 3}
+  healTotal: 100
 --- !u!114 &-3382607425636238324
 MonoBehaviour:
   m_ObjectHideFlags: 0
