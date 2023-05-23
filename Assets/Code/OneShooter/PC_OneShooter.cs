@@ -43,6 +43,8 @@ public class PC_OneShooter : PC_One
             newPos.x = Mathf.Clamp(newPos.x, xMin, xMax);
             newPos.z = Mathf.Clamp(newPos.z, zMin, zMax);
             transform.position = newPos;
+
+            MoveDollManager();
         }
     }
 
