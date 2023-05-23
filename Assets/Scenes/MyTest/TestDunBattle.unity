@@ -224,7 +224,7 @@ Transform:
   m_Children:
   - {fileID: 1639246123}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &164364335
 PrefabInstance:
@@ -366,8 +366,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 932832339}
-  m_Father: {fileID: 657190577}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &489796289
 PrefabInstance:
@@ -505,13 +505,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 465885882}
   - {fileID: 75110198}
   - {fileID: 164364336}
   - {fileID: 1440362249}
   - {fileID: 8551657297017460612}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &657190578
 MonoBehaviour:
@@ -2270,12 +2269,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
       propertyPath: enemyInfos.Array.data[0].num
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
       propertyPath: enemyInfos.Array.data[1].num
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
+      propertyPath: enemyInfos.Array.data[0].enemyRef
+      value: 
+      objectReference: {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
     - target: {fileID: 2283165509847586996, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
       propertyPath: m_Name
       value: EnemyGroupAlpha
@@ -2462,7 +2465,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5611524259541348260
 GameObject:
