@@ -542,7 +542,7 @@ public class GameSystem : MonoBehaviour
 
     protected void OfflineInit()
     {
-        ChatGPT.GetKeyStaticAsync();
+        //ChatGPT.GetKeyStaticAsync();
         if (!LoadDataLocal())
         {
             thePlayerData.InitData();
