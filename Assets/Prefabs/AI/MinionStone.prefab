@@ -215,11 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 5785047746575723560}
-  Idle:
-    sprites:
-    - {fileID: -1698559634904645832, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
-    - {fileID: -8654405143892892331, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
-    FPS: 4
   InitAnim:
     sprites:
     - {fileID: -1422516958, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
@@ -227,7 +222,11 @@ MonoBehaviour:
     - {fileID: 654362121, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
     - {fileID: -1762504227, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
     FPS: 12
-  specificAnimations: []
+  Idle:
+    sprites:
+    - {fileID: -1698559634904645832, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
+    - {fileID: -8654405143892892331, guid: 552db02eb871bcc4a9f9c9a598ea523f, type: 3}
+    FPS: 4
 --- !u!1 &7208015447484052683
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +281,7 @@ MonoBehaviour:
   MaxHP: 300
   spawnFX: {fileID: 0}
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
-  debris: {fileID: 4102302037370830796, guid: f9708512c0100ae4c9393ca2cd4ea6a3, type: 3}
+  debris: {fileID: 4102302037370830796, guid: b403d85c0905b9d46b7c106e1172ac3b, type: 3}
   SpawnWaitTime: 0.4
   ChaseRangeIn: 100
   ChaseRangeOut: 102
@@ -291,6 +290,8 @@ MonoBehaviour:
   AttackWait: 0.2
   AttackCD: 1.5
   Attack: 10
+  SlotRangeOut: 3
+  SlotRangeIn: 2
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 1381435553913394138}
   DashTime: 0.1
@@ -357,9 +358,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7208015447484052683}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.75, y: 0.75, z: 0.75}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3236784326416634283

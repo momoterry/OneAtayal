@@ -576,7 +576,7 @@ public class PC_One : PlayerControllerBase
         }
     }
 
-    void MoveDollManager()
+    protected void MoveDollManager()
     {
 
         if (myDollManager)

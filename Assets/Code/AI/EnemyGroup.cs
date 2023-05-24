@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class EnemyGroup : MonoBehaviour
 {
@@ -241,10 +242,11 @@ public class EnemyGroup : MonoBehaviour
         {
             nexPhase = PHASE.FINISH;
         }
-        if (Vector3.Distance(transform.position, BattleSystem.GetPC().transform.position) > closeDistance)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, BattleSystem.GetPC().transform.position, Time.deltaTime * speed);
-        }
+        //if (Vector3.Distance(transform.position, BattleSystem.GetPC().transform.position) > closeDistance)
+        //{
+        //    transform.position = Vector3.MoveTowards(transform.position, BattleSystem.GetPC().transform.position, Time.deltaTime * speed);
+        //}
+        UpdateBattleMove(); //TODO: 不要每個 Frame 算方向
         if (stateTime > 0.2f)
         {
             stateTime = 0;
@@ -262,6 +264,47 @@ public class EnemyGroup : MonoBehaviour
             }
         }
     }
+
+
+    protected Vector3 moveDirection = Vector3.zero;
+    protected float moveCheckTime = 0;
+    protected void UpdateBattleMove()
+    {
+        moveCheckTime -= Time.deltaTime;
+        if (moveCheckTime <= 0)
+        {
+            moveCheckTime = 0.2f;
+            if (BattleSystem.GetPC() == null)
+                return;
+            Vector3 playerPos = BattleSystem.GetPC().transform.position;
+            NavMeshPath path = new NavMeshPath();
+            if (NavMesh.CalculatePath(transform.position, playerPos, NavMesh.AllAreas, path))
+            {
+                float pathLength = 0f;
+                Vector3 movdD = Vector3.zero;
+                for (int i = 1; i < path.corners.Length; i++)
+                {
+                    pathLength += Vector3.Distance(path.corners[i - 1], path.corners[i]);
+                    if (i == 1)
+                    {
+                        movdD = path.corners[i] - path.corners[i - 1];
+                    }
+                }
+                if (pathLength > closeDistance)
+                {
+                    moveDirection = movdD;
+                }
+                else
+                {
+                    moveDirection = Vector3.zero;
+                }
+            }
+            else
+                moveDirection = Vector3.zero;
+        }
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + moveDirection, Time.deltaTime * speed);
+    }
+
 
     protected float GetPlayerDistance()
     {
