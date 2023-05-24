@@ -9,6 +9,7 @@ public struct SkillData
 {
     public GameObject bulletRef;    //會給予方向的 Spawn 物件
     public float bulletInitDis;
+    public bool fixDirection;       //不瞄準目標，全場散射類型適用
     public float damageRatio;
     public string animString;
 
@@ -114,7 +115,7 @@ public class EnemyOne : Enemy
 #endif
         if (skill.bulletRef)
         {
-            Vector3 shootPoint = gameObject.transform.position + faceDir * skill.bulletInitDis;
+            Vector3 shootPoint = gameObject.transform.position + (skill.fixDirection ? Vector3.back:faceDir) * skill.bulletInitDis;
 
             GameObject newObj = Instantiate(skill.bulletRef, shootPoint, rm, null);
 
@@ -123,7 +124,7 @@ public class EnemyOne : Enemy
                 bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
-                    Vector3 td = targetObj.transform.position - newObj.transform.position;
+                    Vector3 td = skill.fixDirection ? Vector3.back : targetObj.transform.position - newObj.transform.position;
 #if XZ_PLAN
                     td.y = 0;
 #else
