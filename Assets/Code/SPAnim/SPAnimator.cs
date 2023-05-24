@@ -90,9 +90,6 @@ public class SPAnimator : MonoBehaviour
     public SPAnimationClip InitAnim;
     public SPAnimationClip Idle;
 
-    //public SpecificAnimation[] specificAnimations;
-    //public string initSpecific;
-
     protected enum PHASE
     {
         NONE,
@@ -127,10 +124,8 @@ public class SPAnimator : MonoBehaviour
 
     private void Awake()
     {
-        //for (int i=0; i<specificAnimations.Length; i++)
-        //{
-        //    specificMaps.Add(specificAnimations[i].name, specificAnimations[i].anim);
-        //}
+        if (!target)
+            target = GetComponent<SpriteRenderer>();
 
         Init();
         SetupInitSprite();
@@ -141,30 +136,17 @@ public class SPAnimator : MonoBehaviour
     {
         Idle.Init();
         InitAnim.Init(false);
-        //for (int i=0; i<specificAnimations.Length; i++)
-        //{
-        //    specificAnimations[i].anim.Init(false);
-        //}
         if (InitAnim.IsValid())
         {
-            //currClip = InitAnim;
             nextPhase = PHASE.INIT;
-            //if (target)
-            //{
-            //    target.sprite = InitAnim.sprites[0];    //初始化
-            //}
+
         }
         else
         {
-            //currClip = Idle;
             nextPhase = PHASE.LOOP;
-            //SetupFirstLoopSprite();
         }
 
-        //if (currClip.IsValid() && target)
-        //{
-        //    target.sprite = currClip.sprites[0];    //初始化
-        //}
+
     }
 
 

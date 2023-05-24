@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 3906463391647340876}
   - component: {fileID: 7011506537119469714}
   - component: {fileID: -3382607425636238324}
+  - component: {fileID: 2322882800087196894}
   m_Layer: 0
   m_Name: PickupBloodOrb
   m_TagString: Untagged
@@ -161,12 +162,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 245f4cbc1df9b984881c22e1a44c5d6c, type: 3}
+  m_Sprite: {fileID: 432858333, guid: 245f4cbc1df9b984881c22e1a44c5d6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -185,7 +186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healFX: {fileID: 2349360926062933808, guid: 86346f98b53b53443af314932ed834ce, type: 3}
-  healTotal: 100
+  healCount: 6
+  healEach: 10
 --- !u!114 &-3382607425636238324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +202,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bias: 0
   onlyAdjustOnStart: 1
+--- !u!114 &2322882800087196894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143502755978418841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c068845190a0bd0408567d85da11b586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  InitAnim:
+    sprites: []
+    FPS: 4
+  Idle:
+    sprites:
+    - {fileID: 432858333, guid: 245f4cbc1df9b984881c22e1a44c5d6c, type: 3}
+    - {fileID: 605337131, guid: 245f4cbc1df9b984881c22e1a44c5d6c, type: 3}
+    FPS: 2
 --- !u!1001 &7303104614163248092
 PrefabInstance:
   m_ObjectHideFlags: 0
