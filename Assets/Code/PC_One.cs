@@ -35,6 +35,8 @@ public class PC_One : PlayerControllerBase
 
     public Talk theTalk;
 
+    public GameObject arrowRoot;
+
     protected NavMeshAgent myAgent;
     protected float skillTime = 0.0f;
     protected float autoAttackCDLeft = 0.0f;
@@ -586,7 +588,14 @@ public class PC_One : PlayerControllerBase
             {
                 myDollManager.SetMasterDirection(faceDir, faceFrontType);
             }
+
+            if (arrowRoot)
+            {
+                arrowRoot.transform.rotation = myDollManager.transform.rotation;
+                //arrowRoot.transform.rotation = Quaternion.LookRotation(-faceDir, Vector3.up);
+            }
         }
+
     }
 
     private void SetupFrontDirection()
