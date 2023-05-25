@@ -52,6 +52,9 @@ public class SPAnimatorOne : SPAnimatorUD
         }
 
         target.sprite = currLoop.GetCurrSprite();
+
+        //print("IsRun!! " + isRun + " -- " + gameObject);
+
     }
 
     protected override void SetupFirstLoopSprite()

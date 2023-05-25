@@ -164,24 +164,30 @@ public class Enemy : MonoBehaviour
             case AI_STATE.IDLE:
                 if (myAnimator)
                     myAnimator.SetBool("Run", false);
+                if (mySPAimator)
+                    mySPAimator.SetIsRun(false);
                 break;
             case AI_STATE.ATTACK:
                 stateTime = AttackWait;
                 if (myAnimator)
                     myAnimator.SetBool("Run", false);
+                if (mySPAimator)
+                    mySPAimator.SetIsRun(false);
                 break;
             case AI_STATE.CHASE:
                 //至少追擊一次
                 if (myAgent)
                     myAgent.SetDestination(targetPos);
+                if (mySPAimator)
+                    mySPAimator.SetIsRun(true);
                 stateTime = 0; //確保一開始先找一次目標
-                if (myAnimator)
-                    myAnimator.SetBool("Run", true);
                 break;
             case AI_STATE.TO_SLOT:
                 stateTime = 0;
                 if (myAnimator)
                     myAnimator.SetBool("Run", true);
+                if (mySPAimator)
+                    mySPAimator.SetIsRun(true);
                 break;
         }
     }
@@ -258,6 +264,10 @@ public class Enemy : MonoBehaviour
 #else
                     myAnimator.SetFloat("Y", faceDir.y);
 #endif
+        }
+        if (mySPAimator)
+        {
+            mySPAimator.SetXY(faceDir.x, faceDir.z);
         }
     }
 
