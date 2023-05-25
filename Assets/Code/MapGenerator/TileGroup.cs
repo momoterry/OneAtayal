@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
+public class TileGroupBase
+{
+    virtual public Tile GetOneTile() { return null; }
+}
 [System.Serializable]
-public class TileGroup
+public class TileGroup : TileGroupBase
 {
     public Tile baseTile;
     public Tile[] decorateTiles;
     public float decorateRate;
-    public Tile GetOneTile()
+    public override Tile GetOneTile()
     {
         if (decorateTiles.Length > 0 && decorateRate > 0)
         {
@@ -394,10 +397,10 @@ public class TileEdge2LGroup : TileEdgeGroup
 }
 
 
-//為了能共用 TileEdgeGtoup 的編輯，用來可獨立成一個 Component 的容器
+//為了能共用 TileEdgeGroup 的編輯，用來可獨立成一個 Component 的容器
 public class TileGroupDataBase : MonoBehaviour
 {
-    public virtual TileGroup GetTileGroup() { return null; }
+    public virtual TileGroupBase GetTileGroup() { return null; }
 }
 public class TileEdgeGroupDataBase : MonoBehaviour
 {

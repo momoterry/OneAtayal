@@ -7,7 +7,7 @@ public class TileGroupData : TileGroupDataBase
     public TileGroup data;
 
 
-    public override TileGroup GetTileGroup()
+    public override TileGroupBase GetTileGroup()
     {
         return data;
     }

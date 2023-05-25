@@ -1266,6 +1266,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4275894634175769932, guid: b04abafe2fc6ce841ab40e2108861fce, type: 3}
   m_PrefabInstance: {fileID: 793019440}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1478842749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478842751}
+  - component: {fileID: 1478842750}
+  m_Layer: 0
+  m_Name: GroundTileGroupBeta
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1478842750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478842749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6410460c226b6d4f8538d29da66a947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  betaData:
+    baseTile: {fileID: 11400000, guid: 6eceede05c007a44ea3ad9bc2a451b47, type: 2}
+    decorateTiles:
+    - tile: {fileID: 11400000, guid: c003ef59379c4b548a6ad6d7064751be, type: 2}
+      rate: 0.4
+    - tile: {fileID: 11400000, guid: 0ae0fa16e34bbac4d8dd212b57c78400, type: 2}
+      rate: 0.15
+--- !u!4 &1478842751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478842749}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1494127079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1808,7 +1859,7 @@ MonoBehaviour:
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 28701d22c39761f4d86e24ca4fe20b40, type: 3}
-  groundTileGroup: {fileID: 1014529279}
+  groundTileGroup: {fileID: 1478842750}
   groundEdgeTileGroup: {fileID: 0}
   wallEdgeTileGroup: {fileID: 0}
   groundTM: {fileID: 1946328705}
@@ -1842,6 +1893,7 @@ Transform:
   m_Children:
   - {fileID: 1014529278}
   - {fileID: 1696140726}
+  - {fileID: 1478842751}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -167,7 +167,7 @@ public class OneMap
         }
     }
 
-    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, TileGroup tg)
+    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, TileGroupBase tg)
     {
         for (int x = 0; x < width; x++)
         {
@@ -187,7 +187,7 @@ public class OneMap
         return value != inValue && (outValue == OneMap.INVALID_VALUE || value == outValue);
     }
 
-    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true, int outValue = OneMap.INVALID_VALUE)
+    public void FillTile(int _xMin, int _yMin, int width, int height, int checkValue, Tilemap tm, Tilemap egdeTM, TileGroupBase tg, TileEdgeGroup te, bool outEdge = true, int outValue = OneMap.INVALID_VALUE)
     {
         if (outEdge)
         {
@@ -256,12 +256,12 @@ public class OneMap
         FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, tile);
     }
 
-    public void FillTileAll(int checkValue, Tilemap tm, TileGroup tg)
+    public void FillTileAll(int checkValue, Tilemap tm, TileGroupBase tg)
     {
         FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, tg);
     }
 
-    public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroup tg, TileEdgeGroup te, bool outEdge = true, int outValue = OneMap.INVALID_VALUE)
+    public void FillTileAll(int checkValue, Tilemap tm, Tilemap egdeTM, TileGroupBase tg, TileEdgeGroup te, bool outEdge = true, int outValue = OneMap.INVALID_VALUE)
     {
         FillTile(xMin, yMin, mapWidth, mapHeight, checkValue, tm, egdeTM, tg, te, outEdge, outValue);
     }
