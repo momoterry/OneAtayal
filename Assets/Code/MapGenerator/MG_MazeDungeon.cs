@@ -111,7 +111,9 @@ public class MG_MazeDungeon : MapGeneratorBase
             theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false);
         else
             theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTileGroup.GetTileGroup());
-        theMap.FillTileAll((int)TILE_TYPE.GRASS, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true);
+
+        if (wallEdgeTileGroup)
+            theMap.FillTileAll((int)TILE_TYPE.GRASS, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true);
 
         theSurface2D.BuildNavMesh();
 
