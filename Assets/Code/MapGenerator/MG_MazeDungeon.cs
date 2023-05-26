@@ -20,6 +20,8 @@ public class MG_MazeDungeon : MapGeneratorBase
     public TileGroupDataBase groundTileGroup;
     public TileEdgeGroupDataBase groundEdgeTileGroup;
     public TileEdgeGroupDataBase wallEdgeTileGroup;
+    public TileGroupDataBase roomGroundTileGroup;
+    public TileEdgeGroupDataBase roomGroundTileEdgeGroup;
     public Tilemap groundTM;
     public Tilemap blockTM;
 
@@ -108,12 +110,20 @@ public class MG_MazeDungeon : MapGeneratorBase
         //theMap.PrintMap();
 
         if (groundEdgeTileGroup)
-            theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false);
+            theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false, (int)TILE_TYPE.BLOCK);
         else
             theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTileGroup.GetTileGroup());
 
+        if (roomGroundTileGroup != null)
+        {
+            if (roomGroundTileEdgeGroup)
+                theMap.FillTileAll((int)TILE_TYPE.DIRT, groundTM, groundTM, roomGroundTileGroup.GetTileGroup(), roomGroundTileEdgeGroup.GetTileEdgeGroup(), false);
+            else
+                theMap.FillTileAll((int)TILE_TYPE.DIRT, groundTM, roomGroundTileGroup.GetTileGroup());
+        }
+
         if (wallEdgeTileGroup)
-            theMap.FillTileAll((int)TILE_TYPE.GRASS, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true);
+            theMap.FillTileAll((int)TILE_TYPE.GRASS, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true, (int)TILE_TYPE.BLOCK);
 
         theSurface2D.BuildNavMesh();
 
@@ -457,8 +467,12 @@ public class MG_MazeDungeon : MapGeneratorBase
             RectInt rc = rectList[i];
             int x1 = puzzleX1 + rc.x * cellWidth;
             int y1 = puzzleY1 + rc.y * cellHeight;
-            theMap.FillValue(x1 + borderWidth, y1 + borderWidth,
-                rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.GRASS);
+            if (roomGroundTileGroup != null)
+                theMap.FillValue(x1 + borderWidth, y1 + borderWidth,
+                    rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.DIRT);
+            else
+                theMap.FillValue(x1 + borderWidth, y1 + borderWidth,
+                    rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.GRASS);
 
             Vector3 pos = new Vector3(x1 + rc.width * cellWidth / 2, 0, y1 + rc.height * cellHeight / 2);
             if (bigRooms[i].gameplayRef)
