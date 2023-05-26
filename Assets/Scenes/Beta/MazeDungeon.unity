@@ -655,6 +655,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &523238536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 523238537}
+  - component: {fileID: 523238538}
+  m_Layer: 0
+  m_Name: RoomGroundEdgeTileGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &523238537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523238536}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &523238538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523238536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fcd6705922feb40a9d0b20adb957d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    UU: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    DD: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    LL: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    RR: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    LU: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    RU: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    LD: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    RD: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    LU_S: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    RU_S: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    LD_S: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
+    RD_S: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
 --- !u!1 &573258938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,6 +1668,55 @@ Transform:
   m_Father: {fileID: 1252285825}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1664708984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1664708985}
+  - component: {fileID: 1664708986}
+  m_Layer: 0
+  m_Name: RoomGroundTileGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1664708985
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664708984}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1664708986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664708984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4bc83c655d36f4a808fc12c660e692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    baseTile: {fileID: 11400000, guid: 22b2f44bb8ef7bc4dac46951e1a7f948, type: 2}
+    decorateTiles:
+    - {fileID: 11400000, guid: 4a3f82930e4a9db4fadbbf0e669f8c3c, type: 2}
+    decorateRate: 0
 --- !u!1 &1696140725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,6 +1978,8 @@ MonoBehaviour:
   groundTileGroup: {fileID: 1014529279}
   groundEdgeTileGroup: {fileID: 1265013412}
   wallEdgeTileGroup: {fileID: 1696140727}
+  roomGroundTileGroup: {fileID: 1664708986}
+  roomGroundTileEdgeGroup: {fileID: 523238538}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
   bigRooms:
@@ -1910,6 +2018,8 @@ Transform:
   - {fileID: 1014529278}
   - {fileID: 1265013413}
   - {fileID: 1696140726}
+  - {fileID: 1664708985}
+  - {fileID: 523238537}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2213,8 +2323,8 @@ Tilemap:
   - first: {x: 0, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2272,15 +2382,15 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 16
+  - m_RefCount: 15
     m_Data: {fileID: 11400000, guid: 22b2f44bb8ef7bc4dac46951e1a7f948, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 16
+  - m_RefCount: 15
     m_Data: {fileID: -3595157876990494288, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 5349601823128468483, guid: 1e6249882ab609446adb433d359d00bd, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 16
     m_Data:

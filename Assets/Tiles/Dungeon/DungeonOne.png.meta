@@ -116,11 +116,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -159,6 +160,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
@@ -199,6 +201,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -895,41 +909,40 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DungeonOne_16: 6999495069292686432
-      DungeonOne_4: 8452575012041395786
-      DungeonOne_6: 8048261068670459108
-      DungeonOne_29: -6001573366015020274
-      DungeonOne_15: -8767406261246677245
-      DungeonOne_3: 7724409148301279062
-      DungeonOne_23: -7816621335456868937
-      DungeonOne_22: 2565846640340420449
-      DungeonOne_14: 2424652614578510066
-      DungeonOne_7: -1336916768649884700
+      DungeonOne_0: -3595157876990494288
+      DungeonOne_1: 1803440510424902096
       DungeonOne_10: -516813102752395528
-      DungeonOne_24: -8680864111572495946
-      DungeonOne_25: -3986357027049796412
-      DungeonOne_9: 5489321299019473800
-      DungeonOne_8: 7888669223844908735
-      DungeonOne_18: 8331706173617166200
+      DungeonOne_11: 2051963415023830962
       DungeonOne_12: 4328658852730000448
       DungeonOne_13: -4820816905544251598
-      DungeonOne_11: 2051963415023830962
+      DungeonOne_14: 2424652614578510066
+      DungeonOne_15: -8767406261246677245
+      DungeonOne_16: 6999495069292686432
+      DungeonOne_17: -1874526466588433336
+      DungeonOne_18: 8331706173617166200
       DungeonOne_19: -1623908919331504844
-      DungeonOne_26: 6730602139563067051
-      DungeonOne_5: -6588753698118277366
-      DungeonOne_1: 1803440510424902096
-      DungeonOne_31: 5349601823128468483
+      DungeonOne_2: -4327189746339298617
       DungeonOne_20: 3898557961913799533
+      DungeonOne_21: 3380209692330150467
+      DungeonOne_22: 2565846640340420449
+      DungeonOne_23: -7816621335456868937
+      DungeonOne_24: -8680864111572495946
+      DungeonOne_25: -3986357027049796412
+      DungeonOne_26: 6730602139563067051
       DungeonOne_27: -5591892339261724115
       DungeonOne_28: -7613579149563687947
-      DungeonOne_21: 3380209692330150467
-      DungeonOne_17: -1874526466588433336
-      DungeonOne_0: -3595157876990494288
+      DungeonOne_29: -6001573366015020274
+      DungeonOne_3: 7724409148301279062
       DungeonOne_30: -3520675590622509386
-      DungeonOne_2: -4327189746339298617
-  spritePackingTag: 
+      DungeonOne_31: 5349601823128468483
+      DungeonOne_4: 8452575012041395786
+      DungeonOne_5: -6588753698118277366
+      DungeonOne_6: 8048261068670459108
+      DungeonOne_7: -1336916768649884700
+      DungeonOne_8: 7888669223844908735
+      DungeonOne_9: 5489321299019473800
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
