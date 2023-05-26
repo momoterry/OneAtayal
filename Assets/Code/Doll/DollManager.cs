@@ -14,6 +14,11 @@ public class DollManager : MonoBehaviour
     protected Doll[] dolls;
     protected Quaternion targetRt = Quaternion.identity;
 
+    //當 DollRecovery 還在進行時，不能加入 Doll
+    //protected bool waitDollRecovery = false;
+
+    //public void SetIsWaitDollRecovery(bool isWait) { waitDollRecovery = isWait; }
+
     public List<Doll> GetDolls()
     {
         List<Doll> theList = new List<Doll>();
@@ -46,6 +51,9 @@ public class DollManager : MonoBehaviour
     
     public virtual Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
+        //if (waitDollRecovery)
+        //    return null;
+
         float positionRatio = 0;
         switch (positionType)
         {

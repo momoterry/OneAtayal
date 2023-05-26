@@ -202,6 +202,9 @@ public class DM_Dynamic : DollManager
 
     public override Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
+        //if (waitDollRecovery)
+        //    return null;
+
         //Transform result = base.AddOneDoll(doll, positionType);
         Transform result = null;
         for (int i=0; i<slotNum; i++)

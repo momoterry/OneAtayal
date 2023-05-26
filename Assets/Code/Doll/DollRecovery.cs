@@ -26,6 +26,9 @@ public class DollRecovery : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DollManager dm = GetComponent<DollManager>();
+        //if (dm)
+        //    dm.SetIsWaitDollRecovery(true);
         nextPhase = Phase.WAIT;
         timeLeft = waitTime;
     }
@@ -47,14 +50,39 @@ public class DollRecovery : MonoBehaviour
                 if (timeLeft <= 0)
                 {
                     timeLeft += stepTime;
-                    DoSpawnOneDoll();
+                    const int FIX_MAX_WAVE = 8;
+                    int maxSpawnCount = (allDollIDs.Length - 1) / FIX_MAX_WAVE + 1;
+                    int maxSpawnWave = (allDollIDs.Length + FIX_MAX_WAVE - 1) % FIX_MAX_WAVE + 1;
+                    int waveCount = currSpawn < (maxSpawnCount * maxSpawnWave) ? currSpawn / maxSpawnCount
+                        : (currSpawn - (maxSpawnCount * maxSpawnWave)) / (maxSpawnCount - 1) + maxSpawnWave;
+                    int spwanCount = currSpawn < (maxSpawnCount * maxSpawnWave) ? maxSpawnCount : maxSpawnCount - 1;
+                    //int spwanCount = (allDollIDs.Length - currSpawn) / 4 + 1;
+                    //print("currSpawn: " + currSpawn + " maxSpawnWave: " + maxSpawnWave + "  waveCount: " + waveCount + "  spwanCount  " + spwanCount);
+                    for (int i=0; i<spwanCount; i++)
+                        DoSpawnOneDoll(i, spwanCount);
                 }
                 break;
         }
+
+        if (currPhase != nextPhase)
+        {
+            switch (nextPhase)
+            {
+                case Phase.FINISH:
+                    DollManager dm = GetComponent<DollManager>();
+                    //if (dm)
+                    //{
+                    //    print("Finish!!");
+                    //    dm.SetIsWaitDollRecovery(false);
+                    //}
+                    break;
+            }
+        }
+
         currPhase = nextPhase;
     }
 
-    void DoSpawnOneDoll()
+    void DoSpawnOneDoll( int batchIndex = 0, int batchTotal = 1)
     {
         string dollID = allDollIDs[currSpawn];
         GameObject dollRef = GameSystem.GetPlayerData().GetDollRefByID(dollID);
@@ -65,6 +93,7 @@ public class DollRecovery : MonoBehaviour
         }
 
         Vector3 front = BattleSystem.GetInstance().GetPlayerController().GetDollManager().transform.forward;
+        Vector3 right = BattleSystem.GetInstance().GetPlayerController().GetDollManager().transform.right;
         Doll theDollInRef = dollRef.GetComponent<Doll>();
         if (theDollInRef == null)
         {
@@ -84,7 +113,9 @@ public class DollRecovery : MonoBehaviour
                 break;
         }
 
-        Vector3 pos = transform.position + front;
+        float rightShift = -0.25f * (batchTotal - 1) + batchIndex * 0.5f;
+
+        Vector3 pos = transform.position + front + right * rightShift;
 
         GameObject dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
         if (SpawnFX)
