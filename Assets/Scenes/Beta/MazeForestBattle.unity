@@ -780,6 +780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 645653465}
   - component: {fileID: 645653466}
+  - component: {fileID: 645653467}
   m_Layer: 0
   m_Name: RoomGroundTileGroup
   m_TagString: Untagged
@@ -816,8 +817,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     baseTile: {fileID: 11400000, guid: 6b1224328ef8ee54e939b9f6e5d96268, type: 2}
-    decorateTiles: []
-    decorateRate: 0.15
+    decorateTiles:
+    - {fileID: 11400000, guid: a8031c254b3275446ba8c8fac21e9dee, type: 2}
+    - {fileID: 11400000, guid: 7a5debe5ffeef784ea09bfeb1f4e7a00, type: 2}
+    decorateRate: 0.05
+--- !u!114 &645653467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645653464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6410460c226b6d4f8538d29da66a947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  betaData:
+    baseTile: {fileID: 11400000, guid: 6b1224328ef8ee54e939b9f6e5d96268, type: 2}
+    decorateTiles:
+    - tile: {fileID: 11400000, guid: 7a5debe5ffeef784ea09bfeb1f4e7a00, type: 2}
+      rate: 0.02
+    - tile: {fileID: 11400000, guid: a8031c254b3275446ba8c8fac21e9dee, type: 2}
+      rate: 0.02
 --- !u!1 &694266821
 GameObject:
   m_ObjectHideFlags: 0
