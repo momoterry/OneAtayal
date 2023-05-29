@@ -20,6 +20,8 @@ public class MG_MazeDungeon : MapGeneratorBase
     public TileGroupDataBase groundTileGroup;
     public TileEdgeGroupDataBase groundEdgeTileGroup;
     public TileEdgeGroupDataBase wallEdgeTileGroup;
+    public TileGroupDataBase blockTileGroup;
+    public TileGroupDataBase defautTileGroup;
     public TileGroupDataBase roomGroundTileGroup;
     public TileEdgeGroupDataBase roomGroundTileEdgeGroup;
     public Tilemap groundTM;
@@ -108,6 +110,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         CreatMazeMap();
 
         //theMap.PrintMap();
+        if (defautTileGroup)
+            theMap.FillTileAll(OneMap.DEFAULT_VALUE, blockTM, defautTileGroup.GetTileGroup());
 
         if (groundEdgeTileGroup)
             theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false, (int)TILE_TYPE.BLOCK);
@@ -121,6 +125,10 @@ public class MG_MazeDungeon : MapGeneratorBase
             else
                 theMap.FillTileAll((int)TILE_TYPE.DIRT, groundTM, roomGroundTileGroup.GetTileGroup());
         }
+
+        if (blockTileGroup)
+            theMap.FillTileAll((int)TILE_TYPE.BLOCK, groundTM, blockTileGroup.GetTileGroup());
+
 
         if (wallEdgeTileGroup)
             theMap.FillTileAll((int)TILE_TYPE.GRASS, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true, (int)TILE_TYPE.BLOCK);
