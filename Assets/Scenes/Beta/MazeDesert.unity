@@ -462,6 +462,73 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+--- !u!1 &339304202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339304203}
+  - component: {fileID: 339304204}
+  m_Layer: 0
+  m_Name: GroundOutEdgeTileGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &339304203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339304202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &339304204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339304202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68ab9311db8512458b922dd67af2328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    UU: {fileID: 11400000, guid: c49903f313d53764eb576d3dedff0e4c, type: 2}
+    DD: {fileID: 11400000, guid: 79f84f1b6bd5acc4296b0a53a2d154ad, type: 2}
+    LL: {fileID: 11400000, guid: 554e810de322eca419a9cb41dd132cc9, type: 2}
+    RR: {fileID: 11400000, guid: 17b05bdc73025f540ba8817f38c7e803, type: 2}
+    LU: {fileID: 11400000, guid: 8bde9dd0c2e581f47a1852e0bfbcfd0e, type: 2}
+    RU: {fileID: 11400000, guid: b5bbfc351a1d50b4f8c1f4b540ef374b, type: 2}
+    LD: {fileID: 11400000, guid: a6ecfe35b92b9ee4b8767242fc7e41ea, type: 2}
+    RD: {fileID: 11400000, guid: 6f2790090a275614daa095b27adb8fdd, type: 2}
+    LU_S: {fileID: 11400000, guid: ce1d75ae2405056439335e0bb3226cb4, type: 2}
+    RU_S: {fileID: 11400000, guid: cec5f6fcd5fab364a8c66c0e7b363223, type: 2}
+    LD_S: {fileID: 11400000, guid: 36ded6e5103fb134e85e0fef2fd3b4b1, type: 2}
+    RD_S: {fileID: 11400000, guid: b14629a7b769acc4cbda992fa6a937d6, type: 2}
+    DD2: {fileID: 0}
+    LD2: {fileID: 0}
+    RD2: {fileID: 0}
+    LD_S2: {fileID: 11400000, guid: 554e810de322eca419a9cb41dd132cc9, type: 2}
+    RD_S2: {fileID: 11400000, guid: 17b05bdc73025f540ba8817f38c7e803, type: 2}
+    UU2: {fileID: 11400000, guid: d68abb48cae8e724090a9abede6c6c12, type: 2}
+    LU2: {fileID: 11400000, guid: 0b0bde0935b412d41b21c83ac76ee51a, type: 2}
+    RU2: {fileID: 11400000, guid: 3a53dbf4e2902f042a78a3652ec56877, type: 2}
+    LU_S2: {fileID: 11400000, guid: 190faa8e4adf3d44590526b147c77340, type: 2}
+    RU_S2: {fileID: 11400000, guid: 75f7a4ce9f33a9e46b6a9400920bd393, type: 2}
 --- !u!114 &368448936 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2911449816779957132, guid: 9050f11007a554f419e6163f7a7751f5, type: 3}
@@ -1497,15 +1564,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160138, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0
+      value: 0.54901963
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160138, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0
+      value: 0.8352942
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160138, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0
+      value: 0.8862746
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1559,63 +1626,6 @@ Transform:
   m_Father: {fileID: 1252285825}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &1696140725
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1696140726}
-  - component: {fileID: 1696140727}
-  m_Layer: 0
-  m_Name: WallEdgeTileGroup
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1696140726
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1696140725}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1806008470}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1696140727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1696140725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89fcd6705922feb40a9d0b20adb957d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data:
-    UU: {fileID: 11400000, guid: 3c60cd8b824fff0418b8aa57045b6c9c, type: 2}
-    DD: {fileID: 11400000, guid: ce5c00ad3f6aa11469c3a869a68c539d, type: 2}
-    LL: {fileID: 11400000, guid: eb77351994ec76741b24ba2e81a9f3f7, type: 2}
-    RR: {fileID: 11400000, guid: 0d2002363077b714db67fedb367b8f80, type: 2}
-    LU: {fileID: 11400000, guid: 82afa7dee820e5547952b61e7aa30a2f, type: 2}
-    RU: {fileID: 11400000, guid: 30e9a92e899575847ba528de8f23f992, type: 2}
-    LD: {fileID: 11400000, guid: ecc7836295275bc42a5a9c4c5738c549, type: 2}
-    RD: {fileID: 11400000, guid: 87bbb900b44dda24ea9ebaa2cc0afd6e, type: 2}
-    LU_S: {fileID: 11400000, guid: c02ed1ab1980b0742877e4200f76eb4e, type: 2}
-    RU_S: {fileID: 11400000, guid: 1b307f48b5a7d0f49adfb9aaf176be51, type: 2}
-    LD_S: {fileID: 11400000, guid: 99adc075d16997f44a8195b461330aa3, type: 2}
-    RD_S: {fileID: 11400000, guid: 741f56aa413a65d46b46a085d7e3c594, type: 2}
 --- !u!1 &1704354280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,7 +1819,9 @@ MonoBehaviour:
   finishPortalRef: {fileID: 3774412451971612881, guid: 28701d22c39761f4d86e24ca4fe20b40, type: 3}
   groundTileGroup: {fileID: 1478842750}
   groundEdgeTileGroup: {fileID: 0}
-  wallEdgeTileGroup: {fileID: 0}
+  wallEdgeTileGroup: {fileID: 339304204}
+  roomGroundTileGroup: {fileID: 0}
+  roomGroundTileEdgeGroup: {fileID: 0}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
   bigRooms:
@@ -1839,8 +1851,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1696140726}
   - {fileID: 1478842751}
+  - {fileID: 339304203}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
