@@ -178,6 +178,8 @@ public class Enemy : MonoBehaviour
                 //至少追擊一次
                 if (myAgent)
                     myAgent.SetDestination(targetPos);
+                if (myAnimator)
+                    myAnimator.SetBool("Run", true);
                 if (mySPAimator)
                     mySPAimator.SetIsRun(true);
                 stateTime = 0; //確保一開始先找一次目標
