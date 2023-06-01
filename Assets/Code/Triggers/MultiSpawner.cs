@@ -11,6 +11,16 @@ public class MultiSpawner : MonoBehaviour
     public float AreaWidth = 0;
     public float AreaHeight = 0;
 
+    public bool spawnOnStart = false;
+
+    private void Start()
+    {
+        if (spawnOnStart)
+        {
+            OnTG(gameObject);
+        }
+    }
+
     void OnTG(GameObject whoTG)
     {
         if (MinNum < MaxNum)

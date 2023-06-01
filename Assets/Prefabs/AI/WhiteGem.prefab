@@ -202,8 +202,18 @@ MonoBehaviour:
     trackRef: {fileID: 0}
     trackAnimStr: 
     trackDamageFX: {fileID: 0}
+  - bulletRef: {fileID: 4641581918583914209, guid: c42a5aff4d969bf4cb32808b81bdf8cd, type: 3}
+    bulletInitDis: 0
+    fixDirection: 1
+    damageRatio: 0.2
+    animString: Attack
+    trackRef: {fileID: 0}
+    trackAnimStr: 
+    trackDamageFX: {fileID: 0}
   skillPattern:
   - skillIndex: 0
+    collDown: 3
+  - skillIndex: 1
     collDown: 3
 --- !u!114 &4274056214866837559
 MonoBehaviour:
