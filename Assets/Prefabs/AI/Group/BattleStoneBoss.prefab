@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 682933803764966618}
   - component: {fileID: 682933803764966616}
   - component: {fileID: 682933803764966617}
+  - component: {fileID: 7371656366130819374}
   m_Layer: 0
   m_Name: MReward
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682933803764966619}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -64,6 +65,23 @@ MonoBehaviour:
   objRef: {fileID: 8143502755978418841, guid: 4c7c16cd36f11f34f8281b286f963f2e, type: 3}
   AreaWidth: 6
   AreaHeight: 2
+--- !u!114 &7371656366130819374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682933803764966619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3115885c8d5874b9bf8cb264b07be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinNum: 4
+  MaxNum: 5
+  objRef: {fileID: 8143502755978418841, guid: 67ab84094d2daa24cb6914bdde34adfe, type: 3}
+  AreaWidth: 6
+  AreaHeight: 4
 --- !u!1 &4777012180401727942
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +176,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4777012181299576967}
     m_Modifications:
     - target: {fileID: 3265715631666050365, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
@@ -222,15 +241,15 @@ PrefabInstance:
       objectReference: {fileID: 4777012180401727942}
     - target: {fileID: 5176690458194205501, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: m_Size.x
-      value: 32
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 5176690458194205501, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: m_Size.y
-      value: 32
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 5176690458194205501, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: m_Size.z
-      value: 32
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 5176690458194205501, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: m_Center.y
@@ -241,6 +260,9 @@ PrefabInstance:
       value: TriggerBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
 --- !u!4 &8005566514618938107 stripped
 Transform:
