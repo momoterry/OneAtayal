@@ -8,10 +8,10 @@ public class MGH_NightSky : MapGeneratorBase
     public Tilemap bgTM;
     public TileGroupDataBase bgTileGroupData;
 
-    protected int yMin = -16;
-    protected int yMax = 16;
-    protected int xMin = -32;
-    protected int xMax = 32;
+    public int yMin = -16;
+    public int yMax = 16;
+    public int xMin = -32;
+    public int xMax = 32;
 
     public override void BuildAll(int buildLevel = 1)
     {
