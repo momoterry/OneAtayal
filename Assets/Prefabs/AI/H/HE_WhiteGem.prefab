@@ -144,7 +144,7 @@ Transform:
   m_Children:
   - {fileID: 7131583488778240291}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &4274056214866837559
 MonoBehaviour:
@@ -220,12 +220,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddbe2c1795993a439327986de7b4dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 12
+  turnSpeed: 30
   wayPoints:
   - {x: 12, y: 0, z: 0}
-  - {x: -10, y: 0, z: -2}
-  - {x: -20, y: 0, z: -4}
-  - {x: -30, y: 0, z: -12}
+  - {x: -5, y: 0, z: -2}
+  - {x: -10, y: 0, z: -4}
+  - {x: -15, y: 0, z: -8}
+  - {x: -20, y: 0, z: -16}
+  - {x: -25, y: 0, z: -32}
 --- !u!1 &7415209249814626043
 GameObject:
   m_ObjectHideFlags: 0

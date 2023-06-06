@@ -1,23 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 
 public class WayPointMover : MonoBehaviour
 {
     public float speed = 10.0f;
+    public float turnSpeed = 30.0f;
 
     public Vector3[] wayPoints;
 
     protected Vector3 startPos;
     protected int currentWaypointIndex = 0;
 
+    protected Vector3 currDirection;
+
     private void Awake()
     {
         startPos = transform.position;
         print(startPos);
         if (wayPoints.Length > 0)
+        {
             transform.position = startPos + wayPoints[0];
+            currentWaypointIndex++;
+        }
+        if (wayPoints.Length > 1)
+            currDirection = (wayPoints[1] - wayPoints[0]).normalized;
+
     }
 
     // Start is called before the first frame update
@@ -38,7 +48,20 @@ public class WayPointMover : MonoBehaviour
                 if (currentWaypointIndex >= wayPoints.Length)
                     return;
             }
-            transform.position = Vector3.MoveTowards(transform.position, startPos + wayPoints[currentWaypointIndex], speed * Time.deltaTime);
+
+            Vector3 toDirection = (startPos + wayPoints[currentWaypointIndex] - transform.position).normalized;
+            float targetObjAngle = Vector3.Angle(currDirection, toDirection);
+            float turnStep = turnSpeed * Time.deltaTime;
+            if (targetObjAngle < turnStep)
+            {
+                currDirection = toDirection;
+            }
+            else 
+            {
+                currDirection = Vector3.RotateTowards(currDirection, toDirection, turnStep * Mathf.Deg2Rad, 0);
+            }
+            transform.position += currDirection * speed * Time.deltaTime;
+            //transform.position = Vector3.MoveTowards(transform.position, startPos + wayPoints[currentWaypointIndex], speed * Time.deltaTime);
         }
     }
 }
