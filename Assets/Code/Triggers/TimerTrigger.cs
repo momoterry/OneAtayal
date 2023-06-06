@@ -16,6 +16,7 @@ public class TimerTrigger : MonoBehaviour
     public bool isLoop = false;
     public float timeBetweenLoop = 0;
     public bool triggeredAgainToStop = false;
+    public bool initActive = false;
 
     protected enum Phase
     {
@@ -34,7 +35,8 @@ public class TimerTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (initActive)
+            nextPhase = Phase.ACTIVE;
     }
 
     // Update is called once per frame
@@ -98,5 +100,6 @@ public class TimerTrigger : MonoBehaviour
         {
             nextPhase = Phase.FINISH;   //TODO: 如果是能反覆開關?
         }
+        print(currPhase);
     }
 }
