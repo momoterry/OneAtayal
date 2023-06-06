@@ -49,6 +49,8 @@ public class Battle_HUD : MonoBehaviour
     //µÍ¿¿∑n±Ï¨€√ˆ
     public VPad theVPad;
 
+    public bool autoAdjustCameraRatio = true;
+
     protected int currMoney = -1;
     protected int currLV = -1;
     protected float currExpRatio = -1.0f;
@@ -91,7 +93,7 @@ public class Battle_HUD : MonoBehaviour
             }
 
             //CanvasScaler theScaler = GetComponent<CanvasScaler>();
-            if (theScaler != null)
+            if (autoAdjustCameraRatio && theScaler != null)
             {
                 float currRatio = (float)currSceenWidth / (float)currSceenHeight;
                 if (currRatio < targetRatio)
