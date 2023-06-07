@@ -8,6 +8,7 @@ public class WayPointMover : MonoBehaviour
 {
     public float speed = 10.0f;
     public float turnSpeed = 30.0f;
+    public float closeDis = 0.25f;
 
     public Vector3[] wayPoints;
 
@@ -42,8 +43,9 @@ public class WayPointMover : MonoBehaviour
         if (currentWaypointIndex < wayPoints.Length)
         {
             float distance = Vector3.Distance(transform.position, startPos + wayPoints[currentWaypointIndex]);
-            if (distance < 0.1f)
+            if (distance < closeDis)
             {
+                print("Got Point: " + currentWaypointIndex);
                 currentWaypointIndex++;
                 if (currentWaypointIndex >= wayPoints.Length)
                     return;
