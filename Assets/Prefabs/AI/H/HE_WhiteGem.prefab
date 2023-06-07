@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 7933927348871159214}
   - component: {fileID: 3582969520858299184}
   - component: {fileID: 4479096841742564639}
+  - component: {fileID: -2332467536550024600}
   m_Layer: 10
   m_Name: HE_WhiteGem
   m_TagString: Enemy
@@ -144,7 +145,7 @@ Transform:
   m_Children:
   - {fileID: 7131583488778240291}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &4274056214866837559
 MonoBehaviour:
@@ -220,8 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddbe2c1795993a439327986de7b4dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
-  turnSpeed: 30
+  speed: 10
+  turnSpeed: 60
+  closeDis: 0.25
   wayPoints:
   - {x: 12, y: 0, z: 0}
   - {x: -5, y: 0, z: -2}
@@ -229,6 +231,35 @@ MonoBehaviour:
   - {x: -15, y: 0, z: -8}
   - {x: -20, y: 0, z: -16}
   - {x: -25, y: 0, z: -32}
+--- !u!114 &-2332467536550024600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568917047187759288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8640e9182a2242741abfa1b81aa72530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: -1
+  MaxHP: 50
+  spawnFX: {fileID: 0}
+  deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
+  debris: {fileID: 0}
+  SpawnWaitTime: 0.1
+  ChaseRangeIn: 10
+  ChaseRangeOut: 12
+  AttackRangeIn: 1
+  AttackRangeOut: 1.2
+  AttackWait: 0.2
+  AttackCD: 1
+  Attack: 20
+  SlotRangeOut: 3
+  SlotRangeIn: 2
+  myAnimator: {fileID: 0}
+  mySPAimator: {fileID: 0}
 --- !u!1 &7415209249814626043
 GameObject:
   m_ObjectHideFlags: 0
