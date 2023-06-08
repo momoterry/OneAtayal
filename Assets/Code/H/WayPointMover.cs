@@ -7,8 +7,9 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class WayPointMover : MonoBehaviour
 {
     public float speed = 10.0f;
-    public float turnSpeed = 30.0f;
+    //public float turnSpeed = 30.0f;
     public float closeDis = 0.25f;
+    public float flowRate = 0.5f;
 
     public Vector3[] wayPoints;
 
@@ -16,6 +17,8 @@ public class WayPointMover : MonoBehaviour
     protected int currentWaypointIndex = 0;
 
     protected Vector3 currDirection;
+
+    protected float flowSpeed = 8.0f;       //TODO: 想辦法透過系統抓到真正「流速」
 
     private void Awake()
     {
@@ -45,25 +48,28 @@ public class WayPointMover : MonoBehaviour
             float distance = Vector3.Distance(transform.position, startPos + wayPoints[currentWaypointIndex]);
             if (distance < closeDis)
             {
-                print("Got Point: " + currentWaypointIndex);
+                //print("Got Point: " + currentWaypointIndex);
                 currentWaypointIndex++;
                 if (currentWaypointIndex >= wayPoints.Length)
                     return;
             }
 
-            Vector3 toDirection = (startPos + wayPoints[currentWaypointIndex] - transform.position).normalized;
-            float targetObjAngle = Vector3.Angle(currDirection, toDirection);
-            float turnStep = turnSpeed * Time.deltaTime;
-            if (targetObjAngle < turnStep)
-            {
-                currDirection = toDirection;
-            }
-            else 
-            {
-                currDirection = Vector3.RotateTowards(currDirection, toDirection, turnStep * Mathf.Deg2Rad, 0);
-            }
-            transform.position += currDirection * speed * Time.deltaTime;
-            //transform.position = Vector3.MoveTowards(transform.position, startPos + wayPoints[currentWaypointIndex], speed * Time.deltaTime);
+            //Vector3 toDirection = (startPos + wayPoints[currentWaypointIndex] - transform.position).normalized;
+            //float targetObjAngle = Vector3.Angle(currDirection, toDirection);
+            //float turnStep = turnSpeed * Time.deltaTime;
+            //if (targetObjAngle < turnStep)
+            //{
+            //    currDirection = toDirection;
+            //}
+            //else 
+            //{
+            //    currDirection = Vector3.RotateTowards(currDirection, toDirection, turnStep * Mathf.Deg2Rad, 0);
+            //}
+            //transform.position += currDirection * speed * Time.deltaTime;
+
+            float flowAddRate = (1.0f - (startPos + wayPoints[currentWaypointIndex] - transform.position).normalized.x * flowRate ) * flowSpeed / speed;
+            transform.position = Vector3.MoveTowards(transform.position, startPos + wayPoints[currentWaypointIndex], flowAddRate * speed * Time.deltaTime);
+            //print("flowAddRate" + flowAddRate);
         }
     }
 }
