@@ -8,6 +8,7 @@ public class ContinueSpawner : MonoBehaviour
     public GameObject spawnRef;
     public int totalCount = 2;
     public float stepTime = 0.2f;
+    public Vector3 stepShift;
 
     protected float waitTime = 0;
     protected int currIndex = -1;
@@ -41,7 +42,7 @@ public class ContinueSpawner : MonoBehaviour
     {
         if (spawnRef)
         {
-            BattleSystem.SpawnGameObj(spawnRef, transform.position);
+            BattleSystem.SpawnGameObj(spawnRef, transform.position + currIndex * stepShift);
         }
     }
 

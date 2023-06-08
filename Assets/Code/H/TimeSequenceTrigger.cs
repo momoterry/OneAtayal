@@ -10,7 +10,7 @@ public class TimeSequenceTrigger : MonoBehaviour
     public class Clip
     {
         public GameObject triggerTarget;
-        public float waitTime;
+        public float waitTimeAfter;     //觸發後的等待
     }
     public Clip[] clips;
 
@@ -31,16 +31,16 @@ public class TimeSequenceTrigger : MonoBehaviour
             waitTime -= Time.deltaTime;
             if (waitTime <= 0)
             {
-                clips[currClipIndex].triggerTarget.SendMessage("OnTG", gameObject, SendMessageOptions.DontRequireReceiver);
-
-                currClipIndex++;
                 if (currClipIndex >= clips.Length)
                 {
                     currClipIndex = -1; //結束
+                    //print("結束.........");
                 }
                 else
                 {
-                    waitTime += clips[currClipIndex].waitTime;
+                    clips[currClipIndex].triggerTarget.SendMessage("OnTG", gameObject, SendMessageOptions.DontRequireReceiver);
+                    waitTime += clips[currClipIndex].waitTimeAfter;
+                    currClipIndex++;
                 }
             }
         }
@@ -51,7 +51,7 @@ public class TimeSequenceTrigger : MonoBehaviour
         if (currClipIndex < 0 && clips.Length > 0)
         {
             currClipIndex = 0;
-            waitTime = clips[0].waitTime;
+            waitTime = 0;
         }
     }
 }
