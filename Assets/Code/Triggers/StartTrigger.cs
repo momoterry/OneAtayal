@@ -30,7 +30,7 @@ public class StartTrigger : MonoBehaviour
 
     void DoIt()
     {
-        print("Do It !!");
+        //print("Do It !!");
         for (int i = 0; i < triggerTargets.Length; i++)
         {
             if (triggerTargets[i])

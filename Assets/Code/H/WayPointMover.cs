@@ -23,7 +23,7 @@ public class WayPointMover : MonoBehaviour
     private void Awake()
     {
         startPos = transform.position;
-        print(startPos);
+        //print(startPos);
         if (wayPoints.Length > 0)
         {
             transform.position = startPos + wayPoints[0];
@@ -67,9 +67,9 @@ public class WayPointMover : MonoBehaviour
             //}
             //transform.position += currDirection * speed * Time.deltaTime;
 
-            float flowAddRate = (1.0f - (startPos + wayPoints[currentWaypointIndex] - transform.position).normalized.x * flowRate ) * flowSpeed / speed;
+            float flowAddRate = (1.0f - (startPos + wayPoints[currentWaypointIndex] - transform.position).normalized.x * flowRate * flowSpeed / speed);
             transform.position = Vector3.MoveTowards(transform.position, startPos + wayPoints[currentWaypointIndex], flowAddRate * speed * Time.deltaTime);
-            //print("flowAddRate" + flowAddRate);
+
         }
     }
 }
