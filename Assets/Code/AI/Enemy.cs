@@ -153,6 +153,14 @@ public class Enemy : MonoBehaviour
         //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y); //用 Y 值設定Z
     }
 
+    protected virtual void OnStartAttack()
+    {
+        if (myAnimator)
+            myAnimator.SetBool("Run", false);
+        if (mySPAimator)
+            mySPAimator.SetIsRun(false);
+    }
+
     protected virtual void OnStateEnter()
     {
         //print("AI Endter State : " + nextState);
@@ -168,11 +176,12 @@ public class Enemy : MonoBehaviour
                     mySPAimator.SetIsRun(false);
                 break;
             case AI_STATE.ATTACK:
-                stateTime = AttackWait;
-                if (myAnimator)
-                    myAnimator.SetBool("Run", false);
-                if (mySPAimator)
-                    mySPAimator.SetIsRun(false);
+                //stateTime = AttackWait;
+                //if (myAnimator)
+                //    myAnimator.SetBool("Run", false);
+                //if (mySPAimator)
+                //    mySPAimator.SetIsRun(false);
+                OnStartAttack();
                 break;
             case AI_STATE.CHASE:
                 //至少追擊一次

@@ -20,6 +20,16 @@ public class EnemyBomber : Enemy
         }
     }
 
+    protected override void OnStartAttack()
+    {
+        //print("Bomb OnStartAttack");
+        base.OnStartAttack();
+        if (mySPAimator)
+        {
+            mySPAimator.PlaySpecific("Hint");
+        }
+    }
+
     protected void DoExplosion()
     {
         Vector3 expPos = transform.position;

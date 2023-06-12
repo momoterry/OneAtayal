@@ -121,6 +121,7 @@ public class SPAnimator : MonoBehaviour
         }
     }
     virtual public void SetIsRun(bool run) { isRun = run; }
+    virtual public void PlaySpecific(string specificName) { }
 
     private void Awake()
     {

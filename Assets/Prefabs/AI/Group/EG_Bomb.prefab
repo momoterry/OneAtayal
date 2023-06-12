@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8111806694381353528}
   - component: {fileID: 7800569569075849686}
-  - component: {fileID: 1633170128319952585}
+  - component: {fileID: 920601177900596515}
   m_Layer: 0
   m_Name: MinionBomb_0
   m_TagString: Untagged
@@ -118,7 +118,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1633170128319952585
+--- !u!114 &920601177900596515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4377816835669452744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c068845190a0bd0408567d85da11b586, type: 3}
+  m_Script: {fileID: 11500000, guid: db0e3212c740be346bed2df56ff1b77c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
@@ -141,6 +141,16 @@ MonoBehaviour:
     - {fileID: -764182006, guid: 0b34fd3dde26aae4f88f6a46e69c932f, type: 3}
     - {fileID: 507146901, guid: 0b34fd3dde26aae4f88f6a46e69c932f, type: 3}
     FPS: 12
+  specificClips:
+  - name: Hint
+    clip:
+      sprites:
+      - {fileID: -1049234441, guid: 0b34fd3dde26aae4f88f6a46e69c932f, type: 3}
+      - {fileID: 1564731507, guid: 0b34fd3dde26aae4f88f6a46e69c932f, type: 3}
+      - {fileID: 860296959, guid: 0b34fd3dde26aae4f88f6a46e69c932f, type: 3}
+      - {fileID: 851575694, guid: 0b34fd3dde26aae4f88f6a46e69c932f, type: 3}
+      FPS: 12
+    loop: 1
 --- !u!1 &4797232611123964707
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +301,7 @@ MonoBehaviour:
   SlotRangeOut: 3
   SlotRangeIn: 2
   myAnimator: {fileID: 0}
-  mySPAimator: {fileID: 0}
+  mySPAimator: {fileID: 920601177900596515}
   expRadius: 4
   expFX: {fileID: 4005502135651534345, guid: c1320f4954c56724691dba426f8da141, type: 3}
   hitFX: {fileID: 4216302426155839046, guid: 492a5acd227e36440977f27098111c41, type: 3}
