@@ -19,7 +19,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     // Tile 資料相關
     public TileGroupDataBase groundTileGroup;
     public TileEdgeGroupDataBase groundEdgeTileGroup;
-    public TileEdgeGroupDataBase wallEdgeTileGroup;
+    public TileEdgeGroupDataBase wallEdgeTileGroup;     //名字是 wallEdge，應該以行走區為中心設定的外部 Edge
     public TileGroupDataBase blockTileGroup;
     public TileGroupDataBase defautTileGroup;
     public TileGroupDataBase roomGroundTileGroup;
