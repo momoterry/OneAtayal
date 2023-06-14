@@ -49,19 +49,12 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected int borderWidth = 4;
     protected Vector3Int mapCenter;
     protected OneMap theMap = new OneMap();
-    protected enum TILE_TYPE    //TODO: 要拿掉
+    protected enum MAP_TYPE 
     {
-        GRASS = 4,
-        DIRT = 5,
+        GROUND = 4,
+        ROOM = 5,
         BLOCK = 6,
-        EDGE_VALUE = 100, //大於等於這個值就是 Edge
-        GRASS_EDGE = 400,
-        DIRT_EDGE = 500,
-        BLOCK_EDGE = 600,
     }
-
-    //Tile 資料
-    //protected TileGroup groundTG;
 
     protected int bufferX = 0;
     protected int bufferY = 0;
@@ -114,24 +107,24 @@ public class MG_MazeDungeon : MapGeneratorBase
             theMap.FillTileAll(OneMap.DEFAULT_VALUE, blockTM, defautTileGroup.GetTileGroup());
 
         if (groundEdgeTileGroup)
-            theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false, (int)TILE_TYPE.BLOCK);
+            theMap.FillTileAll((int)MAP_TYPE.GROUND, groundTM, groundTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false, (int)MAP_TYPE.BLOCK);
         else
-            theMap.FillTileAll((int)TILE_TYPE.GRASS, groundTM, groundTileGroup.GetTileGroup());
+            theMap.FillTileAll((int)MAP_TYPE.GROUND, groundTM, groundTileGroup.GetTileGroup());
 
         if (roomGroundTileGroup != null)
         {
             if (roomGroundTileEdgeGroup)
-                theMap.FillTileAll((int)TILE_TYPE.DIRT, groundTM, groundTM, roomGroundTileGroup.GetTileGroup(), roomGroundTileEdgeGroup.GetTileEdgeGroup(), false);
+                theMap.FillTileAll((int)MAP_TYPE.ROOM, groundTM, groundTM, roomGroundTileGroup.GetTileGroup(), roomGroundTileEdgeGroup.GetTileEdgeGroup(), false);
             else
-                theMap.FillTileAll((int)TILE_TYPE.DIRT, groundTM, roomGroundTileGroup.GetTileGroup());
+                theMap.FillTileAll((int)MAP_TYPE.ROOM, groundTM, roomGroundTileGroup.GetTileGroup());
         }
 
         if (blockTileGroup)
-            theMap.FillTileAll((int)TILE_TYPE.BLOCK, groundTM, blockTileGroup.GetTileGroup());
+            theMap.FillTileAll((int)MAP_TYPE.BLOCK, groundTM, blockTileGroup.GetTileGroup());
 
 
         if (wallEdgeTileGroup)
-            theMap.FillTileAll((int)TILE_TYPE.GRASS, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true, (int)TILE_TYPE.BLOCK);
+            theMap.FillTileAll((int)MAP_TYPE.GROUND, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true, (int)MAP_TYPE.BLOCK);
 
         theSurface2D.BuildNavMesh();
 
@@ -146,9 +139,9 @@ public class MG_MazeDungeon : MapGeneratorBase
     {
         switch (value)
         {
-            case (int)TILE_TYPE.GRASS:
+            case (int)MAP_TYPE.GROUND:
                 return new Color(0.5f, 0.5f, 0.5f);
-            //case (int)TILE_TYPE.BLOCK:
+            //case (int)MAP_TYPE.BLOCK:
             //    return new Color(1.0f, 1.0f, 1.0f);
         }
         return Color.black;
@@ -182,28 +175,28 @@ public class MG_MazeDungeon : MapGeneratorBase
     {
         int x2 = x1 + width - wallWidth;
         int y2 = y1 + height - wallHeight;
-        theMap.FillValue(x1, y1, width, height, (int)TILE_TYPE.GRASS);
+        theMap.FillValue(x1, y1, width, height, (int)MAP_TYPE.GROUND);
 
-        theMap.FillValue(x1, y1, wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
-        theMap.FillValue(x1, y2, wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
-        theMap.FillValue(x2, y1, wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
-        theMap.FillValue(x2, y2, wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
+        theMap.FillValue(x1, y1, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+        theMap.FillValue(x1, y2, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+        theMap.FillValue(x2, y1, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+        theMap.FillValue(x2, y2, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
 
         if (!cell.D)
         {
-            theMap.FillValue(x1+ wallWidth, y1, width- wallWidth - wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x1+ wallWidth, y1, width- wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
         }
         if (!cell.U)
         {
-            theMap.FillValue(x1 + wallWidth, y2, width - wallWidth - wallWidth, wallHeight, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x1 + wallWidth, y2, width - wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
         }
         if (!cell.L)
         {
-            theMap.FillValue(x1, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x1, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
         }
         if (!cell.R)
         {
-            theMap.FillValue(x2, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)TILE_TYPE.BLOCK);
+            theMap.FillValue(x2, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
         }
     }
 
@@ -477,10 +470,10 @@ public class MG_MazeDungeon : MapGeneratorBase
             int y1 = puzzleY1 + rc.y * cellHeight;
             if (roomGroundTileGroup != null)
                 theMap.FillValue(x1 + borderWidth, y1 + borderWidth,
-                    rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.DIRT);
+                    rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)MAP_TYPE.ROOM);
             else
                 theMap.FillValue(x1 + borderWidth, y1 + borderWidth,
-                    rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)TILE_TYPE.GRASS);
+                    rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)MAP_TYPE.GROUND);
 
             Vector3 pos = new Vector3(x1 + rc.width * cellWidth / 2, 0, y1 + rc.height * cellHeight / 2);
             if (bigRooms[i].gameplayRef)
