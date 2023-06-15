@@ -779,8 +779,8 @@ MonoBehaviour:
   cellHeight: 10
   wallWidth: 2
   wallHeight: 2
-  puzzleHeight: 6
-  puzzleWidth: 6
+  puzzleHeight: 12
+  puzzleWidth: 12
   allConnect: 1
   extendTerminal: 0
   finishPortalRef: {fileID: 3774412451971612881, guid: 28701d22c39761f4d86e24ca4fe20b40, type: 3}
@@ -796,7 +796,15 @@ MonoBehaviour:
   bigRooms: []
   noRoomBuffer: 1
   normalGroup: {fileID: 2283165509847586994, guid: 28991f82fa787d04e9bb4116d3106dcd, type: 3}
-  exploreRewards: []
+  exploreRewards:
+  - {fileID: 4032685806379418579, guid: 09da63a85b90a964f8f135664ce7cc04, type: 3}
+  - {fileID: 4032685806379418579, guid: 09da63a85b90a964f8f135664ce7cc04, type: 3}
+  - {fileID: 4032685806379418579, guid: 24370a31510131746805bfc36062d4d5, type: 3}
+  - {fileID: 4032685806379418579, guid: 24370a31510131746805bfc36062d4d5, type: 3}
+  - {fileID: 2277958548633157614, guid: 244718446c1df654e9d8b7c317d5b060, type: 3}
+  - {fileID: 2277958548633157614, guid: 244718446c1df654e9d8b7c317d5b060, type: 3}
+  blockFillRatio: 0.35
+  maxWalkers: 4
 --- !u!4 &897733007
 Transform:
   m_ObjectHideFlags: 0

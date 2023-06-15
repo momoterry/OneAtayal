@@ -236,6 +236,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     protected List<RectInt> rectList;
 
+    protected Vector2Int puzzleStart, puzzleEnd;
+
     protected void CreatMazeMap()
     {
         //==== Init Puzzle Map
@@ -249,6 +251,10 @@ public class MG_MazeDungeon : MapGeneratorBase
                 puzzleMap[i][j] = new cellInfo();
             }
         }
+        puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
+        puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
+
+
         InitPuzzleMap();        //處理非全方型 PuzzleMap 的情況
 
         //==== Init Connection Info
@@ -334,9 +340,10 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //==== 開始隨機連結 !!
-        iStart = GetCellID(puzzleWidth / 2, 0);
-        iEnd = GetCellID(puzzleWidth / 2, puzzleHeight - 1);
-
+        //iStart = GetCellID(puzzleWidth / 2, 0);
+        //iEnd = GetCellID(puzzleWidth / 2, puzzleHeight - 1);
+        iStart = GetCellID(puzzleStart.x, puzzleStart.y);
+        iEnd = GetCellID(puzzleEnd.x, puzzleEnd.y);
         if (allConnect)
         {
             //使用隨機排序
