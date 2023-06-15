@@ -75,6 +75,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 
         public const int NORMAL = 0;
         public const int ROOM = 1;
+        public const int INVALID = -1;
     }
 
     protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
@@ -176,6 +177,11 @@ public class MG_MazeDungeon : MapGeneratorBase
     {
         int x2 = x1 + width - wallWidth;
         int y2 = y1 + height - wallHeight;
+        if (cell.value == cellInfo.INVALID)
+        {
+            theMap.FillValue(x1, y1, width, height, (int)MAP_TYPE.BLOCK);
+            return;
+        }
         theMap.FillValue(x1, y1, width, height, (int)MAP_TYPE.GROUND);
 
         theMap.FillValue(x1, y1, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
@@ -226,6 +232,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         return new Vector3(puzzleX1 + cellWidth * (x + 0.5f), 0, puzzleY1 + cellHeight * (y + 0.5f));
     }
 
+    virtual protected void InitPuzzleMap(){}
+
     protected List<RectInt> rectList;
 
     protected void CreatMazeMap()
@@ -241,6 +249,8 @@ public class MG_MazeDungeon : MapGeneratorBase
                 puzzleMap[i][j] = new cellInfo();
             }
         }
+        InitPuzzleMap();        //處理非全方型 PuzzleMap 的情況
+
         //==== Init Connection Info
         wallInfo[,] lrWalls = new wallInfo[puzzleWidth - 1, puzzleHeight];
         wallInfo[,] udWalls = new wallInfo[puzzleWidth, puzzleHeight + 1];
@@ -249,13 +259,16 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             for (int y = 0; y < puzzleHeight; y++)
             {
-                if (x < puzzleWidth - 1)
+                if (puzzleMap[x][y].value == cellInfo.INVALID)
+                    continue;
+
+                if ( x < puzzleWidth - 1 && puzzleMap[x + 1][y].value != cellInfo.INVALID )
                 {
                     wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x + 1, y));
                     wallList.Add(w);
                     lrWalls[x, y] = w;
                 }
-                if (y < puzzleHeight - 1)
+                if ( y < puzzleHeight - 1 && puzzleMap[x][y+1].value != cellInfo.INVALID )
                 {
                     wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x, y + 1));
                     wallList.Add(w);
@@ -268,7 +281,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         List<Vector2Int> sizeList = new List<Vector2Int>();
         for (int i = 0; i < bigRooms.Length; i++)
         {
-            sizeList.Add(bigRooms[i].size);
+            if (bigRooms[i].size.x >0 && bigRooms[i].size.y > 0)
+                sizeList.Add(bigRooms[i].size);
         }
         rectList = CreateNonOverlappingRects(sizeList, new RectInt(0, noRoomBuffer, puzzleWidth, puzzleHeight - noRoomBuffer));
 
@@ -477,6 +491,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                     rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)MAP_TYPE.GROUND);
 
             Vector3 pos = new Vector3(x1 + rc.width * cellWidth / 2, 0, y1 + rc.height * cellHeight / 2);
+            //print("BigRoom Gameplay Pos" + pos);
             if (bigRooms[i].gameplayRef)
             {
                 BattleSystem.SpawnGameObj(bigRooms[i].gameplayRef, pos);
