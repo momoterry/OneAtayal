@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MG_MazeDungeon : MapGeneratorBase
+public class MG_MazeCave : MapGeneratorBase
 {
     // 迷宮資料相關
     public int cellWidth = 4;
@@ -19,8 +19,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     // Tile 資料相關
     public TileGroupDataBase groundTileGroup;
     public TileEdgeGroupDataBase groundEdgeTileGroup;
-    //public TileEdgeGroupDataBase wallEdgeTileGroup;     ////應是 Ground 的外部 Edge，名字應該改掉
-    public TileEdgeGroupDataBase groundOutEdgeTileGroup;
+    public TileEdgeGroupDataBase wallEdgeTileGroup;     //應是 Ground 的外部 Edge，名字應該改掉
     public TileGroupDataBase blockTileGroup;
     public TileGroupDataBase defautTileGroup;
     public TileGroupDataBase roomGroundTileGroup;
@@ -124,8 +123,8 @@ public class MG_MazeDungeon : MapGeneratorBase
             theMap.FillTileAll((int)MAP_TYPE.BLOCK, groundTM, blockTileGroup.GetTileGroup());
 
 
-        if (groundOutEdgeTileGroup)
-            theMap.FillTileAll((int)MAP_TYPE.GROUND, null, blockTM, null, groundOutEdgeTileGroup.GetTileEdgeGroup(), true, (int)MAP_TYPE.BLOCK);
+        if (wallEdgeTileGroup)
+            theMap.FillTileAll((int)MAP_TYPE.GROUND, null, blockTM, null, wallEdgeTileGroup.GetTileEdgeGroup(), true, (int)MAP_TYPE.BLOCK);
 
         theSurface2D.BuildNavMesh();
 
