@@ -8,7 +8,6 @@ public class MG_MazeCave : MG_MazeDungeon
     //RandomWalker
     public float blockFillRatio = 0.35f;
     public int maxWalkers = 6;
-    //public Vector2Int walkerInitDir = Vector2Int.up;
     protected int initWalkerNum = 1;
     protected float changeDirRatio = 0.2f;
     protected float deadRatio = 0.15f;
@@ -35,9 +34,9 @@ public class MG_MazeCave : MG_MazeDungeon
         }
 
         //重設起點到全圖中心
-        print("原起點 " + puzzleStart);
+        //print("原起點 " + puzzleStart);
         puzzleStart.y += puzzleHeight / 2;
-        print("新起點 " + puzzleStart);
+        //print("新起點 " + puzzleStart);
 
         CreateRandomWalkerMap();
 
@@ -169,7 +168,10 @@ public class MG_MazeCave : MG_MazeDungeon
         public RandomWalker(Vector2Int _pos, Vector2Int _initDir)
         {
             pos = _pos;
-            dir = _initDir;
+            if (_initDir == Vector2Int.zero)
+                SetRandomDir();
+            else
+                dir = _initDir;
         }
         public void SetRandomDir()
         {
