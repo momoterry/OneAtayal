@@ -149,7 +149,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         return Color.black;
     }
 
-    protected void PreCreateMap()
+    virtual protected void PreCreateMap()
     {
         if (extendTerminal)
         {
@@ -420,16 +420,28 @@ public class MG_MazeDungeon : MapGeneratorBase
         startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iStart) * cellHeight + cellHeight / 2);
         endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
 
-        //==== 緩衝區處理
+        //==== 起終點上下延申處理
         if (extendTerminal)
         {
             //起始區處理
-            cellInfo cStart = new cellInfo();
-            cellInfo cEnd = new cellInfo();
-            cStart.U = true;
-            cEnd.D = true;
-            FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellWidth, puzzleY1 + (GetCellY(iStart) - 1) * cellHeight, cellWidth, cellHeight);
-            FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellWidth, puzzleY1 + (GetCellY(iEnd) + 1) * cellHeight, cellWidth, cellHeight);
+            if (puzzleStart.y == 0)
+            {
+                cellInfo cStart = new cellInfo();
+                cStart.U = true;
+                FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellWidth, puzzleY1 + (GetCellY(iStart) - 1) * cellHeight, cellWidth, cellHeight);
+            }
+            else
+                puzzleMap[GetCellX(iStart)][GetCellY(iStart) - 1].U = true;
+
+            if (puzzleEnd.y == (puzzleHeight - 1))
+            {
+                cellInfo cEnd = new cellInfo();
+                cEnd.D = true;
+                FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellWidth, puzzleY1 + (GetCellY(iEnd) + 1) * cellHeight, cellWidth, cellHeight);
+            }
+            else
+                puzzleMap[GetCellX(iEnd)][GetCellY(iEnd) + 1].D = true;
+
             puzzleMap[GetCellX(iStart)][GetCellY(iStart)].D = true;
             puzzleMap[GetCellX(iEnd)][GetCellY(iEnd)].U = true;
 
