@@ -41,7 +41,7 @@ public class ScenePortal : MonoBehaviour
         }
     }
 
-    protected void DoTeleport()
+    virtual protected void DoTeleport()
     {
         currTime = fadeTime;
         if (fadeBlocker)
