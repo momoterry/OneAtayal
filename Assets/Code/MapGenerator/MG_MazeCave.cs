@@ -17,9 +17,9 @@ public class MG_MazeCave : MG_MazeDungeon
     protected override void PreCreateMap()
     {
         base.PreCreateMap();
-        print("原mapCenter " + mapCenter);
+        //print("原mapCenter " + mapCenter);
         mapCenter.y -= cellHeight * (puzzleHeight / 2);
-        print("原mapCenter " + mapCenter);
+        //print("原mapCenter " + mapCenter);
     }
 
     protected override void InitPuzzleMap()
@@ -97,7 +97,7 @@ public class MG_MazeCave : MG_MazeDungeon
             UpdateWalkers();
             step++;
         }
-        print("RandomWalker Total Block:" + blockNum);
+        //print("RandomWalker Total Block:" + blockNum);
 
     }
 

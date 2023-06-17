@@ -96,6 +96,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     public override void BuildAll(int buildLevel = 1)
     {
+        PresetByContinuousBattle();
+
         PreCreateMap();
 
         theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
@@ -147,6 +149,29 @@ public class MG_MazeDungeon : MapGeneratorBase
             //    return new Color(1.0f, 1.0f, 1.0f);
         }
         return Color.black;
+    }
+
+    virtual protected void PresetByContinuousBattle()
+    {
+        ContinuousBattleDataBase cBase = ContinuousBattleManager.GetCurrBattleData();
+        if (cBase != null)
+        {
+            if (cBase is ContinuousMazeData)
+            {
+                ContinuousMazeData cData = (ContinuousMazeData)cBase;
+                puzzleWidth = cData.puzzleWidth;
+                puzzleHeight = cData.puzzleHeight;
+                foreach (BigRoomInfo br in bigRooms)
+                {
+                    br.size = Vector2Int.zero;
+                }
+                print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
+            }
+            else
+            {
+                print("ERROR!! ContinuousBattle 錯誤，下個關卡資料不是 ContinuousMazeData !!");
+            }
+        }
     }
 
     virtual protected void PreCreateMap()
