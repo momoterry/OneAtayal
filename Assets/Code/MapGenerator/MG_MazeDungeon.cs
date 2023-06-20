@@ -166,6 +166,14 @@ public class MG_MazeDungeon : MapGeneratorBase
                     br.size = Vector2Int.zero;
                 }
                 print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
+
+                if (cData.normalEnemyNum > 0)
+                {
+                    if (normalGroup)
+                    {
+                        normalGroup.randomEnemyTotal = cData.normalEnemyNum;
+                    }
+                }
             }
             else
             {

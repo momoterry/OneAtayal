@@ -7,6 +7,7 @@ public class ContinuousMazeData : ContinuousBattleDataBase
 {
     public int puzzleWidth;
     public int puzzleHeight;
+    public int normalEnemyNum;
 }
 
 public class ContinuousMazePortal : ScenePortal
