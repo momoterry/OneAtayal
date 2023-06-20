@@ -172,6 +172,12 @@ public class BattleSystem : MonoBehaviour
         }
 
         //GameSystem.GetInstance().SaveData();
+        ContinuousBattleDataBase cB = ContinuousBattleManager.GetCurrBattleData();
+        if (cB != null && cB.name != "")
+        {
+            theBattleHUD.EnableLevelText(true);
+            theBattleHUD.SetLevelText(cB.name);
+        }
 
         nextState = BATTLE_GAME_STATE.INIT;
     }
@@ -327,8 +333,8 @@ public class BattleSystem : MonoBehaviour
 
     protected virtual void SetUpHud()
     {
-        string levelText = "LEVEL : " + currLevel;
-        theBattleHUD.SetLevelText(levelText);
+        //string levelText = "LEVEL : " + currLevel;
+        //theBattleHUD.SetLevelText(levelText);
     }
 
     protected virtual void SetUpLevel( int level = 1)

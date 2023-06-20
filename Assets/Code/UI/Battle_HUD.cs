@@ -22,6 +22,7 @@ public class Battle_HUD : MonoBehaviour
     public Text DollMaxText;
 
     //關卡資訊
+    public GameObject levelRoot;    //用來開關
     public Text levelText;
 
     //Mini Map
@@ -236,7 +237,14 @@ public class Battle_HUD : MonoBehaviour
 
     public void SetLevelText(string text)
     {
-        levelText.text = text;
+        if (levelText)
+            levelText.text = text;
+    }
+
+    public void EnableLevelText(bool enable)
+    {
+        if (levelRoot)
+            levelRoot.SetActive(enable);
     }
 
     public void OnStartFailUI()

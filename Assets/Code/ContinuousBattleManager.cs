@@ -8,6 +8,7 @@ using UnityEngine;
 public class ContinuousBattleDataBase
 {
     public string scene;
+    public string name;
 }
 
 public class ContinuousBattleManager : MonoBehaviour
@@ -51,15 +52,15 @@ public class ContinuousBattleManager : MonoBehaviour
     }
     protected void _GotoNextBattle()
     {
-        print("_GotoNextBattle!!");
-        print("currBattleArray: " + currBattleArray.Length);
+        //print("_GotoNextBattle!!");
+        //print("currBattleArray: " + currBattleArray.Length);
 
         if (currBattleArray != null)
         {
             currBattleIndex++;
             if (currBattleIndex == (currBattleArray.Length))
             {
-                print("連續戰鬥結束 ................ !!");
+                //print("連續戰鬥結束 ................ !!");
                 DoEndAllBattle();
             }
         }
