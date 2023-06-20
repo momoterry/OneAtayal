@@ -171,7 +171,21 @@ public class DollRecovery : MonoBehaviour
         }
         //*/
 
-        allDollIDs = GameSystem.GetPlayerData().GetAllUsingDolls();
+        string[] savedDolls = GameSystem.GetPlayerData().GetAllUsingDolls();
+        int savedLength = savedDolls == null ? 0 : savedDolls.Length;
+        string[] collectedDolls = ContinuousBattleManager.GetAllCollectedDolls();
+        int collectedLength = collectedDolls == null ? 0 : collectedDolls.Length;
+        allDollIDs = new string[savedLength + collectedLength];
+
+        if (savedLength > 0)
+        {
+            System.Array.Copy(savedDolls, 0, allDollIDs, 0, savedLength);
+        }
+        if (collectedLength > 0)
+        {
+            System.Array.Copy(collectedDolls, 0, allDollIDs, savedLength, collectedLength);
+        }
+
 
         //ด๚ธี
         //allDollIDs = new string[]{"DollStone", "DollStone", "DollOne", "DollOne", "DollFire", "DollFire" };

@@ -39,6 +39,10 @@ public class DollCollect : MonoBehaviour
             {
                 GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
             }
+            else
+            {
+                ContinuousBattleManager.AddCollectedDoll(theDoll.ID);
+            }
 
             Destroy(gameObject);
         }

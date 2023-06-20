@@ -42,6 +42,7 @@ public class ContinuousBattleManager : MonoBehaviour
     {
         currBattleArray = null;
         currBattleIndex = 0;
+        collectedDolls.Clear();
     }
 
     static public void GotoNextBattle()
@@ -79,5 +80,31 @@ public class ContinuousBattleManager : MonoBehaviour
         }
         return null;
     }
+
+    //有關半路撿到的 Doll 的記錄
+    protected List<string> collectedDolls = new List<string>();
+    public static void AddCollectedDoll(string dollID) { instance._AddCollectedDoll(dollID); }
+    protected void _AddCollectedDoll(string dollID) 
+    {
+        collectedDolls.Add(dollID);
+    }
+
+    public static string[] GetAllCollectedDolls() { return instance._GetAllCollectedDolls(); }
+    protected string[] _GetAllCollectedDolls() 
+    { 
+        if (collectedDolls.Count > 0)
+        {
+            string[] temp = new string[collectedDolls.Count];
+            for (int i=0; i<collectedDolls.Count; i++)
+            {
+                temp[i] = collectedDolls[i];
+            }
+            return temp;
+        }
+        return null;
+    }
+
+    public static void ResetCollectedDolls() { instance._ResetCollectedDolls(); }
+    protected void _ResetCollectedDolls() { }
 
 }
