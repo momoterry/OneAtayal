@@ -101,24 +101,44 @@ public class MG_MazeCave : MG_MazeDungeon
 
     }
 
-    protected override List<RectInt> CreateNonOverlappingRects(List<Vector2Int> sizes, RectInt bound)
-    {
-        List < RectInt > rList =  base.CreateNonOverlappingRects(sizes, bound);
+    //protected override List<RectInt> CreateNonOverlappingRects(List<Vector2Int> sizes, RectInt bound)
+    //{
+    //    List < RectInt > rList =  base.CreateNonOverlappingRects(sizes, bound);
 
-        print("Room Info");
-        foreach (RectInt r in rList)
+    //    print("Room Info");
+    //    foreach (RectInt r in rList)
+    //    {
+    //        print(r);
+    //        for (int i = 0; i < r.width; i++)
+    //        {
+    //            for (int j = 0; j < r.height; j++)
+    //            {
+    //                print("Cell: " + puzzleMap[r.x + i][r.y + j].value);
+    //            }
+    //        }
+    //    }
+
+    //    return rList;
+    //}
+
+    protected override bool IsInvalidRect(List<RectInt> rects, RectInt newRect)
+    {
+        bool inValid = base.IsInvalidRect(rects, newRect);
+        if (!inValid)
         {
-            print(r);
-            for (int i = 0; i < r.width; i++)
+            for (int x=newRect.x; x< newRect.xMax; x++)
             {
-                for (int j = 0; j < r.height; j++)
+                for (int y=newRect.y; y< newRect.yMax; y++)
                 {
-                    print("Cell: " + puzzleMap[r.x + i][r.y + j].value);
+                    if (puzzleMap[x][y].value != cellInfo.INVALID)
+                    {
+                        //只要其中一塊地板不是無效即可
+                        return false; ;
+                    }
                 }
             }
         }
-
-        return rList;
+        return true; ;
     }
 
     //========================== Random Walker 演算法 =============================

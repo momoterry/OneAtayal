@@ -609,7 +609,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 
                 RectInt newRect = new RectInt(startX, startY, size.x, size.y);
 
-                if (!IsOverlappingOrAdjacent(rects, newRect))
+                if (!IsInvalidRect(rects, newRect))
                 {
                     rects.Add(newRect);
                     break;
@@ -635,7 +635,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         return rects;
     }
 
-    private bool IsOverlappingOrAdjacent(List<RectInt> rects, RectInt newRect)
+    //virtual protected bool IsOverlappingOrAdjacent(List<RectInt> rects, RectInt newRect)
+    virtual protected bool IsInvalidRect(List<RectInt> rects, RectInt newRect)
     {
         foreach (RectInt existingRect in rects)
         {
