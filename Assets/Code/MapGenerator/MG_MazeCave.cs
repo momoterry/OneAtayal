@@ -17,21 +17,21 @@ public class MG_MazeCave : MG_MazeDungeon
     protected override void PreCreateMap()
     {
         base.PreCreateMap();
-        //print("原mapCenter " + mapCenter);
+
+        //洞穴地型，中心點移到全圖中間
         mapCenter.y -= cellHeight * (puzzleHeight / 2);
-        //print("原mapCenter " + mapCenter);
     }
 
     protected override void InitPuzzleMap()
     {
-        if (bigRooms.Length > 0)
-        {
-            print("ERROR!!!! 目前 MazeCave 無法支援 Big Rooms !!!!強制清掉 !!");
-            foreach (BigRoomInfo r in bigRooms)
-            {
-                r.size = Vector2Int.zero;
-            }
-        }
+        //if (bigRooms.Length > 0)
+        //{
+        //    print("ERROR!!!! 目前 MazeCave 無法支援 Big Rooms !!!!強制清掉 !!");
+        //    foreach (BigRoomInfo r in bigRooms)
+        //    {
+        //        r.size = Vector2Int.zero;
+        //    }
+        //}
 
         //重設起點到全圖中心
         //print("原起點 " + puzzleStart);
@@ -101,6 +101,27 @@ public class MG_MazeCave : MG_MazeDungeon
 
     }
 
+    protected override List<RectInt> CreateNonOverlappingRects(List<Vector2Int> sizes, RectInt bound)
+    {
+        List < RectInt > rList =  base.CreateNonOverlappingRects(sizes, bound);
+
+        print("Room Info");
+        foreach (RectInt r in rList)
+        {
+            print(r);
+            for (int i = 0; i < r.width; i++)
+            {
+                for (int j = 0; j < r.height; j++)
+                {
+                    print("Cell: " + puzzleMap[r.x + i][r.y + j].value);
+                }
+            }
+        }
+
+        return rList;
+    }
+
+    //========================== Random Walker 演算法 =============================
     protected bool UpdateWalkers()
     {
         bool isCellGen = false;

@@ -298,19 +298,22 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             for (int y = 0; y < puzzleHeight; y++)
             {
+                bool addToWallList = true;
                 if (puzzleMap[x][y].value == cellInfo.INVALID)
-                    continue;
+                    addToWallList = false;
 
-                if ( x < puzzleWidth - 1 && puzzleMap[x + 1][y].value != cellInfo.INVALID )
+                if ( x < puzzleWidth - 1 )
                 {
                     wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x + 1, y));
-                    wallList.Add(w);
+                    if (addToWallList && puzzleMap[x + 1][y].value != cellInfo.INVALID)
+                        wallList.Add(w);
                     lrWalls[x, y] = w;
                 }
-                if ( y < puzzleHeight - 1 && puzzleMap[x][y+1].value != cellInfo.INVALID )
+                if ( y < puzzleHeight - 1 )
                 {
                     wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x, y + 1));
-                    wallList.Add(w);
+                    if (addToWallList && puzzleMap[x][y + 1].value != cellInfo.INVALID)
+                        wallList.Add(w);
                     udWalls[x, y] = w;
                 }
             }
@@ -418,28 +421,39 @@ public class MG_MazeDungeon : MapGeneratorBase
             {
                 if (rc.y > 0)
                 {
-                    roomWalls.Add(udWalls[x, rc.y - 1]);
+                    if (puzzleMap[x][rc.y-1].value != cellInfo.INVALID)
+                        roomWalls.Add(udWalls[x, rc.y - 1]);
                 }
                 if (rc.yMax < puzzleHeight)
                 {
-                    roomWalls.Add(udWalls[x, rc.yMax - 1]);
+                    if (puzzleMap[x][rc.yMax].value != cellInfo.INVALID)
+                        roomWalls.Add(udWalls[x, rc.yMax - 1]);
                 }
             }
             for (int y = rc.y; y < rc.yMax; y++)
             {
                 if (rc.x > 0)
                 {
-                    roomWalls.Add(lrWalls[rc.x - 1, y]);
+                    if (puzzleMap[rc.x-1][y].value != cellInfo.INVALID)
+                        roomWalls.Add(lrWalls[rc.x - 1, y]);
                 }
                 if (rc.xMax < puzzleWidth)
                 {
-                    roomWalls.Add(lrWalls[rc.xMax - 1, y]);
+                    if (puzzleMap[rc.xMax][y].value != cellInfo.INVALID)
+                        roomWalls.Add(lrWalls[rc.xMax - 1, y]);
                 }
             }
 
+            //print("roomWalls.Count: " + roomWalls.Count);
             for (int c = 0; c < bigRooms[i].numDoor; c++)
             {
+                if (roomWalls.Count == 0)
+                {
+                    print("大房間沒有那麼多牆可以開洞了 !!");
+                    break;
+                }
                 wallInfo w = roomWalls[Random.Range(0, roomWalls.Count)];
+                //print("w: "+w);
                 ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
                 puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
                 roomWalls.Remove(w);
@@ -572,7 +586,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         return CreateNonOverlappingRects(sizes, new RectInt(0, 0, puzzleWidth, puzzleHeight));
     }
 
-    protected List<RectInt> CreateNonOverlappingRects(List<Vector2Int> sizes, RectInt bound)
+    virtual protected List<RectInt> CreateNonOverlappingRects(List<Vector2Int> sizes, RectInt bound)
     {
         int maxAttempts = 1000;
         int retryCount = 0;

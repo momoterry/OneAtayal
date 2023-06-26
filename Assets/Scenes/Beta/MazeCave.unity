@@ -726,7 +726,10 @@ MonoBehaviour:
   roomGroundTileEdgeGroup: {fileID: 0}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
-  bigRooms: []
+  bigRooms:
+  - size: {x: 2, y: 2}
+    numDoor: 2
+    gameplayRef: {fileID: 0}
   noRoomBuffer: 1
   normalGroup: {fileID: 2283165509847586994, guid: 506baf8ee1cfb01489d18e00614c0b45, type: 3}
   exploreRewards:
