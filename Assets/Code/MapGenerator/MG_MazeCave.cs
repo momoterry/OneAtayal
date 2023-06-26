@@ -121,22 +121,86 @@ public class MG_MazeCave : MG_MazeDungeon
     //    return rList;
     //}
 
+    //方案一: 只要一塊地板是有效地板就通過
+    //protected override bool IsInvalidRect(List<RectInt> rects, RectInt newRect)
+    //{
+    //    bool inValid = base.IsInvalidRect(rects, newRect);
+    //    if (!inValid)
+    //    {
+    //        for (int x=newRect.x; x< newRect.xMax; x++)
+    //        {
+    //            for (int y=newRect.y; y< newRect.yMax; y++)
+    //            {
+    //                if (puzzleMap[x][y].value != cellInfo.INVALID)
+    //                {
+    //                    //只要其中一塊地板不是無效即可
+    //                    return false; ;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    return true; ;
+    //}
+
+    //方案二: 找全無效地板但有連接
     protected override bool IsInvalidRect(List<RectInt> rects, RectInt newRect)
     {
         bool inValid = base.IsInvalidRect(rects, newRect);
         if (!inValid)
         {
-            for (int x=newRect.x; x< newRect.xMax; x++)
+            for (int x = newRect.x; x < newRect.xMax; x++)
             {
-                for (int y=newRect.y; y< newRect.yMax; y++)
+                for (int y = newRect.y; y < newRect.yMax; y++)
                 {
                     if (puzzleMap[x][y].value != cellInfo.INVALID)
                     {
-                        //只要其中一塊地板不是無效即可
-                        return false; ;
+                        //只要其中一塊地板不是無效，就算失敗
+                        return true;
                     }
                 }
             }
+
+            print("找到全空地版，尋找連結");
+
+            int validConnect = 0;
+            for (int x = newRect.x; x < newRect.xMax; x++)
+            {
+                if (newRect.y > 0 && puzzleMap[x][newRect.y - 1].value == cellInfo.NORMAL)
+                {
+                    validConnect++;
+                }
+                if (newRect.yMax < puzzleHeight && puzzleMap[x][newRect.yMax].value == cellInfo.NORMAL)
+                {
+                    validConnect++;
+                }
+
+                if (validConnect >= 2)  //TODO: 運算上限
+                {
+                    //找要找到足夠有效連結就可以
+                    print("找到足夠的連接處");
+                    return false;
+                }
+            }
+            for (int y = newRect.y; y < newRect.yMax; y++)
+            {
+                if (newRect.x > 0 && puzzleMap[newRect.x - 1][y].value == cellInfo.NORMAL)
+                {
+                    validConnect++;
+                }
+                if (newRect.xMax < puzzleWidth && puzzleMap[newRect.xMax][y].value == cellInfo.NORMAL)
+                {
+                    validConnect++;
+                }
+
+                if (validConnect >= 2)  //TODO: 運算上限
+                {
+                    //找要找到足夠有效連結就可以
+                    print("找到足夠的連接處");
+                    return false;
+                }
+            }
+
+            print("找不到足夠連結，失敗，連結數 = " + validConnect);
         }
         return true; ;
     }
