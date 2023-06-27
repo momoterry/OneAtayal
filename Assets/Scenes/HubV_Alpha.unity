@@ -51578,12 +51578,36 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
+      propertyPath: mazeLevelDatas.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
       propertyPath: mazeLevelDatas.Array.data[0].name
-      value: "\u5730\u7A74  1/2"
+      value: "\u5730\u7A74  1/3"
       objectReference: {fileID: 0}
     - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
       propertyPath: mazeLevelDatas.Array.data[1].name
-      value: "\u5730\u7A74  2/2"
+      value: "\u5730\u7A74  2/3"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
+      propertyPath: mazeLevelDatas.Array.data[2].name
+      value: "\u5730\u7A74  3/3"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
+      propertyPath: mazeLevelDatas.Array.data[2].scene
+      value: MazeCave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
+      propertyPath: mazeLevelDatas.Array.data[0].bigRoomNum
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
+      propertyPath: mazeLevelDatas.Array.data[1].bigRoomNum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
+      propertyPath: mazeLevelDatas.Array.data[2].bigRoomNum
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
       propertyPath: mazeLevelDatas.Array.data[0].puzzleWidth
@@ -51594,6 +51618,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
+      propertyPath: mazeLevelDatas.Array.data[2].puzzleWidth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
       propertyPath: mazeLevelDatas.Array.data[0].puzzleHeight
       value: 5
       objectReference: {fileID: 0}
@@ -51602,12 +51630,20 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
+      propertyPath: mazeLevelDatas.Array.data[2].puzzleHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
       propertyPath: mazeLevelDatas.Array.data[0].normalEnemyNum
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
       propertyPath: mazeLevelDatas.Array.data[1].normalEnemyNum
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217561494693058807, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
+      propertyPath: mazeLevelDatas.Array.data[2].normalEnemyNum
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3774412451971612881, guid: 43c61897e63196f4cadec4c3d5afa269, type: 3}
       propertyPath: m_Name

@@ -160,9 +160,11 @@ public class MG_MazeCave : MG_MazeDungeon
                 }
             }
 
-            print("找到全空地版，尋找連結");
+            print("找到全空地版，尋找連結，這是第幾個 Room? " + rects.Count);
 
+            int requireConnect = bigRooms[rects.Count].numDoor;
             int validConnect = 0;
+            print("至少要的連結數: " + requireConnect);
             for (int x = newRect.x; x < newRect.xMax; x++)
             {
                 if (newRect.y > 0 && puzzleMap[x][newRect.y - 1].value == cellInfo.NORMAL)
@@ -174,7 +176,7 @@ public class MG_MazeCave : MG_MazeDungeon
                     validConnect++;
                 }
 
-                if (validConnect >= 2)  //TODO: 運算上限
+                if (validConnect >= requireConnect)  //TODO: 運算上限
                 {
                     //找要找到足夠有效連結就可以
                     print("找到足夠的連接處");

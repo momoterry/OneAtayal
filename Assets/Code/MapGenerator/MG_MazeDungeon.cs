@@ -38,6 +38,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     }
     public BigRoomInfo[] bigRooms;
     public int noRoomBuffer = 1;    //避免入口就遇到 Room 的緩衝
+    protected int bigRoomNum;
 
     //Gameplay 用
     public EnemyGroup normalGroup;
@@ -96,6 +97,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     public override void BuildAll(int buildLevel = 1)
     {
+        bigRoomNum = bigRooms.Length;
+
         PresetByContinuousBattle();
 
         PreCreateMap();
@@ -161,11 +164,12 @@ public class MG_MazeDungeon : MapGeneratorBase
                 ContinuousMazeData cData = (ContinuousMazeData)cBase;
                 puzzleWidth = cData.puzzleWidth;
                 puzzleHeight = cData.puzzleHeight;
-                foreach (BigRoomInfo br in bigRooms)
-                {
-                    br.size = Vector2Int.zero;
-                }
-                print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
+                //foreach (BigRoomInfo br in bigRooms)
+                //{
+                //    br.size = Vector2Int.zero;
+                //}
+                bigRoomNum = Mathf.Min(bigRoomNum, cData.bigRoomNum);
+                print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight + " Room 數: " + bigRoomNum);
 
                 if (cData.normalEnemyNum > 0)
                 {
@@ -321,7 +325,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 
         // ==== 產生大 Room
         List<Vector2Int> sizeList = new List<Vector2Int>();
-        for (int i = 0; i < bigRooms.Length; i++)
+        for (int i = 0; i < bigRoomNum; i++)
         {
             if (bigRooms[i].size.x >0 && bigRooms[i].size.y > 0)
                 sizeList.Add(bigRooms[i].size);
@@ -499,6 +503,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         //==== 一般通道處理
         List<Vector2Int> deadEnds = new List<Vector2Int>();
         int startValue = puzzleDSU.Find(iStart);
+        float enemyMinDistanceToStart = (cellHeight + cellWidth);
         for (int i = 0; i < puzzleWidth; i++)
         {
             for (int j = 0; j < puzzleHeight; j++)
@@ -514,14 +519,17 @@ public class MG_MazeDungeon : MapGeneratorBase
                 {
                     //Vector3 pos = new Vector3(x1 + cellWidth/2, 0, y1 + cellHeight/2);
                     Vector3 pos = GetCellCenterPos(i, j);
-                    if (normalGroup && Vector3.Distance(pos, startPos) > 20.0f)
+                    if (normalGroup && Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
                     {
-                        if (Random.Range(0, 1.0f) < 0.2f)
+                        if (Random.Range(0, 1.0f) < 0.2f)                                   //TODO: 敵人產生的機率需要數據設定
                         {
                             GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
-                            EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
-                            eg.isRandomEnemyTotal = true;
-                            eg.randomEnemyTotal = 4 + (j * (4 + 1) / puzzleHeight);
+
+                            //TODO: 敵人的動態強度需要根據迷宮深淺來判定
+
+                            //EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
+                            //eg.isRandomEnemyTotal = true;
+                            //eg.randomEnemyTotal = 4 + (j * (4 + 1) / puzzleHeight);
                         }
                     }
 
