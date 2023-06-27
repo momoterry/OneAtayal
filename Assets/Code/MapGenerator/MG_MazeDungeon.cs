@@ -79,6 +79,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 
         public const int NORMAL = 0;
         public const int ROOM = 1;
+        public const int TERNIMAL = 2;  //出、入口
         public const int INVALID = -1;
     }
 
@@ -306,7 +307,6 @@ public class MG_MazeDungeon : MapGeneratorBase
         puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
         puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
 
-
         InitPuzzleMap();        //處理非全方型 PuzzleMap 的情況
 
         //==== Init Connection Info
@@ -497,7 +497,10 @@ public class MG_MazeDungeon : MapGeneratorBase
                 FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellWidth, puzzleY1 + (GetCellY(iStart) - 1) * cellHeight, cellWidth, cellHeight);
             }
             else
+            {
                 puzzleMap[GetCellX(iStart)][GetCellY(iStart) - 1].U = true;
+                puzzleMap[GetCellX(iStart)][GetCellY(iStart) - 1].value = cellInfo.TERNIMAL;
+            }
 
             if (puzzleEnd.y == (puzzleHeight - 1))
             {
@@ -506,13 +509,21 @@ public class MG_MazeDungeon : MapGeneratorBase
                 FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellWidth, puzzleY1 + (GetCellY(iEnd) + 1) * cellHeight, cellWidth, cellHeight);
             }
             else
+            {
                 puzzleMap[GetCellX(iEnd)][GetCellY(iEnd) + 1].D = true;
+                puzzleMap[GetCellX(iEnd)][GetCellY(iEnd) + 1].value = cellInfo.TERNIMAL;
+            }
 
             puzzleMap[GetCellX(iStart)][GetCellY(iStart)].D = true;
             puzzleMap[GetCellX(iEnd)][GetCellY(iEnd)].U = true;
 
             startPos.z -= cellHeight;
             endPos.z += cellHeight;
+        }
+        else
+        {
+            puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
+            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
         }
 
         //==== 一般通道處理
