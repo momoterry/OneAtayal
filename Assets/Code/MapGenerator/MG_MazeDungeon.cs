@@ -44,6 +44,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     public EnemyGroup normalGroup;
     public GameObject[] exploreRewards;
     public float normalEnemyRate = 0.2f;
+    protected int normalEnemyNum;
     protected int exploreRewardNum;
 
 
@@ -101,6 +102,10 @@ public class MG_MazeDungeon : MapGeneratorBase
     {
         bigRoomNum = bigRooms.Length;
         exploreRewardNum = exploreRewards.Length;
+        if (normalGroup)
+        {
+            normalEnemyNum = normalGroup.randomEnemyTotal;
+        }
 
         PresetByContinuousBattle();
 
@@ -178,7 +183,8 @@ public class MG_MazeDungeon : MapGeneratorBase
                 {
                     if (normalGroup)
                     {
-                        normalGroup.randomEnemyTotal = cData.normalEnemyNum;
+                        normalEnemyNum = cData.normalEnemyNum;
+                        normalGroup.randomEnemyTotal = normalEnemyNum;
                     }
                 }
                 if (cData.normalEnemyRate > 0)
@@ -530,14 +536,12 @@ public class MG_MazeDungeon : MapGeneratorBase
                     Vector3 pos = GetCellCenterPos(i, j);
                     if (normalGroup && Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
                     {
-                        if (Random.Range(0, 1.0f) < normalEnemyRate)                                   //TODO: 敵人產生的機率需要數據設定
+                        if (Random.Range(0, 1.0f) < normalEnemyRate)
                         {
                             GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
-
-                            //TODO: 敵人的動態強度需要根據迷宮深淺來判定
-
-                            //EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
-                            //eg.isRandomEnemyTotal = true;
+                            EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
+                            eg.isRandomEnemyTotal = true;
+                            //TODO: 敵人的動態強度需要根據迷宮深淺來調整 ?
                             //eg.randomEnemyTotal = 4 + (j * (4 + 1) / puzzleHeight);
                         }
                     }
@@ -578,6 +582,7 @@ public class MG_MazeDungeon : MapGeneratorBase
             //print("BigRoom Gameplay Pos" + pos);
             if (bigRooms[i].gameplayRef)
             {
+                //TODO: 如何透過強度調整指定 Gameplay ?
                 BattleSystem.SpawnGameObj(bigRooms[i].gameplayRef, pos);
             }
             else if (normalGroup)
@@ -585,9 +590,12 @@ public class MG_MazeDungeon : MapGeneratorBase
                 GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
                 EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
                 eg.isRandomEnemyTotal = true;
-                eg.randomEnemyTotal = rc.width * rc.height * 2;
-                eg.height = rc.height * 4;
-                eg.width = rc.width * 4;
+                //eg.randomEnemyTotal = rc.width * rc.height * 2;
+                eg.randomEnemyTotal = normalEnemyNum * 2;
+                //eg.height = rc.height * 4;
+                //eg.width = rc.width * 4;
+                eg.height *= 2;
+                eg.width *= 2;
             }
         }
 
