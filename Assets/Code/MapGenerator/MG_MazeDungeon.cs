@@ -43,6 +43,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     //Gameplay 用
     public EnemyGroup normalGroup;
     public GameObject[] exploreRewards;
+    public float normalEnemyRate = 0.2f;
 
 
     //基底地圖相關 TODO: 希望獨立出去
@@ -177,6 +178,10 @@ public class MG_MazeDungeon : MapGeneratorBase
                     {
                         normalGroup.randomEnemyTotal = cData.normalEnemyNum;
                     }
+                }
+                if (cData.normalEnemyRate > 0)
+                {
+                    normalEnemyRate = cData.normalEnemyRate;
                 }
             }
             else
@@ -521,7 +526,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                     Vector3 pos = GetCellCenterPos(i, j);
                     if (normalGroup && Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
                     {
-                        if (Random.Range(0, 1.0f) < 0.2f)                                   //TODO: 敵人產生的機率需要數據設定
+                        if (Random.Range(0, 1.0f) < normalEnemyRate)                                   //TODO: 敵人產生的機率需要數據設定
                         {
                             GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
 
