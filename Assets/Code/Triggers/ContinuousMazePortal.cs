@@ -10,6 +10,7 @@ public class ContinuousMazeData : ContinuousBattleDataBase
     public int normalEnemyNum;
     public float normalEnemyRate;
     public int bigRoomNum;
+    public int maxExploreReward;
 }
 
 public class ContinuousMazePortal : ScenePortal

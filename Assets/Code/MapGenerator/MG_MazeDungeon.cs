@@ -44,6 +44,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     public EnemyGroup normalGroup;
     public GameObject[] exploreRewards;
     public float normalEnemyRate = 0.2f;
+    protected int exploreRewardNum;
 
 
     //基底地圖相關 TODO: 希望獨立出去
@@ -99,6 +100,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     public override void BuildAll(int buildLevel = 1)
     {
         bigRoomNum = bigRooms.Length;
+        exploreRewardNum = exploreRewards.Length;
 
         PresetByContinuousBattle();
 
@@ -183,6 +185,8 @@ public class MG_MazeDungeon : MapGeneratorBase
                 {
                     normalEnemyRate = cData.normalEnemyRate;
                 }
+                if (cData.maxExploreReward > 0)
+                    exploreRewardNum = Mathf.Min((int)cData.maxExploreReward, cData.maxExploreReward);
             }
             else
             {
@@ -548,8 +552,9 @@ public class MG_MazeDungeon : MapGeneratorBase
             }
         }
         print("總共找到的終端:" + deadEnds.Count);
-        int expRewardCount = Mathf.Min(exploreRewards.Length, deadEnds.Count);
+        int expRewardCount = Mathf.Min(exploreRewardNum, deadEnds.Count);
         OneUtility.Shuffle(deadEnds);
+        OneUtility.Shuffle(exploreRewards);     //因應獎勵可能更少的時候
         for ( int i=0; i<expRewardCount; i++)
         {
             Vector3 pos = GetCellCenterPos(deadEnds[i].x, deadEnds[i].y );
