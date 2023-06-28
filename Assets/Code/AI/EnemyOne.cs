@@ -10,6 +10,8 @@ public struct SkillData
     public GameObject bulletRef;    //會給予方向的 Spawn 物件
     public float bulletInitDis;
     public bool fixDirection;       //不瞄準目標，全場散射類型適用
+    //public bool prevDirection;      //使用前一個技能設定的方向  TODO : 有點暴力法
+    public float prepareTime;       //前置 Idle
     public float damageRatio;
     public string animString;
 
@@ -38,7 +40,19 @@ public class EnemyOne : Enemy
     protected string trackAnimationStr = null;
     protected GameObject myTrackDamageFX = null;
 
+    //技能的發招等待
+    protected float prepareSkillTime = 0;
+    protected SkillData prepareingSkill;
+    protected Vector3 skillDirection;
 
+    protected enum SKILL_PHASE
+    {
+        NORMAL,
+        PREPARE,
+        TRACING,
+    }
+    protected SKILL_PHASE currPhase = SKILL_PHASE.NORMAL;
+    protected SKILL_PHASE nextPhase = SKILL_PHASE.NORMAL;
     protected override void Start()
     {
         base.Start();
@@ -63,22 +77,25 @@ public class EnemyOne : Enemy
 
         SkillData theSkill = skillList[skillPattern[currSkillIndex].skillIndex];
 
-        //coolDown = skillPattern[currSPIndex].collDown;
+        skillDirection = faceDir;
 
-        DoOneSkill(theSkill);
-
-        AttackCD = skillPattern[currSkillIndex].collDown;
-
-        currSkillIndex++;
-        if (currSkillIndex >= skillPattern.Length)
+        if (theSkill.prepareTime > 0)
         {
-            currSkillIndex = 0;
+            nextPhase = SKILL_PHASE.PREPARE;
+            prepareSkillTime = theSkill.prepareTime;
+            prepareingSkill = theSkill;
         }
+        else
+        {
+            DoOneSkill(theSkill);
+            DoSkillDone();
+        }
+
     }
 
     protected override void UpdateAttack()
     {
-        if (isWaitTrack)
+        if (isWaitTrack)        //TODO: 改用 Phase
         {
             if (myHook == null)
             {
@@ -87,7 +104,25 @@ public class EnemyOne : Enemy
         }
         else
         {
-            base.UpdateAttack();
+            if (currPhase != nextPhase)
+            {
+                currPhase = nextPhase;
+            }
+            switch (currPhase) 
+            {
+                case SKILL_PHASE.NORMAL:
+                    base.UpdateAttack();
+                    break;
+                case SKILL_PHASE.PREPARE:
+                    prepareSkillTime -= Time.deltaTime;
+                    if (prepareSkillTime <= 0)
+                    {
+                        DoOneSkill(prepareingSkill);
+                        DoSkillDone();
+                        nextPhase = SKILL_PHASE.NORMAL;
+                    }
+                    break;
+            }
         }
     }
 
@@ -108,14 +143,11 @@ public class EnemyOne : Enemy
 
     protected void DoOneSkill(SkillData skill)
     {
-#if XZ_PLAN
         Quaternion rm = Quaternion.Euler(90, 0, 0);
-#else
-        Quaternion rm = Quaternion.identity;
-#endif
+
         if (skill.bulletRef)
         {
-            Vector3 shootPoint = gameObject.transform.position + (skill.fixDirection ? Vector3.back:faceDir) * skill.bulletInitDis;
+            Vector3 shootPoint = gameObject.transform.position + (skill.fixDirection ? Vector3.back: skillDirection) * skill.bulletInitDis;
 
             GameObject newObj = Instantiate(skill.bulletRef, shootPoint, rm, null);
 
@@ -124,12 +156,7 @@ public class EnemyOne : Enemy
                 bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
-                    Vector3 td = skill.fixDirection ? Vector3.back : targetObj.transform.position - newObj.transform.position;
-#if XZ_PLAN
-                    td.y = 0;
-#else
-                    td.z = 0;
-#endif
+                    Vector3 td = skill.fixDirection ? Vector3.back : skillDirection;
                     myDamage.damage = Attack * skill.damageRatio;
                     newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, td);
                 }
@@ -167,6 +194,17 @@ public class EnemyOne : Enemy
                     }
                 }
             }
+        }
+    }
+
+    protected void DoSkillDone()
+    {
+        AttackCD = skillPattern[currSkillIndex].collDown;
+
+        currSkillIndex++;
+        if (currSkillIndex >= skillPattern.Length)
+        {
+            currSkillIndex = 0;
         }
     }
 

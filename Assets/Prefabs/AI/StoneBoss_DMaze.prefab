@@ -262,7 +262,7 @@ MonoBehaviour:
   ChaseRangeOut: 102
   AttackRangeIn: 6
   AttackRangeOut: 8
-  AttackWait: 0.2
+  AttackWait: 0
   AttackCD: 3.5
   Attack: 15
   SlotRangeOut: 3
@@ -271,8 +271,9 @@ MonoBehaviour:
   mySPAimator: {fileID: 0}
   skillList:
   - bulletRef: {fileID: 3710000809252070552, guid: 0b06f9bbe8820514897951fbbf11ff1d, type: 3}
-    bulletInitDis: 0
+    bulletInitDis: 2
     fixDirection: 0
+    prepareTime: 1
     damageRatio: 1
     animString: 
     trackRef: {fileID: 0}
@@ -280,9 +281,7 @@ MonoBehaviour:
     trackDamageFX: {fileID: 0}
   skillPattern:
   - skillIndex: 0
-    collDown: 1
-  - skillIndex: 0
-    collDown: 3
+    collDown: 1.5
 --- !u!195 &2075649660089510923
 NavMeshAgent:
   m_ObjectHideFlags: 0
