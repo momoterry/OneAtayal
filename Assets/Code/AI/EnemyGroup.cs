@@ -59,9 +59,10 @@ public class EnemyGroup : MonoBehaviour
             }
             enemyInfos[enemyInfos.Length - 1].num = randomEnemyTotal - prev;
 
+            //print("----");
             //for (int i = 0; i < enemyInfos.Length; i++)
             //{
-            //    print("RandomEnemyNum: " + enemyInfos[i].num);
+            //    print("RandomEnemyNum: " + enemyInfos[i].num + "  << " + randomEnemyTotal);
             //}
         }
 
