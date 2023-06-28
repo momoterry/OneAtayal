@@ -210,7 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5567210549488350558}
-  - component: {fileID: 7975628212818804199}
+  - component: {fileID: 7490376093790237684}
   - component: {fileID: 2075649660089510923}
   - component: {fileID: 8639384707586398088}
   - component: {fileID: 3842158341424820786}
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 1047240798357459120}
   - component: {fileID: 3236784326416634283}
   m_Layer: 10
-  m_Name: StoneBoss_DMaze
+  m_Name: StoneBoss_DMaze_Backup
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &7975628212818804199
+--- !u!114 &7490376093790237684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7208015447484052683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e063faceebc8e1044bd248e440c5f5f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 872a7e3793638504087e0e68d30ea677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 6060
@@ -269,20 +269,8 @@ MonoBehaviour:
   SlotRangeIn: 2
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 0}
-  skillList:
-  - bulletRef: {fileID: 3710000809252070552, guid: 0b06f9bbe8820514897951fbbf11ff1d, type: 3}
-    bulletInitDis: 0
-    fixDirection: 0
-    damageRatio: 1
-    animString: 
-    trackRef: {fileID: 0}
-    trackAnimStr: 
-    trackDamageFX: {fileID: 0}
-  skillPattern:
-  - skillIndex: 0
-    collDown: 1
-  - skillIndex: 0
-    collDown: 3
+  damageObject: {fileID: 3710000809252070552, guid: 0b06f9bbe8820514897951fbbf11ff1d, type: 3}
+  objectRange: 1.5
 --- !u!195 &2075649660089510923
 NavMeshAgent:
   m_ObjectHideFlags: 0
