@@ -10,7 +10,8 @@ public class DM_Dynamic : DollManager
     public int MiddleDepth = 3;
     public int BackWidth = 4;
 
-    protected float allShift = 0.0f;
+    public float allShift = 0.0f;
+    public float innerWidth = 1.0f; // middle 最內圈距離
 
     protected List<Doll> frontList = new List<Doll>();
     protected List<Doll> middleList = new List<Doll>();
@@ -93,7 +94,7 @@ public class DM_Dynamic : DollManager
         int lastCircleCount = (middleNum - 1) % circleNum + 1;
 
         float slotWidth = 1.0f;
-        float innerWidth = 1.0f;    //最內圈距離
+        //float innerWidth = 1.0f;    //最內圈距離
 
         float width = innerWidth;
         for (int c=0; c<nCircle; c++)

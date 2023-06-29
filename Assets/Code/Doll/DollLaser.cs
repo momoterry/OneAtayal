@@ -24,6 +24,8 @@ public class DollLaser : DollAuto
     {
         if (myAgent)
             myAgent.SetDestination(mySlot.position);
+        else
+            transform.position = mySlot.position;       //為了支援橫捲射擊行為
 
         myFace = BattleSystem.GetPC().GetFaceDir();
 
