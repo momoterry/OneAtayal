@@ -10,8 +10,8 @@ public struct SkillData
     public GameObject bulletRef;    //會給予方向的 Spawn 物件
     public float bulletInitDis;
     public bool fixDirection;       //不瞄準目標，全場散射類型適用
-    //public bool prevDirection;      //使用前一個技能設定的方向  TODO : 有點暴力法
     public float prepareTime;       //前置 Idle
+    public bool isGroundHint;
     public float damageRatio;
     public string animString;
 
@@ -84,6 +84,13 @@ public class EnemyOne : Enemy
             nextPhase = SKILL_PHASE.PREPARE;
             prepareSkillTime = theSkill.prepareTime;
             prepareingSkill = theSkill;
+            if (theSkill.isGroundHint)
+            {
+                float hintLength = 8.0f;    //TODO: 參數化
+                float hintWidth = 4.0f;     //TODO: 參數化
+                Vector3 hintCenter = transform.position + faceDir.normalized * hintLength * 0.5f;
+                GroundHintManager.GetInstance().ShowSquareHint(hintCenter, skillDirection, new Vector2(hintWidth, hintLength), prepareSkillTime);
+            }
         }
         else
         {
