@@ -912,9 +912,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1725910625
+  m_SortingLayerID: -1441587937
   m_SortingLayer: -3
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -1930,8 +1930,8 @@ MonoBehaviour:
   groundTileGroup: {fileID: 1014529279}
   groundEdgeTileGroup: {fileID: 0}
   groundOutEdgeTileGroup: {fileID: 1696140727}
-  blockTileGroup: {fileID: 0}
-  defautTileGroup: {fileID: 0}
+  blockTileGroup: {fileID: 1976327563}
+  defautTileGroup: {fileID: 1976327563}
   roomGroundTileGroup: {fileID: 645653466}
   roomGroundTileEdgeGroup: {fileID: 1643079206}
   groundTM: {fileID: 1946328705}
@@ -1954,6 +1954,7 @@ MonoBehaviour:
   - {fileID: 4032685806379418579, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
   - {fileID: 4032685806379418579, guid: 24370a31510131746805bfc36062d4d5, type: 3}
   - {fileID: 4032685806379418579, guid: 09da63a85b90a964f8f135664ce7cc04, type: 3}
+  normalEnemyRate: 0.2
 --- !u!4 &1806008470
 Transform:
   m_ObjectHideFlags: 0
@@ -1970,6 +1971,7 @@ Transform:
   - {fileID: 1696140726}
   - {fileID: 645653465}
   - {fileID: 1643079205}
+  - {fileID: 1976327562}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2151,7 +2153,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1725910625
-  m_SortingLayer: -3
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2484,3 +2486,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bias: 0
   onlyAdjustOnStart: 0
+--- !u!1 &1976327561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1976327562}
+  - component: {fileID: 1976327563}
+  m_Layer: 0
+  m_Name: BlockTileGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1976327562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976327561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1976327563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976327561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4bc83c655d36f4a808fc12c660e692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    baseTile: {fileID: 11400000, guid: a52410225b1b87042a69eb18dece0da3, type: 2}
+    decorateTiles: []
+    decorateRate: 0
