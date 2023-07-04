@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GroundHintManager : MonoBehaviour
 {
-    public Sprite SquareSprite;
+    //public Sprite SquareSprite;
+    public GameObject SquareHintRef;
 
     static private GroundHintManager instance;
     static public GroundHintManager GetInstance() { return instance; }
@@ -30,15 +31,22 @@ public class GroundHintManager : MonoBehaviour
 
     public void ShowSquareHint( Vector3 vCenter, Vector3 vDir, Vector2 size, float duration )
     {
-        GameObject o = new GameObject("_GroundHint");
-        SpriteRenderer sr = o.AddComponent<SpriteRenderer>();
-        FlashFX fx = o.AddComponent<FlashFX>();
-        fx.LifeTime = duration;
-        sr.sprite = SquareSprite;
-        sr.sortingLayerName = "GroundEffect";
-        sr.color = new Color(1.0f, 0, 0, 0.5f);
-        o.transform.position = vCenter;
-        o.transform.rotation = Quaternion.Euler(90.0f, Vector3.SignedAngle(Vector3.back, vDir, Vector3.up), 0);
-        o.transform.localScale = new Vector3(size.x, size.y, 1.0f);
+        //GameObject o = new GameObject("_GroundHint");
+        //SpriteRenderer sr = o.AddComponent<SpriteRenderer>();
+        //FlashFX fx = o.AddComponent<FlashFX>();
+        //fx.LifeTime = duration;
+        //sr.sprite = SquareSprite;
+        //sr.sortingLayerName = "GroundEffect";
+        //sr.color = new Color(1.0f, 0, 0, 0.5f);
+        //o.transform.position = vCenter;
+        //o.transform.rotation = Quaternion.Euler(90.0f, Vector3.SignedAngle(Vector3.back, vDir, Vector3.up), 0);
+        //o.transform.localScale = new Vector3(size.x, size.y, 1.0f);
+
+        GameObject so = Instantiate(SquareHintRef, vCenter, Quaternion.Euler(90.0f, Vector3.SignedAngle(Vector3.back, vDir, Vector3.up), 0));
+        //so.transform.localScale = new Vector3(size.x, size.y, 1.0f);
+        GroundHintSquare gs = so.GetComponent<GroundHintSquare>();
+        gs.SetSize(size.x, size.y);
+        FlashFX ff = so.AddComponent<FlashFX>();
+        ff.LifeTime = duration;
     }
 }
