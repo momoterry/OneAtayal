@@ -19,10 +19,9 @@ public class MG_MazeDungeon : MapGeneratorBase
     // Tile 資料相關
     public TileGroupDataBase groundTileGroup;
     public TileEdgeGroupDataBase groundEdgeTileGroup;
-    //public TileEdgeGroupDataBase wallEdgeTileGroup;     ////應是 Ground 的外部 Edge，名字應該改掉
     public TileEdgeGroupDataBase groundOutEdgeTileGroup;
-    public TileGroupDataBase blockTileGroup;
-    public TileGroupDataBase defautTileGroup;
+    public TileGroupDataBase blockTileGroup;                //用在非邊界的 Block 區域
+    public TileGroupDataBase defautTileGroup;               //用在地圖的外邊界
     public TileGroupDataBase roomGroundTileGroup;
     public TileEdgeGroupDataBase roomGroundTileEdgeGroup;
     public Tilemap groundTM;
@@ -136,7 +135,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         if (blockTileGroup)
-            theMap.FillTileAll((int)MAP_TYPE.BLOCK, groundTM, blockTileGroup.GetTileGroup());
+            theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTileGroup.GetTileGroup());
 
 
         if (groundOutEdgeTileGroup)
