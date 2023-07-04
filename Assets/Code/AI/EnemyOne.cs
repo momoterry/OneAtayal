@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SkillGroundHint
+{
+    public Vector2 size;
+    public Vector3 posShift;
+}
 
 //ノ AI
 [System.Serializable]
@@ -11,7 +17,8 @@ public struct SkillData
     public float bulletInitDis;
     public bool fixDirection;       //ぃ核非ヘ夹初床甮摸続ノ
     public float prepareTime;       //玡竚 Idle
-    public bool isGroundHint;
+    //public bool isGroundHint;
+    public SkillGroundHint[] groundHints;
     public float damageRatio;
     public string animString;
 
@@ -84,12 +91,14 @@ public class EnemyOne : Enemy
             nextPhase = SKILL_PHASE.PREPARE;
             prepareSkillTime = theSkill.prepareTime;
             prepareingSkill = theSkill;
-            if (theSkill.isGroundHint)
+            //if (theSkill.isGroundHint)
+            foreach (SkillGroundHint groundHint in theSkill.groundHints)
             {
-                float hintLength = 8.0f;    //TODO: 把计て
-                float hintWidth = 4.0f;     //TODO: 把计て
+                float hintLength = groundHint.size.y;
+                float hintWidth = groundHint.size.x;
                 Vector3 hintCenter = transform.position + faceDir.normalized * hintLength * 0.5f;
-                GroundHintManager.GetInstance().ShowSquareHint(hintCenter, skillDirection, new Vector2(hintWidth, hintLength), prepareSkillTime);
+                Vector3 hintShift = Quaternion.Euler(0, Vector3.SignedAngle(Vector3.forward, faceDir, Vector3.up), 0) * groundHint.posShift;
+                GroundHintManager.GetInstance().ShowSquareHint(hintCenter + hintShift, skillDirection, new Vector2(hintWidth, hintLength), prepareSkillTime);
             }
         }
         else
