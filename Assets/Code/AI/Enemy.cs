@@ -176,7 +176,7 @@ public class Enemy : MonoBehaviour
                     mySPAimator.SetIsRun(false);
                 break;
             case AI_STATE.ATTACK:
-                //stateTime = AttackWait;
+                stateTime = AttackWait;
                 //if (myAnimator)
                 //    myAnimator.SetBool("Run", false);
                 //if (mySPAimator)

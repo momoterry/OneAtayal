@@ -216,6 +216,7 @@ public class EnemyOne : Enemy
     protected void DoSkillDone()
     {
         AttackCD = skillPattern[currSkillIndex].collDown;
+        stateTime = AttackCD;
 
         currSkillIndex++;
         if (currSkillIndex >= skillPattern.Length)
@@ -223,5 +224,13 @@ public class EnemyOne : Enemy
             currSkillIndex = 0;
         }
     }
+
+    //private void OnGUI()
+    //{
+    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), stateTime.ToString("F2") + " / " + AttackCD.ToString("F2"));
+
+    //}
 
 }

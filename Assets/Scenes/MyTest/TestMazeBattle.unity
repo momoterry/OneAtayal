@@ -854,6 +854,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleStoneBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 4777012181299576964, guid: 7b13f867007e1b54b869cf33b4a804c2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4777012181299576967, guid: 7b13f867007e1b54b869cf33b4a804c2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1120,7 +1124,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1477374011
 Transform:
   m_ObjectHideFlags: 0
@@ -2383,7 +2387,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1441587937
-  m_SortingLayer: -1
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2714,7 +2718,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1725910625
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
