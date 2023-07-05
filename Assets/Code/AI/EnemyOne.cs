@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class SkillGroundHint
 {
     public Vector2 size;
     public Vector3 posShift;
+    public float angleShift;
 }
 
 //¥ý¥Î©ó AI
@@ -84,7 +86,7 @@ public class EnemyOne : Enemy
 
         SkillData theSkill = skillList[skillPattern[currSkillIndex].skillIndex];
 
-        skillDirection = faceDir;
+        skillDirection = theSkill.fixDirection ? Vector3.forward : faceDir.normalized;
 
         if (theSkill.prepareTime > 0)
         {
@@ -96,9 +98,14 @@ public class EnemyOne : Enemy
             {
                 float hintLength = groundHint.size.y;
                 float hintWidth = groundHint.size.x;
-                Vector3 hintCenter = transform.position + faceDir.normalized * hintLength * 0.5f;
-                Vector3 hintShift = Quaternion.Euler(0, Vector3.SignedAngle(Vector3.forward, faceDir, Vector3.up), 0) * groundHint.posShift;
-                GroundHintManager.GetInstance().ShowSquareHint(hintCenter + hintShift, skillDirection, new Vector2(hintWidth, hintLength), prepareSkillTime);
+                Vector3 hintDirection = Quaternion.Euler(0, groundHint.angleShift, 0) * skillDirection;
+                Vector3 hintCenter = transform.position + hintDirection * hintLength * 0.5f;
+                Vector3 hintShift = Quaternion.Euler(0, Vector3.SignedAngle(Vector3.forward, hintDirection, Vector3.up), 0) * groundHint.posShift;
+                //if (!theSkill.fixDirection)
+                //{
+                //    hintShift = Quaternion.Euler(0, Vector3.SignedAngle(Vector3.forward, faceDir, Vector3.up), 0) * groundHint.posShift;
+                //}
+                GroundHintManager.GetInstance().ShowSquareHint(hintCenter + hintShift, hintDirection, new Vector2(hintWidth, hintLength), prepareSkillTime);
             }
         }
         else
@@ -163,7 +170,7 @@ public class EnemyOne : Enemy
 
         if (skill.bulletRef)
         {
-            Vector3 shootPoint = gameObject.transform.position + (skill.fixDirection ? Vector3.back: skillDirection) * skill.bulletInitDis;
+            Vector3 shootPoint = gameObject.transform.position + (skillDirection * skill.bulletInitDis);
 
             GameObject newObj = Instantiate(skill.bulletRef, shootPoint, rm, null);
 
@@ -172,7 +179,7 @@ public class EnemyOne : Enemy
                 bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
-                    Vector3 td = skill.fixDirection ? Vector3.back : skillDirection;
+                    Vector3 td = skillDirection;
                     myDamage.damage = Attack * skill.damageRatio;
                     newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, td);
                 }

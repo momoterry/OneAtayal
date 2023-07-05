@@ -198,7 +198,31 @@ MonoBehaviour:
     bulletInitDis: 0
     fixDirection: 1
     prepareTime: 1
-    groundHints: []
+    groundHints:
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: 0
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: 45
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: 90
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: 135
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: 180
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: -45
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: -90
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: -135
     damageRatio: 0.2
     animString: Attack
     trackRef: {fileID: 0}
