@@ -53,12 +53,8 @@ public class DollAuto : Doll
 
     protected float autoStateTime;
 
-    //// Start is called before the first frame update
-    protected override void Start()
+    private void Awake()
     {
-        base.Start();
-
-        nextAutoState = AutoState.FOLLOW;
         myAgent = GetComponent<NavMeshAgent>();
         if (myAgent)
         {
@@ -76,6 +72,31 @@ public class DollAuto : Doll
         myCollider = GetComponent<Collider>();
         if (myCollider)
             myCollider.enabled = false;
+    }
+
+    //// Start is called before the first frame update
+    protected override void Start()
+    {
+        base.Start();
+
+        nextAutoState = AutoState.FOLLOW;
+        //myAgent = GetComponent<NavMeshAgent>();
+        //if (myAgent)
+        //{
+        //    myAgent.updateRotation = false;
+        //    myAgent.updateUpAxis = false;
+        //    myAgent.enabled = false;
+        //}
+
+        //myBody = GetComponent<HitBody>();
+        //if (myBody)
+        //    myBody.enabled = false;
+        //myHpHandler = GetComponent<Hp_BarHandler>();
+        //if (myHpHandler)
+        //    myHpHandler.enabled = false;
+        //myCollider = GetComponent<Collider>();
+        //if (myCollider)
+        //    myCollider.enabled = false;
 
     }
 
