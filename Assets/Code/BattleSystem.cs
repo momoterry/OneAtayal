@@ -102,6 +102,7 @@ public class BattleSystem : MonoBehaviour
             if (e)
             {
                 thePC.OnKillEnemy(e);
+                BattlePlayerData.GetInstance().OnKillEnemy(e);
             }
 
             if (GetEnemyCount()==0)

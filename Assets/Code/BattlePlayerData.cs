@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class BattlePlayerData : MonoBehaviour
 {
+    const int INIT_EXP_MAX = 100;
+    protected int currExp = 0;
+    protected int currExpMax = INIT_EXP_MAX;
+    protected int currBattleLV = 1;
+
     static private BattlePlayerData instance;
     static public BattlePlayerData GetInstance() { return instance; }
     private void Awake()
@@ -18,9 +23,9 @@ public class BattlePlayerData : MonoBehaviour
     // Public Functions
     public int GetLeftBattlePoints() { return 0; }
     public void AddBattlePoints( int point ) { }
-    public int GetBattleLevel() { return 99; }
-    public int GetBattleExp() { return 0; }
-    public int GetBattleExpMax() { return 100; }
+    public int GetBattleLevel() { return currBattleLV; }
+    public int GetBattleExp() { return currExp; }
+    public int GetBattleExpMax() { return currExpMax; }
 
     // Start is called before the first frame update
     void Start()
@@ -39,12 +44,27 @@ public class BattlePlayerData : MonoBehaviour
         //暴力法  TODO: 用表格設定經驗值
         if (BattleSystem.GetInstance().IsBattleLevelUp)
         {
-            AddExp(10);
+            AddExp(30);
         }
     }
     public void AddExp(int value)
     {
+        currExp += value;
+        int originalLV = currBattleLV;
+        while (currExp > currExpMax)
+        {
+            currExp -= currExpMax;
+            currBattleLV++;
+            currExpMax = (int)(currExpMax * 1.2f);  //TODO: 用查表的方式?
+        }
+        if (currBattleLV != originalLV)
+        {
 
+        }
+    }
 
+    protected void DoBattleLVUp(int addLV)
+    {
+        print("升級啦，升了" + addLV + " 級，現在是 " + currBattleLV + " 級");
     }
 }
