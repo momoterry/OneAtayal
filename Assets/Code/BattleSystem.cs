@@ -18,6 +18,8 @@ public class BattleSystem : MonoBehaviour
     public GameObject playerRef;
     public bool ForceUsePlayerRef = false;
 
+    public bool IsBattleLevelUp = false;
+
     protected GameObject thePlayer;   //TODO Player Character Spawn 較晚，但 PC 應常駐
     protected List<GameObject> enemyList = new List<GameObject>();
     protected List<GameObject> objList = new List<GameObject>();

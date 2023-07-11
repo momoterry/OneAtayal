@@ -16,6 +16,9 @@ public class Battle_HUD : MonoBehaviour
     // LV / EXP
     public Text LVText;
     public Slider expBar;
+    public GameObject BattleLevelUpRoot;
+    public Text BattleLVText;
+    public Slider BattleExpBar;
 
     // Doll 資訊
     public Text DollNumText;
@@ -126,6 +129,10 @@ public class Battle_HUD : MonoBehaviour
             theVPad.vStick.gameObject.SetActive(isVPad);
             theVPad.gameObject.SetActive(isVPad);
         }
+
+        if (BattleLevelUpRoot)
+            BattleLevelUpRoot.SetActive(BattleSystem.GetInstance().IsBattleLevelUp);
+
     }
 
     // Update is called once per frame
@@ -142,23 +149,46 @@ public class Battle_HUD : MonoBehaviour
         if (pData)
         {
             CharacterStat mData = pData.GetMainChracterData();
-            if (LVText)
+            if (!BattleSystem.GetInstance().IsBattleLevelUp)
             {
-                if (currLV != mData.LV)
+                if (LVText)
                 {
-                    currLV = mData.LV;
-                    LVText.text = currLV.ToString();
+                    if (currLV != mData.LV)
+                    {
+                        currLV = mData.LV;
+                        LVText.text = currLV.ToString();
+                    }
+                }
+                if (expBar)
+                {
+                    float ratio = (float)mData.Exp / (float)mData.ExpMax;
+                    if (currExpRatio != ratio)
+                    {
+                        currExpRatio = ratio;
+                        expBar.value = currExpRatio;
+                    }
+                }
+
+                if (DollNumText)
+                {
+                    int num = pData.GetCurrDollNum();
+                    if (num != currDollNum)
+                    {
+                        DollNumText.text = num.ToString();
+                        currDollNum = num;
+                    }
+                }
+                if (DollMaxText)
+                {
+                    int num = pData.GetMaxDollNum();
+                    if (num != currDollMax)
+                    {
+                        DollMaxText.text = num.ToString();
+                        currDollMax = num;
+                    }
                 }
             }
-            if (expBar)
-            {
-                float ratio = (float)mData.Exp / (float)mData.ExpMax;
-                if (currExpRatio != ratio)
-                {
-                    currExpRatio = ratio;
-                    expBar.value = currExpRatio;
-                }
-            }
+
             if (moneyText)
             {
                 int money = pData.GetMoney();
@@ -168,22 +198,27 @@ public class Battle_HUD : MonoBehaviour
                     currMoney = money;
                 }
             }
-            if (DollNumText)
+        }
+
+        if (BattleSystem.GetInstance().IsBattleLevelUp)
+        {
+            //TODO: 不用每個 Frame 做
+            if (BattleLVText)
             {
-                int num = pData.GetCurrDollNum();
-                if (num != currDollNum)
-                {
-                    DollNumText.text = num.ToString();
-                    currDollNum = num;
-                }
+                //if (currLV != mData.LV)
+                //{
+                //    currLV = mData.LV;
+                //    LVText.text = currLV.ToString();
+                //}
+                BattleLVText.text = BattlePlayerData.GetInstance().GetBattleLevel().ToString();
             }
-            if (DollMaxText)
+            if (BattleExpBar)
             {
-                int num = pData.GetMaxDollNum();
-                if (num != currDollMax)
+                float ratio = (float)BattlePlayerData.GetInstance().GetBattleExp() / (float)BattlePlayerData.GetInstance().GetBattleExpMax();
+                if (currExpRatio != ratio)
                 {
-                    DollMaxText.text = num.ToString();
-                    currDollMax = num;
+                    currExpRatio = ratio;
+                    BattleExpBar.value = currExpRatio;
                 }
             }
         }

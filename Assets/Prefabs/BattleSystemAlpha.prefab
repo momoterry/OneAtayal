@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 5781492699891297186}
   - component: {fileID: 2339272432450874717}
   - component: {fileID: 696619249053733077}
+  - component: {fileID: 3409162885809416633}
   m_Layer: 0
   m_Name: BattleSystemAlpha
   m_TagString: Untagged
@@ -121,6 +122,7 @@ MonoBehaviour:
   initPlayerDirAngle: 0
   playerRef: {fileID: 6214839875520186894, guid: 1d464cc18043c634e95ebb5461db4dd6, type: 3}
   ForceUsePlayerRef: 0
+  IsBattleLevelUp: 1
   MaxLevel: 20
   initPotion: 3
   maxPotion: 5
@@ -201,5 +203,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8602260026eea745bd8be4756e2c8dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SquareSprite: {fileID: 1610176971, guid: 29088116f1e39e343aad1aabfbbc915b, type: 3}
   SquareHintRef: {fileID: 8678705845253763786, guid: b5db72c1462b89940b3c54d252b9755f, type: 3}
+--- !u!114 &3409162885809416633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781492699891297191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d8528b97c102404989cc31f35a57ffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

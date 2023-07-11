@@ -82,7 +82,7 @@ public class ContinuousBattleManager : MonoBehaviour
         return null;
     }
 
-    //有關半路撿到的 Doll 的記錄
+    //有關半路撿到的 Doll 的記錄  TODO: 應該整合到 BattlePlayerData 中
     protected List<string> collectedDolls = new List<string>();
     public static void AddCollectedDoll(string dollID) { instance._AddCollectedDoll(dollID); }
     protected void _AddCollectedDoll(string dollID) 
