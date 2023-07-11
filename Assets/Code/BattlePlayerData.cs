@@ -4,12 +4,25 @@ using UnityEngine;
 
 //在關卡戰鬥中的玩家資料，在戰鬥結束後會被清除重設
 
+public class BattlePlayerCrossSceneData
+{
+    public int currExp = 0;
+    public int currExpMax = 0;
+    public int currBattleLV = 1;
+}
+
 public class BattlePlayerData : MonoBehaviour
 {
+    const int MAX_BATTLE_LEVEL = 20;
     const int INIT_EXP_MAX = 100;
+    const float EXP_MAX_STEP = 1.2f;
+
     protected int currExp = 0;
     protected int currExpMax = INIT_EXP_MAX;
     protected int currBattleLV = 1;
+    //protected BattlePlayerCrossSceneData data;
+
+    protected int[] maxExpArray = new int[MAX_BATTLE_LEVEL];
 
     static private BattlePlayerData instance;
     static public BattlePlayerData GetInstance() { return instance; }
@@ -18,6 +31,13 @@ public class BattlePlayerData : MonoBehaviour
         if (instance != null)
             print("ERROR !! 超過一份 BattlePlayerData 存在 ");
         instance = this;
+
+        maxExpArray[0] = 1;
+        maxExpArray[1] = INIT_EXP_MAX;
+        for (int i=2; i<MAX_BATTLE_LEVEL; i++)
+        {
+            maxExpArray[i] = (int)(maxExpArray[i - 1] * EXP_MAX_STEP);
+        }
     }
 
     // Public Functions
@@ -26,6 +46,7 @@ public class BattlePlayerData : MonoBehaviour
     public int GetBattleLevel() { return currBattleLV; }
     public int GetBattleExp() { return currExp; }
     public int GetBattleExpMax() { return currExpMax; }
+    public int GetMaxBattleLevel() { return MAX_BATTLE_LEVEL; }
 
     // Start is called before the first frame update
     void Start()
@@ -49,22 +70,32 @@ public class BattlePlayerData : MonoBehaviour
     }
     public void AddExp(int value)
     {
+        if (currExp == MAX_BATTLE_LEVEL)
+            return;
         currExp += value;
         int originalLV = currBattleLV;
-        while (currExp > currExpMax)
+        while (currExp >= currExpMax)
         {
-            currExp -= currExpMax;
             currBattleLV++;
-            currExpMax = (int)(currExpMax * 1.2f);  //TODO: 用查表的方式?
+            if (currBattleLV < MAX_BATTLE_LEVEL)
+            {
+                currExp -= currExpMax;
+                currExpMax = maxExpArray[currBattleLV];
+            }
+            else
+            {
+                currBattleLV = MAX_BATTLE_LEVEL;    //確保
+                currExp = 0;       //滿級了
+            }
         }
         if (currBattleLV != originalLV)
         {
-
+            DoBattleLVUp(currBattleLV - originalLV);
         }
     }
 
     protected void DoBattleLVUp(int addLV)
     {
-        print("升級啦，升了" + addLV + " 級，現在是 " + currBattleLV + " 級");
+        //print("升級啦，升了" + addLV + " 級，現在是 " + currBattleLV + " 級");
     }
 }

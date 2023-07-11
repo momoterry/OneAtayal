@@ -203,6 +203,7 @@ public class Battle_HUD : MonoBehaviour
         if (BattleSystem.GetInstance().IsBattleLevelUp)
         {
             //TODO: 不用每個 Frame 做
+            bool isMax = BattlePlayerData.GetInstance().GetBattleLevel() == BattlePlayerData.GetInstance().GetMaxBattleLevel();
             if (BattleLVText)
             {
                 //if (currLV != mData.LV)
@@ -210,11 +211,11 @@ public class Battle_HUD : MonoBehaviour
                 //    currLV = mData.LV;
                 //    LVText.text = currLV.ToString();
                 //}
-                BattleLVText.text = BattlePlayerData.GetInstance().GetBattleLevel().ToString();
+                BattleLVText.text = isMax ? "Max" : BattlePlayerData.GetInstance().GetBattleLevel().ToString();
             }
             if (BattleExpBar)
             {
-                float ratio = (float)BattlePlayerData.GetInstance().GetBattleExp() / (float)BattlePlayerData.GetInstance().GetBattleExpMax();
+                float ratio = isMax? 1.0f : (float)BattlePlayerData.GetInstance().GetBattleExp() / (float)BattlePlayerData.GetInstance().GetBattleExpMax();
                 if (currExpRatio != ratio)
                 {
                     currExpRatio = ratio;
