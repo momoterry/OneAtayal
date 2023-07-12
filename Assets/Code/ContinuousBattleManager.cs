@@ -19,6 +19,8 @@ public class ContinuousBattleManager : MonoBehaviour
     protected ContinuousBattleDataBase[] currBattleArray = null;
     protected int currBattleIndex;
 
+    protected bool isGoingContinuousBattle = false; //在開啟或進入 ContinuousBattle 時打開的 Flag，讓戰鬥離開時知道是否需要留下記錄
+
     protected void Awake()
     {
         if (instance != null)
@@ -37,6 +39,7 @@ public class ContinuousBattleManager : MonoBehaviour
         currBattleArray = battleArray;
         currBattleIndex = 0;
 
+        isGoingContinuousBattle = true;
     }
 
     protected void DoEndAllBattle()
@@ -63,6 +66,7 @@ public class ContinuousBattleManager : MonoBehaviour
                 //print("連續戰鬥結束 ................ !!");
                 DoEndAllBattle();
             }
+            isGoingContinuousBattle = true;
         }
     }
 
@@ -80,6 +84,19 @@ public class ContinuousBattleManager : MonoBehaviour
             return currBattleArray[currBattleIndex];
         }
         return null;
+    }
+
+    //離開 Scene 時呼叫，如果沒有事先呼叫 GoToNext 的情況，必須視為戰鬥被中止，清除記錄
+    public static void OnSceneExit() { instance._OnSceneExit(); }
+    protected void _OnSceneExit()
+    {
+        //print("_OnSceneExit !!!!  isGoingContinuousBattle = " + isGoingContinuousBattle);
+        if (!isGoingContinuousBattle)
+        {
+            DoEndAllBattle();
+        }
+
+        isGoingContinuousBattle = false;
     }
 
     //有關半路撿到的 Doll 的記錄  TODO: 應該整合到 BattlePlayerData 中
