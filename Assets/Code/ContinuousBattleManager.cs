@@ -18,8 +18,15 @@ public class ContinuousBattleManager : MonoBehaviour
     //protected List<ContinuousBattleDataBase> battleList = new List<ContinuousBattleDataBase>();
     protected ContinuousBattleDataBase[] currBattleArray = null;
     protected int currBattleIndex;
+    protected BattlePlayerCrossSceneData battlePlayerData = null;
 
     protected bool isGoingContinuousBattle = false; //在開啟或進入 ContinuousBattle 時打開的 Flag，讓戰鬥離開時知道是否需要留下記錄
+
+    static public ContinuousBattleManager GetInstance() { return instance; }
+    static public BattlePlayerCrossSceneData GetBattlePlayerCrossSceneData()
+    {
+        return instance.battlePlayerData;
+    }
 
     protected void Awake()
     {
@@ -47,6 +54,7 @@ public class ContinuousBattleManager : MonoBehaviour
         currBattleArray = null;
         currBattleIndex = 0;
         collectedDolls.Clear();
+        battlePlayerData = null;
     }
 
     static public void GotoNextBattle()
@@ -64,9 +72,11 @@ public class ContinuousBattleManager : MonoBehaviour
             if (currBattleIndex == (currBattleArray.Length))
             {
                 //print("連續戰鬥結束 ................ !!");
-                DoEndAllBattle();
+                //DoEndAllBattle();
+                isGoingContinuousBattle = false;
             }
-            isGoingContinuousBattle = true;
+            else
+                isGoingContinuousBattle = true;
         }
     }
 
@@ -91,7 +101,11 @@ public class ContinuousBattleManager : MonoBehaviour
     protected void _OnSceneExit()
     {
         //print("_OnSceneExit !!!!  isGoingContinuousBattle = " + isGoingContinuousBattle);
-        if (!isGoingContinuousBattle)
+        if (isGoingContinuousBattle)
+        {
+            battlePlayerData = BattlePlayerData.GetInstance().GetCrossSceneData();
+        }
+        else
         {
             DoEndAllBattle();
         }

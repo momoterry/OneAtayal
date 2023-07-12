@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class BattlePlayerCrossSceneData
 {
-    public int currExp = 0;
-    public int currExpMax = 0;
-    public int currBattleLV = 1;
+    public int currExp;
+    public int currExpMax;
+    public int currBattleLV;
+    public int battleLVPoint;
 }
 
 public class BattlePlayerData : MonoBehaviour
@@ -20,6 +21,7 @@ public class BattlePlayerData : MonoBehaviour
     protected int currExp = 0;
     protected int currExpMax = INIT_EXP_MAX;
     protected int currBattleLV = 1;
+    protected int battleLVPoint = 0;
     //protected BattlePlayerCrossSceneData data;
 
     protected int[] maxExpArray = new int[MAX_BATTLE_LEVEL];
@@ -38,11 +40,33 @@ public class BattlePlayerData : MonoBehaviour
         {
             maxExpArray[i] = (int)(maxExpArray[i - 1] * EXP_MAX_STEP);
         }
+
+        if (ContinuousBattleManager.GetInstance() != null)
+        {
+            BattlePlayerCrossSceneData data = ContinuousBattleManager.GetBattlePlayerCrossSceneData();
+            if (data != null)
+            {
+                print("有 BattlePlayerCrossSceneData，復元資料 !!");
+                currBattleLV = data.currBattleLV;
+                currExp = data.currExp;
+                currExpMax = data.currExpMax;
+                battleLVPoint = data.battleLVPoint;
+            }
+        }
     }
 
     // Public Functions
-    public int GetLeftBattlePoints() { return 0; }
-    public void AddBattlePoints( int point ) { }
+    public BattlePlayerCrossSceneData GetCrossSceneData()
+    {
+        BattlePlayerCrossSceneData data = new BattlePlayerCrossSceneData();
+        data.currBattleLV = currBattleLV;
+        data.currExp = currExp;
+        data.currExpMax = currExpMax;
+        data.battleLVPoint = battleLVPoint;
+        return data;
+    }
+    public int GetBattleLVPoints() { return battleLVPoint; }
+    public void AddBattleLVPoints( int point ) { battleLVPoint += point; }
     public int GetBattleLevel() { return currBattleLV; }
     public int GetBattleExp() { return currExp; }
     public int GetBattleExpMax() { return currExpMax; }
@@ -70,7 +94,7 @@ public class BattlePlayerData : MonoBehaviour
     }
     public void AddExp(int value)
     {
-        if (currExp == MAX_BATTLE_LEVEL)
+        if (currBattleLV == MAX_BATTLE_LEVEL)
             return;
         currExp += value;
         int originalLV = currBattleLV;
