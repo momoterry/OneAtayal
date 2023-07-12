@@ -70,6 +70,7 @@ public class SkillDollSummon : SkillBase
             theAnimator.SetTrigger("Cast");
         }
 
+        ContinuousBattleManager.AddCollectedDoll(theDoll.ID);
 
         //================================
         result = SKILL_RESULT.SUCCESS;

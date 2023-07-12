@@ -9,6 +9,7 @@ public enum SKILL_RESULT
     NO_TARGET,
     NO_MANA,
     COLL_DOWN,
+    NO_BATTLE_POINT,
 }
 
 public class SkillBase : MonoBehaviour
@@ -17,6 +18,8 @@ public class SkillBase : MonoBehaviour
     public float duration = 0.2f;   //技能施放期間 (無法操作 )
     public float manaCost = 0;
     public float coolDown = 1.0f;
+
+    public bool isBattleLevelUpSkill = false;
 
     public Sprite icon;
 
@@ -67,8 +70,22 @@ public class SkillBase : MonoBehaviour
 
     public virtual void OnSkillSucess()
     {
-        thePC.DoUseMP(manaCost);
-        cdLeft = coolDown;
+        if (isBattleLevelUpSkill)
+        {
+            if (BattlePlayerData.GetInstance().GetBattleLVPoints() > 0)
+            {
+                BattlePlayerData.GetInstance().AddBattleLVPoints(-1);
+            }
+            else
+            {
+                print("ERROR!! No Battle Point OnSkillSucess !!!! ");
+            }
+        }
+        else
+        {
+            thePC.DoUseMP(manaCost);
+            cdLeft = coolDown;
+        }
         if (theButton)
         {
             theButton.OnSkillRelease(coolDown);
@@ -83,18 +100,28 @@ public class SkillBase : MonoBehaviour
             return false;
         
         }
-
-        if (cdLeft > 0)
+        if (isBattleLevelUpSkill)
         {
-            result = SKILL_RESULT.COLL_DOWN;
-            //print("SKILL CD " + cdLeft);
-            return false;
+            if (BattlePlayerData.GetInstance().GetBattleLVPoints() <= 0)
+            {
+                result = SKILL_RESULT.NO_BATTLE_POINT;
+                return false;
+            }
         }
-
-        if (thePC.GetMP() < manaCost)
+        else
         {
-            result = SKILL_RESULT.NO_MANA;
-            return false;
+            if (cdLeft > 0)
+            {
+                result = SKILL_RESULT.COLL_DOWN;
+                //print("SKILL CD " + cdLeft);
+                return false;
+            }
+
+            if (thePC.GetMP() < manaCost)
+            {
+                result = SKILL_RESULT.NO_MANA;
+                return false;
+            }
         }
         return true;
     }
