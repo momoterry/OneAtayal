@@ -19,6 +19,8 @@ public class Battle_HUD : MonoBehaviour
     public GameObject BattleLevelUpRoot;
     public Text BattleLVText;
     public Slider BattleExpBar;
+    public GameObject BattlePointRoot;
+    public Text BattlePointNum;
 
     // Doll ¸ê°T
     public Text DollNumText;
@@ -220,6 +222,21 @@ public class Battle_HUD : MonoBehaviour
                 {
                     currExpRatio = ratio;
                     BattleExpBar.value = currExpRatio;
+                }
+            }
+            if (BattlePointRoot)
+            {
+                int bp = BattlePlayerData.GetInstance().GetBattleLVPoints();
+                
+                if (bp > 0)
+                {
+                    BattlePointRoot.SetActive(true);
+                    if (BattlePointNum)
+                        BattlePointNum.text = bp.ToString();
+                }
+                else
+                {
+                    BattlePointRoot.SetActive(false);
                 }
             }
         }

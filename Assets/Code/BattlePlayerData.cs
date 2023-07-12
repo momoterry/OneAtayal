@@ -46,7 +46,7 @@ public class BattlePlayerData : MonoBehaviour
             BattlePlayerCrossSceneData data = ContinuousBattleManager.GetBattlePlayerCrossSceneData();
             if (data != null)
             {
-                print("有 BattlePlayerCrossSceneData，復元資料 !!");
+                //print("有 BattlePlayerCrossSceneData，復元資料 !!");
                 currBattleLV = data.currBattleLV;
                 currExp = data.currExp;
                 currExpMax = data.currExpMax;
@@ -101,6 +101,7 @@ public class BattlePlayerData : MonoBehaviour
         while (currExp >= currExpMax)
         {
             currBattleLV++;
+            battleLVPoint++;
             if (currBattleLV < MAX_BATTLE_LEVEL)
             {
                 currExp -= currExpMax;
