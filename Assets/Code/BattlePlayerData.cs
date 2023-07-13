@@ -66,7 +66,10 @@ public class BattlePlayerData : MonoBehaviour
         return data;
     }
     public int GetBattleLVPoints() { return battleLVPoint; }
-    public void AddBattleLVPoints( int point ) { battleLVPoint += point; }
+    public void AddBattleLVPoints( int point ) { 
+        battleLVPoint += point;
+        BattleSystem.GetPC().OnBattlePointsChange();
+    }
     public int GetBattleLevel() { return currBattleLV; }
     public int GetBattleExp() { return currExp; }
     public int GetBattleExpMax() { return currExpMax; }
@@ -121,6 +124,7 @@ public class BattlePlayerData : MonoBehaviour
 
     protected void DoBattleLVUp(int addLV)
     {
+        BattleSystem.GetPC().OnBattlePointsChange();
         //print("升級啦，升了" + addLV + " 級，現在是 " + currBattleLV + " 級");
     }
 }

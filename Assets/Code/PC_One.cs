@@ -236,6 +236,15 @@ public class PC_One : PlayerControllerBase
         }
     }
 
+    public override void OnBattlePointsChange()
+    {
+        int currPoint = BattlePlayerData.GetInstance().GetBattleLVPoints();
+        foreach (SkillBase sb in activeSkillls)
+        {
+            sb.SetupBattlePoints(currPoint);
+        }
+    }
+
     public void SetAutoSkill( SkillBase skillRef )
     {
         GameSystem.GetInstance().SetPlayerSkillRef(AUTO_SKILL, skillRef);

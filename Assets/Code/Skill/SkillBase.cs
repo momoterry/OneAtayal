@@ -19,7 +19,8 @@ public class SkillBase : MonoBehaviour
     public float manaCost = 0;
     public float coolDown = 1.0f;
 
-    public bool isBattleLevelUpSkill = false;
+    //public bool isBattleLevelUpSkill = false;
+    public int battlePointsCost = 0;
 
     public Sprite icon;
 
@@ -48,7 +49,19 @@ public class SkillBase : MonoBehaviour
         {
             skillButton.SetIcon(icon);
             skillButton.Bind(OnButtonClicked);
+
+            if (battlePointsCost > 0)
+            {
+                //skillButton.gameObject.SetActive(BattlePlayerData.GetInstance().GetBattleLVPoints() >= battlePointsCost);
+                SetupBattlePoints(BattlePlayerData.GetInstance().GetBattleLVPoints());
+            }
         }
+    }
+
+    public void SetupBattlePoints( int points)
+    {
+        if (battlePointsCost > 0)
+            theButton.gameObject.SetActive(points >= battlePointsCost);
     }
 
     public void SetSkillIndex(int index)
@@ -70,11 +83,13 @@ public class SkillBase : MonoBehaviour
 
     public virtual void OnSkillSucess()
     {
-        if (isBattleLevelUpSkill)
+        if (battlePointsCost > 0)
         {
-            if (BattlePlayerData.GetInstance().GetBattleLVPoints() > 0)
+            if (BattlePlayerData.GetInstance().GetBattleLVPoints() >= battlePointsCost)
             {
-                BattlePlayerData.GetInstance().AddBattleLVPoints(-1);
+                BattlePlayerData.GetInstance().AddBattleLVPoints(-battlePointsCost);
+                //theButton.gameObject.SetActive(BattlePlayerData.GetInstance().GetBattleLVPoints() >= battlePointsCost);
+                //SetupBattlePoints(BattlePlayerData.GetInstance().GetBattleLVPoints());
             }
             else
             {
@@ -100,9 +115,9 @@ public class SkillBase : MonoBehaviour
             return false;
         
         }
-        if (isBattleLevelUpSkill)
+        if (battlePointsCost > 0)
         {
-            if (BattlePlayerData.GetInstance().GetBattleLVPoints() <= 0)
+            if (BattlePlayerData.GetInstance().GetBattleLVPoints() < battlePointsCost)
             {
                 result = SKILL_RESULT.NO_BATTLE_POINT;
                 return false;
