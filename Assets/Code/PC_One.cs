@@ -248,7 +248,7 @@ public class PC_One : PlayerControllerBase
 
         if (diff > 0 && levelUpFXRef)
         {
-            print("升級特效!! " + diff);
+            //print("升級特效!! " + diff);
             GameObject o = BattleSystem.SpawnGameObj(levelUpFXRef, transform.position);
             o.transform.parent = transform;
         }

@@ -125,6 +125,6 @@ public class BattlePlayerData : MonoBehaviour
     protected void DoBattleLVUp(int addLV)
     {
         BattleSystem.GetPC().OnBattlePointsChange(addLV);
-        print("¤É¯Å°Õ¡A¤É¤F" + addLV + " ¯Å¡A²{¦b¬O " + currBattleLV + " ¯Å");
+        //print("¤É¯Å°Õ¡A¤É¤F" + addLV + " ¯Å¡A²{¦b¬O " + currBattleLV + " ¯Å");
     }
 }

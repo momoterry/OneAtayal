@@ -49,6 +49,7 @@ public class SkillBase : MonoBehaviour
         {
             skillButton.SetIcon(icon);
             skillButton.Bind(OnButtonClicked);
+            skillButton.SetCost(battlePointsCost);
 
             if (battlePointsCost > 0)
             {

@@ -8,6 +8,7 @@ public class SkillButton : MonoBehaviour
 {
     public Text coolDownText;
     public Image icon;
+    public Text costText;
 
     protected float coolDownLeft = 0;
 
@@ -16,6 +17,17 @@ public class SkillButton : MonoBehaviour
         if (icon)
         {
             icon.sprite = iconSprite;
+        }
+    }
+
+    public void SetCost(int cost)
+    {
+        if (costText)
+        {
+            if (cost > 0)
+                costText.text = cost.ToString();
+            else
+                costText.text = "";
         }
     }
     
