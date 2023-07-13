@@ -16,7 +16,7 @@ public class BattlePlayerData : MonoBehaviour
 {
     const int MAX_BATTLE_LEVEL = 20;
     const int INIT_EXP_MAX = 100;
-    const float EXP_MAX_STEP = 1.2f;
+    const float EXP_MAX_STEP = 1.5f;
 
     protected int currExp = 0;
     protected int currExpMax = INIT_EXP_MAX;
@@ -68,7 +68,7 @@ public class BattlePlayerData : MonoBehaviour
     public int GetBattleLVPoints() { return battleLVPoint; }
     public void AddBattleLVPoints( int point ) { 
         battleLVPoint += point;
-        BattleSystem.GetPC().OnBattlePointsChange();
+        BattleSystem.GetPC().OnBattlePointsChange(point);
     }
     public int GetBattleLevel() { return currBattleLV; }
     public int GetBattleExp() { return currExp; }
@@ -124,7 +124,7 @@ public class BattlePlayerData : MonoBehaviour
 
     protected void DoBattleLVUp(int addLV)
     {
-        BattleSystem.GetPC().OnBattlePointsChange();
-        //print("¤É¯Å°Õ¡A¤É¤F" + addLV + " ¯Å¡A²{¦b¬O " + currBattleLV + " ¯Å");
+        BattleSystem.GetPC().OnBattlePointsChange(addLV);
+        print("¤É¯Å°Õ¡A¤É¤F" + addLV + " ¯Å¡A²{¦b¬O " + currBattleLV + " ¯Å");
     }
 }

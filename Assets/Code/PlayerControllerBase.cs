@@ -38,7 +38,7 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual bool DoAtkUp(){return true;}
 
     //戰鬥升級相關 (離開戰鬥就會消失的)
-    public virtual void OnBattlePointsChange() { }
+    public virtual void OnBattlePointsChange( int diff ) { }
 
 
     //Doll 相關

@@ -37,6 +37,8 @@ public class PC_One : PlayerControllerBase
 
     public GameObject arrowRoot;
 
+    public GameObject levelUpFXRef;
+
     protected NavMeshAgent myAgent;
     protected float skillTime = 0.0f;
     protected float autoAttackCDLeft = 0.0f;
@@ -236,12 +238,19 @@ public class PC_One : PlayerControllerBase
         }
     }
 
-    public override void OnBattlePointsChange()
+    public override void OnBattlePointsChange(int diff)
     {
         int currPoint = BattlePlayerData.GetInstance().GetBattleLVPoints();
         foreach (SkillBase sb in activeSkillls)
         {
             sb.SetupBattlePoints(currPoint);
+        }
+
+        if (diff > 0 && levelUpFXRef)
+        {
+            print("¤É¯Å¯S®Ä!! " + diff);
+            GameObject o = BattleSystem.SpawnGameObj(levelUpFXRef, transform.position);
+            o.transform.parent = transform;
         }
     }
 

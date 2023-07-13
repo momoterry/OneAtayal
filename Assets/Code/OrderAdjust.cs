@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OrderAdjust : MonoBehaviour
 {
-    public float bias = 0.0f;
+    public float bias = 0.0f;       //數值越大越容易被看到
     public bool onlyAdjustOnStart = false;
 
     protected float updatePeriod = 0.2f;
