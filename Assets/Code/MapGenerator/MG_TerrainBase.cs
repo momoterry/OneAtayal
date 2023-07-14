@@ -69,6 +69,6 @@ public class MG_TerrainBase : MapGeneratorBase
 
         FillTiles();
 
-        theSurface2D.BuildNavMesh();
+        GenerateNavMesh(theSurface2D);
     }
 }

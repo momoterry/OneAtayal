@@ -38,7 +38,7 @@ public class DunGen_One : MapGeneratorBase
         //{
         //    toBuild--;
         //    if (toBuild == 0)
-        //        theSurface2D.BuildNavMesh();
+        //        GenerateNavMesh(theSurface2D);
         //}
 
     }
@@ -186,7 +186,7 @@ public class DunGen_One : MapGeneratorBase
             ro.transform.SetParent(theSurface2D.transform);
         }
 
-        theSurface2D.BuildNavMesh();
+        GenerateNavMesh(theSurface2D);
     }
 
 

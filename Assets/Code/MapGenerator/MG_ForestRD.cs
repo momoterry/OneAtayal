@@ -95,7 +95,7 @@ public class MG_ForestRD : MapGeneratorBase
         GenerateTiles();
 
 
-        theSurface2D.BuildNavMesh();
+        GenerateNavMesh(theSurface2D);
     }
 
     protected void FillSquareInMap(int value, int x1, int y1, int width, int height)

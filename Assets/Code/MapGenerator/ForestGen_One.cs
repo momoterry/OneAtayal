@@ -30,7 +30,7 @@ public class ForestGen_One : MapGeneratorBase
         //{
         //    toBuild--;
         //    if (toBuild == 0)
-        //        theSurface2D.BuildNavMesh();
+        //        GenerateNavMesh(theSurface2D);
         //}
     }
 
@@ -127,7 +127,7 @@ public class ForestGen_One : MapGeneratorBase
             }
         }
 
-        theSurface2D.BuildNavMesh();
+        GenerateNavMesh(theSurface2D);
     }
 
     void ClearAll()

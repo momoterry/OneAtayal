@@ -141,7 +141,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         if (groundOutEdgeTileGroup)
             theMap.FillTileAll((int)MAP_TYPE.GROUND, null, blockTM, null, groundOutEdgeTileGroup.GetTileEdgeGroup(), true, (int)MAP_TYPE.BLOCK);
 
-        theSurface2D.BuildNavMesh();
+        GenerateNavMesh(theSurface2D);
 
         MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
         if (theMiniMap)

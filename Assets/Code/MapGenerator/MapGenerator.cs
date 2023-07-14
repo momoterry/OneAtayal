@@ -15,7 +15,16 @@ public class MapGeneratorBase : MonoBehaviour
     public void RebuildNavmesh()
     {
         if (theSurface2D)
-            theSurface2D.BuildNavMesh();
+            GenerateNavMesh(theSurface2D);
+    }
+
+    static public void GenerateNavMesh(NavMeshSurface surface)
+    {
+        if (surface)
+        {
+            surface.hideEditorLogs = true;
+            surface.BuildNavMesh();
+        }
     }
 }
 
@@ -49,7 +58,7 @@ public class MapGenerator : MapGeneratorBase
     {
         ClearAll();
         GenerateRandomWalls();
-        theSurface2D.BuildNavMesh();
+        GenerateNavMesh(theSurface2D);
 
         if (buildLevel >= 5)
             buildLevel = 5; //暫定最大五難度
