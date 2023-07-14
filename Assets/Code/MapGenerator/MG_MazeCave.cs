@@ -225,6 +225,7 @@ public class MG_MazeCave : MG_MazeDungeon
                 {
                     puzzleEnd = walker.pos;
                     endDist = currDist;
+                    print("curr endDis: " + endDist + "start " + puzzleStart + " end " + puzzleEnd);
                 }
 
                 isCellGen = true;
