@@ -54,7 +54,8 @@ public class SkillBase : MonoBehaviour
             if (battlePointsCost > 0)
             {
                 //skillButton.gameObject.SetActive(BattlePlayerData.GetInstance().GetBattleLVPoints() >= battlePointsCost);
-                SetupBattlePoints(BattlePlayerData.GetInstance().GetBattleLVPoints());
+                if (BattleSystem.GetInstance().IsBattleLevelUp)
+                    SetupBattlePoints(BattlePlayerData.GetInstance().GetBattleLVPoints());
             }
         }
     }
