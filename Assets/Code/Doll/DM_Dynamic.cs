@@ -200,27 +200,29 @@ public class DM_Dynamic : DollManager
     }
 
 
-    public override Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
+    public override bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
-        Transform result = null;
+        //Transform result = null;
+        bool isOK = false;
         for (int i=0; i<slotNum; i++)
         {
             if (dolls[i] == null && DollSlots[i] != null)
             {
                 dolls[i] = doll;
                 doll.SetSlot(DollSlots[i]);
-                result = DollSlots[i];
+                //result = DollSlots[i];
+                isOK = true;
                 break;
             }
         }
 
-        if (result)
+        if (isOK)
         {
             RebuildFormation();
             //needRebuild = true;
         }
 
-        return result;
+        return isOK;
     }
 
     public override void OnDollTempDeath(Doll doll)

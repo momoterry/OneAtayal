@@ -49,11 +49,8 @@ public class DollManager : MonoBehaviour
         return false;
     }
     
-    public virtual Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
+    public virtual bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
-        //if (waitDollRecovery)
-        //    return null;
-
         float positionRatio = 0;
         switch (positionType)
         {
@@ -87,10 +84,11 @@ public class DollManager : MonoBehaviour
         {
             dolls[bestFound] = doll;
             doll.SetSlot(DollSlots[bestFound]);
-            return DollSlots[bestFound];
+            //return DollSlots[bestFound];
+            return true;
         }
 
-        return null;
+        return false;
     }
 
     public virtual void OnDollTempDeath(Doll doll)

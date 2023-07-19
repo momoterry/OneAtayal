@@ -232,15 +232,16 @@ public class Doll : MonoBehaviour
     public bool TryJoinThePlayer()
     {
         PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
+        bool isOK = false;
         if ( pc ){
             theDollManager = pc.GetDollManager();
             if (theDollManager)
             {
-                mySlot = theDollManager.AddOneDoll(this, positionType);
+                isOK = theDollManager.AddOneDoll(this, positionType);
             }
         }
 
-        if (mySlot)
+        if (isOK)
         {
             nextState = DOLL_STATE.BATTLE;
             return true;
