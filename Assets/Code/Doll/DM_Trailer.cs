@@ -23,7 +23,7 @@ public class DM_Trailer : DollManager
     protected GameObject[] testDotArray = null;
     protected GameObject[] testSlotArray = null;
 
-    protected bool IsDebug = false;
+    public bool IsDebug = false;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -117,4 +117,20 @@ public class DM_Trailer : DollManager
             SetupSlotPosition();
         }
     }
+
+    public override Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
+    {
+
+        for (int i = 0; i < slotNum; i++)
+        {
+            if (dolls[i] == null && DollSlots[i] != null)
+            {
+                dolls[i] = doll;
+                return DollSlots[i];
+            }
+        }
+
+        return null;
+    }
+
 }
