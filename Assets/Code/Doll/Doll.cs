@@ -112,8 +112,8 @@ public class Doll : MonoBehaviour
                 OnStateEnterBattle();
                 break;
             case DOLL_STATE.TEMP_DEATH:
-                theDollManager.OnDollTempDeath(this);
                 gameObject.SetActive(false);
+                theDollManager.OnDollTempDeath(this);
                 break;
         }
     }

@@ -25,7 +25,7 @@ public class DM_Trailer : DollManager
 
     public bool IsDebug = false;
 
-    protected List<Doll> activeList = new List<Doll>();
+    protected List<Doll> dollList = new List<Doll>();
 
     // Start is called before the first frame update
     protected override void Start()
@@ -123,16 +123,26 @@ public class DM_Trailer : DollManager
     public override bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
 
-        for (int i = 0; i < slotNum; i++)
-        {
-            if (dolls[i] == null && DollSlots[i] != null)
-            {
-                dolls[i] = doll;
-                doll.SetSlot(DollSlots[i]);
-                //return DollSlots[i];
+        //for (int i = 0; i < slotNum; i++)
+        //{
+        //    if (dolls[i] == null && DollSlots[i] != null)
+        //    {
+        //        dolls[i] = doll;
+        //        doll.SetSlot(DollSlots[i]);
+        //        //return DollSlots[i];
 
-                return true;
-            }
+        //        dollList.Add(doll);
+        //        ResortDollList();
+
+        //        return true;
+        //    }
+        //}
+        if (dollList.Count < slotNum)
+        {
+            doll.SetSlot(DollSlots[dollList.Count]);
+            dollList.Add(doll);
+            ResortDollList();
+            return true;
         }
 
         return false;
@@ -140,17 +150,45 @@ public class DM_Trailer : DollManager
 
     public override void OnDollTempDeath(Doll doll)
     {
-
+        //dollList.Remove(doll);
+        ResortDollList();
     }
 
     public override void OnDollRevive(Doll doll)
     {
-
+        //dollList.Add(doll);
+        ResortDollList();
     }
 
     public override void OnDollDestroy(Doll doll)
     {
+        dollList.Remove(doll);
+        ResortDollList();
+    }
 
+
+    protected class DollComparer : IComparer<Doll>
+    {
+        public int Compare(Doll x, Doll y)
+        {
+            // 使用字串比較的方式進行排序
+            return (int)x.positionType - (int)y.positionType 
+                + (x.isActiveAndEnabled ? -1000:0) - (y.isActiveAndEnabled? -1000:0);
+        }
+    }
+
+    protected void ResortDollList()
+    {
+        dollList.Sort(new DollComparer());
+        for (int i=0;i<dollList.Count; i++)
+        {
+            dollList[i].SetSlot(DollSlots[i]);
+            dolls[i] = dollList[i];
+        }
+        for (int i=dollList.Count; i<slotNum; i++)
+        {
+            dolls[i] = null;
+        }
     }
 
 }
