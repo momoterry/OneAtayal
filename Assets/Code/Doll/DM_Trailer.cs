@@ -97,6 +97,8 @@ public class DM_Trailer : DollManager
     // Update is called once per frame
     protected override void Update()
     {
+        base.Update();
+
         if ((transform.position - dotArray[currIndex]).sqrMagnitude >= dotDisSqr)
         {
             currIndex--;
