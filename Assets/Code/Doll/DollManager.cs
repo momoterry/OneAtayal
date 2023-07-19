@@ -86,6 +86,7 @@ public class DollManager : MonoBehaviour
         if (bestFound >= 0)
         {
             dolls[bestFound] = doll;
+            doll.SetSlot(DollSlots[bestFound]);
             return DollSlots[bestFound];
         }
 

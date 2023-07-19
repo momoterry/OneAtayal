@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DM_Trailer : DollManager
 {
-    protected int trailSlotNum = 20;
+    protected int trailSlotNum = 40;
 
     protected int dotNum = 0;
     protected float dotDis = 0.5f;
@@ -24,6 +24,8 @@ public class DM_Trailer : DollManager
     protected GameObject[] testSlotArray = null;
 
     public bool IsDebug = false;
+
+    protected List<Doll> activeList = new List<Doll>();
 
     // Start is called before the first frame update
     protected override void Start()
@@ -131,6 +133,21 @@ public class DM_Trailer : DollManager
         }
 
         return null;
+    }
+
+    public override void OnDollTempDeath(Doll doll)
+    {
+
+    }
+
+    public override void OnDollRevive(Doll doll)
+    {
+
+    }
+
+    public override void OnDollDestroy(Doll doll)
+    {
+
     }
 
 }

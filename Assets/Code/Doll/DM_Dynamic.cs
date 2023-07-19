@@ -16,7 +16,7 @@ public class DM_Dynamic : DollManager
     protected List<Doll> middleList = new List<Doll>();
     protected List<Doll> backList = new List<Doll>();
 
-    protected bool needRebuild = false;
+    //protected bool needRebuild = false;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -35,15 +35,15 @@ public class DM_Dynamic : DollManager
 
 
     // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
-        if (needRebuild)
-        {
-            RebuildFormation();
-            needRebuild = false;
-        }
-    }
+    //protected override void Update()
+    //{
+    //    base.Update();
+    //    if (needRebuild)
+    //    {
+    //        RebuildFormation();
+    //        needRebuild = false;
+    //    }
+    //}
 
     protected void RebuildFrontSlots()
     {
@@ -202,16 +202,13 @@ public class DM_Dynamic : DollManager
 
     public override Transform AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
-        //if (waitDollRecovery)
-        //    return null;
-
-        //Transform result = base.AddOneDoll(doll, positionType);
         Transform result = null;
         for (int i=0; i<slotNum; i++)
         {
             if (dolls[i] == null && DollSlots[i] != null)
             {
                 dolls[i] = doll;
+                doll.SetSlot(DollSlots[i]);
                 result = DollSlots[i];
                 break;
             }
@@ -219,8 +216,8 @@ public class DM_Dynamic : DollManager
 
         if (result)
         {
-            //RebuilFormation();
-            needRebuild = true;
+            RebuildFormation();
+            //needRebuild = true;
         }
 
         return result;
@@ -233,7 +230,8 @@ public class DM_Dynamic : DollManager
 
     public override void OnDollRevive(Doll doll)
     {
-        needRebuild = true;
+        //needRebuild = true;
+        RebuildFormation();
     }
 
     public override void OnDollDestroy(Doll doll)

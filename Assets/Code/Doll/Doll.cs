@@ -39,6 +39,7 @@ public class Doll : MonoBehaviour
     protected DOLL_STATE nextState = DOLL_STATE.NONE;
 
     public Transform GetSlot() { return mySlot; }
+    public void SetSlot(Transform slot) { mySlot = slot; }
 
     // Start is called before the first frame update
     protected virtual void Start()
