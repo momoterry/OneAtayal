@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class DM_Trailer : DollManager
@@ -15,7 +16,7 @@ public class DM_Trailer : DollManager
 
     protected Vector3[] dotArray = null;
 
-    protected int currIndex = 0;
+    protected int currIndex = 0;        //Index 暫增時，越遠離玩家，直到
 
     //Debug
     public GameObject testDotRef;
@@ -57,6 +58,9 @@ public class DM_Trailer : DollManager
             DollSlots[i].parent = null; //暴力法: TODO: 直接重新生成
         }
 
+        //初始化所有 Dot 的位置以免一開始重疊
+        InitDotPosition();
+
         //Debug
         if (IsDebug)
         {
@@ -76,6 +80,44 @@ public class DM_Trailer : DollManager
 
         SetupSlotPosition();
 
+    }
+
+    protected void InitDotPosition()
+    {
+        int halfWidth = slotDotNum * 3;  //可參數化
+
+        float step = dotDis * 1.5f;
+        Vector3 vDir = Vector3.back * step;
+        Vector3 hDir = Vector3.right * step;
+        dotArray[0] = transform.position;
+        dotArray[1] = transform.position + vDir;
+        
+        Vector3 currPos = dotArray[1];
+        int i = 2;
+        int width = halfWidth + halfWidth;
+        int currStep = halfWidth;
+        while (i < dotNum)
+        {
+            currPos += hDir * step;
+            dotArray[i] = currPos;
+            i++;
+            currStep++;
+            if (currStep >= width && i < dotNum)
+            {
+                currPos += vDir;
+                dotArray[i] = currPos;
+                i++;
+                currStep = 0;
+                hDir = -hDir;
+            }
+        }
+
+        //for (i = 0; i < dotNum; i++)
+        //{
+        //    //print(dotArray[i]);
+        //    //dotArray[i] = transform.position -Vector3.forward* i *dotDis;
+        //    dotArray[i] = transform.position + Vector3.back * 0.5f * i;
+        //}
     }
 
     void SetupSlotPosition()
