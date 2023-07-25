@@ -16,11 +16,15 @@ public class Battle_HUD : MonoBehaviour
     // LV / EXP
     public Text LVText;
     public Slider expBar;
+
+    //¾Ô°«¤É¯Å
     public GameObject BattleLevelUpRoot;
     public Text BattleLVText;
     public Slider BattleExpBar;
     public GameObject BattlePointRoot;
     public Text BattlePointNum;
+    public BattleLVUpMenu bLVMenu;
+
 
     // Doll ¸ê°T
     public Text DollNumText;

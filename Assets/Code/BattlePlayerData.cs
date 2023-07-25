@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 //在關卡戰鬥中的玩家資料，在戰鬥結束後會被清除重設
@@ -69,6 +70,7 @@ public class BattlePlayerData : MonoBehaviour
     public void AddBattleLVPoints( int point ) { 
         battleLVPoint += point;
         BattleSystem.GetPC().OnBattlePointsChange(point);
+        BattleSystem.GetInstance().theBattleHUD.bLVMenu.OnSetBattlePoint(battleLVPoint);
     }
     public int GetBattleLevel() { return currBattleLV; }
     public int GetBattleExp() { return currExp; }
@@ -78,7 +80,7 @@ public class BattlePlayerData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        BattleSystem.GetInstance().theBattleHUD.bLVMenu.OnSetBattlePoint(battleLVPoint);
     }
 
     // Update is called once per frame
