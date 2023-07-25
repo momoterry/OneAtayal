@@ -10,6 +10,8 @@ public class DollManager : MonoBehaviour
     public bool AllDirectioin = false;  //不限於四方向
     public float RotateSpeed = -1.0f;
 
+    protected DollSkillManager theSkillManager;
+
     protected int slotNum = 0;
     protected Doll[] dolls;
     protected Quaternion targetRt = Quaternion.identity;
@@ -18,6 +20,12 @@ public class DollManager : MonoBehaviour
     //protected bool waitDollRecovery = false;
 
     //public void SetIsWaitDollRecovery(bool isWait) { waitDollRecovery = isWait; }
+    public DollSkillManager GetDollSkillManager() { return theSkillManager; }
+
+    private void Awake()
+    {
+        theSkillManager = GetComponent<DollSkillManager>();
+    }
 
     public List<Doll> GetDolls()
     {

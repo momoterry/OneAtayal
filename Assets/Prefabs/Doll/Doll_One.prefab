@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: -7613164011139993473}
   - component: {fileID: 2959209445954240486}
   - component: {fileID: 7021140444660993118}
+  - component: {fileID: -2561711707891507956}
   m_Layer: 10
   m_Name: Doll_One
   m_TagString: Doll
@@ -279,9 +280,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4032685806379418579}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1.0000002, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &-7613164011139993473
@@ -291,10 +300,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4032685806379418579}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -326,6 +346,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 4032685806379418580}
+  InitAnim:
+    sprites: []
+    FPS: 4
   Idle:
     sprites:
     - {fileID: 6611336990635542847, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
@@ -336,3 +359,16 @@ MonoBehaviour:
     - {fileID: -432125093, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
     - {fileID: -1518064467, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
     FPS: 2
+--- !u!114 &-2561711707891507956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f326f486589ff43a8cf9842e264d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: DSkill_One

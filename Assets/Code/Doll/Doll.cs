@@ -62,6 +62,8 @@ public class Doll : MonoBehaviour
 
     protected virtual void OnDeath()
     {
+        gameObject.SendMessage("OnLeavePlayer", SendMessageOptions.DontRequireReceiver);
+
         if (!canRevie)
         {
             theDollManager.OnDollDestroy(this);
@@ -102,6 +104,7 @@ public class Doll : MonoBehaviour
         }
 
         theDollManager.OnDollRevive(this);
+        gameObject.SendMessage("OnJoinPlayer", SendMessageOptions.DontRequireReceiver);
     }
 
     void OnStateEnter()
@@ -244,6 +247,7 @@ public class Doll : MonoBehaviour
         if (isOK)
         {
             nextState = DOLL_STATE.BATTLE;
+            gameObject.SendMessage("OnJoinPlayer", SendMessageOptions.DontRequireReceiver);
             return true;
         }
         return false;
