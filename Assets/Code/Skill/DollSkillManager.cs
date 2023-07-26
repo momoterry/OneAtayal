@@ -40,13 +40,10 @@ public class DollSkillManager : MonoBehaviour
         
     }
 
-    int testNum = 0;
 
     public void RegisterDollSkill( DollSkillBase dSkill)
     {
-        testNum++;
-        print("----Register DollSkill: " + dSkill.ID + " num = " + testNum);
-        //skillList.Add(dSkill);
+        //print("----Register DollSkill: " + dSkill.ID + " num = ");
         bool newSkill = true;
         foreach (SkillMapInfo info in skillInfoList)
         {
@@ -54,6 +51,7 @@ public class DollSkillManager : MonoBehaviour
             {
                 newSkill = false;
                 info.list.Add(dSkill);
+                break;
             }
         }
         if (newSkill)
@@ -70,9 +68,26 @@ public class DollSkillManager : MonoBehaviour
 
     public void UnRegisterDollSkill(DollSkillBase dSkill)
     {
-        testNum--;
-        print("----UnRegister DollSkill: " + dSkill.ID + " num = " + testNum);
-        //skillList.Remove(dSkill);
+        //print("----UnRegister DollSkill: " + dSkill.ID + " num = ");
+        SkillMapInfo deleteInfo = null;
+        foreach (SkillMapInfo info in skillInfoList)
+        {
+            if (info.ID == dSkill.ID)
+            {
+                info.list.Remove(dSkill);
+                if (info.list.Count == 0)
+                {
+                    //print("Doll Skill Empty !! " + info.ID);
+                    deleteInfo = info;
+                }
+                break;
+            }
+        }
+        if (deleteInfo != null)
+        {
+            skillInfoList.Remove(deleteInfo);
+            SetupDollSkillButtons();
+        }
     }
 
     public void OnSkillButtonOne()
@@ -97,7 +112,7 @@ public class DollSkillManager : MonoBehaviour
             DollSkillButton button = BattleSystem.GetHUD().GetDollSkillButton(i);
             if (button)
             {
-                print("SetupDollSkillButtons:" + i + "-" + skillInfoList.Count);
+                //print("SetupDollSkillButtons:" + i + "-" + skillInfoList.Count);
                 if (i < skillInfoList.Count)
                 {
                     button.gameObject.SetActive(true);
