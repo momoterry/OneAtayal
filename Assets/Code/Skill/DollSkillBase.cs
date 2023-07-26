@@ -5,6 +5,7 @@ using UnityEngine;
 public class DollSkillBase : MonoBehaviour
 {
     public string ID = "";
+    public Sprite icon;
 
     // Start is called before the first frame update
     void Start()

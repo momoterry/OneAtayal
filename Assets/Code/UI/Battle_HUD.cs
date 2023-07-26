@@ -50,6 +50,9 @@ public class Battle_HUD : MonoBehaviour
     public SkillButton autoAttackButton;
     public SkillButton[] SkillButtons;
 
+    //Doll §Þ¯à
+    public DollSkillButton[] DollSkillButtons;
+
     //¿ú
     public Text moneyText;
 
@@ -272,6 +275,14 @@ public class Battle_HUD : MonoBehaviour
             return null;
 
         return SkillButtons[index];
+    }
+
+    public DollSkillButton GetDollSkillButton(int index)
+    {
+        if (index < 0 || index >= DollSkillButtons.Length)
+            return null;
+
+        return DollSkillButtons[index];
     }
 
     //public void SetPlayerInfo( float hp, float maxHp, float mp, float maxMP, float Attack)
