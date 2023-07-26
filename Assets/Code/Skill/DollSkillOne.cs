@@ -20,6 +20,19 @@ public class DollSkillOne : DollSkillBase
     {
         base.OnStartSkill(active);
 
+        DollAuto doll = GetComponent<DollAuto>();
+        if (doll)
+        {
+            if (active)
+            {
+                doll.StartHoldPosition(doll.transform.position);
+            }
+            else
+            {
+                doll.StopHoldPosition();
+            }
+        }
+
         print("DollSkillOne::OnStartSkill " + active);
     }
 

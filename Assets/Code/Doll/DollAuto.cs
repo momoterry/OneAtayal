@@ -34,6 +34,7 @@ public class DollAuto : Doll
         RUNBACK,
         CHASE,
         ATTACK,
+        HOLD,
         //WAIT_REVIVE,
     }
 
@@ -434,35 +435,23 @@ public class DollAuto : Doll
     }
 
 
-    //protected void DoWaitRevive()
-    //{
-    //    //暴力法清除連結的特效
-    //    FlashFX[] fxLinked = GetComponentsInChildren<FlashFX>();
+    //Hold 指令相關
+    public virtual void StartHoldPosition(Vector3 pos) 
+    {
+        nextAutoState = AutoState.HOLD;
+    }
+    public virtual void StopHoldPosition() 
+    { 
+        if (currAutoState == AutoState.HOLD)
+        {
+            nextAutoState = AutoState.FOLLOW;
+        }
+    }
 
-    //    foreach( FlashFX fx in fxLinked)
-    //    {
-    //        //print("FlashFX Found !! " + fx.gameObject + " ... " + fx.transform.position);
-    //        Destroy(fx.gameObject);
-    //    }
-        
-    //}
-
-    //public virtual void OnRevive()
-    //{
-    //    if (currAutoState != AutoState.WAIT_REVIVE)
-    //    {
-    //        return;
-    //    }
-    //    nextAutoState = AutoState.FOLLOW;
-
-    //    gameObject.SetActive(true);
-    //    transform.position = mySlot.position;
-    //    HitBody hb = GetComponent<HitBody>();
-    //    if (hb)
-    //    {
-    //        hb.DoHeal(Mathf.Infinity);
-    //    }
-    //}
+    public virtual void UpdateHold()
+    {
+        StopMove();
+    }
 
 
     public override void OnPlayerAttack(Vector3 target)
