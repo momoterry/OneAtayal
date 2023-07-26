@@ -11,6 +11,7 @@ public class DollSkillManager : MonoBehaviour
     {
         public string ID;
         public Sprite icon;
+        public int order;
         public List<DollSkillBase> list;
         public bool active;
     }
@@ -60,6 +61,7 @@ public class DollSkillManager : MonoBehaviour
             SkillMapInfo newInfo = new SkillMapInfo();
             newInfo.ID = dSkill.ID;
             newInfo.icon = dSkill.icon;
+            newInfo.order = dSkill.order;
             newInfo.list = new List<DollSkillBase>();
             newInfo.list.Add(dSkill);
             newInfo.active = false;
@@ -127,17 +129,17 @@ public class DollSkillManager : MonoBehaviour
         }
     }
 
+    protected class SkillMapComparer : IComparer<SkillMapInfo>
+    {
+        public int Compare(SkillMapInfo x, SkillMapInfo y)
+        {
+            return x.order - y.order;
+        }
+    }
 
     protected void SetupDollSkillButtons()
     {
-        //for (int i = 0; i < MAX_DOLL_SKILL; i++)
-        //{
-        //    DollSkillButton button = BattleSystem.GetHUD().GetDollSkillButton(i);
-        //    if (button)
-        //    {
-        //        button.UnBind();
-        //    }
-        //}
+        skillInfoList.Sort(new SkillMapComparer());
 
         for (int i=0; i<MAX_DOLL_SKILL; i++)
         {
