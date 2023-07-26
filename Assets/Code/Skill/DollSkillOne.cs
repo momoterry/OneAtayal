@@ -15,4 +15,12 @@ public class DollSkillOne : DollSkillBase
     {
         
     }
+
+    public override void OnStartSkill(bool active = true)
+    {
+        base.OnStartSkill(active);
+
+        print("DollSkillOne::OnStartSkill " + active);
+    }
+
 }

@@ -26,6 +26,15 @@ public class DollSkillButton : MonoBehaviour
         }
     }
 
+    public void UnBind()
+    {
+        Button button = gameObject.GetComponent<Button>();
+        if (button)
+        {
+            button.onClick.RemoveAllListeners();
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

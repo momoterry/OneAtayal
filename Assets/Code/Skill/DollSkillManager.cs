@@ -12,6 +12,7 @@ public class DollSkillManager : MonoBehaviour
         public string ID;
         public Sprite icon;
         public List<DollSkillBase> list;
+        public bool active;
     }
 
     //protected List<DollSkillBase> skillList;
@@ -61,6 +62,7 @@ public class DollSkillManager : MonoBehaviour
             newInfo.icon = dSkill.icon;
             newInfo.list = new List<DollSkillBase>();
             newInfo.list.Add(dSkill);
+            newInfo.active = false;
             skillInfoList.Add(newInfo);
             SetupDollSkillButtons();
         }
@@ -93,20 +95,50 @@ public class DollSkillManager : MonoBehaviour
     public void OnSkillButtonOne()
     {
         print("----One----");
+        OnSkillButton(0);
     }
 
     public void OnSkillButtonTwo()
     {
         print("----Two----");
+        OnSkillButton(1);
     }
 
     public void OnSkillButtonThree()
     {
         print("----Three----");
+        OnSkillButton(2);
     }
+
+    protected void OnSkillButton(int index)
+    {
+        print("OnSkillButton " + index);
+        if (index >= skillInfoList.Count)
+        {
+            print("ERROR !! OnSkillButton index = " + index);
+            return;
+        }
+
+        SkillMapInfo info = skillInfoList[index];
+        info.active = !info.active;
+        foreach ( DollSkillBase skill in info.list)
+        {
+            skill.OnStartSkill(info.active);
+        }
+    }
+
 
     protected void SetupDollSkillButtons()
     {
+        //for (int i = 0; i < MAX_DOLL_SKILL; i++)
+        //{
+        //    DollSkillButton button = BattleSystem.GetHUD().GetDollSkillButton(i);
+        //    if (button)
+        //    {
+        //        button.UnBind();
+        //    }
+        //}
+
         for (int i=0; i<MAX_DOLL_SKILL; i++)
         {
             DollSkillButton button = BattleSystem.GetHUD().GetDollSkillButton(i);
@@ -117,10 +149,12 @@ public class DollSkillManager : MonoBehaviour
                 {
                     button.gameObject.SetActive(true);
                     button.SetIcon(skillInfoList[i].icon);
+                    button.UnBind();
                     button.Bind(skillCBs[i]);
                 }
                 else
                 {
+                    button.UnBind();
                     button.gameObject.SetActive(false);
                 }
             }

@@ -39,4 +39,6 @@ public class DollSkillBase : MonoBehaviour
         }
     }
 
+    virtual public void OnStartSkill(bool active = true) {}
+
 }
