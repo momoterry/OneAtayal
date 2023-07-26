@@ -39,6 +39,9 @@ public class BattleSystem : MonoBehaviour
     public float potionHealRatio = 0.5f;
     protected int currPotion = 3;
 
+    //Doll Skill ¬ÛÃö
+    protected DollSkillManager theDollSkillManager;
+
     protected enum BATTLE_GAME_STATE
     {
         NONE,
@@ -72,6 +75,7 @@ public class BattleSystem : MonoBehaviour
         instance = this;
 
         touchLayer = LayerMask.GetMask("TouchPlane", "UI");
+        theDollSkillManager = GetComponent<DollSkillManager>();
     }
 
     public GameObject GetPlayer() { return thePlayer; }
@@ -80,6 +84,7 @@ public class BattleSystem : MonoBehaviour
     public static PlayerControllerBase GetPC() { return instance.thePC; }
     public static Dialogue GetDialogue() { return instance.theBattleHUD.theDialogue; }
     public static Battle_HUD GetHUD() { return instance.theBattleHUD; }
+    public static DollSkillManager GetDollSkillManager() { return instance.theDollSkillManager; }
     public VPad GetVPad() {return theBattleHUD.theVPad; }
 
     public MapGeneratorBase GetMapGenerator() { return theMG; }

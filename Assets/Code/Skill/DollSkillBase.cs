@@ -21,7 +21,8 @@ public class DollSkillBase : MonoBehaviour
 
     public void OnJoinPlayer()
     {
-        DollSkillManager dsm = BattleSystem.GetPC().GetDollManager().GetDollSkillManager();
+        //DollSkillManager dsm = BattleSystem.GetPC().GetDollManager().GetDollSkillManager();
+        DollSkillManager dsm = BattleSystem.GetDollSkillManager();
         if (dsm)
         {
             dsm.RegisterDollSkill(this);
@@ -30,7 +31,8 @@ public class DollSkillBase : MonoBehaviour
 
     public void OnLeavePlayer() 
     {
-        DollSkillManager dsm = BattleSystem.GetPC().GetDollManager().GetDollSkillManager();
+        //DollSkillManager dsm = BattleSystem.GetPC().GetDollManager().GetDollSkillManager();
+        DollSkillManager dsm = BattleSystem.GetDollSkillManager();
         if (dsm)
         {
             dsm.UnRegisterDollSkill(this);
