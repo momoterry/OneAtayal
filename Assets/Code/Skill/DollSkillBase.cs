@@ -8,6 +8,15 @@ public class DollSkillBase : MonoBehaviour
     public int order;
     public Sprite icon;
 
+    protected DollAuto doll;
+    protected Damage myDamage;
+
+    private void Awake()
+    {
+        doll = GetComponent<DollAuto>();
+        myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

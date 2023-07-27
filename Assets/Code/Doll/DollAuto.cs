@@ -54,6 +54,11 @@ public class DollAuto : Doll
 
     protected float autoStateTime;
 
+    public void SetFace( Vector3 face)
+    {
+        myFace = face;
+    }
+
     private void Awake()
     {
         myAgent = GetComponent<NavMeshAgent>();
@@ -186,9 +191,9 @@ public class DollAuto : Doll
                 case AutoState.ATTACK:
                     UpdateAttack();
                     break;
-                //case AutoState.WAIT_REVIVE:
-                //    transform.position = mySlot.position;
-                //    break;
+                case AutoState.HOLD:
+                    UpdateHold();
+                    break;
             }
         }
 
@@ -450,7 +455,7 @@ public class DollAuto : Doll
 
     public virtual void UpdateHold()
     {
-        StopMove();
+        //StopMove();
     }
 
 
