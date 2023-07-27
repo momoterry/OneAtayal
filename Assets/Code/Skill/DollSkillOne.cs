@@ -5,10 +5,12 @@ using static UnityEngine.GraphicsBuffer;
 
 public class DollSkillOne : DollSkillBase
 {
-    protected float attackSpeedRate = 1.5f;    //射速增加
-    protected float AttackRangeAdd = -1.0f;     //射程增加
+    public GameObject bulletRef;
+    public float AttackSpeedRate = 2.0f;    //射速增加
+    public float AttackRangeAdd = -1.0f;     //射程增加
+    public float AttackDamageRate = 0.8f;    //傷害增加率
 
-    protected GameObject bulletRef;
+    //protected GameObject bulletRef;
     protected bool isActive = false;
     protected float attackCD;
     protected float attackRange;
@@ -18,9 +20,10 @@ public class DollSkillOne : DollSkillBase
     // Start is called before the first frame update
     void Start()
     {
-        bulletRef = doll.bulletRef;
-        attackRange = doll.AttackRangeIn + AttackRangeAdd;
-        attackCD = doll.attackCD / attackSpeedRate;
+        if (!bulletRef)
+            bulletRef = doll.bulletRef;
+        attackRange = doll.SearchRange + AttackRangeAdd;
+        attackCD = doll.attackCD / AttackSpeedRate;
     }
 
     // Update is called once per frame
@@ -62,7 +65,7 @@ public class DollSkillOne : DollSkillBase
         td.y = 0;
         td.Normalize();
 
-        myDamage.damage = doll.AttackInit;
+        myDamage.damage = doll.AttackInit * AttackDamageRate;
         bullet_base b = bulletObj.GetComponent<bullet_base>();
         if (b)
         {
