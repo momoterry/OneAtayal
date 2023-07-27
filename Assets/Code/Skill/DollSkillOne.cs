@@ -11,7 +11,6 @@ public class DollSkillOne : DollSkillBase
     public float AttackDamageRate = 0.8f;    //¶Ë®`¼W¥[²v
 
     //protected GameObject bulletRef;
-    protected bool isActive = false;
     protected float attackCD;
     protected float attackRange;
 
@@ -104,7 +103,6 @@ public class DollSkillOne : DollSkillBase
     {
         base.OnStartSkill(active);
 
-        isActive = active;
         if (active)
         {
             StartHoldShoot();

@@ -10,6 +10,8 @@ public class DollSkillBase : MonoBehaviour
 
     protected DollAuto doll;
     protected Damage myDamage;
+    protected bool isActive = false;
+
 
     private void Awake()
     {
@@ -49,6 +51,6 @@ public class DollSkillBase : MonoBehaviour
         }
     }
 
-    virtual public void OnStartSkill(bool active = true) {}
+    virtual public void OnStartSkill(bool active = true) { isActive = active; }
 
 }

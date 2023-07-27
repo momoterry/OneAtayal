@@ -96,25 +96,25 @@ public class DollSkillManager : MonoBehaviour
 
     public void OnSkillButtonOne()
     {
-        print("----One----");
+        //print("----One----");
         OnSkillButton(0);
     }
 
     public void OnSkillButtonTwo()
     {
-        print("----Two----");
+        //print("----Two----");
         OnSkillButton(1);
     }
 
     public void OnSkillButtonThree()
     {
-        print("----Three----");
+        //print("----Three----");
         OnSkillButton(2);
     }
 
     protected void OnSkillButton(int index)
     {
-        print("OnSkillButton " + index);
+        //print("OnSkillButton " + index);
         if (index >= skillInfoList.Count)
         {
             print("ERROR !! OnSkillButton index = " + index);
