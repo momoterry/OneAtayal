@@ -94,9 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4032685806379418581}
   - component: {fileID: 3264087317604759464}
+  - component: {fileID: -2561711707891507956}
   - component: {fileID: 4032685806379418580}
   - component: {fileID: -894024693914061495}
-  - component: {fileID: -2561711707891507956}
   - component: {fileID: 8817159822340256188}
   - component: {fileID: -2225462949142647}
   - component: {fileID: 1100153545719211910}
@@ -156,6 +156,25 @@ MonoBehaviour:
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
   myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 7021140444660993118}
+--- !u!114 &-2561711707891507956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f326f486589ff43a8cf9842e264d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: DollSkill_One
+  order: 2001
+  icon: {fileID: -1518064467, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
+  bulletRef: {fileID: 8101537965375270392, guid: e4b78d5e0a51f184bb42d2257f6a12d7, type: 3}
+  AttackSpeedRate: 2
+  AttackRangeAdd: -1
+  AttackDamageRate: 0.8
 --- !u!212 &4032685806379418580
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -222,25 +241,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bias: 0
   onlyAdjustOnStart: 0
---- !u!114 &-2561711707891507956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4032685806379418579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8f326f486589ff43a8cf9842e264d2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: DollSkill_One
-  order: 2001
-  icon: {fileID: -1518064467, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
-  bulletRef: {fileID: 0}
-  AttackSpeedRate: 2
-  AttackRangeAdd: -1
-  AttackDamageRate: 0.8
 --- !u!195 &8817159822340256188
 NavMeshAgent:
   m_ObjectHideFlags: 0
