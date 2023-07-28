@@ -7,6 +7,7 @@ public class DollSkillBase : MonoBehaviour
     public string ID = "";
     public int order;
     public Sprite icon;
+    public GameObject activeHint;
 
     protected DollAuto doll;
     protected Damage myDamage;
@@ -17,6 +18,8 @@ public class DollSkillBase : MonoBehaviour
     {
         doll = GetComponent<DollAuto>();
         myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+        if (activeHint)
+            activeHint.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -51,6 +54,10 @@ public class DollSkillBase : MonoBehaviour
         }
     }
 
-    virtual public void OnStartSkill(bool active = true) { isActive = active; }
+    virtual public void OnStartSkill(bool active = true) { 
+        isActive = active;
+        if (activeHint)
+            activeHint.SetActive(active);
+    }
 
 }
