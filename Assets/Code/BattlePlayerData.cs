@@ -127,6 +127,7 @@ public class BattlePlayerData : MonoBehaviour
     protected void DoBattleLVUp(int addLV)
     {
         BattleSystem.GetPC().OnBattlePointsChange(addLV);
+        BattleSystem.GetInstance().theBattleHUD.bLVMenu.OnSetBattlePoint(battleLVPoint);
         //print("升級啦，升了" + addLV + " 級，現在是 " + currBattleLV + " 級");
     }
 }
