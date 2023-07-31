@@ -76,6 +76,14 @@ public class Doll : MonoBehaviour
         }
     }
 
+    public virtual void BacktoPack()
+    {
+        //print("BackToBack");
+        gameObject.SendMessage("OnLeavePlayer", SendMessageOptions.DontRequireReceiver);
+        theDollManager.OnDollDestroy(this);
+        Destroy(gameObject);
+    }
+
     virtual protected void PrepareTempDeath()
     {
         //暴力法清除連結的特效

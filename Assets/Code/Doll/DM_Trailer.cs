@@ -204,6 +204,7 @@ public class DM_Trailer : DollManager
 
     public override void OnDollDestroy(Doll doll)
     {
+        //print("Doll Destroy!!");
         dollList.Remove(doll);
         ResortDollList();
     }

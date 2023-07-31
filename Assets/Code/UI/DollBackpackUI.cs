@@ -116,7 +116,8 @@ public class DollBackpackUI: MonoBehaviour
         foreach ( Doll d in dList)
         {
             //TODO: 消失特效
-            Destroy(d.gameObject);
+            //Destroy(d.gameObject);
+            d.BacktoPack();
             pData.AddDollToBackpack(d.ID);
         }
         pData.RemoveAllUsingDolls();

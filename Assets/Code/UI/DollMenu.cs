@@ -119,10 +119,13 @@ public class DollMenu : MonoBehaviour
         DollManager dm = BattleSystem.GetPC().GetDollManager();
         PlayerData pData = GameSystem.GetPlayerData();
         List<Doll> dList = dm.GetDolls();
+        //print("OnDismissAllDoll " + dList.Count);
+
         foreach (Doll d in dList)
         {
             //TODO: 消失特效
-            Destroy(d.gameObject);
+            //Destroy(d.gameObject);
+            d.BacktoPack();
             pData.AddDollToBackpack(d.ID);
         }
         pData.RemoveAllUsingDolls();
