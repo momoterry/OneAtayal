@@ -192,7 +192,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                     normalEnemyRate = cData.normalEnemyRate;
                 }
                 if (cData.maxExploreReward > 0)
-                    exploreRewardNum = Mathf.Min((int)cData.maxExploreReward, cData.maxExploreReward);
+                    exploreRewardNum = Mathf.Min(exploreRewardNum, cData.maxExploreReward);
             }
             else
             {
