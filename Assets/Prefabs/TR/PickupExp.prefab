@@ -94,10 +94,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5738852675871354694}
   - component: {fileID: 3906463391647340876}
-  - component: {fileID: -1271234994834618757}
-  - component: {fileID: 672923242907503116}
+  - component: {fileID: 7808294955846049368}
+  - component: {fileID: 6554121958038500810}
+  - component: {fileID: 3310194233004509545}
   m_Layer: 0
-  m_Name: PickupCrystal
+  m_Name: PickupExp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +162,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b7702a335d140d64da2802e336ba5948, type: 3}
+  m_Sprite: {fileID: -337998694, guid: 332e596c7fe9aa54db4f865fc48a8f28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,7 +173,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1271234994834618757
+--- !u!114 &7808294955846049368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,11 +182,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 8143502755978418841}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c8b5bf5ecf601488ab9636d59cb860, type: 3}
+  m_Script: {fileID: 11500000, guid: 66464843eeadf3f47ab1a7cad647785c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyAdd: 100
---- !u!114 &672923242907503116
+  expAdd: 200
+--- !u!114 &6554121958038500810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143502755978418841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c068845190a0bd0408567d85da11b586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  InitAnim:
+    sprites: []
+    FPS: 4
+  Idle:
+    sprites:
+    - {fileID: -337998694, guid: 332e596c7fe9aa54db4f865fc48a8f28, type: 3}
+    - {fileID: 1030570980, guid: 332e596c7fe9aa54db4f865fc48a8f28, type: 3}
+    FPS: 2
+--- !u!114 &3310194233004509545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bias: 0
-  onlyAdjustOnStart: 1
+  onlyAdjustOnStart: 0
 --- !u!1001 &7303104614163248092
 PrefabInstance:
   m_ObjectHideFlags: 0

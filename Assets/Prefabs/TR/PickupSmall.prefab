@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5738852675871354694}
   - component: {fileID: 3906463391647340876}
   - component: {fileID: -1271234994834618757}
+  - component: {fileID: -671806949332112188}
   m_Layer: 0
   m_Name: PickupSmall
   m_TagString: Untagged
@@ -184,11 +185,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyAdd: 50
+--- !u!114 &-671806949332112188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143502755978418841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bias: 0
+  onlyAdjustOnStart: 1
 --- !u!1001 &7303104614163248092
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5738852675871354694}
     m_Modifications:
     - target: {fileID: -2665230298864981872, guid: 31b7026ff15309444894c2e1adcb7bc5, type: 3}
@@ -256,6 +272,9 @@ PrefabInstance:
       value: TriggerSphere
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31b7026ff15309444894c2e1adcb7bc5, type: 3}
 --- !u!4 &5191508954853820129 stripped
 Transform:
