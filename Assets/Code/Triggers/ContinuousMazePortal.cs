@@ -12,6 +12,7 @@ public class ContinuousMazeData : ContinuousBattleDataBase
     public int bigRoomNum;
     public int maxExploreReward;
     public MG_MazeDungeon.BigRoomInfo[] bigRooms;   //如果使用，則 bigRoomNum 無視
+    public GameObject[] exploreRewards;
 }
 
 public class ContinuousMazePortal : ScenePortal

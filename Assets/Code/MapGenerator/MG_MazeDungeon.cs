@@ -173,7 +173,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                 puzzleWidth = cData.puzzleWidth;
                 puzzleHeight = cData.puzzleHeight;
 
-                if (cData.bigRooms.Length > 0)
+                if (cData.bigRooms != null && cData.bigRooms.Length > 0)
                 {
                     bigRoomNum = cData.bigRooms.Length;
                     bigRooms = cData.bigRooms;
@@ -194,8 +194,15 @@ public class MG_MazeDungeon : MapGeneratorBase
                 {
                     normalEnemyRate = cData.normalEnemyRate;
                 }
-                if (cData.maxExploreReward > 0)
+                if (cData.exploreRewards != null && cData.exploreRewards.Length > 0)
+                {
+                    exploreRewardNum = cData.exploreRewards.Length;
+                    exploreRewards = cData.exploreRewards;
+                }
+                else if (cData.maxExploreReward > 0)
+                {
                     exploreRewardNum = Mathf.Min(exploreRewardNum, cData.maxExploreReward);
+                }
             }
             else
             {

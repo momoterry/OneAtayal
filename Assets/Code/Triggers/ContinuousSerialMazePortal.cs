@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static RandomSpawner;
 
 public class ContinuousSerialMazePortal : ScenePortal
 {
@@ -20,8 +21,17 @@ public class ContinuousSerialMazePortal : ScenePortal
     public Vector2Int bigRoomSize = new Vector2Int(2, 2);
     public float bigRoomNumInit = 1.0f;
     public float bigRoomNumAdd = 0.5f;
-
     public GameObject[] FinalRoomGamplays;
+
+    [System.Serializable]
+    public class RewardItem 
+    { 
+        public GameObject item;
+        public float rate;
+    }
+    public float exploreRewardNumInit = 2.0f;
+    public float exploreRewardNumAdd = 1.0f;
+    public RewardItem[] ExploreRewardInfo;
 
     protected ContinuousMazeData[] mazeLevelDatas;
 
@@ -37,7 +47,6 @@ public class ContinuousSerialMazePortal : ScenePortal
             mazeLevelDatas[i].puzzleHeight = (int)(puzzleHeightInit + (puzzleHeightAdd * i));
             mazeLevelDatas[i].normalEnemyNum = (int)(normalEnemyNumInit + (normalEnemyNumAdd * i));
             mazeLevelDatas[i].normalEnemyRate = normalEnemyRateInit + (normalEnemyRateAdd * i);
-            mazeLevelDatas[i].maxExploreReward = 2+i;
             int roomNum = (int)(bigRoomNumInit + (bigRoomNumAdd * i));
             if (roomNum > 0)
             {
@@ -53,8 +62,40 @@ public class ContinuousSerialMazePortal : ScenePortal
                     mazeLevelDatas[i].bigRooms[roomNum - 1].gameplayRef = FinalRoomGamplays[i];
                 }
             }
+            int rewardNum = (int)(exploreRewardNumInit + (exploreRewardNumAdd * i));
+            mazeLevelDatas[i].maxExploreReward = rewardNum;
+            if (ExploreRewardInfo.Length > 0)
+            {
+                mazeLevelDatas[i].exploreRewards = new GameObject[rewardNum];
+                for (int j=0; j<rewardNum; j++)
+                {
+                    mazeLevelDatas[i].exploreRewards[j] = GetOneRandomReward();
+                }
+            }
         }
     }
+
+    protected GameObject GetOneRandomReward()
+    {
+        float rdSum = 0;
+        float rd = Random.Range(0, 1.0f);
+        int result = -1;
+        for (int i = 0; i < ExploreRewardInfo.Length; i++)
+        {
+            rdSum += ExploreRewardInfo[i].rate;
+            if (rd < rdSum)
+            {
+                result = i;
+                break;
+            }
+        }
+        if (result >=0)
+        {
+            return ExploreRewardInfo[result].item;
+        }
+        return null;
+    }
+
     protected override void DoTeleport()
     {
         if (mazeLevelDatas.Length > 0 && mazeLevelDatas[0].scene != "")
