@@ -172,11 +172,14 @@ public class MG_MazeDungeon : MapGeneratorBase
                 ContinuousMazeData cData = (ContinuousMazeData)cBase;
                 puzzleWidth = cData.puzzleWidth;
                 puzzleHeight = cData.puzzleHeight;
-                //foreach (BigRoomInfo br in bigRooms)
-                //{
-                //    br.size = Vector2Int.zero;
-                //}
-                bigRoomNum = Mathf.Min(bigRoomNum, cData.bigRoomNum);
+
+                if (cData.bigRooms.Length > 0)
+                {
+                    bigRoomNum = cData.bigRooms.Length;
+                    bigRooms = cData.bigRooms;
+                }
+                else
+                    bigRoomNum = Mathf.Min(bigRoomNum, cData.bigRoomNum);
                 print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight + " Room 數: " + bigRoomNum);
 
                 if (cData.normalEnemyNum > 0)

@@ -11,6 +11,7 @@ public class ContinuousMazeData : ContinuousBattleDataBase
     public float normalEnemyRate;
     public int bigRoomNum;
     public int maxExploreReward;
+    public MG_MazeDungeon.BigRoomInfo[] bigRooms;   //如果使用，則 bigRoomNum 無視
 }
 
 public class ContinuousMazePortal : ScenePortal

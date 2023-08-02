@@ -17,6 +17,8 @@ public class ContinuousSerialMazePortal : ScenePortal
     public float normalEnemyRateInit = 0.4f;
     public float normalEnemyRateAdd = 0.0f;
 
+    public Vector2Int finalRoomSize = new Vector2Int(2, 2);
+
     protected ContinuousMazeData[] mazeLevelDatas;
 
     protected void Awake()
@@ -32,6 +34,10 @@ public class ContinuousSerialMazePortal : ScenePortal
             mazeLevelDatas[i].normalEnemyNum = normalEnemyNumInit + (int)(normalEnemyNumAdd * i);
             mazeLevelDatas[i].normalEnemyRate = normalEnemyRateInit + (normalEnemyRateAdd * i);
             mazeLevelDatas[i].maxExploreReward = 2+i;
+            mazeLevelDatas[i].bigRooms = new MG_MazeDungeon.BigRoomInfo[1];
+            mazeLevelDatas[i].bigRooms[0] = new MG_MazeDungeon.BigRoomInfo();
+            mazeLevelDatas[i].bigRooms[0].numDoor = 1;
+            mazeLevelDatas[i].bigRooms[0].size = finalRoomSize;
         }
     }
     protected override void DoTeleport()
