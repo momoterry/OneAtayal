@@ -8,16 +8,18 @@ public class ContinuousSerialMazePortal : ScenePortal
     public string scene;
     public string levelName;
 
-    public int puzzleWidthInit = 4;
+    public float puzzleWidthInit = 4.0f;
     public float puzzleWidthAdd = 1.0f;
-    public int puzzleHeightInit = 4;
+    public float puzzleHeightInit = 4.0f;
     public float puzzleHeightAdd = 1.0f;
-    public int normalEnemyNumInit = 4;
+    public float normalEnemyNumInit = 4.0f;
     public float normalEnemyNumAdd = 2.0f;
     public float normalEnemyRateInit = 0.4f;
     public float normalEnemyRateAdd = 0.0f;
 
-    public Vector2Int finalRoomSize = new Vector2Int(2, 2);
+    public Vector2Int bigRoomSize = new Vector2Int(2, 2);
+    public float bigRoomNumInit = 1.0f;
+    public float bigRoomNumAdd = 0.5f;
 
     protected ContinuousMazeData[] mazeLevelDatas;
 
@@ -29,15 +31,22 @@ public class ContinuousSerialMazePortal : ScenePortal
             mazeLevelDatas[i] = new ContinuousMazeData();
             mazeLevelDatas[i].scene = scene;
             mazeLevelDatas[i].name = levelName + " " + (i + 1) + "/" + maxLevels;
-            mazeLevelDatas[i].puzzleWidth = puzzleWidthInit + (int)(puzzleWidthAdd * i);
-            mazeLevelDatas[i].puzzleHeight = puzzleHeightInit + (int)(puzzleHeightAdd * i);
-            mazeLevelDatas[i].normalEnemyNum = normalEnemyNumInit + (int)(normalEnemyNumAdd * i);
+            mazeLevelDatas[i].puzzleWidth = (int)(puzzleWidthInit + (puzzleWidthAdd * i));
+            mazeLevelDatas[i].puzzleHeight = (int)(puzzleHeightInit + (puzzleHeightAdd * i));
+            mazeLevelDatas[i].normalEnemyNum = (int)(normalEnemyNumInit + (normalEnemyNumAdd * i));
             mazeLevelDatas[i].normalEnemyRate = normalEnemyRateInit + (normalEnemyRateAdd * i);
             mazeLevelDatas[i].maxExploreReward = 2+i;
-            mazeLevelDatas[i].bigRooms = new MG_MazeDungeon.BigRoomInfo[1];
-            mazeLevelDatas[i].bigRooms[0] = new MG_MazeDungeon.BigRoomInfo();
-            mazeLevelDatas[i].bigRooms[0].numDoor = 1;
-            mazeLevelDatas[i].bigRooms[0].size = finalRoomSize;
+            int roomNum = (int)(bigRoomNumInit + (bigRoomNumAdd * i));
+            if (roomNum > 0)
+            {
+                mazeLevelDatas[i].bigRooms = new MG_MazeDungeon.BigRoomInfo[roomNum];
+                for (int j = 0; j < roomNum; j++)
+                {
+                    mazeLevelDatas[i].bigRooms[j] = new MG_MazeDungeon.BigRoomInfo();
+                    mazeLevelDatas[i].bigRooms[j].numDoor = 1;
+                    mazeLevelDatas[i].bigRooms[j].size = bigRoomSize;
+                }
+            }
         }
     }
     protected override void DoTeleport()

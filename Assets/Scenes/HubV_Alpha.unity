@@ -53466,6 +53466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmorGuy
       objectReference: {fileID: 0}
+    - target: {fileID: 4374022205314950186, guid: d3bce334bc40497419d14db2563e67d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -53553,4 +53557,6 @@ MonoBehaviour:
   normalEnemyNumAdd: 2
   normalEnemyRateInit: 0.4
   normalEnemyRateAdd: 0
-  finalRoomSize: {x: 2, y: 2}
+  bigRoomSize: {x: 2, y: 2}
+  bigRoomNumInit: 1
+  bigRoomNumAdd: 0.5
