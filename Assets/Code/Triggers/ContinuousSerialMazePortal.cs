@@ -21,6 +21,8 @@ public class ContinuousSerialMazePortal : ScenePortal
     public float bigRoomNumInit = 1.0f;
     public float bigRoomNumAdd = 0.5f;
 
+    public GameObject[] FinalRoomGamplays;
+
     protected ContinuousMazeData[] mazeLevelDatas;
 
     protected void Awake()
@@ -45,6 +47,10 @@ public class ContinuousSerialMazePortal : ScenePortal
                     mazeLevelDatas[i].bigRooms[j] = new MG_MazeDungeon.BigRoomInfo();
                     mazeLevelDatas[i].bigRooms[j].numDoor = 1;
                     mazeLevelDatas[i].bigRooms[j].size = bigRoomSize;
+                }
+                if (i < FinalRoomGamplays.Length)
+                {
+                    mazeLevelDatas[i].bigRooms[roomNum - 1].gameplayRef = FinalRoomGamplays[i];
                 }
             }
         }
