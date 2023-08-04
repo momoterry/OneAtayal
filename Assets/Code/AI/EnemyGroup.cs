@@ -16,6 +16,8 @@ public class EnemyGroup : MonoBehaviour
     public float speed = 4.0f;
     public float closeDistance = 4.0f;
 
+    public GameObject[] triggerTargetWhenAllKilled;
+
     [System.Serializable]
     public class EnemyInfo
     {
@@ -74,6 +76,13 @@ public class EnemyGroup : MonoBehaviour
     {
         if (nexPhase != currPhase)
         {
+            if (nexPhase == PHASE.FINISH)
+            {
+                foreach (GameObject o in triggerTargetWhenAllKilled)
+                {
+                    o.SendMessage("OnTG", gameObject);
+                }
+            }
             currPhase = nexPhase;
         }
         else
