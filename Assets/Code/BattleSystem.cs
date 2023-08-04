@@ -336,7 +336,8 @@ public class BattleSystem : MonoBehaviour
     {
         foreach (GameObject enemyObj in enemyList)
         {
-            enemyObj.SendMessage("OnGameFail", SendMessageOptions.DontRequireReceiver);
+            if (enemyObj)
+                enemyObj.SendMessage("OnGameFail", SendMessageOptions.DontRequireReceiver);
         }
     }
 

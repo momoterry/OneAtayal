@@ -23,8 +23,9 @@ public class Enemy : MonoBehaviour
 
     public float Attack = 20.0f;
 
-    public float SlotRangeOut = 3.0f;   //如果有指定 Slot 時
-    public float SlotRangeIn = 2.0f;
+    protected float SlotRangeOut = 1.0f;   //如果有指定 Slot 時
+    protected float BattleSlotRangeOut = 12.0f;   //如果有指定 Slot 時
+    protected float SlotRangeIn = 0.5f;
 
     public Animator myAnimator;         //可以指直接外部指定
     public SPAnimator mySPAimator;
@@ -282,9 +283,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected bool CheckSlotTooFar()
+    protected bool CheckSlotTooFar( bool isBattle = false)
     {
-        return mySlot && Vector3.Distance(mySlot.transform.position, transform.position) > SlotRangeOut;
+        return mySlot && Vector3.Distance(mySlot.transform.position, transform.position) > (isBattle ? BattleSlotRangeOut:SlotRangeOut);
     }
 
     protected virtual void UpdateMoveToSlot()
@@ -319,7 +320,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        if (CheckSlotTooFar())
+        if (CheckSlotTooFar(true))
         {
             nextState = AI_STATE.TO_SLOT;
             return;
@@ -386,7 +387,7 @@ public class Enemy : MonoBehaviour
             nextState = AI_STATE.IDLE;
             return;
         }
-        if (CheckSlotTooFar())
+        if (CheckSlotTooFar(true))
         {
             nextState = AI_STATE.TO_SLOT;
             return;
@@ -496,8 +497,14 @@ public class Enemy : MonoBehaviour
 
     void OnGameFail()
     {
-        //TODO: 再想怎麼處理
-        //nextState = AI_STATE.STOP;
+        StopMove();
+        nextState = AI_STATE.STOP;
+    }
+
+    public void StopMove()
+    {
+        if (myAgent)
+            myAgent.SetDestination(transform.position);
     }
 
     //private void OnGUI()

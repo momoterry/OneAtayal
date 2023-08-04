@@ -291,15 +291,16 @@ MonoBehaviour:
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
   debris: {fileID: 4960891124796890515, guid: 5a18f50e1b462cc40bbcafa2b3b03556, type: 3}
   SpawnWaitTime: 0.4
-  ChaseRangeIn: 10
-  ChaseRangeOut: 12
+  ChaseRangeIn: 8
+  ChaseRangeOut: 9
   AttackRangeIn: 2
   AttackRangeOut: 3
   AttackWait: 0.2
   AttackCD: 1
   Attack: 100
-  SlotRangeOut: 3
-  SlotRangeIn: 2
+  SlotRangeOut: 1
+  BattleSlotRangeOut: 10
+  SlotRangeIn: 0.5
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 920601177900596515}
   expRadius: 4
@@ -315,9 +316,9 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.25
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 24
-  avoidancePriority: 50
+  avoidancePriority: 99
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1

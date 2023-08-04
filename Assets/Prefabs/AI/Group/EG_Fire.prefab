@@ -283,15 +283,16 @@ MonoBehaviour:
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
   debris: {fileID: 4960891124796890515, guid: 5a18f50e1b462cc40bbcafa2b3b03556, type: 3}
   SpawnWaitTime: 0.5
-  ChaseRangeIn: 8
-  ChaseRangeOut: 9
+  ChaseRangeIn: 5
+  ChaseRangeOut: 6
   AttackRangeIn: 7
   AttackRangeOut: 8
   AttackWait: 0.2
   AttackCD: 1.5
   Attack: 10
-  SlotRangeOut: 3
-  SlotRangeIn: 1
+  SlotRangeOut: 1
+  BattleSlotRangeOut: 10
+  SlotRangeIn: 0.5
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 0}
   bulletRef: {fileID: 8101537965375270392, guid: e60d412a5cfd5ad4bb3ecbbd7477d23f, type: 3}
@@ -353,9 +354,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7208015447484052683}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.75, y: 0.75, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8468139313982289568

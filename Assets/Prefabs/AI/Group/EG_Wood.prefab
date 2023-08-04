@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 130648744939323126}
   - component: {fileID: 8468139313982289568}
   m_Layer: 10
-  m_Name: E_Wood
+  m_Name: EG_Wood
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,15 +279,16 @@ MonoBehaviour:
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
   debris: {fileID: 7351430747151533015, guid: be7f129c504640a4ead77585e19286ea, type: 3}
   SpawnWaitTime: 0.5
-  ChaseRangeIn: 100
-  ChaseRangeOut: 110
+  ChaseRangeIn: 5
+  ChaseRangeOut: 6
   AttackRangeIn: 7
   AttackRangeOut: 8
   AttackWait: 0.5
   AttackCD: 2
   Attack: 8
-  SlotRangeOut: 3
-  SlotRangeIn: 2
+  SlotRangeOut: 1
+  BattleSlotRangeOut: 10
+  SlotRangeIn: 0.5
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 0}
   bulletRef: {fileID: 8101537965375270392, guid: cfbb0dfaaedd5794d94e91ba48d07062, type: 3}
