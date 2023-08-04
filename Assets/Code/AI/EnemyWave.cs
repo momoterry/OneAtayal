@@ -122,7 +122,7 @@ public class EnemyWave : MonoBehaviour
             //¥þ·À
             foreach (GameObject o in triggerTargetWhenAllKilled)
             {
-                o.SendMessage("OnTG", gameObject);
+                o.SendMessage("OnTG", gameObject, SendMessageOptions.DontRequireReceiver);
             }
             nextPhase = Phase.FINISH;
         }

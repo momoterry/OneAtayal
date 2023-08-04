@@ -59,7 +59,8 @@ public class ContinuousSerialMazePortal : ScenePortal
                 }
                 if (i < FinalRoomGamplays.Length)
                 {
-                    mazeLevelDatas[i].bigRooms[roomNum - 1].gameplayRef = FinalRoomGamplays[i];
+                    mazeLevelDatas[i].bigRooms[0].gameplayRef = FinalRoomGamplays[i];
+                    mazeLevelDatas[i].portalAfterFirstRoomGamplay = true;
                 }
             }
             int rewardNum = (int)(exploreRewardNumInit + (exploreRewardNumAdd * i));

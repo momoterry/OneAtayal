@@ -80,7 +80,7 @@ public class EnemyGroup : MonoBehaviour
             {
                 foreach (GameObject o in triggerTargetWhenAllKilled)
                 {
-                    o.SendMessage("OnTG", gameObject);
+                    o.SendMessage("OnTG", gameObject, SendMessageOptions.DontRequireReceiver);
                 }
             }
             currPhase = nexPhase;

@@ -162,6 +162,7 @@ MonoBehaviour:
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 0}
+  portalAfterFirstRoomGamplay: 0
   groundTileGroup: {fileID: 298549191}
   groundEdgeTileGroup: {fileID: 1483011242}
   groundOutEdgeTileGroup: {fileID: 557070253}
@@ -1186,7 +1187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2283165509847586996, guid: b7e099a59e5e34c47bff66e7a42fc42f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2283165509847586997, guid: b7e099a59e5e34c47bff66e7a42fc42f, type: 3}
       propertyPath: m_RootOrder
@@ -2374,7 +2375,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &3172161980623060833
 GameObject:
   m_ObjectHideFlags: 0

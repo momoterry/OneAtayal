@@ -15,6 +15,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     public bool allConnect = true;
     public bool extendTerminal = true;
     public GameObject finishPortalRef;
+    public bool portalAfterFirstRoomGamplay = false;
 
     // Tile 資料相關
     public TileGroupDataBase groundTileGroup;
@@ -177,6 +178,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                 {
                     bigRoomNum = cData.bigRooms.Length;
                     bigRooms = cData.bigRooms;
+                    portalAfterFirstRoomGamplay = cData.portalAfterFirstRoomGamplay;
                 }
                 else
                     bigRoomNum = Mathf.Min(bigRoomNum, cData.bigRoomNum);
@@ -586,6 +588,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //==== Big Room 的部份處理
+        bool isFinishPortalDone = false;
         for (int i=0; i<rectList.Count; i++)
         {
             RectInt rc = rectList[i];
@@ -599,11 +602,17 @@ public class MG_MazeDungeon : MapGeneratorBase
                     rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)MAP_TYPE.GROUND);
 
             Vector3 pos = new Vector3(x1 + rc.width * cellWidth / 2, 0, y1 + rc.height * cellHeight / 2);
-            //print("BigRoom Gameplay Pos" + pos);
             if (bigRooms[i].gameplayRef)
             {
-                //TODO: 如何透過強度調整指定 Gameplay ?
-                BattleSystem.SpawnGameObj(bigRooms[i].gameplayRef, pos);
+                GameObject o = BattleSystem.SpawnGameObj(bigRooms[i].gameplayRef, pos);
+                if (portalAfterFirstRoomGamplay && i == 0)
+                {
+                    MultiSpawner s = o.AddComponent<MultiSpawner>();
+                    s.AreaHeight = s.AreaWidth = 0;
+                    s.MaxNum = s.MinNum = 1;
+                    s.objRef = finishPortalRef;
+                    isFinishPortalDone = true;
+                }
             }
             else if (normalGroup)
             {
@@ -620,7 +629,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //破關門
-        if (finishPortalRef)
+        if (finishPortalRef && !isFinishPortalDone)
             BattleSystem.SpawnGameObj(finishPortalRef, endPos);
     }
 
