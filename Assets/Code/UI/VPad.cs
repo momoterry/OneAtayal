@@ -6,10 +6,18 @@ using UnityEngine.UI;
 
 public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
+    public enum ALIGN_TYPE
+    {
+        CENTER_LEFT,
+        LEFT,
+        RIGHT,
+    }
     public Image vCenter;
     public Image vStick;
 
     public GameObject actionButton;
+
+    public ALIGN_TYPE align = ALIGN_TYPE.CENTER_LEFT;
 
     protected Vector2 defaultCenter;
     protected Vector2 currVector = Vector2.zero;
@@ -58,8 +66,35 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         {
             adjustRatio = (ratio - 1.0f) * 9.0f / 7.0f;   //以 16:9 為最大基準
             scaleRatio = Mathf.Min(2.0f, (1.0f + adjustRatio));
-            x_shift = -160.0f * ratio + ( vCenterDefaultSize.x * scaleRatio * 0.5f ) + 32; ;
+            //x_shift = -160.0f * ratio + ( vCenterDefaultSize.x * scaleRatio * 0.5f ) + 32; ;
+            switch (align)
+            {
+                case ALIGN_TYPE.CENTER_LEFT:
+                    x_shift = -160.0f * ratio + (vCenterDefaultSize.x * scaleRatio * 0.5f) + 32; ;
+                    break;
+                case ALIGN_TYPE.LEFT:
+                    x_shift = 48.0f * (scaleRatio - 1.0f);
+                    break;
+                case ALIGN_TYPE.RIGHT:
+                    x_shift = -48.0f * (scaleRatio - 1.0f);
+                    break;
+            }
         }
+        else if (ratio < 9.0f / 16.1f)
+        {
+            //print("細長型校正 !!");
+            float shiftRatio = (9.0f / 16.0f) - ratio;
+            switch (align)
+            {
+                case ALIGN_TYPE.LEFT:
+                    x_shift = -48.0f * shiftRatio;
+                    break;
+                case ALIGN_TYPE.RIGHT:
+                    x_shift = 48.0f * shiftRatio;
+                    break;
+            }
+        }
+
         RectTransform rt = GetComponent<RectTransform>();
         Vector3 pos = rt.anchoredPosition;
         //pos.x = -180.0f * Mathf.Min(1.0f, adjustRatio);

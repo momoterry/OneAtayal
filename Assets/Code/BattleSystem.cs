@@ -86,6 +86,7 @@ public class BattleSystem : MonoBehaviour
     public static Battle_HUD GetHUD() { return instance.theBattleHUD; }
     public static DollSkillManager GetDollSkillManager() { return instance.theDollSkillManager; }
     public VPad GetVPad() {return theBattleHUD.theVPad; }
+    public VPad GetDirVPad() { return theBattleHUD.theRightPad; }
 
     public MapGeneratorBase GetMapGenerator() { return theMG; }
 

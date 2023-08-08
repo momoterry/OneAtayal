@@ -513,10 +513,6 @@ public class PC_One : PlayerControllerBase
                 moveVec = targetVec.normalized;
                 //print("Move !! " + moveVec);
             }
-            //else
-            //{
-            //    print("Too Small...........");
-            //}
             isMovingByTouchControl = false;
         }
 
@@ -538,6 +534,23 @@ public class PC_One : PlayerControllerBase
             moveVec.Normalize();
             moveVec.z = moveVec.y * 0.01f;
 #endif
+        }
+
+        //¥k V-Pad
+        Vector2 vPadDir = Vector2.zero;
+        if (BattleSystem.GetInstance().GetDirVPad())
+        {
+            vPadDir = BattleSystem.GetInstance().GetDirVPad().GetCurrVector();
+        }
+        if (vPadDir.magnitude > 0.2f)
+        {
+            //print("vPadVec " + vPadDir);
+            isFacingByTouchControl = true;  //TODO: ¼É¤Oªk
+
+            Vector3 vDir = new Vector3(vPadDir.x, 0, vPadDir.y);   //XZ Plan
+            vDir.Normalize();
+            SetupFaceDir(vDir);
+            SetupDollManagerDirection();
         }
 
 

@@ -7,12 +7,6 @@ public class Battle_HUD : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    // HP / MP
-    //public Slider hpBar;
-    //public Slider mpBar;
-    //public Text hpText;
-    //public Text mpText;
-
     // LV / EXP
     public Text LVText;
     public Slider expBar;
@@ -62,6 +56,10 @@ public class Battle_HUD : MonoBehaviour
     //µêÀÀ·n±ì¬ÛÃö
     public VPad theVPad;
 
+    //Âù·n±ì±¡ªp
+    public VPad theLeftPad;
+    public VPad theRightPad;
+
     protected int currMoney = -1;
     protected int currLV = -1;
     protected float currExpRatio = -1.0f;
@@ -102,6 +100,10 @@ public class Battle_HUD : MonoBehaviour
             {
                 theVPad.OnScreenResolution(currSceenWidth, currSceenHeight);
             }
+            if (theRightPad)
+            {
+                theRightPad.OnScreenResolution(currSceenWidth, currSceenHeight);
+            }
 
             //CanvasScaler theScaler = GetComponent<CanvasScaler>();
             if (theScaler != null)
@@ -124,34 +126,57 @@ public class Battle_HUD : MonoBehaviour
 
     void Start()
     {
-        CheckScreenResolution();
-
         winMenu.SetActive(false);
         failMenu.SetActive(false);
         //if (hpBar)
         //    hpBar.value = 1.0f;
 
+        bool isVPad = GameSystem.IsUseVpad();
+        bool isDual = isVPad && GameSystem.IsUseDirectionControl();
+
+        if (isDual)
+        {
+            if (theVPad)
+            {
+                theVPad.gameObject.SetActive(false);
+                theVPad.vCenter.gameObject.SetActive(false);
+                theVPad.vStick.gameObject.SetActive(false);
+            }
+            if (theLeftPad)
+            {
+                theLeftPad.vCenter.gameObject.SetActive(isDual);
+                theLeftPad.vStick.gameObject.SetActive(isDual);
+                theLeftPad.gameObject.SetActive(isDual);
+            }
+            if (theRightPad)
+            {
+                theRightPad.vCenter.gameObject.SetActive(isDual);
+                theRightPad.vStick.gameObject.SetActive(isDual);
+                theRightPad.gameObject.SetActive(isDual);
+            }
+            theVPad = theLeftPad;
+        }
+
         if (theVPad)
         {
-            bool isVPad = GameSystem.IsUseVpad();
+
+
             theVPad.vCenter.gameObject.SetActive(isVPad);
             theVPad.vStick.gameObject.SetActive(isVPad);
             theVPad.gameObject.SetActive(isVPad);
+
         }
 
         if (BattleLevelUpRoot)
             BattleLevelUpRoot.SetActive(BattleSystem.GetInstance().IsBattleLevelUp);
+
+        CheckScreenResolution();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //³B²zÁä½L
-        //if (Input.GetKeyDown("1"))
-        //{
-        //    OnButtonPotion();
-        //}
 
         PlayerData pData = GameSystem.GetPlayerData();
         //print(pData);
