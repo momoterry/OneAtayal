@@ -33,6 +33,8 @@ public class GameSystem : MonoBehaviour
     //Skill 相關 //TODO: 這部份應該改到 PlayerData 中
     protected Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
 
+    public bool useDirectionControl = false;
+
     //Option 相關 //TODO: 應該移到真正的 PlayerPref 當中
     protected bool useVpadControl = true;
 
@@ -133,7 +135,7 @@ public class GameSystem : MonoBehaviour
     //    }
     //}
 
-
+    static public bool IsUseDirectionControl() { return instance.useDirectionControl; }
     static public void SetUseVPad( bool useVPad ) { instance.useVpadControl = useVPad; }
     static public bool IsUseVpad() { return instance.useVpadControl; }
 

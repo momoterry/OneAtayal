@@ -59,6 +59,7 @@ public class PC_One : PlayerControllerBase
 
     //For Touch Control
     protected bool isMovingByTouchControl = false;
+    protected bool isFacingByTouchControl = false;
     protected Vector3 moveTargetPos;
 
     //¤¬°Êª«¥ó
@@ -560,7 +561,7 @@ public class PC_One : PlayerControllerBase
             movingTime += Time.deltaTime;
             transform.position = transform.position + moveVec * WalkSpeed * Time.deltaTime;
 
-            faceDir = moveVec;
+            //faceDir = moveVec;
 
 #if XZ_PLAN
             faceDir.y = 0;      //XZ Plan
@@ -568,7 +569,10 @@ public class PC_One : PlayerControllerBase
             faceDir.z = 0;      //XY Plan
 
 #endif
-            SetupFrontDirection();
+            if (!isFacingByTouchControl)
+            {
+                SetupFaceDir(moveVec);
+            }
             MoveDollManager();
 
             if (currState == PC_STATE.ATTACK_AUTO)
@@ -594,6 +598,8 @@ public class PC_One : PlayerControllerBase
         {
             mySPAnimator.SetIsRun(isRun);
         }
+
+        isFacingByTouchControl = false;
     }
 
     protected void MoveDollManager()
@@ -604,17 +610,30 @@ public class PC_One : PlayerControllerBase
             myDollManager.SetMasterPosition(transform.position);
             if (movingTime > DmRotateWait)
             {
-                myDollManager.SetMasterDirection(faceDir, faceFrontType);
+                if (!isFacingByTouchControl)
+                {
+                    myDollManager.SetMasterDirection(faceDir, faceFrontType);
+                    if (arrowRoot)
+                    {
+                        arrowRoot.transform.rotation = myDollManager.transform.rotation;
+                    }
+                }
             }
 
-            if (arrowRoot)
-            {
-                arrowRoot.transform.rotation = myDollManager.transform.rotation;
-                //arrowRoot.transform.rotation = Quaternion.LookRotation(-faceDir, Vector3.up);
-            }
+
         }
 
     }
+
+    protected void SetupDollManagerDirection()
+    {
+        myDollManager.SetMasterDirection(faceDir, faceFrontType);
+        if (arrowRoot)
+        {
+            arrowRoot.transform.rotation = myDollManager.transform.rotation;
+        }
+    }
+
 
     private void SetupFrontDirection()
     {
@@ -693,6 +712,19 @@ public class PC_One : PlayerControllerBase
     }
 
 
+
+    public override void OnFacePosition(Vector3 target)
+    {
+        if (inputActive && (currState == PC_STATE.NORMAL || currState == PC_STATE.ATTACK_AUTO))
+        {
+            Vector3 dir = target - transform.position;
+            dir.y = 0;
+            dir.Normalize();
+            SetupFaceDir(dir);
+            SetupDollManagerDirection();
+            isFacingByTouchControl = true;
+        }
+    }
 
 
     public override void OnMoveToPosition(Vector3 target)

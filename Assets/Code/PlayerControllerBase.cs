@@ -51,6 +51,7 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual bool OnRegisterActionObject(GameObject obj) { return false; }
     public virtual bool OnUnregisterActionObject(GameObject obj) { return false; }
     public virtual void OnMoveToPosition(Vector3 target) { }
+    public virtual void OnFacePosition(Vector3 target) { }
     public virtual void ForceStop(bool stop = true) { }
     public virtual void DoTeleport(Vector3 position, float faceAngle) { }
     public virtual void SetupFaceDir(Vector3 dir) { }
