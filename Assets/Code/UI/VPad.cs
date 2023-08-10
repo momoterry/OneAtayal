@@ -62,6 +62,7 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         float adjustRatio = 0;
         float scaleRatio = 1.0f;
         float x_shift = 0;
+        float y_shift = 0;
         if (ratio > 1)
         {
             adjustRatio = (ratio - 1.0f) * 9.0f / 7.0f;   //以 16:9 為最大基準
@@ -73,12 +74,13 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
                     x_shift = -160.0f * ratio + (vCenterDefaultSize.x * scaleRatio * 0.5f) + 32; ;
                     break;
                 case ALIGN_TYPE.LEFT:
-                    x_shift = 48.0f * (scaleRatio - 1.0f);
+                    //x_shift = 48.0f * (scaleRatio - 1.0f);
                     break;
                 case ALIGN_TYPE.RIGHT:
-                    x_shift = -48.0f * (scaleRatio - 1.0f);
+                    //x_shift = -48.0f * (scaleRatio - 1.0f);
                     break;
             }
+            y_shift = -48.0f * (scaleRatio - 1.0f);
         }
         else if (ratio < 9.0f / 16.1f)
         {
@@ -99,18 +101,19 @@ public class VPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         Vector3 pos = rt.anchoredPosition;
         //pos.x = -180.0f * Mathf.Min(1.0f, adjustRatio);
 
-        rt.sizeDelta = myDefaultSize * scaleRatio;
+        //rt.sizeDelta = myDefaultSize * scaleRatio;
 
-        if (vCenter)
-        {
-            vCenter.rectTransform.sizeDelta = vCenterDefaultSize * scaleRatio;
-        }
-        if (vStick)
-        {
-            vStick.rectTransform.sizeDelta = vStickDefaultSize * scaleRatio;
-        }
+        //if (vCenter)
+        //{
+        //    vCenter.rectTransform.sizeDelta = vCenterDefaultSize * scaleRatio;
+        //}
+        //if (vStick)
+        //{
+        //    vStick.rectTransform.sizeDelta = vStickDefaultSize * scaleRatio;
+        //}
 
         pos.x = x_shift;
+        pos.y = y_shift;
         rt.anchoredPosition = pos;
 
     }

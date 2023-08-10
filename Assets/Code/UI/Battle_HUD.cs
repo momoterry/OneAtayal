@@ -71,6 +71,7 @@ public class Battle_HUD : MonoBehaviour
     protected int currSceenHeight = 0;
 
     protected float targetRatio = 0.5f;
+    protected float ratioMax = 1.0f;    //螢幕太寬就進行 Camera + UI 縮放
     protected float cameraDefaultSize = 10.0f;
     protected CanvasScaler theScaler;
 
@@ -96,14 +97,6 @@ public class Battle_HUD : MonoBehaviour
         {
             currSceenWidth = width;
             currSceenHeight = height;
-            if (theVPad)
-            {
-                theVPad.OnScreenResolution(currSceenWidth, currSceenHeight);
-            }
-            if (theRightPad)
-            {
-                theRightPad.OnScreenResolution(currSceenWidth, currSceenHeight);
-            }
 
             //CanvasScaler theScaler = GetComponent<CanvasScaler>();
             if (theScaler != null)
@@ -114,11 +107,31 @@ public class Battle_HUD : MonoBehaviour
                     theScaler.matchWidthOrHeight = 0;
                     Camera.main.orthographicSize = cameraDefaultSize * targetRatio / currRatio; //太細的螢幕得調整主 Camera
                 }
+                else if (currRatio > ratioMax)
+                {
+                    float widthScaleRate = 0.5f;
+                    float matchWidthRatio = 2.0f;
+                    float calRatio = (currRatio - ratioMax) * widthScaleRate + ratioMax;
+
+                    float matchRatio = Mathf.Min(1.0f, (calRatio - ratioMax) / (matchWidthRatio - ratioMax));
+                    theScaler.matchWidthOrHeight = (1.0f - matchRatio);
+                    print("Match Ratio: " + matchRatio);
+                    Camera.main.orthographicSize = cameraDefaultSize * ratioMax / calRatio; //太寬的螢幕得調整主 Camera
+                }
                 else
                 {
                     theScaler.matchWidthOrHeight = 1.0f;
                     Camera.main.orthographicSize = cameraDefaultSize;
                 }
+            }
+
+            if (theVPad)
+            {
+                theVPad.OnScreenResolution(currSceenWidth, currSceenHeight);
+            }
+            if (theRightPad)
+            {
+                theRightPad.OnScreenResolution(currSceenWidth, currSceenHeight);
             }
         }
 
