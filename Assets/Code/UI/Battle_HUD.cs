@@ -109,9 +109,11 @@ public class Battle_HUD : MonoBehaviour
                 }
                 else if (currRatio > ratioMax)
                 {
-                    float widthScaleRate = 0.5f;
-                    float matchWidthRatio = 2.0f;
-                    float calRatio = (currRatio - ratioMax) * widthScaleRate + ratioMax;
+                    float widthScaleRate = 0.5f;    //縮放速度的調整
+                    float matchWidthRatio = 16.0f / 9.0f;
+                    float maxWidthRatio = 16.0f / 9.0f;
+                    float calRatio = Mathf.Min(currRatio, maxWidthRatio);           //最大縮放到 16/9
+                    calRatio = (calRatio - ratioMax) * widthScaleRate + ratioMax;
 
                     float matchRatio = Mathf.Min(1.0f, (calRatio - ratioMax) / (matchWidthRatio - ratioMax));
                     theScaler.matchWidthOrHeight = (1.0f - matchRatio);
