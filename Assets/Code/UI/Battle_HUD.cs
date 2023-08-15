@@ -421,4 +421,7 @@ public class Battle_HUD : MonoBehaviour
     {
         BattleSystem.GetInstance().OnUsePotion();
     }
+
+
+
 }
