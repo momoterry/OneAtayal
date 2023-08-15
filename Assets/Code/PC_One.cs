@@ -549,6 +549,12 @@ public class PC_One : PlayerControllerBase
 
             Vector3 vDir = new Vector3(vPadDir.x, 0, vPadDir.y);   //XZ Plan
             vDir.Normalize();
+
+            vDir = Vector3.RotateTowards(faceDir, vDir, Time.deltaTime * 180.0f * Mathf.Deg2Rad, 0);
+
+            //方向盤式版本
+            //vDir = Quaternion.Euler(0, vPadDir.x * Time.deltaTime * -180.0f, 0) * faceDir;
+
             SetupFaceDir(vDir);
             SetupDollManagerDirection();
         }

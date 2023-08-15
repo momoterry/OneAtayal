@@ -152,6 +152,8 @@ public class Battle_HUD : MonoBehaviour
         bool isVPad = GameSystem.IsUseVpad();
         bool isDual = isVPad && GameSystem.IsUseDirectionControl();
 
+        //isDual = false;
+
         if (isDual)
         {
             if (theVPad)

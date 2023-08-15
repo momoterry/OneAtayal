@@ -1779,7 +1779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fd196ff1a56e2584dbd64377c84d12a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e06fe80b7710df4186897ef77b0ac72, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2999,7 +2999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2946355047675658004
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4777,7 +4777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2233934231540198330
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4797,7 +4797,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 48, y: 48}
+  m_SizeDelta: {x: 72, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &810213644012762050
 CanvasRenderer:
@@ -4827,7 +4827,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e06fe80b7710df4186897ef77b0ac72, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd196ff1a56e2584dbd64377c84d12a5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6375,8 +6375,8 @@ MonoBehaviour:
   moneyText: {fileID: 1994732582596017376}
   theDialogue: {fileID: 510490137}
   theVPad: {fileID: 2946355048006526911}
-  theLeftPad: {fileID: 7803850776914232492}
-  theRightPad: {fileID: 1656435153205930856}
+  theLeftPad: {fileID: 2946355048006526911}
+  theRightPad: {fileID: 950193771375962423}
 --- !u!1 &6971823420982486051
 GameObject:
   m_ObjectHideFlags: 0
@@ -8379,7 +8379,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -7.9504166, y: 49.999992}
+  m_AnchoredPosition: {x: 8, y: 8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8950783813104724867
@@ -8439,7 +8439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3814477016199206503}
   - component: {fileID: 4243164189506365719}
-  - component: {fileID: 1656435153205930856}
+  - component: {fileID: 950193771375962423}
   m_Layer: 5
   m_Name: SubRPad
   m_TagString: Untagged
@@ -8465,7 +8465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: -48}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 90, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4243164189506365719
@@ -8476,7 +8476,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8999482390307086699}
   m_CullTransparentMesh: 1
---- !u!114 &1656435153205930856
+--- !u!114 &950193771375962423
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8490,8 +8490,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vCenter: {fileID: 2319144514032679457}
   vStick: {fileID: 1408555307545576011}
-  actionButton: {fileID: 7705926845168541485}
-  align: 2
+  actionButton: {fileID: 0}
+  align: 0
 --- !u!1 &9088689575526961750
 GameObject:
   m_ObjectHideFlags: 0
