@@ -92,7 +92,7 @@ public class LevelManager : MonoBehaviour
 
     public bool IsLevelOpen(string levelID)
     {
-        if (DebugMenu.GetIsLevelFree())
+        if (DebugMenu.IsLevelFree())
             return true;
         string str = GetOpenEvent(levelID);
         bool isOpen = GameSystem.GetPlayerData().GetEvent(str);

@@ -15,7 +15,8 @@ public class DebugMenu : MonoBehaviour
     protected bool isLevelFree = false;
     protected bool isDebugBattle = false;
 
-    static public bool GetIsLevelFree() { return instance.isLevelFree; }
+    static public bool IsLevelFree() { return instance.isLevelFree; }
+    static public bool IsDebugBattle() { return instance.isDebugBattle; }
 
     private void Awake()
     {
