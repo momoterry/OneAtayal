@@ -217,12 +217,14 @@ public class Enemy : MonoBehaviour
 
 
 
-    protected virtual bool SearchTarget()
+    protected virtual bool SearchTarget( float givenRange = -1.0f )
     {
+        float searchRange = givenRange > 0 ? givenRange : ChaseRangeIn;
+
         //尋找 Enemy
         GameObject foundTarget = null;
         float minDistance = Mathf.Infinity;
-        Collider[] cols = Physics.OverlapSphere(transform.position, ChaseRangeIn, LayerMask.GetMask("Character"));
+        Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
         foreach (Collider col in cols)
         {
             if (col.gameObject.CompareTag("Player")|| col.gameObject.CompareTag("Doll"))
@@ -242,6 +244,7 @@ public class Enemy : MonoBehaviour
         {
             //print("Enemy Found Target: " + foundTarget);
             SetTarget(foundTarget);
+            print("foundTarget Pos: " + foundTarget.transform.position);
             return true;
         }
 
@@ -433,7 +436,9 @@ public class Enemy : MonoBehaviour
                 faceDir = dv.normalized;
                 SetupAnimationDirection();
                 DoOneAttack();
-                //重新找一次目標
+                //重新找一次目標，因為在攻擊中，使用 AttackRangeOut 的範圍找
+                SearchTarget( AttackRangeOut);
+                //print("SearchTarget....");
             }
 
             stateTime = AttackCD;
