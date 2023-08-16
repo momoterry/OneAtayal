@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     public float Attack = 20.0f;
 
-    protected float SlotRangeOut = 1.0f;   //如果有指定 Slot 時
+    protected float SlotRangeOut = 6.0f;   //如果有指定 Slot 時
     protected float BattleSlotRangeOut = 12.0f;   //如果有指定 Slot 時
     protected float SlotRangeIn = 0.5f;
 
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
         IDLE,
         CHASE,
         ATTACK,
-        TO_SLOT,
+        //TO_SLOT,
         STOP,   //Whem Game Fail
     }
     protected AI_STATE currState = AI_STATE.NONE;
@@ -128,8 +128,8 @@ public class Enemy : MonoBehaviour
                 case AI_STATE.SPAWN_WAIT:
                     stateTime -= Time.deltaTime;
                     if (stateTime <= 0)
-                    { 
-                        nextState = AI_STATE.IDLE; 
+                    {
+                        nextState = AI_STATE.IDLE;
                     }
                     break;
                 case AI_STATE.IDLE:
@@ -141,9 +141,9 @@ public class Enemy : MonoBehaviour
                 case AI_STATE.ATTACK:
                     UpdateAttack();
                     break;
-                case AI_STATE.TO_SLOT:
-                    UpdateMoveToSlot();
-                    break;
+                //case AI_STATE.TO_SLOT:
+                //    UpdateMoveToSlot();
+                //    break;
             }
         }
 
@@ -194,13 +194,13 @@ public class Enemy : MonoBehaviour
                     mySPAimator.SetIsRun(true);
                 stateTime = 0; //確保一開始先找一次目標
                 break;
-            case AI_STATE.TO_SLOT:
-                stateTime = 0;
-                if (myAnimator)
-                    myAnimator.SetBool("Run", true);
-                if (mySPAimator)
-                    mySPAimator.SetIsRun(true);
-                break;
+            //case AI_STATE.TO_SLOT:
+            //    stateTime = 0;
+            //    if (myAnimator)
+            //        myAnimator.SetBool("Run", true);
+            //    if (mySPAimator)
+            //        mySPAimator.SetIsRun(true);
+            //    break;
         }
     }
 
@@ -251,17 +251,29 @@ public class Enemy : MonoBehaviour
     protected virtual void UpdateIdle()
     {
         stateTime -= Time.deltaTime;
-        if (CheckSlotTooFar())
-        {
-            nextState = AI_STATE.TO_SLOT;
-            return;
-        }
+        //if (CheckSlotTooFar())
+        //{
+        //    nextState = AI_STATE.TO_SLOT;
+        //    return;
+        //}
         if (stateTime <= 0)
         {
             stateTime = 0.1f;
             if (SearchTarget())
             {
                 nextState = AI_STATE.CHASE;
+            }
+            else
+            {
+                if (myAgent && mySlot)
+                {
+                    myAgent.SetDestination(mySlot.transform.position);
+                    bool isRun = Vector3.Distance(mySlot.transform.position, transform.position) > 0.1f;
+                    if (myAnimator)
+                        myAnimator.SetBool("Run", isRun);
+                    if (mySPAimator)
+                        mySPAimator.SetIsRun(isRun);
+                }
             }
         }
     }
@@ -283,10 +295,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected bool CheckSlotTooFar( bool isBattle = false)
-    {
-        return mySlot && Vector3.Distance(mySlot.transform.position, transform.position) > (isBattle ? BattleSlotRangeOut:SlotRangeOut);
-    }
+    //protected bool CheckSlotTooFar( bool isBattle = false)
+    //{
+    //    return mySlot && Vector3.Distance(mySlot.transform.position, transform.position) > (isBattle ? BattleSlotRangeOut:SlotRangeOut);
+    //}
 
     protected virtual void UpdateMoveToSlot()
     {
@@ -320,11 +332,11 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        if (CheckSlotTooFar(true))
-        {
-            nextState = AI_STATE.TO_SLOT;
-            return;
-        }
+        //if (CheckSlotTooFar(true))
+        //{
+        //    nextState = AI_STATE.TO_SLOT;
+        //    return;
+        //}
 
         PlayerControllerBase thePC = targetObj.GetComponent<PlayerControllerBase>();
         if (thePC && thePC.IsKilled())
@@ -387,11 +399,11 @@ public class Enemy : MonoBehaviour
             nextState = AI_STATE.IDLE;
             return;
         }
-        if (CheckSlotTooFar(true))
-        {
-            nextState = AI_STATE.TO_SLOT;
-            return;
-        }
+        //if (CheckSlotTooFar(true))
+        //{
+        //    nextState = AI_STATE.TO_SLOT;
+        //    return;
+        //}
         PlayerControllerBase thePC = targetObj.GetComponent<PlayerControllerBase>();
         if (thePC && thePC.IsKilled())
         {
@@ -421,6 +433,7 @@ public class Enemy : MonoBehaviour
                 faceDir = dv.normalized;
                 SetupAnimationDirection();
                 DoOneAttack();
+                //重新找一次目標
             }
 
             stateTime = AttackCD;
@@ -507,17 +520,21 @@ public class Enemy : MonoBehaviour
             myAgent.SetDestination(transform.position);
     }
 
-    //private void OnGUI()
-    //{
-    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
-    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currState.ToString());
+    private void OnGUI()
+    {
+        if (DebugMenu.IsDebugBattle())
+        {
+            Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+            thePoint.y = Camera.main.pixelHeight - thePoint.y;
+            GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currState.ToString());
+        }
+    }
 
-    //}
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         if (targetObj)
             Gizmos.DrawLine(transform.position, targetObj.transform.position);
+
     }
 }
