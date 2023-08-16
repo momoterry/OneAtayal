@@ -13,6 +13,7 @@ public class DebugMenu : MonoBehaviour
     static DebugMenu instance;
 
     protected bool isLevelFree = false;
+    protected bool isDebugBattle = false;
 
     static public bool GetIsLevelFree() { return instance.isLevelFree; }
 
@@ -47,6 +48,20 @@ public class DebugMenu : MonoBehaviour
         }
     }
 
+    protected bool isMenuOn = false;
+    public void OnToggleDebugMenu()
+    {
+        isMenuOn = !isMenuOn;
+        if (isMenuOn)
+        {
+            OnOpenMenu();
+        }
+        else
+        {
+            OnCloseMenu();
+        }
+    }
+
     public void OnOpenMenu()
     {
         if (MenuRoot)
@@ -71,6 +86,12 @@ public class DebugMenu : MonoBehaviour
     public void OnClearAllMainLevels()
     {
         GameSystem.GetLevelManager().DebugClearAllMainLevels();
+    }
+
+    public void OnDebugBattle(bool value)
+    {
+        isDebugBattle = value;
+        print("OnDebugBattle " + value);
     }
 
     public void OnBackLevel()
