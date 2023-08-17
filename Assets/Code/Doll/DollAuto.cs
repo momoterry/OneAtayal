@@ -5,8 +5,15 @@ using UnityEngine.AI;
 
 public class DollAuto : Doll
 {
-    //public float ChaseRangeIn = 5.0f;
-    //public float ChaseRangeOut = 8.0f;
+    [System.Serializable]
+    public enum SEARCH_CENTER_TYPE
+    {
+        PLAYER,
+        MYSELF,
+        SLOT,
+    }
+    public SEARCH_CENTER_TYPE searchCenter = SEARCH_CENTER_TYPE.PLAYER;
+
     public float PositionRangeIn = 1.0f;
     public float PositionRangeOut = 9.0f;
     public float AttackRangeIn = 3.0f;
@@ -217,14 +224,24 @@ public class DollAuto : Doll
         GameObject foundEnemy = null;
         float minDistance = Mathf.Infinity;
 
-        Collider[] cols = Physics.OverlapSphere(myMaster.transform.position, SearchRange, LayerMask.GetMask("Character"));
+        Vector3 vCenter = transform.position;
+        switch (searchCenter)
+        {
+            case SEARCH_CENTER_TYPE.PLAYER:
+                vCenter = myMaster.transform.position;
+                break;
+            case SEARCH_CENTER_TYPE.SLOT:
+                vCenter = mySlot.position;
+                break;
+        }
+
+        Collider[] cols = Physics.OverlapSphere(vCenter, SearchRange, LayerMask.GetMask("Character"));
         foreach (Collider col in cols)
         {
             //print("I Found: "+ col.gameObject.name);
             if (col.gameObject.CompareTag("Enemy"))
             {
-                //float dis = (col.gameObject.transform.position - gameObject.transform.position).magnitude;
-                float dis = Vector3.Distance(col.gameObject.transform.position, myMaster.transform.position);
+                float dis = Vector3.Distance(col.gameObject.transform.position, vCenter);
 
                 if (dis < minDistance)
                 {
