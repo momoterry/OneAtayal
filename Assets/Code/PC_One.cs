@@ -619,6 +619,11 @@ public class PC_One : PlayerControllerBase
         }
 
         isFacingByTouchControl = false;
+
+        if (arrowRoot && myDollManager)
+        {
+            arrowRoot.transform.rotation = myDollManager.transform.rotation;
+        }
     }
 
     protected void MoveDollManager()
@@ -632,10 +637,10 @@ public class PC_One : PlayerControllerBase
                 if (!isFacingByTouchControl)
                 {
                     myDollManager.SetMasterDirection(faceDir, faceFrontType);
-                    if (arrowRoot)
-                    {
-                        arrowRoot.transform.rotation = myDollManager.transform.rotation;
-                    }
+                    //if (arrowRoot)
+                    //{
+                    //    arrowRoot.transform.rotation = myDollManager.transform.rotation;
+                    //}
                 }
             }
 
@@ -647,10 +652,10 @@ public class PC_One : PlayerControllerBase
     protected void SetupDollManagerDirection()
     {
         myDollManager.SetMasterDirection(faceDir, faceFrontType);
-        if (arrowRoot)
-        {
-            arrowRoot.transform.rotation = myDollManager.transform.rotation;
-        }
+        //if (arrowRoot)
+        //{
+        //    arrowRoot.transform.rotation = myDollManager.transform.rotation;
+        //}
     }
 
 
