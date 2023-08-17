@@ -244,7 +244,7 @@ public class Enemy : MonoBehaviour
         {
             //print("Enemy Found Target: " + foundTarget);
             SetTarget(foundTarget);
-            print("foundTarget Pos: " + foundTarget.transform.position);
+            //print("foundTarget Pos: " + foundTarget.transform.position);
             return true;
         }
 
