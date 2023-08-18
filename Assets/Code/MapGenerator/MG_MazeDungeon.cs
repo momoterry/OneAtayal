@@ -16,6 +16,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     public bool extendTerminal = true;
     public GameObject finishPortalRef;
     public bool portalAfterFirstRoomGamplay = false;
+    public bool createWallCollider = true;
 
     // Tile 資料相關
     public TileGroupDataBase groundTileGroup;
@@ -237,6 +238,20 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
     }
 
+    protected void FillBlock(int x1, int y1, int width, int height)
+    {
+        if (!createWallCollider)
+            return;
+        GameObject newObject = new GameObject("MyBoxObj");
+        newObject.transform.position = new Vector3(x1 + width * 0.5f, 0, y1 + height * 0.5f);
+        BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
+        boxCollider.size = new Vector3(width, 2.0f, height);
+        //boxCollider.l
+        newObject.transform.parent = gameObject.transform;
+        newObject.isStatic = true;
+        newObject.layer = LayerMask.NameToLayer("Wall");
+    }
+
     protected void FillCell(cellInfo cell, int x1, int y1, int width, int height)
     {
         int x2 = x1 + width - wallWidth;
@@ -253,22 +268,36 @@ public class MG_MazeDungeon : MapGeneratorBase
         theMap.FillValue(x2, y1, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
         theMap.FillValue(x2, y2, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
 
+
         if (!cell.D)
         {
             theMap.FillValue(x1+ wallWidth, y1, width- wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+            FillBlock(x1, y1, width - wallWidth, wallHeight);
         }
+        else
+            FillBlock(x1, y1, wallWidth, wallHeight);   // 左下
         if (!cell.U)
         {
             theMap.FillValue(x1 + wallWidth, y2, width - wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+            FillBlock(x1 + wallWidth, y2, width - wallWidth, wallHeight);
         }
+        else
+            FillBlock(x2, y2, wallWidth, wallHeight);   // 右上
+
         if (!cell.L)
         {
             theMap.FillValue(x1, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
+            FillBlock(x1, y1 + wallHeight, wallWidth, height - wallHeight);
         }
+        else
+            FillBlock(x1, y2, wallWidth, wallHeight);   //左上
         if (!cell.R)
         {
             theMap.FillValue(x2, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
+            FillBlock(x2, y1, wallWidth, height - wallHeight);
         }
+        else
+            FillBlock(x2, y1, wallWidth, wallHeight);   //右下
     }
 
     protected void ConnectCellsByID(int id_1, int id_2)
