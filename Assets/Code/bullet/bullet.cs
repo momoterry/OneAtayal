@@ -34,6 +34,18 @@ public enum DAMAGE_GROUP
     ENEMY,
 }
 
+public struct BulletResult
+{
+    public enum RESULT_TYPE
+    {
+        HIT_WALL,
+        HIT_TARGET,
+        EXHAUSTED,
+    }
+    public RESULT_TYPE result;
+    public BulletResult(RESULT_TYPE _r) { result = _r; }
+}
+
 public class bullet_base : MonoBehaviour
 {
     protected float baseDamage = 60.0f;
@@ -42,6 +54,9 @@ public class bullet_base : MonoBehaviour
     protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
     protected Damage myDamage;
 
+    public delegate void BulletResultCB(BulletResult result);
+    protected BulletResultCB bulletResultCB = null;
+
     public virtual void InitValue(DAMAGE_GROUP g, Damage theDamage, Vector3 targetVec, GameObject targetObject = null)
     {
         group = g;
@@ -49,6 +64,11 @@ public class bullet_base : MonoBehaviour
         myDamage = theDamage;
         baseDamage = theDamage.damage;
         targetObj = targetObject;
+    }
+
+    public void SetResultCB(BulletResultCB resultCB)
+    {
+        bulletResultCB = resultCB;
     }
 }
 
@@ -84,6 +104,10 @@ public class bullet : bullet_base
         if (myTime < 0.0f)
         {
             //print("Dead!! " + myTime +" / " + lifeTime + "  ... " +Time.deltaTime);
+            if (bulletResultCB!=null)
+            {
+                bulletResultCB(new BulletResult(BulletResult.RESULT_TYPE.EXHAUSTED));
+            }
             Destroy(gameObject);
         }
         else
@@ -105,21 +129,37 @@ public class bullet : bullet_base
             //print("Trigger:  Hit Enemy !!");
             hit = true;
             col.gameObject.SendMessage("OnDamage", myDamage);
+            if (bulletResultCB != null)
+            {
+                bulletResultCB(new BulletResult(BulletResult.RESULT_TYPE.HIT_TARGET));
+            }
         }
         else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == DAMAGE_GROUP.ENEMY)
         {
             //print("Trigger:  Hit Player or Doll !!");
             hit = true;
             col.gameObject.SendMessage("OnDamage", myDamage);
+            if (bulletResultCB != null)
+            {
+                bulletResultCB(new BulletResult(BulletResult.RESULT_TYPE.HIT_TARGET));
+            }
         }
         else if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             //print("Trigger:  HitWall !!");
             hit = true;
+            if (bulletResultCB != null)
+            {
+                bulletResultCB(new BulletResult(BulletResult.RESULT_TYPE.HIT_WALL));
+            }
         }
         else if (col.gameObject.layer == LayerMask.NameToLayer("DeadZone"))
         {
             destroy = true;
+            if (bulletResultCB != null)
+            {
+                bulletResultCB(new BulletResult(BulletResult.RESULT_TYPE.HIT_WALL));
+            }
         }
 
 

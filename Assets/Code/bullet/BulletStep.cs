@@ -10,9 +10,12 @@ public class BulletStep : bullet_base
     public float Step_Distance = 0.5f;
     public float Wait_Time = 0;
     public float Step_Time = 0.125f;
+    public bool StopIfHitWall = false;
 
     protected float timeToStep = 0;
     protected int currStep = 0;
+
+    protected bool toStop = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,11 @@ public class BulletStep : bullet_base
     // Update is called once per frame
     void Update()
     {
+        if (toStop)
+        {
+            DoStepDone();
+            return;
+        }
         timeToStep -= Time.deltaTime;
         if (timeToStep <= 0)
         {
@@ -58,10 +66,19 @@ public class BulletStep : bullet_base
                 bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
-
                     newBullet.InitValue(group, myDamage, targetDir);
+                    newBullet.SetResultCB(OnBulletResult);
                 }
             }
+        }
+    }
+
+    void OnBulletResult(BulletResult result)
+    {
+        //print("BulletStep:OnBulletResult!! " + result.result);
+        if (StopIfHitWall && result.result == BulletResult.RESULT_TYPE.HIT_WALL)
+        {
+            toStop = true;
         }
     }
 

@@ -61,6 +61,14 @@ public class DamageByAnimation : bullet_base
                 col.gameObject.SendMessage("OnDamage", myDamage);
                 hit = true;
             }
+            else if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            {
+                //print("Trigger:  HitWall !!");
+                if (bulletResultCB != null)
+                {
+                    bulletResultCB(new BulletResult(BulletResult.RESULT_TYPE.HIT_WALL));
+                }
+            }
 
             if (hit&& hitFX)
             {
