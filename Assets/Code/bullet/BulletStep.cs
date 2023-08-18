@@ -84,6 +84,10 @@ public class BulletStep : bullet_base
 
     void DoStepDone()
     {
+        if (bulletResultCB != null)
+        {
+            bulletResultCB(new BulletResult(toStop ? BulletResult.RESULT_TYPE.HIT_WALL : BulletResult.RESULT_TYPE.EXHAUSTED));
+        }
         Destroy(gameObject);
     }
 }
