@@ -268,36 +268,138 @@ public class MG_MazeDungeon : MapGeneratorBase
         theMap.FillValue(x2, y1, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
         theMap.FillValue(x2, y2, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
 
+        bool isFillBlock = createWallCollider && (cell.value != cellInfo.ROOM);
 
         if (!cell.D)
         {
-            theMap.FillValue(x1+ wallWidth, y1, width- wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-            FillBlock(x1, y1, width - wallWidth, wallHeight);
+            theMap.FillValue(x1 + wallWidth, y1, width - wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+            if (isFillBlock)
+                FillBlock(x1, y1, width - wallWidth, wallHeight);   //左下和下
         }
         else
-            FillBlock(x1, y1, wallWidth, wallHeight);   // 左下
+        {
+            if (isFillBlock)
+                FillBlock(x1, y1, wallWidth, wallHeight);   // 左下
+        }
         if (!cell.U)
         {
             theMap.FillValue(x1 + wallWidth, y2, width - wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-            FillBlock(x1 + wallWidth, y2, width - wallWidth, wallHeight);
+            if (isFillBlock)
+                FillBlock(x1 + wallWidth, y2, width - wallWidth, wallHeight);   //右上和上
         }
         else
-            FillBlock(x2, y2, wallWidth, wallHeight);   // 右上
+        {
+            if (isFillBlock)
+                FillBlock(x2, y2, wallWidth, wallHeight);   // 右上
+        }
 
         if (!cell.L)
         {
             theMap.FillValue(x1, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
-            FillBlock(x1, y1 + wallHeight, wallWidth, height - wallHeight);
+            if (isFillBlock)
+                FillBlock(x1, y1 + wallHeight, wallWidth, height - wallHeight); //左上和左
         }
         else
-            FillBlock(x1, y2, wallWidth, wallHeight);   //左上
+        {
+            if (isFillBlock)
+                FillBlock(x1, y2, wallWidth, wallHeight);   //左上
+        }
         if (!cell.R)
         {
             theMap.FillValue(x2, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
-            FillBlock(x2, y1, wallWidth, height - wallHeight);
+            if (isFillBlock)
+                FillBlock(x2, y1, wallWidth, height - wallHeight);  //右上和右
         }
         else
-            FillBlock(x2, y1, wallWidth, wallHeight);   //右下
+        {
+            if (isFillBlock)
+                FillBlock(x2, y1, wallWidth, wallHeight);   //右下
+        }
+    }
+
+    protected void FillRoomWallColliders( RectInt rc)
+    {
+        int x1 = puzzleX1 + rc.x * cellWidth;
+        int y1 = puzzleY1 + rc.y * cellHeight;
+        //FillBlock(x1, y1, rc.width * cellWidth, rc.height * cellHeight);
+        //下方
+        int startx = x1;
+        int endx = x1;
+        for (int ix = rc.x; ix < rc.x + rc.width; ix++)
+        {
+            if (puzzleMap[ix][rc.y].D)
+            {
+                //print("下方| |");
+                FillBlock(startx, y1, endx - startx + wallWidth, wallHeight);
+                startx = puzzleX1 + (ix + 1) * cellWidth - wallWidth;
+                endx = puzzleX1 + (ix + 1) * cellWidth;
+            }
+            else
+            {
+                //print("下方==");
+                endx += cellWidth;
+            }
+        }
+        FillBlock(startx, y1, endx - startx, wallHeight);
+        //上方
+        startx = x1;
+        endx = x1;
+        int yU = y1 + rc.height * cellHeight - wallHeight;
+        for (int ix = rc.x; ix < rc.x + rc.width; ix++)
+        {
+            if (puzzleMap[ix][rc.y+rc.height-1].U)
+            {
+                //print("上方| |");
+                FillBlock(startx, yU, endx - startx + wallWidth, wallHeight);
+                startx = puzzleX1 + (ix + 1) * cellWidth - wallWidth;
+                endx = puzzleX1 + (ix + 1) * cellWidth;
+            }
+            else
+            {
+                //print("上方==");
+                endx += cellWidth;
+            }
+        }
+        FillBlock(startx, yU, endx - startx, wallHeight);
+        //左方
+        int starty = y1;
+        int endy = y1;
+        for (int iy = rc.y; iy < rc.y + rc.height; iy++)
+        {
+            if (puzzleMap[rc.x][iy].L)
+            {
+                //print("左方| |");
+                FillBlock(x1, starty, wallWidth, endy - starty + wallHeight);
+                starty = puzzleY1 + (iy + 1) * cellHeight - wallHeight;
+                endy = puzzleY1 + (iy + 1) * cellHeight;
+            }
+            else
+            {
+                //print("左方==");
+                endy += cellHeight;
+            }
+        }
+        FillBlock(x1, starty, wallWidth, endy - starty);
+        //右方
+        starty = y1;
+        endy = y1;
+        int xR = x1 + rc.width * cellWidth - wallWidth;
+        for (int iy = rc.y; iy < rc.y + rc.height; iy++)
+        {
+            if (puzzleMap[rc.x+rc.width-1][iy].R)
+            {
+                //print("右方| |");
+                FillBlock(xR, starty, wallWidth, endy - starty + wallHeight);
+                starty = puzzleY1 + (iy + 1) * cellHeight - wallHeight;
+                endy = puzzleY1 + (iy + 1) * cellHeight;
+            }
+            else
+            {
+                //print("右方==");
+                endy += cellHeight;
+            }
+        }
+        FillBlock(xR, starty, wallWidth, endy - starty);
     }
 
     protected void ConnectCellsByID(int id_1, int id_2)
@@ -655,6 +757,9 @@ public class MG_MazeDungeon : MapGeneratorBase
                 eg.height *= 2;
                 eg.width *= 2;
             }
+
+            //Big Room 的牆面處理
+            FillRoomWallColliders(rc);
         }
 
         //破關門
