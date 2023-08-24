@@ -153,17 +153,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 657190579}
-  cellWidth: 20
-  cellHeight: 5
+  cellWidth: 10
+  cellHeight: 10
   wallWidth: 2
-  wallHeight: 2
-  puzzleHeight: 1
-  puzzleWidth: 1
+  wallHeight: 3
+  puzzleHeight: 4
+  puzzleWidth: 4
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
-  portalAfterFirstRoomGamplay: 0
-  createWallCollider: 1
+  portalAfterFirstRoomGamplay: 1
+  createWallCollider: 0
   groundTileGroup: {fileID: 298549191}
   groundEdgeTileGroup: {fileID: 1483011242}
   groundOutEdgeTileGroup: {fileID: 557070253}
@@ -173,7 +173,10 @@ MonoBehaviour:
   roomGroundTileEdgeGroup: {fileID: 2132205078}
   groundTM: {fileID: 7377851621563083732}
   blockTM: {fileID: 2236877017909985346}
-  bigRooms: []
+  bigRooms:
+  - size: {x: 2, y: 2}
+    numDoor: 2
+    gameplayRef: {fileID: 2283165509847586996, guid: 506baf8ee1cfb01489d18e00614c0b45, type: 3}
   noRoomBuffer: 1
   normalGroup: {fileID: 0}
   exploreRewards: []

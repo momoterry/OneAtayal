@@ -9,41 +9,113 @@ public class ScenePortal : MonoBehaviour
     public string sceneName;
     public SpriteRenderer fadeBlocker;
     public float fadeTime = 0.5f;
+    public float showupTime = -1.0f;
+    public SpriteRenderer[] showupSprites;
 
     public bool messageHint = false;
     public string hintLevelName = "";
     public bool isClearLevel = false;
     public bool showWinUI = false;
 
-    protected float currTime = 0;
-    void Start()
+    protected enum PHASE
+    {
+        NONE,
+        SHOWUP,
+        NORMAL,
+        FADEOUT,
+    }
+    protected PHASE currPhase = PHASE.NONE;
+    protected PHASE nextPhase = PHASE.NONE;
+
+    protected float stateTimeLeft = 0;
+
+    private void Awake()
     {
         if (fadeBlocker)
             fadeBlocker.gameObject.SetActive(false);
+        if (showupTime > 0)
+        {
+            nextPhase = PHASE.SHOWUP;
+            stateTimeLeft = showupTime;
+            SetShowupAlpha(0);
+        }
+        else
+            nextPhase = PHASE.NORMAL;
+    }
+
+    //void Start()
+    //{
+    //    if (fadeBlocker)
+    //        fadeBlocker.gameObject.SetActive(false);
+    //}
+    protected void SetShowupAlpha(float alpha)
+    {
+        foreach (SpriteRenderer sr in showupSprites)
+        {
+            Color c = sr.color;
+            sr.color = new Color(c.r, c.g, c.b, alpha);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currTime > 0)
+        if (currPhase != nextPhase)
         {
-            currTime -= Time.deltaTime;
-            if (currTime <= 0)
-            {
-                DoLoadScene();
-                currTime = 0;
-            }
-            
-            if (fadeBlocker)
-            {
-                fadeBlocker.color = new Color(0, 0, 0, 1.0f - (currTime / fadeTime));
-            }
+            currPhase = nextPhase;
         }
+
+        if (stateTimeLeft > 0)
+        {
+            stateTimeLeft -= Time.deltaTime;
+        }
+
+        switch (currPhase)
+        {
+            case PHASE.SHOWUP:
+                if (stateTimeLeft > 0)
+                {
+                    SetShowupAlpha(1.0f - (stateTimeLeft / showupTime));
+                }
+                else
+                {
+                    SetShowupAlpha(1.0f);
+                    nextPhase = PHASE.NORMAL;
+                }
+                break;
+            case PHASE.FADEOUT:
+                if (stateTimeLeft <= 0)
+                {
+                    stateTimeLeft = 0;
+                    DoLoadScene();
+                }
+                else if (fadeBlocker)
+                {
+                    fadeBlocker.color = new Color(0, 0, 0, 1.0f - (stateTimeLeft / fadeTime));
+                }
+                break;
+        }
+
+        //if (stateTimeLeft > 0)
+        //{
+        //    stateTimeLeft -= Time.deltaTime;
+        //    if (stateTimeLeft <= 0)
+        //    {
+        //        DoLoadScene();
+        //        stateTimeLeft = 0;
+        //    }
+            
+        //    if (fadeBlocker)
+        //    {
+        //        fadeBlocker.color = new Color(0, 0, 0, 1.0f - (stateTimeLeft / fadeTime));
+        //    }
+        //}
     }
 
     virtual protected void DoTeleport()
     {
-        currTime = fadeTime;
+        nextPhase = PHASE.FADEOUT;
+        stateTimeLeft = fadeTime;
         if (fadeBlocker)
             fadeBlocker.gameObject.SetActive(true);
         BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
@@ -66,7 +138,9 @@ public class ScenePortal : MonoBehaviour
 
     void OnTG(GameObject whoTG)
     {
-        //currTime = fadeTime;
+        if (currPhase != PHASE.NORMAL)
+            return;
+        //stateTimeLeft = fadeTime;
         //if (fadeBlocker)
         //    fadeBlocker.gameObject.SetActive(true);
         //BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
