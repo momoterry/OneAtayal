@@ -37,9 +37,22 @@ public class BulletLaser : bullet_base
         fromPos.y = 0;
         Vector3 targetVec = (targetPos - fromPos).normalized;
 
+        //Block ด๚ธี
+        bool hitWall = false;
+        RaycastHit hitInfo;
+        if (Physics.Raycast(fromPos, targetVec, out hitInfo, (targetPos - fromPos).magnitude, LayerMask.GetMask("Wall"), QueryTriggerInteraction.Ignore))
+        {
+            targetPos = hitInfo.point;
+            hitWall = true;
+        }
+        else
+        {
+            targetPos -= targetVec * endShift;
+        }
+
         fromPos += targetVec * startShift;
-        targetPos -= targetVec * endShift;
         Vector3 vec = targetPos - fromPos;
+
 
         theBeam.transform.position = (targetPos + fromPos) * 0.5f;
         theBeam.transform.localScale = new Vector3(1.0f, vec.magnitude, 1.0f);
@@ -48,7 +61,8 @@ public class BulletLaser : bullet_base
         timeToAttack -= Time.deltaTime;
         if (timeToAttack <= 0)
         {
-            DoOneDamage(targetO);
+            if (!hitWall)
+                DoOneDamage(targetO);
             timeToAttack += attackPeriod;
         }
 
