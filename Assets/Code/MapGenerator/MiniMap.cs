@@ -279,7 +279,7 @@ public class MiniMap : MonoBehaviour
         //小地圖底色
         if (SmallUIMaskImage)
         {
-            SmallUIMaskImage.color = Camera.main.backgroundColor;
+            SmallUIMaskImage.color = new Color(Camera.main.backgroundColor.r, Camera.main.backgroundColor.g, Camera.main.backgroundColor.b);
         }
     }
 
