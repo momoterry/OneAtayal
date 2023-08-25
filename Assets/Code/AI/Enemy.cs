@@ -456,7 +456,7 @@ public class Enemy : MonoBehaviour
         }
 
         float hpPrev = hp;
-        hp -= theDamage.damage;
+        hp -= theDamage.damage * BattleSystem.GetAllFriendlyDamageRate();
         if (hp <= 0)
         {
             hp = 0;

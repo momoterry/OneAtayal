@@ -39,6 +39,15 @@ public class BattleSystem : MonoBehaviour
     public float potionHealRatio = 0.5f;
     protected int currPotion = 3;
 
+    //整體傷害平衡用
+    protected float AllEnemyDamageRate = 0.5f;
+    protected float AllFriendlyDamageRate = 0.5f;
+    static public float GetAllEnemyDamageRate() { return instance.AllEnemyDamageRate; }
+    static public float GetAllFriendlyDamageRate() { return instance.AllFriendlyDamageRate; }
+    static public void SetAllEnemyDamageRate(float _AllEnemyDamageRate) { instance.AllEnemyDamageRate = _AllEnemyDamageRate; }
+    static public void SetAllFriendlyDamageRate(float _AllFriendlyDamageRate) { instance.AllFriendlyDamageRate = _AllFriendlyDamageRate; }
+
+
     //Doll Skill 相關
     protected DollSkillManager theDollSkillManager;
 

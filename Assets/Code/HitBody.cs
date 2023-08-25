@@ -38,7 +38,7 @@ public class HitBody : MonoBehaviour
 
     void OnDamage(Damage theDamage)
     {
-        hp -= theDamage.damage * DamageRatio;
+        hp -= theDamage.damage * DamageRatio *BattleSystem.GetAllEnemyDamageRate();
         if (hp <= 0)
         {
             gameObject.SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);

@@ -25,7 +25,7 @@ public class EnemyDummy : Enemy
         if (myAnimator)
             myAnimator.SetTrigger("Hit");
 
-        hp -= theDamage.damage;
+        hp -= theDamage.damage * BattleSystem.GetAllFriendlyDamageRate();
         if (hp < 1.0f)
         {
             hp = 1.0f;

@@ -927,7 +927,7 @@ public class PC_One : PlayerControllerBase
     void OnDamage(Damage theDamage)
     {
 
-        hp -= theDamage.damage;
+        hp -= theDamage.damage * BattleSystem.GetAllEnemyDamageRate(); ;
         if (hp <= 0)
         {
             DoDeath();
