@@ -35,7 +35,7 @@ public class ContinuousSerialMazePortal : ScenePortal
 
     protected ContinuousMazeData[] mazeLevelDatas;
 
-    protected void Awake()
+    protected override void Awake()
     {
         mazeLevelDatas = new ContinuousMazeData[maxLevels];
         for (int i=0; i<maxLevels; i++)
@@ -74,6 +74,7 @@ public class ContinuousSerialMazePortal : ScenePortal
                 }
             }
         }
+        base.Awake();
     }
 
     protected GameObject GetOneRandomReward()

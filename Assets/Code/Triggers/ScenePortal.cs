@@ -29,7 +29,7 @@ public class ScenePortal : MonoBehaviour
 
     protected float stateTimeLeft = 0;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (fadeBlocker)
             fadeBlocker.gameObject.SetActive(false);
