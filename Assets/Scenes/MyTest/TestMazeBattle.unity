@@ -153,12 +153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 657190579}
-  cellWidth: 10
-  cellHeight: 12
+  cellWidth: 20
+  cellHeight: 20
   wallWidth: 2
   wallHeight: 3
-  puzzleHeight: 4
-  puzzleWidth: 4
+  puzzleHeight: 1
+  puzzleWidth: 1
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
@@ -173,10 +173,7 @@ MonoBehaviour:
   roomGroundTileEdgeGroup: {fileID: 2132205078}
   groundTM: {fileID: 7377851621563083732}
   blockTM: {fileID: 2236877017909985346}
-  bigRooms:
-  - size: {x: 2, y: 2}
-    numDoor: 2
-    gameplayRef: {fileID: 2283165509847586996, guid: b7e099a59e5e34c47bff66e7a42fc42f, type: 3}
+  bigRooms: []
   noRoomBuffer: 1
   normalGroup: {fileID: 0}
   exploreRewards: []
@@ -2103,7 +2100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8566637425748483749, guid: c6e11e1c907871a46b976841b66e1f5b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2282,7 +2279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2283165509847586996, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2283165509847586997, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
       propertyPath: m_RootOrder
