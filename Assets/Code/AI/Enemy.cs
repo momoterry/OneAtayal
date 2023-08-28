@@ -175,6 +175,7 @@ public class Enemy : MonoBehaviour
                     myAnimator.SetBool("Run", false);
                 if (mySPAimator)
                     mySPAimator.SetIsRun(false);
+                SetTarget(null);
                 break;
             case AI_STATE.ATTACK:
                 stateTime = AttackWait;
@@ -212,7 +213,8 @@ public class Enemy : MonoBehaviour
     private void SetTarget(GameObject o)
     {
         targetObj = o;
-        targetPos = o.transform.position;
+        if (o)
+            targetPos = o.transform.position;
     }
 
 

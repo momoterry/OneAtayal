@@ -13,6 +13,7 @@ public class EnemyGroup : MonoBehaviour
     public int height = 3;
     public float spwanDistance = 15.0f;
     public float alertDistance = 10.0f;
+    public float stopDistance = 20.0f;
     public float speed = 4.0f;
     public float closeDistance = 4.0f;
 
@@ -302,6 +303,11 @@ public class EnemyGroup : MonoBehaviour
                 }
                 if (pathLength > closeDistance)
                 {
+                    if (pathLength > stopDistance)  //Group ∞±§Ó∞l¿ª (TODO: ∂]¶^•h?)
+                    {
+                        nexPhase = PHASE.WAIT;
+                        return;
+                    }
                     moveDirection = movdD;
                 }
                 else
