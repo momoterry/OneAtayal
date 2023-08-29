@@ -7,6 +7,7 @@ public class ContinuousMazeData : ContinuousBattleDataBase
 {
     public int puzzleWidth;
     public int puzzleHeight;
+    public float dungeonDifficulty; //大於 0 才有作用，基準值為 1.0f
     public int normalEnemyNum;
     public float normalEnemyRate;
     public int bigRoomNum;

@@ -353,6 +353,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2092964869250865685, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6971823420909225927, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -465,6 +469,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9702a0c444952fb40bd26554fe96a43d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &422675521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 422675523}
+  - component: {fileID: 422675522}
+  m_Layer: 0
+  m_Name: DungeonEnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &422675522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422675521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f47b3c7d2a4f674a936ba3b7a9d9b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allGameplays:
+  - rate: 10
+    enemys:
+    - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+    totalNum: 2
+  - rate: 10
+    enemys:
+    - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+    totalNum: 3
+  - rate: 10
+    enemys:
+    - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+    - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+    totalNum: 3
+  - rate: 10
+    enemys:
+    - {fileID: 7208015447484052683, guid: 634bfbdd3b7d1774c931b2d6d27a0697, type: 3}
+    totalNum: 2
+--- !u!4 &422675523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422675521}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9154937, y: -0.42561722, z: 19.498709}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &451456828
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +891,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &694266821
 GameObject:
@@ -900,7 +966,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1725910625
-  m_SortingLayer: -3
+  m_SortingLayer: -5
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1082,7 +1148,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1014529277
 GameObject:
@@ -1194,7 +1260,7 @@ Transform:
   m_Children:
   - {fileID: 1952747575}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185413415
 GameObject:
@@ -1259,7 +1325,7 @@ Transform:
   m_Children:
   - {fileID: 1559356157}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1252285826
 MonoBehaviour:
@@ -1975,6 +2041,8 @@ MonoBehaviour:
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
+  portalAfterFirstRoomGamplay: 0
+  createWallCollider: 1
   groundTileGroup: {fileID: 1014529279}
   groundEdgeTileGroup: {fileID: 1265013412}
   groundOutEdgeTileGroup: {fileID: 1696140727}
@@ -1998,7 +2066,9 @@ MonoBehaviour:
     numDoor: 1
     gameplayRef: {fileID: 0}
   noRoomBuffer: 1
+  dungeonEnemyManager: {fileID: 422675522}
   normalGroup: {fileID: 2283165509847586994, guid: c76d6728b6dcbf94db85b74f7d5eb3a1, type: 3}
+  normalEnemyRate: 0.2
   exploreRewards:
   - {fileID: 4032685806379418579, guid: 07e5f4e953c157041bb36a826dcf74e7, type: 3}
   - {fileID: 4032685806379418579, guid: 3aebac1758fbef344b1e01ff016fb9c1, type: 3}
@@ -2023,7 +2093,7 @@ Transform:
   - {fileID: 1664708985}
   - {fileID: 523238537}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1807413653
 PrefabInstance:
@@ -2051,7 +2121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6936922310033895932, guid: 9050f11007a554f419e6163f7a7751f5, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6936922310033895932, guid: 9050f11007a554f419e6163f7a7751f5, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2203,7 +2273,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1725910625
-  m_SortingLayer: -3
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

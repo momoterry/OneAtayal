@@ -13,6 +13,8 @@ public class ContinuousSerialMazePortal : ScenePortal
     public float puzzleWidthAdd = 1.0f;
     public float puzzleHeightInit = 4.0f;
     public float puzzleHeightAdd = 1.0f;
+    public float dungeonDifficultyInit = 1.0f;
+    public float dungeonDifficultyAdd = 0.5f;
     public float normalEnemyNumInit = 4.0f;
     public float normalEnemyNumAdd = 2.0f;
     public float normalEnemyRateInit = 0.4f;
@@ -45,6 +47,7 @@ public class ContinuousSerialMazePortal : ScenePortal
             mazeLevelDatas[i].name = levelName + " " + (i + 1) + "/" + maxLevels;
             mazeLevelDatas[i].puzzleWidth = (int)(puzzleWidthInit + (puzzleWidthAdd * i));
             mazeLevelDatas[i].puzzleHeight = (int)(puzzleHeightInit + (puzzleHeightAdd * i));
+            mazeLevelDatas[i].dungeonDifficulty = dungeonDifficultyInit + (dungeonDifficultyAdd * i);
             mazeLevelDatas[i].normalEnemyNum = (int)(normalEnemyNumInit + (normalEnemyNumAdd * i));
             mazeLevelDatas[i].normalEnemyRate = normalEnemyRateInit + (normalEnemyRateAdd * i);
             int roomNum = (int)(bigRoomNumInit + (bigRoomNumAdd * i));

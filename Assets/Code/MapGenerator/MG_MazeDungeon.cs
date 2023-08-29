@@ -42,10 +42,14 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected int bigRoomNum;
 
     //Gameplay 用
+    [Header("Gameplay 設定")]
+    public DungeonEnemyManagerBase dungeonEnemyManager; //如果有指定的話，就不管下面的 normalGroup、normalEnemyRate 和 normalEnemyNum
     public EnemyGroup normalGroup;
-    public GameObject[] exploreRewards;
     public float normalEnemyRate = 0.2f;
     protected int normalEnemyNum;
+    protected float dungeonEnemyDifficulty = 1.0f;
+
+    public GameObject[] exploreRewards;
     protected int exploreRewardNum;
 
 
@@ -185,6 +189,10 @@ public class MG_MazeDungeon : MapGeneratorBase
                     bigRoomNum = Mathf.Min(bigRoomNum, cData.bigRoomNum);
                 print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight + " Room 數: " + bigRoomNum);
 
+                if (cData.dungeonDifficulty > 0)
+                {
+                    dungeonEnemyDifficulty = cData.dungeonDifficulty;
+                }
                 if (cData.normalEnemyNum > 0)
                 {
                     if (normalGroup)
@@ -685,9 +693,19 @@ public class MG_MazeDungeon : MapGeneratorBase
 
                 if (puzzleMap[i][j].value == cellInfo.NORMAL)
                 {
-                    //Vector3 pos = new Vector3(x1 + cellWidth/2, 0, y1 + cellHeight/2);
                     Vector3 pos = GetCellCenterPos(i, j);
-                    if (normalGroup && Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
+
+                    int wallCount = (puzzleMap[i][j].U ? 0 : 1) + (puzzleMap[i][j].D ? 0 : 1) + (puzzleMap[i][j].L ? 0 : 1) + +(puzzleMap[i][j].R ? 0 : 1);
+                    if (wallCount == 3)
+                    {
+                        deadEnds.Add(new Vector2Int(i, j));
+                    }
+                    else if (dungeonEnemyManager && Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
+                    {
+                        dungeonEnemyManager.AddNormalPosition(pos);
+                    }
+
+                    if (normalGroup && !dungeonEnemyManager && Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
                     {
                         if (Random.Range(0, 1.0f) < normalEnemyRate)
                         {
@@ -698,16 +716,16 @@ public class MG_MazeDungeon : MapGeneratorBase
                             //eg.randomEnemyTotal = 4 + (j * (4 + 1) / puzzleHeight);
                         }
                     }
-
-                    int wallCount = (puzzleMap[i][j].U ? 0 : 1) + (puzzleMap[i][j].D ? 0 : 1) 
-                        + (puzzleMap[i][j].L ? 0 : 1) + +(puzzleMap[i][j].R ? 0 : 1);
-                    if (wallCount == 3)
-                    {
-                        deadEnds.Add(new Vector2Int(i,j));
-                    }
                 }
             }
         }
+
+        if (dungeonEnemyManager)
+        {
+            print("開始 Build dungeonEnemyManager !!");
+            dungeonEnemyManager.BuildAllGameplay(dungeonEnemyDifficulty);
+        }
+
         print("總共找到的終端:" + deadEnds.Count);
         int expRewardCount = Mathf.Min(exploreRewardNum, deadEnds.Count);
         OneUtility.Shuffle(deadEnds);

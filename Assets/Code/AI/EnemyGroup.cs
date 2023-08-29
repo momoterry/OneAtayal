@@ -77,7 +77,7 @@ public class EnemyGroup : MonoBehaviour
     {
         if (nexPhase != currPhase)
         {
-            if (nexPhase == PHASE.FINISH)
+            if (nexPhase == PHASE.FINISH && triggerTargetWhenAllKilled != null)
             {
                 foreach (GameObject o in triggerTargetWhenAllKilled)
                 {
