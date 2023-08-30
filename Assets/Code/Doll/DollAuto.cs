@@ -14,14 +14,16 @@ public class DollAuto : Doll
     }
     public SEARCH_CENTER_TYPE searchCenter = SEARCH_CENTER_TYPE.PLAYER;
 
-    public float PositionRangeIn = 1.0f;
+    [System.NonSerialized]
+    public float PositionRangeIn = 0.1f;
     public float PositionRangeOut = 9.0f;
     public float AttackRangeIn = 3.0f;
     public float AttackRangeOut = 4.0f;
 
     public float attackWait = 0.2f;
     public float attackCD = 0.5f;
-    public float RunSpeed = 10.0f;
+    [System.NonSerialized]
+    public float RunSpeed = 14.0f;
 
     public GameObject deathFX;
 
@@ -74,6 +76,10 @@ public class DollAuto : Doll
             myAgent.updateRotation = false;
             myAgent.updateUpAxis = false;
             myAgent.enabled = false;
+            //myAgent.angularSpeed = 1800.0f;
+            //myAgent.acceleration = 60.0f;
+            //myAgent.autoBraking = true;
+            //myAgent.stoppingDistance = 0.25f;
         }
 
         myBody = GetComponent<HitBody>();
