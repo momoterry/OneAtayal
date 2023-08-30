@@ -109,19 +109,19 @@ public class Battle_HUD : MonoBehaviour
                 }
                 else if (currRatio > ratioMax)
                 {
-                    float uiScaleRatio = 0.5f;    //縮放速度的調整
-                    float cameraScaleRatio = 0.75f;
-                    float matchWidthRatio = 16.0f / 9.0f;
-                    float maxWidthRatio = 16.0f / 9.0f;
-                    float calRatio = Mathf.Min(currRatio, maxWidthRatio);           //最大縮放到 16/9
+                    //float uiScaleRatio = 0.5f;    //縮放速度的調整
+                    //float cameraScaleRatio = 0.75f;
+                    //float matchWidthRatio = 16.0f / 9.0f;
+                    //float maxWidthRatio = 16.0f / 9.0f;
+                    //float calRatio = Mathf.Min(currRatio, maxWidthRatio);           //最大縮放到 16/9
 
-                    float uiRatio = (calRatio - ratioMax) * uiScaleRatio + ratioMax;
-                    float cameraRatio = (calRatio - ratioMax) * cameraScaleRatio + ratioMax;
+                    //float uiRatio = (calRatio - ratioMax) * uiScaleRatio + ratioMax;
+                    //float cameraRatio = (calRatio - ratioMax) * cameraScaleRatio + ratioMax;
 
-                    float matchRatio = Mathf.Min(1.0f, (uiRatio - ratioMax) / (matchWidthRatio - ratioMax));
-                    theScaler.matchWidthOrHeight = (1.0f - matchRatio);
-                    print("Match Ratio: " + matchRatio);
-                    Camera.main.orthographicSize = cameraDefaultSize * ratioMax / cameraRatio; //太寬的螢幕得調整主 Camera
+                    //float matchRatio = Mathf.Min(1.0f, (uiRatio - ratioMax) / (matchWidthRatio - ratioMax));
+                    //theScaler.matchWidthOrHeight = (1.0f - matchRatio);
+                    //print("Match Ratio: " + matchRatio);
+                    //Camera.main.orthographicSize = cameraDefaultSize * ratioMax / cameraRatio; //太寬的螢幕得調整主 Camera
                 }
                 else
                 {
