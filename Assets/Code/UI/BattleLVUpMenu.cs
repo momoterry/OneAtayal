@@ -31,7 +31,7 @@ public class BattleLVUpMenu : MonoBehaviour
     public void OnSetBattlePoint(int battlePoints)
     {
         bool entryOn = false;
-        //if (BattleSystem.GetInstance().IsBattleLevelUp)
+        if (BattleSystem.GetInstance().IsBattleLevelUp)
         {
             entryOn = battlePoints > 0 ? true : false;
             if (!entryOn)
