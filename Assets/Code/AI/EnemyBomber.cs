@@ -8,7 +8,7 @@ public class EnemyBomber : Enemy
     public GameObject expFX;
     public GameObject hitFX;
 
-    protected float bombTime = 1.0f;
+    public float bombTime = 1.0f;
 
     protected override void UpdateAttack()
     {
