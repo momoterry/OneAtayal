@@ -679,7 +679,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         //==== 一般通道處理
         List<Vector2Int> deadEnds = new List<Vector2Int>();
         int startValue = puzzleDSU.Find(iStart);
-        float enemyMinDistanceToStart = (cellHeight + cellWidth);
+        float enemyMinDistanceToStart = Mathf.Sqrt((cellHeight * cellHeight) + (cellWidth * cellWidth)) + 0.1f;
         for (int i = 0; i < puzzleWidth; i++)
         {
             for (int j = 0; j < puzzleHeight; j++)
@@ -730,10 +730,20 @@ public class MG_MazeDungeon : MapGeneratorBase
         int expRewardCount = Mathf.Min(exploreRewardNum, deadEnds.Count);
         OneUtility.Shuffle(deadEnds);
         OneUtility.Shuffle(exploreRewards);     //因應獎勵可能更少的時候
-        for ( int i=0; i<expRewardCount; i++)
+        for ( int i=0; i< deadEnds.Count; i++)
         {
             Vector3 pos = GetCellCenterPos(deadEnds[i].x, deadEnds[i].y );
-            BattleSystem.SpawnGameObj(exploreRewards[i], pos);
+            if (i < expRewardCount)
+            {
+                BattleSystem.SpawnGameObj(exploreRewards[i], pos);
+            }
+            else if (dungeonEnemyManager)
+            {
+                if (Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
+                {
+                    dungeonEnemyManager.AddNormalPosition(pos); //如果沒放寶，就可以放怪
+                }
+            }
         }
 
         //==== Big Room 的部份處理
