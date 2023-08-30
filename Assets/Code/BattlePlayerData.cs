@@ -22,7 +22,7 @@ public class BattlePlayerData : MonoBehaviour
     protected int currExp = 0;
     protected int currExpMax = INIT_EXP_MAX;
     protected int currBattleLV = 1;
-    protected int battleLVPoint = 0;
+    protected int battleLVPoint = 2;
     //protected BattlePlayerCrossSceneData data;
 
     protected int[] maxExpArray = new int[MAX_BATTLE_LEVEL];
