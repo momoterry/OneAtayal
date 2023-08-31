@@ -17,6 +17,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     public GameObject finishPortalRef;
     public bool portalAfterFirstRoomGamplay = false;
     public bool createWallCollider = true;
+    protected const float wallBuffer = 0.25f;
 
     // Tile 資料相關
     public TileGroupDataBase groundTileGroup;
@@ -251,7 +252,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
     }
 
-    protected void FillBlock(int x1, int y1, int width, int height)
+    protected void FillBlock(float x1, float y1, float width, float height)
     {
         if (!createWallCollider)
             return;
@@ -287,46 +288,46 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             theMap.FillValue(x1 + wallWidth, y1, width - wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
             if (isFillBlock)
-                FillBlock(x1, y1, width - wallWidth, wallHeight);   //左下和下
+                FillBlock(x1, y1, width - wallWidth + wallBuffer, wallHeight - wallBuffer);   //左下和下
         }
         else
         {
             if (isFillBlock)
-                FillBlock(x1, y1, wallWidth, wallHeight);   // 左下
+                FillBlock(x1, y1, wallWidth - wallBuffer, wallHeight - wallBuffer);   // 左下
         }
         if (!cell.U)
         {
             theMap.FillValue(x1 + wallWidth, y2, width - wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
             if (isFillBlock)
-                FillBlock(x1 + wallWidth, y2, width - wallWidth, wallHeight);   //右上和上
+                FillBlock(x1 + wallWidth - wallBuffer, y2 + wallBuffer, width - wallWidth + wallBuffer, wallHeight - wallBuffer);   //右上和上
         }
         else
         {
             if (isFillBlock)
-                FillBlock(x2, y2, wallWidth, wallHeight);   // 右上
+                FillBlock(x2 + wallBuffer, y2 + wallBuffer, wallWidth - wallBuffer, wallHeight - wallBuffer);   // 右上
         }
 
         if (!cell.L)
         {
             theMap.FillValue(x1, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
             if (isFillBlock)
-                FillBlock(x1, y1 + wallHeight, wallWidth, height - wallHeight); //左上和左
+                FillBlock(x1, y1 + wallHeight - wallBuffer, wallWidth - wallBuffer, height - wallHeight + wallBuffer); //左上和左
         }
         else
         {
             if (isFillBlock)
-                FillBlock(x1, y2, wallWidth, wallHeight);   //左上
+                FillBlock(x1, y2 + wallBuffer, wallWidth - wallBuffer, wallHeight - wallBuffer);    //左上
         }
         if (!cell.R)
         {
             theMap.FillValue(x2, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
             if (isFillBlock)
-                FillBlock(x2, y1, wallWidth, height - wallHeight);  //右上和右
+                FillBlock(x2 + wallBuffer, y1, wallWidth - wallBuffer, height - wallHeight + wallBuffer);  //右下和右
         }
         else
         {
             if (isFillBlock)
-                FillBlock(x2, y1, wallWidth, wallHeight);   //右下
+                FillBlock(x2 + wallBuffer, y1, wallWidth - wallBuffer, wallHeight - wallBuffer);   //右下
         }
     }
 
@@ -336,15 +337,15 @@ public class MG_MazeDungeon : MapGeneratorBase
         int y1 = puzzleY1 + rc.y * cellHeight;
         //FillBlock(x1, y1, rc.width * cellWidth, rc.height * cellHeight);
         //下方
-        int startx = x1;
-        int endx = x1;
+        float startx = x1;
+        float endx = x1;
         for (int ix = rc.x; ix < rc.x + rc.width; ix++)
         {
             if (puzzleMap[ix][rc.y].D)
             {
                 //print("下方| |");
-                FillBlock(startx, y1, endx - startx + wallWidth, wallHeight);
-                startx = puzzleX1 + (ix + 1) * cellWidth - wallWidth;
+                FillBlock(startx, y1, endx - startx + wallWidth - wallBuffer, wallHeight - wallBuffer);
+                startx = puzzleX1 + (ix + 1) * cellWidth - wallWidth + wallBuffer;
                 endx = puzzleX1 + (ix + 1) * cellWidth;
             }
             else
@@ -353,18 +354,18 @@ public class MG_MazeDungeon : MapGeneratorBase
                 endx += cellWidth;
             }
         }
-        FillBlock(startx, y1, endx - startx, wallHeight);
+        FillBlock(startx, y1, endx - startx, wallHeight - wallBuffer);
         //上方
         startx = x1;
         endx = x1;
-        int yU = y1 + rc.height * cellHeight - wallHeight;
+        float yU = y1 + rc.height * cellHeight - wallHeight + wallBuffer;
         for (int ix = rc.x; ix < rc.x + rc.width; ix++)
         {
             if (puzzleMap[ix][rc.y+rc.height-1].U)
             {
                 //print("上方| |");
-                FillBlock(startx, yU, endx - startx + wallWidth, wallHeight);
-                startx = puzzleX1 + (ix + 1) * cellWidth - wallWidth;
+                FillBlock(startx, yU, endx - startx + wallWidth - wallBuffer, wallHeight - wallBuffer);
+                startx = puzzleX1 + (ix + 1) * cellWidth - wallWidth + wallBuffer;
                 endx = puzzleX1 + (ix + 1) * cellWidth;
             }
             else
@@ -373,17 +374,17 @@ public class MG_MazeDungeon : MapGeneratorBase
                 endx += cellWidth;
             }
         }
-        FillBlock(startx, yU, endx - startx, wallHeight);
+        FillBlock(startx, yU, endx - startx, wallHeight - wallBuffer);
         //左方
-        int starty = y1;
-        int endy = y1;
+        float starty = y1;
+        float endy = y1;
         for (int iy = rc.y; iy < rc.y + rc.height; iy++)
         {
             if (puzzleMap[rc.x][iy].L)
             {
                 //print("左方| |");
-                FillBlock(x1, starty, wallWidth, endy - starty + wallHeight);
-                starty = puzzleY1 + (iy + 1) * cellHeight - wallHeight;
+                FillBlock(x1, starty, wallWidth - wallBuffer, endy - starty + wallHeight - wallBuffer);
+                starty = puzzleY1 + (iy + 1) * cellHeight - wallHeight + wallBuffer;
                 endy = puzzleY1 + (iy + 1) * cellHeight;
             }
             else
@@ -392,18 +393,18 @@ public class MG_MazeDungeon : MapGeneratorBase
                 endy += cellHeight;
             }
         }
-        FillBlock(x1, starty, wallWidth, endy - starty);
+        FillBlock(x1, starty, wallWidth - wallBuffer, endy - starty);
         //右方
         starty = y1;
         endy = y1;
-        int xR = x1 + rc.width * cellWidth - wallWidth;
+        float xR = x1 + rc.width * cellWidth - wallWidth + wallBuffer;
         for (int iy = rc.y; iy < rc.y + rc.height; iy++)
         {
             if (puzzleMap[rc.x+rc.width-1][iy].R)
             {
                 //print("右方| |");
-                FillBlock(xR, starty, wallWidth, endy - starty + wallHeight);
-                starty = puzzleY1 + (iy + 1) * cellHeight - wallHeight;
+                FillBlock(xR, starty, wallWidth - wallBuffer, endy - starty + wallHeight - wallBuffer);
+                starty = puzzleY1 + (iy + 1) * cellHeight - wallHeight + wallBuffer;
                 endy = puzzleY1 + (iy + 1) * cellHeight;
             }
             else
@@ -412,7 +413,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                 endy += cellHeight;
             }
         }
-        FillBlock(xR, starty, wallWidth, endy - starty);
+        FillBlock(xR, starty, wallWidth - wallBuffer, endy - starty);
     }
 
     protected void ConnectCellsByID(int id_1, int id_2)
