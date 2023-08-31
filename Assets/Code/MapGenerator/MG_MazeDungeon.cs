@@ -193,6 +193,11 @@ public class MG_MazeDungeon : MapGeneratorBase
                 {
                     dungeonEnemyDifficulty = cData.dungeonDifficulty;
                 }
+                if (cData.dungeonEnemyManager != null)
+                {
+                    dungeonEnemyManager = cData.dungeonEnemyManager;
+                    
+                }
                 if (cData.normalEnemyNum > 0)
                 {
                     if (normalGroup)
