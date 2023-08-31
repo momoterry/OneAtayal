@@ -16,6 +16,7 @@ public class Doll : MonoBehaviour
     public DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT;
 
     public GameObject bulletRef;
+    public float bulletInitDis = 0.25f;
 
     public float AttackInit = 10.0f;
     public float SearchRange = 8.0f;

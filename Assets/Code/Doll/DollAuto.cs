@@ -417,23 +417,19 @@ public class DollAuto : Doll
 
     protected virtual void DoOneAttack()
     {
-#if XZ_PLAN
-        GameObject bulletObj = Instantiate(bulletRef, transform.position, Quaternion.Euler(90, 0, 0));
-#else
-        GameObject bulletObj = Instantiate(bulletRef, transform.position, Quaternion.identity);
-#endif
+        Vector3 td = (myTarget.transform.position - transform.position);
+        td.y = 0;
+        td.Normalize();
+
+        //GameObject bulletObj = Instantiate(bulletRef, transform.position, Quaternion.Euler(90, 0, 0));
+        GameObject bulletObj = BattleSystem.SpawnGameObj(bulletRef, transform.position + td * bulletInitDis);
+
         bullet_base b = bulletObj.GetComponent<bullet_base>();
         if (b)
         {
-            //b.baseDamage = AttackInit;
-            //b.SetGroup(DAMAGE_GROUP.PLAYER);
-            Vector3 td = myTarget.transform.position - transform.position;
-#if XZ_PLAN
-            td.y = 0;
-#else
-            td.z = 0;
-#endif
-            //b.targetDir = td.normalized;
+
+
+
             b.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, myTarget);
         }
     }
