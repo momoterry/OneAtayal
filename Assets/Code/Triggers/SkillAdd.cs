@@ -19,15 +19,16 @@ public class SkillAdd : MonoBehaviour
 
         if (skillOneToAdd)
         {
-            thePC.SetActiveSkill(skillOneToAdd, 1);
-            //for (int i = 1; i < maxSkill; i++)
-            //{
-            //    if (thePC.activeSkillRefs[i] == null)
-            //    {
-            //        print("找到空的欄位: " + i);
-            //        thePC.SetActiveSkill(skillOneToAdd, i);
-            //    }
-            //}
+            //thePC.SetActiveSkill(skillOneToAdd, 1);
+            for (int i = 1; i < maxSkill; i++)
+            {
+                if (thePC.GetActiveSkill(i) == null)
+                {
+                    print("找到空的欄位: " + i);
+                    thePC.SetActiveSkill(skillOneToAdd, i);
+                    break;
+                }
+            }
         }
         else
         {

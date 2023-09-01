@@ -244,7 +244,8 @@ public class PC_One : PlayerControllerBase
         int currPoint = BattlePlayerData.GetInstance().GetBattleLVPoints();
         foreach (SkillBase sb in activeSkillls)
         {
-            sb.SetupBattlePoints(currPoint);
+            if (sb!= null)
+                sb.SetupBattlePoints(currPoint);
         }
 
         if (diff > 0 && levelUpFXRef)
@@ -265,6 +266,15 @@ public class PC_One : PlayerControllerBase
     {
         GameSystem.GetInstance().SetPlayerSkillRef(skillSaveNames[index], activeSkillRef);
         DoSetActiveSkill(activeSkillRef, index);
+    }
+
+    public SkillBase GetActiveSkill( int index)
+    {
+        if (index >=0 && index < activeSkillls.Length)
+        {
+            return activeSkillls[index];
+        }
+        return null;
     }
 
     public override void SetInputActive(bool enable)
