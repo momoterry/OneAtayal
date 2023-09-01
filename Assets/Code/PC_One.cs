@@ -207,6 +207,7 @@ public class PC_One : PlayerControllerBase
             if (sb)
             {
                 sb.SetIcon(null);
+                sb.gameObject.SetActive(false);
             }
         }
     }
@@ -235,6 +236,7 @@ public class PC_One : PlayerControllerBase
             if (sb)
             {
                 sb.SetIcon(null);
+                sb.gameObject.SetActive(false);
             }
         }
     }
@@ -244,7 +246,7 @@ public class PC_One : PlayerControllerBase
         int currPoint = BattlePlayerData.GetInstance().GetBattleLVPoints();
         foreach (SkillBase sb in activeSkillls)
         {
-            if (sb!= null)
+            if (sb != null)
                 sb.SetupBattlePoints(currPoint);
         }
 
