@@ -91,6 +91,11 @@ public class PC_One : PlayerControllerBase
     protected PC_STATE currState = PC_STATE.NONE;
     protected PC_STATE nextState = PC_STATE.NONE;
 
+    protected Vector3 currVelocity = Vector3.zero;
+    public override Vector3 GetVelocity()
+    {
+        return currVelocity;
+    }
     public override Vector3 GetFaceDir()
     {
         return faceDir;
@@ -590,7 +595,8 @@ public class PC_One : PlayerControllerBase
         if (bMove)
         {
             movingTime += Time.deltaTime;
-            transform.position = transform.position + moveVec * WalkSpeed * Time.deltaTime;
+            currVelocity = moveVec * WalkSpeed;
+            transform.position = transform.position + currVelocity * Time.deltaTime;
 
             //faceDir = moveVec;
 
@@ -613,6 +619,7 @@ public class PC_One : PlayerControllerBase
         }
         else
         {
+            currVelocity = Vector3.zero;
             movingTime = 0;
             if (currState == PC_STATE.NORMAL)
             {
@@ -1019,5 +1026,11 @@ public class PC_One : PlayerControllerBase
     //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + faceDir);
     //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
     //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currState.ToString());
+    //}
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawLine(transform.position, transform.position + GetVelocity());
     //}
 }

@@ -29,6 +29,8 @@ public class DollAuto : Doll
 
     public Animator myAnimator;
     public SPAnimatorUD mySpAnimator;
+
+    public bool useDefaultAgentSetting = true;  // 為 true 的話，NavMeshAgent 的值會被統一修改
     
     //== 以上其實是 public
     protected float timeToAttack = 0;
@@ -76,10 +78,14 @@ public class DollAuto : Doll
             myAgent.updateRotation = false;
             myAgent.updateUpAxis = false;
             myAgent.enabled = false;
-            //myAgent.angularSpeed = 1800.0f;
-            //myAgent.acceleration = 60.0f;
-            //myAgent.autoBraking = true;
-            //myAgent.stoppingDistance = 0.25f;
+            if (useDefaultAgentSetting)
+            {
+                //myAgent.angularSpeed = 1800.0f;
+                myAgent.acceleration = 200.0f;
+                //myAgent.autoBraking = true;
+                //myAgent.stoppingDistance = 0.25f;
+                myAgent.radius = 0.1f;
+            }
         }
 
         myBody = GetComponent<HitBody>();
@@ -287,8 +293,9 @@ public class DollAuto : Doll
 
     virtual protected void UpdateFollow()
     {
+        float predictTime = Time.deltaTime; //前置量
         if (myAgent)
-            myAgent.SetDestination(mySlot.position);
+            myAgent.SetDestination(mySlot.position + BattleSystem.GetPC().GetVelocity() * predictTime) ;
 
         myFace = BattleSystem.GetPC().GetFaceDir();
 

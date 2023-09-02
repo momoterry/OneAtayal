@@ -58,6 +58,7 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual void SetupFaceDirByAngle(float angle) { }
     public virtual void SetInputActive(bool enable) { }
     public virtual void SaySomthing(string str) { }
+    public virtual Vector3 GetVelocity() { return Vector3.zero; }
 
     //為了 SkillBase 能取得相關資訊用
     public virtual Vector3 GetFaceDir() { return Vector3.forward; }

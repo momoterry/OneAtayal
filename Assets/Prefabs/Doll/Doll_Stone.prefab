@@ -143,17 +143,16 @@ MonoBehaviour:
   icon: {fileID: 4601728623675395250, guid: 0912fa18d6688a54f8734e039c2fd137, type: 3}
   positionType: 0
   bulletRef: {fileID: 3710000809252070552, guid: cc38025dec94ad540a30b44c77129863, type: 3}
+  bulletInitDis: 0.25
   AttackInit: 12
   SearchRange: 3
   canRevie: 1
   searchCenter: 2
-  PositionRangeIn: 1
   PositionRangeOut: 2
   AttackRangeIn: 2
   AttackRangeOut: 3
   attackWait: 0.2
   attackCD: 0.5
-  RunSpeed: 12
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
   myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 1574345511545568187}
@@ -216,7 +215,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4032685806379418579}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.25
+  m_Radius: 0.1
   m_Speed: 10
   m_Acceleration: 48
   avoidancePriority: 80
