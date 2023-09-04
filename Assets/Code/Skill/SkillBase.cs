@@ -63,7 +63,10 @@ public class SkillBase : MonoBehaviour
     public void SetupBattlePoints( int points)
     {
         if (battlePointsCost > 0)
-            theButton.gameObject.SetActive(points >= battlePointsCost);
+        {
+            //theButton.gameObject.SetActive(points >= battlePointsCost);
+            theButton.SetButtonEnable(points >= battlePointsCost);
+        }
     }
 
     public void SetSkillIndex(int index)

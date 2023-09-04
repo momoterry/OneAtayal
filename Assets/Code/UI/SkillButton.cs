@@ -11,6 +11,7 @@ public class SkillButton : MonoBehaviour
     public Text costText;
 
     protected float coolDownLeft = 0;
+    protected Color costColor = new Color(1.000f, 0.812f, 0.000f, 1.000f);
 
     public void SetIcon(Sprite iconSprite)
     {
@@ -31,6 +32,33 @@ public class SkillButton : MonoBehaviour
         }
     }
     
+    public void SetButtonEnable( bool bEnable)
+    {
+        //Button button = gameObject.GetComponent<Button>();
+        //if (button)
+        //    button.enabled = bEnable;
+        if (bEnable)
+        {
+            //icon.color = Color.white;
+            foreach (Image ig in icon.GetComponentsInChildren<Image>())
+            {
+                ig.color = Color.white;
+            }
+            if (costText)
+                costText.color = costColor;
+        }
+        else
+        {
+            //icon.color = Color.gray;
+            foreach (Image ig in icon.GetComponentsInChildren<Image>())
+            {
+                ig.color = Color.gray;
+                if (costText)
+                    costText.color = costColor * Color.gray;
+            }
+        }
+    }
+
     public void Bind(UnityAction act)
     {
         Button button = gameObject.GetComponent<Button>();
@@ -54,11 +82,6 @@ public class SkillButton : MonoBehaviour
         DoFinishCD();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void DoStartCD()
     {

@@ -908,6 +908,13 @@ public class PC_One : PlayerControllerBase
                     theTalk.AddSentence("Mana 不夠啦 !!");
                 }
             }
+            else if (skillResult == SKILL_RESULT.NO_BATTLE_POINT)
+            {
+                if (theTalk)
+                {
+                    theTalk.AddSentence("需要更多戰鬥點數.....");
+                }
+            }
         }
 
     }
