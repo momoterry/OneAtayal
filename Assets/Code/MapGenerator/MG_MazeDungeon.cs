@@ -53,6 +53,8 @@ public class MG_MazeDungeon : MapGeneratorBase
     public GameObject[] exploreRewards;
     protected int exploreRewardNum;
 
+    public GameObject initGampleyRef;
+
 
     //基底地圖相關 TODO: 希望獨立出去
     protected int mapWidth = 0;
@@ -215,6 +217,10 @@ public class MG_MazeDungeon : MapGeneratorBase
                 {
                     exploreRewardNum = cData.exploreRewards.Length;
                     exploreRewards = cData.exploreRewards;
+                }
+                if (cData.initGameplayRef)
+                {
+                    initGampleyRef = cData.initGameplayRef;
                 }
                 else if (cData.maxExploreReward > 0)
                 {
@@ -794,6 +800,12 @@ public class MG_MazeDungeon : MapGeneratorBase
 
             //Big Room 的牆面處理
             FillRoomWallColliders(rc);
+        }
+
+        //初始 Gameplay
+        if (initGampleyRef)
+        {
+            BattleSystem.SpawnGameObj(initGampleyRef, startPos);
         }
 
         //破關門

@@ -35,6 +35,7 @@ public class ContinuousSerialMazePortal : ScenePortal
     public float exploreRewardNumInit = 2.0f;
     public float exploreRewardNumAdd = 1.0f;
     public RewardItem[] ExploreRewardInfo;
+    public GameObject initGameplayRefInFirstLevel;
 
     protected ContinuousMazeData[] mazeLevelDatas;
 
@@ -77,6 +78,10 @@ public class ContinuousSerialMazePortal : ScenePortal
                 {
                     mazeLevelDatas[i].exploreRewards[j] = GetOneRandomReward();
                 }
+            }
+            if (initGameplayRefInFirstLevel)
+            {
+                mazeLevelDatas[0].initGameplayRef = initGameplayRefInFirstLevel;
             }
         }
         base.Awake();
