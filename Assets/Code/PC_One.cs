@@ -668,13 +668,10 @@ public class PC_One : PlayerControllerBase
 
     }
 
-    protected void SetupDollManagerDirection()
+    protected void SetupDollManagerDirection()      //在有直接操作陣型方向的控制行為時使用
     {
-        myDollManager.SetMasterDirection(faceDir, faceFrontType);
-        //if (arrowRoot)
-        //{
-        //    arrowRoot.transform.rotation = myDollManager.transform.rotation;
-        //}
+        //myDollManager.SetMasterDirection(faceDir, faceFrontType);
+        myDollManager.TrySetDirection(faceDir);
     }
 
 

@@ -7,6 +7,7 @@ public class DollManager : MonoBehaviour
     public Transform[] DollSlots;
 
     public bool FixDirection = false;
+    public bool DirectionByMove = true;
     public bool AllDirectioin = false;  //不限於四方向
     public float RotateSpeed = -1.0f;
 
@@ -146,7 +147,7 @@ public class DollManager : MonoBehaviour
         transform.position = pos;
     }
 
-    public void ForceSetDirection(float angle)
+    public void ForceSetDirection(float angle)      //通常是針對 Trigger 等強制換方向的時候
     {
         //Quaternion targetRt = Quaternion.Euler(0, angle, 0);
         targetRt = Quaternion.Euler(0, angle, 0);
@@ -155,9 +156,35 @@ public class DollManager : MonoBehaviour
 
     }
 
-    public void SetMasterDirection( Vector3 dir, FaceFrontType faceType )
+    public void TrySetDirection(Vector3 dir)           //這是針對一般操控行為
     {
         if (FixDirection)
+            return;
+        if (AllDirectioin)
+        {
+            targetRt = Quaternion.LookRotation(dir);
+
+        }
+        else
+        {
+            float angle = 0;
+            if (dir.x > dir.z)
+            {
+                if (dir.x > -dir.z)
+                    angle = 90;
+                else
+                    angle = 180;
+            }
+            else if (dir.x < -dir.z)
+                angle = 270;
+            targetRt = Quaternion.Euler(0, angle, 0);
+        }
+        transform.rotation = targetRt;
+    }
+
+    public void SetMasterDirection( Vector3 dir, FaceFrontType faceType )
+    {
+        if (FixDirection || !DirectionByMove)
             return;
 
         //Quaternion targetRt;

@@ -59,6 +59,7 @@ public class Battle_HUD : MonoBehaviour
     //Âù·n±ì±¡ªp
     public VPad theLeftPad;
     public VPad theRightPad;
+    public CrossPadControl crossPadControl;
 
     protected int currMoney = -1;
     protected int currLV = -1;
@@ -175,6 +176,11 @@ public class Battle_HUD : MonoBehaviour
                 theRightPad.gameObject.SetActive(isDual);
             }
             theVPad = theLeftPad;
+        }
+
+        if (crossPadControl)
+        {
+            crossPadControl.gameObject.SetActive(isDual);
         }
 
         if (theVPad)
