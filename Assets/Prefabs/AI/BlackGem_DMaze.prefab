@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 3582969520858299184}
   - component: {fileID: -557472482619942177}
   m_Layer: 10
-  m_Name: BlackGem_old
+  m_Name: BlackGem_DMaze
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,27 +157,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e063faceebc8e1044bd248e440c5f5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 2010
-  MaxHP: 8000
+  ID: 6030
+  MaxHP: 12000
   spawnFX: {fileID: 0}
   deadFX: {fileID: 1730805568862363463, guid: a317ae504c9dcdf4d8c1206bcc149841, type: 3}
   debris: {fileID: 4102302037370830796, guid: f9708512c0100ae4c9393ca2cd4ea6a3, type: 3}
   SpawnWaitTime: 0.1
-  ChaseRangeIn: 100
-  ChaseRangeOut: 102
+  ChaseRangeIn: 10
+  ChaseRangeOut: 20
   AttackRangeIn: 5
   AttackRangeOut: 9
   AttackWait: 0.5
   AttackCD: 2
-  Attack: 100
-  SlotRangeOut: 3
-  SlotRangeIn: 2
+  Attack: 120
   myAnimator: {fileID: 4016448738983798548}
   mySPAimator: {fileID: 0}
   skillList:
-  - bulletRef: {fileID: 4641581918583914209, guid: c9672b5b8d05bcd4786677c9e32122d7, type: 3}
+  - bulletRef: {fileID: 4641581918583914209, guid: 7fe73d77f1eac7a43905407fa4675d8d, type: 3}
     bulletInitDis: 0
     fixDirection: 1
+    prepareTime: 0
+    groundHints: []
     damageRatio: 0.2
     animString: Attack
     trackRef: {fileID: 0}
@@ -186,7 +186,9 @@ MonoBehaviour:
   - bulletRef: {fileID: 4641581918583914209, guid: 1ef26239157c88941879412745b25ec2, type: 3}
     bulletInitDis: 0
     fixDirection: 1
-    damageRatio: 0.2
+    prepareTime: 0
+    groundHints: []
+    damageRatio: 0.3
     animString: Attack
     trackRef: {fileID: 0}
     trackAnimStr: 
@@ -194,6 +196,8 @@ MonoBehaviour:
   - bulletRef: {fileID: 0}
     bulletInitDis: 0
     fixDirection: 0
+    prepareTime: 0
+    groundHints: []
     damageRatio: 0.2
     animString: 
     trackRef: {fileID: 4770913686230908908, guid: e1266ae7ad014274cb8472104e2129a1, type: 3}
