@@ -56,6 +56,7 @@ public class PC_One : PlayerControllerBase
     protected FaceFrontType faceFrontType;
 
     protected float movingTime = 0;
+    protected bool bMove = false;
 
     //For Touch Control
     protected bool isMovingByTouchControl = false;
@@ -95,6 +96,10 @@ public class PC_One : PlayerControllerBase
     public override Vector3 GetVelocity()
     {
         return currVelocity;
+    }
+    public override bool IsMoving()
+    {
+        return bMove;
     }
     public override Vector3 GetFaceDir()
     {
@@ -383,6 +388,8 @@ public class PC_One : PlayerControllerBase
     // Update is called once per frame
     protected void Update()
     {
+        bMove = false;
+
         if (currState != nextState)
         {
             OnStateExit();
@@ -515,7 +522,7 @@ public class PC_One : PlayerControllerBase
 
         //float minMove = 0.5f;
         Vector3 moveVec = Vector3.zero;
-        bool bMove = false;
+        //bool bMove = false;
 
         Vector2 inputVec = theInput.TheHero.Move.ReadValue<Vector2>();
 
