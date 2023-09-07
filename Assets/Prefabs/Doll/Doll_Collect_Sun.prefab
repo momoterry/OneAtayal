@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4032685806379418581}
   - component: {fileID: 3428589637908568908}
   m_Layer: 10
-  m_Name: Doll_Collect_OneBeta
+  m_Name: Doll_Collect_Sun
   m_TagString: Doll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2364346067030043308}
-  - {fileID: 802750277862342020}
+  - {fileID: 1455999414370666626}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395c75b308f29fb41a5be81c4978f9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dollObject: {fileID: 802750277862342018}
+  dollObject: {fileID: 1455999414370666628}
   collectForever: 0
 --- !u!1001 &1988585230883178464
 PrefabInstance:
@@ -142,7 +142,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4275894634175769932, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
   m_PrefabInstance: {fileID: 1988585230883178464}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4383422182212370001
+--- !u!1001 &2576698486996912983
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -152,7 +152,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4032685806379418579, guid: 6e387aaee449d5149ba56377a57217f5, type: 3}
       propertyPath: m_Name
-      value: Doll_OneBeta
+      value: Doll_Sun
       objectReference: {fileID: 0}
     - target: {fileID: 4032685806379418581, guid: 6e387aaee449d5149ba56377a57217f5, type: 3}
       propertyPath: m_RootOrder
@@ -203,13 +203,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e387aaee449d5149ba56377a57217f5, type: 3}
---- !u!1 &802750277862342018 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4032685806379418579, guid: 6e387aaee449d5149ba56377a57217f5, type: 3}
-  m_PrefabInstance: {fileID: 4383422182212370001}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &802750277862342020 stripped
+--- !u!4 &1455999414370666626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4032685806379418581, guid: 6e387aaee449d5149ba56377a57217f5, type: 3}
-  m_PrefabInstance: {fileID: 4383422182212370001}
+  m_PrefabInstance: {fileID: 2576698486996912983}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1455999414370666628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4032685806379418579, guid: 6e387aaee449d5149ba56377a57217f5, type: 3}
+  m_PrefabInstance: {fileID: 2576698486996912983}
   m_PrefabAsset: {fileID: 0}
