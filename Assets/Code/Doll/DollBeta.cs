@@ -20,8 +20,11 @@ public class DollBeta : Doll
     public float AttackRangeIn = 3.0f;
     public float AttackRangeOut = 4.0f;
 
-    public float attackWait = 0.2f;
+    //public float attackWait = 0.2f;
     public float attackCD = 0.5f;
+
+    public bool attackWhenFollow = false;
+
     [System.NonSerialized]
     public float RunSpeed = 14.0f;
 
@@ -137,6 +140,10 @@ public class DollBeta : Doll
     {
         if (myAgent && mySlot)
             myAgent.SetDestination(mySlot.transform.position);
+
+        if (attackWhenFollow)
+            UpdateSearchAndShoot();
+
         myFace = BattleSystem.GetPC().GetFaceDir();
         if (!thePC.IsMoving())
             nextPhase = PHASE.ATTACK;
