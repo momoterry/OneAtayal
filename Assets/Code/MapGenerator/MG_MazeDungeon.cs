@@ -196,10 +196,14 @@ public class MG_MazeDungeon : MapGeneratorBase
                 {
                     dungeonEnemyDifficulty = cData.dungeonDifficulty;
                 }
+                //print("DungeonEnemyDifficulty : " + dungeonEnemyDifficulty);
                 if (cData.dungeonEnemyManager != null)
                 {
-                    dungeonEnemyManager = cData.dungeonEnemyManager;
-                    
+                    //dungeonEnemyManager = cData.dungeonEnemyManager;      //不能直接使用，要產生一個實體
+
+                    GameObject o = Instantiate( cData.dungeonEnemyManager.gameObject );
+                    o.transform.parent = gameObject.transform;
+                    dungeonEnemyManager = o.GetComponent<DungeonEnemyManager>();
                 }
                 if (cData.normalEnemyNum > 0)
                 {
