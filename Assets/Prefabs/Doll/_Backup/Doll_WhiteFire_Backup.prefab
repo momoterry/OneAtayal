@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2876928013832779471}
-  - component: {fileID: 5200275444331244892}
+  - component: {fileID: 2876928013832779478}
   - component: {fileID: 7173624878620016723}
   - component: {fileID: 7658024486829147302}
   - component: {fileID: 7722995112350439855}
@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 7186088793877896092}
   - component: {fileID: 6265921146615871008}
   m_Layer: 10
-  m_Name: Doll_WhiteFire
+  m_Name: Doll_WhiteFire_Backup
   m_TagString: Doll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &5200275444331244892
+--- !u!114 &2876928013832779478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,25 +50,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2876928013832779465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b47e42299cf24e7488916990912e3e59, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c5c614ada13ee4479d174d41acf5850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: DollWhiteFire
   icon: {fileID: -1693627803, guid: 68eaff07526cfde46a90b02724b46c71, type: 3}
   positionType: 2
   bulletRef: {fileID: 3710000809252070552, guid: e22ce12131ea26c4ba6e4160e5563643, type: 3}
-  bulletInitDis: 0.25
   AttackInit: 25
   SearchRange: 8
   canRevie: 1
-  searchCenter: 0
+  PositionRangeIn: 1
+  PositionRangeOut: 2
   AttackRangeIn: 12
   AttackRangeOut: 15
+  attackWait: 0.2
   attackCD: 2
-  attackWhenFollow: 0
+  RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
+  myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 5565812168318383402}
-  useDefaultAgentSetting: 1
 --- !u!114 &7173624878620016723
 MonoBehaviour:
   m_ObjectHideFlags: 0

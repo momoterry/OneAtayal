@@ -204,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4032685806379418581}
-  - component: {fileID: 514139291101807935}
+  - component: {fileID: 3264087317604759464}
   - component: {fileID: -894024693914061495}
   - component: {fileID: 8817159822340256188}
   - component: {fileID: -2225462949142647}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: -7613164011139993473}
   - component: {fileID: 2959209445954240486}
   m_Layer: 10
-  m_Name: Doll_Ace
+  m_Name: Doll_Ace_Backup
   m_TagString: Doll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,7 +236,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &514139291101807935
+--- !u!114 &3264087317604759464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -245,25 +245,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 4032685806379418579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b47e42299cf24e7488916990912e3e59, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c5c614ada13ee4479d174d41acf5850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: DollAce
   icon: {fileID: -1891856100, guid: b9ada76298df31f46acce68ef018f666, type: 3}
   positionType: 1
   bulletRef: {fileID: 413869149123564879, guid: 2f30cb474c37cad45b16c327a2d67039, type: 3}
-  bulletInitDis: 0.25
   AttackInit: 20
   SearchRange: 8
   canRevie: 1
-  searchCenter: 0
+  PositionRangeIn: 1
+  PositionRangeOut: 2
   AttackRangeIn: 10
   AttackRangeOut: 12
+  attackWait: 0.2
   attackCD: 0.25
-  attackWhenFollow: 0
+  RunSpeed: 10
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
+  myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 2874423454591729310}
-  useDefaultAgentSetting: 1
 --- !u!114 &-894024693914061495
 MonoBehaviour:
   m_ObjectHideFlags: 0
