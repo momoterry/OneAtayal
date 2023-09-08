@@ -142,6 +142,22 @@ public class DebugMenu : MonoBehaviour
         }
     }
 
+    public void OnGotoNextBattle() 
+    {
+        ContinuousBattleManager.GotoNextBattle();
+        ContinuousBattleDataBase nextBattle = ContinuousBattleManager.GetCurrBattleData();
+        if (nextBattle != null)
+        {
+            BattleSystem.GetInstance().OnGotoScene(nextBattle.scene);
+        }
+        else
+        {
+            BattleSystem.GetInstance().OnBackPrevScene();
+        }
+        OnCloseMenu();
+    }
+
+
 
     //public void OnSaveToServerTest()
     //{
