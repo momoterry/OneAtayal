@@ -176,7 +176,7 @@ public class DollBeta : Doll
             return;
         searchCDLeft = 0.1f;    //避免每個 Frame 都在找
 
-        GameObject newTarget = SearchTarget();
+        GameObject newTarget = SearchNewTarget();
         if (newTarget)
         {
             myTarget = newTarget;
@@ -185,7 +185,14 @@ public class DollBeta : Doll
         }
     }
 
-    protected virtual GameObject SearchTarget()
+    //保留給舊的運作方式
+    protected virtual bool SearchTarget()
+    {
+        myTarget = SearchNewTarget();
+        return myTarget != null;
+    }
+
+    protected virtual GameObject SearchNewTarget()
     {
         GameObject foundEnemy = null;
         float minDistance = Mathf.Infinity;
