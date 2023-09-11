@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBlazer : bullet_base
+public class BulletBlaze : bullet_base
 {
     public GameObject Step_Object;
 
