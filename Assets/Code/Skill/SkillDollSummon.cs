@@ -4,16 +4,39 @@ using UnityEngine;
 
 public class SkillDollSummon : SkillBase
 {
+    public string dollID;       //如果定義了 DollID，就自動找尋 dollRef 和 icon
     public GameObject dollRef;
     public GameObject summonFX;
     public float defaultSummonDistance = 2.0f;
 
+    private void Awake()
+    {
+        if (dollID != "")
+        {
+            dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
+            if (dollRef)
+            {
+                Doll doll = dollRef.GetComponent<Doll>();
+                if (doll)
+                {
+                    icon = doll.icon;
+                }
+            }
+        }
+    }
 
     public override bool DoStart(ref SKILL_RESULT result)
     {
         if (!base.DoStart(ref result))
             return false;
         //================================
+
+        //if (dollID != "")
+        //{
+        //    GameObject newRef = GameSystem.GetDollData().GetDollRefByID(dollID);
+        //    if (newRef != null)
+        //        dollRef = newRef;
+        //}
 
         DollManager dm = thePC.GetDollManager();
         if (dollRef==null || dm == null)
