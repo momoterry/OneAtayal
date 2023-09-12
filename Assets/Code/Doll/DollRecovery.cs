@@ -85,7 +85,7 @@ public class DollRecovery : MonoBehaviour
     void DoSpawnOneDoll( int batchIndex = 0, int batchTotal = 1)
     {
         string dollID = allDollIDs[currSpawn];
-        GameObject dollRef = GameSystem.GetPlayerData().GetDollRefByID(dollID);
+        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (!dollRef)
         {
             print("Error!! There is no dollRef in ID: " + dollID);

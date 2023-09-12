@@ -44,7 +44,7 @@ public class DollShopItem : MonoBehaviour
 
         CostMoney = info.cost;
         dollID = info.ID;
-        GameObject dObj = GameSystem.GetPlayerData().GetDollRefByID(dollID);
+        GameObject dObj = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (!dObj)
         {
             print("ERROR!! Wrong Doll ID in Shop !! : " + dollID);
@@ -68,7 +68,7 @@ public class DollShopItem : MonoBehaviour
         PlayerData pData = GameSystem.GetPlayerData();
         DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
 
-        GameObject dollRef = pData.GetDollRefByID(dollID);
+        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (dollRef == null || dm == null)
         {
             return;

@@ -80,7 +80,7 @@ public class DollMenu : MonoBehaviour
             ButtonDollBackpack bDoll = bo.GetComponent<ButtonDollBackpack>();
             if (bDoll)
             {
-                GameObject dObj = pData.GetDollRefByID(k.Key);
+                GameObject dObj = GameSystem.GetDollData().GetDollRefByID(k.Key);
                 Doll d = dObj.GetComponent<Doll>();
                 bDoll.SetNum(k.Value);
                 bDoll.SetDollInfo(k.Key, d.icon);

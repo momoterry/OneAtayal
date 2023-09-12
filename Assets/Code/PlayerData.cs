@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//PlayerData 記錄玩家跨關卡間的進度內容
 
 [System.Serializable]
 public struct SaveDataBackpckItem
@@ -31,7 +32,7 @@ public class PlayerData : MonoBehaviour
 {
     protected bool isReady = false; //是否已經載入資料或完成初始化
 
-    public DollData theDollData;
+    //public DollData theDollData;
 
     protected int Money = 0;
 
@@ -260,14 +261,14 @@ public class PlayerData : MonoBehaviour
         return dollBackpack;
     }
 
-    public GameObject GetDollRefByID(string ID)
-    {
-        if (theDollData)
-        {
-            return theDollData.GetDollRefByID(ID);
-        }
-        return null;
-    }
+    //public GameObject GetDollRefByID(string ID)
+    //{
+    //    if (theDollData)
+    //    {
+    //        return theDollData.GetDollRefByID(ID);
+    //    }
+    //    return null;
+    //}
 
     public int GetDollNumByID(string ID)
     {

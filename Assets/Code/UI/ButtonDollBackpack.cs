@@ -65,7 +65,7 @@ public class ButtonDollBackpack : MonoBehaviour
             return;
         }
 
-        GameObject dollRef = pData.GetDollRefByID(dollID);
+        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (!dollRef)
         {
             print("ERROR!! Wrong ID: " + dollID);

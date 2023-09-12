@@ -17,6 +17,7 @@ public class GameSystem : MonoBehaviour
 
     public PlayerData thePlayerData;
     public LevelManager theLevelManager;
+    public DollData theDollData;
 
     public bool isOnlineSave = false;
     public OnlineSaveLoad theOnlineSaveLoad;
@@ -157,6 +158,16 @@ public class GameSystem : MonoBehaviour
             return null;
         }
         return instance.theLevelManager;
+    }
+
+    static public DollData GetDollData()
+    {
+        if (!instance || !instance.theDollData)
+        {
+            print("ERROR !!! GameSystem 找不到 Doll Manager !!" + instance);
+            return null;
+        }
+        return instance.theDollData;
     }
 
     public void SetPlayerCharacterRef( GameObject objRef)
