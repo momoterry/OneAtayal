@@ -17,6 +17,12 @@ public class DollInstance : MonoBehaviour
     protected Doll theDoll;
     protected List<DollBuffBase> buffList = new List<DollBuffBase>();
 
+
+    public void AddBuff( DollBuffBase buff)
+    {
+        buffList.Add(buff);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

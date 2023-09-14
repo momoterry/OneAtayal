@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d987e8984af9e904fafa9037fead2706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dollID: DollBlaze
+  dollID: DollStone
   possibleBuffs:
   - type: 0
     target: 3
@@ -157,6 +157,10 @@ PrefabInstance:
       propertyPath: TriggerTarget
       value: 
       objectReference: {fileID: 7337370386353562539}
+    - target: {fileID: 3683833485145979750, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4275894634175769932, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
       propertyPath: m_RootOrder
       value: 0

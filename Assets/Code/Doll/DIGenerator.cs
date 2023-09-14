@@ -23,6 +23,16 @@ public class DIGenerator : MonoBehaviour
     public GameObject GenerateOne()
     {
         print("喔喔，要來產生一個 Doll Instance 了 !!");
+        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
+        if (!dollRef)
+        {
+            print("ERROR!! GenerateOne : 錯誤的 Doll ID: " + dollID);
+            return null;
+        }
+        GameObject o = BattleSystem.SpawnGameObj(dollRef, transform.position + Vector3.forward * 2);
+        Doll doll = o.GetComponent<Doll>();
+        DollInstance di = o.AddComponent<DollInstance>();
+
         return null;
     }
 
