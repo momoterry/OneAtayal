@@ -17,14 +17,15 @@ public class DollBuffRef
 public class DIGenerator : MonoBehaviour
 {
     public string dollID;
+    public string dollBaseName;
     public DollBuffRef[] prefixBuffers;
     public DollBuffRef[] suffixBuffers;
-    public int buffNum = 2;
 
+    public DollCardMenu showResultMenu;
 
     public GameObject GenerateOne()
     {
-        print("喔喔，要來產生一個 Doll Instance 了 !!");
+        //print("喔喔，要來產生一個 Doll Instance 了 !!");
         GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (!dollRef)
         {
@@ -35,23 +36,27 @@ public class DIGenerator : MonoBehaviour
         Doll doll = o.GetComponent<Doll>();
         DollInstance di = o.AddComponent<DollInstance>();
 
-        string dollName = "石靈";
+        string dollName = dollBaseName;
         DollBuffRef preBuffRef = prefixBuffers[Random.Range(0, prefixBuffers.Length - 1)];
         DollBuffRef sufBuffRef = suffixBuffers[Random.Range(0, suffixBuffers.Length - 1)];
         dollName = preBuffRef.text + "的" + dollName + sufBuffRef.text;
-        print("生成的名字是: " + dollName);
+        //print("生成的名字是: " + dollName);
 
         //Buff 的生成
         DollBuffBase pBuff = GenerateOneBuff(preBuffRef);
         DollBuffBase sBuff = GenerateOneBuff(sufBuffRef);
+
+        //DollInstace 的設定 TODO: 以下應該包裝成一次性初始化
+        di.Init(dollName, doll);
         di.AddBuff(pBuff);
         di.AddBuff(sBuff);
 
-        di.fullName = dollName;
+        if (showResultMenu)
+        {
+            showResultMenu.ShowOneDollCard(di);
+        }
 
-        //TODO: di 開始啟用 Buff
-
-        return null;
+        return o;
     }
 
 
@@ -61,12 +66,21 @@ public class DIGenerator : MonoBehaviour
         switch (bRef.type)
         {
             case DOLL_BUFF_TYPE.DAMAGE:
-            case DOLL_BUFF_TYPE.HP:
-            case DOLL_BUFF_TYPE.ATTACK_SPEED:
-            case DOLL_BUFF_TYPE.MOVE_SPEED:
-                newBuff = new DollBuffBase();
-                newBuff.InitValue(bRef.target, bRef.value1);
+                newBuff = new DollBuffDamage();
                 break;
+            case DOLL_BUFF_TYPE.HP:
+                newBuff = new DollBuffHP();
+                break;
+            case DOLL_BUFF_TYPE.ATTACK_SPEED:
+                newBuff = new DollBuffAttackSpeed();
+                break;
+            case DOLL_BUFF_TYPE.MOVE_SPEED:
+                newBuff = new DollBuffMoveSpeed();
+                break;
+        }
+        if (newBuff != null)
+        {
+            newBuff.InitValue(bRef.target, bRef.value1);
         }
         return newBuff;
     }

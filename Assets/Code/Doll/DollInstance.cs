@@ -13,10 +13,16 @@ using UnityEngine;
 public class DollInstance : MonoBehaviour
 {
     public string fullName;
-
-    protected Doll theDoll;
+    public Doll theDoll;
     protected List<DollBuffBase> buffList = new List<DollBuffBase>();
 
+    public List<DollBuffBase> GetBuffList() { return buffList; }
+
+    public void Init( string _name, Doll _doll)
+    {
+        fullName = _name;
+        theDoll = _doll;
+    }
 
     public void AddBuff( DollBuffBase buff)
     {

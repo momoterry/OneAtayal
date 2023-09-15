@@ -115,7 +115,7 @@ Transform:
   m_Children:
   - {fileID: 3925012657965875143}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &587881744613122674
 MonoBehaviour:
@@ -130,17 +130,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dollID: DollStone
-  possibleBuffs:
-  - type: 0
-    target: 3
-    value1: 0
-  - type: 1
-    target: 2
-    value1: 0
+  dollBaseName: "\u77F3\u9748"
+  prefixBuffers:
   - type: 3
     target: 1
-    value1: 0
+    value1: 60
+    text: "\u5F37\u58EF"
+  - type: 0
+    target: 5
+    value1: 20
+    text: "\u6012\u706B"
+  - type: 1
+    target: 5
+    value1: 25
+    text: "\u66B4\u98A8"
+  - type: 2
+    target: 5
+    value1: 25
+    text: "\u9748\u6D3B"
+  - type: 3
+    target: 5
+    value1: 25
+    text: "\u5DE8\u5927"
+  suffixBuffers:
+  - type: 0
+    target: 5
+    value1: 20
+    text: "\u6230\u5C07"
+  - type: 1
+    target: 5
+    value1: 25
+    text: "\u5927\u5E2B"
+  - type: 2
+    target: 5
+    value1: 25
+    text: "\u904A\u4FE0"
+  - type: 3
+    target: 1
+    value1: 60
+    text: "\u5766\u514B"
+  - type: 3
+    target: 5
+    value1: 25
+    text: "\u57CE\u5821"
   buffNum: 2
+  showResultMenu: {fileID: 0}
 --- !u!1001 &950107463963382411
 PrefabInstance:
   m_ObjectHideFlags: 0
