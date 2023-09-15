@@ -10,13 +10,15 @@ public class DollBuffRef
     public DOLL_BUFF_TYPE type;
     public DOLL_BUFF_TARGET target;
     public float value1;
+    public string text;
 }
 
 
 public class DIGenerator : MonoBehaviour
 {
     public string dollID;
-    public DollBuffRef[] possibleBuffs;
+    public DollBuffRef[] prefixBuffers;
+    public DollBuffRef[] suffixBuffers;
     public int buffNum = 2;
 
 
@@ -33,8 +35,42 @@ public class DIGenerator : MonoBehaviour
         Doll doll = o.GetComponent<Doll>();
         DollInstance di = o.AddComponent<DollInstance>();
 
+        string dollName = "石靈";
+        DollBuffRef preBuffRef = prefixBuffers[Random.Range(0, prefixBuffers.Length - 1)];
+        DollBuffRef sufBuffRef = suffixBuffers[Random.Range(0, suffixBuffers.Length - 1)];
+        dollName = preBuffRef.text + "的" + dollName + sufBuffRef.text;
+        print("生成的名字是: " + dollName);
+
+        //Buff 的生成
+        DollBuffBase pBuff = GenerateOneBuff(preBuffRef);
+        DollBuffBase sBuff = GenerateOneBuff(sufBuffRef);
+        di.AddBuff(pBuff);
+        di.AddBuff(sBuff);
+
+        di.fullName = dollName;
+
+        //TODO: di 開始啟用 Buff
+
         return null;
     }
+
+
+    protected DollBuffBase GenerateOneBuff(DollBuffRef bRef)
+    {
+        DollBuffBase newBuff = null;
+        switch (bRef.type)
+        {
+            case DOLL_BUFF_TYPE.DAMAGE:
+            case DOLL_BUFF_TYPE.HP:
+            case DOLL_BUFF_TYPE.ATTACK_SPEED:
+            case DOLL_BUFF_TYPE.MOVE_SPEED:
+                newBuff = new DollBuffBase();
+                newBuff.InitValue(bRef.target, bRef.value1);
+                break;
+        }
+        return newBuff;
+    }
+
 
     //作為測試用
     public void OnTG(GameObject whoTG)

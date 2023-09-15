@@ -24,6 +24,7 @@ public enum DOLL_BUFF_TYPE
 public class DollBuffBase
 {
     public string desc;
+    public virtual void InitValue(DOLL_BUFF_TARGET target, float value1) { }
 }
 
 
