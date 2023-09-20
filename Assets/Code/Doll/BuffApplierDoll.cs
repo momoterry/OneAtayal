@@ -24,10 +24,14 @@ public class BuffApplierBase : MonoBehaviour
         if (buffPools.ContainsKey(buff.type))
         {
             List<DollBuffBase> list = buffPools[buff.type];
-            if (!list.Remove(buff)){
-                print("ERROR: DeApplyBuff, No such buff to remove !!");
+            if (list.Remove(buff)) 
+            {
+                ApplyBuffEffect(buff.type, list);
             }
-            ApplyBuffEffect(buff.type, list);
+            //else
+            //{
+            //    print("---- DeApplyBuff, No such buff to remove !!, my state");
+            //}
             //TODO: 需要清掉空的 List 嗎?
         }
         else
@@ -52,6 +56,16 @@ public class BuffApplierBase : MonoBehaviour
         }
     }
 
+    protected void ClearAllBuff()
+    {
+        foreach ( KeyValuePair<DOLL_BUFF_TYPE , List<DollBuffBase>> p in buffPools)
+        {
+            p.Value.Clear();
+            ApplyBuffEffect(p.Key, p.Value);
+        }
+        //TODO: 需要清掉空的 List 嗎?
+    }
+
     virtual protected void ApplyAttackSpeed( float value ) {}
 
 }
@@ -61,22 +75,37 @@ public class BuffApplierDoll : BuffApplierBase
     public Doll myDoll;
 
     //protected float originalAttackCD;
-    private void Start()
-    {
-        myDoll = GetComponent<Doll>();
-        if (!myDoll)
-        {
-            print("ERROR!!!! BuffApplierDoll Start without DollAuto");
-            return;
-        }
+    //private void Start()
+    //{
+    //    myDoll = GetComponent<Doll>();
+    //    if (!myDoll)
+    //    {
+    //        print("ERROR!!!! BuffApplierDoll Start without DollAuto");
+    //        return;
+    //    }
 
-        //originalAttackCD = myDoll.attackCD;
-    }
+    //    //originalAttackCD = myDoll.attackCD;
+    //}
 
     protected override void ApplyAttackSpeed(float value)
     {
         base.ApplyAttackSpeed(value);
-        print("我要加速啦 " + gameObject.name + " : " + value);
+        print("目前的加速 " + gameObject.name + " : " + value);
     }
 
+    //加入、移出隊伍時的動作
+    public void OnJoinPlayer()
+    {
+        //取得目前的 TeamBuff
+        TeamBuffManager m = BattleSystem.GetPC().theTeamBuff;
+        if (m)
+        {
+            m.OnApplyBuffToOneDoll(myDoll);
+        }
+    }
+
+    public void OnLeavePlayer()
+    {
+        ClearAllBuff();
+    }
 }

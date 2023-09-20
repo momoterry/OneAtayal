@@ -70,8 +70,9 @@ public class DollAuto : Doll
         myFace = face;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         myAgent = GetComponent<NavMeshAgent>();
         if (myAgent)
         {

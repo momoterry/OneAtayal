@@ -61,8 +61,9 @@ public class DollBeta : Doll
     protected float searchCDLeft = 0;
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         myAgent = GetComponent<NavMeshAgent>();
         if (myAgent)
         {

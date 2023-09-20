@@ -28,6 +28,21 @@ public class DollManager : MonoBehaviour
     //    theSkillManager = GetComponent<DollSkillManager>();
     //}
 
+    //只抓取還在隊伍中活耀的，還沒死掉的
+    public List<Doll> GetActiveDolls()
+    {
+        List<Doll> theList = new List<Doll>();
+        foreach (Doll d in dolls)
+        {
+            if (d && d.gameObject.activeInHierarchy)
+            {
+                theList.Add(d);
+            }
+        }
+        return theList;
+    }
+
+    //只抓取還在隊伍中活耀的，不論死活
     public List<Doll> GetDolls()
     {
         List<Doll> theList = new List<Doll>();

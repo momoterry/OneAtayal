@@ -42,6 +42,7 @@ public class DollInstance : MonoBehaviour
     //開始啟動所有 Buff，應該是在 Doll 加入隊伍後開始作用
     protected void ActiveAllBuff()
     {
+        TeamBuffManager m = BattleSystem.GetPC().theTeamBuff;
         foreach (DollBuffBase buff in buffList)
         {
             switch (buff.target)
@@ -51,7 +52,7 @@ public class DollInstance : MonoBehaviour
                     print("DollInstance:ActiveAllBuff -- 還沒有實作的 target :" + buff.target);
                     break;
                 default:
-                    TeamBuffManager.AddTeamBuff(buff);
+                    m.AddTeamBuff(buff);
                     break;
             }
         }
@@ -60,6 +61,7 @@ public class DollInstance : MonoBehaviour
     //取消所有的 Buff ，應該是在 Doll 死亡或離開隊伍時使用
     protected void DeActiveAllBuff()
     {
+        TeamBuffManager m = BattleSystem.GetPC().theTeamBuff;
         foreach (DollBuffBase buff in buffList)
         {
             switch (buff.target)
@@ -69,7 +71,7 @@ public class DollInstance : MonoBehaviour
                     print("DollInstance:DeActiveAllBuff -- 還沒有實作的 target :" + buff.target);
                     break;
                 default:
-                    TeamBuffManager.RemoveTeamBuff(buff);
+                    m.RemoveTeamBuff(buff);
                     break;
             }
         }

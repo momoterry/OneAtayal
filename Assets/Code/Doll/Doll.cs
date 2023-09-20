@@ -42,6 +42,12 @@ public class Doll : MonoBehaviour
     public Transform GetSlot() { return mySlot; }
     public void SetSlot(Transform slot) { mySlot = slot; }
 
+    protected virtual void Awake()
+    {
+        BuffApplierDoll ba = gameObject.AddComponent<BuffApplierDoll>();
+        ba.myDoll = this;
+    }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
