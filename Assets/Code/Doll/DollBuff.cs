@@ -23,8 +23,11 @@ public enum DOLL_BUFF_TYPE
 //DollBuff
 public class DollBuffBase
 {
+    public DOLL_BUFF_TYPE type;
+    public DOLL_BUFF_TARGET target;
+    public float value1;
     public string desc;
-    public virtual void InitValue(DOLL_BUFF_TARGET target, float value1) { }
+    public virtual void InitValue(DOLL_BUFF_TYPE type, DOLL_BUFF_TARGET target, float value1) { }
 
     protected string GetTargetText(DOLL_BUFF_TARGET target)
     {
@@ -51,9 +54,9 @@ public class DollBuffBase
 
 public class DollBuffDamage : DollBuffBase
 {
-    public override void InitValue(DOLL_BUFF_TARGET target, float value1)
+    public override void InitValue(DOLL_BUFF_TYPE type, DOLL_BUFF_TARGET target, float value1)
     {
-        base.InitValue(target, value1);
+        base.InitValue(type, target, value1);
 
         desc = GetTargetText(target) + "傷害 +" + value1 + "%";
     }
@@ -61,9 +64,9 @@ public class DollBuffDamage : DollBuffBase
 
 public class DollBuffAttackSpeed : DollBuffBase
 {
-    public override void InitValue(DOLL_BUFF_TARGET target, float value1)
+    public override void InitValue(DOLL_BUFF_TYPE type, DOLL_BUFF_TARGET target, float value1)
     {
-        base.InitValue(target, value1);
+        base.InitValue(type, target, value1);
 
         desc = GetTargetText(target) + "攻擊速度 +" + value1 + "%";
     }
@@ -71,9 +74,9 @@ public class DollBuffAttackSpeed : DollBuffBase
 
 public class DollBuffMoveSpeed : DollBuffBase
 {
-    public override void InitValue(DOLL_BUFF_TARGET target, float value1)
+    public override void InitValue(DOLL_BUFF_TYPE type, DOLL_BUFF_TARGET target, float value1)
     {
-        base.InitValue(target, value1);
+        base.InitValue(type, target, value1);
 
         desc = GetTargetText(target) + "移動速度 +" + value1 + "%";
     }
@@ -81,9 +84,9 @@ public class DollBuffMoveSpeed : DollBuffBase
 
 public class DollBuffHP : DollBuffBase
 {
-    public override void InitValue(DOLL_BUFF_TARGET target, float value1)
+    public override void InitValue(DOLL_BUFF_TYPE type, DOLL_BUFF_TARGET target, float value1)
     {
-        base.InitValue(target, value1);
+        base.InitValue(type, target, value1);
 
         desc = GetTargetText(target) + "血量 +" + value1 + "%";
     }

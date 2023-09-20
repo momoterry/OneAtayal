@@ -29,6 +29,19 @@ public class DollInstance : MonoBehaviour
         buffList.Add(buff);
     }
 
+
+    //開始啟動所有 Buff，應該是在 Doll 加入隊伍後開始作用
+    public void ActiveAllBuff()
+    {
+
+    }
+
+    //取消所有的 Buff ，應該是在 Doll 死亡或離開隊伍時使用
+    public void DeActiveAllBuff()
+    {
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -80,7 +80,7 @@ public class DIGenerator : MonoBehaviour
         }
         if (newBuff != null)
         {
-            newBuff.InitValue(bRef.target, bRef.value1);
+            newBuff.InitValue(bRef.type, bRef.target, bRef.value1);
         }
         return newBuff;
     }
