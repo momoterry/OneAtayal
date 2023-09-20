@@ -27,7 +27,12 @@ public class DollBuffBase
     public DOLL_BUFF_TARGET target;
     public float value1;
     public string desc;
-    public virtual void InitValue(DOLL_BUFF_TYPE type, DOLL_BUFF_TARGET target, float value1) { }
+    public virtual void InitValue(DOLL_BUFF_TYPE _type, DOLL_BUFF_TARGET _target, float _value1) 
+    {
+        type = _type;
+        target = _target;
+        value1 = _value1;
+    }
 
     protected string GetTargetText(DOLL_BUFF_TARGET target)
     {
@@ -54,9 +59,9 @@ public class DollBuffBase
 
 public class DollBuffDamage : DollBuffBase
 {
-    public override void InitValue(DOLL_BUFF_TYPE type, DOLL_BUFF_TARGET target, float value1)
+    public override void InitValue(DOLL_BUFF_TYPE _type, DOLL_BUFF_TARGET _target, float _value1)
     {
-        base.InitValue(type, target, value1);
+        base.InitValue(_type, _target, _value1);
 
         desc = GetTargetText(target) + "傷害 +" + value1 + "%";
     }
@@ -64,9 +69,9 @@ public class DollBuffDamage : DollBuffBase
 
 public class DollBuffAttackSpeed : DollBuffBase
 {
-    public override void InitValue(DOLL_BUFF_TYPE type, DOLL_BUFF_TARGET target, float value1)
+    public override void InitValue(DOLL_BUFF_TYPE _type, DOLL_BUFF_TARGET _target, float _value1)
     {
-        base.InitValue(type, target, value1);
+        base.InitValue(_type, _target, _value1);
 
         desc = GetTargetText(target) + "攻擊速度 +" + value1 + "%";
     }
@@ -74,9 +79,9 @@ public class DollBuffAttackSpeed : DollBuffBase
 
 public class DollBuffMoveSpeed : DollBuffBase
 {
-    public override void InitValue(DOLL_BUFF_TYPE type, DOLL_BUFF_TARGET target, float value1)
+    public override void InitValue(DOLL_BUFF_TYPE _type, DOLL_BUFF_TARGET _target, float _value1)
     {
-        base.InitValue(type, target, value1);
+        base.InitValue(_type, _target, _value1);
 
         desc = GetTargetText(target) + "移動速度 +" + value1 + "%";
     }

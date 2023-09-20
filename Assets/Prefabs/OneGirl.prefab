@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 6214839875520186892}
   - component: {fileID: 2584888658509635285}
   - component: {fileID: 893138017444081030}
+  - component: {fileID: 5775135226709284486}
   - component: {fileID: 6214839875520186890}
   - component: {fileID: 7587803398858142271}
   - component: {fileID: 7023887932998668797}
@@ -206,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initFaceDirAngle: 180
   theCharData: {fileID: 893138017444081030}
+  theTeamBuff: {fileID: 5775135226709284486}
   DollManagerRef: {fileID: 8795086517185366204, guid: ef8008b54c142ac4cb395f9e67bcfe1d, type: 3}
   myAnimator: {fileID: 0}
   mySPAnimator: {fileID: 1246832319071395464}
@@ -235,6 +237,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04c10824dd59a494eb14b1207b935d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5775135226709284486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214839875520186894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e97847e4cf189e24895436f9ec978fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!195 &6214839875520186890

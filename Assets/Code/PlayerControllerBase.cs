@@ -13,6 +13,7 @@ public class PlayerControllerBase : MonoBehaviour
 {
     public float initFaceDirAngle = 180.0f;
     public CharacterData theCharData;
+    public TeamBuffManager theTeamBuff;
 
     protected float HP_Max = 100.0f;
     protected float MP_Max = 100.0f;

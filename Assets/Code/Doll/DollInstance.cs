@@ -29,28 +29,51 @@ public class DollInstance : MonoBehaviour
         buffList.Add(buff);
     }
 
+    public void OnJoinPlayer()
+    {
+        ActiveAllBuff();
+    }
+
+    public void OnLeavePlayer()
+    {
+        DeActiveAllBuff();
+    }
 
     //開始啟動所有 Buff，應該是在 Doll 加入隊伍後開始作用
-    public void ActiveAllBuff()
+    protected void ActiveAllBuff()
     {
-
+        foreach (DollBuffBase buff in buffList)
+        {
+            switch (buff.target)
+            {
+                case DOLL_BUFF_TARGET.MYSELF:
+                case DOLL_BUFF_TARGET.MASTER:
+                    print("DollInstance:ActiveAllBuff -- 還沒有實作的 target :" + buff.target);
+                    break;
+                default:
+                    TeamBuffManager.AddTeamBuff(buff);
+                    break;
+            }
+        }
     }
 
     //取消所有的 Buff ，應該是在 Doll 死亡或離開隊伍時使用
-    public void DeActiveAllBuff()
+    protected void DeActiveAllBuff()
     {
-
+        foreach (DollBuffBase buff in buffList)
+        {
+            switch (buff.target)
+            {
+                case DOLL_BUFF_TARGET.MYSELF:
+                case DOLL_BUFF_TARGET.MASTER:
+                    print("DollInstance:DeActiveAllBuff -- 還沒有實作的 target :" + buff.target);
+                    break;
+                default:
+                    TeamBuffManager.RemoveTeamBuff(buff);
+                    break;
+            }
+        }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
