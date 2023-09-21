@@ -43,12 +43,19 @@ public class Doll : MonoBehaviour
     public void SetSlot(Transform slot) { mySlot = slot; }
 
     //Buff 系統相關
+    protected float attackDamageOriginal;
     virtual public void SetAttackSpeedRate(float ratio) { }
+    virtual public void SetHPRate(float ratio) { }
+    virtual public void SetDamageRate(float ratio) 
+    {
+        AttackInit = attackDamageOriginal * ratio;
+        myDamage.Init(AttackInit, Damage.OwnerType.DOLL, ID, gameObject);
+    }
 
     protected virtual void Awake()
     {
-        BuffApplierDoll ba = gameObject.AddComponent<BuffApplierDoll>();
-        ba.myDoll = this;
+        gameObject.AddComponent<BuffApplierDoll>();
+        attackDamageOriginal = AttackInit;
     }
 
     // Start is called before the first frame update

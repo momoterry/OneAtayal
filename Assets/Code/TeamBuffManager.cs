@@ -54,7 +54,9 @@ public class TeamBuffManager : MonoBehaviour
                 BuffApplierDoll buffApplier = doll.GetComponent<BuffApplierDoll>();
                 if (buffApplier == null)
                 {
-                    buffApplier = doll.gameObject.AddComponent<BuffApplierDoll>();
+                    //buffApplier = doll.gameObject.AddComponent<BuffApplierDoll>();
+                    print("ERROR!!!! No buffApplier exist for :" + doll.name);
+                    continue;
                 }
                 //print("¹Î¶¤ Buff " + buff.type + "¬I¥[¨ì: " + doll.name);
                 buffApplier.ApplyBuff(buff);
@@ -76,7 +78,7 @@ public class TeamBuffManager : MonoBehaviour
                 BuffApplierDoll buffApplier = doll.GetComponent<BuffApplierDoll>();
                 if (buffApplier == null)
                 {
-                    print("ERROR: remove a buff form a doll without BuffApplierDoll !! ");
+                    print("ERROR: remove a buff form a doll without BuffApplierDoll !! " + doll.name);
                     continue;
                 }
                 buffApplier.DeApplyBuff(buff);

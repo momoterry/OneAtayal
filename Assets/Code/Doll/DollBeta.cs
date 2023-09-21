@@ -62,9 +62,25 @@ public class DollBeta : Doll
 
     //Buff 系統相關
     protected float attackCDInit;
+    protected float maxHPOriginal;
+
     public override void SetAttackSpeedRate(float ratio)
     {
         attackCD = attackCDInit / ratio;
+    }
+
+    public override void SetHPRate(float ratio)
+    {
+        float hpOld = myBody.HP_Max;
+        float hpNew = maxHPOriginal * ratio;
+        myBody.HP_Max = hpNew;
+        if (hpNew > hpOld)
+        {
+            //血量增加的情況，原血量跟著提升
+            myBody.DoHeal(hpNew - hpOld);
+        }
+        else
+            myBody.DoHeal(0);    //暴力法，確保 hp <= hpMax
     }
 
     protected override void Awake()
@@ -97,6 +113,7 @@ public class DollBeta : Doll
             myCollider.enabled = false;
 
         attackCDInit = attackCD;
+        maxHPOriginal = myBody.HP_Max;
     }
 
 

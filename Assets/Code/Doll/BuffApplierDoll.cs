@@ -53,6 +53,12 @@ public class BuffApplierBase : MonoBehaviour
             case DOLL_BUFF_TYPE.ATTACK_SPEED:
                 ApplyAttackSpeed(totalValue);
                 break;
+            case DOLL_BUFF_TYPE.DAMAGE:
+                ApplyDamageRate(totalValue);
+                break;
+            case DOLL_BUFF_TYPE.HP:
+                ApplayHPRate(totalValue);
+                break;
         }
     }
 
@@ -66,32 +72,43 @@ public class BuffApplierBase : MonoBehaviour
         //TODO: 需要清掉空的 List 嗎?
     }
 
-    virtual protected void ApplyAttackSpeed( float value ) {}
+    virtual protected void ApplyAttackSpeed( float percentAdd ) {}
+    virtual protected void ApplyDamageRate( float percentAdd) {}
+    virtual protected void ApplayHPRate( float percentAdd) {}
 
 }
 
 public class BuffApplierDoll : BuffApplierBase
 {
-    public Doll myDoll;
+    protected Doll myDoll;
 
-    //protected float originalAttackCD;
-    //private void Start()
-    //{
-    //    myDoll = GetComponent<Doll>();
-    //    if (!myDoll)
-    //    {
-    //        print("ERROR!!!! BuffApplierDoll Start without DollAuto");
-    //        return;
-    //    }
-
-    //    //originalAttackCD = myDoll.attackCD;
-    //}
-
-    protected override void ApplyAttackSpeed(float value)
+    private void Awake()
     {
-        base.ApplyAttackSpeed(value);
+        //print("BuffApplierDoll Awake " + gameObject.name);
+        myDoll = GetComponent<Doll>();
+        if (!myDoll)
+        {
+            print("ERROR: NO Doll when BuffApplierDoll awake!!");
+        }
+    }
+
+    protected override void ApplyAttackSpeed(float percentAdd)
+    {
+        base.ApplyAttackSpeed(percentAdd);
         //print("目前的加速 " + gameObject.name + " : " + value);
-        myDoll.SetAttackSpeedRate(value * 0.01f + 1.0f);
+        myDoll.SetAttackSpeedRate(percentAdd * 0.01f + 1.0f);
+    }
+
+    protected override void ApplyDamageRate(float percentAdd) 
+    {
+        base.ApplyDamageRate(percentAdd);
+        myDoll.SetDamageRate(percentAdd * 0.01f + 1.0f);
+    }
+
+    protected override void ApplayHPRate(float percentAdd)
+    {
+        base.ApplayHPRate(percentAdd);
+        myDoll.SetHPRate(percentAdd * 0.01f + 1.0f);
     }
 
     //加入、移出隊伍時的動作
