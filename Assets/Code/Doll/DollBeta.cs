@@ -60,6 +60,12 @@ public class DollBeta : Doll
     protected float attackCDLeft = 0;
     protected float searchCDLeft = 0;
 
+    //Buff 系統相關
+    protected float attackCDInit;
+    public override void SetAttackSpeedRate(float ratio)
+    {
+        attackCD = attackCDInit / ratio;
+    }
 
     protected override void Awake()
     {
@@ -89,6 +95,8 @@ public class DollBeta : Doll
         myCollider = GetComponent<Collider>();
         if (myCollider)
             myCollider.enabled = false;
+
+        attackCDInit = attackCD;
     }
 
 

@@ -46,7 +46,7 @@ public class TeamBuffManager : MonoBehaviour
     {
         List<Doll> dollList = BattleSystem.GetPC().GetDollManager().GetActiveDolls();
         DOLL_POSITION_TYPE targetPositionType = GetTargetPositionType(buff.target);
-        print("增加一個團隊 Buff " + buff.type);
+        //print("增加一個團隊 Buff " + buff.type);
         foreach (Doll doll in dollList)
         {
             if (buff.target == DOLL_BUFF_TARGET.ALL || targetPositionType == doll.positionType)
@@ -56,7 +56,7 @@ public class TeamBuffManager : MonoBehaviour
                 {
                     buffApplier = doll.gameObject.AddComponent<BuffApplierDoll>();
                 }
-                print("團隊 Buff " + buff.type + "施加到: " + doll.name);
+                //print("團隊 Buff " + buff.type + "施加到: " + doll.name);
                 buffApplier.ApplyBuff(buff);
             }
         }

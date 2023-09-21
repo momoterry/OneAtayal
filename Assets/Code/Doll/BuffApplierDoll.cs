@@ -90,7 +90,8 @@ public class BuffApplierDoll : BuffApplierBase
     protected override void ApplyAttackSpeed(float value)
     {
         base.ApplyAttackSpeed(value);
-        print("目前的加速 " + gameObject.name + " : " + value);
+        //print("目前的加速 " + gameObject.name + " : " + value);
+        myDoll.SetAttackSpeedRate(value * 0.01f + 1.0f);
     }
 
     //加入、移出隊伍時的動作

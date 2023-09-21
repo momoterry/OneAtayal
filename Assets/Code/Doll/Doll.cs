@@ -42,6 +42,9 @@ public class Doll : MonoBehaviour
     public Transform GetSlot() { return mySlot; }
     public void SetSlot(Transform slot) { mySlot = slot; }
 
+    //Buff 系統相關
+    virtual public void SetAttackSpeedRate(float ratio) { }
+
     protected virtual void Awake()
     {
         BuffApplierDoll ba = gameObject.AddComponent<BuffApplierDoll>();

@@ -65,9 +65,17 @@ public class DollAuto : Doll
 
     protected float autoStateTime;
 
+    //Buff 系統相關
+    protected float attackCDInit;
+
     public void SetFace( Vector3 face)
     {
         myFace = face;
+    }
+
+    public override void SetAttackSpeedRate(float ratio)
+    {
+        attackCD = attackCDInit / ratio;
     }
 
     protected override void Awake()
@@ -98,6 +106,8 @@ public class DollAuto : Doll
         myCollider = GetComponent<Collider>();
         if (myCollider)
             myCollider.enabled = false;
+
+        attackCDInit = attackCD;
     }
 
     //// Start is called before the first frame update
