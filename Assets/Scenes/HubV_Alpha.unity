@@ -16121,11 +16121,7 @@ MonoBehaviour:
   bigRoomSize: {x: 2, y: 2}
   bigRoomNumInit: 0.9
   bigRoomNumAdd: 0.6
-  FinalRoomGamplays:
-  - {fileID: 0}
-  - {fileID: 2283165509847586996, guid: b7e099a59e5e34c47bff66e7a42fc42f, type: 3}
-  - {fileID: 0}
-  - {fileID: 4777012181299576964, guid: b91d8fbed4ec0a241b3bb2f69492423b, type: 3}
+  FinalGamplays: []
   exploreRewardNumInit: 2
   exploreRewardNumAdd: 1
   ExploreRewardInfo:
@@ -54653,11 +54649,19 @@ MonoBehaviour:
   bigRoomSize: {x: 2, y: 2}
   bigRoomNumInit: 0.9
   bigRoomNumAdd: 0.6
-  FinalRoomGamplays:
-  - {fileID: 0}
-  - {fileID: 2283165509847586996, guid: b7e099a59e5e34c47bff66e7a42fc42f, type: 3}
-  - {fileID: 0}
-  - {fileID: 4777012181299576964, guid: b91d8fbed4ec0a241b3bb2f69492423b, type: 3}
+  FinalGamplays:
+  - randomGameplays: []
+  - randomGameplays:
+    - gameplayRef: {fileID: 2283165509847586996, guid: b7e099a59e5e34c47bff66e7a42fc42f, type: 3}
+      difficultyAdd: 1
+    - gameplayRef: {fileID: 4777012181299576964, guid: 67b3eff1c1aa3d84687ef9ba7b14bb9c, type: 3}
+      difficultyAdd: -0.3
+  - randomGameplays: []
+  - randomGameplays:
+    - gameplayRef: {fileID: 4777012181299576964, guid: b91d8fbed4ec0a241b3bb2f69492423b, type: 3}
+      difficultyAdd: -0.2
+    - gameplayRef: {fileID: 4777012181299576964, guid: 7b13f867007e1b54b869cf33b4a804c2, type: 3}
+      difficultyAdd: -0.2
   exploreRewardNumInit: 2
   exploreRewardNumAdd: 1
   ExploreRewardInfo:

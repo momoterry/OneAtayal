@@ -37,6 +37,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         public Vector2Int size;
         public int numDoor;
         public GameObject gameplayRef;
+        public float difficultyAdd;     //特別用於校正 Boss 強度用
     }
     public BigRoomInfo[] bigRooms;
     public int noRoomBuffer = 1;    //避免入口就遇到 Room 的緩衝
@@ -787,6 +788,17 @@ public class MG_MazeDungeon : MapGeneratorBase
                     s.MaxNum = s.MinNum = 1;
                     s.objRef = finishPortalRef;
                     isFinishPortalDone = true;
+                }
+
+                //難度校正
+                if (bigRooms[i].difficultyAdd != 0)
+                {
+                    //print("=================難度校正: " + (1.0f + bigRooms[i].difficultyAdd));
+                    EnemyGroup[] epArray = o.GetComponentsInChildren<EnemyGroup>();
+                    foreach (EnemyGroup ep in epArray)
+                    {
+                        ep.difficulty = 1.0f + bigRooms[i].difficultyAdd;
+                    }
                 }
             }
             else if (normalGroup)

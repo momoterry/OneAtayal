@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4777012180401727937}
-  - component: {fileID: 4777012180401727936}
   - component: {fileID: 5818555453008577184}
   m_Layer: 0
-  m_Name: EnemyWave
+  m_Name: EG
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -33,29 +32,6 @@ Transform:
   m_Father: {fileID: 4777012181299576967}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4777012180401727936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4777012180401727942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b331e8346f7f6454db33b7eb79d321a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawners:
-  - timeToWait: 0.2
-    enemyRef: {fileID: 4568917047187759288, guid: 891fa00cd81e71946943e72302690377, type: 3}
-    num: 1
-    randomWidth: 0
-    randomHeight: 0
-    posShiftX: 0
-    posShiftZ: 10
-  triggerTargetWhenAllKilled:
-  - {fileID: 4777012181299576964}
-  MaxWaitTimeIfNoEnemy: 2
 --- !u!114 &5818555453008577184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,6 +58,7 @@ MonoBehaviour:
   closeDistance: 4
   triggerTargetWhenAllKilled:
   - {fileID: 4777012181299576964}
+  difficulty: 1
 --- !u!1 &4777012181299576964
 GameObject:
   m_ObjectHideFlags: 0

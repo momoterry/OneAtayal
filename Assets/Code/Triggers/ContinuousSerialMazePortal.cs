@@ -24,7 +24,22 @@ public class ContinuousSerialMazePortal : ScenePortal
     public Vector2Int bigRoomSize = new Vector2Int(2, 2);
     public float bigRoomNumInit = 1.0f;
     public float bigRoomNumAdd = 0.5f;
-    public GameObject[] FinalRoomGamplays;
+
+    [System.Serializable]
+    public class GameplayInfo
+    {
+        public GameObject gameplayRef;
+        public float difficultyAdd;
+    }
+    [System.Serializable] 
+    public class FinalGameplayInfo
+    {
+        public GameplayInfo[] randomGameplays;
+    }
+    public FinalGameplayInfo[] FinalGamplays;
+
+    //TODO: Clear
+    //public GameObject[] FinalRoomGamplays;
 
     [System.Serializable]
     public class RewardItem 
@@ -63,12 +78,24 @@ public class ContinuousSerialMazePortal : ScenePortal
                     mazeLevelDatas[i].bigRooms[j].numDoor = 1;
                     mazeLevelDatas[i].bigRooms[j].size = bigRoomSize;
                 }
-                if (i < FinalRoomGamplays.Length)
+                if (i < FinalGamplays.Length)
                 {
-                    mazeLevelDatas[i].bigRooms[0].gameplayRef = FinalRoomGamplays[i];
-                    mazeLevelDatas[i].portalAfterFirstRoomGamplay = true;
+                    if (FinalGamplays[i].randomGameplays.Length > 0)
+                    {
+                        int k = Random.Range(0, FinalGamplays[i].randomGameplays.Length);
+                        mazeLevelDatas[i].bigRooms[0].gameplayRef = FinalGamplays[i].randomGameplays[k].gameplayRef;
+                        mazeLevelDatas[i].bigRooms[0].difficultyAdd = FinalGamplays[i].randomGameplays[k].difficultyAdd;
+                        mazeLevelDatas[i].portalAfterFirstRoomGamplay = true;
+                    }
                 }
+
+                //if (i < FinalRoomGamplays.Length)
+                //{
+                //    mazeLevelDatas[i].bigRooms[0].gameplayRef = FinalRoomGamplays[i];
+                //    mazeLevelDatas[i].portalAfterFirstRoomGamplay = true;
+                //}
             }
+            //mazeLevelDatas[i].firstRoomDifficultyAdd;
             int rewardNum = (int)(exploreRewardNumInit + (exploreRewardNumAdd * i));
             mazeLevelDatas[i].maxExploreReward = rewardNum;
             if (ExploreRewardInfo.Length > 0)
