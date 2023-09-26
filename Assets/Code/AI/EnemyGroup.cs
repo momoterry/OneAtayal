@@ -19,6 +19,8 @@ public class EnemyGroup : MonoBehaviour
 
     public GameObject[] triggerTargetWhenAllKilled;
 
+    public float difficulty = 1.0f;
+
     [System.Serializable]
     public class EnemyInfo
     {
@@ -130,6 +132,8 @@ public class EnemyGroup : MonoBehaviour
                 if (e)
                 {
                     e.SetSlot(o.transform);
+                    e.Attack = e.Attack * difficulty;
+                    e.MaxHP = e.MaxHP * difficulty;
                 }
             }
 
