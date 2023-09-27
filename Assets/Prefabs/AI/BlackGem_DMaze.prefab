@@ -183,11 +183,35 @@ MonoBehaviour:
     trackRef: {fileID: 0}
     trackAnimStr: 
     trackDamageFX: {fileID: 0}
-  - bulletRef: {fileID: 4641581918583914209, guid: 1ef26239157c88941879412745b25ec2, type: 3}
+  - bulletRef: {fileID: 4641581918583914209, guid: 14a519c1029affc4b9d42ab7dcf4d667, type: 3}
     bulletInitDis: 0
     fixDirection: 1
-    prepareTime: 0
-    groundHints: []
+    prepareTime: 0.5
+    groundHints:
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: 22.5
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: 67.5
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: 112.5
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: 157.5
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: -22.5
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: -67.5
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: -112.5
+    - size: {x: 1, y: 10}
+      posShift: {x: 0, y: 0, z: 1.5}
+      angleShift: -157.5
     damageRatio: 0.3
     animString: Attack
     trackRef: {fileID: 0}
@@ -209,7 +233,7 @@ MonoBehaviour:
   - skillIndex: 0
     collDown: 1
   - skillIndex: 1
-    collDown: 2
+    collDown: 1.5
   - skillIndex: 0
     collDown: 1
   - skillIndex: 0
