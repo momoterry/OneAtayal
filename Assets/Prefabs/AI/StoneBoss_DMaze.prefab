@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 6060
-  MaxHP: 12000
+  MaxHP: 14000
   spawnFX: {fileID: 0}
   deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
   debris: {fileID: 4102302037370830796, guid: f9708512c0100ae4c9393ca2cd4ea6a3, type: 3}
@@ -265,8 +265,6 @@ MonoBehaviour:
   AttackWait: 0
   AttackCD: 3.5
   Attack: 100
-  SlotRangeOut: 3
-  SlotRangeIn: 2
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 0}
   skillList:
@@ -277,10 +275,13 @@ MonoBehaviour:
     groundHints:
     - size: {x: 1.5, y: 12}
       posShift: {x: 0, y: 0, z: 2}
+      angleShift: 0
     - size: {x: 1.5, y: 12}
       posShift: {x: -2.5, y: 0, z: 2}
+      angleShift: 0
     - size: {x: 1.5, y: 12}
       posShift: {x: 2.5, y: 0, z: 2}
+      angleShift: 0
     damageRatio: 0.15
     animString: 
     trackRef: {fileID: 0}
