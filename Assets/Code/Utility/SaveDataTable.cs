@@ -6,6 +6,8 @@ using System.Reflection;
 
 public class SaveDataTable
 {
+    protected const string ARRAY_LENGTH = "_LENGTH";
+
     public Dictionary<string, string> stringTable;
     public Dictionary<string, int> intTable;
 
@@ -66,7 +68,7 @@ public class SaveDataTable
 
     protected object TableToData(string prefix, Type _type)//, object data)
     {
-        print("TableToData 處理中: " + prefix + "Type: " + _type);
+        //print("TableToData 處理中: " + prefix + "Type: " + _type);
         if (_type == typeof(int))
         {
             int data = GetIntFromTable(prefix);
@@ -87,8 +89,13 @@ public class SaveDataTable
         }
         else if (_type.IsArray)
         {
-            print(prefix + " :是一個 Array ，基底為:" + _type.GetElementType().Name);
-            Array data = Array.CreateInstance(_type.GetElementType(), 0);
+            int size = GetIntFromTable(prefix + ARRAY_LENGTH);
+            print(prefix + " :是一個 Array ，基底為:" + _type.GetElementType().Name + " Length: " + size);
+            Array data = Array.CreateInstance(_type.GetElementType(), size);
+            for (int i=0; i<size; i++)
+            {
+                data.SetValue(TableToData(prefix + "_" + i, _type.GetElementType()), i);
+            }
             return data;
         }
         else if(_type.IsClass)
@@ -99,16 +106,24 @@ public class SaveDataTable
             object data = Activator.CreateInstance(_type);
             foreach (FieldInfo field in fields)
             {
-                //object instance = Activator.CreateInstance(field.FieldType);
-                //TableToData(prefix + "_" + _type.Name, field.FieldType, instance);
                 field.SetValue(data, TableToData(prefix + "_" + field.Name, field.FieldType));
             }
             return data;
         }
         else 
         {
-            print("還不能處理的 type ......");
+            print(prefix + " :是一個新的 東西 ，類型為:" + _type.Name);
+            FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             object data = Activator.CreateInstance(_type);
+            if (fields.Length < 2)
+            {
+                print("ERROR!!!! 這個類型無法處理 !! " + prefix + " .... 類型為:" + _type.Name);
+                return data;
+            }
+            foreach (FieldInfo field in fields)
+            {
+                field.SetValue(data, TableToData(prefix + "_" + field.Name, field.FieldType));
+            }
             return data;
         }
     }
@@ -117,7 +132,7 @@ public class SaveDataTable
     {
         if (data == null)
         {
-            print("發現空資料 !!");
+            print("ERROR!!!! 發現空資料 !!");
             return;
         }
 
@@ -140,6 +155,7 @@ public class SaveDataTable
         {
             Array array = (Array)data;
             //print(prefix + " :是一個 Array，的大小為: " + array.Length);
+            intTable.Add(prefix + ARRAY_LENGTH, array.Length);
             for (int i = 0; i < array.Length; i++)
             {
                 DataToTable(prefix + "_" + i, _type.GetElementType(), array.GetValue(i));
@@ -160,7 +176,7 @@ public class SaveDataTable
             FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             if (fields.Length < 2)
             {
-                print(">>>>這個類型無法處理 !!");
+                print("ERROR!!!! 這個類型無法處理 !! " + prefix + " .... 類型為:" + _type.Name);
                 return;
             }
             foreach (FieldInfo field in fields)
