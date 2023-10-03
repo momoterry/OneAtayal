@@ -26,6 +26,93 @@ public class SaveDataTable
         DataToTable("Root", theType, data);
     }
 
+    public T FromTable<T>()
+    {
+        //object o = new();
+        //TableToData("Root", typeof(T), o);
+        //return (T)o;
+
+
+        //T data = default(T);
+        //T data = Activator.CreateInstance<T>();
+        //TableToData("Root", typeof(T), data);
+        //return data;
+
+        return (T)TableToData("Root", typeof(T));
+    }
+
+    //===============================================================================
+    //   ず场矪瞶虫じ
+    //===============================================================================
+
+    protected int GetIntFromTable(string _id)
+    {
+        if (intTable.ContainsKey(_id))
+            return intTable[_id];
+        return 0;
+    }
+
+    protected bool GetBoolFromTable(string _id)
+    {
+        return GetIntFromTable(_id) != 0;
+    }
+
+    protected string GetStringFromTable(string _id)
+    {
+        if (stringTable.ContainsKey(_id))
+            return stringTable[_id];
+        return "";
+    }
+
+    protected object TableToData(string prefix, Type _type)//, object data)
+    {
+        print("TableToData 矪瞶い: " + prefix + "Type: " + _type);
+        if (_type == typeof(int))
+        {
+            int data = GetIntFromTable(prefix);
+            print(prefix + " :琌 int, 砞: " + (int)data);
+            return data;
+        }
+        else if (_type == typeof(bool))
+        {
+            bool data = GetBoolFromTable(prefix);
+            print(prefix + " :琌 bool, 砞: " + (bool)data);
+            return data;
+        }
+        else if (_type == typeof(string))
+        {
+            string data = GetStringFromTable(prefix);
+            print(prefix + " :琌 string, 砞: " + (string)data);
+            return data;
+        }
+        else if (_type.IsArray)
+        {
+            print(prefix + " :琌 Array 膀┏:" + _type.GetElementType().Name);
+            Array data = Array.CreateInstance(_type.GetElementType(), 0);
+            return data;
+        }
+        else if(_type.IsClass)
+        {
+            print(prefix + " :琌穝 Class 摸:" + _type.Name);
+
+            FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            object data = Activator.CreateInstance(_type);
+            foreach (FieldInfo field in fields)
+            {
+                //object instance = Activator.CreateInstance(field.FieldType);
+                //TableToData(prefix + "_" + _type.Name, field.FieldType, instance);
+                field.SetValue(data, TableToData(prefix + "_" + field.Name, field.FieldType));
+            }
+            return data;
+        }
+        else 
+        {
+            print("临ぃ矪瞶 type ......");
+            object data = Activator.CreateInstance(_type);
+            return data;
+        }
+    }
+
     protected void DataToTable(string prefix, Type _type, object data)
     {
         if (data == null)
@@ -36,24 +123,23 @@ public class SaveDataTable
 
         if (_type == typeof(int))
         {
-            print(prefix + " :琌 int, 单: " + (int)data);
-            //print(prefix + " 单: " + (int)data);
+            //print(prefix + " :琌 int, 单: " + (int)data);
+            intTable.Add(prefix, (int)data);
         }
         else if (_type == typeof(string))
         {
-            print(prefix + " :琌 string, 单: " + (string)data);
-            //print(prefix + " 单: " + (string)data);
+            //print(prefix + " :琌 string, 单: " + (string)data);
+            stringTable.Add(prefix, (string)data);
         }
         else if (_type == typeof(bool))
         {
-            print(prefix + " :琌 bool, 单: " + (bool)data);
-            //print(prefix + " 单: " + (bool)data);
+            //print(prefix + " :琌 bool, 单: " + (bool)data);
+            intTable.Add(prefix, (bool)data == true ? 1:0);
         }
         else if (_type.IsArray)
         {
             Array array = (Array)data;
-            print(prefix + " :琌 Array: " + array.Length);
-            //print(prefix + " : " + array.Length);
+            //print(prefix + " :琌 Array: " + array.Length);
             for (int i = 0; i < array.Length; i++)
             {
                 DataToTable(prefix + "_" + i, _type.GetElementType(), array.GetValue(i));
@@ -61,7 +147,7 @@ public class SaveDataTable
         }
         else if (_type.IsClass)
         {
-            print(prefix + " :琌穝 Class 摸:" + _type.Name);
+            //print(prefix + " :琌穝 Class 摸:" + _type.Name);
             FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             foreach( FieldInfo field in fields)
             {
@@ -70,7 +156,7 @@ public class SaveDataTable
         }
         else
         {
-            print(prefix + " :琌穝 狥﹁ 摸:" + _type.Name);
+            //print(prefix + " :琌穝 狥﹁ 摸:" + _type.Name);
             FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             if (fields.Length < 2)
             {
@@ -84,79 +170,5 @@ public class SaveDataTable
             }
         }
     }
-
-    protected void HandleArrayElement(string prefix, Type _type, object data)
-    {
-        if (data == null)
-        {
-            print("祇瞷戈 !!");
-            return;
-        }
-
-        if (_type == typeof(int))
-        {
-            print(">> " + prefix + " :琌 int");
-            print(">> " + prefix + " 单: " + (int)data);
-        }
-        else if (_type == typeof(string))
-        {
-            print(">> " + prefix + " :琌 string");
-            print(">> " + prefix + " 单: " + (string)data);
-        }
-        else if (_type.IsArray)
-        {
-            print(">> " + prefix + " :琌 Array膀┏: " + _type.GetElementType().Name);
-            Array array = (Array)data;
-            print(">> " + prefix + " : " + array.Length);
-            //for (int i = 0; i < array.Length; i++)
-            //{
-            //    DataToTable(prefix + "_" + i, _type.GetElementType(), array.GetValue(i));
-            //}
-        }
-        else if (_type.IsClass)
-        {
-            print(">> " + prefix + " :琌穝 Type 摸:" + _type.Name);
-            FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            foreach (FieldInfo field in fields)
-            {
-                print(">>>> " + field.Name);
-                //DataToTable(prefix + "_" + field.Name, field.FieldType, field.GetValue(data));
-            }
-        }
-    }
-
-    //protected void DataToTable(string prefix, Type _type, object data)
-    //{
-    //    FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-    //    foreach (FieldInfo field in fields)
-    //    {
-    //        if (field.FieldType == typeof(int))
-    //        {
-    //            print(prefix + "_" + field.Name + " :琌 int");
-    //            print(prefix + "_" + field.Name + " 单: " + (int)field.GetValue(data));
-    //        }
-    //        else if (field.FieldType == typeof(string))
-    //        {
-    //            print(prefix + "_" + field.Name + " :琌 string");
-    //            print(prefix + "_" + field.Name + " 单: " + (string)field.GetValue(data));
-    //        }
-    //        else if (field.FieldType.IsArray)
-    //        {
-    //            print(prefix + "_" + field.Name + " :琌 Array膀┏: " + field.FieldType.GetElementType().Name);
-    //            Array array = (Array)field.GetValue(data);
-    //            print(prefix + "_" + field.Name + " : " + array.Length);
-    //            for (int i = 0; i < array.Length; i++)
-    //            {
-    //                print(prefix + "_" + field.Name + "_" + i + "_:" + array.GetValue(i));
-    //                //DataToTable(prefix + "_" + field.Name + "_" + i + "_", field.FieldType.GetElementType(), array.GetValue(i));
-    //            }
-    //        }
-    //        else
-    //        {
-    //            print(prefix + "_" + field.Name + " :琌穝 Type");
-    //            DataToTable(prefix + "_" + field.Name, field.FieldType, field.GetValue(data));
-    //        }
-    //    }
-    //}
 
 }

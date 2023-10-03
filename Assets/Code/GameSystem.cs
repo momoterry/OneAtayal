@@ -478,8 +478,11 @@ public class GameSystem : MonoBehaviour
         thePlayerData.LoadSavedData(loadData);
 
         //測試
-        //SaveDataTable theTable = new SaveDataTable();
-        //theTable.ConvertToTable<SaveData>(loadData);
+        SaveDataTable theTable = new SaveDataTable();
+        theTable.ConvertToTable<SaveData>(loadData);
+
+        SaveData newSave = theTable.FromTable<SaveData>();
+        print("New Save Data: " + newSave);
 
         return true;
     }
