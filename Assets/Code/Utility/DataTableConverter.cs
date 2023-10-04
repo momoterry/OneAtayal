@@ -4,14 +4,15 @@ using UnityEngine;
 using System;
 using System.Reflection;
 
-public class SaveDataTable
+
+public class DataTableConverter
 {
     protected const string ARRAY_LENGTH = "_LENGTH";
 
     public Dictionary<string, string> stringTable;
     public Dictionary<string, int> intTable;
 
-    public SaveDataTable()
+    public DataTableConverter()
     {
         if (stringTable == null)
             stringTable = new Dictionary<string, string>();
@@ -19,78 +20,87 @@ public class SaveDataTable
             intTable = new Dictionary<string, int>();
     }
 
-    protected void print(string str) { Debug.Log(str); }
-
-    public void ConvertToTable<T>(T data)
+    virtual public void AddInt(string _id, int value)
     {
-        Type theType = typeof(T);
-        //FieldInfo[] fileds = theType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-        DataToTable("Root", theType, data);
+        intTable.Add(_id, value);
     }
 
-    public T FromTable<T>()
+    virtual public void AddString(string _id, string value)
     {
-        //object o = new();
-        //TableToData("Root", typeof(T), o);
-        //return (T)o;
-
-
-        //T data = default(T);
-        //T data = Activator.CreateInstance<T>();
-        //TableToData("Root", typeof(T), data);
-        //return data;
-
-        return (T)TableToData("Root", typeof(T));
+        stringTable.Add(_id, value);
     }
 
-    //===============================================================================
-    //   內部的處理單元們
-    //===============================================================================
-
-    protected int GetIntFromTable(string _id)
+    virtual public int GetInt(string _id)
     {
         if (intTable.ContainsKey(_id))
             return intTable[_id];
         return 0;
     }
 
-    protected bool GetBoolFromTable(string _id)
-    {
-        return GetIntFromTable(_id) != 0;
-    }
-
-    protected string GetStringFromTable(string _id)
+    virtual public string GetString(string _id)
     {
         if (stringTable.ContainsKey(_id))
             return stringTable[_id];
         return "";
     }
 
+    protected void print(string str) { Debug.Log(str); }
+
+    public void ConvertToTable<T>(T data, string prefix)
+    {
+        Type theType = typeof(T);
+        DataToTable(prefix, theType, data);
+    }
+
+    public T FromTable<T>(string prefix)
+    {
+        return (T)TableToData(prefix, typeof(T));
+    }
+
+    //===============================================================================
+    //   內部的處理單元們
+    //===============================================================================
+
+    //protected int GetIntFromTable(string _id)
+    //{
+    //    return GetInt(_id);
+    //}
+
+    //protected bool GetBoolFromTable(string _id)
+    //{
+    //    return GetInt(_id) != 0;
+    //}
+
+    //protected string GetStringFromTable(string _id)
+    //{
+    //    return GetString(_id);
+    //}
+
     protected object TableToData(string prefix, Type _type)//, object data)
     {
         //print("TableToData 處理中: " + prefix + "Type: " + _type);
         if (_type == typeof(int))
         {
-            int data = GetIntFromTable(prefix);
-            print(prefix + " :是一個 int, 值設為: " + (int)data);
+            int data = GetInt(prefix);
+            //print(prefix + " :是一個 int, 值設為: " + (int)data);
             return data;
         }
         else if (_type == typeof(bool))
         {
-            bool data = GetBoolFromTable(prefix);
-            print(prefix + " :是一個 bool, 值設為: " + (bool)data);
+            bool data = (GetInt(prefix) != 0);
+            //print(prefix + " :是一個 bool, 值設為: " + (bool)data);
             return data;
         }
         else if (_type == typeof(string))
         {
-            string data = GetStringFromTable(prefix);
-            print(prefix + " :是一個 string, 值設為: " + (string)data);
+            string data = GetString(prefix);
+            //print(prefix + " :是一個 string, 值設為: " + (string)data);
             return data;
         }
         else if (_type.IsArray)
         {
-            int size = GetIntFromTable(prefix + ARRAY_LENGTH);
-            print(prefix + " :是一個 Array ，基底為:" + _type.GetElementType().Name + " Length: " + size);
+            int size = GetInt(prefix + ARRAY_LENGTH);
+            //print(prefix + " :是一個 Array ，基底為:" + _type.GetElementType().Name + " Length: " + size);
             Array data = Array.CreateInstance(_type.GetElementType(), size);
             for (int i=0; i<size; i++)
             {
@@ -100,7 +110,7 @@ public class SaveDataTable
         }
         else if(_type.IsClass)
         {
-            print(prefix + " :是一個新的 Class ，類型為:" + _type.Name);
+            //print(prefix + " :是一個新的 Class ，類型為:" + _type.Name);
 
             FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             object data = Activator.CreateInstance(_type);
@@ -112,7 +122,7 @@ public class SaveDataTable
         }
         else 
         {
-            print(prefix + " :是一個新的 東西 ，類型為:" + _type.Name);
+            //print(prefix + " :是一個新的 東西 ，類型為:" + _type.Name);
             FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             object data = Activator.CreateInstance(_type);
             if (fields.Length < 2)
@@ -132,30 +142,30 @@ public class SaveDataTable
     {
         if (data == null)
         {
-            print("ERROR!!!! 發現空資料 !!");
+            print("DataToTable 發現空資料 !! " + prefix + " ,Type = " + _type.Name);
             return;
         }
 
         if (_type == typeof(int))
         {
             //print(prefix + " :是一個 int, 值等於: " + (int)data);
-            intTable.Add(prefix, (int)data);
+            AddInt(prefix, (int)data);
         }
         else if (_type == typeof(string))
         {
             //print(prefix + " :是一個 string, 值等於: " + (string)data);
-            stringTable.Add(prefix, (string)data);
+            AddString(prefix, (string)data);
         }
         else if (_type == typeof(bool))
         {
             //print(prefix + " :是一個 bool, 值等於: " + (bool)data);
-            intTable.Add(prefix, (bool)data == true ? 1:0);
+            AddInt(prefix, (bool)data == true ? 1 : 0);
         }
         else if (_type.IsArray)
         {
             Array array = (Array)data;
             //print(prefix + " :是一個 Array，的大小為: " + array.Length);
-            intTable.Add(prefix + ARRAY_LENGTH, array.Length);
+            AddInt(prefix + ARRAY_LENGTH, array.Length);
             for (int i = 0; i < array.Length; i++)
             {
                 DataToTable(prefix + "_" + i, _type.GetElementType(), array.GetValue(i));
@@ -187,4 +197,42 @@ public class SaveDataTable
         }
     }
 
+    //=======================================================
+    // TODO: 移到另一個檔案去
+    //=======================================================
+    public class SaveToPlayerPrefs : DataTableConverter
+    {
+        public SaveData LoadData()
+        {
+            SaveData data = FromTable<SaveData>("One");
+            return data;
+        }
+
+        public void SaveData(SaveData data) 
+        {
+            ConvertToTable<SaveData>(data, "One");
+            PlayerPrefs.Save();
+        }
+
+        public override void AddInt(string _id, int value)
+        {
+            PlayerPrefs.SetInt(_id, value);
+        }
+
+        public override void AddString(string _id, string value)
+        {
+            PlayerPrefs.SetString(_id, value);
+        }
+
+        public override int GetInt(string _id)
+        {
+            return PlayerPrefs.GetInt(_id, 0);
+        }
+
+        public override string GetString(string _id)
+        {
+            return  PlayerPrefs.GetString(_id, "");
+        }
+
+    }
 }

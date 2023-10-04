@@ -8,6 +8,7 @@ using System.Text;  //存讀檔
 using System.Data;
 using UnityEngine.InputSystem;
 using System;
+using static DataTableConverter;
 
 public class GameSystem : MonoBehaviour
 {
@@ -361,57 +362,70 @@ public class GameSystem : MonoBehaviour
 
 
 #if SAVE_TO_PLAYERPREFS
+    //protected void SaveDataLocal()
+    //{
+    //    PlayerPrefs.DeleteAll();
+
+    //    string playerName = "DefTerry_";
+    //    SaveData theSaveData = thePlayerData.GetSaveData();
+
+    //    PlayerPrefs.SetString("PlayerName", playerName);
+    //    PlayerPrefs.SetInt(playerName+"Money", theSaveData.Money);
+    //    //print("Money: " + theSaveData.Money);
+    //    PlayerPrefs.SetInt(playerName+"LV", theSaveData.mainCharacterStat.LV);
+    //    //print("LV: " + theSaveData.mainCharacterStat.LV);
+    //    PlayerPrefs.SetInt(playerName + "EXP", theSaveData.mainCharacterStat.LV);
+
+    //    //使用中的 Doll
+    //    if (theSaveData.usingDollList != null)
+    //    {
+    //        int usingDollSize = theSaveData.usingDollList.Length;
+    //        PlayerPrefs.SetInt(playerName + "DollListSize", usingDollSize);
+    //        for (int i = 0; i < usingDollSize; i++)
+    //        {
+    //            PlayerPrefs.SetString(playerName + "DollList_" + i, theSaveData.usingDollList[i]);
+    //        }
+    //    }
+    //    // Doll 背包
+    //    if (theSaveData.dollBackpack != null)
+    //    {
+    //        int backPackSize = theSaveData.dollBackpack.Length;
+    //        PlayerPrefs.SetInt(playerName + "BackPackSize", backPackSize);
+    //        for (int i=0; i< backPackSize; i++)
+    //        {
+    //            PlayerPrefs.SetString(playerName + "BackPack_ID_" + i, theSaveData.dollBackpack[i].ID);
+    //            PlayerPrefs.SetInt(playerName + "BackPack_num_" + i, theSaveData.dollBackpack[i].num);
+    //        }
+    //    }
+    //    //Event
+    //    if (theSaveData.eventData != null)
+    //    {
+    //        int eventDataSize = theSaveData.eventData.Length;
+    //        PlayerPrefs.SetInt(playerName + "EventDataSize", eventDataSize);
+    //        //print("...... Save EventDataSize in PlayerPrefs: " + eventDataSize);
+    //        for (int i=0; i<eventDataSize; i++)
+    //        {
+    //            PlayerPrefs.SetString(playerName + "Event_ID_" + i, theSaveData.eventData[i].Event);
+    //            PlayerPrefs.SetInt(playerName + "Event_Status_" + i, theSaveData.eventData[i].status ? 1:0);
+    //            //print("......Save Event Data in PlayerPrefs: " + theSaveData.eventData[i].Event + " status = " + theSaveData.eventData[i].status);
+    //        }
+    //    }
+
+    //    PlayerPrefs.Save();
+    //    print("......PlayerPrefs Save Done !!");
+    //}
+
     protected void SaveDataLocal()
     {
+        //print("全新的 SaveDataLocal ......");
         PlayerPrefs.DeleteAll();
 
         string playerName = "DefTerry_";
-        SaveData theSaveData = thePlayerData.GetSaveData();
-
         PlayerPrefs.SetString("PlayerName", playerName);
-        PlayerPrefs.SetInt(playerName+"Money", theSaveData.Money);
-        //print("Money: " + theSaveData.Money);
-        PlayerPrefs.SetInt(playerName+"LV", theSaveData.mainCharacterStat.LV);
-        //print("LV: " + theSaveData.mainCharacterStat.LV);
-        PlayerPrefs.SetInt(playerName + "EXP", theSaveData.mainCharacterStat.LV);
 
-        //使用中的 Doll
-        if (theSaveData.usingDollList != null)
-        {
-            int usingDollSize = theSaveData.usingDollList.Length;
-            PlayerPrefs.SetInt(playerName + "DollListSize", usingDollSize);
-            for (int i = 0; i < usingDollSize; i++)
-            {
-                PlayerPrefs.SetString(playerName + "DollList_" + i, theSaveData.usingDollList[i]);
-            }
-        }
-        // Doll 背包
-        if (theSaveData.dollBackpack != null)
-        {
-            int backPackSize = theSaveData.dollBackpack.Length;
-            PlayerPrefs.SetInt(playerName + "BackPackSize", backPackSize);
-            for (int i=0; i< backPackSize; i++)
-            {
-                PlayerPrefs.SetString(playerName + "BackPack_ID_" + i, theSaveData.dollBackpack[i].ID);
-                PlayerPrefs.SetInt(playerName + "BackPack_num_" + i, theSaveData.dollBackpack[i].num);
-            }
-        }
-        //Event
-        if (theSaveData.eventData != null)
-        {
-            int eventDataSize = theSaveData.eventData.Length;
-            PlayerPrefs.SetInt(playerName + "EventDataSize", eventDataSize);
-            //print("...... Save EventDataSize in PlayerPrefs: " + eventDataSize);
-            for (int i=0; i<eventDataSize; i++)
-            {
-                PlayerPrefs.SetString(playerName + "Event_ID_" + i, theSaveData.eventData[i].Event);
-                PlayerPrefs.SetInt(playerName + "Event_Status_" + i, theSaveData.eventData[i].status ? 1:0);
-                //print("......Save Event Data in PlayerPrefs: " + theSaveData.eventData[i].Event + " status = " + theSaveData.eventData[i].status);
-            }
-        }
-
-        PlayerPrefs.Save();
-        print("......PlayerPrefs Save Done !!");
+        SaveData theSaveData = thePlayerData.GetSaveData();
+        SaveToPlayerPrefs saver = new SaveToPlayerPrefs();
+        saver.SaveData(theSaveData);
     }
 
     protected void DeleteDataLocal()
@@ -425,67 +439,87 @@ public class GameSystem : MonoBehaviour
 
     protected bool LoadDataLocal()
     {
+        //print("全新的 LoadDataLocal ......");
         string playerName = PlayerPrefs.GetString("PlayerName", "");
         if (playerName == "")
         {
             print("........ No PlayerPrefs Data !!");
             return false;
         }
-
         print("...... Found Saved PlayerPrefs, PlayerName = " + playerName);
 
-        SaveData loadData = new SaveData();
-        loadData.mainCharacterStat = new CharacterStat();
-        loadData.Money = PlayerPrefs.GetInt(playerName+"Money", 0);
-        loadData.mainCharacterStat.LV = PlayerPrefs.GetInt(playerName+"LV", 0);
-        loadData.mainCharacterStat.Exp = PlayerPrefs.GetInt(playerName+"EXP", 0);
 
-        //使用中的 Doll
-        int usingDollSize = PlayerPrefs.GetInt(playerName + "DollListSize", 0);
-        if (usingDollSize > 0)
-        {
-            loadData.usingDollList = new string[usingDollSize];
-            for (int i=0; i<usingDollSize; i++)
-            {
-                loadData.usingDollList[i] = PlayerPrefs.GetString(playerName + "DollList_" + i, "");
-            }
-        }
-        // Doll 背包
-        int backPackSize = PlayerPrefs.GetInt(playerName + "BackPackSize", 0);
-        if (backPackSize > 0)
-        {
-            loadData.dollBackpack = new SaveDataBackpckItem[backPackSize];
-            for (int i=0; i<backPackSize; i++)
-            {
-                loadData.dollBackpack[i].ID = PlayerPrefs.GetString(playerName + "BackPack_ID_" + i, "");
-                loadData.dollBackpack[i].num = PlayerPrefs.GetInt(playerName + "BackPack_num_" + i, 0);
-            }
-        }
-        //Event
-        int eventDataSize = PlayerPrefs.GetInt(playerName + "EventDataSize", 0);
-        //print(".....LoadData, eventDataSize = " + eventDataSize);
-        if (eventDataSize > 0)
-        {
-            loadData.eventData = new SaveDataEventItem[eventDataSize];
-            for (int i=0; i< eventDataSize; i++)
-            {
-                loadData.eventData[i].Event = PlayerPrefs.GetString(playerName + "Event_ID_" + i, "");
-                loadData.eventData[i].status = (PlayerPrefs.GetInt(playerName + "Event_Status_" + i, 0) == 1);
-                //print("......Found Event Data in PlayerPrefs: " + loadData.eventData[i].Event + " status = " + loadData.eventData[i].status);
-            }
-        }
-
+        SaveToPlayerPrefs saver = new SaveToPlayerPrefs();
+        SaveData loadData = saver.LoadData();
         thePlayerData.LoadSavedData(loadData);
-
-        //測試
-        //SaveDataTable theTable = new SaveDataTable();
-        //theTable.ConvertToTable<SaveData>(loadData);
-
-        //SaveData newSave = theTable.FromTable<SaveData>();
-        //print("New Save Data: " + newSave);
 
         return true;
     }
+
+    //protected bool LoadDataLocal()
+    //{
+    //    string playerName = PlayerPrefs.GetString("PlayerName", "");
+    //    if (playerName == "")
+    //    {
+    //        print("........ No PlayerPrefs Data !!");
+    //        return false;
+    //    }
+
+    //    print("...... Found Saved PlayerPrefs, PlayerName = " + playerName);
+
+    //    SaveData loadData = new SaveData();
+    //    loadData.mainCharacterStat = new CharacterStat();
+    //    loadData.Money = PlayerPrefs.GetInt(playerName+"Money", 0);
+    //    loadData.mainCharacterStat.LV = PlayerPrefs.GetInt(playerName+"LV", 0);
+    //    loadData.mainCharacterStat.Exp = PlayerPrefs.GetInt(playerName+"EXP", 0);
+
+    //    //使用中的 Doll
+    //    int usingDollSize = PlayerPrefs.GetInt(playerName + "DollListSize", 0);
+    //    if (usingDollSize > 0)
+    //    {
+    //        loadData.usingDollList = new string[usingDollSize];
+    //        for (int i=0; i<usingDollSize; i++)
+    //        {
+    //            loadData.usingDollList[i] = PlayerPrefs.GetString(playerName + "DollList_" + i, "");
+    //        }
+    //    }
+    //    // Doll 背包
+    //    int backPackSize = PlayerPrefs.GetInt(playerName + "BackPackSize", 0);
+    //    if (backPackSize > 0)
+    //    {
+    //        loadData.dollBackpack = new SaveDataBackpckItem[backPackSize];
+    //        for (int i=0; i<backPackSize; i++)
+    //        {
+    //            loadData.dollBackpack[i].ID = PlayerPrefs.GetString(playerName + "BackPack_ID_" + i, "");
+    //            loadData.dollBackpack[i].num = PlayerPrefs.GetInt(playerName + "BackPack_num_" + i, 0);
+    //        }
+    //    }
+    //    //Event
+    //    int eventDataSize = PlayerPrefs.GetInt(playerName + "EventDataSize", 0);
+    //    //print(".....LoadData, eventDataSize = " + eventDataSize);
+    //    if (eventDataSize > 0)
+    //    {
+    //        loadData.eventData = new SaveDataEventItem[eventDataSize];
+    //        for (int i=0; i< eventDataSize; i++)
+    //        {
+    //            loadData.eventData[i].Event = PlayerPrefs.GetString(playerName + "Event_ID_" + i, "");
+    //            loadData.eventData[i].status = (PlayerPrefs.GetInt(playerName + "Event_Status_" + i, 0) == 1);
+    //            //print("......Found Event Data in PlayerPrefs: " + loadData.eventData[i].Event + " status = " + loadData.eventData[i].status);
+    //        }
+    //    }
+
+    //    thePlayerData.LoadSavedData(loadData);
+
+    //    //測試
+    //    //SaveToPlayerPrefs theSaver = new SaveToPlayerPrefs();
+    //    //theSaver.SaveData(loadData);
+
+    //    //SaveData newSave = theSaver.LoadData();
+
+    //    //thePlayerData.LoadSavedData(newSave);
+
+    //    return true;
+    //}
 
 #else
     protected void DeleteDataLocal()
