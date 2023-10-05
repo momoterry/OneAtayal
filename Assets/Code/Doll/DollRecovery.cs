@@ -171,6 +171,19 @@ public class DollRecovery : MonoBehaviour
         }
         //*/
 
+        DollInstanceData[] DIs = GameSystem.GetPlayerData().GetAllUsingDIs();
+        if (DIs != null)
+        {
+            print("DollRecovery: 所有的 DIs ");
+            for (int i = 0; i < DIs.Length; i++)
+            {
+                print(DIs[i].fullName);
+            }
+        }
+        else
+            print("沒有任何 DIs ");
+
+
         string[] savedDolls = GameSystem.GetPlayerData().GetAllUsingDolls();
         int savedLength = savedDolls == null ? 0 : savedDolls.Length;
         string[] collectedDolls = ContinuousBattleManager.GetAllCollectedDolls();

@@ -100,15 +100,15 @@ public class DIGenerator : MonoBehaviour
                 actionResult = d.TryJoinThePlayer();
             }
 
-            //if (actionResult)
-            //{
-            //    DollInstance di = dObj.GetComponent<DollInstance>();
-            //    GameSystem.GetPlayerData().AddUsingDI(di.ToData());
-            //}
-            //else
-            //{
-            //    print("ERROR !!!! Doll Insatnce 生出來後無法加入，這部份還沒處理呀 !!!!!");
-            //}
+            if (actionResult)
+            {
+                DollInstance di = dObj.GetComponent<DollInstance>();
+                GameSystem.GetPlayerData().AddUsingDI(di.ToData());
+            }
+            else
+            {
+                print("ERROR !!!! Doll Insatnce 生出來後無法加入，這部份還沒處理呀 !!!!!");
+            }
         }
         whoTG.SendMessage("OnActionResult", actionResult, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
     }
