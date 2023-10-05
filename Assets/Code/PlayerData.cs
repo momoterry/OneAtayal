@@ -209,7 +209,14 @@ public class PlayerData : MonoBehaviour
     public void RemoveUsingDI(DollInstanceData data)
     {
         //TODO: 怎麼處理 ?
-        usingDIs.Remove(data);  //這有辦法嗎?
+        bool br = usingDIs.Remove(data);  //這有辦法嗎?
+        print("移除 DI 結果: " + br);
+    }
+
+    //測試用的暴力法
+    public void RemoveAllUsingDIs()
+    {
+        usingDIs.Clear();
     }
 
     public DollInstanceData[] GetAllUsingDIs()
