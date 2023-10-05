@@ -4,21 +4,18 @@ using UnityEngine;
 
 //PlayerData 記錄玩家跨關卡間的進度內容
 
-[System.Serializable]
 public struct SaveDataBackpckItem
 {
     public string ID;
     public int num;
 }
 
-[System.Serializable]
 public struct SaveDataEventItem
 {
     public string Event;
     public bool status;
 }
 
-[System.Serializable]
 public class SaveData{
     public int Money;
     public CharacterStat mainCharacterStat;
