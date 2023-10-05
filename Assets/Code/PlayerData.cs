@@ -16,12 +16,27 @@ public struct SaveDataEventItem
     public bool status;
 }
 
+
+public struct DollBuffData
+{
+    public int buffType;
+    public int buffTarget;
+    public int buffValue1;
+}
+
+public struct DollInstanceData
+{
+    public string fullName; //TODO: 改成 TextID ?
+    public DollBuffData[] buffs;
+}
+
 public class SaveData{
     public int Money;
     public CharacterStat mainCharacterStat;
     public string[] usingDollList;
     public SaveDataBackpckItem[] dollBackpack;
     public SaveDataEventItem[] eventData;
+    public DollInstanceData[] usingDIs;
 }
 
 
@@ -35,6 +50,7 @@ public class PlayerData : MonoBehaviour
 
     protected CharacterStat mainCharacterStat = new CharacterStat();
 
+    protected List<DollInstanceData> usingDIs = new List<DollInstanceData>();
     protected List<string> usingDollList = new List<string>();
 
     protected Dictionary<string, int> dollBackpack = new Dictionary<string, int>();
@@ -175,6 +191,38 @@ public class PlayerData : MonoBehaviour
     public int GetMaxDollNum()
     {
         return mainCharacterStat.DollMax;
+    }
+
+    //================== 關於新的 DollInstance 使用
+    public void AddUsingDI(DollInstanceData data)
+    {
+        usingDIs.Add(data);
+
+        print("目前的 DI 列表");
+        for (int i = 0; i < usingDIs.Count; i++)
+        {
+            print("----" + usingDIs[i].fullName);
+        }
+    }
+
+    public void RemoveUsingDI(DollInstanceData data)
+    {
+        //TODO: 怎麼處理 ?
+        usingDIs.Remove(data);  //這有辦法嗎?
+    }
+
+    public DollInstanceData[] GetAllUsingDIs()
+    {
+        if (usingDIs.Count > 0)
+        {
+            DollInstanceData[] data = new DollInstanceData[usingDIs.Count];
+            for (int i=0; i<usingDIs.Count; i++)
+            {
+                data[i] = usingDIs[i];
+            }
+            return data;
+        }
+        return null;
     }
 
     public int GetCurrDollNum()

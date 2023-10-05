@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//為確保存檔的一致性，以下列舉的值不要輕易改動
 public enum DOLL_BUFF_TARGET
 {
-    MYSELF,
-    FRONT,
-    MIDDLE,
-    BACK,
-    MASTER,
-    ALL,
+    MYSELF      = 1,
+    FRONT       = 2,
+    MIDDLE      = 3,
+    BACK        = 4,
+    MASTER      = 5,
+    ALL         = 10,
 }
 
 public enum DOLL_BUFF_TYPE
 {
-    DAMAGE,
-    ATTACK_SPEED,
-    MOVE_SPEED,
-    HP,
+    DAMAGE          = 1,
+    ATTACK_SPEED    = 2,
+    MOVE_SPEED      = 3,
+    HP              = 4,
 }
 
 //DollBuff

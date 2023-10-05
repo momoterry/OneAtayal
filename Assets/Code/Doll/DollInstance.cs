@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //============================================================
-//巫靈鍛造機制的成果，相當於鍛造後的結果
-//DollInstance 能指定 Doll 種類，同時連結一串 DollBuff
-//直接連結到 Doll 的物件上
+//  巫靈鍛造機制的成果，相當於鍛造後的結果
+//  DollInstance 能指定 Doll 種類，同時連結一串 DollBuff
+//  直接連結到 Doll 的物件上
 //============================================================
 
 
@@ -77,5 +77,18 @@ public class DollInstance : MonoBehaviour
         }
     }
 
+    public DollInstanceData ToData()
+    {
+        DollInstanceData data = new DollInstanceData();
+        data.fullName = fullName;
+        data.buffs = new DollBuffData[buffList.Count];
+        for (int i=0; i<buffList.Count; i++)
+        {
+            data.buffs[i].buffType = (int)buffList[i].type;
+            data.buffs[i].buffTarget = (int)buffList[i].target;
+            data.buffs[i].buffValue1 = (int)buffList[i].value1;
+        }
+        return data;
+    }
 
 }

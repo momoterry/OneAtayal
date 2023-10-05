@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 
 //Doll Instance 的產生器，隨機產生對應的 Buffer
 
@@ -40,7 +41,7 @@ public class DIGenerator : MonoBehaviour
         DollBuffRef preBuffRef = prefixBuffers[Random.Range(0, prefixBuffers.Length - 1)];
         DollBuffRef sufBuffRef = suffixBuffers[Random.Range(0, suffixBuffers.Length - 1)];
         dollName = preBuffRef.text + "的" + dollName + sufBuffRef.text;
-        //print("生成的名字是: " + dollName);
+        print("生成的名字是: " + dollName);
 
         //Buff 的生成
         DollBuffBase pBuff = GenerateOneBuff(preBuffRef);
@@ -98,6 +99,16 @@ public class DIGenerator : MonoBehaviour
             {
                 actionResult = d.TryJoinThePlayer();
             }
+
+            //if (actionResult)
+            //{
+            //    DollInstance di = dObj.GetComponent<DollInstance>();
+            //    GameSystem.GetPlayerData().AddUsingDI(di.ToData());
+            //}
+            //else
+            //{
+            //    print("ERROR !!!! Doll Insatnce 生出來後無法加入，這部份還沒處理呀 !!!!!");
+            //}
         }
         whoTG.SendMessage("OnActionResult", actionResult, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
     }
