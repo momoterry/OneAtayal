@@ -177,7 +177,10 @@ public class DollRecovery : MonoBehaviour
             print("DollRecovery: ©Ò¦³ªº DIs ");
             for (int i = 0; i < DIs.Length; i++)
             {
-                print(DIs[i].fullName);
+                print("----" + DIs[i].fullName);
+                GameObject o = DollInstance.SpawnDollFromData(DIs[i], transform.position + Vector3.back);
+                Doll d = o.GetComponent<Doll>();
+                d.TryJoinThePlayer();
             }
         }
         else

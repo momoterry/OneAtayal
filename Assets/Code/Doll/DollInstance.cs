@@ -80,6 +80,7 @@ public class DollInstance : MonoBehaviour
     public DollInstanceData ToData()
     {
         DollInstanceData data = new DollInstanceData();
+        data.baseDollID = theDoll.ID;
         data.fullName = fullName;
         data.buffs = new DollBuffData[buffList.Count];
         for (int i=0; i<buffList.Count; i++)
@@ -89,6 +90,34 @@ public class DollInstance : MonoBehaviour
             data.buffs[i].buffValue1 = (int)buffList[i].value1;
         }
         return data;
+    }
+
+    public void InitFromData(DollInstanceData data, Doll _doll)
+    {
+        fullName = data.fullName;
+        theDoll = _doll;
+        
+        for (int i=0; i<data.buffs.Length; i++)
+        {
+            //print("Add Buff " + i + " - " + data.buffs[i].buffType);
+            buffList.Add(DollBuffBase.GenerateFromData(data.buffs[i]));
+        }
+    }
+
+    static public GameObject SpawnDollFromData( DollInstanceData data, Vector3 pos)
+    {
+        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(data.baseDollID);
+        if (!dollRef)
+        {
+            print("ERROR!!!! No Doll Ref called: " + data.baseDollID);
+            return null;
+        }
+        GameObject o = BattleSystem.SpawnGameObj(dollRef, pos);
+        Doll d = o.GetComponent<Doll>();
+        DollInstance di = o.AddComponent<DollInstance>();
+        di.InitFromData(data, d);
+
+        return o;
     }
 
 }

@@ -10,7 +10,7 @@ public class DollBuffRef
 {
     public DOLL_BUFF_TYPE type;
     public DOLL_BUFF_TARGET target;
-    public float value1;
+    public float value1;            //TODO: зяжи Int
     public string text;
 }
 
@@ -81,7 +81,7 @@ public class DIGenerator : MonoBehaviour
         }
         if (newBuff != null)
         {
-            newBuff.InitValue(bRef.type, bRef.target, bRef.value1);
+            newBuff.InitValue(bRef.type, bRef.target, (int)bRef.value1);
         }
         return newBuff;
     }

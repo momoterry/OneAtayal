@@ -26,6 +26,7 @@ public struct DollBuffData
 
 public struct DollInstanceData
 {
+    public string baseDollID;
     public string fullName; //TODO: 改成 TextID ?
     public DollBuffData[] buffs;
 }
@@ -193,16 +194,16 @@ public class PlayerData : MonoBehaviour
         return mainCharacterStat.DollMax;
     }
 
-    //================== 關於新的 DollInstance 使用
+    //================== 關於新的 DollInstance 使用 ======================================
     public void AddUsingDI(DollInstanceData data)
     {
         usingDIs.Add(data);
 
-        print("目前的 DI 列表");
-        for (int i = 0; i < usingDIs.Count; i++)
-        {
-            print("----" + usingDIs[i].fullName);
-        }
+        //print("目前的 DI 列表");
+        //for (int i = 0; i < usingDIs.Count; i++)
+        //{
+        //    print("----" + usingDIs[i].fullName);
+        //}
     }
 
     public void RemoveUsingDI(DollInstanceData data)
