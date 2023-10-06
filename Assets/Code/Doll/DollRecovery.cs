@@ -174,7 +174,7 @@ public class DollRecovery : MonoBehaviour
         DollInstanceData[] DIs = GameSystem.GetPlayerData().GetAllUsingDIs();
         if (DIs != null)
         {
-            print("DollRecovery: 所有的 DIs ");
+            print("----DollRecovery: 所有的 DIs ");
             for (int i = 0; i < DIs.Length; i++)
             {
                 print("----" + DIs[i].fullName);
