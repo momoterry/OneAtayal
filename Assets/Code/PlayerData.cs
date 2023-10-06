@@ -4,34 +4,36 @@ using System.Linq;
 using UnityEngine;
 
 //PlayerData 記錄玩家跨關卡間的進度內容
-
+//都要加上 [System.Serializable] 才能確保被 Json 轉到
+[System.Serializable]
 public struct SaveDataBackpckItem
 {
     public string ID;
     public int num;
 }
 
+[System.Serializable]
 public struct SaveDataEventItem
 {
     public string Event;
     public bool status;
 }
 
-
+[System.Serializable]
 public struct DollBuffData
 {
     public int buffType;
     public int buffTarget;
     public int buffValue1;
 }
-
+[System.Serializable]
 public struct DollInstanceData
 {
     public string baseDollID;
     public string fullName; //TODO: 改成 TextID ?
     public DollBuffData[] buffs;
 }
-
+[System.Serializable]
 public class SaveData{
     public int Money;
     public CharacterStat mainCharacterStat;
@@ -113,9 +115,10 @@ public class PlayerData : MonoBehaviour
         if (usingDIs.Count > 0)
         {
             data.usingDIs = new DollInstanceData[usingDIs.Count];
-            for (int i=0; i<usingDIs.Count; i++)
+            for (int i = 0; i < usingDIs.Count; i++)
             {
                 data.usingDIs[i] = usingDIs[i];
+                print("ToSave " + data.usingDIs[i].fullName);
             }
         }
 
@@ -165,7 +168,7 @@ public class PlayerData : MonoBehaviour
 
         if (data.usingDIs != null && data.usingDIs.Length > 0)
         {
-            for (int i= 0; i < data.usingDIs.Length; i++)
+            for (int i = 0; i < data.usingDIs.Length; i++)
             {
                 AddUsingDI(data.usingDIs[i]);
             }
@@ -218,11 +221,11 @@ public class PlayerData : MonoBehaviour
     {
         usingDIs.Add(data);
 
-        print("目前的 DI 列表");
-        for (int i = 0; i < usingDIs.Count; i++)
-        {
-            print("----" + usingDIs[i].fullName);
-        }
+        //print("目前的 DI 列表");
+        //for (int i = 0; i < usingDIs.Count; i++)
+        //{
+        //    print("----" + usingDIs[i].fullName);
+        //}
     }
 
     public void RemoveUsingDI(DollInstanceData data)

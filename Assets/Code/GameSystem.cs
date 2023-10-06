@@ -544,7 +544,7 @@ public class GameSystem : MonoBehaviour
 
 
         SaveData theSaveData = thePlayerData.GetSaveData();
-        string saveDataStr = JsonUtility.ToJson(theSaveData);
+        string saveDataStr = JsonUtility.ToJson(theSaveData, true);
         //print(saveDataStr);
         //print("====================");
 
