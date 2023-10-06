@@ -48,7 +48,7 @@ public class DIGenerator : MonoBehaviour
         DollBuffBase sBuff = GenerateOneBuff(sufBuffRef);
 
         //DollInstace 的設定 TODO: 以下應該包裝成一次性初始化
-        di.Init(dollName, doll);
+        di.InitBySpawn(dollName, doll, GameSystem.GetPlayerData().GenerateUniqueId());
         di.AddBuff(pBuff);
         di.AddBuff(sBuff);
 

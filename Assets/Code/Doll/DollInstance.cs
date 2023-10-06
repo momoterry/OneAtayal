@@ -14,12 +14,15 @@ public class DollInstance : MonoBehaviour
 {
     public string fullName;
     public Doll theDoll;
+    public int uID;
     protected List<DollBuffBase> buffList = new List<DollBuffBase>();
 
     public List<DollBuffBase> GetBuffList() { return buffList; }
 
-    public void Init( string _name, Doll _doll)
+    //生成全新 DI 時使用，需要產生新的 ID
+    public void InitBySpawn( string _name, Doll _doll, int _uID)
     {
+        uID = _uID;
         fullName = _name;
         theDoll = _doll;
     }
@@ -80,6 +83,7 @@ public class DollInstance : MonoBehaviour
     public DollInstanceData ToData()
     {
         DollInstanceData data = new DollInstanceData();
+        data.uID = uID;
         data.baseDollID = theDoll.ID;
         data.fullName = fullName;
         data.buffs = new DollBuffData[buffList.Count];
@@ -94,6 +98,7 @@ public class DollInstance : MonoBehaviour
 
     public void InitFromData(DollInstanceData data, Doll _doll)
     {
+        uID = data.uID;
         fullName = data.fullName;
         theDoll = _doll;
         

@@ -42923,6 +42923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1181841803}
   - component: {fileID: 1181841804}
+  - component: {fileID: 1181841805}
   m_Layer: 0
   m_Name: Cancel_0
   m_TagString: Untagged
@@ -42937,12 +42938,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181841802}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.50000006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2295736552364467809}
+  m_Father: {fileID: 2225259125814823840}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1181841804
@@ -42997,6 +42998,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1181841805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181841802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bias: 1
+  onlyAdjustOnStart: 1
 --- !u!1001 &1193500592
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53651,6 +53666,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1181841803}
   - {fileID: 2295736552364467809}
   - {fileID: 3475931264971956925}
   m_Father: {fileID: 424532148}
@@ -53667,8 +53683,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1181841803}
+  m_Children: []
   m_Father: {fileID: 2225259125814823840}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54536,6 +54551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2295736552364467809}
   - component: {fileID: 8349845048569037864}
+  - component: {fileID: 8349845048569037865}
   m_Layer: 0
   m_Name: TreeSeat
   m_TagString: Untagged
@@ -54876,6 +54892,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8349845048569037865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6394747640654969103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bias: 0
+  onlyAdjustOnStart: 1
 --- !u!1 &8553335106169829352
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,7 @@ public struct DollBuffData
 [System.Serializable]
 public struct DollInstanceData
 {
+    public int uID;
     public string baseDollID;
     public string fullName; //TODO: 改成 TextID ?
     public DollBuffData[] buffs;
@@ -62,6 +63,31 @@ public class PlayerData : MonoBehaviour
     //事件 Flag 
     protected Dictionary<string, bool> eventData = new Dictionary<string, bool>();
 
+    //==== 有關唯一 ID 的生成
+    static private HashSet<int> usedIds = new HashSet<int>();
+    public int GenerateUniqueId()
+    {
+        int id;
+        do
+        {
+            id = Random.Range(0, int.MaxValue); // 生成隨機整數
+        } while (usedIds.Contains(id)); // 檢查是否已經使用過，如果是，重新生成
+
+        usedIds.Add(id); // 將新的 ID 加入已使用的集合
+        return id;
+    }
+
+    protected void RegisterUsedID(int _id)
+    {
+        usedIds.Add(_id);
+    }
+    protected void UnRegisterUsedID(int _id)
+    {
+        usedIds.Remove(_id);
+    }
+    //====
+
+
     //全新存檔的資料初始化，比  Start() 更早會被呼叫
     public void InitData()
     {
@@ -73,6 +99,8 @@ public class PlayerData : MonoBehaviour
         usingDollList.Clear();
         dollBackpack.Clear();
         eventData.Clear();
+
+        usedIds.Clear();
 
         GameSystem.GetLevelManager().InitFirstLevel();
     }
@@ -170,6 +198,7 @@ public class PlayerData : MonoBehaviour
         {
             for (int i = 0; i < data.usingDIs.Length; i++)
             {
+                RegisterUsedID(data.usingDIs[i].uID);
                 AddUsingDI(data.usingDIs[i]);
             }
         }
@@ -235,9 +264,13 @@ public class PlayerData : MonoBehaviour
         print("移除 DI 結果: " + br);
     }
 
-    //測試用的暴力法
+    //測試用的暴力函式，清除整個世界的所有 DI
     public void RemoveAllUsingDIs()
     {
+        foreach (DollInstanceData data in usingDIs)
+        {
+            UnRegisterUsedID(data.uID);
+        }
         usingDIs.Clear();
     }
 

@@ -15,7 +15,6 @@ public class DIRemoveAll : MonoBehaviour
             if (di)
             {
                 print("§ä¨ì¤@­Ó DI !! " + di.fullName);
-                //GameSystem.GetPlayerData().RemoveUsingDI(di.ToData());
                 Destroy(d.gameObject);
             }
         }
