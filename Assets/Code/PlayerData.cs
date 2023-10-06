@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //PlayerData 記錄玩家跨關卡間的進度內容
@@ -66,6 +67,7 @@ public class PlayerData : MonoBehaviour
         Money = 0;
         mainCharacterStat.LV = 1;
         mainCharacterStat.Exp = 0;
+        usingDIs.Clear();
         usingDollList.Clear();
         dollBackpack.Clear();
         eventData.Clear();
@@ -107,6 +109,15 @@ public class PlayerData : MonoBehaviour
         SaveData data = new SaveData();
         data.Money = Money;
         data.mainCharacterStat = mainCharacterStat;
+
+        if (usingDIs.Count > 0)
+        {
+            data.usingDIs = new DollInstanceData[usingDIs.Count];
+            for (int i=0; i<usingDIs.Count; i++)
+            {
+                data.usingDIs[i] = usingDIs[i];
+            }
+        }
 
         if (usingDollList.Count > 0)
         {
@@ -151,6 +162,14 @@ public class PlayerData : MonoBehaviour
 
         Money = data.Money;
         mainCharacterStat = data.mainCharacterStat;
+
+        if (data.usingDIs != null && data.usingDIs.Length > 0)
+        {
+            for (int i= 0; i < data.usingDIs.Length; i++)
+            {
+                AddUsingDI(data.usingDIs[i]);
+            }
+        }
 
         if (data.usingDollList != null && data.usingDollList.Length > 0)
         {
@@ -199,11 +218,11 @@ public class PlayerData : MonoBehaviour
     {
         usingDIs.Add(data);
 
-        //print("目前的 DI 列表");
-        //for (int i = 0; i < usingDIs.Count; i++)
-        //{
-        //    print("----" + usingDIs[i].fullName);
-        //}
+        print("目前的 DI 列表");
+        for (int i = 0; i < usingDIs.Count; i++)
+        {
+            print("----" + usingDIs[i].fullName);
+        }
     }
 
     public void RemoveUsingDI(DollInstanceData data)
