@@ -102,13 +102,13 @@ public class DataTableConverter
             int size = GetInt(prefix + ARRAY_LENGTH);
             //print(prefix + " :是一個 Array ，基底為:" + _type.GetElementType().Name + " Length: " + size);
             Array data = Array.CreateInstance(_type.GetElementType(), size);
-            for (int i=0; i<size; i++)
+            for (int i = 0; i < size; i++)
             {
                 data.SetValue(TableToData(prefix + "_" + i, _type.GetElementType()), i);
             }
             return data;
         }
-        else if(_type.IsClass)
+        else if (_type.IsClass)
         {
             //print(prefix + " :是一個新的 Class ，類型為:" + _type.Name);
 
@@ -120,7 +120,7 @@ public class DataTableConverter
             }
             return data;
         }
-        else 
+        else
         {
             //print(prefix + " :是一個新的 東西 ，類型為:" + _type.Name);
             FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
@@ -175,7 +175,7 @@ public class DataTableConverter
         {
             //print(prefix + " :是一個新的 Class ，類型為:" + _type.Name);
             FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            foreach( FieldInfo field in fields)
+            foreach (FieldInfo field in fields)
             {
                 DataToTable(prefix + "_" + field.Name, field.FieldType, field.GetValue(data));
             }
@@ -195,44 +195,5 @@ public class DataTableConverter
                 //print(prefix + "_" + field.Name);
             }
         }
-    }
-
-    //=======================================================
-    // TODO: 移到另一個檔案去
-    //=======================================================
-    public class SaveToPlayerPrefs : DataTableConverter
-    {
-        public SaveData LoadData()
-        {
-            SaveData data = FromTable<SaveData>("One");
-            return data;
-        }
-
-        public void SaveData(SaveData data) 
-        {
-            ConvertToTable<SaveData>(data, "One");
-            PlayerPrefs.Save();
-        }
-
-        public override void AddInt(string _id, int value)
-        {
-            PlayerPrefs.SetInt(_id, value);
-        }
-
-        public override void AddString(string _id, string value)
-        {
-            PlayerPrefs.SetString(_id, value);
-        }
-
-        public override int GetInt(string _id)
-        {
-            return PlayerPrefs.GetInt(_id, 0);
-        }
-
-        public override string GetString(string _id)
-        {
-            return  PlayerPrefs.GetString(_id, "");
-        }
-
     }
 }
