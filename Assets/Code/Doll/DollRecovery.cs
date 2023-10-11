@@ -16,6 +16,8 @@ public class DollRecovery : MonoBehaviour
     Phase currPhase = Phase.NONE;
     Phase nextPhase = Phase.WAIT;
 
+    protected DollInstanceData[] allDIs = null;
+
     protected string[] allDollIDs = null;
 
     protected float waitTime = 0.1f;
@@ -84,7 +86,14 @@ public class DollRecovery : MonoBehaviour
 
     void DoSpawnOneDoll( int batchIndex = 0, int batchTotal = 1)
     {
+        bool isDollInstance = false;
         string dollID = allDollIDs[currSpawn];
+        if (dollID == "_DollInstance")
+        {
+            isDollInstance = true;
+            DollInstanceData diData = allDIs[currSpawn];
+            dollID = diData.baseDollID;
+        }
         GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (!dollRef)
         {
@@ -117,7 +126,16 @@ public class DollRecovery : MonoBehaviour
 
         Vector3 pos = transform.position + front + right * rightShift;
 
-        GameObject dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
+        GameObject dollObj = null;
+        if (isDollInstance)
+        {
+            DollInstanceData diData = allDIs[currSpawn];
+            dollObj = DollInstance.SpawnDollFromData(diData, pos);
+        }
+        else
+        {
+            dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
+        }
         if (SpawnFX)
             BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
         Doll theDoll = dollObj.GetComponent<Doll>();
@@ -171,35 +189,44 @@ public class DollRecovery : MonoBehaviour
         }
         //*/
 
-        DollInstanceData[] DIs = GameSystem.GetPlayerData().GetAllUsingDIs();
-        if (DIs != null)
-        {
-            print("----DollRecovery: 所有的 DIs ");
-            for (int i = 0; i < DIs.Length; i++)
-            {
-                print("----" + DIs[i].fullName);
-                GameObject o = DollInstance.SpawnDollFromData(DIs[i], transform.position + Vector3.back);
-                Doll d = o.GetComponent<Doll>();
-                d.TryJoinThePlayer();
-            }
-        }
-        else
-            print("沒有任何 DIs ");
+        //DollInstanceData[] DIs = GameSystem.GetPlayerData().GetAllUsingDIs();
+        //if (DIs != null)
+        //{
+        //    print("----DollRecovery: 所有的 DIs ");
+        //    for (int i = 0; i < DIs.Length; i++)
+        //    {
+        //        print("----" + DIs[i].fullName);
+        //        GameObject o = DollInstance.SpawnDollFromData(DIs[i], transform.position + Vector3.back);
+        //        Doll d = o.GetComponent<Doll>();
+        //        d.TryJoinThePlayer();
+        //    }
+        //}
+        //else
+        //    print("沒有任何 DIs ");
 
+        allDIs = GameSystem.GetPlayerData().GetAllUsingDIs();
+        int diLength = allDIs == null? 0 : allDIs.Length;
 
         string[] savedDolls = GameSystem.GetPlayerData().GetAllUsingDolls();
         int savedLength = savedDolls == null ? 0 : savedDolls.Length;
         string[] collectedDolls = ContinuousBattleManager.GetAllCollectedDolls();
         int collectedLength = collectedDolls == null ? 0 : collectedDolls.Length;
-        allDollIDs = new string[savedLength + collectedLength];
+        allDollIDs = new string[diLength + savedLength + collectedLength];
 
+        if (diLength > 0)
+        {
+            for (int i=0; i< diLength; i++)
+            {
+                allDollIDs[i] = "_DollInstance";        //MAGIC WORD !!
+            }
+        }
         if (savedLength > 0)
         {
-            System.Array.Copy(savedDolls, 0, allDollIDs, 0, savedLength);
+            System.Array.Copy(savedDolls, 0, allDollIDs, diLength, savedLength);
         }
         if (collectedLength > 0)
         {
-            System.Array.Copy(collectedDolls, 0, allDollIDs, savedLength, collectedLength);
+            System.Array.Copy(collectedDolls, 0, allDollIDs, diLength + savedLength, collectedLength);
         }
 
 
