@@ -10,17 +10,18 @@ public class EFormation : MonoBehaviour
     public GameObject middleEnemyRef;
     public GameObject backEnemyRef;
 
+    //陣型樣貌用參數
     protected int frontCount = 4;
     protected int middleCount = 4;
     protected int backCount = 2;
-
     protected int FrontWidth = 4;
     protected int MiddleDepth = 3;
     protected int BackWidth = 4;
-
     protected float allShift = 0.0f;
 
     protected List<GameObject> frontList = new List<GameObject>();
+
+    protected float toRotateTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,47 @@ public class EFormation : MonoBehaviour
         if (myMaster)
         {
             transform.position = myMaster.transform.position;
+        }
+
+        toRotateTime -= Time.deltaTime;
+        if (toRotateTime <= 0)
+        {
+            SetupDirection();
+            toRotateTime = Random.Range(3.0f, 5.0f);
+        }
+    }
+
+    void SetupDirection()
+    {
+        PlayerControllerBase pc = BattleSystem.GetPC();
+        if (pc)
+        {
+            float angle = 0;
+            Vector3 pcDir = pc.transform.position - transform.position;
+            if (pcDir.z > pcDir.x)
+            {
+                if (pcDir.z > -pcDir.x)
+                {
+                    angle = 0;
+                }
+                else
+                {
+                    angle = 270;
+                }
+            }
+            else
+            {
+                if (pcDir.z > -pcDir.x)
+                {
+                    angle = 90;
+                }
+                else
+                {
+                    angle = 180;
+                }
+            }
+            transform.rotation = Quaternion.Euler(0, angle, 0);
+            //print("SetupDirection!! " + angle);
         }
     }
 
