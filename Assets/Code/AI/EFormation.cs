@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class EFormation : MonoBehaviour
 {
-    public GameObject myMaster;
-
+    public GameObject leaderRef;
     public GameObject frontEnemyRef;
     public GameObject middleEnemyRef;
     public GameObject backEnemyRef;
 
     //陣型樣貌用參數
-    protected int frontCount = 4;
-    protected int middleCount = 4;
-    protected int backCount = 2;
+    public int frontCount = 4;
+    public int middleCount = 4;
+    public int backCount = 3;
     protected int FrontWidth = 4;
     protected int MiddleDepth = 3;
     protected int BackWidth = 4;
     protected float allShift = 0.0f;
 
+    protected GameObject myMaster;
     protected List<GameObject> frontList = new List<GameObject>();
 
     protected float toRotateTime = 0;
@@ -26,6 +26,8 @@ public class EFormation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject lo = BattleSystem.SpawnGameObj(leaderRef, transform.position);
+        myMaster = lo;
         RebuildFrontSlots();
         if (frontEnemyRef && frontCount > 0)
         {

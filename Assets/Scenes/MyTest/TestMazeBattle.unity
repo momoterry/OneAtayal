@@ -184,6 +184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EG_WoodC
       objectReference: {fileID: 0}
+    - target: {fileID: 7208015447484052683, guid: 7dda262f7cf985e479718dcf7292403f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -244,6 +248,7 @@ MonoBehaviour:
   dungeonEnemyManager: {fileID: 0}
   normalGroup: {fileID: 0}
   normalEnemyRate: 0.2
+  noEnemyDistanceRate: 1
   exploreRewards: []
   initGampleyRef: {fileID: 0}
 --- !u!4 &27203295
@@ -472,10 +477,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e78f7421039f849944f8e2287f5da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaster: {fileID: 1047079449}
+  leaderRef: {fileID: 7208015447484052683, guid: 7dda262f7cf985e479718dcf7292403f, type: 3}
   frontEnemyRef: {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
   middleEnemyRef: {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
   backEnemyRef: {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+  frontCount: 4
+  middleCount: 4
+  backCount: 3
 --- !u!4 &127107763
 Transform:
   m_ObjectHideFlags: 0
@@ -1785,11 +1793,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b13f867007e1b54b869cf33b4a804c2, type: 3}
---- !u!1 &1047079449 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7208015447484052683, guid: 7dda262f7cf985e479718dcf7292403f, type: 3}
-  m_PrefabInstance: {fileID: 23596910}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1070411075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2582,11 +2585,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5914974356280139868, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15.9999695
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6336307250673488013, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15.9999695
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6971823420909225927, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_Pivot.x
@@ -2682,7 +2685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7898119010039411957, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15.9999695
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -12,6 +12,8 @@ public class DungeonEnemyManagerBase : MonoBehaviour
 
 public class DungeonEnemyManager : DungeonEnemyManagerBase
 {
+    //先使用暴力法分類，如果有 Leader 的話，enemys 的順序固定為
+    // 0 => 前排 1= > 中排 2 => 後排
     [System.Serializable]
     public class GameplayInfo
     {
@@ -49,7 +51,14 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
 
     protected void SpawnEnemyFormation(int index, Vector3 pos, GameplayInfo gameInfo)
     {
-
+        GameObject o = new GameObject("FormationGroup " + index);
+        o.transform.position = pos;
+        EFormation eF = o.AddComponent<EFormation>();
+        eF.leaderRef = gameInfo.leader;
+        eF.frontEnemyRef = gameInfo.enemys[0];
+        eF.middleEnemyRef = gameInfo.enemys[1];
+        eF.backEnemyRef = gameInfo.enemys[2];
+        //eF = Mathf.FloorToInt(gameInfo.totalNum * difficultRate)
     }
 
     public override void BuildAllGameplay(float _difficultRate = 1)
@@ -67,7 +76,14 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
             needNum = Mathf.Min(needNum, maxPosNum - usedNum);
             for (int i=0; i<needNum; i++)
             {
-                SpawnEnemyGroup(usedNum, normalPosList[usedNum], info);
+                if (info.leader)
+                {
+                    SpawnEnemyFormation(usedNum, normalPosList[usedNum], info);
+                }
+                else
+                {
+                    SpawnEnemyGroup(usedNum, normalPosList[usedNum], info);
+                }
                 usedNum++;
             }
         }
