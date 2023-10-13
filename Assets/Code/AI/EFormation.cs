@@ -20,6 +20,8 @@ public class EFormation : MonoBehaviour
 
     protected GameObject myMaster;
     protected List<GameObject> frontList = new List<GameObject>();
+    protected List<GameObject> middleList = new List<GameObject>();
+    protected List<GameObject> backList = new List<GameObject>();
 
     protected float toRotateTime = 0;
 
@@ -28,13 +30,35 @@ public class EFormation : MonoBehaviour
     {
         GameObject lo = BattleSystem.SpawnGameObj(leaderRef, transform.position);
         myMaster = lo;
-        RebuildFrontSlots();
+        BuildFrontSlots();
+        BuildMiddleSlots();
+        BuildBackSlots();
         if (frontEnemyRef && frontCount > 0)
         {
             for (int i = 0; i < frontCount; i++)
             {
                 GameObject slot = frontList[i];
                 GameObject eo = BattleSystem.SpawnGameObj(frontEnemyRef, slot.transform.position);
+                Enemy e = eo.GetComponent<Enemy>();
+                e.SetSlot(slot.transform);
+            }
+        }
+        if (middleEnemyRef && middleCount > 0)
+        {
+            for (int i = 0; i < middleCount; i++)
+            {
+                GameObject slot = middleList[i];
+                GameObject eo = BattleSystem.SpawnGameObj(middleEnemyRef, slot.transform.position);
+                Enemy e = eo.GetComponent<Enemy>();
+                e.SetSlot(slot.transform);
+            }
+        }
+        if (backEnemyRef && middleCount > 0)
+        {
+            for (int i = 0; i < backCount; i++)
+            {
+                GameObject slot = backList[i];
+                GameObject eo = BattleSystem.SpawnGameObj(backEnemyRef, slot.transform.position);
                 Enemy e = eo.GetComponent<Enemy>();
                 e.SetSlot(slot.transform);
             }
@@ -91,9 +115,8 @@ public class EFormation : MonoBehaviour
         }
     }
 
-    protected void RebuildFrontSlots()
+    protected void BuildFrontSlots()
     {
-        //int FrontWidth = 4; //TODO: 放成變數
         int frontNum = frontCount;
 
         if (frontNum <= 0)
@@ -122,7 +145,7 @@ public class EFormation : MonoBehaviour
                 //frontList[i].GetSlot().localPosition = new Vector3(lPos, 0, fPos);
                 Vector3 pos = new Vector3(lPos, 0, fPos);
 
-                GameObject sO = new GameObject("ESlot_" + i);
+                GameObject sO = new GameObject("ESlot_Front_" + i);
                 sO.transform.position = gameObject.transform.position + pos;
                 sO.transform.parent = gameObject.transform;
                 frontList.Add(sO);
@@ -130,6 +153,99 @@ public class EFormation : MonoBehaviour
                 lPos += slotWidth;
             }
             fPos -= slotDepth;
+        }
+    }
+
+
+    protected void BuildMiddleSlots()
+    {
+        int middleNum = middleCount;
+
+        if (middleNum <= 0)
+            return;
+
+        int circleNum = MiddleDepth + MiddleDepth;
+        int nCircle = (middleNum - 1) / circleNum + 1;
+        int lastCircleCount = (middleNum - 1) % circleNum + 1;
+
+        float slotWidth = 1.0f;
+        float innerWidth = 1.5f;    //最內圈距離
+
+        float width = innerWidth;
+        for (int c = 0; c < nCircle; c++)
+        {
+            int num = circleNum;
+            if (c == nCircle - 1)
+                num = lastCircleCount;
+            int nLine = (num - 1) / 2 + 1;
+            float slotDepth = Mathf.Max(1.0f, 1.5f - (nLine - 1) * 0.25f);
+            float totalDepth = (float)(nLine - 1) * slotDepth;
+            float fPos = totalDepth * 0.5f + allShift;
+
+            for (int l = 0; l < nLine; l++)
+            {
+                int i = c * circleNum + l * 2;
+                //middleList[i].GetSlot().localPosition = new Vector3(-width, 0, fPos);  //左
+
+                Vector3 pos = new Vector3(-width, 0, fPos);  //左
+                GameObject sO = new GameObject("ESlot_Middle_" + i);
+                sO.transform.position = gameObject.transform.position + pos;
+                sO.transform.parent = gameObject.transform;
+                middleList.Add(sO);
+
+                i++;
+                if (i < middleNum)
+                {
+                    //middleList[i].GetSlot().localPosition = new Vector3(width, 0, fPos);   //右
+                    pos = new Vector3(width, 0, fPos);   //右
+                    sO = new GameObject("ESlot_Middle_" + i);
+                    sO.transform.position = gameObject.transform.position + pos;
+                    sO.transform.parent = gameObject.transform;
+                    middleList.Add(sO);
+                }
+
+                fPos -= slotDepth;
+            }
+            width += slotWidth;
+        }
+
+    }
+
+    protected void BuildBackSlots()
+    {
+        int backNum = backCount;
+
+        if (backNum <= 0)
+            return;
+
+        int nLine = ((backNum - 1) / BackWidth) + 1;
+        int lastLineCount = (backNum - 1) % BackWidth + 1;
+
+        float bkPos = Mathf.Max(1.0f, 2.0f - (float)(nLine - 1) * 0.5f) - allShift;  //後方起始
+        float slotDepth = 1.0f;
+        bkPos += slotDepth * (float)(nLine - 1);
+
+        for (int l = 0; l < nLine; l++)
+        {
+            int num = BackWidth;
+            if (l == nLine - 1)
+                num = lastLineCount;
+
+            float slotWidth = Mathf.Max(1.0f, 1.5f - ((float)(num - 1) * 0.25f));
+            float width = (float)(num - 1) * slotWidth;
+            float lPos = width * -0.5f;
+            for (int i = l * BackWidth; i < l * BackWidth + num; i++)
+            {
+                //backList[backNum - i - 1].GetSlot().localPosition = new Vector3(lPos, 0, -bkPos);
+                Vector3 pos = new Vector3(lPos, 0, -bkPos);
+                GameObject sO = new GameObject("ESlot_Back_" + i);
+                sO.transform.position = gameObject.transform.position + pos;
+                sO.transform.parent = gameObject.transform;
+                backList.Add(sO);
+
+                lPos += slotWidth;
+            }
+            bkPos -= slotDepth;
         }
     }
 
