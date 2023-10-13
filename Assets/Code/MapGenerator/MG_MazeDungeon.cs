@@ -50,11 +50,13 @@ public class MG_MazeDungeon : MapGeneratorBase
     public float normalEnemyRate = 0.2f;
     protected int normalEnemyNum;
     protected float dungeonEnemyDifficulty = 1.0f;
+    public float noEnemyDistanceRate = 1.0f;    //以 Cell 對角長度為單位
 
     public GameObject[] exploreRewards;
     protected int exploreRewardNum;
 
     public GameObject initGampleyRef;
+
 
 
     //基底地圖相關 TODO: 希望獨立出去
@@ -696,7 +698,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         //==== 一般通道處理
         List<Vector2Int> deadEnds = new List<Vector2Int>();
         int startValue = puzzleDSU.Find(iStart);
-        float enemyMinDistanceToStart = Mathf.Sqrt((cellHeight * cellHeight) + (cellWidth * cellWidth)) + 0.1f;
+        float enemyMinDistanceToStart = Mathf.Sqrt((cellHeight * cellHeight) + (cellWidth * cellWidth)) * noEnemyDistanceRate + 0.1f;
         for (int i = 0; i < puzzleWidth; i++)
         {
             for (int j = 0; j < puzzleHeight; j++)
