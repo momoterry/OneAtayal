@@ -58,7 +58,10 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         eF.frontEnemyRef = gameInfo.enemys[0];
         eF.middleEnemyRef = gameInfo.enemys[1];
         eF.backEnemyRef = gameInfo.enemys[2];
-        //eF = Mathf.FloorToInt(gameInfo.totalNum * difficultRate)
+        eF.frontCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.3f);
+        eF.middleCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.4f);
+        eF.backCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.3f);
+
     }
 
     public override void BuildAllGameplay(float _difficultRate = 1)
