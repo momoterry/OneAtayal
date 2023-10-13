@@ -737,11 +737,11 @@ public class MG_MazeDungeon : MapGeneratorBase
             }
         }
 
-        if (dungeonEnemyManager)
-        {
-            print("開始 Build dungeonEnemyManager !!");
-            dungeonEnemyManager.BuildAllGameplay(dungeonEnemyDifficulty);
-        }
+        //if (dungeonEnemyManager)
+        //{
+        //    print("開始 Build dungeonEnemyManager !!");
+        //    dungeonEnemyManager.BuildAllGameplay(dungeonEnemyDifficulty);
+        //}
 
         print("總共找到的終端:" + deadEnds.Count);
         int expRewardCount = Mathf.Min(exploreRewardNum, deadEnds.Count);
@@ -761,6 +761,12 @@ public class MG_MazeDungeon : MapGeneratorBase
                     dungeonEnemyManager.AddNormalPosition(pos); //如果沒放寶，就可以放怪
                 }
             }
+        }
+
+        if (dungeonEnemyManager)
+        {
+            print("開始 Build dungeonEnemyManager !!");
+            dungeonEnemyManager.BuildAllGameplay(dungeonEnemyDifficulty);
         }
 
         //==== Big Room 的部份處理

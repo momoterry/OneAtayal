@@ -16,6 +16,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
     public class GameplayInfo
     {
         public float rate;
+        public GameObject leader;
         public GameObject[] enemys;
         public float totalNum;
     }
@@ -44,6 +45,11 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
             enemyGroup.enemyInfos[i] = new EnemyGroup.EnemyInfo();
             enemyGroup.enemyInfos[i].enemyRef = gameInfo.enemys[i];
         }
+    }
+
+    protected void SpawnEnemyFormation(int index, Vector3 pos, GameplayInfo gameInfo)
+    {
+
     }
 
     public override void BuildAllGameplay(float _difficultRate = 1)
