@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EFormation : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class EFormation : MonoBehaviour
     public GameObject frontEnemyRef;
     public GameObject middleEnemyRef;
     public GameObject backEnemyRef;
+
+    public float wakUpDistance = 20.0f;
 
     //陣型樣貌用參數
     public int frontCount = 4;
@@ -18,21 +21,91 @@ public class EFormation : MonoBehaviour
     protected int BackWidth = 4;
     protected float allShift = 0.0f;
 
+    protected enum PHASE
+    {
+        NONE,
+        SLEEP,
+        BATTLE,
+        FINISH,
+    }
+    protected PHASE currPhase = PHASE.NONE;
+    protected PHASE nextPhase = PHASE.NONE;
+
     protected GameObject myMaster;
     protected List<GameObject> frontList = new List<GameObject>();
     protected List<GameObject> middleList = new List<GameObject>();
     protected List<GameObject> backList = new List<GameObject>();
 
     protected float toRotateTime = 0;
+    protected float wakeUpCheckTime = 0;
 
     // Start is called before the first frame update
     void Start()
+    {
+        nextPhase = PHASE.SLEEP;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (nextPhase != currPhase)
+        {
+            currPhase = nextPhase;
+        }
+
+        switch (currPhase)
+        {
+            case PHASE.SLEEP:
+                UpdateSleep();
+                break;
+            case PHASE.BATTLE:
+                UpdateBattle();
+                break;
+        }
+
+    }
+
+    protected void UpdateBattle()
+    {
+        if (myMaster)
+        {
+            transform.position = myMaster.transform.position;
+        }
+
+        toRotateTime -= Time.deltaTime;
+        if (toRotateTime <= 0)
+        {
+            SetupDirection();
+            toRotateTime = Random.Range(3.0f, 5.0f);
+        }
+    }
+
+    protected void UpdateSleep()
+    {
+        wakeUpCheckTime -= Time.deltaTime;
+        if (wakeUpCheckTime <= 0)
+        {
+            wakeUpCheckTime = 0.2f;
+
+            if (GetPlayerDistance() <= wakUpDistance)
+            {
+                WakeUp();
+                nextPhase = PHASE.BATTLE;
+            }
+        }
+    }
+
+
+    protected void WakeUp()
     {
         GameObject lo = BattleSystem.SpawnGameObj(leaderRef, transform.position);
         myMaster = lo;
         BuildFrontSlots();
         BuildMiddleSlots();
         BuildBackSlots();
+
+        SetupDirection();
+
         if (frontEnemyRef && frontCount > 0)
         {
             for (int i = 0; i < frontCount; i++)
@@ -65,23 +138,28 @@ public class EFormation : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (myMaster)
-        {
-            transform.position = myMaster.transform.position;
-        }
 
-        toRotateTime -= Time.deltaTime;
-        if (toRotateTime <= 0)
+    protected float GetPlayerDistance()
+    {
+        if (BattleSystem.GetPC() == null)
+            return Mathf.Infinity;
+        Vector3 playerPos = BattleSystem.GetPC().transform.position;
+        NavMeshPath path = new NavMeshPath();
+        if (NavMesh.CalculatePath(transform.position, playerPos, NavMesh.AllAreas, path))
         {
-            SetupDirection();
-            toRotateTime = Random.Range(3.0f, 5.0f);
+            float pathLength = 0f;
+            for (int i = 1; i < path.corners.Length; i++)
+            {
+                pathLength += Vector3.Distance(path.corners[i - 1], path.corners[i]);
+            }
+            return pathLength;
         }
+        return Mathf.Infinity;
     }
 
-    void SetupDirection()
+
+
+    protected void SetupDirection()
     {
         PlayerControllerBase pc = BattleSystem.GetPC();
         if (pc)
