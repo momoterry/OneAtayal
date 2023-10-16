@@ -264,7 +264,12 @@ public class Enemy : MonoBehaviour
         if (stateTime <= 0)
         {
             stateTime = 0.1f;
-            if (SearchTarget())
+            if (SearchTarget(AttackRangeIn))
+            {
+                //已經在射程內，直接攻擊
+                nextState = AI_STATE.ATTACK;
+            }
+            else if (SearchTarget(ChaseRangeIn))
             {
                 nextState = AI_STATE.CHASE;
             }
