@@ -23,8 +23,8 @@ public class Enemy : MonoBehaviour
 
     public float Attack = 20.0f;
 
-    protected float SlotRangeOut = 6.0f;   //如果有指定 Slot 時
-    protected float BattleSlotRangeOut = 12.0f;   //如果有指定 Slot 時
+    protected float SlotRangeOut = 12.0f;   //如果有指定 Slot 時
+    //protected float BattleSlotRangeOut = 12.0f;   //如果有指定 Slot 時
     protected float SlotRangeIn = 0.5f;
 
     public Animator myAnimator;         //可以指直接外部指定
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
         IDLE,
         CHASE,
         ATTACK,
-        //TO_SLOT,
+        TO_SLOT,
         STOP,   //Whem Game Fail
     }
     protected AI_STATE currState = AI_STATE.NONE;
@@ -141,9 +141,9 @@ public class Enemy : MonoBehaviour
                 case AI_STATE.ATTACK:
                     UpdateAttack();
                     break;
-                //case AI_STATE.TO_SLOT:
-                //    UpdateMoveToSlot();
-                //    break;
+                case AI_STATE.TO_SLOT:
+                    UpdateMoveToSlot();
+                    break;
             }
         }
 
@@ -300,10 +300,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    //protected bool CheckSlotTooFar( bool isBattle = false)
-    //{
-    //    return mySlot && Vector3.Distance(mySlot.transform.position, transform.position) > (isBattle ? BattleSlotRangeOut:SlotRangeOut);
-    //}
+    protected bool CheckSlotTooFar()
+    {
+        return mySlot && Vector3.Distance(mySlot.transform.position, transform.position) > SlotRangeOut;
+    }
 
     protected virtual void UpdateMoveToSlot()
     {
@@ -337,11 +337,11 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        //if (CheckSlotTooFar(true))
-        //{
-        //    nextState = AI_STATE.TO_SLOT;
-        //    return;
-        //}
+        if (CheckSlotTooFar())
+        {
+            nextState = AI_STATE.TO_SLOT;
+            return;
+        }
 
         PlayerControllerBase thePC = targetObj.GetComponent<PlayerControllerBase>();
         if (thePC && thePC.IsKilled())
@@ -404,11 +404,11 @@ public class Enemy : MonoBehaviour
             nextState = AI_STATE.IDLE;
             return;
         }
-        //if (CheckSlotTooFar(true))
-        //{
-        //    nextState = AI_STATE.TO_SLOT;
-        //    return;
-        //}
+        if (CheckSlotTooFar())
+        {
+            nextState = AI_STATE.TO_SLOT;
+            return;
+        }
         PlayerControllerBase thePC = targetObj.GetComponent<PlayerControllerBase>();
         if (thePC && thePC.IsKilled())
         {
