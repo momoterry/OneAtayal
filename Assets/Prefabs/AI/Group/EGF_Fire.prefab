@@ -290,7 +290,7 @@ MonoBehaviour:
   AttackWait: 0.2
   AttackCD: 1.5
   Attack: 10
-  SlotOut: 1
+  SlotOut: 0.25
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 0}
   bulletRef: {fileID: 8101537965375270392, guid: e60d412a5cfd5ad4bb3ecbbd7477d23f, type: 3}
@@ -304,7 +304,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.25
-  m_Speed: 2.5
+  m_Speed: 4
   m_Acceleration: 24
   avoidancePriority: 50
   m_AngularSpeed: 120

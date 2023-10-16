@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     public float SlotOut = 12.0f;   //如果有指定 Slot 時
     //protected float BattleSlotRangeOut = 12.0f;   //如果有指定 Slot 時
-    protected float SlotRangeIn = 0.5f;
+    protected float SlotRangeIn = 0.1f;
 
     public Animator myAnimator;         //可以指直接外部指定
     public SPAnimator mySPAimator;
@@ -479,9 +479,19 @@ public class Enemy : MonoBehaviour
         if (currState == AI_STATE.IDLE)
         {
             //TODO: 應該透過子彈來回追發射者
-            GameObject po = BattleSystem.GetInstance().GetPlayer();
-            SetTarget(po);
-            nextState = AI_STATE.CHASE;
+            //GameObject po = BattleSystem.GetInstance().GetPlayer();
+            //SetTarget(po);
+            //nextState = AI_STATE.CHASE;
+            if (theDamage.Owner && (theDamage.Owner.CompareTag("Player") || theDamage.Owner.CompareTag("Doll")))
+            {
+                SetTarget(theDamage.Owner);
+                if (Vector3.Distance(theDamage.Owner.transform.position, transform.position) <= AttackRangeIn)
+                {
+                    nextState = AI_STATE.ATTACK;
+                }
+                else
+                    nextState = AI_STATE.CHASE;
+            }
         }
 
     }
