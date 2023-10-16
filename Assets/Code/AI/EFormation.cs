@@ -61,6 +61,9 @@ public class EFormation : MonoBehaviour
             case PHASE.BATTLE:
                 UpdateBattle();
                 break;
+            case PHASE.FINISH:
+                Destroy(gameObject);
+                break;
         }
 
     }
@@ -70,6 +73,11 @@ public class EFormation : MonoBehaviour
         if (myMaster)
         {
             transform.position = myMaster.transform.position;
+        }
+        else
+        {
+            nextPhase = PHASE.FINISH;
+            return;
         }
 
         toRotateTime -= Time.deltaTime;
