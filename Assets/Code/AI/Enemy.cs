@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     public float Attack = 20.0f;
 
-    protected float SlotRangeOut = 12.0f;   //如果有指定 Slot 時
+    public float SlotOut = 12.0f;   //如果有指定 Slot 時
     //protected float BattleSlotRangeOut = 12.0f;   //如果有指定 Slot 時
     protected float SlotRangeIn = 0.5f;
 
@@ -302,7 +302,7 @@ public class Enemy : MonoBehaviour
 
     protected bool CheckSlotTooFar()
     {
-        return mySlot && Vector3.Distance(mySlot.transform.position, transform.position) > SlotRangeOut;
+        return mySlot && Vector3.Distance(mySlot.transform.position, transform.position) > SlotOut;
     }
 
     protected virtual void UpdateMoveToSlot()
