@@ -22,14 +22,14 @@ public class EnemyThrower : Enemy
                 //DamageByAnimation d = newObj.GetComponent<DamageByAnimation>();
                 //if (d)
                 //{
-                //    d.SetGroup(DAMAGE_GROUP.ENEMY);
+                //    d.SetGroup(FACTION_GROUP.ENEMY);
                 //    d.baseDamage = Attack;
                 //}
                 bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
 
-                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, faceDir);
+                    newBullet.InitValue(FACTION_GROUP.ENEMY, myDamage, faceDir);
                 }
             }
         }

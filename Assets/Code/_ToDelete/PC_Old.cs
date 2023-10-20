@@ -774,12 +774,12 @@ public class PC_Old : PlayerControllerBase
             bullet_base newBullet = newObj.GetComponent<bullet_base>();
             if (newBullet)
             {
-                //newBullet.SetGroup(DAMAGE_GROUP.PLAYER);
+                //newBullet.SetGroup(FACTION_GROUP.PLAYER);
                 //newBullet.targetDir = td;
                 //傷害值，由自己來給
                 //newBullet.baseDamage = rangeSkillDef.baseDamage; //TODO:  升級?
                 myDamage.damage = rangeSkillDef.baseDamage;
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td);
+                newBullet.InitValue(FACTION_GROUP.PLAYER, myDamage, td);
             }
         }
 

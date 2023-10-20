@@ -115,7 +115,7 @@ public class TankOne : DollAuto
         if (b)
         {
             
-            b.InitValue(DAMAGE_GROUP.PLAYER, myDamage, turretDir, myTarget);
+            b.InitValue(FACTION_GROUP.PLAYER, myDamage, turretDir, myTarget);
         }
     }
 

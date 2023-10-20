@@ -23,7 +23,7 @@ public class EnemyRanger : Enemy
                 bullet_base newBullet = newObj.GetComponent<bullet_base>();
                 if (newBullet)
                 {
-                    //newBullet.SetGroup(DAMAGE_GROUP.ENEMY);
+                    //newBullet.SetGroup(FACTION_GROUP.ENEMY);
                     Vector3 td = targetObj.transform.position - newObj.transform.position;
 #if XZ_PLAN
                     td.y = 0;
@@ -32,7 +32,7 @@ public class EnemyRanger : Enemy
 #endif
                     //newBullet.targetDir = td.normalized;
                     //newBullet.baseDamage = Attack;
-                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, td);
+                    newBullet.InitValue(FACTION_GROUP.ENEMY, myDamage, td);
                 }
             }
         }

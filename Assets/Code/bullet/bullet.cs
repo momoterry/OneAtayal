@@ -27,12 +27,6 @@ public struct Damage
     }
 }
 
-public enum DAMAGE_GROUP
-{
-    NONE,
-    PLAYER,
-    ENEMY,
-}
 
 public struct BulletResult
 {
@@ -51,13 +45,13 @@ public class bullet_base : MonoBehaviour
     protected float baseDamage = 60.0f;
     protected Vector3 targetDir = Vector3.up;
     protected GameObject targetObj = null;
-    protected DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
+    protected FACTION_GROUP group = FACTION_GROUP.PLAYER;
     protected Damage myDamage;
 
     public delegate void BulletResultCB(BulletResult result);
     protected BulletResultCB bulletResultCB = null;
 
-    public virtual void InitValue(DAMAGE_GROUP g, Damage theDamage, Vector3 targetVec, GameObject targetObject = null)
+    public virtual void InitValue(FACTION_GROUP g, Damage theDamage, Vector3 targetVec, GameObject targetObject = null)
     {
         group = g;
         targetDir = targetVec.normalized;
@@ -84,7 +78,7 @@ public class bullet : bullet_base
 
 
     // Public Functions
-    //public void SetGroup(DAMAGE_GROUP g)
+    //public void SetGroup(FACTION_GROUP g)
     //{
     //    group = g;
     //}
@@ -124,7 +118,7 @@ public class bullet : bullet_base
         //print("bullet::OnTriggerEnter : " + col);
         bool hit = false;
         bool destroy = false;
-        if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
+        if (col.gameObject.CompareTag("Enemy") && group == FACTION_GROUP.PLAYER)
         {
             //print("Trigger:  Hit Enemy !!");
             hit = true;
@@ -134,7 +128,7 @@ public class bullet : bullet_base
                 bulletResultCB(new BulletResult(BulletResult.RESULT_TYPE.HIT_TARGET));
             }
         }
-        else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == DAMAGE_GROUP.ENEMY)
+        else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == FACTION_GROUP.ENEMY)
         {
             //print("Trigger:  Hit Player or Doll !!");
             hit = true;

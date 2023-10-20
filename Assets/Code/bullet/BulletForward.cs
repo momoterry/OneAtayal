@@ -12,7 +12,7 @@ public class BulletForward : bullet_base
 
     }
 
-    public override void InitValue(DAMAGE_GROUP g, Damage _damage, Vector3 targetVec, GameObject targetObject = null)
+    public override void InitValue(FACTION_GROUP g, Damage _damage, Vector3 targetVec, GameObject targetObject = null)
     {
         foreach (bullet_base b in forwardBullets)
         {

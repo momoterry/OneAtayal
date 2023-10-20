@@ -68,7 +68,7 @@ public class DollSkillOne : DollSkillBase
         bullet_base b = bulletObj.GetComponent<bullet_base>();
         if (b)
         {
-            b.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, target);
+            b.InitValue(FACTION_GROUP.PLAYER, myDamage, td, target);
         }
 
         doll.SetFace(td);

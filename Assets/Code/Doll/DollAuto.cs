@@ -465,7 +465,7 @@ public class DollAuto : Doll
 
 
 
-            b.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, myTarget);
+            b.InitValue(FACTION_GROUP.PLAYER, myDamage, td, myTarget);
         }
     }
 

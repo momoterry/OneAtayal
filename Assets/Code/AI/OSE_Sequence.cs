@@ -113,7 +113,7 @@ public class OSE_Sequence : OSEnemy
                 if (newBullet)
                 {
                     myDamage.damage = Attack * skill.damageRatio;
-                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, faceDir);
+                    newBullet.InitValue(FACTION_GROUP.ENEMY, myDamage, faceDir);
                 }
             }
         }

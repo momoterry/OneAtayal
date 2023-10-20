@@ -30,7 +30,7 @@ public class BulletGenerator : MonoBehaviour
             bullet_base bullet = bObj.GetComponent<bullet_base>();
             if (bullet)
             {
-                bullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, dir);
+                bullet.InitValue(FACTION_GROUP.ENEMY, myDamage, dir);
             }
         }
     }

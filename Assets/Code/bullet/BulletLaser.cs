@@ -17,7 +17,7 @@ public class BulletLaser : bullet_base
     //protected Vector3 debugFrom;
     //protected Vector3 debugTo;
 
-    public override void InitValue(DAMAGE_GROUP g, Damage theDamage, Vector3 targetVec, GameObject targetObject = null)
+    public override void InitValue(FACTION_GROUP g, Damage theDamage, Vector3 targetVec, GameObject targetObject = null)
     {
         base.InitValue(g, theDamage, targetVec, targetObject);
 

@@ -72,7 +72,7 @@ public class SkillMelee : SkillBase
             if (newBullet)
             {
                 myDamage.damage = thePC.GetATTACK() * damageRatio;
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td);
+                newBullet.InitValue(FACTION_GROUP.PLAYER, myDamage, td);
             }
         }
 

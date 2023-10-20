@@ -105,7 +105,7 @@ public class SkillShoot : SkillBase
             if (newBullet)
             {
                 myDamage.damage = thePC.GetATTACK() * damageRatio;
-                newBullet.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, target);
+                newBullet.InitValue(FACTION_GROUP.PLAYER, myDamage, td, target);
             }
         }
 

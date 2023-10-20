@@ -64,7 +64,7 @@ public class DollLaser : DollAuto
         isLaser = true;
         myLaser.gameObject.SetActive(true);
         Vector3 td = myTarget.transform.position - transform.position;
-        myLaser.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, myTarget);
+        myLaser.InitValue(FACTION_GROUP.PLAYER, myDamage, td, myTarget);
         myLaser.UpdateLaser(myTarget, transform.position);
     }
 
@@ -104,7 +104,7 @@ public class DollLaser : DollAuto
     //    //print("Target On !!");
     //    myLaser.gameObject.SetActive(true);
     //    Vector3 td = myTarget.transform.position - transform.position;
-    //    myLaser.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td, myTarget);
+    //    myLaser.InitValue(FACTION_GROUP.PLAYER, myDamage, td, myTarget);
     //    myLaser.UpdateLaser(myTarget, transform.position);
     //}
 

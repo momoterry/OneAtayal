@@ -220,7 +220,7 @@ public class Doll : MonoBehaviour
             if (b)
             {
                 //b.baseDamage = AttackInit;
-                //b.SetGroup(DAMAGE_GROUP.PLAYER);
+                //b.SetGroup(FACTION_GROUP.PLAYER);
                 Vector3 td = foundEnemy.transform.position - transform.position;
 #if XZ_PLAN
                 td.y = 0;
@@ -228,7 +228,7 @@ public class Doll : MonoBehaviour
                 td.z = 0;
 #endif
                 //b.targetDir = td.normalized;
-                b.InitValue(DAMAGE_GROUP.PLAYER, myDamage, td);
+                b.InitValue(FACTION_GROUP.PLAYER, myDamage, td);
             }
         }
     }

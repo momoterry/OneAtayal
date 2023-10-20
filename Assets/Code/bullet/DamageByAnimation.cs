@@ -9,11 +9,11 @@ public class DamageByAnimation : bullet_base
     public Vector2 BoxSize;
     public GameObject hitFX;
 
-    //private DAMAGE_GROUP group = DAMAGE_GROUP.PLAYER;
+    //private FACTION_GROUP group = FACTION_GROUP.PLAYER;
     //protected Damage myDamage;
 
     ////Public Functions
-    //public void SetGroup(DAMAGE_GROUP g)
+    //public void SetGroup(FACTION_GROUP g)
     //{
     //    group = g;
     //}
@@ -49,13 +49,13 @@ public class DamageByAnimation : bullet_base
 
         {
             bool hit = false;
-            if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
+            if (col.gameObject.CompareTag("Enemy") && group == FACTION_GROUP.PLAYER)
             {
                 //print("Trigger:  Hit Enemy !! ");
                 col.gameObject.SendMessage("OnDamage", myDamage);
                 hit = true;
             }
-            else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == DAMAGE_GROUP.ENEMY)
+            else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == FACTION_GROUP.ENEMY)
             {
                 //print("Trigger:  Hit Player !!");
                 col.gameObject.SendMessage("OnDamage", myDamage);

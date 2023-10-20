@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-public class BuffBase
+public enum FACTION_GROUP
 {
-    public FACTION_GROUP group;
-
+    NONE,
+    PLAYER,
+    ENEMY,
 }

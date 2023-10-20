@@ -36,13 +36,13 @@ public class DamageOverTime : bullet_base
         foreach (Collider col in cols)
         {
             bool hit = false;
-            if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
+            if (col.gameObject.CompareTag("Enemy") && group == FACTION_GROUP.PLAYER)
             {
                 //print("Trigger:  Hit Enemy !! ");
                 col.gameObject.SendMessage("OnDamage", myDamage);
                 hit = true;
             }
-            else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == DAMAGE_GROUP.ENEMY)
+            else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == FACTION_GROUP.ENEMY)
             {
                 //print("Trigger:  Hit Player !!");
                 col.gameObject.SendMessage("OnDamage", myDamage);

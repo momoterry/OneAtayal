@@ -181,7 +181,7 @@ public class EnemyOne : Enemy
                 {
                     Vector3 td = skillDirection;
                     myDamage.damage = Attack * skill.damageRatio;
-                    newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, td);
+                    newBullet.InitValue(FACTION_GROUP.ENEMY, myDamage, td);
                 }
             }
         }
@@ -213,7 +213,7 @@ public class EnemyOne : Enemy
                     if (newBullet)
                     {
                         myDamage.damage = Attack * skill.damageRatio;
-                        newBullet.InitValue(DAMAGE_GROUP.ENEMY, myDamage, faceDir);
+                        newBullet.InitValue(FACTION_GROUP.ENEMY, myDamage, faceDir);
                     }
                 }
             }

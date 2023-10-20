@@ -12,12 +12,12 @@ public class BulletExplore : bullet
         //print("BulletExplore::OnTriggerEnter : " + col);
         bool hit = false;
         bool destroy = false;
-        if (col.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
+        if (col.gameObject.CompareTag("Enemy") && group == FACTION_GROUP.PLAYER)
         {
             //print("Trigger:  Hit Enemy !!");
             hit = true;
         }
-        else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == DAMAGE_GROUP.ENEMY)
+        else if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Doll")) && group == FACTION_GROUP.ENEMY)
         {
             //print("Trigger:  Hit Player or Doll !!");
             hit = true;
@@ -45,8 +45,8 @@ public class BulletExplore : bullet
             Collider[] cols = Physics.OverlapSphere(hitPos, expRadius);
             foreach(Collider co in cols)
             {
-                if ((co.gameObject.CompareTag("Enemy") && group == DAMAGE_GROUP.PLAYER)
-                    || ((co.gameObject.CompareTag("Player") || co.gameObject.CompareTag("Doll")) && group == DAMAGE_GROUP.ENEMY))
+                if ((co.gameObject.CompareTag("Enemy") && group == FACTION_GROUP.PLAYER)
+                    || ((co.gameObject.CompareTag("Player") || co.gameObject.CompareTag("Doll")) && group == FACTION_GROUP.ENEMY))
                 {
                     co.gameObject.SendMessage("OnDamage", myDamage);
                     BattleSystem.GetInstance().SpawnGameplayObject(hitFX, co.transform.position, false);
