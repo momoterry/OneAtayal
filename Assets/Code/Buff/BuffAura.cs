@@ -18,7 +18,7 @@ public class BuffAura : MonoBehaviour
         if (!CheckGameObject(other.gameObject))
             return;
 
-        print("Enemuy In !!");
+        //print("Enemuy In !!");
 
         foreach (BuffBase buff in buffs)
         {
