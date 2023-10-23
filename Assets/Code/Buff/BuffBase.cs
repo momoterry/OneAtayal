@@ -10,6 +10,7 @@ public enum BUFF_TYPE
     HP = 4,
 }
 
+[System.Serializable]
 public class BuffBase
 {
     public FACTION_GROUP group;

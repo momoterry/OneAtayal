@@ -72,6 +72,13 @@ public class Enemy : MonoBehaviour
         {
             BattleSystem.SpawnGameObj(spawnFX, transform.position);
         }
+
+        gameObject.AddComponent<EnemyBuffReceiver>();
+
+        //為了能進入敵人用的 Aura 等 ColliderTrigger
+        Rigidbody rd = gameObject.AddComponent<Rigidbody>();
+        rd.isKinematic = true;
+        rd.useGravity = false;
     }
 
     // Start is called before the first frame update
