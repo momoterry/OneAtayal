@@ -6,6 +6,37 @@ public class BuffReceiver : MonoBehaviour
 {
     protected Dictionary<BUFF_TYPE, List<BuffBase>> buffPools = new Dictionary<BUFF_TYPE, List<BuffBase>>();
 
+    protected GameObject groundFX;
+    protected GameObject groundFXRef;   //用來比對
+    protected float groundFXshift = -0.5f;
+
+    public void AddGroundEffect(GameObject FXref)
+    {
+        if (groundFXRef == FXref)
+            return;
+
+        if (groundFX)
+        {
+            Destroy(groundFX);
+        }
+
+        groundFXRef = FXref;
+        Vector3 sPos = new Vector3(0, 0, groundFXshift);
+        groundFX = BattleSystem.SpawnGameObj(FXref, transform.position + sPos);
+        groundFX.transform.parent = transform;
+    }
+
+    public void RemoveGroundEffect(GameObject FXref)
+    {
+        if (groundFXRef != FXref)
+            return;
+        if (groundFX)
+        {
+            Destroy(groundFX);
+            groundFX = null;
+        }
+        groundFXRef = null;
+    }
 
     public void AddBuff( BuffBase buff)
     {

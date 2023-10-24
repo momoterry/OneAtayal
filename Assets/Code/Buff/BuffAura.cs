@@ -10,6 +10,8 @@ public class BuffAura : MonoBehaviour
     public BuffBase[] buffs;
     protected FACTION_GROUP group = FACTION_GROUP.ENEMY;    //TODO: 之後也支援玩家方
 
+    public GameObject auraFXRef;
+
     protected List<GameObject> objListInArea = new List<GameObject>();
     protected List<GameObject> toClear = new List<GameObject>();
 
@@ -32,9 +34,16 @@ public class BuffAura : MonoBehaviour
 
         //print("Enemuy In !!");
 
-        foreach (BuffBase buff in buffs)
+        BuffReceiver br = other.gameObject.GetComponent<BuffReceiver>();
+
+        if (br)
         {
-            other.gameObject.SendMessage("AddBuff", buff);
+            foreach (BuffBase buff in buffs)
+            {
+                br.AddBuff(buff);
+                //other.gameObject.SendMessage("AddBuff", buff);
+            }
+            br.AddGroundEffect(auraFXRef);
         }
 
         objListInArea.Add(other.gameObject);
@@ -45,10 +54,18 @@ public class BuffAura : MonoBehaviour
         if (!CheckGameObject(other.gameObject))
             return;
 
-        foreach (BuffBase buff in buffs)
+        BuffReceiver br = other.gameObject.GetComponent<BuffReceiver>();
+
+        if (br)
         {
-            other.gameObject.SendMessage("RemoveBuff", buff);
+            foreach (BuffBase buff in buffs)
+            {
+                br.RemoveBuff(buff);
+                //other.gameObject.SendMessage("RemoveBuff", buff);
+            }
+            br.RemoveGroundEffect(auraFXRef);
         }
+
         objListInArea.Remove(other.gameObject);
         print("EnmeyOut Total = " + objListInArea.Count);
     }
