@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3613456562657475007}
   - component: {fileID: 5849149292423533584}
   m_Layer: 0
-  m_Name: EnemyAuraHP
+  m_Name: EAuraSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,6 +68,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffs:
   - group: 2
-    type: 4
-    value: 200
-  auraFXRef: {fileID: 4081434776806607828, guid: 534d6f7d7540aef43b9711565344b09a, type: 3}
+    type: 2
+    value: 100
+  - group: 2
+    type: 3
+    value: 100
+  auraFXRef: {fileID: 4081434776806607828, guid: c29e193e8d4413d46b4f99f48a1f5791, type: 3}
