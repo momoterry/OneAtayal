@@ -8,12 +8,24 @@ using UnityEngine;
 public class BuffAura : MonoBehaviour
 {
     public BuffBase[] buffs;
-
-    protected List<GameObject> objListInArea = new List<GameObject>();
-
     protected FACTION_GROUP group = FACTION_GROUP.ENEMY;    //TODO: 之後也支援玩家方
 
-    private void OnTriggerEnter(Collider other)
+    protected List<GameObject> objListInArea = new List<GameObject>();
+    protected List<GameObject> toClear = new List<GameObject>();
+
+    protected float checkTime = 0;
+
+    private void Update()
+    {
+        checkTime -= Time.time;
+        if (checkTime < 0)
+        {
+            UpdateList();
+            checkTime = 0.1f;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
     {
         if (!CheckGameObject(other.gameObject))
             return;
@@ -28,7 +40,7 @@ public class BuffAura : MonoBehaviour
         objListInArea.Add(other.gameObject);
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         if (!CheckGameObject(other.gameObject))
             return;
@@ -48,6 +60,11 @@ public class BuffAura : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    protected void UpdateList()
+    {
+        objListInArea.RemoveAll(item => item == null);
     }
 
 }
