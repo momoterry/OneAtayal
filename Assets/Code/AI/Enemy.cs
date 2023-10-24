@@ -48,6 +48,12 @@ public class Enemy : MonoBehaviour
     //等級成長率
     protected float LvUpRatio = 1.4f;
 
+    //Buff 系統相關
+    protected float AttackOriginal;
+    protected float HPMaxOriginal;
+    protected float AttackCDOriginal;
+    protected float AttackWaitOriginal;
+
     protected enum AI_STATE
     {
         NONE,
@@ -74,6 +80,12 @@ public class Enemy : MonoBehaviour
         }
 
         gameObject.AddComponent<EnemyBuffReceiver>();
+
+        //Buff 系統用的初始化
+        AttackOriginal = Attack;
+        HPMaxOriginal = MaxHP;
+        AttackCDOriginal = AttackCD;
+        AttackWaitOriginal = AttackWait;
 
         //為了能進入敵人用的 Aura 等 ColliderTrigger
         Rigidbody rd = gameObject.AddComponent<Rigidbody>();
@@ -117,6 +129,33 @@ public class Enemy : MonoBehaviour
         MaxHP *= r;
         hp = MaxHP;
         myDamage.damage = Attack;
+    }
+
+    //Buff 系統相關
+    protected float attackDamageOriginal;
+    virtual public void SetAttackSpeedRate(float ratio) 
+    {
+        AttackCD = AttackCDOriginal / ratio;
+        AttackWait = AttackWaitOriginal / ratio;
+    }
+
+    virtual public void SetHPRate(float ratio) 
+    {
+        float hpOld = MaxHP;
+        float hpNew = HPMaxOriginal * ratio;
+        MaxHP = hpNew;
+        if (hpNew > hpOld)
+        {
+            //最大血量增加的情況，原血量跟著提升
+            hp += (hpNew - hpOld);
+        }
+        hp = Mathf.Min(hp, MaxHP);
+    }
+
+    virtual public void SetDamageRate(float ratio)
+    {
+        Attack = AttackOriginal * ratio;
+        myDamage.Init(Attack, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
     }
 
     // Update is called once per frame
