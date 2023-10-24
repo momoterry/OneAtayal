@@ -34,7 +34,48 @@ public class BuffAura : MonoBehaviour
 
         //print("Enemuy In !!");
 
-        BuffReceiver br = other.gameObject.GetComponent<BuffReceiver>();
+        //BuffReceiver br = other.gameObject.GetComponent<BuffReceiver>();
+
+        //if (br)
+        //{
+        //    foreach (BuffBase buff in buffs)
+        //    {
+        //        br.AddBuff(buff);
+        //        //other.gameObject.SendMessage("AddBuff", buff);
+        //    }
+        //    br.AddGroundEffect(auraFXRef);
+        //}
+
+        AddAura(other.gameObject);
+
+        objListInArea.Add(other.gameObject);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (!CheckGameObject(other.gameObject))
+            return;
+
+        //BuffReceiver br = other.gameObject.GetComponent<BuffReceiver>();
+
+        //if (br)
+        //{
+        //    foreach (BuffBase buff in buffs)
+        //    {
+        //        br.RemoveBuff(buff);
+        //        //other.gameObject.SendMessage("RemoveBuff", buff);
+        //    }
+        //    br.RemoveGroundEffect(auraFXRef);
+        //}
+        RemoveAura(other.gameObject);
+
+        objListInArea.Remove(other.gameObject);
+        print("EnmeyOut Total = " + objListInArea.Count);
+    }
+
+    protected void AddAura(GameObject target)
+    {
+        BuffReceiver br = target.GetComponent<BuffReceiver>();
 
         if (br)
         {
@@ -45,29 +86,58 @@ public class BuffAura : MonoBehaviour
             }
             br.AddGroundEffect(auraFXRef);
         }
-
-        objListInArea.Add(other.gameObject);
     }
 
-    void OnTriggerExit(Collider other)
+    protected void RemoveAura(GameObject target)
     {
-        if (!CheckGameObject(other.gameObject))
-            return;
-
-        BuffReceiver br = other.gameObject.GetComponent<BuffReceiver>();
+        BuffReceiver br = target.GetComponent<BuffReceiver>();
 
         if (br)
         {
             foreach (BuffBase buff in buffs)
             {
                 br.RemoveBuff(buff);
-                //other.gameObject.SendMessage("RemoveBuff", buff);
             }
             br.RemoveGroundEffect(auraFXRef);
         }
+    }
 
-        objListInArea.Remove(other.gameObject);
-        print("EnmeyOut Total = " + objListInArea.Count);
+    protected void ClearAllAura()
+    {
+        foreach (GameObject o in objListInArea)
+        {
+            if (o != null)
+                RemoveAura(o);
+        }
+    }
+
+    protected void RestartAllAura()
+    {
+        foreach (GameObject o in objListInArea)
+        {
+            if (o != null)
+                AddAura(o);
+        }
+    }
+
+    //TODO: 等支援 Doll 之後，再來處理復活時的 Aura 開關
+
+    //private void OnEnable()
+    //{
+    //    print("OnEnable ................");
+    //    RestartAllAura();
+    //}
+
+    //private void OnDisable()
+    //{
+    //    print("OnDisable ................");
+    //    ClearAllAura();
+    //}
+
+    private void OnDestroy()
+    {
+        //print("OnDestroy ................");
+        ClearAllAura();
     }
 
     //==================== TODO: 參數化 ===================

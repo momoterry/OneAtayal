@@ -21,6 +21,9 @@ public class EFormation : MonoBehaviour
     protected int BackWidth = 4;
     protected float allShift = 0.0f;
 
+    //隨機 Aura 效果
+    public GameObject[] randomAttachRefs;
+
     protected enum PHASE
     {
         NONE,
@@ -143,6 +146,13 @@ public class EFormation : MonoBehaviour
                 Enemy e = eo.GetComponent<Enemy>();
                 e.SetSlot(slot.transform);
             }
+        }
+
+        //產生隨機 Aura
+        if (randomAttachRefs.Length > 0)
+        {
+            GameObject o = BattleSystem.SpawnGameObj(randomAttachRefs[Random.Range(0, randomAttachRefs.Length)], transform.position);
+            o.transform.parent = transform;
         }
     }
 
