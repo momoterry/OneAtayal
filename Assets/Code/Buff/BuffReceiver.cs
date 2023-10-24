@@ -40,7 +40,7 @@ public class BuffReceiver : MonoBehaviour
 
     public void AddBuff( BuffBase buff)
     {
-        print("AddBuff: " + buff.type + " -- " + buff.value);
+        //print("AddBuff: " + buff.type + " -- " + buff.value);
         if (!buffPools.ContainsKey(buff.type))
         {
             buffPools.Add(buff.type, new List<BuffBase>());
@@ -53,7 +53,7 @@ public class BuffReceiver : MonoBehaviour
 
     public void RemoveBuff(BuffBase buff)
     {
-        print("RemoveBuff: " + buff.type + " -- " + buff.value);
+        //print("RemoveBuff: " + buff.type + " -- " + buff.value);
         if (buffPools.ContainsKey(buff.type))
         {
             List<BuffBase> list = buffPools[buff.type];
@@ -87,11 +87,15 @@ public class BuffReceiver : MonoBehaviour
             case BUFF_TYPE.HP:
                 ApplayHPRate(totalValue);
                 break;
+            case BUFF_TYPE.MOVE_SPEED:
+                ApplayMoveSpeed(totalValue);
+                break;
         }
     }
 
     virtual protected void ApplyAttackSpeed(float percentAdd) { }
     virtual protected void ApplyDamageRate(float percentAdd) { }
     virtual protected void ApplayHPRate(float percentAdd) { }
+    virtual protected void ApplayMoveSpeed(float percentAdd) { }
 
 }

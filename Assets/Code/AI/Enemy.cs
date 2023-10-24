@@ -53,6 +53,7 @@ public class Enemy : MonoBehaviour
     protected float HPMaxOriginal;
     protected float AttackCDOriginal;
     protected float AttackWaitOriginal;
+    protected float moveSpeedOriginal;
 
     protected enum AI_STATE
     {
@@ -74,6 +75,15 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
+        if (!myAnimator)
+            myAnimator = GetComponent<Animator>();
+        myAgent = GetComponent<NavMeshAgent>();
+        if (myAgent)
+        {
+            myAgent.updateRotation = false;
+            myAgent.updateUpAxis = false;
+        }
+
         if (spawnFX)
         {
             BattleSystem.SpawnGameObj(spawnFX, transform.position);
@@ -86,6 +96,8 @@ public class Enemy : MonoBehaviour
         HPMaxOriginal = MaxHP;
         AttackCDOriginal = AttackCD;
         AttackWaitOriginal = AttackWait;
+        if (myAgent)
+            moveSpeedOriginal = myAgent.speed;
 
         //為了能進入敵人用的 Aura 等 ColliderTrigger
         Rigidbody rd = gameObject.AddComponent<Rigidbody>();
@@ -96,16 +108,15 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        if (!myAnimator)
-            myAnimator = GetComponent<Animator>();
-        myAgent = GetComponent<NavMeshAgent>();
-        if (myAgent)
-        {
-            myAgent.updateRotation = false;
-            myAgent.updateUpAxis = false;
-        }
+        //if (!myAnimator)
+        //    myAnimator = GetComponent<Animator>();
+        //myAgent = GetComponent<NavMeshAgent>();
+        //if (myAgent)
+        //{
+        //    myAgent.updateRotation = false;
+        //    myAgent.updateUpAxis = false;
+        //}
         hp = MaxHP;
-        //myDamage.damage = Attack;
         myDamage.Init(Attack, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
 
         myHPHandler = GetComponent<Hp_BarHandler>();
@@ -132,7 +143,6 @@ public class Enemy : MonoBehaviour
     }
 
     //Buff 系統相關
-    protected float attackDamageOriginal;
     virtual public void SetAttackSpeedRate(float ratio) 
     {
         AttackCD = AttackCDOriginal / ratio;
@@ -156,6 +166,12 @@ public class Enemy : MonoBehaviour
     {
         Attack = AttackOriginal * ratio;
         myDamage.Init(Attack, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
+    }
+
+    virtual public void SetMoveSpeedRate(float ratio)
+    {
+        if (myAgent)
+            myAgent.speed = moveSpeedOriginal * ratio;
     }
 
     // Update is called once per frame

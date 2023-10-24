@@ -25,4 +25,9 @@ public class EnemyBuffReceiver : BuffReceiver
     {
         enemy.SetHPRate(percentAdd * 0.01f + 1.0f);
     }
+
+    protected override void ApplayMoveSpeed(float percentAdd)
+    {
+        enemy.SetMoveSpeedRate(percentAdd * 0.01f + 1.0f);
+    }
 }

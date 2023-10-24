@@ -32,20 +32,6 @@ public class BuffAura : MonoBehaviour
         if (!CheckGameObject(other.gameObject))
             return;
 
-        //print("Enemuy In !!");
-
-        //BuffReceiver br = other.gameObject.GetComponent<BuffReceiver>();
-
-        //if (br)
-        //{
-        //    foreach (BuffBase buff in buffs)
-        //    {
-        //        br.AddBuff(buff);
-        //        //other.gameObject.SendMessage("AddBuff", buff);
-        //    }
-        //    br.AddGroundEffect(auraFXRef);
-        //}
-
         AddAura(other.gameObject);
 
         objListInArea.Add(other.gameObject);
@@ -56,21 +42,10 @@ public class BuffAura : MonoBehaviour
         if (!CheckGameObject(other.gameObject))
             return;
 
-        //BuffReceiver br = other.gameObject.GetComponent<BuffReceiver>();
-
-        //if (br)
-        //{
-        //    foreach (BuffBase buff in buffs)
-        //    {
-        //        br.RemoveBuff(buff);
-        //        //other.gameObject.SendMessage("RemoveBuff", buff);
-        //    }
-        //    br.RemoveGroundEffect(auraFXRef);
-        //}
         RemoveAura(other.gameObject);
 
         objListInArea.Remove(other.gameObject);
-        print("EnmeyOut Total = " + objListInArea.Count);
+        //print("EnmeyOut Total = " + objListInArea.Count);
     }
 
     protected void AddAura(GameObject target)
@@ -82,7 +57,6 @@ public class BuffAura : MonoBehaviour
             foreach (BuffBase buff in buffs)
             {
                 br.AddBuff(buff);
-                //other.gameObject.SendMessage("AddBuff", buff);
             }
             br.AddGroundEffect(auraFXRef);
         }
