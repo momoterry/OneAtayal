@@ -8,7 +8,7 @@ using UnityEngine;
 public class BuffAura : MonoBehaviour
 {
     public BuffBase[] buffs;
-    protected FACTION_GROUP group = FACTION_GROUP.ENEMY;    //TODO: 之後也支援玩家方
+    public FACTION_GROUP group = FACTION_GROUP.ENEMY;
 
     public GameObject auraFXRef;
 
@@ -117,8 +117,10 @@ public class BuffAura : MonoBehaviour
     //==================== TODO: 參數化 ===================
     protected virtual bool CheckGameObject(GameObject obj)
     {
-        if (obj.CompareTag("Enemy"))
-            return true;
+        if (group == FACTION_GROUP.ENEMY)
+            return obj.CompareTag("Enemy");
+        else if (group == FACTION_GROUP.PLAYER)
+            return obj.CompareTag("Doll") || obj.CompareTag("Player");
 
         return false;
     }
