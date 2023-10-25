@@ -94,5 +94,11 @@ public class PlayerControllerBase : MonoBehaviour
     public virtual void OnSkill( int index) {}
 
     public virtual void OnKillEnemy(Enemy e) {}
+
+    //Buff 系統相關
+    virtual public void SetAttackSpeedRate(float ratio) { }
+    virtual public void SetHPRate(float ratio) { }
+    virtual public void SetDamageRate(float ratio) { }
+    virtual public void SetMoveSpeedRate(float ratio) { }
 }
 

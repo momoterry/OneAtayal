@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 2595805060564117435}
   - component: {fileID: 7026385911095670961}
   - component: {fileID: 2044128945087870318}
+  - component: {fileID: 8244207014600588136}
   m_Layer: 10
   m_Name: OneGirl
   m_TagString: Player
@@ -383,6 +384,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theSprites: []
+--- !u!114 &8244207014600588136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214839875520186894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 499067d62032136469d73dcf2a33dcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundFXshift: -0.3125
 --- !u!1 &6624133501508185736
 GameObject:
   m_ObjectHideFlags: 0

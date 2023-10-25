@@ -391,6 +391,7 @@ public class BattleSystem : MonoBehaviour
             }    
             else
             {
+                //舊有的關卡下一關，不會再用到，應該移掉
                 thePC.DoTeleport(initPlayerPos.position, initPlayerDirAngle);
                 thePC.InitStatus();
             }

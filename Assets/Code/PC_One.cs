@@ -69,6 +69,9 @@ public class PC_One : PlayerControllerBase
     //直接傷害相關
     protected Damage myDamage;
 
+    //Buff 系統用的數值
+    protected float WalkSpeedInit;
+
     //升級相關
     protected float HP_Up_Ratio = 0.6f;
     protected float ATK_Up_Ratio = 0.6f;
@@ -327,8 +330,32 @@ public class PC_One : PlayerControllerBase
         if (myAgent)
             myAgent.speed = WalkSpeed;
 
+        WalkSpeedInit = WalkSpeed;
         //nextState = PC_STATE.NORMAL;
 
+    }
+
+    //Buff 系統相關
+    override public void SetAttackSpeedRate(float ratio) 
+    {
+        //TODO
+    }
+
+    override public void SetHPRate(float ratio) 
+    {
+        float hpOld = HP_Max;
+        float hpNew = HP_MaxInit * ratio;
+        HP_Max = hpNew;
+        if (hpNew > hpOld)
+        {
+            //最大血量增加的情況，原血量跟著提升
+            hp += (hpNew - hpOld);
+        }
+        hp = Mathf.Min(hp, HP_Max);
+    }
+    override public void SetDamageRate(float ratio) 
+    {
+        Attack = Attack_Init * ratio;
     }
 
     public override void SetupFaceDirByAngle(float angle)
