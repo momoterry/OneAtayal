@@ -31,6 +31,7 @@ public class BuffAura : MonoBehaviour
     {
         if (!CheckGameObject(other.gameObject))
             return;
+        //print("OnTriggerEnter ................" + objListInArea.Count);
 
         AddAura(other.gameObject);
 
@@ -41,6 +42,9 @@ public class BuffAura : MonoBehaviour
     {
         if (!CheckGameObject(other.gameObject))
             return;
+
+        //print("OnTriggerExit ................" + objListInArea.Count);
+
 
         RemoveAura(other.gameObject);
 
@@ -94,19 +98,19 @@ public class BuffAura : MonoBehaviour
         }
     }
 
-    //TODO: 等支援 Doll 之後，再來處理復活時的 Aura 開關
 
-    //private void OnEnable()
-    //{
-    //    print("OnEnable ................");
-    //    RestartAllAura();
-    //}
+    private void OnEnable()
+    {
+        //print("OnEnable ................" + objListInArea.Count);
+        RestartAllAura();
+    }
 
-    //private void OnDisable()
-    //{
-    //    print("OnDisable ................");
-    //    ClearAllAura();
-    //}
+    private void OnDisable()
+    {
+        //print("OnDisable ................" + objListInArea.Count);
+        ClearAllAura();
+        objListInArea.Clear(); //先全部清除，因為 Enable 以後又會再一個一個 OnTriggerEnter
+    }
 
     private void OnDestroy()
     {

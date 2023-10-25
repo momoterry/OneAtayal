@@ -46,6 +46,11 @@ public class BuffReceiver : MonoBehaviour
             buffPools.Add(buff.type, new List<BuffBase>());
         }
         List<BuffBase> list = buffPools[buff.type];
+        if (list.Contains(buff))
+        {
+            print("Buff ­«½Æ¦s¦bÅo!!");
+            return;
+        }
         list.Add(buff);
         ApplyBuffEffect(buff.type, list);
     }
