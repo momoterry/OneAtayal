@@ -89,7 +89,8 @@ public class Enemy : MonoBehaviour
             BattleSystem.SpawnGameObj(spawnFX, transform.position);
         }
 
-        gameObject.AddComponent<EnemyBuffReceiver>();
+        if (gameObject.GetComponent<EnemyBuffReceiver>() == null)
+            gameObject.AddComponent<EnemyBuffReceiver>();
 
         //Buff 系統用的初始化
         AttackOriginal = Attack;

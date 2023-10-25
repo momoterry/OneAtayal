@@ -56,7 +56,8 @@ public class Doll : MonoBehaviour
     {
         gameObject.AddComponent<BuffApplierDoll>();
         attackDamageOriginal = AttackInit;
-        gameObject.AddComponent<DollBuffReceiver>();
+        if (gameObject.GetComponent<DollBuffReceiver>() == null)
+            gameObject.AddComponent<DollBuffReceiver>();
     }
 
     // Start is called before the first frame update

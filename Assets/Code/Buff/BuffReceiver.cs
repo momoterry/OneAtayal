@@ -8,7 +8,7 @@ public class BuffReceiver : MonoBehaviour
 
     protected GameObject groundFX;
     protected GameObject groundFXRef;   //用來比對
-    protected float groundFXshift = -0.5f;
+    public float groundFXshift = -0.5f;
 
     public void AddGroundEffect(GameObject FXref)
     {

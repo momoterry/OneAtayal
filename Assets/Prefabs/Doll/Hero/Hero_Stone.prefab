@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 8331660659177549446}
   - component: {fileID: 5111333253751210810}
   - component: {fileID: 3773235245514619147}
+  - component: {fileID: 4320215949366901072}
   m_Layer: 10
   m_Name: Hero_Stone
   m_TagString: Doll
@@ -300,6 +301,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomAuras:
   - {fileID: 3575155596116267123, guid: 1dbc624ff14d2df4bbb32c2a65ff89ca, type: 3}
+--- !u!114 &4320215949366901072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032685806379418579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec05f9f2216eda4f84f4846f4ecc48e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundFXshift: -0.75
 --- !u!1 &4790798014008892176
 GameObject:
   m_ObjectHideFlags: 0
