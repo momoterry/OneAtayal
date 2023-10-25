@@ -68,6 +68,7 @@ public class DollAuto : Doll
     //Buff 系統相關
     protected float attackCDInit;
     protected float maxHPOriginal;
+    protected float RunSpeedOriginal;
 
 
     public void SetFace( Vector3 face)
@@ -78,6 +79,11 @@ public class DollAuto : Doll
     public override void SetAttackSpeedRate(float ratio)
     {
         attackCD = attackCDInit / ratio;
+    }
+
+    public override void SetMoveSpeedRate(float ratio) 
+    {
+        RunSpeed = RunSpeedOriginal * ratio;
     }
 
     public override void SetHPRate(float ratio)
@@ -97,6 +103,7 @@ public class DollAuto : Doll
     protected override void Awake()
     {
         base.Awake();
+        RunSpeedOriginal = RunSpeed;
         myAgent = GetComponent<NavMeshAgent>();
         if (myAgent)
         {

@@ -63,6 +63,7 @@ public class DollBeta : Doll
     //Buff 系統相關
     protected float attackCDInit;
     protected float maxHPOriginal;
+    protected float RunSpeedOriginal;
 
     public override void SetAttackSpeedRate(float ratio)
     {
@@ -82,10 +83,19 @@ public class DollBeta : Doll
         else
             myBody.DoHeal(0);    //暴力法，確保 hp <= hpMax
     }
+    public override void SetMoveSpeedRate(float ratio)
+    {
+        RunSpeed = RunSpeedOriginal * ratio;
+        if (myAgent)
+        {
+            myAgent.speed = RunSpeed;
+        }
+    }
 
     protected override void Awake()
     {
         base.Awake();
+        RunSpeedOriginal = RunSpeed;
         myAgent = GetComponent<NavMeshAgent>();
         if (myAgent)
         {
@@ -100,6 +110,7 @@ public class DollBeta : Doll
                 //myAgent.stoppingDistance = 0.25f;
                 myAgent.radius = 0.1f;
             }
+            myAgent.speed = RunSpeed;
         }
 
         myBody = GetComponent<HitBody>();

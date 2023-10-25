@@ -45,6 +45,7 @@ public class Doll : MonoBehaviour
     //Buff 系統相關
     protected float attackDamageOriginal;
     virtual public void SetAttackSpeedRate(float ratio) { }
+    virtual public void SetMoveSpeedRate(float ratio) { }
     virtual public void SetHPRate(float ratio) { }
     virtual public void SetDamageRate(float ratio) 
     {

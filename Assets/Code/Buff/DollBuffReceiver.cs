@@ -28,6 +28,6 @@ public class DollBuffReceiver : BuffReceiver
 
     protected override void ApplayMoveSpeed(float percentAdd)
     {
-        //doll.SetMoveSpeedRate(percentAdd * 0.01f + 1.0f);
+        doll.SetMoveSpeedRate(percentAdd * 0.01f + 1.0f);
     }
 }

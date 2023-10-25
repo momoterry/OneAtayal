@@ -358,6 +358,11 @@ public class PC_One : PlayerControllerBase
         Attack = Attack_Init * ratio;
     }
 
+    override public void SetMoveSpeedRate(float ratio) 
+    {
+        WalkSpeed = WalkSpeedInit * ratio;
+    }
+
     public override void SetupFaceDirByAngle(float angle)
     {
         //faceDir = Vector3.RotateTowards(Vector3.forward, Vector3.right, angle * Mathf.Deg2Rad, 0);
