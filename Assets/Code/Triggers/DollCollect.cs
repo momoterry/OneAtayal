@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DollCollect : MonoBehaviour
 {
-    public GameObject dollObject;
+    //public GameObject dollObject;
     public bool collectForever;
 
 

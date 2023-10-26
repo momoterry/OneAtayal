@@ -21,7 +21,7 @@ public class PC_One : PlayerControllerBase
     public SkillBase[] activeSkillRefs;
 
     //public float autoAttackRange = 8.0f;
-    public float autoAttackWait = 0.2f;
+    //public float autoAttackWait = 0.2f;
     //public float autoAttackCD = 1.0f;       //TODO: 由 Skill 決定
 
     public float WalkSpeed = 8.0f;
@@ -71,6 +71,7 @@ public class PC_One : PlayerControllerBase
 
     //Buff 系統用的數值
     protected float WalkSpeedInit;
+    protected float AttackSpeedRate = 1.0f;
 
     //升級相關
     protected float HP_Up_Ratio = 0.6f;
@@ -242,6 +243,7 @@ public class PC_One : PlayerControllerBase
             //BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(autoSkill.icon, 0);
             //SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(0);
             autoSkill.InitButton(sb);
+            autoSkill.SetCDRate(AttackSpeedRate);
         }
         else
         {
@@ -338,7 +340,12 @@ public class PC_One : PlayerControllerBase
     //Buff 系統相關
     override public void SetAttackSpeedRate(float ratio) 
     {
-        //TODO
+        AttackSpeedRate = ratio;
+        if (autoSkill)
+        {
+            autoSkill.SetCDRate(AttackSpeedRate);
+        }
+        //print("SetAttackSpeedRate " + ratio);
     }
 
     override public void SetHPRate(float ratio) 
@@ -450,11 +457,12 @@ public class PC_One : PlayerControllerBase
             myHPHandler.SetMP(mp, MP_Max);
         }    
 
-        if (currState == PC_STATE.NORMAL || currState == PC_STATE.ATTACK_AUTO || currState == PC_STATE.SKILL)
+        if (currState == PC_STATE.NORMAL || currState == PC_STATE.ATTACK_AUTO || currState == PC_STATE.SKILL || currState == PC_STATE.ATTACK)
         {
             if (autoAttackCDLeft > 0)
             {
-                autoAttackCDLeft -= Time.deltaTime;
+                autoAttackCDLeft -= Time.deltaTime * AttackSpeedRate;
+                //print("autoAttackCDLeft : " + autoAttackCDLeft + "  delta = " + Time.deltaTime * AttackSpeedRate);
             }
             else
                 autoAttackCDLeft = 0;
@@ -499,10 +507,11 @@ public class PC_One : PlayerControllerBase
 
     protected virtual void UpdateAttackAuto()
     {
-        if (autoAttackCDLeft > 0)
-        {
-            autoAttackCDLeft -= Time.deltaTime;
-        }
+        //if (autoAttackCDLeft > 0)
+        //{
+        //    autoAttackCDLeft -= Time.deltaTime * AttackSpeedRate;
+        //    print("autoAttackCDLeft : " + autoAttackCDLeft + "  Rate = " + AttackSpeedRate);
+        //}
         
         if (autoAttackCDLeft <=0)
         {
@@ -523,7 +532,7 @@ public class PC_One : PlayerControllerBase
 
     protected virtual void UpdateSkill()
     {
-        skillTime -= Time.deltaTime;
+        skillTime -= Time.deltaTime * AttackSpeedRate;
         if (skillTime <= 0)
         {
             nextState = PC_STATE.ATTACK_AUTO;
@@ -532,7 +541,7 @@ public class PC_One : PlayerControllerBase
 
     protected virtual void UpdateAttack()
     {
-        skillTime -= Time.deltaTime;
+        skillTime -= Time.deltaTime * AttackSpeedRate;
         if (skillTime <= 0)
         {
             nextState = PC_STATE.ATTACK_AUTO;
@@ -1061,12 +1070,13 @@ public class PC_One : PlayerControllerBase
     //{
     //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + faceDir);
     //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currState.ToString());
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currState.ToString() + "  " + autoAttackCDLeft);
     //}
 
     //private void OnDrawGizmos()
     //{
     //    Gizmos.color = Color.red;
-    //    Gizmos.DrawLine(transform.position, transform.position + GetVelocity());
+    //    //Gizmos.DrawLine(transform.position, transform.position + GetVelocity());
+    //    Gizmos.DrawCube(transform.position, new Vector3(autoAttackCDLeft * 10.0f, 0.2f, 0.2f));
     //}
 }

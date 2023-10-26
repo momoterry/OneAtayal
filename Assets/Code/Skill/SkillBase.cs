@@ -29,6 +29,7 @@ public class SkillBase : MonoBehaviour
     protected Animator theAnimator;
 
     protected float cdLeft = 0;
+    protected float cdSpeedRate = 1.0f;     //給 CD 加快的 Buff 使用
     protected SkillButton theButton;
     protected int skillIndex = 0;
 
@@ -60,6 +61,11 @@ public class SkillBase : MonoBehaviour
         }
     }
 
+    public void SetCDRate(float rate)
+    {
+        cdSpeedRate = rate;
+    }
+
     public void SetupBattlePoints( int points)
     {
         if (battlePointsCost > 0)
@@ -74,7 +80,7 @@ public class SkillBase : MonoBehaviour
         skillIndex = index;
     }
 
-    public float GetCoolDownLeft() { return cdLeft; }
+    public float GetCoolDownLeft() { return cdLeft / cdSpeedRate; }
 
     public virtual void InitCasterInfo(GameObject oCaster) { 
         theCaster = oCaster;
@@ -151,7 +157,7 @@ public class SkillBase : MonoBehaviour
     {
         if (cdLeft > 0)
         {
-            cdLeft -= Time.deltaTime;
+            cdLeft -= Time.deltaTime * cdSpeedRate;
             if (cdLeft <= 0)
             {
                 cdLeft = 0;
