@@ -149,7 +149,7 @@ public class EFormation : MonoBehaviour
         }
 
         //²£¥ÍÀH¾÷ Aura
-        if (randomAttachRefs.Length > 0)
+        if (randomAttachRefs!=null && randomAttachRefs.Length > 0)
         {
             GameObject o = BattleSystem.SpawnGameObj(randomAttachRefs[Random.Range(0, randomAttachRefs.Length)], transform.position);
             o.transform.parent = transform;

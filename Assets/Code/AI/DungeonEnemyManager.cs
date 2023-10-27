@@ -24,6 +24,8 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
     }
     public GameplayInfo[] allGameplays;
 
+    public GameObject[]  randomLeaderAuraRefs;
+
     protected List<Vector3> normalPosList = new List<Vector3>();
     protected float difficultRate = 1.0f;
 
@@ -47,6 +49,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
             enemyGroup.enemyInfos[i] = new EnemyGroup.EnemyInfo();
             enemyGroup.enemyInfos[i].enemyRef = gameInfo.enemys[i];
         }
+
     }
 
     protected void SpawnEnemyFormation(int index, Vector3 pos, GameplayInfo gameInfo)
@@ -58,10 +61,19 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         eF.frontEnemyRef = gameInfo.enemys[0];
         eF.middleEnemyRef = gameInfo.enemys[1];
         eF.backEnemyRef = gameInfo.enemys[2];
-        eF.frontCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.3f);
-        eF.middleCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.4f);
-        eF.backCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.3f);
+        //eF.frontCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.4f);
+        //eF.middleCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.4f);
+        //eF.backCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.3f);
 
+        //TODO: 先暴力法處理小兵分布
+        eF.frontCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * Random.Range(0.3f, 0.5f));
+        eF.middleCount = Mathf.FloorToInt((gameInfo.totalNum * difficultRate - eF.frontCount) * Random.Range(0.5f, 0.7f));
+        eF.backCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate - eF.frontCount - eF.middleCount);
+
+        if (randomLeaderAuraRefs.Length > 0)
+        {
+            eF.randomAttachRefs = randomLeaderAuraRefs;
+        }
     }
 
     public override void BuildAllGameplay(float _difficultRate = 1)
