@@ -9,16 +9,34 @@ public class DollAuraGenerator : MonoBehaviour
 
     protected GameObject theAura;
 
+    private void Awake()
+    {
+        EnsureSpawnAura();
+
+        if (theAura)
+            theAura.SetActive(false);
+    }
+
     void Start()
     {
-        if (randomAuras.Length > 0)
-            theAura = BattleSystem.SpawnGameObj(randomAuras[Random.Range(0, randomAuras.Length)], transform.position);
+        //if (randomAuras.Length > 0)
+        //    theAura = BattleSystem.SpawnGameObj(randomAuras[Random.Range(0, randomAuras.Length)], transform.position);
+        //EnsureSpawnAura();
 
-        theAura.SetActive(false);
+        //if (theAura)
+        //    theAura.SetActive(false);
+    }
+
+    protected void EnsureSpawnAura()
+    {
+        if (theAura == null && randomAuras.Length > 0)
+            theAura = BattleSystem.SpawnGameObj(randomAuras[Random.Range(0, randomAuras.Length)], transform.position);
     }
 
     public void OnJoinPlayer()
     {
+        EnsureSpawnAura();
+
         if (theAura)
             theAura.SetActive(true);
     }

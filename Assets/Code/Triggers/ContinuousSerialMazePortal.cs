@@ -116,8 +116,15 @@ public class ContinuousSerialMazePortal : ScenePortal
 
     protected GameObject GetOneRandomReward()
     {
+        float rdTotal = 0;
+        for (int i = 0; i < ExploreRewardInfo.Length; i++)
+        {
+            rdTotal += ExploreRewardInfo[i].rate;
+        }
+        //print("rdTotal " + rdTotal);
+
         float rdSum = 0;
-        float rd = Random.Range(0, 1.0f);
+        float rd = Random.Range(0, rdTotal);
         int result = -1;
         for (int i = 0; i < ExploreRewardInfo.Length; i++)
         {
