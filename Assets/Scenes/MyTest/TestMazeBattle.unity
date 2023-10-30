@@ -359,7 +359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829658201207304562, guid: 9fd5f306fb21be84aa09d89b5c452e82, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829658201207304564, guid: 9fd5f306fb21be84aa09d89b5c452e82, type: 3}
       propertyPath: m_RootOrder
@@ -483,10 +483,10 @@ MonoBehaviour:
   backEnemyRef: {fileID: 7208015447484052683, guid: 7f2493794fab31f4ebf1a6a680df1aab, type: 3}
   wakUpDistance: 20
   frontCount: 4
-  middleCount: 6
-  backCount: 3
+  middleCount: 4
+  backCount: 4
   randomAttachRefs:
-  - {fileID: 3575155596116267123, guid: 5265703f4a4f9d343b1c8d16360c7343, type: 3}
+  - {fileID: 3575155596116267123, guid: 5d659d5709779aa48bb2c03ad5cd8125, type: 3}
 --- !u!4 &127107763
 Transform:
   m_ObjectHideFlags: 0
@@ -1326,6 +1326,10 @@ PrefabInstance:
     - target: {fileID: 4032685806379418579, guid: 88fdfd1e6f14ff64d9c15df9d3aee6ce, type: 3}
       propertyPath: m_Name
       value: Collect_HeroStoneDamage
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418579, guid: 88fdfd1e6f14ff64d9c15df9d3aee6ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4032685806379418581, guid: 88fdfd1e6f14ff64d9c15df9d3aee6ce, type: 3}
       propertyPath: m_RootOrder
@@ -3093,6 +3097,10 @@ PrefabInstance:
     - target: {fileID: 8143502755978418841, guid: be548e494dd911c4d9f48d8fd5c7bcfe, type: 3}
       propertyPath: m_Name
       value: PickupExp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143502755978418841, guid: be548e494dd911c4d9f48d8fd5c7bcfe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

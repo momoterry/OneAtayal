@@ -12,6 +12,9 @@ public class EFormation : MonoBehaviour
 
     public float wakUpDistance = 20.0f;
 
+    protected float toRotateMin = 8.0f;
+    protected float toRotateMax = 12.0f;
+
     //陣型樣貌用參數
     public int frontCount = 4;
     public int middleCount = 4;
@@ -87,7 +90,7 @@ public class EFormation : MonoBehaviour
         if (toRotateTime <= 0)
         {
             SetupDirection();
-            toRotateTime = Random.Range(3.0f, 5.0f);
+            toRotateTime = Random.Range(toRotateMin, toRotateMax);
         }
     }
 
