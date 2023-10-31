@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3734554272660316072
+--- !u!1 &1358283445015392038
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8608362722508838021}
-  - component: {fileID: 4990417368532697815}
+  - component: {fileID: 8074358829182047509}
+  - component: {fileID: 8671148720284488887}
   m_Layer: 0
   m_Name: RandomSkillArea
   m_TagString: Untagged
@@ -17,29 +17,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8608362722508838021
+--- !u!4 &8074358829182047509
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3734554272660316072}
+  m_GameObject: {fileID: 1358283445015392038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6120972026477052634}
+  - {fileID: 1202411427751736329}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4990417368532697815
+--- !u!114 &8671148720284488887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3734554272660316072}
+  m_GameObject: {fileID: 1358283445015392038}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fc20502f927a014684c388c89bc3ef3, type: 3}
@@ -47,23 +47,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillList:
   - {fileID: -6384202603382535029, guid: 62005672a8e729f408457adbc1ee28a4, type: 3}
-  - {fileID: -6384202603382535029, guid: d4afa35797e1cd24c84a51a287fe6870, type: 3}
   - {fileID: -6384202603382535029, guid: fcc4ab5a8d03c964fa0cba89353ceb5d, type: 3}
   - {fileID: -6384202603382535029, guid: c60157629211626488604771fe973cd1, type: 3}
   - {fileID: -6384202603382535029, guid: 3ed514a282ae42f43b621bb6bca7cfec, type: 3}
   - {fileID: -6384202603382535029, guid: 4137a9fe6cb103445a6d913115fe745c, type: 3}
   - {fileID: -6384202603382535029, guid: fc402b91211bdb9498f2d8b523b1f1de, type: 3}
   - {fileID: -6384202603382535029, guid: e96948e3797b6ac41a8180f9fe24e8e7, type: 3}
-  - {fileID: -6384202603382535029, guid: 85f45344728a3fa45aad482eaebd14e3, type: 3}
   skillIndexStart: 1
   skillIndexEnd: 3
---- !u!1001 &8764049612125353959
+--- !u!1001 &4466996619730354484
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8608362722508838021}
+    m_TransformParent: {fileID: 8074358829182047509}
     m_Modifications:
     - target: {fileID: 3265715631666050365, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: m_RootOrder
@@ -116,7 +114,7 @@ PrefabInstance:
     - target: {fileID: 4808941977302389582, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: TriggerTargets.Array.data[0]
       value: 
-      objectReference: {fileID: 3734554272660316072}
+      objectReference: {fileID: 1358283445015392038}
     - target: {fileID: 5176690458194205501, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
       propertyPath: m_Size.x
       value: 4
@@ -138,8 +136,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
---- !u!4 &6120972026477052634 stripped
+--- !u!4 &1202411427751736329 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3265715631666050365, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}
-  m_PrefabInstance: {fileID: 8764049612125353959}
+  m_PrefabInstance: {fileID: 4466996619730354484}
   m_PrefabAsset: {fileID: 0}
