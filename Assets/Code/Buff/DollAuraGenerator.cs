@@ -11,20 +11,18 @@ public class DollAuraGenerator : MonoBehaviour
 
     private void Awake()
     {
-        EnsureSpawnAura();
-
-        if (theAura)
-            theAura.SetActive(false);
-    }
-
-    void Start()
-    {
-        //if (randomAuras.Length > 0)
-        //    theAura = BattleSystem.SpawnGameObj(randomAuras[Random.Range(0, randomAuras.Length)], transform.position);
         //EnsureSpawnAura();
 
         //if (theAura)
         //    theAura.SetActive(false);
+    }
+
+    void Start()
+    {
+        EnsureSpawnAura();
+
+        if (theAura)
+            theAura.SetActive(false);
     }
 
     protected void EnsureSpawnAura()

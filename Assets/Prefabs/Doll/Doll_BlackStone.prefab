@@ -25,12 +25,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012205590001517734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.375, z: 0}
+  m_LocalPosition: {x: 0, y: -0.37500012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2012205590544976808}
-  m_RootOrder: 1
+  m_Father: {fileID: 4369077747153714607}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2012205590001517728
 SpriteRenderer:
@@ -93,14 +93,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2012205590544976808}
-  - component: {fileID: 4626928935627410714}
+  - component: {fileID: 7838774674990290825}
   - component: {fileID: 5171906015897617299}
   - component: {fileID: 6885433502241619252}
   - component: {fileID: 6216911600991058369}
   - component: {fileID: 6281883458664637640}
   - component: {fileID: 777587054851986799}
   - component: {fileID: 6897879881902958331}
-  - component: {fileID: 7707113128248986439}
   m_Layer: 10
   m_Name: Doll_BlackStone
   m_TagString: Doll
@@ -121,11 +120,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4369077747153714607}
-  - {fileID: 2012205590001517729}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &4626928935627410714
+--- !u!114 &7838774674990290825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,26 +132,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 2012205590544976814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c5c614ada13ee4479d174d41acf5850, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ade93545d092024f934bb1e69a9ffee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: DollBlackStone
   icon: {fileID: -727791524, guid: 2fce2ece476c79d4aa1c952327cb3257, type: 3}
   positionType: 0
   bulletRef: {fileID: 3710000809252070552, guid: cc38025dec94ad540a30b44c77129863, type: 3}
-  AttackInit: 10
-  SearchRange: 4
+  bulletInitDis: 0.25
+  AttackInit: 25
+  SearchRange: 3
   canRevie: 1
-  PositionRangeIn: 1
-  PositionRangeOut: 2
-  AttackRangeIn: 3
-  AttackRangeOut: 5
-  attackWait: 0.2
+  searchCenter: 2
+  AttackRangeIn: 2
+  AttackRangeOut: 3
   attackCD: 0.5
-  RunSpeed: 10
+  attackWhenFollow: 0
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
-  myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 748296375762661269}
+  useDefaultAgentSetting: 1
+  DashTime: 0.1
+  BackTime: 0.1
+  MinDashLength: 1
+  DashToTargetDistance: 0.5
+  hitFX: {fileID: 5887683565233948115, guid: f952f3c1c10889c4e99f2755d00fdbc0, type: 3}
+  myDashBody: {fileID: 4369077747153714607}
 --- !u!114 &5171906015897617299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,19 +269,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7707113128248986439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2012205590544976814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5511d6d0a39d11d4d9b3f35653b8cd63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cancelObjRef: {fileID: 6182335869324556820, guid: a8e9b478df91f844eb4ebb9977a9151a, type: 3}
 --- !u!1 &4369077747153714608
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +298,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2012205590001517729}
   m_Father: {fileID: 2012205590544976808}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
