@@ -95,6 +95,15 @@ public class DebugMenu : MonoBehaviour
         print("OnDebugBattle " + value);
     }
 
+    public void OnShowFPS(bool value)
+    {
+        FPS fps = GetComponentInChildren<FPS>(true);
+        if (fps)
+        {
+            fps.gameObject.SetActive(value);
+        }
+    }
+
     public void OnBackLevel()
     {
         if (BattleSystem.GetInstance())

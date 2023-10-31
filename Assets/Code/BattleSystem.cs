@@ -177,6 +177,10 @@ public class BattleSystem : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        //print("==== QualitySettings.vSyncCount: " + QualitySettings.vSyncCount);
+        //QualitySettings.vSyncCount = 0;
+        //Application.targetFrameRate = 60;
+
         if (!ForceUsePlayerRef)
         {
             GameObject playerInfoToSet = GameSystem.GetInstance().GetPlayerCharacterRef();
@@ -525,8 +529,20 @@ public class BattleSystem : MonoBehaviour
         GameSystem.GetInstance().SaveData();
     }
 
+    //float timeTotal = 0;
+    //int frameCount = 0;
+    //float FPS = 0;
     //private void OnGUI()
     //{
-    //    GUI.TextArea(new Rect(new Vector2(10.0f, 10.0f), new Vector2(100.0f, 40.0f)), currState.ToString());
+    //    timeTotal += Time.deltaTime;
+    //    frameCount++;
+    //    if (timeTotal > 0.5f)
+    //    {
+    //        FPS = frameCount / timeTotal;
+    //        timeTotal = 0;
+    //        frameCount = 0;
+    //    }
+    //    GUI.TextArea(new Rect(new Vector2(10.0f, 10.0f), new Vector2(100.0f, 40.0f)), FPS.ToString());
+    //    //GUI.TextArea(new Rect(new Vector2(10.0f, 10.0f), new Vector2(100.0f, 40.0f)), currState.ToString());
     //}
 }
