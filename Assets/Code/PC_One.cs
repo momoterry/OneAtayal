@@ -101,6 +101,10 @@ public class PC_One : PlayerControllerBase
     {
         return currVelocity;
     }
+    public override float GetWalkSpeed()
+    {
+        return WalkSpeed;
+    }
     public override bool IsMoving()
     {
         return bMove;

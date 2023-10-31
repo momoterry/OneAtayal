@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Doll_Dasher : DollAuto
+public class Doll_Dasher : DollBeta
 {
     //public float DashSpeed = 10.0f;
     public float DashTime = 0.1f;
@@ -102,11 +102,11 @@ public class Doll_Dasher : DollAuto
                 base.UpdateAttack();
                 break;
             case DASH_STATE.DASHING:
-                timeToAttack -= Time.deltaTime;
+                attackCDLeft -= Time.deltaTime;
                 UpdateDash();
                 break;
             case DASH_STATE.BACK:
-                timeToAttack -= Time.deltaTime;
+                attackCDLeft -= Time.deltaTime;
                 UpdateBack();
                 break;
         }

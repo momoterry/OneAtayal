@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DollLaser : DollAuto
+public class DollLaser : DollBeta
 {
     public GameObject theLaserRef;
     protected BulletLaser myLaser;
 
     bool isLaser = false;
+
+    protected float checkTime = 0;
 
     protected override void Start()
     {
@@ -22,16 +24,18 @@ public class DollLaser : DollAuto
 
     protected override void UpdateFollow()
     {
-        if (myAgent)
-            myAgent.SetDestination(mySlot.position);
+        //if (myAgent)
+        //    myAgent.SetDestination(mySlot.position);
+        FollowSlot();
 
         myFace = BattleSystem.GetPC().GetFaceDir();
 
         if (!isLaser)
         {
-            if (autoStateTime > 0.1f)
+            checkTime += Time.deltaTime;
+            if (checkTime > 0.1f)
             {
-                autoStateTime = 0;
+                checkTime = 0;
 
                 if (SearchTarget())
                 {

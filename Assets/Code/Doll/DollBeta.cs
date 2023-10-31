@@ -172,11 +172,46 @@ public class DollBeta : Doll
         }
     }
 
+    protected void FollowSlot()
+    {
+        if (myAgent && mySlot)
+        {
+            float slotDis = Vector3.Distance(mySlot.transform.position, transform.position);
+            if (slotDis < 0.5f)
+            {
+                // 很靠近 Slot 時，停止依賴 myAgent 的作動
+                myAgent.isStopped = true;
+                transform.position = Vector3.MoveTowards(transform.position, mySlot.transform.position, RunSpeed * Time.deltaTime);
+            }
+            else
+            {
+                myAgent.isStopped = false;
+                myAgent.SetDestination(mySlot.transform.position);
+            }
+
+        }
+    }
 
     protected virtual void UpdateFollow()
     {
-        if (myAgent && mySlot)
-            myAgent.SetDestination(mySlot.transform.position);
+        FollowSlot();
+        //if (myAgent && mySlot)
+        //{
+        //    float slotDis = Vector3.Distance(mySlot.transform.position, transform.position);
+        //    if (slotDis < 0.5f)
+        //    {
+        //        //myAgent.SetDestination(mySlot.position + thePC.GetVelocity() * Time.deltaTime);
+        //        // 很靠近 Slot 時，停止依賴 myAgent 的作動
+        //        myAgent.isStopped = true;
+        //        transform.position = Vector3.MoveTowards(transform.position, mySlot.transform.position, RunSpeed * Time.deltaTime);
+        //    }
+        //    else
+        //    {
+        //        myAgent.isStopped = false;
+        //        myAgent.SetDestination(mySlot.transform.position);
+        //    }
+
+        //}
 
         if (attackWhenFollow)
             UpdateSearchAndShoot();
@@ -188,8 +223,12 @@ public class DollBeta : Doll
 
     protected virtual void UpdateAttack()
     {
-        if (myAgent && mySlot)
-            myAgent.SetDestination(mySlot.transform.position);
+        FollowSlot();
+        //if (myAgent && mySlot)
+        //{
+        //    myAgent.isStopped = false;
+        //    myAgent.SetDestination(mySlot.transform.position);
+        //}
         if (thePC.IsMoving())
         {
             nextPhase = PHASE.FOLLOW;
@@ -310,6 +349,6 @@ public class DollBeta : Doll
     //{
     //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
     //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currPhase.ToString());
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), myAgent.speed.ToString());
     //}
 }
