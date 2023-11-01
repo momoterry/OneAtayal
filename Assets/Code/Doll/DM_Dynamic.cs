@@ -31,6 +31,8 @@ public class DM_Dynamic : DollManager
             DollSlots[i] = o.transform;
         }
         dolls = new Doll[slotNum];
+
+        BattleSystem.GetHUD().RegisterDollLayoutUI(this);
     }
 
 

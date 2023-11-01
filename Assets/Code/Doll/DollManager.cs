@@ -142,6 +142,8 @@ public class DollManager : MonoBehaviour
         }
         slotNum = DollSlots.Length;
         dolls = new Doll[slotNum];
+
+        BattleSystem.GetHUD().RegisterDollLayoutUI(this);
     }
 
     // Update is called once per frame

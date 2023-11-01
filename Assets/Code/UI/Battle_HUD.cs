@@ -35,10 +35,6 @@ public class Battle_HUD : MonoBehaviour
     public GameObject winMenu;
     public GameObject failMenu;
 
-    //血瓶
-    //public Text PotionNumText;
-    //public Text PotionMaxText;
-
     //技能
     public Text AttackText;
     public SkillButton autoAttackButton;
@@ -61,6 +57,10 @@ public class Battle_HUD : MonoBehaviour
     public VPad theRightPad;
     public CrossPadControl crossPadControl;
 
+    //陣型編輯相關
+    public DollLayoutUIBase[] dLayoutUIs;
+    protected DollLayoutUIBase currDollLayout;
+
     protected int currMoney = -1;
     protected int currLV = -1;
     protected float currExpRatio = -1.0f;
@@ -78,6 +78,9 @@ public class Battle_HUD : MonoBehaviour
 
     //勝敗頁面相關
     protected System.Action winMenuCB;
+
+
+
 
     private void Awake()
     {
@@ -415,13 +418,28 @@ public class Battle_HUD : MonoBehaviour
         BattleSystem.GetInstance().OnBackPrevScene();
     }
 
-    //public void SetPotionNum( int num, int maxNum)
-    //{
-    //    if (PotionNumText)
-    //        PotionNumText.text = "x " + num.ToString();
-    //    if (PotionMaxText)
-    //        PotionMaxText.gameObject.SetActive(num == maxNum);
-    //}
+    //陣型編輯相關 ===============================
+    public void RegisterDollLayoutUI( DollManager dm )
+    {
+        //TODO: 根據 ID 來找出對應的 Menu
+        currDollLayout = dLayoutUIs[0];
+        currDollLayout.SetupDollManager(dm);
+    }
+
+    public void OnOnOffDollLayoutUI()
+    {
+        if (currDollLayout)
+        {
+            if (currDollLayout.IsMenuActive())
+            {
+                currDollLayout.CloseMenu();
+            }
+            else
+            {
+                currDollLayout.OpenMenu();
+            }
+        }
+    }
 
     public void OnButtonPotion()
     {
