@@ -261,4 +261,13 @@ public class DM_Dynamic : DollManager
                 break;
         }
     }
+
+    //以下為支援陣型編輯 TODO: 有些以後也會要整合到 Base 中
+    //public void GetAllList( ref List<Doll> _frontList, ref List<Doll> _middleList, ref List<Doll> _backList)
+    //{
+    //    _frontList = frontList;
+    //    _middleList = middleList;
+    //    _backList = backList;
+    //}
+    public List<Doll> GetFrontList() { return frontList; }
 }
