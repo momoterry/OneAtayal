@@ -430,6 +430,7 @@ public class Battle_HUD : MonoBehaviour
     {
         if (currDollLayout)
         {
+
             if (currDollLayout.IsMenuActive())
             {
                 currDollLayout.CloseMenu();
