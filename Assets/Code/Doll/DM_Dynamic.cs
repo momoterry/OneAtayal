@@ -270,4 +270,6 @@ public class DM_Dynamic : DollManager
     //    _backList = backList;
     //}
     public List<Doll> GetFrontList() { return frontList; }
+    public List<Doll> GetBackList() { return backList; }
+    public List<Doll> GetMiddleList() { return middleList; }
 }

@@ -16,11 +16,15 @@ public class DollLayoutUIBase : MonoBehaviour
 public class DollLayoutDynamic : DollLayoutUIBase
 {
     
-    public GameObject frontRoot;
+    public Transform frontRoot;
+    public Transform leftRoot;
+    public Transform rightRoot;
+    public Transform backRoot;
 
     protected DM_Dynamic dmD;
 
     protected List<DollLayoutItem> listFront = new List<DollLayoutItem>();
+    protected List<DollLayoutItem> listBack = new List<DollLayoutItem>();
 
 
     private void Awake()
@@ -40,6 +44,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
         //print("OpenMenu");
 
         CreateFrontItems(dmD.GetFrontList());
+        CreateBackItems(dmD.GetBackList());
 
         base.OpenMenu();
 
@@ -53,7 +58,12 @@ public class DollLayoutDynamic : DollLayoutUIBase
         {
             Destroy(di.gameObject);
         }
+        foreach (DollLayoutItem di in listBack)
+        {
+            Destroy(di.gameObject);
+        }
         listFront.Clear();
+        listBack.Clear();
         base.CloseMenu();
     }
 
@@ -77,9 +87,6 @@ public class DollLayoutDynamic : DollLayoutUIBase
         float slotWidth = 16.0f;
         float slotHeight = 16.0f;
 
-        //float totalWidth = dList.Count * slotWidth;
-        //float x = (-totalWidth + slotWidth) * 0.5f;
-
         int i = 0;
         float y = (iHeight-1) * 0.5f * slotHeight;
         for (int h = 0; h<iHeight; h++)
@@ -93,7 +100,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 //print(i + " .... " + d);
                 if (!d)
                     continue;
-                GameObject o = Instantiate(dollLayoutItemRef.gameObject, frontRoot.transform.position, frontRoot.transform.rotation, frontRoot.transform);
+                GameObject o = Instantiate(dollLayoutItemRef.gameObject, frontRoot.position, frontRoot.rotation, frontRoot);
                 o.SetActive(true);
                 RectTransform rt = o.GetComponent<RectTransform>();
                 rt.localPosition = new Vector2(x, y);
@@ -107,19 +114,58 @@ public class DollLayoutDynamic : DollLayoutUIBase
             y -= slotHeight;
         }
 
-        //foreach (Doll d in dList)
-        //{
-        //    if (!d)
-        //        continue;
-        //    GameObject o = Instantiate(dollLayoutItemRef.gameObject, frontRoot.transform.position, frontRoot.transform.rotation, frontRoot.transform);
-        //    o.SetActive(true);
-        //    RectTransform rt = o.GetComponent<RectTransform>();
-        //    rt.localPosition = new Vector2(x, 0);
-        //    x += slotWidth;
-        //    DollLayoutItem di = o.GetComponent<DollLayoutItem>();
-        //    di.dollIcon.sprite = d.icon;
-
-        //    listFront.Add(di);
-        //}
     }
+
+    protected void CreateBackItems(List<Doll> dList)
+    {
+        if (!dollLayoutItemRef)
+            return;
+
+        int iCount = dList.Count;
+        int iWidth = dmD.BackWidth;
+        int iHeight = iCount / iWidth + 1;
+        int iLast = iCount % iWidth;
+        if (iLast == 0)
+        {
+            iLast = iWidth;
+            iHeight--;
+        }
+        //print("Height" + iHeight + "Last" + iLast);
+
+
+        float slotWidth = 16.0f;
+        float slotHeight = 16.0f;
+
+        int i = iCount-1;
+        float y = (iHeight - 1) * -0.5f * slotHeight;
+        for (int h = 0; h < iHeight; h++)
+        {
+            int wMax = ((h == (iHeight - 1)) ? iLast : iWidth);
+            float x = (-wMax + 1) * 0.5f * slotWidth;
+            for (int w = 0; w < wMax; w++)
+            {
+                Doll d = dList[i];
+                if (!d)
+                    continue;
+                GameObject o = Instantiate(dollLayoutItemRef.gameObject, backRoot.position, backRoot.rotation, backRoot);
+                o.SetActive(true);
+                RectTransform rt = o.GetComponent<RectTransform>();
+                rt.localPosition = new Vector2(x, y);
+                DollLayoutItem di = o.GetComponent<DollLayoutItem>();
+                di.dollIcon.sprite = d.icon;
+
+                listBack.Add(di);
+                i--;
+                x += slotWidth;
+            }
+            y += slotHeight;
+        }
+
+    }
+
+    protected void CreateMiddleItems( List<Doll> dList )
+    {
+
+    }
+
 }
