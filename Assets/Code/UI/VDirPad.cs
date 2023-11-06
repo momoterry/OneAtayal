@@ -42,7 +42,7 @@ public class VDirPad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointe
 
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(vCenter.rectTransform, data.position, data.enterEventCamera, out pos);
-        print("OnDrag!! " + pos);
+        //print("OnDrag!! " + pos);
     }
 
 }
