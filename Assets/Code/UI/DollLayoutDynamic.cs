@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 
 
@@ -46,12 +47,11 @@ public class DollLayoutDynamic : DollLayoutUIBase
     public override void OpenMenu()
     {
         //print("OpenMenu");
+        base.OpenMenu();
 
         CreateFrontItems(dmD.GetFrontList());
         CreateBackItems(dmD.GetBackList());
         CreateMiddleItems(dmD.GetMiddleList());
-
-        base.OpenMenu();
 
     }
 
@@ -122,7 +122,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 //DollLayoutItem di = o.GetComponent<DollLayoutItem>();
 
                 DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], frontRoot, new Vector2(x, y));
-                di.dollIcon.sprite = d.icon;
+                //di.dollIcon.sprite = d.icon;
 
                 listFront.Add(di);
                 i++;
@@ -238,7 +238,11 @@ public class DollLayoutDynamic : DollLayoutUIBase
         RectTransform rt = o.GetComponent<RectTransform>();
         rt.localPosition = lPos;
         DollLayoutItem di = o.GetComponent<DollLayoutItem>();
-        di.dollIcon.sprite = d.icon;
+        //di.dollIcon.sprite = d.icon;
+        DollLayoutItem.InitData _data;
+        _data.doll = d;
+        _data.menuDL = this;
+        di.Init(_data);
 
         return di;
     }
