@@ -6,6 +6,8 @@ using UnityEngine;
 public class DollLayoutUIBase : MonoBehaviour
 {
     public DollLayoutItem dollLayoutItemRef;
+    public RectTransform topRoot;
+
     protected DollManager theDM;
     public bool IsMenuActive() { return gameObject.activeSelf; }
     public virtual void OpenMenu()  { gameObject.SetActive(true); }
@@ -113,11 +115,13 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 //print(i + " .... " + d);
                 if (!d)
                     continue;
-                GameObject o = Instantiate(dollLayoutItemRef.gameObject, frontRoot.position, frontRoot.rotation, frontRoot);
-                o.SetActive(true);
-                RectTransform rt = o.GetComponent<RectTransform>();
-                rt.localPosition = new Vector2(x, y);
-                DollLayoutItem di = o.GetComponent<DollLayoutItem>();
+                //GameObject o = Instantiate(dollLayoutItemRef.gameObject, frontRoot.position, frontRoot.rotation, frontRoot);
+                //o.SetActive(true);
+                //RectTransform rt = o.GetComponent<RectTransform>();
+                //rt.localPosition = new Vector2(x, y);
+                //DollLayoutItem di = o.GetComponent<DollLayoutItem>();
+
+                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], frontRoot, new Vector2(x, y));
                 di.dollIcon.sprite = d.icon;
 
                 listFront.Add(di);
@@ -160,12 +164,13 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 Doll d = dList[i];
                 if (!d)
                     continue;
-                GameObject o = Instantiate(dollLayoutItemRef.gameObject, backRoot.position, backRoot.rotation, backRoot);
-                o.SetActive(true);
-                RectTransform rt = o.GetComponent<RectTransform>();
-                rt.localPosition = new Vector2(x, y);
-                DollLayoutItem di = o.GetComponent<DollLayoutItem>();
-                di.dollIcon.sprite = d.icon;
+                //GameObject o = Instantiate(dollLayoutItemRef.gameObject, backRoot.position, backRoot.rotation, backRoot);
+                //o.SetActive(true);
+                //RectTransform rt = o.GetComponent<RectTransform>();
+                //rt.localPosition = new Vector2(x, y);
+                //DollLayoutItem di = o.GetComponent<DollLayoutItem>();
+                //di.dollIcon.sprite = d.icon;
+                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], backRoot, new Vector2(x, y));
 
                 listBack.Add(di);
                 i--;
