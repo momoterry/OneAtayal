@@ -9,21 +9,30 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
 {
     public Image dollIcon;
 
+    protected RectTransform myRect;
+    protected Vector2 initIconPos;
+
+    private void Awake()
+    {
+        myRect = GetComponent<RectTransform>();
+        initIconPos = dollIcon.rectTransform.localPosition;
+    }
+
     public void OnPointerDown(PointerEventData data)
     {
-        print("..DollLayoutItem Point Down!!");
+        //print("..DollLayoutItem Point Down!!");
     }
 
     public void OnPointerUp(PointerEventData data)
     {
-        print("..DollLayoutItem Point Up!!");
-        dollIcon.rectTransform.localPosition = Vector2.zero;
+        //print("..DollLayoutItem Point Up!!");
+        dollIcon.rectTransform.localPosition = initIconPos;
     }
 
     public void OnDrag(PointerEventData data)
     {
         Vector2 pos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(dollIcon.rectTransform, data.position, data.enterEventCamera, out pos);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(myRect, data.position, data.enterEventCamera, out pos);
         //print("..Drag " + data.position);
         //print("..Drag Rect Pos " + pos);
         dollIcon.rectTransform.localPosition = pos;
