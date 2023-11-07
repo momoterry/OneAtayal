@@ -9,10 +9,67 @@ public class DollLayoutUIBase : MonoBehaviour
     public RectTransform topRoot;
 
     protected DollManager theDM;
+    protected DollLayoutItem currDragItem;
+    protected DollLayoutItem touchItem;
+    //protected List<DollLayoutItem> dragTouchedItems;
     public bool IsMenuActive() { return gameObject.activeSelf; }
     public virtual void OpenMenu()  { gameObject.SetActive(true); }
     public virtual void CloseMenu() { gameObject.SetActive(false); }
     public virtual void SetupDollManager(DollManager dm) { theDM = dm; }
+
+    public void RegisterDragItem(DollLayoutItem dragItem)
+    {
+        if (currDragItem!= null)
+        {
+            print("ERROR!! RegisterDragItem but currDragItem not NULL !! " + currDragItem.name);
+        }
+        currDragItem = dragItem;
+    }
+
+    public void UnRegisterDragItem(DollLayoutItem dragItem)
+    {
+        if (currDragItem == dragItem)
+        {
+            currDragItem = null;
+            //dragTouchedItems.Clear();
+            if (touchItem != null)
+            {
+                touchItem.ShowOutline(false);
+                touchItem = null;
+            }
+        }
+        else
+        {
+            print("ERROR!! UnRegisterDragItem not registered !! " + currDragItem.name);
+        }
+    }
+
+    public void OnItemPointerEnter(DollLayoutItem _item)
+    {
+        if (currDragItem == null || currDragItem == _item)
+            return;
+
+        if (touchItem)
+        {
+            touchItem.ShowOutline(false);
+        }
+        touchItem = _item;
+        touchItem.ShowOutline(true);
+        //dragTouchedItems[0]
+    }
+
+    public void OnItemPointerExit(DollLayoutItem _item)
+    {
+        if (currDragItem == null || currDragItem == _item)
+            return;
+
+        if (touchItem == _item)
+        {
+            touchItem.ShowOutline(false);
+            touchItem = null;
+        }
+    }
+
 }
 
 public class DollLayoutDynamic : DollLayoutUIBase

@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
+public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Image dollIcon;
+    public Image outLine;
 
     protected RectTransform myRect;
     protected Vector2 initIconPos;
 
+    protected DollLayoutUIBase myMenu;
     protected RectTransform movingRootRT;
     protected Transform originalRoot;
     protected Vector2 originalLocalPos;
@@ -32,35 +35,59 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
     {
         dollIcon.sprite = _data.doll.icon;
         movingRootRT = _data.menuDL.topRoot;
+        myMenu = _data.menuDL;
         originalRoot = transform.parent;
         originalLocalPos = myRect.localPosition;
     }
 
     public void OnPointerDown(PointerEventData data)
     {
-        //print("..DollLayoutItem Point Down!!");
-        //dollIcon.transform.SetParent(movingRootRT.transform);
-
         transform.SetParent(movingRootRT.transform);
+        foreach (Image im in GetComponentsInChildren<Image>())
+        {
+            im.raycastTarget = false;
+        }
+
+        myMenu.RegisterDragItem(this);
     }
 
     public void OnPointerUp(PointerEventData data)
     {
-        //print("..DollLayoutItem Point Up!!");
-        //dollIcon.transform.SetParent(myRect.transform);
         transform.SetParent(originalRoot);
         myRect.localPosition = originalLocalPos;
 
-        //dollIcon.rectTransform.localPosition = initIconPos;
+        foreach (Image im in GetComponentsInChildren<Image>())
+        {
+            im.raycastTarget = true;
+        }
+
+        myMenu.UnRegisterDragItem(this);
     }
 
     public void OnDrag(PointerEventData data)
     {
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(movingRootRT, data.position, data.enterEventCamera, out pos);
-        //print("..Drag Rect Pos " + pos);
-        //dollIcon.rectTransform.localPosition = pos;
         myRect.localPosition = pos;
+    }
+
+    public void OnPointerEnter(PointerEventData data)
+    {
+        //print("....PointerEnter !!");
+        //outLine.gameObject.SetActive(true);
+        myMenu.OnItemPointerEnter(this);
+    }
+
+    public void OnPointerExit(PointerEventData data)
+    {
+        //print("....Exit !!");
+        //outLine.gameObject.SetActive(false);
+        myMenu.OnItemPointerExit(this);
+    }
+
+    public void ShowOutline(bool isOn)
+    {
+        outLine.gameObject.SetActive(isOn);
     }
 
     // Start is called before the first frame update
@@ -74,4 +101,5 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
     {
         
     }
+
 }
