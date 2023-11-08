@@ -164,7 +164,9 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
         CreateFrontItems(dmD.GetFrontList());
         CreateBackItems(dmD.GetBackList());
-        CreateMiddleItems(dmD.GetMiddleList());
+        //CreateMiddleItems(dmD.GetMiddleList());
+        CreateLRItems(dmD.GetLeftList(), true);
+        CreateLRItems(dmD.GetRightList(), false);
 
         foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
         {
@@ -326,45 +328,84 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
     }
 
-    protected void CreateMiddleItems( List<Doll> dList )
+    //protected void CreateMiddleItems( List<Doll> dList )
+    //{
+    //    if (!dollLayoutItemRef || dList.Count == 0)
+    //        return;
+
+    //    int middleNum = dList.Count;
+
+    //    int circleNum = dmD.MiddleDepth + dmD.MiddleDepth;
+    //    int nCircle = (middleNum - 1) / circleNum + 1;
+    //    int lastCircleCount = (middleNum - 1) % circleNum + 1;
+
+    //    float slotWidth = 16.0f;
+    //    float slotHeight = 16.0f;
+
+    //    int _index = 0;
+    //    float x = (nCircle-1) * 0.5f * slotWidth;
+    //    for (int c = 0; c < nCircle; c++)
+    //    {
+    //        int num = circleNum;
+    //        if (c == nCircle - 1)
+    //            num = lastCircleCount;
+    //        int nLine = (num - 1) / 2 + 1;
+    //        float y = (nLine-1) * 0.5f * slotHeight;
+
+    //        for (int l = 0; l < nLine; l++)
+    //        {
+    //            int i = c * circleNum + l * 2;
+    //            DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], leftRoot, new Vector2(x, y), (int)GROUP_TYPE.LEFT, _index);
+    //            listLeft.Add(di);
+
+    //            i++;
+    //            if (i < middleNum)
+    //            {
+    //                DollLayoutItem di2 = CreateOneItem(dollLayoutItemRef, dList[i], rightRoot, new Vector2(-x, y), (int)GROUP_TYPE.RIGHT, _index);
+    //                listRight.Add(di2);
+    //            }
+
+    //            y -= slotHeight;
+    //            _index++;
+    //        }
+    //        x -= slotWidth;
+    //    }
+    //}
+
+    protected void CreateLRItems(List<Doll> dList, bool isLeft)
     {
         if (!dollLayoutItemRef || dList.Count == 0)
             return;
 
-        int middleNum = dList.Count;
+        int totalNum = dList.Count;
 
-        int circleNum = dmD.MiddleDepth + dmD.MiddleDepth;
-        int nCircle = (middleNum - 1) / circleNum + 1;
-        int lastCircleCount = (middleNum - 1) % circleNum + 1;
+        if (totalNum <= 0)
+            return;
+
+        int MiddleDepth = dmD.MiddleDepth;
+        int nCols = ((totalNum - 1) / MiddleDepth) + 1;
+        int lastColCount = (totalNum - 1) % MiddleDepth + 1;
 
         float slotWidth = 16.0f;
         float slotHeight = 16.0f;
 
-        int _index = 0;
-        float x = (nCircle-1) * 0.5f * slotWidth;
-        for (int c = 0; c < nCircle; c++)
+        int i = 0;
+        float x = (nCols - 1) * 0.5f * slotWidth;
+        for (int c = 0; c < nCols; c++)
         {
-            int num = circleNum;
-            if (c == nCircle - 1)
-                num = lastCircleCount;
-            int nLine = (num - 1) / 2 + 1;
-            float y = (nLine-1) * 0.5f * slotHeight;
+            int nLine = MiddleDepth;
+            if (c == nCols - 1)
+                nLine = lastColCount;
 
+            float y = (nLine - 1) * 0.5f * slotHeight;
             for (int l = 0; l < nLine; l++)
             {
-                int i = c * circleNum + l * 2;
-                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], leftRoot, new Vector2(x, y), (int)GROUP_TYPE.LEFT, _index);
-                listLeft.Add(di);
-
-                i++;
-                if (i < middleNum)
-                {
-                    DollLayoutItem di2 = CreateOneItem(dollLayoutItemRef, dList[i], rightRoot, new Vector2(-x, y), (int)GROUP_TYPE.RIGHT, _index);
-                    listRight.Add(di2);
-                }
+                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], (isLeft?leftRoot:rightRoot), 
+                    new Vector2((isLeft? x:-x), y), (int)(isLeft?GROUP_TYPE.LEFT:GROUP_TYPE.RIGHT), i);
+                (isLeft?listLeft:listRight).Add(di);
 
                 y -= slotHeight;
-                _index++;
+                i++;
             }
             x -= slotWidth;
         }
