@@ -270,8 +270,8 @@ public class DM_Dynamic : DollManager
 
         if (isOK)
         {
-            RebuildFormation();
-            //needRebuild = true;
+            //RebuildFormation();
+            DoAddDollToList(doll);
         }
 
         return isOK;
@@ -284,13 +284,40 @@ public class DM_Dynamic : DollManager
 
     public override void OnDollRevive(Doll doll)
     {
-        //needRebuild = true;
-        RebuildFormation();
+        //RebuildFormation();
+        DoAddDollToList(doll);
     }
 
     public override void OnDollDestroy(Doll doll)
     {
         DoRemoveDollFronList(doll);
+    }
+
+    protected void DoAddDollToList(Doll doll)
+    {
+        switch (doll.positionType)
+        {
+            case DOLL_POSITION_TYPE.FRONT:
+                frontList.Add(doll);
+                BuildFrontSlots();
+                break;
+            case DOLL_POSITION_TYPE.MIDDLE:
+                if (leftList.Count <= rightList.Count)
+                {
+                    leftList.Add(doll);
+                    BuildLRSlots(true);
+                }
+                else
+                {
+                    rightList.Add(doll);
+                    BuildLRSlots(false);
+                }
+                break;
+            case DOLL_POSITION_TYPE.BACK:
+                backList.Add(doll);
+                BuildBackSlots();
+                break;
+        }
     }
 
     protected void DoRemoveDollFronList(Doll doll)
