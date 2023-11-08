@@ -75,14 +75,14 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
     {
         //print("....PointerEnter !!");
         //outLine.gameObject.SetActive(true);
-        myMenu.OnItemPointerEnter(this);
+        //myMenu.OnItemPointerEnter(this);
     }
 
     public void OnPointerExit(PointerEventData data)
     {
         //print("....Exit !!");
         //outLine.gameObject.SetActive(false);
-        myMenu.OnItemPointerExit(this);
+        //myMenu.OnItemPointerExit(this);
     }
 
     public void ShowOutline(bool isOn)

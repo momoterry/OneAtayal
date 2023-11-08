@@ -6,6 +6,7 @@ using UnityEngine;
 public class DollLayoutUIBase : MonoBehaviour
 {
     public DollLayoutItem dollLayoutItemRef;
+    public DollLayoutSlot slotRef;
     public RectTransform topRoot;
 
     protected DollManager theDM;
@@ -17,16 +18,20 @@ public class DollLayoutUIBase : MonoBehaviour
     public virtual void CloseMenu() { gameObject.SetActive(false); }
     public virtual void SetupDollManager(DollManager dm) { theDM = dm; }
 
-    public void RegisterDragItem(DollLayoutItem dragItem)
+    public virtual void RegisterDragItem(DollLayoutItem dragItem)
     {
         if (currDragItem!= null)
         {
             print("ERROR!! RegisterDragItem but currDragItem not NULL !! " + currDragItem.name);
         }
         currDragItem = dragItem;
+        foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
+        {
+            slot.gameObject.SetActive(true);
+        }
     }
 
-    public void UnRegisterDragItem(DollLayoutItem dragItem)
+    public virtual void UnRegisterDragItem(DollLayoutItem dragItem)
     {
         if (currDragItem == dragItem)
         {
@@ -36,6 +41,10 @@ public class DollLayoutUIBase : MonoBehaviour
             {
                 touchItem.ShowOutline(false);
                 touchItem = null;
+            }
+            foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
+            {
+                slot.gameObject.SetActive(false);
             }
         }
         else
@@ -87,6 +96,11 @@ public class DollLayoutDynamic : DollLayoutUIBase
     protected List<DollLayoutItem> listLeft = new List<DollLayoutItem>();
     protected List<DollLayoutItem> listRight = new List<DollLayoutItem>();
 
+    protected List<DollLayoutSlot> slotsFront = new List<DollLayoutSlot>();
+    protected List<DollLayoutSlot> slotsBack = new List<DollLayoutSlot>();
+    protected List<DollLayoutSlot> slotsLeft = new List<DollLayoutSlot>();
+    protected List<DollLayoutSlot> slotsRight = new List<DollLayoutSlot>();
+
 
     private void Awake()
     {
@@ -109,6 +123,11 @@ public class DollLayoutDynamic : DollLayoutUIBase
         CreateBackItems(dmD.GetBackList());
         CreateMiddleItems(dmD.GetMiddleList());
 
+        foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
+        {
+            slot.transform.SetParent(topRoot);
+            slot.gameObject.SetActive(false);
+        }
     }
 
     public override void CloseMenu()
@@ -135,6 +154,18 @@ public class DollLayoutDynamic : DollLayoutUIBase
         listBack.Clear();
         listLeft.Clear();
         listRight.Clear();
+
+
+        foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
+        {
+            Destroy(slot.gameObject);
+        }
+
+        slotsFront.Clear();
+        slotsLeft.Clear();
+        slotsRight.Clear();
+        slotsBack.Clear();
+
         base.CloseMenu();
     }
 
@@ -153,10 +184,10 @@ public class DollLayoutDynamic : DollLayoutUIBase
             iHeight--;
         }
         //print("Height" + iHeight + "Last" + iLast);
-        
-        
+
         float slotWidth = 16.0f;
         float slotHeight = 16.0f;
+        float hsWidth = 8.0f;
 
         int i = 0;
         float y = (iHeight-1) * 0.5f * slotHeight;
@@ -164,6 +195,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
         {
             int wMax = ((h == (iHeight - 1)) ? iLast : iWidth);
             float x = ( -wMax + 1) * 0.5f * slotWidth;
+            CreateOneSlotAndLink(slotsFront, slotRef, frontRoot, new Vector2(x - hsWidth, y));  //先建立最左邊的欄位
             //print(h + " .... " + wMax);
             for (int w = 0; w<wMax; w++)
             {
@@ -171,15 +203,9 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 //print(i + " .... " + d);
                 if (!d)
                     continue;
-                //GameObject o = Instantiate(dollLayoutItemRef.gameObject, frontRoot.position, frontRoot.rotation, frontRoot);
-                //o.SetActive(true);
-                //RectTransform rt = o.GetComponent<RectTransform>();
-                //rt.localPosition = new Vector2(x, y);
-                //DollLayoutItem di = o.GetComponent<DollLayoutItem>();
 
                 DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], frontRoot, new Vector2(x, y));
-                //di.dollIcon.sprite = d.icon;
-
+                CreateOneSlotAndLink(slotsFront, slotRef, frontRoot, new Vector2(x + hsWidth, y));
                 listFront.Add(di);
                 i++;
                 x += slotWidth;
@@ -220,12 +246,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 Doll d = dList[i];
                 if (!d)
                     continue;
-                //GameObject o = Instantiate(dollLayoutItemRef.gameObject, backRoot.position, backRoot.rotation, backRoot);
-                //o.SetActive(true);
-                //RectTransform rt = o.GetComponent<RectTransform>();
-                //rt.localPosition = new Vector2(x, y);
-                //DollLayoutItem di = o.GetComponent<DollLayoutItem>();
-                //di.dollIcon.sprite = d.icon;
+
                 DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], backRoot, new Vector2(x, y));
 
                 listBack.Add(di);
@@ -248,8 +269,6 @@ public class DollLayoutDynamic : DollLayoutUIBase
         int nCircle = (middleNum - 1) / circleNum + 1;
         int lastCircleCount = (middleNum - 1) % circleNum + 1;
 
-        //float slotWidth = 1.0f;
-        //float innerWidth = 1.0f;    //最內圈距離
         float slotWidth = 16.0f;
         float slotHeight = 16.0f;
 
@@ -260,27 +279,21 @@ public class DollLayoutDynamic : DollLayoutUIBase
             if (c == nCircle - 1)
                 num = lastCircleCount;
             int nLine = (num - 1) / 2 + 1;
-            //float slotDepth = Mathf.Max(1.0f, 1.5f - (nLine - 1) * 0.25f);
-            //float totalDepth = (float)(nLine - 1) * slotDepth;
-            //float fPos = totalDepth * 0.5f + allShift;
             float y = (nLine-1) * 0.5f * slotHeight;
 
             for (int l = 0; l < nLine; l++)
             {
                 int i = c * circleNum + l * 2;
-                //middleList[i].GetSlot().localPosition = new Vector3(-width, 0, fPos);  //左
                 DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], leftRoot, new Vector2(x, y));
                 listLeft.Add(di);
 
                 i++;
                 if (i < middleNum)
                 {
-                    //middleList[i].GetSlot().localPosition = new Vector3(width, 0, fPos);   //右
                     DollLayoutItem di2 = CreateOneItem(dollLayoutItemRef, dList[i], rightRoot, new Vector2(-x, y));
                     listRight.Add(di2);
                 }
 
-                //fPos -= slotDepth;
                 y -= slotHeight;
             }
             x -= slotWidth;
@@ -294,13 +307,23 @@ public class DollLayoutDynamic : DollLayoutUIBase
         RectTransform rt = o.GetComponent<RectTransform>();
         rt.localPosition = lPos;
         DollLayoutItem di = o.GetComponent<DollLayoutItem>();
-        //di.dollIcon.sprite = d.icon;
         DollLayoutItem.InitData _data;
         _data.doll = d;
         _data.menuDL = this;
         di.Init(_data);
 
         return di;
+    }
+
+    protected DollLayoutSlot CreateOneSlotAndLink(List<DollLayoutSlot> _list, DollLayoutSlot sRef, Transform root, Vector2 lPos)
+    {
+        GameObject o = Instantiate(sRef.gameObject, root.position, root.rotation, root);
+        o.SetActive(true);
+        RectTransform rt = o.GetComponent<RectTransform>();
+        rt.localPosition = lPos;
+        DollLayoutSlot ds = o.GetComponent<DollLayoutSlot>();
+        _list.Add(ds);
+        return ds;
     }
 
 }
