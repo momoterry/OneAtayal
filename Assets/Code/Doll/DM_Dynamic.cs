@@ -16,6 +16,9 @@ public class DM_Dynamic : DollManager
     protected List<Doll> middleList = new List<Doll>();
     protected List<Doll> backList = new List<Doll>();
 
+    protected List<Doll> leftList = new List<Doll>();
+    protected List<Doll> rightList = new List<Doll>();
+
     //protected bool needRebuild = false;
 
     // Start is called before the first frame update
@@ -36,20 +39,8 @@ public class DM_Dynamic : DollManager
     }
 
 
-    // Update is called once per frame
-    //protected override void Update()
-    //{
-    //    base.Update();
-    //    if (needRebuild)
-    //    {
-    //        RebuildFormation();
-    //        needRebuild = false;
-    //    }
-    //}
-
-    protected void RebuildFrontSlots()
+    protected void BuildFrontSlots()
     {
-        //int FrontWidth = 4; //TODO: 放成變數
         int frontNum = frontList.Count;
 
         if (frontNum <= 0)
@@ -84,7 +75,6 @@ public class DM_Dynamic : DollManager
 
     protected void RebuildMiddleSlots()
     {
-        //int MiddleDepth = 3;    //TODO: 放成變數
         int middleNum = middleList.Count;
 
         if (middleNum <= 0)
@@ -128,9 +118,55 @@ public class DM_Dynamic : DollManager
 
     }
 
-    protected void RebuildBackSlots()
+    protected void BuildLRSlots( bool isLeft)
     {
-        //int BackWidth = 5; //TODO: 放成變數
+        List<Doll> currList = isLeft ? leftList : rightList;
+        int totalNum = currList.Count;
+
+        if (totalNum <= 0)
+            return;
+
+        //int circleNum = MiddleDepth + MiddleDepth;
+        int nCols = ((totalNum - 1) / MiddleDepth) + 1;
+        int lastColCount = (totalNum - 1) % MiddleDepth + 1;
+
+        float slotWidth = 1.0f;
+        float innerWidth = 1.0f;    //最內圈距離
+
+        float width = innerWidth;
+        int i = 0;
+        for (int c = 0; c < nCols; c++)
+        {
+            int nLine = MiddleDepth;
+            if (c == nCols - 1)
+                nLine = lastColCount;
+            //int nLine = (num - 1) / 2 + 1;
+            float slotDepth = Mathf.Max(1.0f, 1.5f - (nLine - 1) * 0.25f);
+            float totalDepth = (float)(nLine - 1) * slotDepth;
+            float fPos = totalDepth * 0.5f + allShift;
+
+            for (int l = 0; l < nLine; l++)
+            {
+                //int i = c * MiddleDepth + l;
+                currList[i].GetSlot().localPosition = new Vector3(isLeft ? -width:width, 0, fPos);
+                //print("Prepare... " + i);
+
+                //i++;
+                //if (i < totalNum)
+                //{
+                //    middleList[i].GetSlot().localPosition = new Vector3(width, 0, fPos);   //右
+                //    //print("Prepare... " + i);
+                //}
+
+                i++;
+                fPos -= slotDepth;
+            }
+            width += slotWidth;
+        }
+    }
+
+    protected void BuildBackSlots()
+    {
         int backNum = backList.Count;
 
         if (backNum <= 0)
@@ -167,6 +203,8 @@ public class DM_Dynamic : DollManager
     {
         frontList.Clear();
         middleList.Clear();
+        leftList.Clear();
+        rightList.Clear();
         backList.Clear();
 
         for (int i = 0; i < slotNum; i++)
@@ -179,7 +217,11 @@ public class DM_Dynamic : DollManager
                         frontList.Add(dolls[i]);
                         break;
                     case DOLL_POSITION_TYPE.MIDDLE:
-                        middleList.Add(dolls[i]);
+                        //middleList.Add(dolls[i]);
+                        if (leftList.Count > rightList.Count)
+                            rightList.Add(dolls[i]);
+                        else
+                            leftList.Add(dolls[i]);
                         break;
                     case DOLL_POSITION_TYPE.BACK:
                         backList.Add(dolls[i]);
@@ -189,15 +231,23 @@ public class DM_Dynamic : DollManager
         }
         if (frontList.Count > 0)
         {
-            RebuildFrontSlots();
+            BuildFrontSlots();
         }
         if (middleList.Count > 0)
         {
             RebuildMiddleSlots();
         }
+        if (leftList.Count > 0)
+        {
+            BuildLRSlots(true);
+        }
+        if (rightList.Count > 0)
+        {
+            BuildLRSlots(false);
+        }
         if (backList.Count > 0)
         {
-            RebuildBackSlots();
+            BuildBackSlots();
         }
     }
 
@@ -249,15 +299,23 @@ public class DM_Dynamic : DollManager
         {
             case DOLL_POSITION_TYPE.FRONT:
                 frontList.Remove(doll);
-                RebuildFrontSlots();
+                BuildFrontSlots();
                 break;
             case DOLL_POSITION_TYPE.MIDDLE:
-                middleList.Remove(doll);
-                RebuildMiddleSlots();
+                //middleList.Remove(doll);
+                //RebuildMiddleSlots();
+                if (leftList.Remove(doll))
+                {
+                    BuildLRSlots(true);
+                }
+                else if (rightList.Remove(doll))
+                {
+                    BuildLRSlots(false);
+                }
                 break;
             case DOLL_POSITION_TYPE.BACK:
                 backList.Remove(doll);
-                RebuildBackSlots();
+                BuildBackSlots();
                 break;
         }
     }
@@ -272,4 +330,6 @@ public class DM_Dynamic : DollManager
     public List<Doll> GetFrontList() { return frontList; }
     public List<Doll> GetBackList() { return backList; }
     public List<Doll> GetMiddleList() { return middleList; }
+    public List<Doll> GetLeftList() { return leftList; }
+    public List<Doll> GetRightList() { return rightList; }
 }

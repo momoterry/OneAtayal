@@ -231,7 +231,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
     protected override bool MoveItemToSlot(DollLayoutItem item, DollLayoutSlot slot)
     {
         print("MoveItemToSlot!! From: " + item.myGroup + ", " + item.myIndex + " To: " + slot.myGroup + ", " + slot.myIndex);
-        List<DollLayoutItem> fromList, toList;
+        //List<DollLayoutItem> fromList, toList;
 
         return false;
     }
