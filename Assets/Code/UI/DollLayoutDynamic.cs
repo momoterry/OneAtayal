@@ -150,11 +150,6 @@ public class DollLayoutDynamic : DollLayoutUIBase
     protected List<DollLayoutSlot> slotsRight = new List<DollLayoutSlot>();
 
 
-    private void Awake()
-    {
-        //gameObject.SetActive(false);
-    }
-
     public override void SetupDollManager(DollManager dm)
     {
         base.SetupDollManager(dm);
@@ -180,46 +175,64 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
     public override void CloseMenu()
     {
-        //print("CloseMenu");
+        //foreach (DollLayoutItem di in listFront)
+        //{
+        //    Destroy(di.gameObject);
+        //}
+        //foreach (DollLayoutItem di in listBack)
+        //{
+        //    Destroy(di.gameObject);
+        //}
+        //foreach (DollLayoutItem di in listLeft)
+        //{
+        //    Destroy(di.gameObject);
+        //}
+        //foreach (DollLayoutItem di in listRight)
+        //{
+        //    Destroy(di.gameObject);
+        //}
+        //listFront.Clear();
+        //listBack.Clear();
+        //listLeft.Clear();
+        //listRight.Clear();
 
-        foreach (DollLayoutItem di in listFront)
-        {
-            Destroy(di.gameObject);
-        }
-        foreach (DollLayoutItem di in listBack)
-        {
-            Destroy(di.gameObject);
-        }
-        foreach (DollLayoutItem di in listLeft)
-        {
-            Destroy(di.gameObject);
-        }
-        foreach (DollLayoutItem di in listRight)
-        {
-            Destroy(di.gameObject);
-        }
-        listFront.Clear();
-        listBack.Clear();
-        listLeft.Clear();
-        listRight.Clear();
+        //foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
+        //{
+        //    Destroy(slot.gameObject);
+        //}
 
-        foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
-        {
-            Destroy(slot.gameObject);
-        }
-
-        slotsFront.Clear();
-        slotsLeft.Clear();
-        slotsRight.Clear();
-        slotsBack.Clear();
+        //slotsFront.Clear();
+        //slotsLeft.Clear();
+        //slotsRight.Clear();
+        //slotsBack.Clear();
+        ClearItemAndSlotList(listFront, slotsFront);
+        ClearItemAndSlotList(listLeft, slotsLeft);
+        ClearItemAndSlotList(listRight, slotsRight);
+        ClearItemAndSlotList(listBack, slotsBack);
 
         base.CloseMenu();
+    }
+
+    protected void ClearItemAndSlotList(List<DollLayoutItem> itemList, List<DollLayoutSlot> slotList)
+    {
+        foreach (DollLayoutItem di in itemList)
+        {
+            Destroy(di.gameObject);
+        }
+        foreach (DollLayoutSlot ds in slotList)
+        {
+            Destroy(ds.gameObject);
+        }
+        itemList.Clear();
+        slotList.Clear();
     }
 
 
     protected override bool MoveItemToSlot(DollLayoutItem item, DollLayoutSlot slot)
     {
         print("MoveItemToSlot!! From: " + item.myGroup + ", " + item.myIndex + " To: " + slot.myGroup + ", " + slot.myIndex);
+        List<DollLayoutItem> fromList, toList;
+
         return false;
     }
 
