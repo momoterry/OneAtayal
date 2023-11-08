@@ -12,6 +12,7 @@ public class DollLayoutUIBase : MonoBehaviour
     protected DollManager theDM;
     protected DollLayoutItem currDragItem;
     protected DollLayoutItem touchItem;
+    protected DollLayoutSlot touchSlot;
     //protected List<DollLayoutItem> dragTouchedItems;
     public bool IsMenuActive() { return gameObject.activeSelf; }
     public virtual void OpenMenu()  { gameObject.SetActive(true); }
@@ -36,11 +37,15 @@ public class DollLayoutUIBase : MonoBehaviour
         if (currDragItem == dragItem)
         {
             currDragItem = null;
-            //dragTouchedItems.Clear();
             if (touchItem != null)
             {
                 touchItem.ShowOutline(false);
                 touchItem = null;
+            }
+            if (touchSlot != null)
+            {
+                touchSlot.ShowOutline(false);
+                touchSlot = null;
             }
             foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
             {
@@ -76,6 +81,31 @@ public class DollLayoutUIBase : MonoBehaviour
         {
             touchItem.ShowOutline(false);
             touchItem = null;
+        }
+    }
+
+    public void OnSlotPointerEnter(DollLayoutSlot slot)
+    {
+        if (currDragItem == null)
+            return;
+
+        if (touchSlot)
+        {
+            touchSlot.ShowOutline(false);
+        }
+        touchSlot = slot;
+        touchSlot.ShowOutline(true);
+    }
+
+    public void OnSlotPointerExit(DollLayoutSlot slot)
+    {
+        if (currDragItem == null)
+            return;
+
+        if (touchSlot == slot)
+        {
+            touchSlot.ShowOutline(false);
+            touchSlot = null;
         }
     }
 
@@ -322,6 +352,9 @@ public class DollLayoutDynamic : DollLayoutUIBase
         RectTransform rt = o.GetComponent<RectTransform>();
         rt.localPosition = lPos;
         DollLayoutSlot ds = o.GetComponent<DollLayoutSlot>();
+        DollLayoutSlot.InitData _data;
+        _data.menuDL = this;
+        ds.Init(_data);
         _list.Add(ds);
         return ds;
     }
