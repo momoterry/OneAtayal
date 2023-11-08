@@ -13,11 +13,13 @@ public class DollLayoutUIBase : MonoBehaviour
     protected DollLayoutItem currDragItem;
     protected DollLayoutItem touchItem;
     protected DollLayoutSlot touchSlot;
-    //protected List<DollLayoutItem> dragTouchedItems;
+
     public bool IsMenuActive() { return gameObject.activeSelf; }
     public virtual void OpenMenu()  { gameObject.SetActive(true); }
     public virtual void CloseMenu() { gameObject.SetActive(false); }
     public virtual void SetupDollManager(DollManager dm) { theDM = dm; }
+
+    protected virtual bool MoveItemToSlot(DollLayoutItem item, DollLayoutSlot slot) { return false; }
 
     public virtual void RegisterDragItem(DollLayoutItem dragItem)
     {
@@ -34,9 +36,10 @@ public class DollLayoutUIBase : MonoBehaviour
 
     public virtual void UnRegisterDragItem(DollLayoutItem dragItem)
     {
+        DollLayoutItem moveItem = null;
+        DollLayoutSlot toSlot = null;
         if (currDragItem == dragItem)
         {
-            currDragItem = null;
             if (touchItem != null)
             {
                 touchItem.ShowOutline(false);
@@ -44,9 +47,14 @@ public class DollLayoutUIBase : MonoBehaviour
             }
             if (touchSlot != null)
             {
+                //有碰到 Slot，準進行移動 !!
+                print("TOD MOVE !!");
+                moveItem = currDragItem;
+                toSlot = touchSlot;
                 touchSlot.ShowOutline(false);
                 touchSlot = null;
             }
+            currDragItem = null;
             foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
             {
                 slot.gameObject.SetActive(false);
@@ -55,6 +63,11 @@ public class DollLayoutUIBase : MonoBehaviour
         else
         {
             print("ERROR!! UnRegisterDragItem not registered !! " + currDragItem.name);
+        }
+
+        if (moveItem && toSlot)     //把移動行為放到最後以確保原 Item 跟 Slot 都回復
+        {
+            MoveItemToSlot(moveItem, toSlot);
         }
     }
 
@@ -118,6 +131,11 @@ public class DollLayoutDynamic : DollLayoutUIBase
     public Transform leftRoot;
     public Transform rightRoot;
     public Transform backRoot;
+
+    public enum GROUP_TYPE
+    {
+        FRONT, LEFT, RIGHT, BACK
+    }
 
     protected DM_Dynamic dmD;
 
@@ -185,7 +203,6 @@ public class DollLayoutDynamic : DollLayoutUIBase
         listLeft.Clear();
         listRight.Clear();
 
-
         foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
         {
             Destroy(slot.gameObject);
@@ -198,6 +215,14 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
         base.CloseMenu();
     }
+
+
+    protected override bool MoveItemToSlot(DollLayoutItem item, DollLayoutSlot slot)
+    {
+        print("MoveItemToSlot!! From: " + item.myGroup + ", " + item.myIndex + " To: " + slot.myGroup + ", " + slot.myIndex);
+        return false;
+    }
+
 
     protected void CreateFrontItems(List<Doll> dList)
     {
@@ -225,7 +250,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
         {
             int wMax = ((h == (iHeight - 1)) ? iLast : iWidth);
             float x = ( -wMax + 1) * 0.5f * slotWidth;
-            CreateOneSlotAndLink(slotsFront, slotRef, frontRoot, new Vector2(x - hsWidth, y));  //先建立最左邊的欄位
+            CreateOneSlotAndLink(slotsFront, slotRef, frontRoot, new Vector2(x - hsWidth, y), (int)GROUP_TYPE.FRONT, i);  //先建立最左邊的欄位
             //print(h + " .... " + wMax);
             for (int w = 0; w<wMax; w++)
             {
@@ -234,8 +259,8 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 if (!d)
                     continue;
 
-                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], frontRoot, new Vector2(x, y));
-                CreateOneSlotAndLink(slotsFront, slotRef, frontRoot, new Vector2(x + hsWidth, y));
+                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], frontRoot, new Vector2(x, y), (int)GROUP_TYPE.FRONT, i);
+                CreateOneSlotAndLink(slotsFront, slotRef, frontRoot, new Vector2(x + hsWidth, y), (int)GROUP_TYPE.FRONT, i+1);
                 listFront.Add(di);
                 i++;
                 x += slotWidth;
@@ -277,7 +302,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 if (!d)
                     continue;
 
-                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], backRoot, new Vector2(x, y));
+                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], backRoot, new Vector2(x, y), (int)GROUP_TYPE.BACK, i);
 
                 listBack.Add(di);
                 i--;
@@ -302,6 +327,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
         float slotWidth = 16.0f;
         float slotHeight = 16.0f;
 
+        int _index = 0;
         float x = (nCircle-1) * 0.5f * slotWidth;
         for (int c = 0; c < nCircle; c++)
         {
@@ -314,46 +340,51 @@ public class DollLayoutDynamic : DollLayoutUIBase
             for (int l = 0; l < nLine; l++)
             {
                 int i = c * circleNum + l * 2;
-                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], leftRoot, new Vector2(x, y));
+                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], leftRoot, new Vector2(x, y), (int)GROUP_TYPE.LEFT, _index);
                 listLeft.Add(di);
 
                 i++;
                 if (i < middleNum)
                 {
-                    DollLayoutItem di2 = CreateOneItem(dollLayoutItemRef, dList[i], rightRoot, new Vector2(-x, y));
+                    DollLayoutItem di2 = CreateOneItem(dollLayoutItemRef, dList[i], rightRoot, new Vector2(-x, y), (int)GROUP_TYPE.RIGHT, _index);
                     listRight.Add(di2);
                 }
 
                 y -= slotHeight;
+                _index++;
             }
             x -= slotWidth;
         }
     }
 
-    protected DollLayoutItem CreateOneItem(DollLayoutItem iRef, Doll d, Transform root, Vector2 lPos)
+    protected DollLayoutItem CreateOneItem(DollLayoutItem iRef, Doll d, Transform root, Vector2 lPos, int group, int index)
     {
         GameObject o = Instantiate(iRef.gameObject, root.position, root.rotation, root);
         o.SetActive(true);
         RectTransform rt = o.GetComponent<RectTransform>();
         rt.localPosition = lPos;
         DollLayoutItem di = o.GetComponent<DollLayoutItem>();
-        DollLayoutItem.InitData _data;
+        DollLayoutItem.InitData _data = new DollLayoutItem.InitData();
         _data.doll = d;
         _data.menuDL = this;
+        _data.group = group;
+        _data.index = index;
         di.Init(_data);
 
         return di;
     }
 
-    protected DollLayoutSlot CreateOneSlotAndLink(List<DollLayoutSlot> _list, DollLayoutSlot sRef, Transform root, Vector2 lPos)
+    protected DollLayoutSlot CreateOneSlotAndLink(List<DollLayoutSlot> _list, DollLayoutSlot sRef, Transform root, Vector2 lPos, int group, int index)
     {
         GameObject o = Instantiate(sRef.gameObject, root.position, root.rotation, root);
         o.SetActive(true);
         RectTransform rt = o.GetComponent<RectTransform>();
         rt.localPosition = lPos;
         DollLayoutSlot ds = o.GetComponent<DollLayoutSlot>();
-        DollLayoutSlot.InitData _data;
+        DollLayoutSlot.InitData _data = new DollLayoutSlot.InitData();
         _data.menuDL = this;
+        _data.group = group;
+        _data.index = index;
         ds.Init(_data);
         _list.Add(ds);
         return ds;

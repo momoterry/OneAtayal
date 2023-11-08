@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -11,14 +12,21 @@ public class DollLayoutSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     // Start is called before the first frame update
 
     protected DollLayoutUIBase myMenu;
+    [System.NonSerialized]
+    public int myGroup;
+    public int myIndex;
 
-    public struct InitData
+    public class InitData
     {
         public DollLayoutUIBase menuDL;
+        public int group;
+        public int index;
     }
     public void Init(InitData _data)
     {
         myMenu = _data.menuDL;
+        myGroup = _data.group;
+        myIndex = _data.index;
     }
     void Start()
     {
@@ -32,13 +40,13 @@ public class DollLayoutSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
     public void OnPointerEnter(PointerEventData data)
     {
-        print("....PointerEnter !!");
+        //print("....PointerEnter !!");
         myMenu.OnSlotPointerEnter(this);
     }
 
     public void OnPointerExit(PointerEventData data)
     {
-        print("....Exit !!");
+        //print("....Exit !!");
         myMenu.OnSlotPointerExit(this);
     }
     public void ShowOutline(bool isOn)

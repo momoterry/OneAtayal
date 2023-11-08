@@ -18,10 +18,16 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
     protected Transform originalRoot;
     protected Vector2 originalLocalPos;
 
-    public struct InitData
+    [System.NonSerialized]
+    public int myGroup;
+    public int myIndex;
+
+    public class InitData
     {
         public Doll doll;
         public DollLayoutUIBase menuDL;
+        public int group;
+        public int index;
     }
 
 
@@ -36,6 +42,9 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
         dollIcon.sprite = _data.doll.icon;
         movingRootRT = _data.menuDL.topRoot;
         myMenu = _data.menuDL;
+        myGroup = _data.group;
+        myIndex = _data.index;
+
         originalRoot = transform.parent;
         originalLocalPos = myRect.localPosition;
     }
