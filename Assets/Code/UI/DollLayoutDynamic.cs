@@ -229,6 +229,66 @@ public class DollLayoutDynamic : DollLayoutUIBase
         slotList.Clear();
     }
 
+    protected List<DollLayoutItem> GetItemListByGroup(int group)
+    {
+        switch (group)
+        {
+            case (int)DM_Dynamic.GROUP_TYPE.FRONT:
+                return listFront;
+            case (int)DM_Dynamic.GROUP_TYPE.LEFT:
+                return listLeft;
+            case (int)DM_Dynamic.GROUP_TYPE.RIGHT:
+                return listRight;
+            case (int)DM_Dynamic.GROUP_TYPE.BACK:
+                return listBack;
+        }
+        return null;
+    }
+    protected List<DollLayoutSlot> GetSlotListByGroup(int group)
+    {
+        switch (group)
+        {
+            case (int)DM_Dynamic.GROUP_TYPE.FRONT:
+                return slotsFront;
+            case (int)DM_Dynamic.GROUP_TYPE.LEFT:
+                return slotsLeft;
+            case (int)DM_Dynamic.GROUP_TYPE.RIGHT:
+                return slotsRight;
+            case (int)DM_Dynamic.GROUP_TYPE.BACK:
+                return slotsBack;
+        }
+        return null;
+    }
+
+    protected void RebuildGroup( int group )
+    {
+        ClearItemAndSlotList(GetItemListByGroup(group), GetSlotListByGroup(group));
+        List<DollLayoutSlot> newSlots = null;
+        switch (group)
+        {
+            case (int)DM_Dynamic.GROUP_TYPE.FRONT:
+                CreateFrontItems(dmD.GetFrontList());
+                newSlots = slotsFront;
+                break;
+            case (int)DM_Dynamic.GROUP_TYPE.LEFT:
+                CreateLRItems(dmD.GetLeftList(), true);
+                newSlots = slotsLeft;
+                break;
+            case (int)DM_Dynamic.GROUP_TYPE.RIGHT:
+                CreateLRItems(dmD.GetRightList(), false);
+                newSlots = slotsRight;
+                break;
+            case (int)DM_Dynamic.GROUP_TYPE.BACK:
+                CreateBackItems(dmD.GetBackList());
+                newSlots = slotsBack;
+                break;
+        }
+        foreach (DollLayoutSlot s in newSlots)
+        {
+            s.transform.SetParent(topRoot);
+            s.gameObject.SetActive(false);
+        }
+    }
 
     protected override bool MoveItemToSlot(DollLayoutItem item, DollLayoutSlot slot)
     {
@@ -239,22 +299,41 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
         if (bResult)
         {
-            //TODO: 先暴力法全整理
-            ClearItemAndSlotList(listFront, slotsFront);
-            ClearItemAndSlotList(listLeft, slotsLeft);
-            ClearItemAndSlotList(listRight, slotsRight);
-            ClearItemAndSlotList(listBack, slotsBack);
-
-            CreateFrontItems(dmD.GetFrontList());
-            CreateBackItems(dmD.GetBackList());
-            CreateLRItems(dmD.GetLeftList(), true);
-            CreateLRItems(dmD.GetRightList(), false);
-
-            foreach (DollLayoutSlot s in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
+            ClearItemAndSlotList(GetItemListByGroup(item.myGroup), GetSlotListByGroup(item.myGroup));
+            RebuildGroup(item.myGroup);
+            if (item.myGroup != slot.myGroup)
             {
-                s.transform.SetParent(topRoot);
-                s.gameObject.SetActive(false);
+                ClearItemAndSlotList(GetItemListByGroup(slot.myGroup), GetSlotListByGroup(slot.myGroup));
+                RebuildGroup(slot.myGroup);
             }
+
+            //List<DollLayoutSlot> newSlots = new List<DollLayoutSlot>();
+            //if (item.myGroup == (int)DM_Dynamic.GROUP_TYPE.FRONT || slot.myGroup == (int)DM_Dynamic.GROUP_TYPE.FRONT)
+            //{
+            //    CreateFrontItems(dmD.GetFrontList());
+            //    newSlots.AddRange(slotsFront);
+            //}
+            //if (item.myGroup == (int)DM_Dynamic.GROUP_TYPE.BACK || slot.myGroup == (int)DM_Dynamic.GROUP_TYPE.BACK)
+            //{
+            //    CreateBackItems(dmD.GetBackList());
+            //    newSlots.AddRange(slotsBack);
+            //}
+            //if (item.myGroup == (int)DM_Dynamic.GROUP_TYPE.LEFT || slot.myGroup == (int)DM_Dynamic.GROUP_TYPE.LEFT)
+            //{
+            //    CreateLRItems(dmD.GetLeftList(), true);
+            //    newSlots.AddRange(slotsLeft);
+            //}
+            //if (item.myGroup == (int)DM_Dynamic.GROUP_TYPE.RIGHT || slot.myGroup == (int)DM_Dynamic.GROUP_TYPE.RIGHT)
+            //{
+            //    CreateLRItems(dmD.GetRightList(), true);
+            //    newSlots.AddRange(slotsRight);
+            //}
+
+            //foreach (DollLayoutSlot s in newSlots)
+            //{
+            //    s.transform.SetParent(topRoot);
+            //    s.gameObject.SetActive(false);
+            //}
 
         }
 

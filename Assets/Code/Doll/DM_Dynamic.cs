@@ -411,11 +411,14 @@ public class DM_Dynamic : DollManager
             toList.Insert(toIndex, doll);
         }
 
-        //TODO: ­n¹L¼{
-        BuildFrontSlots();
-        BuildLRSlots(true);
-        BuildLRSlots(false);
-        BuildBackSlots();
+        if (fromGroup == (int)GROUP_TYPE.FRONT || toGroup == (int)GROUP_TYPE.FRONT)
+            BuildFrontSlots();
+        if (fromGroup == (int)GROUP_TYPE.LEFT || toGroup == (int)GROUP_TYPE.LEFT)
+            BuildLRSlots(true);
+        if (fromGroup == (int)GROUP_TYPE.RIGHT || toGroup == (int)GROUP_TYPE.RIGHT)
+            BuildLRSlots(false);
+        if (fromGroup == (int)GROUP_TYPE.BACK || toGroup == (int)GROUP_TYPE.BACK)
+            BuildBackSlots();
 
         return true;
     }
