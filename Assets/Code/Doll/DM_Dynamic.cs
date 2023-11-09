@@ -383,14 +383,14 @@ public class DM_Dynamic : DollManager
 
         if (fromGroup == toGroup)
         {
-            print("同群移動");
+            //print("同群移動");
             if (toIndex > fromIndex)    //往後移的 Case
             {
                 toIndex--;
             }
             if (toIndex == fromIndex)
             {
-                print("移動 Index 實質相同，不必去移!!");
+                //print("移動 Index 實質相同，不必去移!!");
                 return false;
             }
         }

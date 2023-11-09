@@ -48,7 +48,7 @@ public class DollLayoutUIBase : MonoBehaviour
             if (touchSlot != null)
             {
                 //有碰到 Slot，準進行移動 !!
-                print("TOD MOVE !!");
+                //print("TOD MOVE !!");
                 moveItem = currDragItem;
                 toSlot = touchSlot;
                 touchSlot.ShowOutline(false);
@@ -149,7 +149,6 @@ public class DollLayoutDynamic : DollLayoutUIBase
     protected List<DollLayoutSlot> slotsLeft = new List<DollLayoutSlot>();
     protected List<DollLayoutSlot> slotsRight = new List<DollLayoutSlot>();
 
-
     public override void SetupDollManager(DollManager dm)
     {
         base.SetupDollManager(dm);
@@ -164,7 +163,6 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
         CreateFrontItems(dmD.GetFrontList());
         CreateBackItems(dmD.GetBackList());
-        //CreateMiddleItems(dmD.GetMiddleList());
         CreateLRItems(dmD.GetLeftList(), true);
         CreateLRItems(dmD.GetRightList(), false);
 
@@ -172,41 +170,14 @@ public class DollLayoutDynamic : DollLayoutUIBase
         {
             slot.transform.SetParent(topRoot);
             slot.gameObject.SetActive(false);
+            //測試
+            //slot.gameObject.SetActive(true);
+            //slot.ShowOutline(true);
         }
     }
 
     public override void CloseMenu()
     {
-        //foreach (DollLayoutItem di in listFront)
-        //{
-        //    Destroy(di.gameObject);
-        //}
-        //foreach (DollLayoutItem di in listBack)
-        //{
-        //    Destroy(di.gameObject);
-        //}
-        //foreach (DollLayoutItem di in listLeft)
-        //{
-        //    Destroy(di.gameObject);
-        //}
-        //foreach (DollLayoutItem di in listRight)
-        //{
-        //    Destroy(di.gameObject);
-        //}
-        //listFront.Clear();
-        //listBack.Clear();
-        //listLeft.Clear();
-        //listRight.Clear();
-
-        //foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
-        //{
-        //    Destroy(slot.gameObject);
-        //}
-
-        //slotsFront.Clear();
-        //slotsLeft.Clear();
-        //slotsRight.Clear();
-        //slotsBack.Clear();
         ClearItemAndSlotList(listFront, slotsFront);
         ClearItemAndSlotList(listLeft, slotsLeft);
         ClearItemAndSlotList(listRight, slotsRight);
@@ -292,7 +263,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
     protected override bool MoveItemToSlot(DollLayoutItem item, DollLayoutSlot slot)
     {
-        print("MoveItemToSlot!! From: " + item.myGroup + ", " + item.myIndex + " To: " + slot.myGroup + ", " + slot.myIndex);
+        //print("MoveItemToSlot!! From: " + item.myGroup + ", " + item.myIndex + " To: " + slot.myGroup + ", " + slot.myIndex);
 
         bool bResult = false;
         bResult = dmD.ChangeDollPosition(item.myDoll, item.myGroup, slot.myGroup, item.myIndex, slot.myIndex);
@@ -406,6 +377,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
         float slotWidth = 16.0f;
         float slotHeight = 16.0f;
+        float hsWidth = 8.0f;
 
         int i = iCount-1;
         float y = (iHeight - 1) * -0.5f * slotHeight;
@@ -413,6 +385,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
         {
             int wMax = ((h == (iHeight - 1)) ? iLast : iWidth);
             float x = (-wMax + 1) * 0.5f * slotWidth;
+            CreateOneSlotAndLink(slotsBack, slotRef, backRoot, new Vector2(x - hsWidth, y), (int)DM_Dynamic.GROUP_TYPE.BACK, i+1);  //先建立最左邊的欄位
             for (int w = 0; w < wMax; w++)
             {
                 Doll d = dList[i];
@@ -420,7 +393,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
                     continue;
 
                 DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], backRoot, new Vector2(x, y), (int)DM_Dynamic.GROUP_TYPE.BACK, i);
-
+                CreateOneSlotAndLink(slotsBack, slotRef, backRoot, new Vector2(x + hsWidth, y), (int)DM_Dynamic.GROUP_TYPE.BACK, i);
                 listBack.Add(di);
                 i--;
                 x += slotWidth;
@@ -490,6 +463,7 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
         float slotWidth = 16.0f;
         float slotHeight = 16.0f;
+        float hsHeight = 8.0f;
 
         int i = 0;
         float x = (nCols - 1) * 0.5f * slotWidth;
@@ -500,12 +474,15 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 nLine = lastColCount;
 
             float y = (nLine - 1) * 0.5f * slotHeight;
+            CreateOneSlotAndLink((isLeft?slotsLeft:slotsRight), slotRef, (isLeft?leftRoot:rightRoot), new Vector2((isLeft ? x : -x), y + hsHeight), 
+                (int)(isLeft ? DM_Dynamic.GROUP_TYPE.LEFT : DM_Dynamic.GROUP_TYPE.RIGHT), i);  //先建立最上面的欄位
             for (int l = 0; l < nLine; l++)
             {
                 DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], (isLeft?leftRoot:rightRoot), 
                     new Vector2((isLeft? x:-x), y), (int)(isLeft? DM_Dynamic.GROUP_TYPE.LEFT: DM_Dynamic.GROUP_TYPE.RIGHT), i);
                 (isLeft?listLeft:listRight).Add(di);
-
+                CreateOneSlotAndLink((isLeft ? slotsLeft : slotsRight), slotRef, (isLeft ? leftRoot : rightRoot), new Vector2((isLeft ? x : -x), y - hsHeight), 
+                    (int)(isLeft ? DM_Dynamic.GROUP_TYPE.LEFT : DM_Dynamic.GROUP_TYPE.RIGHT), i+1);  //建立下方欄位
                 y -= slotHeight;
                 i++;
             }
