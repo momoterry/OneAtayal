@@ -18,7 +18,7 @@ public class DM_Dynamic : DollManager
     protected float allShift = 0.0f;
 
     protected List<Doll> frontList = new List<Doll>();
-    protected List<Doll> middleList = new List<Doll>();
+    //protected List<Doll> middleList = new List<Doll>();
     protected List<Doll> backList = new List<Doll>();
 
     protected List<Doll> leftList = new List<Doll>();
@@ -78,50 +78,50 @@ public class DM_Dynamic : DollManager
         }
     }
 
-    protected void RebuildMiddleSlots()
-    {
-        int middleNum = middleList.Count;
+    //protected void RebuildMiddleSlots()
+    //{
+    //    int middleNum = middleList.Count;
 
-        if (middleNum <= 0)
-            return;
+    //    if (middleNum <= 0)
+    //        return;
 
-        int circleNum = MiddleDepth + MiddleDepth;
-        int nCircle = (middleNum - 1) / circleNum + 1;
-        int lastCircleCount = (middleNum - 1) % circleNum + 1;
+    //    int circleNum = MiddleDepth + MiddleDepth;
+    //    int nCircle = (middleNum - 1) / circleNum + 1;
+    //    int lastCircleCount = (middleNum - 1) % circleNum + 1;
 
-        float slotWidth = 1.0f;
-        float innerWidth = 1.0f;    //³Ì¤º°é¶ZÂ÷
+    //    float slotWidth = 1.0f;
+    //    float innerWidth = 1.0f;    //³Ì¤º°é¶ZÂ÷
 
-        float width = innerWidth;
-        for (int c=0; c<nCircle; c++)
-        {
-            int num = circleNum;
-            if (c == nCircle - 1)
-                num = lastCircleCount;
-            int nLine = (num - 1) / 2 + 1;
-            float slotDepth = Mathf.Max(1.0f, 1.5f - (nLine - 1) * 0.25f);
-            float totalDepth = (float)(nLine - 1) * slotDepth;
-            float fPos = totalDepth * 0.5f + allShift;
+    //    float width = innerWidth;
+    //    for (int c=0; c<nCircle; c++)
+    //    {
+    //        int num = circleNum;
+    //        if (c == nCircle - 1)
+    //            num = lastCircleCount;
+    //        int nLine = (num - 1) / 2 + 1;
+    //        float slotDepth = Mathf.Max(1.0f, 1.5f - (nLine - 1) * 0.25f);
+    //        float totalDepth = (float)(nLine - 1) * slotDepth;
+    //        float fPos = totalDepth * 0.5f + allShift;
 
-            for (int l=0; l<nLine; l++)
-            {
-                int i = c * circleNum + l * 2;
-                middleList[i].GetSlot().localPosition = new Vector3(-width, 0, fPos);  //¥ª
-                //print("Prepare... " + i);
+    //        for (int l=0; l<nLine; l++)
+    //        {
+    //            int i = c * circleNum + l * 2;
+    //            middleList[i].GetSlot().localPosition = new Vector3(-width, 0, fPos);  //¥ª
+    //            //print("Prepare... " + i);
 
-                i++;
-                if (i < middleNum)
-                {
-                    middleList[i].GetSlot().localPosition = new Vector3(width, 0, fPos);   //¥k
-                    //print("Prepare... " + i);
-                }
+    //            i++;
+    //            if (i < middleNum)
+    //            {
+    //                middleList[i].GetSlot().localPosition = new Vector3(width, 0, fPos);   //¥k
+    //                //print("Prepare... " + i);
+    //            }
 
-                fPos -= slotDepth;
-            }
-            width += slotWidth;
-        }
+    //            fPos -= slotDepth;
+    //        }
+    //        width += slotWidth;
+    //    }
 
-    }
+    //}
 
     protected void BuildLRSlots( bool isLeft)
     {
@@ -425,7 +425,7 @@ public class DM_Dynamic : DollManager
 
     public List<Doll> GetFrontList() { return frontList; }
     public List<Doll> GetBackList() { return backList; }
-    public List<Doll> GetMiddleList() { return middleList; }
+    //public List<Doll> GetMiddleList() { return middleList; }
     public List<Doll> GetLeftList() { return leftList; }
     public List<Doll> GetRightList() { return rightList; }
 }
