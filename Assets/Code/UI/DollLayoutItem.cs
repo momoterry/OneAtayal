@@ -19,7 +19,10 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
     protected Vector2 originalLocalPos;
 
     [System.NonSerialized]
+    public Doll myDoll;
+    [System.NonSerialized]
     public int myGroup;
+    [System.NonSerialized]
     public int myIndex;
 
     public class InitData
@@ -44,6 +47,7 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
         myMenu = _data.menuDL;
         myGroup = _data.group;
         myIndex = _data.index;
+        myDoll = _data.doll;
 
         originalRoot = transform.parent;
         originalLocalPos = myRect.localPosition;

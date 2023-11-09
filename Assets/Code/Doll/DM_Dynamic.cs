@@ -10,6 +10,11 @@ public class DM_Dynamic : DollManager
     public int MiddleDepth = 3;
     public int BackWidth = 4;
 
+    public enum GROUP_TYPE
+    {
+        FRONT, LEFT, RIGHT, BACK
+    }
+
     protected float allShift = 0.0f;
 
     protected List<Doll> frontList = new List<Doll>();
@@ -199,57 +204,57 @@ public class DM_Dynamic : DollManager
         }
     }
 
-    protected void RebuildFormation()
-    {
-        frontList.Clear();
-        middleList.Clear();
-        leftList.Clear();
-        rightList.Clear();
-        backList.Clear();
+    //protected void RebuildFormation()
+    //{
+    //    frontList.Clear();
+    //    middleList.Clear();
+    //    leftList.Clear();
+    //    rightList.Clear();
+    //    backList.Clear();
 
-        for (int i = 0; i < slotNum; i++)
-        {
-            if (dolls[i] && dolls[i].gameObject.activeInHierarchy)
-            {
-                switch(dolls[i].positionType)
-                {
-                    case DOLL_POSITION_TYPE.FRONT:
-                        frontList.Add(dolls[i]);
-                        break;
-                    case DOLL_POSITION_TYPE.MIDDLE:
-                        //middleList.Add(dolls[i]);
-                        if (leftList.Count > rightList.Count)
-                            rightList.Add(dolls[i]);
-                        else
-                            leftList.Add(dolls[i]);
-                        break;
-                    case DOLL_POSITION_TYPE.BACK:
-                        backList.Add(dolls[i]);
-                        break;
-                }
-            }
-        }
-        if (frontList.Count > 0)
-        {
-            BuildFrontSlots();
-        }
-        if (middleList.Count > 0)
-        {
-            RebuildMiddleSlots();
-        }
-        if (leftList.Count > 0)
-        {
-            BuildLRSlots(true);
-        }
-        if (rightList.Count > 0)
-        {
-            BuildLRSlots(false);
-        }
-        if (backList.Count > 0)
-        {
-            BuildBackSlots();
-        }
-    }
+    //    for (int i = 0; i < slotNum; i++)
+    //    {
+    //        if (dolls[i] && dolls[i].gameObject.activeInHierarchy)
+    //        {
+    //            switch(dolls[i].positionType)
+    //            {
+    //                case DOLL_POSITION_TYPE.FRONT:
+    //                    frontList.Add(dolls[i]);
+    //                    break;
+    //                case DOLL_POSITION_TYPE.MIDDLE:
+    //                    //middleList.Add(dolls[i]);
+    //                    if (leftList.Count > rightList.Count)
+    //                        rightList.Add(dolls[i]);
+    //                    else
+    //                        leftList.Add(dolls[i]);
+    //                    break;
+    //                case DOLL_POSITION_TYPE.BACK:
+    //                    backList.Add(dolls[i]);
+    //                    break;
+    //            }
+    //        }
+    //    }
+    //    if (frontList.Count > 0)
+    //    {
+    //        BuildFrontSlots();
+    //    }
+    //    if (middleList.Count > 0)
+    //    {
+    //        RebuildMiddleSlots();
+    //    }
+    //    if (leftList.Count > 0)
+    //    {
+    //        BuildLRSlots(true);
+    //    }
+    //    if (rightList.Count > 0)
+    //    {
+    //        BuildLRSlots(false);
+    //    }
+    //    if (backList.Count > 0)
+    //    {
+    //        BuildBackSlots();
+    //    }
+    //}
 
 
     public override bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
@@ -354,6 +359,67 @@ public class DM_Dynamic : DollManager
     //    _middleList = middleList;
     //    _backList = backList;
     //}
+
+    protected List<Doll> GetListByGroupID(int group)
+    {
+        switch (group)
+        {
+            case (int)GROUP_TYPE.FRONT:
+                return frontList;
+            case (int)GROUP_TYPE.LEFT:
+                return leftList;
+            case (int)GROUP_TYPE.RIGHT:
+                return rightList;
+            case (int)GROUP_TYPE.BACK:
+                return backList;
+        }
+        return null;
+    }
+
+    public bool ChangeDollPosition(Doll doll, int fromGroup, int toGroup, int fromIndex, int toIndex)
+    {
+        List<Doll> fmList = GetListByGroupID(fromGroup);
+        List<Doll> toList = GetListByGroupID(toGroup);
+
+        if (fromGroup == toGroup)
+        {
+            print("同群移動");
+            if (toIndex > fromIndex)    //往後移的 Case
+            {
+                toIndex--;
+            }
+            if (toIndex == fromIndex)
+            {
+                print("移動 Index 實質相同，不必去移!!");
+                return false;
+            }
+        }
+
+        if (fmList[fromIndex] != doll)
+        {
+            print("ERROR: ChangeDollPosition!!  Doll not in fromGroup " + fromGroup + " Index:  " + fromIndex + " -- " + doll.name);
+            return false;
+        }
+        fmList.RemoveAt(fromIndex);
+
+        if (toIndex >= toList.Count)
+        {
+            toList.Add(doll);
+        }
+        else
+        {
+            toList.Insert(toIndex, doll);
+        }
+
+        //TODO: 要過慮
+        BuildFrontSlots();
+        BuildLRSlots(true);
+        BuildLRSlots(false);
+        BuildBackSlots();
+
+        return true;
+    }
+
     public List<Doll> GetFrontList() { return frontList; }
     public List<Doll> GetBackList() { return backList; }
     public List<Doll> GetMiddleList() { return middleList; }
