@@ -19,10 +19,10 @@ public class DollAuraGenerator : MonoBehaviour
 
     void Start()
     {
-        EnsureSpawnAura();
+        //EnsureSpawnAura();
 
-        if (theAura)
-            theAura.SetActive(false);
+        //if (theAura)
+        //    theAura.SetActive(false);
     }
 
     protected void EnsureSpawnAura()

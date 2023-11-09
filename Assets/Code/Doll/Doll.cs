@@ -285,7 +285,7 @@ public class Doll : MonoBehaviour
         {
             nextState = DOLL_STATE.BATTLE;
             gameObject.SendMessage("OnJoinPlayer", SendMessageOptions.DontRequireReceiver);
-            print("....Doll Join " + ID + " save type: " + saveType);
+            //print("....Doll Join " + ID + " save type: " + saveType);
             switch (saveType)
             {
                 case DOLL_JOIN_SAVE_TYPE.FOREVER:
