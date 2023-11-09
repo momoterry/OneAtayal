@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,12 @@ public struct DollBuffData
     public int buffType;
     public int buffTarget;
     public int buffValue1;
+}
+[System.Serializable]
+public struct FormationDollInfo // 有指定陣型位置的 Doll Info
+{
+    public int positionID; // 結合了陣型 Group 和 Index 的唯一 ID
+    public string dollID;   //TODO: 支援 DollInstance 的情況
 }
 [System.Serializable]
 public struct DollInstanceData
@@ -296,6 +303,11 @@ public class PlayerData : MonoBehaviour
     public void AddUsingDoll( string dollID)
     {
         usingDollList.Add(dollID);
+    }
+
+    public void AddUsingDoll( string dollID, int positionIndex )
+    {
+
     }
 
     public string[] GetAllUsingDolls()

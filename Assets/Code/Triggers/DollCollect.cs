@@ -28,21 +28,21 @@ public class DollCollect : MonoBehaviour
 
 
         //回應 ActionTrigger 是否成功
-        bool actionResult = theDoll.TryJoinThePlayer();
+        bool actionResult = theDoll.TryJoinThePlayer(collectForever?DOLL_JOIN_SAVE_TYPE.FOREVER:DOLL_JOIN_SAVE_TYPE.BATTLE);
         whoTG.SendMessage("OnActionResult", actionResult, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
         if (actionResult)
         {
             //脫離
             theDoll.transform.SetParent(null);
 
-            if (collectForever)
-            {
-                GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
-            }
-            else
-            {
-                ContinuousBattleManager.AddCollectedDoll(theDoll.ID);
-            }
+            //if (collectForever)
+            //{
+            //    GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
+            //}
+            //else
+            //{
+            //    ContinuousBattleManager.AddCollectedDoll(theDoll.ID);
+            //}
 
             Destroy(gameObject);
         }

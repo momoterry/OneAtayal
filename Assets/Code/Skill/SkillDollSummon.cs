@@ -77,7 +77,7 @@ public class SkillDollSummon : SkillBase
             Destroy(dollObj);
         }
 
-        if (!theDoll.TryJoinThePlayer())
+        if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.BATTLE))
         {
             print("Woooooooooops.......");
         }
@@ -93,7 +93,7 @@ public class SkillDollSummon : SkillBase
             theAnimator.SetTrigger("Cast");
         }
 
-        ContinuousBattleManager.AddCollectedDoll(theDoll.ID);
+        //ContinuousBattleManager.AddCollectedDoll(theDoll.ID);
 
         //================================
         result = SKILL_RESULT.SUCCESS;

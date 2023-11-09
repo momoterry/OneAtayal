@@ -118,13 +118,13 @@ public class DollShopItem : MonoBehaviour
                 dAgent.enabled = false;
             }
 
-            if (!theDoll.TryJoinThePlayer())
+            if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
             {
                 print("Woooooooooops.......");
                 return;
             }
 
-            pData.AddUsingDoll(dollID);
+            //pData.AddUsingDoll(dollID);
             //myMenu.ShowTempMessage("購買成功");
         }
 

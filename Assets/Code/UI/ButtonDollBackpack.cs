@@ -80,7 +80,7 @@ public class ButtonDollBackpack : MonoBehaviour
             print("ERROR!! No Doll: " + dollID);
             return;
         }
-        if (!d.TryJoinThePlayer())
+        if (!d.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
         {
             print("ERROR!! Can not Join Player !!!!");
         }
@@ -88,7 +88,7 @@ public class ButtonDollBackpack : MonoBehaviour
         //TODO: Spawn 特效
 
         //記錄
-        pData.AddUsingDoll(dollID);
+        //pData.AddUsingDoll(dollID);   在加入時就先記錄
         pData.RemoveDollFromBackpack(dollID);
 
         SetNum(dollNum - 1);

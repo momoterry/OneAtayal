@@ -81,13 +81,13 @@ public class DollSell : MonoBehaviour
                 dAgent.enabled = false;
             }
 
-            if (!theDoll.TryJoinThePlayer())
+            if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
             {
                 print("Woooooooooops.......");
                 return;
             }
 
-            GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
+            //GameSystem.GetPlayerData().AddUsingDoll(theDoll.ID);
             if (theTalk)
                 theTalk.AddSentence("абаб╔За{ !!");
 

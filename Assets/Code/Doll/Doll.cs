@@ -8,6 +8,12 @@ public enum DOLL_POSITION_TYPE
     MIDDLE,
     BACK,
 }
+public enum DOLL_JOIN_SAVE_TYPE
+{
+    FOREVER,    //永久記錄 == 存檔
+    BATTLE,     //同場戰鬥中記錄
+    NONE,       //不存檔，換場景就會消失
+}
 
 public class Doll : MonoBehaviour
 {
@@ -263,7 +269,7 @@ public class Doll : MonoBehaviour
     //    }
     //}
 
-    public bool TryJoinThePlayer()
+    public bool TryJoinThePlayer( DOLL_JOIN_SAVE_TYPE saveType = DOLL_JOIN_SAVE_TYPE.NONE)
     {
         PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         bool isOK = false;
@@ -279,6 +285,16 @@ public class Doll : MonoBehaviour
         {
             nextState = DOLL_STATE.BATTLE;
             gameObject.SendMessage("OnJoinPlayer", SendMessageOptions.DontRequireReceiver);
+            print("....Doll Join " + ID + " save type: " + saveType);
+            switch (saveType)
+            {
+                case DOLL_JOIN_SAVE_TYPE.FOREVER:
+                    GameSystem.GetPlayerData().AddUsingDoll(ID);
+                    break;
+                case DOLL_JOIN_SAVE_TYPE.BATTLE:
+                    ContinuousBattleManager.AddCollectedDoll(ID);
+                    break;
+            }
             return true;
         }
         return false;
