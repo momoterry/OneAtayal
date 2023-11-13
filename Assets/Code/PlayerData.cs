@@ -30,7 +30,8 @@ public struct DollBuffData
 [System.Serializable]
 public struct FormationDollInfo // 有指定陣型位置的 Doll Info
 {
-    public int positionID; // 結合了陣型 Group 和 Index 的唯一 ID
+    public int group;
+    public int index;
     public string dollID;   //TODO: 支援 DollInstance 的情況
 }
 [System.Serializable]
@@ -46,6 +47,7 @@ public class SaveData{
     public int Money;
     public CharacterStat mainCharacterStat;
     public string[] usingDollList;
+    public FormationDollInfo[] formationDollList;
     public SaveDataBackpckItem[] dollBackpack;
     public SaveDataEventItem[] eventData;
     public DollInstanceData[] usingDIs;
@@ -64,6 +66,7 @@ public class PlayerData : MonoBehaviour
 
     protected List<DollInstanceData> usingDIs = new List<DollInstanceData>();
     protected List<string> usingDollList = new List<string>();
+    protected List<FormationDollInfo> formationDollList = new List<FormationDollInfo>();
 
     protected Dictionary<string, int> dollBackpack = new Dictionary<string, int>();
 
@@ -104,6 +107,7 @@ public class PlayerData : MonoBehaviour
         mainCharacterStat.Exp = 0;
         usingDIs.Clear();
         usingDollList.Clear();
+        formationDollList.Clear();
         dollBackpack.Clear();
         eventData.Clear();
 
@@ -163,6 +167,15 @@ public class PlayerData : MonoBehaviour
             for (int i = 0; i < usingDollList.Count; i++)
             {
                 data.usingDollList[i] = usingDollList[i];
+            }
+        }
+
+        if (formationDollList.Count > 0)
+        {
+            data.formationDollList = new FormationDollInfo[formationDollList.Count];
+            for (int i = 0; i < formationDollList.Count; i++)
+            {
+                data.formationDollList[i] = formationDollList[i];
             }
         }
 
@@ -297,17 +310,30 @@ public class PlayerData : MonoBehaviour
 
     public int GetCurrDollNum()
     {
+        //return formationDollList.Count;
         return usingDollList.Count;
     }
 
-    public void AddUsingDoll( string dollID)
+    //public void AddUsingDoll( string dollID)
+    //{
+    //    usingDollList.Add(dollID);
+    //}
+
+    public void AddUsingDoll( string dollID, int group = -1, int index = -1 )
     {
         usingDollList.Add(dollID);
-    }
-
-    public void AddUsingDoll( string dollID, int positionIndex )
-    {
-
+        //formationDollList.Add()
+        //
+        FormationDollInfo fdInfo = new FormationDollInfo();
+        fdInfo.dollID = dollID;
+        fdInfo.group = group;
+        fdInfo.index = index;
+        formationDollList.Add(fdInfo);
+        //print("--All Formation Doll Lilst --");
+        //foreach (FormationDollInfo info in formationDollList)
+        //{
+        //    print("--" + info.dollID);
+        //}
     }
 
     public string[] GetAllUsingDolls()
@@ -331,6 +357,7 @@ public class PlayerData : MonoBehaviour
     public void RemoveAllUsingDolls()
     {
         usingDollList.Clear();
+        formationDollList.Clear();
     }
 
     public void AddDollToBackpack( string dollID, int add = 1 )
