@@ -310,8 +310,8 @@ public class PlayerData : MonoBehaviour
 
     public int GetCurrDollNum()
     {
-        //return formationDollList.Count;
-        return usingDollList.Count;
+        return formationDollList.Count;
+        //return usingDollList.Count;
     }
 
     //public void AddUsingDoll( string dollID)
@@ -329,11 +329,28 @@ public class PlayerData : MonoBehaviour
         fdInfo.group = group;
         fdInfo.index = index;
         formationDollList.Add(fdInfo);
-        //print("--All Formation Doll Lilst --");
-        //foreach (FormationDollInfo info in formationDollList)
-        //{
-        //    print("--" + info.dollID);
-        //}
+        print("--All Formation Doll Lilst --");
+        foreach (FormationDollInfo info in formationDollList)
+        {
+            print("--" + info.dollID + "(" + group + ", " + index + ")");
+        }
+    }
+
+    public FormationDollInfo[] GetAllFormationDolls()
+    {
+        if (formationDollList.Count > 0)
+        {
+            FormationDollInfo[] allDolls = new FormationDollInfo[formationDollList.Count];
+            int i = 0;
+            foreach (FormationDollInfo info in formationDollList)
+            {
+                allDolls[i] = info;
+                i++;
+            }
+
+            return allDolls;
+        }
+        return null;
     }
 
     public string[] GetAllUsingDolls()

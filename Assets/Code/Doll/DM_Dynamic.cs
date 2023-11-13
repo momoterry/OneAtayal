@@ -258,10 +258,30 @@ public class DM_Dynamic : DollManager
 
     public override void GetDollGroupAndIndex(Doll doll, ref int group, ref int index)
     {
-        //if (frontList.FindIndex(doll) >=0)
-        //{
-
-        //}
+        index = frontList.IndexOf(doll);
+        if (index >= 0)
+        {
+            group = (int)GROUP_TYPE.FRONT;
+            return;
+        }
+        index = leftList.IndexOf(doll);
+        if (index >= 0)
+        {
+            group = (int)GROUP_TYPE.LEFT;
+            return;
+        }
+        index = rightList.IndexOf(doll);
+        if (index >= 0)
+        {
+            group = (int)GROUP_TYPE.RIGHT;
+            return;
+        }
+        index = backList.IndexOf(doll);
+        if (index >= 0)
+        {
+            group = (int)GROUP_TYPE.BACK;
+            return;
+        }
     }
 
     public override bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)

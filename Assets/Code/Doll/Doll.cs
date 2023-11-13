@@ -289,7 +289,9 @@ public class Doll : MonoBehaviour
             switch (saveType)
             {
                 case DOLL_JOIN_SAVE_TYPE.FOREVER:
-                    GameSystem.GetPlayerData().AddUsingDoll(ID);
+                    int _group =-1, _index = -1;
+                    theDollManager.GetDollGroupAndIndex(this, ref _group, ref _index);
+                    GameSystem.GetPlayerData().AddUsingDoll(ID, _group, _index);
                     break;
                 case DOLL_JOIN_SAVE_TYPE.BATTLE:
                     ContinuousBattleManager.AddCollectedDoll(ID);
