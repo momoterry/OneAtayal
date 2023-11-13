@@ -73,6 +73,8 @@ public class DollManager : MonoBehaviour
         return false;
     }
     
+    public virtual void GetDollGroupAndIndex(Doll doll, ref int group, ref int index) { group = -1; index = -1; }
+
     public virtual bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
         float positionRatio = 0;

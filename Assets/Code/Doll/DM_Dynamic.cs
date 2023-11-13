@@ -256,6 +256,13 @@ public class DM_Dynamic : DollManager
     //    }
     //}
 
+    public override void GetDollGroupAndIndex(Doll doll, ref int group, ref int index)
+    {
+        //if (frontList.FindIndex(doll) >=0)
+        //{
+
+        //}
+    }
 
     public override bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
