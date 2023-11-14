@@ -340,7 +340,7 @@ public class PlayerData : MonoBehaviour
         print("--All Formation Doll Lilst --");
         foreach (FormationDollInfo info in formationDollList)
         {
-            print("--" + info.dollID + "(" + group + ", " + index + ")");
+            print("--" + info.dollID + "(" + info.group + ", " + info.index + ")");
         }
     }
 
