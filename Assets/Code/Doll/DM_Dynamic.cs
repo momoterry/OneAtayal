@@ -483,25 +483,46 @@ public class DM_Dynamic : DollManager
     //由於會有插入導致許多 Doll 的 Index 都改變的情況，直接一次性把 PlayerData 中的資料重新設定
     protected void SaveAllToPlayerData()
     {
+        print("SaveAllToPlayerData");
         PlayerData pData = GameSystem.GetPlayerData();
 
         pData.RemoveAllUsingDolls();
 
         for (int i=0; i<frontList.Count; i++)
         {
-            pData.AddUsingDoll(frontList[i].ID, (int)GROUP_TYPE.FRONT, i);
+            if (frontList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.FOREVER)
+            {
+                pData.AddUsingDoll(frontList[i].ID, (int)GROUP_TYPE.FRONT, i);
+            }
+            else if (frontList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
+                ;
         }
         for (int i = 0; i < leftList.Count; i++)
         {
-            pData.AddUsingDoll(leftList[i].ID, (int)GROUP_TYPE.LEFT, i);
+            if (leftList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.FOREVER)
+            {
+                pData.AddUsingDoll(leftList[i].ID, (int)GROUP_TYPE.LEFT, i);
+            }
+            else if (leftList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
+                ;
         }
         for (int i = 0; i < rightList.Count; i++)
         {
-            pData.AddUsingDoll(rightList[i].ID, (int)GROUP_TYPE.RIGHT, i);
+            if (rightList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.FOREVER)
+            {
+                pData.AddUsingDoll(rightList[i].ID, (int)GROUP_TYPE.RIGHT, i);
+            }
+            else if (rightList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
+                ;
         }
         for (int i = 0; i < backList.Count; i++)
         {
-            pData.AddUsingDoll(backList[i].ID, (int)GROUP_TYPE.BACK, i);
+            if (backList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.FOREVER)
+            {
+                pData.AddUsingDoll(backList[i].ID, (int)GROUP_TYPE.BACK, i);
+            }
+            else if (backList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
+                ;
         }
     }
 

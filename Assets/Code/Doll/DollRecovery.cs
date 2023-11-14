@@ -227,6 +227,7 @@ public class DollRecovery : MonoBehaviour
             print("Woooooooooops.......");
             return;
         }
+        theDoll.joinSaveType = DOLL_JOIN_SAVE_TYPE.FOREVER; //TODO: 需要區分 Forever 還是 Battle
 
         currSpawn++;
         if (currSpawn == totalDollCount)

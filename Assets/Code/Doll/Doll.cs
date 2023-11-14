@@ -29,6 +29,9 @@ public class Doll : MonoBehaviour
 
     public bool canRevie = false;
 
+    [System.NonSerialized]
+    public DOLL_JOIN_SAVE_TYPE joinSaveType = DOLL_JOIN_SAVE_TYPE.NONE;
+
     protected DollManager theDollManager;
     protected Transform mySlot;
 
@@ -253,22 +256,6 @@ public class Doll : MonoBehaviour
 
     // ===================== 被收集相關行為 ===================== 
 
-    //void OnTG(GameObject whoTG)
-    //{
-    //    //print("OnTG");
-
-    //    if (currState == DOLL_STATE.WAIT)
-    //    {
-    //        //回應 ActionTrigger 是否成功
-    //        bool actionResult = TryJoinThePlayer();
-    //        whoTG.SendMessage("OnActionResult", actionResult);
-    //        if (actionResult)
-    //        {
-    //            nextState = DOLL_STATE.BATTLE;
-    //        }
-    //    }
-    //}
-
     public bool TryJoinThePlayer( DOLL_JOIN_SAVE_TYPE saveType = DOLL_JOIN_SAVE_TYPE.NONE, int group = -1, int index = -1)
     {
         PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
@@ -287,6 +274,7 @@ public class Doll : MonoBehaviour
             nextState = DOLL_STATE.BATTLE;
             gameObject.SendMessage("OnJoinPlayer", SendMessageOptions.DontRequireReceiver);
             //print("....Doll Join " + ID + " save type: " + saveType);
+            joinSaveType = saveType;
             switch (saveType)
             {
                 case DOLL_JOIN_SAVE_TYPE.FOREVER:
