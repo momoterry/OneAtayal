@@ -337,11 +337,11 @@ public class PlayerData : MonoBehaviour
         fdInfo.group = group;
         fdInfo.index = index;
         formationDollList.Add(fdInfo);
-        print("--All Formation Doll Lilst --");
-        foreach (FormationDollInfo info in formationDollList)
-        {
-            print("--" + info.dollID + "(" + info.group + ", " + info.index + ")");
-        }
+        //print("--All Formation Doll Lilst --");
+        //foreach (FormationDollInfo info in formationDollList)
+        //{
+        //    print("--" + info.dollID + "(" + info.group + ", " + info.index + ")");
+        //}
     }
 
     public FormationDollInfo[] GetAllFormationDolls()
