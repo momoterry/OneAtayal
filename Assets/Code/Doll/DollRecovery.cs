@@ -29,8 +29,6 @@ public class DollRecovery : MonoBehaviour
     void Start()
     {
         DollManager dm = GetComponent<DollManager>();
-        //if (dm)
-        //    dm.SetIsWaitDollRecovery(true);
         nextPhase = Phase.WAIT;
         timeLeft = waitTime;
     }
@@ -52,16 +50,17 @@ public class DollRecovery : MonoBehaviour
                 if (timeLeft <= 0)
                 {
                     timeLeft += stepTime;
-                    const int FIX_MAX_WAVE = 8;
-                    int maxSpawnCount = (allDollIDs.Length - 1) / FIX_MAX_WAVE + 1;
-                    int maxSpawnWave = (allDollIDs.Length + FIX_MAX_WAVE - 1) % FIX_MAX_WAVE + 1;
-                    int waveCount = currSpawn < (maxSpawnCount * maxSpawnWave) ? currSpawn / maxSpawnCount
-                        : (currSpawn - (maxSpawnCount * maxSpawnWave)) / (maxSpawnCount - 1) + maxSpawnWave;
-                    int spwanCount = currSpawn < (maxSpawnCount * maxSpawnWave) ? maxSpawnCount : maxSpawnCount - 1;
-                    //int spwanCount = (allDollIDs.Length - currSpawn) / 4 + 1;
-                    //print("currSpawn: " + currSpawn + " maxSpawnWave: " + maxSpawnWave + "  waveCount: " + waveCount + "  spwanCount  " + spwanCount);
-                    for (int i=0; i<spwanCount; i++)
-                        DoSpawnOneDoll(i, spwanCount);
+                    //const int FIX_MAX_WAVE = 8;
+                    //int maxSpawnCount = (allDollIDs.Length - 1) / FIX_MAX_WAVE + 1;                                     //–猧程ネΘ计
+                    //int maxSpawnWave = (allDollIDs.Length + FIX_MAX_WAVE - 1) % FIX_MAX_WAVE + 1;                       //程计秖ネΘ猧Ω计 (玡碭猧)
+                    //int waveCount = currSpawn < (maxSpawnCount * maxSpawnWave) ? currSpawn / maxSpawnCount
+                    //    : (currSpawn - (maxSpawnCount * maxSpawnWave)) / (maxSpawnCount - 1) + maxSpawnWave;            //硂琌材碭猧
+                    //int spwanCount = currSpawn < (maxSpawnCount * maxSpawnWave) ? maxSpawnCount : maxSpawnCount - 1;    //硂猧璶ネΘ计秖
+                    ////print("currSpawn: " + currSpawn + " maxSpawnWave: " + maxSpawnWave + "  waveCount: " + waveCount + "  spwanCount  " + spwanCount);
+                    //for (int i=0; i<spwanCount; i++)
+                    //    DoSpawnOneDoll(i, spwanCount);
+
+                    SpawnOneWave();
                 }
                 break;
         }
@@ -72,16 +71,24 @@ public class DollRecovery : MonoBehaviour
             {
                 case Phase.FINISH:
                     DollManager dm = GetComponent<DollManager>();
-                    //if (dm)
-                    //{
-                    //    print("Finish!!");
-                    //    dm.SetIsWaitDollRecovery(false);
-                    //}
                     break;
             }
         }
 
         currPhase = nextPhase;
+    }
+
+    protected void SpawnOneWave()
+    {
+        const int FIX_MAX_WAVE = 8;
+        int maxSpawnCount = (allDollIDs.Length - 1) / FIX_MAX_WAVE + 1;                                     //–猧程ネΘ计
+        int maxSpawnWave = (allDollIDs.Length + FIX_MAX_WAVE - 1) % FIX_MAX_WAVE + 1;                       //程计秖ネΘ猧Ω计 (玡碭猧)
+        int waveCount = currSpawn < (maxSpawnCount * maxSpawnWave) ? currSpawn / maxSpawnCount
+            : (currSpawn - (maxSpawnCount * maxSpawnWave)) / (maxSpawnCount - 1) + maxSpawnWave;            //硂琌材碭猧
+        int spwanCount = currSpawn < (maxSpawnCount * maxSpawnWave) ? maxSpawnCount : maxSpawnCount - 1;    //硂猧璶ネΘ计秖
+        //print("currSpawn: " + currSpawn + " maxSpawnWave: " + maxSpawnWave + "  waveCount: " + waveCount + "  spwanCount  " + spwanCount);
+        for (int i = 0; i < spwanCount; i++)
+            DoSpawnOneDoll(i, spwanCount);
     }
 
     void DoSpawnOneDoll( int batchIndex = 0, int batchTotal = 1)
@@ -160,49 +167,8 @@ public class DollRecovery : MonoBehaviour
         {
             GameSystem.GetPlayerData().AddUsingDoll("DollOne");
             GameSystem.GetPlayerData().AddUsingDoll("DollOne");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollBlackStone");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollOne");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollOne");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollOne");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollOne");
-
-            //GameSystem.GetPlayerData().AddUsingDoll("DollAce");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollAce");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollAce");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollAce");
-
-
-
-            //GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollWhiteFire");
-
-
-            //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollFire");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-            //GameSystem.GetPlayerData().AddUsingDoll("DollLeaf");
-
         }
         //*/
-
-        //DollInstanceData[] DIs = GameSystem.GetPlayerData().GetAllUsingDIs();
-        //if (DIs != null)
-        //{
-        //    print("----DollRecovery: ┮Τ DIs ");
-        //    for (int i = 0; i < DIs.Length; i++)
-        //    {
-        //        print("----" + DIs[i].fullName);
-        //        GameObject o = DollInstance.SpawnDollFromData(DIs[i], transform.position + Vector3.back);
-        //        Doll d = o.GetComponent<Doll>();
-        //        d.TryJoinThePlayer();
-        //    }
-        //}
-        //else
-        //    print("⊿Τヴ DIs ");
 
         allDIs = GameSystem.GetPlayerData().GetAllUsingDIs();
         int diLength = allDIs == null? 0 : allDIs.Length;
