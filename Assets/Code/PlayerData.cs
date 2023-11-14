@@ -223,11 +223,19 @@ public class PlayerData : MonoBehaviour
             }
         }
 
-        if (data.usingDollList != null && data.usingDollList.Length > 0)
+        //if (data.usingDollList != null && data.usingDollList.Length > 0)
+        //{
+        //    for (int i =0; i< data.usingDollList.Length; i++)
+        //    {
+        //        AddUsingDoll(data.usingDollList[i]);
+        //    }
+        //}
+
+        if (data.formationDollList != null && data.formationDollList.Length > 0)
         {
-            for (int i =0; i< data.usingDollList.Length; i++)
+            for (int i = 0; i < data.formationDollList.Length; i++)
             {
-                AddUsingDoll(data.usingDollList[i]);
+                AddUsingDoll(data.formationDollList[i].dollID, data.formationDollList[i].group, data.formationDollList[i].index);
             }
         }
 
