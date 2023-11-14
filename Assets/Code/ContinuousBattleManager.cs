@@ -165,6 +165,9 @@ public class ContinuousBattleManager : MonoBehaviour
         }
         return null;
     }
+
+    public static void ResetBattleSavedDolls() { instance._ResetBattleSavedDolls(); }
+    protected void _ResetBattleSavedDolls() { formationDollList.Clear(); }
     //========================================================
 
 }

@@ -485,6 +485,7 @@ public class DM_Dynamic : DollManager
     {
         print("SaveAllToPlayerData");
         PlayerData pData = GameSystem.GetPlayerData();
+        ContinuousBattleManager.ResetBattleSavedDolls();
 
         pData.RemoveAllUsingDolls();
 
@@ -495,7 +496,9 @@ public class DM_Dynamic : DollManager
                 pData.AddUsingDoll(frontList[i].ID, (int)GROUP_TYPE.FRONT, i);
             }
             else if (frontList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
-                ;
+            {
+                ContinuousBattleManager.AddCollectedDoll(frontList[i].ID, (int)GROUP_TYPE.FRONT, i);
+            }
         }
         for (int i = 0; i < leftList.Count; i++)
         {
@@ -504,7 +507,9 @@ public class DM_Dynamic : DollManager
                 pData.AddUsingDoll(leftList[i].ID, (int)GROUP_TYPE.LEFT, i);
             }
             else if (leftList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
-                ;
+            {
+                ContinuousBattleManager.AddCollectedDoll(leftList[i].ID, (int)GROUP_TYPE.LEFT, i);
+            }
         }
         for (int i = 0; i < rightList.Count; i++)
         {
@@ -513,7 +518,9 @@ public class DM_Dynamic : DollManager
                 pData.AddUsingDoll(rightList[i].ID, (int)GROUP_TYPE.RIGHT, i);
             }
             else if (rightList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
-                ;
+            {
+                ContinuousBattleManager.AddCollectedDoll(rightList[i].ID, (int)GROUP_TYPE.RIGHT, i);
+            }
         }
         for (int i = 0; i < backList.Count; i++)
         {
@@ -522,7 +529,9 @@ public class DM_Dynamic : DollManager
                 pData.AddUsingDoll(backList[i].ID, (int)GROUP_TYPE.BACK, i);
             }
             else if (backList[i].joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
-                ;
+            {
+                ContinuousBattleManager.AddCollectedDoll(backList[i].ID, (int)GROUP_TYPE.BACK, i);
+            }
         }
     }
 
