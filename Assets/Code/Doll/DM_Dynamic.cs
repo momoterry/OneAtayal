@@ -284,17 +284,15 @@ public class DM_Dynamic : DollManager
         }
     }
 
-    public override bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
+    public override bool AddOneDollWithGivenPosition(Doll doll, int group, int index)
     {
-        //Transform result = null;
         bool isOK = false;
-        for (int i=0; i<slotNum; i++)
+        for (int i = 0; i < slotNum; i++)
         {
             if (dolls[i] == null && DollSlots[i] != null)
             {
                 dolls[i] = doll;
                 doll.SetSlot(DollSlots[i]);
-                //result = DollSlots[i];
                 isOK = true;
                 break;
             }
@@ -302,11 +300,33 @@ public class DM_Dynamic : DollManager
 
         if (isOK)
         {
-            //RebuildFormation();
-            DoAddDollToList(doll);
+            //print("--To DoAddDollToList: " + group + " -- " + index);
+            DoAddDollToList(doll, group, index);
         }
-
         return isOK;
+    }
+
+    public override bool AddOneDoll(Doll doll/*, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT*/)
+    {
+        //bool isOK = false;
+        //for (int i=0; i<slotNum; i++)
+        //{
+        //    if (dolls[i] == null && DollSlots[i] != null)
+        //    {
+        //        dolls[i] = doll;
+        //        doll.SetSlot(DollSlots[i]);
+        //        isOK = true;
+        //        break;
+        //    }
+        //}
+
+        //if (isOK)
+        //{
+        //    DoAddDollToList(doll, -1, -1);
+        //}
+
+        //return isOK;
+        return AddOneDollWithGivenPosition(doll, -1, -1);
     }
 
     public override void OnDollTempDeath(Doll doll)
@@ -316,8 +336,8 @@ public class DM_Dynamic : DollManager
 
     public override void OnDollRevive(Doll doll)
     {
-        //RebuildFormation();
-        DoAddDollToList(doll);
+        //RebuildFormation();   //TODO: 用本來記錄的位置來回復?
+        DoAddDollToList(doll, -1, -1);
     }
 
     public override void OnDollDestroy(Doll doll)
@@ -325,57 +345,130 @@ public class DM_Dynamic : DollManager
         DoRemoveDollFronList(doll);
     }
 
-    protected void DoAddDollToList(Doll doll)
+    protected void DoAddDollToList(Doll doll, int group, int index)
     {
-        switch (doll.positionType)
+        if (group < 0)
         {
-            case DOLL_POSITION_TYPE.FRONT:
-                frontList.Add(doll);
-                BuildFrontSlots();
-                break;
-            case DOLL_POSITION_TYPE.MIDDLE:
-                if (leftList.Count <= rightList.Count)
-                {
-                    leftList.Add(doll);
-                    BuildLRSlots(true);
-                }
-                else
-                {
-                    rightList.Add(doll);
-                    BuildLRSlots(false);
-                }
-                break;
-            case DOLL_POSITION_TYPE.BACK:
-                backList.Add(doll);
-                BuildBackSlots();
-                break;
+            switch (doll.positionType)
+            {
+                case DOLL_POSITION_TYPE.FRONT:
+                    frontList.Add(doll);
+                    BuildFrontSlots();
+                    break;
+                case DOLL_POSITION_TYPE.MIDDLE:
+                    if (leftList.Count <= rightList.Count)
+                    {
+                        leftList.Add(doll);
+                        BuildLRSlots(true);
+                    }
+                    else
+                    {
+                        rightList.Add(doll);
+                        BuildLRSlots(false);
+                    }
+                    break;
+                case DOLL_POSITION_TYPE.BACK:
+                    backList.Add(doll);
+                    BuildBackSlots();
+                    break;
+            }
         }
+        else
+        {
+            switch (group)
+            {
+                case (int)GROUP_TYPE.FRONT:
+                    if (index >=0 && index < frontList.Count)
+                    {
+                        frontList.Insert(index, doll);
+                    }
+                    else
+                    {
+                        frontList.Add(doll);
+                    }
+                    BuildFrontSlots();
+                    break;
+                case (int)GROUP_TYPE.LEFT:
+                    if (index >= 0 && index < leftList.Count)
+                    {
+                        leftList.Insert(index, doll);
+                    }
+                    else
+                    {
+                        leftList.Add(doll);
+                    }
+                    BuildLRSlots(true);
+                    break;
+                case (int)GROUP_TYPE.RIGHT:
+                    if (index >= 0 && index < rightList.Count)
+                    {
+                        rightList.Insert(index, doll);
+                    }
+                    else
+                    {
+                        rightList.Add(doll);
+                    }
+                    BuildLRSlots(false);
+                    break;
+                case (int)GROUP_TYPE.BACK:
+                    if (index >= 0 && index < backList.Count)
+                    {
+                        backList.Insert(index, doll);
+                    }
+                    else
+                    {
+                        backList.Add(doll);
+                    }
+                    BuildBackSlots();
+                    break;
+            }
+        }
+
     }
 
     protected void DoRemoveDollFronList(Doll doll)
     {
-        switch (doll.positionType)
+        //switch (doll.positionType)
+        //{
+        //    case DOLL_POSITION_TYPE.FRONT:
+        //        frontList.Remove(doll);
+        //        BuildFrontSlots();
+        //        break;
+        //    case DOLL_POSITION_TYPE.MIDDLE:
+        //        //middleList.Remove(doll);
+        //        //RebuildMiddleSlots();
+        //        if (leftList.Remove(doll))
+        //        {
+        //            BuildLRSlots(true);
+        //        }
+        //        else if (rightList.Remove(doll))
+        //        {
+        //            BuildLRSlots(false);
+        //        }
+        //        break;
+        //    case DOLL_POSITION_TYPE.BACK:
+        //        backList.Remove(doll);
+        //        BuildBackSlots();
+        //        break;
+        //}
+        if (frontList.Contains(doll)) {
+            frontList.Remove(doll);
+            BuildFrontSlots();
+        }
+        else if (leftList.Contains(doll))
         {
-            case DOLL_POSITION_TYPE.FRONT:
-                frontList.Remove(doll);
-                BuildFrontSlots();
-                break;
-            case DOLL_POSITION_TYPE.MIDDLE:
-                //middleList.Remove(doll);
-                //RebuildMiddleSlots();
-                if (leftList.Remove(doll))
-                {
-                    BuildLRSlots(true);
-                }
-                else if (rightList.Remove(doll))
-                {
-                    BuildLRSlots(false);
-                }
-                break;
-            case DOLL_POSITION_TYPE.BACK:
-                backList.Remove(doll);
-                BuildBackSlots();
-                break;
+            leftList.Remove(doll);
+            BuildLRSlots(true);
+        }
+        else if (rightList.Contains(doll))
+        {
+            rightList.Remove(doll);
+            BuildLRSlots(false);
+        }
+        else if (backList.Remove(doll))
+        {
+            backList.Remove(doll);
+            BuildBackSlots();
         }
     }
 

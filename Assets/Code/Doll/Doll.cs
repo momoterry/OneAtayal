@@ -269,7 +269,7 @@ public class Doll : MonoBehaviour
     //    }
     //}
 
-    public bool TryJoinThePlayer( DOLL_JOIN_SAVE_TYPE saveType = DOLL_JOIN_SAVE_TYPE.NONE)
+    public bool TryJoinThePlayer( DOLL_JOIN_SAVE_TYPE saveType = DOLL_JOIN_SAVE_TYPE.NONE, int group = -1, int index = -1)
     {
         PlayerControllerBase pc = BattleSystem.GetInstance().GetPlayerController();
         bool isOK = false;
@@ -277,7 +277,8 @@ public class Doll : MonoBehaviour
             theDollManager = pc.GetDollManager();
             if (theDollManager)
             {
-                isOK = theDollManager.AddOneDoll(this, positionType);
+                //isOK = theDollManager.AddOneDoll(this/*, positionType*/);
+                isOK = theDollManager.AddOneDollWithGivenPosition(this, group, index);
             }
         }
 

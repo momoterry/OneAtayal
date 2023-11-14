@@ -56,10 +56,6 @@ public class DollManager : MonoBehaviour
         return theList;
     }
 
-    //public Transform GetEmptySlot(DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
-    //{
-    //    return AddOneDoll(null, positionType);
-    //}
 
     public virtual bool HasEmpltySlot(DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
     {
@@ -75,10 +71,16 @@ public class DollManager : MonoBehaviour
     
     public virtual void GetDollGroupAndIndex(Doll doll, ref int group, ref int index) { group = -1; index = -1; }
 
-    public virtual bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
+
+    public virtual bool AddOneDollWithGivenPosition(Doll doll, int group, int index)
+    {
+        return AddOneDoll(doll);
+    }
+
+    public virtual bool AddOneDoll(Doll doll/*, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT*/)
     {
         float positionRatio = 0;
-        switch (positionType)
+        switch (doll.positionType)
         {
             case DOLL_POSITION_TYPE.MIDDLE:
                 positionRatio = 0.5f;

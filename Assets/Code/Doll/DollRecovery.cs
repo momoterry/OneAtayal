@@ -220,9 +220,9 @@ public class DollRecovery : MonoBehaviour
         if (SpawnFX)
             BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
         Doll theDoll = dollObj.GetComponent<Doll>();
-        print(theDoll.ID + " Try Join: " + allFormationDolls[currSpawn].group + " -- " + allFormationDolls[currSpawn].index);
+        //print(theDoll.ID + " Try Join: " + allFormationDolls[currSpawn].group + " -- " + allFormationDolls[currSpawn].index);
 
-        if (!theDoll.TryJoinThePlayer())        //TODO: 必須加入位置
+        if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.NONE, allFormationDolls[currSpawn].group, allFormationDolls[currSpawn].index))
         {
             print("Woooooooooops.......");
             return;

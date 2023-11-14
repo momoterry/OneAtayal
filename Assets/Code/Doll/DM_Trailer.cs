@@ -162,7 +162,7 @@ public class DM_Trailer : DollManager
         }
     }
 
-    public override bool AddOneDoll(Doll doll, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT)
+    public override bool AddOneDoll(Doll doll/*, DOLL_POSITION_TYPE positionType = DOLL_POSITION_TYPE.FRONT*/)
     {
 
         //for (int i = 0; i < slotNum; i++)
