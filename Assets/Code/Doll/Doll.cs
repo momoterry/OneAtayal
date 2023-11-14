@@ -274,16 +274,18 @@ public class Doll : MonoBehaviour
             nextState = DOLL_STATE.BATTLE;
             gameObject.SendMessage("OnJoinPlayer", SendMessageOptions.DontRequireReceiver);
             //print("....Doll Join " + ID + " save type: " + saveType);
+            int _group = -1, _index = -1;
+            theDollManager.GetDollGroupAndIndex(this, ref _group, ref _index);
+
             joinSaveType = saveType;
             switch (saveType)
             {
                 case DOLL_JOIN_SAVE_TYPE.FOREVER:
-                    int _group =-1, _index = -1;
-                    theDollManager.GetDollGroupAndIndex(this, ref _group, ref _index);
                     GameSystem.GetPlayerData().AddUsingDoll(ID, _group, _index);
                     break;
                 case DOLL_JOIN_SAVE_TYPE.BATTLE:
-                    ContinuousBattleManager.AddCollectedDoll(ID);
+                    //ContinuousBattleManager.AddCollectedDoll(ID);
+                    ContinuousBattleManager.AddCollectedDoll(ID, _group, _index);
                     break;
             }
             return true;

@@ -53,7 +53,8 @@ public class ContinuousBattleManager : MonoBehaviour
     {
         currBattleArray = null;
         currBattleIndex = 0;
-        collectedDolls.Clear();
+        //collectedDolls.Clear();
+        formationDollList.Clear();
         battlePlayerData = null;
     }
 
@@ -114,29 +115,56 @@ public class ContinuousBattleManager : MonoBehaviour
     }
 
     //有關半路撿到的 Doll 的記錄  TODO: 應該整合到 BattlePlayerData 中
-    protected List<string> collectedDolls = new List<string>();
-    public static void AddCollectedDoll(string dollID) { instance._AddCollectedDoll(dollID); }
-    protected void _AddCollectedDoll(string dollID) 
-    {
-        collectedDolls.Add(dollID);
-    }
+    //protected List<string> collectedDolls = new List<string>();
+    //public static void AddCollectedDoll(string dollID) { instance._AddCollectedDoll(dollID); }
+    //protected void _AddCollectedDoll(string dollID) 
+    //{
+    //    collectedDolls.Add(dollID);
+    //}
 
-    public static string[] GetAllCollectedDolls() { return instance._GetAllCollectedDolls(); }
-    protected string[] _GetAllCollectedDolls() 
-    { 
-        if (collectedDolls.Count > 0)
+    //public static string[] GetAllCollectedDolls() { return instance._GetAllCollectedDolls(); }
+    //protected string[] _GetAllCollectedDolls() 
+    //{ 
+    //    if (collectedDolls.Count > 0)
+    //    {
+    //        string[] temp = new string[collectedDolls.Count];
+    //        for (int i=0; i<collectedDolls.Count; i++)
+    //        {
+    //            temp[i] = collectedDolls[i];
+    //        }
+    //        return temp;
+    //    }
+    //    return null;
+    //}
+
+    //public static void ResetCollectedDolls() { instance._ResetCollectedDolls(); }
+    //protected void _ResetCollectedDolls() { }
+
+    //========== 連同位置一起記錄的新版本 ===============
+    protected List<FormationDollInfo> formationDollList = new List<FormationDollInfo>();
+    public static void AddCollectedDoll(string dollID, int group, int index) { instance._AddCollectedDoll(dollID, group, index); }
+    protected void _AddCollectedDoll(string dollID, int group, int index)
+    {
+        FormationDollInfo info;
+        info.dollID = dollID;
+        info.group = group;
+        info.index = index;
+        formationDollList.Add(info);
+    }
+    public static FormationDollInfo[] GetAllBattleSavedDolls() { return instance._GetAllBattleSavedDolls(); }
+    protected FormationDollInfo[] _GetAllBattleSavedDolls()
+    {
+        if (formationDollList.Count > 0)
         {
-            string[] temp = new string[collectedDolls.Count];
-            for (int i=0; i<collectedDolls.Count; i++)
+            FormationDollInfo[] temp = new FormationDollInfo[formationDollList.Count];
+            for (int i = 0; i < formationDollList.Count; i++)
             {
-                temp[i] = collectedDolls[i];
+                temp[i] = formationDollList[i];
             }
             return temp;
         }
         return null;
     }
-
-    public static void ResetCollectedDolls() { instance._ResetCollectedDolls(); }
-    protected void _ResetCollectedDolls() { }
+    //========================================================
 
 }

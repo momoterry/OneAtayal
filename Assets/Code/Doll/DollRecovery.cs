@@ -20,7 +20,13 @@ public class DollRecovery : MonoBehaviour
 
     protected string[] allDollIDs = null;
 
-    protected FormationDollInfo[] allFormationDolls = null;
+    protected struct RecoverDollInfo
+    {
+        public FormationDollInfo fInfo;
+        public DOLL_JOIN_SAVE_TYPE saveType;
+    }
+    //protected FormationDollInfo[] allFormationDolls = null;
+    protected RecoverDollInfo[] allRecoverDollInfo = null;
     protected int totalDollCount = 0;
 
     protected float waitTime = 0.1f;
@@ -179,7 +185,8 @@ public class DollRecovery : MonoBehaviour
 
     protected void DoSpawnOneDoll(int batchIndex = 0, int batchTotal = 1)
     {
-        string dollID = allFormationDolls[currSpawn].dollID;
+        RecoverDollInfo rc = allRecoverDollInfo[currSpawn];
+        string dollID = rc.fInfo.dollID;
         GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (!dollRef)
         {
@@ -189,7 +196,7 @@ public class DollRecovery : MonoBehaviour
 
         Vector3 front = BattleSystem.GetInstance().GetPlayerController().GetDollManager().transform.forward;
         Vector3 right = BattleSystem.GetInstance().GetPlayerController().GetDollManager().transform.right;
-        switch (allFormationDolls[currSpawn].group)
+        switch (rc.fInfo.group)
         {
             case (int)DM_Dynamic.GROUP_TYPE.FRONT:
                 front = front * 2.0f;
@@ -222,12 +229,12 @@ public class DollRecovery : MonoBehaviour
         Doll theDoll = dollObj.GetComponent<Doll>();
         //print(theDoll.ID + " Try Join: " + allFormationDolls[currSpawn].group + " -- " + allFormationDolls[currSpawn].index);
 
-        if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.NONE, allFormationDolls[currSpawn].group, allFormationDolls[currSpawn].index))
+        if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.NONE, rc.fInfo.group, rc.fInfo.index))
         {
             print("Woooooooooops.......");
             return;
         }
-        theDoll.joinSaveType = DOLL_JOIN_SAVE_TYPE.FOREVER; //TODO: 需要區分 Forever 還是 Battle
+        theDoll.joinSaveType = rc.saveType;
 
         currSpawn++;
         if (currSpawn == totalDollCount)
@@ -238,16 +245,32 @@ public class DollRecovery : MonoBehaviour
 
     protected void StartSpawn()
     {
-        allFormationDolls = GameSystem.GetPlayerData().GetAllFormationDolls();
+        //allFormationDolls = GameSystem.GetPlayerData().GetAllFormationDolls();
+        FormationDollInfo[] allSavedDolls = GameSystem.GetPlayerData().GetAllFormationDolls();
+        FormationDollInfo[] battleSavedDolls = ContinuousBattleManager.GetAllBattleSavedDolls();
+        int allSavedLength = allSavedDolls == null ? 0 : allSavedDolls.Length;
+        int battleSavedLength = battleSavedDolls == null ? 0 : battleSavedDolls.Length;
+        //allFormationDolls = new FormationDollInfo[allSavedLength + battleSavedLength];
+        allRecoverDollInfo = new RecoverDollInfo[allSavedLength + battleSavedLength];
+        for (int i=0; i < allSavedLength; i++) 
+        {
+            allRecoverDollInfo[i].fInfo = allSavedDolls[i];
+            allRecoverDollInfo[i].saveType = DOLL_JOIN_SAVE_TYPE.FOREVER;
+        }
+        for (int i = 0; i < battleSavedLength; i++)
+        {
+            allRecoverDollInfo[allSavedLength+i].fInfo = battleSavedDolls[i];
+            allRecoverDollInfo[allSavedLength+i].saveType = DOLL_JOIN_SAVE_TYPE.FOREVER;
+        }
+        //TODO: 整體需要排序
 
-
-        if (allFormationDolls == null || allFormationDolls.Length == 0)
+        if (allRecoverDollInfo == null || allRecoverDollInfo.Length == 0)
         {
             nextPhase = Phase.FINISH;
         }
         else
         {
-            totalDollCount = allFormationDolls.Length;
+            totalDollCount = allRecoverDollInfo.Length;
             nextPhase = Phase.SPAWN;
         }
 
