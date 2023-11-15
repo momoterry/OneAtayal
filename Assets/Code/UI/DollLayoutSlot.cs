@@ -52,5 +52,6 @@ public class DollLayoutSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void ShowOutline(bool isOn)
     {
         outLine.gameObject.SetActive(isOn);
+        outLine.transform.localScale = Vector3.one * (isOn? 1.5f: 1.0f);
     }
 }

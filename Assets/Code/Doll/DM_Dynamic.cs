@@ -483,7 +483,6 @@ public class DM_Dynamic : DollManager
     //由於會有插入導致許多 Doll 的 Index 都改變的情況，直接一次性把 PlayerData 中的資料重新設定
     protected void SaveAllToPlayerData()
     {
-        print("SaveAllToPlayerData");
         PlayerData pData = GameSystem.GetPlayerData();
         ContinuousBattleManager.ResetBattleSavedDolls();
 

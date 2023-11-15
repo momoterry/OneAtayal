@@ -60,6 +60,7 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
         {
             im.raycastTarget = false;
         }
+        transform.localScale = Vector3.one * 1.5f;
 
         myMenu.RegisterDragItem(this);
     }
@@ -73,6 +74,7 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
         {
             im.raycastTarget = true;
         }
+        transform.localScale = Vector3.one;
 
         myMenu.UnRegisterDragItem(this);
     }
@@ -103,16 +105,16 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
         outLine.gameObject.SetActive(isOn);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //// Start is called before the first frame update
+    //void Start()
+    //{
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //}
+
+    //// Update is called once per frame
+    //void Update()
+    //{
+
+    //}
 
 }
