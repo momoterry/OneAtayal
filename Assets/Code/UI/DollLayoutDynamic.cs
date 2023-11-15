@@ -318,6 +318,12 @@ public class DollLayoutDynamic : DollLayoutUIBase
             return;
 
         int iCount = dList.Count;
+        if (iCount == 0)
+        {
+            //至少建立空欄位
+            CreateOneSlotAndLink(slotsFront, slotRef, frontRoot, new Vector2(0, 0), (int)DM_Dynamic.GROUP_TYPE.FRONT, 0);
+            return;
+        }
         int iWidth = dmD.FrontWidth;
         int iHeight = iCount / iWidth + 1;
         int iLast = iCount % iWidth;
@@ -364,6 +370,12 @@ public class DollLayoutDynamic : DollLayoutUIBase
             return;
 
         int iCount = dList.Count;
+        if (iCount == 0)
+        {
+            //至少建立空欄位
+            CreateOneSlotAndLink(slotsBack, slotRef, backRoot, new Vector2(0, 0), (int)DM_Dynamic.GROUP_TYPE.BACK, 0);
+            return;
+        }
         int iWidth = dmD.BackWidth;
         int iHeight = iCount / iWidth + 1;
         int iLast = iCount % iWidth;
@@ -449,13 +461,20 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
     protected void CreateLRItems(List<Doll> dList, bool isLeft)
     {
-        if (!dollLayoutItemRef || dList.Count == 0)
+        if (!dollLayoutItemRef)
             return;
 
         int totalNum = dList.Count;
+        List<DollLayoutItem> itemList = isLeft ? listLeft : listRight;
+        List<DollLayoutSlot> slotList = isLeft ? slotsLeft : slotsRight;
+        Transform root = isLeft ? leftRoot : rightRoot;
+        int iType = isLeft ? (int)DM_Dynamic.GROUP_TYPE.LEFT : (int)DM_Dynamic.GROUP_TYPE.RIGHT;
 
-        if (totalNum <= 0)
+        if (totalNum == 0)
+        {
+            CreateOneSlotAndLink(slotList, slotRef, root, new Vector2(0, 0), iType, 0);  //先建立最上面的欄位
             return;
+        }
 
         int MiddleDepth = dmD.MiddleDepth;
         int nCols = ((totalNum - 1) / MiddleDepth) + 1;
@@ -474,15 +493,12 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 nLine = lastColCount;
 
             float y = (nLine - 1) * 0.5f * slotHeight;
-            CreateOneSlotAndLink((isLeft?slotsLeft:slotsRight), slotRef, (isLeft?leftRoot:rightRoot), new Vector2((isLeft ? x : -x), y + hsHeight), 
-                (int)(isLeft ? DM_Dynamic.GROUP_TYPE.LEFT : DM_Dynamic.GROUP_TYPE.RIGHT), i);  //先建立最上面的欄位
+            CreateOneSlotAndLink(slotList, slotRef, root, new Vector2((isLeft ? x : -x), y + hsHeight), iType, i);  //先建立最上面的欄位
             for (int l = 0; l < nLine; l++)
             {
-                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], (isLeft?leftRoot:rightRoot), 
-                    new Vector2((isLeft? x:-x), y), (int)(isLeft? DM_Dynamic.GROUP_TYPE.LEFT: DM_Dynamic.GROUP_TYPE.RIGHT), i);
-                (isLeft?listLeft:listRight).Add(di);
-                CreateOneSlotAndLink((isLeft ? slotsLeft : slotsRight), slotRef, (isLeft ? leftRoot : rightRoot), new Vector2((isLeft ? x : -x), y - hsHeight), 
-                    (int)(isLeft ? DM_Dynamic.GROUP_TYPE.LEFT : DM_Dynamic.GROUP_TYPE.RIGHT), i+1);  //建立下方欄位
+                DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], root, new Vector2((isLeft? x:-x), y), iType, i);
+                itemList.Add(di);
+                CreateOneSlotAndLink(slotList, slotRef, root, new Vector2((isLeft ? x : -x), y - hsHeight), iType, i+1);  //建立下方欄位
                 y -= slotHeight;
                 i++;
             }
