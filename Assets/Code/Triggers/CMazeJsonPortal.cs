@@ -1,36 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 
 [System.Serializable]
-public class ContinuousMazeDataSimple : ContinuousBattleDataBase
+public class ContinuousMazeJsonData : ContinuousMazeData
 {
-    public int puzzleWidth;
-    public int puzzleHeight;
-    //public float dungeonDifficulty; //大於 0 才有作用，基準值為 1.0f
-    //public DungeonEnemyManagerBase dungeonEnemyManager;     //如果有指定，下面的 normalEnemy 資訊無用
-    public int normalEnemyNum;
-    public float normalEnemyRate;
-    //public int bigRoomNum;
-    //public int maxExploreReward;
-    //public MG_MazeDungeon.BigRoomInfo[] bigRooms;           //如果使用，則 bigRoomNum 無視
-    //public GameObject[] exploreRewards;
-    //public GameObject initGameplayRef;
-    public bool portalAfterFirstRoomGamplay;
+    public string dungeonEnemyManager_ID;
+
+    public void Convert(Dictionary<string, GameObject> refMap)
+    {
+        if (dungeonEnemyManager_ID != null)
+        {
+            GameObject o = refMap[dungeonEnemyManager_ID];
+            if (o)
+            {
+                dungeonEnemyManager = o.GetComponent<DungeonEnemyManager>();
+                //Debug.Log("有有有，有看到 DungeonManager: " + dungeonEnemyManager_ID);
+            }
+        }
+
+    }
 }
 
 [System.Serializable]
 public class CMazeJsonData
 {
-    public ContinuousMazeData[] levels;
+    public ContinuousMazeJsonData[] levels;
 }
 
 public class CMazeJsonPortal : ScenePortal
 {
     public TextAsset jsonFile;
-    // Start is called before the first frame update
+    public GameObject[] objectRefs;    
 
     protected CMazeJsonData mazeData;
+    protected Dictionary<string, GameObject> objRefMap = new Dictionary<string, GameObject>();
 
     void Start()
     {
@@ -45,16 +51,19 @@ public class CMazeJsonPortal : ScenePortal
         //string str = JsonUtility.ToJson(jData, true);
         //print(str);
 
-        print("CMazeJsonPortal: " + jsonFile.text);
-
+        //print("CMazeJsonPortal: " + jsonFile.text);
         mazeData = JsonUtility.FromJson<CMazeJsonData>(jsonFile.text);
-        print("puzzleWidth" + mazeData.levels[0].puzzleWidth);
 
+        for (int i=0; i< objectRefs.Length; i++)
+        {
+            objRefMap.Add(objectRefs[i].name, objectRefs[i]);
+        }
 
+        for (int i = 0; i < mazeData.levels.Length; i++)
+        {
+            mazeData.levels[i].Convert(objRefMap);
+        }
 
-        //SaveData testSave = JsonUtility.FromJson <SaveData>(jsonFile.text);
-        //print("testSave: " + testSave);
-        //print("Money: " + testSave.Money);
     }
 
     protected override void DoTeleport()
