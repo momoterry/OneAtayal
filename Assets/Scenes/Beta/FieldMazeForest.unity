@@ -1902,6 +1902,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1806008470}
   - component: {fileID: 1806008469}
+  - component: {fileID: 1806008471}
   m_Layer: 0
   m_Name: MapGen
   m_TagString: Untagged
@@ -1922,12 +1923,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285827}
-  cellWidth: 10
-  cellHeight: 10
-  wallWidth: 2
-  wallHeight: 2
-  puzzleHeight: 8
-  puzzleWidth: 6
+  cellWidth: 14
+  cellHeight: 14
+  wallWidth: 3
+  wallHeight: 3
+  puzzleHeight: 5
+  puzzleWidth: 7
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
@@ -1942,19 +1943,7 @@ MonoBehaviour:
   roomGroundTileEdgeGroup: {fileID: 1643079206}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
-  bigRooms:
-  - size: {x: 3, y: 3}
-    numDoor: 2
-    gameplayRef: {fileID: 2283165509847586996, guid: b7e099a59e5e34c47bff66e7a42fc42f, type: 3}
-    difficultyAdd: 0
-  - size: {x: 2, y: 2}
-    numDoor: 2
-    gameplayRef: {fileID: 0}
-    difficultyAdd: 0
-  - size: {x: 2, y: 2}
-    numDoor: 1
-    gameplayRef: {fileID: 0}
-    difficultyAdd: 0
+  bigRooms: []
   noRoomBuffer: 1
   dungeonEnemyManager: {fileID: 0}
   normalGroup: {fileID: 2283165509847586994, guid: 506baf8ee1cfb01489d18e00614c0b45, type: 3}
@@ -1987,6 +1976,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1806008471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806008468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00ea0d3670326a4ba54e7aaca9c8bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decades:
+  - decadeObjRef: {fileID: 9012201109167824958, guid: a3367b009f3cebc4c81079a6c167e696, type: 3}
+    ratePercent: 1
+    posShift: {x: 0, y: 0, z: 0}
+  - decadeObjRef: {fileID: 8385347139642117392, guid: cb9ac00f61c1cd242b173fe352480ba9, type: 3}
+    ratePercent: 15
+    posShift: {x: 0, y: 0, z: 1}
+  decadeDefaultArea: 1
 --- !u!1001 &1807413653
 PrefabInstance:
   m_ObjectHideFlags: 0

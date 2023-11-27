@@ -155,6 +155,15 @@ public class MG_MazeDungeon : MapGeneratorBase
 
         GenerateNavMesh(theSurface2D);
 
+        //裝飾物件建立
+        MapDecadeGeneratorBase dGen = GetComponent<MapDecadeGeneratorBase>();
+        if (dGen)
+        {
+            DecadeGenerateParameter p = new DecadeGenerateParameter();
+            p.mapValue = (int)MAP_TYPE.BLOCK;
+            dGen.BuildAll(theMap, p);
+        }
+
         MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
         if (theMiniMap)
         {
