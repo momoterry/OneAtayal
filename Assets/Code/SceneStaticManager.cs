@@ -22,7 +22,6 @@ public class SceneStaticManager : MonoBehaviour
 
     public void SetupSorting()
     {
-        print("sortingByLowerBound = " + sortingByLowerBound);
         //把所有物件的 Z 設為和 Y 同值
         for ( int i=0; i<transform.childCount; i++)
         {

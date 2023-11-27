@@ -22,6 +22,10 @@ public class DecadeData
     public GameObject decadeObjRef;
     public float ratePercent;
     public Vector3 posShift;
+    public int upBound = 1;
+    public int lowBound = 1;
+    public int leftBound = 1;
+    public int rightBound = 1;
 }
 
 public class MapDecadeGenerator : MapDecadeGeneratorBase
@@ -50,10 +54,11 @@ public class MapDecadeGenerator : MapDecadeGeneratorBase
                 //{
                 //    TryGenerateDecadeAt(x, y);
                 //}
-                if (CheckDecadePossible(x, y))
-                {
-                    TryGenerateDecadeAt(x, y);
-                }
+                //if (CheckDecadePossible(x, y))
+                //{
+                //    TryGenerateDecadeAt(x, y);
+                //}
+                TryGenerateDecadeAt(x, y);
             }
         }
         SceneStaticManager sm = decadeRoot.AddComponent<SceneStaticManager>();
@@ -62,6 +67,21 @@ public class MapDecadeGenerator : MapDecadeGeneratorBase
         sm.SetupSorting();
     }
 
+    protected bool CheckDecadePossible( DecadeData dData, int x, int y)
+    {
+        for (int ix = x - dData.leftBound; ix <= x + dData.rightBound; ix++)
+        {
+            for (int iy = y - dData.lowBound; iy <= y + dData.upBound; iy++)
+            {
+                int value = theMap.GetValue(ix, iy);
+                if (value != thePara.mapValue && !(decadeDefaultArea && value == OneMap.DEFAULT_VALUE))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     protected void TryGenerateDecadeAt(int x, int y)
     {
@@ -72,8 +92,11 @@ public class MapDecadeGenerator : MapDecadeGeneratorBase
         {
             if (rd < decades[i].ratePercent)
             {
-                dData = decades[i];
-                break;
+                if (CheckDecadePossible(decades[i], x, y))
+                {
+                    dData = decades[i];
+                    break;
+                }
             }
             rd -= decades[i].ratePercent;
         }
@@ -84,21 +107,21 @@ public class MapDecadeGenerator : MapDecadeGeneratorBase
         o.transform.SetParent(decadeRoot.transform);
     }
 
-    protected bool CheckDecadePossible(int x, int y)
-    {
-        for (int ix = x-1; ix <= x+1; ix++)
-        {
-            for (int iy = y-1; iy <= y+1; iy++)
-            {
-                int value = theMap.GetValue(ix, iy);
-                if (value != thePara.mapValue && !(decadeDefaultArea&&value == OneMap.DEFAULT_VALUE))
-                {
-                    return false;
-                }
-            }
-        }
+    //protected bool CheckDecadePossible(int x, int y)
+    //{
+    //    for (int ix = x-1; ix <= x+1; ix++)
+    //    {
+    //        for (int iy = y-1; iy <= y+1; iy++)
+    //        {
+    //            int value = theMap.GetValue(ix, iy);
+    //            if (value != thePara.mapValue && !(decadeDefaultArea&&value == OneMap.DEFAULT_VALUE))
+    //            {
+    //                return false;
+    //            }
+    //        }
+    //    }
 
-        return true;
-    }
+    //    return true;
+    //}
 
 }
