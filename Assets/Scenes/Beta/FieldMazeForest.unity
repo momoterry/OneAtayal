@@ -1704,7 +1704,7 @@ PrefabInstance:
     - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: theMG
       value: 
-      objectReference: {fileID: 1806008469}
+      objectReference: {fileID: 1806008472}
     - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: theBattleHUD
       value: 
@@ -1853,7 +1853,7 @@ GameObject:
   - component: {fileID: 1643079205}
   - component: {fileID: 1643079206}
   m_Layer: 0
-  m_Name: RoomRgoundEdgeTileGroup
+  m_Name: RoomGgoundEdgeTileGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2117,7 +2117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1806008470}
-  - component: {fileID: 1806008469}
+  - component: {fileID: 1806008472}
   - component: {fileID: 1806008471}
   m_Layer: 0
   m_Name: MapGen
@@ -2126,52 +2126,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1806008469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806008468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6e40ccbe7fadd4d88a3eb46db9da19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theSurface2D: {fileID: 1252285827}
-  cellWidth: 14
-  cellHeight: 14
-  wallWidth: 3
-  wallHeight: 3
-  puzzleHeight: 5
-  puzzleWidth: 7
-  allConnect: 1
-  extendTerminal: 1
-  finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
-  portalAfterFirstRoomGamplay: 0
-  createWallCollider: 1
-  groundTileGroup: {fileID: 1014529279}
-  groundEdgeTileGroup: {fileID: 0}
-  groundOutEdgeTileGroup: {fileID: 1696140727}
-  blockTileGroup: {fileID: 1976327563}
-  defautTileGroup: {fileID: 1976327563}
-  roomGroundTileGroup: {fileID: 645653466}
-  roomGroundTileEdgeGroup: {fileID: 1643079206}
-  groundTM: {fileID: 1946328705}
-  blockTM: {fileID: 694266825}
-  bigRooms: []
-  noRoomBuffer: 1
-  dungeonEnemyManager: {fileID: 0}
-  normalGroup: {fileID: 2283165509847586994, guid: 506baf8ee1cfb01489d18e00614c0b45, type: 3}
-  normalEnemyRate: 0.2
-  noEnemyDistanceRate: 1
-  exploreRewards:
-  - {fileID: 2277958548633157614, guid: 244718446c1df654e9d8b7c317d5b060, type: 3}
-  - {fileID: 2277958548633157614, guid: 244718446c1df654e9d8b7c317d5b060, type: 3}
-  - {fileID: 4032685806379418579, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
-  - {fileID: 4032685806379418579, guid: 24370a31510131746805bfc36062d4d5, type: 3}
-  - {fileID: 4032685806379418579, guid: 09da63a85b90a964f8f135664ce7cc04, type: 3}
-  initGampleyRef: {fileID: 0}
 --- !u!4 &1806008470
 Transform:
   m_ObjectHideFlags: 0
@@ -2234,6 +2188,49 @@ MonoBehaviour:
     leftBound: 2
     rightBound: 2
   decadeDefaultArea: 1
+--- !u!114 &1806008472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806008468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7519d33341690e4f9eb905d5a3b0420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theSurface2D: {fileID: 1252285827}
+  cellWidth: 14
+  cellHeight: 14
+  wallWidth: 3
+  wallHeight: 3
+  puzzleHeight: 9
+  puzzleWidth: 9
+  allConnect: 1
+  extendTerminal: 0
+  finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
+  portalAfterFirstRoomGamplay: 0
+  createWallCollider: 1
+  groundTileGroup: {fileID: 1014529279}
+  groundEdgeTileGroup: {fileID: 0}
+  groundOutEdgeTileGroup: {fileID: 1696140727}
+  blockTileGroup: {fileID: 1976327563}
+  defautTileGroup: {fileID: 1976327563}
+  roomGroundTileGroup: {fileID: 645653466}
+  roomGroundTileEdgeGroup: {fileID: 1643079206}
+  groundTM: {fileID: 1946328705}
+  blockTM: {fileID: 694266825}
+  bigRooms: []
+  noRoomBuffer: 1
+  dungeonEnemyManager: {fileID: 0}
+  normalGroup: {fileID: 2283165509847586994, guid: 506baf8ee1cfb01489d18e00614c0b45, type: 3}
+  normalEnemyRate: 0.2
+  noEnemyDistanceRate: 1
+  exploreRewards: []
+  initGampleyRef: {fileID: 0}
+  blockFillRatio: 0.35
+  maxWalkers: 6
 --- !u!1001 &1807413653
 PrefabInstance:
   m_ObjectHideFlags: 0
