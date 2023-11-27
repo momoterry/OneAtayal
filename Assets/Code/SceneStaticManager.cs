@@ -6,6 +6,8 @@ public class SceneStaticManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public bool runAgainAtStart = false;
+    public bool sortingByLowerBound = false;
+
     void Start()
     {
         if (runAgainAtStart)
@@ -20,6 +22,7 @@ public class SceneStaticManager : MonoBehaviour
 
     public void SetupSorting()
     {
+        print("sortingByLowerBound = " + sortingByLowerBound);
         //把所有物件的 Z 設為和 Y 同值
         for ( int i=0; i<transform.childCount; i++)
         {
@@ -42,10 +45,13 @@ public class SceneStaticManager : MonoBehaviour
         foreach (SpriteRenderer sr in allSprite)
         {
 #if XZ_PLAN
+            //sr.sortingOrder = -(int)((sr.transform.position.z - sr.size.y * 0.5f) * 10.0f);
             sr.sortingOrder = -(int)(sr.transform.position.z * 10.0f);
 #else
             sr.sortingOrder = -(int)(sr.transform.position.y * 10.0f);
 #endif
+            if (sortingByLowerBound)
+                sr.sortingOrder += (int)(sr.size.y * 5.0f);
         }
     }
 }

@@ -30,11 +30,13 @@ public class MapDecadeGenerator : MapDecadeGeneratorBase
     public bool decadeDefaultArea = true;
 
     protected OneMap theMap;
+    protected DecadeGenerateParameter thePara = null;
     protected GameObject decadeRoot = null;
 
     public override void BuildAll(OneMap _theMap, DecadeGenerateParameter para)
     {
         theMap = _theMap;
+        thePara = para;
         //theMap.PrintMap();
         decadeRoot = new GameObject("DecadeRoot");
         //decadeRoot.transform.rotation = Quaternion.Euler(90, 0, 0);
@@ -43,14 +45,20 @@ public class MapDecadeGenerator : MapDecadeGeneratorBase
         {
             for (int y = theMap.yMin; y <= theMap.yMax; y++)
             {
-                int value = theMap.GetValue(x, y);
-                if (value == para.mapValue || (value == OneMap.DEFAULT_VALUE && decadeDefaultArea))
+                //int value = theMap.GetValue(x, y);
+                //if (value == para.mapValue || (value == OneMap.DEFAULT_VALUE && decadeDefaultArea))
+                //{
+                //    TryGenerateDecadeAt(x, y);
+                //}
+                if (CheckDecadePossible(x, y))
                 {
                     TryGenerateDecadeAt(x, y);
                 }
             }
         }
         SceneStaticManager sm = decadeRoot.AddComponent<SceneStaticManager>();
+        sm.sortingByLowerBound = true;
+        sm.runAgainAtStart = false;
         sm.SetupSorting();
     }
 
@@ -74,6 +82,23 @@ public class MapDecadeGenerator : MapDecadeGeneratorBase
 
         GameObject o = BattleSystem.SpawnGameObj(dData.decadeObjRef, new Vector3(x+0.5f, 0, y+0.5f) + dData.posShift);
         o.transform.SetParent(decadeRoot.transform);
+    }
+
+    protected bool CheckDecadePossible(int x, int y)
+    {
+        for (int ix = x-1; ix <= x+1; ix++)
+        {
+            for (int iy = y-1; iy <= y+1; iy++)
+            {
+                int value = theMap.GetValue(ix, iy);
+                if (value != thePara.mapValue && !(decadeDefaultArea&&value == OneMap.DEFAULT_VALUE))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 }
