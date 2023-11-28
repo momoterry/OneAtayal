@@ -67,6 +67,7 @@ public class DollShopMenu : MonoBehaviour
             DollShopRoot.gameObject.SetActive(false);
         }
         BattleSystem.GetPC().ForceStop(false);
+        GameSystem.GetInstance().SaveData();
     }
 
     protected void ClearAllItems()

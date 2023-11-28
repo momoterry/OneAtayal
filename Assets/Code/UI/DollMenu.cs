@@ -8,6 +8,7 @@ public class DollMenu : MonoBehaviour
     public GameObject buttonRef;
     public Transform buttonRoot;
     public RectTransform DissmissButtonRT;
+    public bool saveGameOnExit = false;
 
     protected Dictionary<string, ButtonDollBackpack> buttonMap = new Dictionary<string, ButtonDollBackpack>();
 
@@ -55,9 +56,10 @@ public class DollMenu : MonoBehaviour
             buttonRoot.gameObject.SetActive(false);
         }
         BattleSystem.GetPC().ForceStop(false);
+        GameSystem.GetInstance().SaveData();
     }
 
- 
+
 
     protected void CreateButtons()
     {
