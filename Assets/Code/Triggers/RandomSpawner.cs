@@ -16,6 +16,8 @@ public class RandomSpawner : MonoBehaviour
 
     public ItemInfo[] itemInfos;
     public bool deleteSpawnedObjectOnDestory = true;
+    public bool spawnOnStart = false;
+    public bool deleteAfterSpawn = false;
 
     protected List<GameObject> spawnedObjList;
 
@@ -32,11 +34,16 @@ public class RandomSpawner : MonoBehaviour
                 print("ERRROR!! RandomSpanwer 有問題的隨機值，必須在 0 - 100 之間!! " + gameObject.name);
             }
         }
-        float adjustRatio = 100.0f / randomTotal;
 
+        float adjustRatio = 100.0f / randomTotal;
         for (int i = 0; i < itemInfos.Length; i++)
         {
             itemInfos[i].RandomPercent *= adjustRatio;
+        }
+
+        if (spawnOnStart)
+        {
+            OnTG(gameObject);
         }
     }
 
@@ -75,6 +82,11 @@ public class RandomSpawner : MonoBehaviour
                     spawnedObjList.Add(newObj);
                 }
             }
+        }
+
+        if (deleteAfterSpawn && !deleteSpawnedObjectOnDestory)
+        {
+            Destroy(gameObject);
         }
     }
 
