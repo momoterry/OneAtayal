@@ -52,6 +52,8 @@ public class MG_TerrainBase : MapGeneratorBase
         theCellMap.GetOneMap().FillTileAll(3, blockTM, blockTM, highTG, highEdgeTG);
     }
 
+    protected virtual void PostBuild() { }
+
     public override void BuildAll(int buildLevel = 1)
     {
         theCellMap.InitCellMap(mapCellWidthH, mapCellHeightH, CellSize);
@@ -68,6 +70,8 @@ public class MG_TerrainBase : MapGeneratorBase
         //theCellMap.GetOneMap().PrintMap();
 
         FillTiles();
+
+        PostBuild();
 
         GenerateNavMesh(theSurface2D);
     }

@@ -53,11 +53,23 @@ public class MG_PerlinField : MG_PerlinNoise
             decadeGenerator.BuildAll(theCellMap.GetOneMap(), p);
         }
 
+    }
+
+    protected override void PostBuild()
+    {
+        base.PostBuild();
+
+        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+        if (theMiniMap)
+        {
+            theMiniMap.CreateMiniMap(theCellMap.GetOneMap());
+        }
+
         if (enemyManager)
         {
             for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
             {
-                for ( int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
+                for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
                 {
                     if (theCellMap.GetValue(x, y) == (int)MY_VALUE.LOW)
                     {
@@ -70,6 +82,7 @@ public class MG_PerlinField : MG_PerlinNoise
             enemyManager.BuildAllGameplay();
         }
     }
+
 
     protected void ModifyMapEdge()
     {
