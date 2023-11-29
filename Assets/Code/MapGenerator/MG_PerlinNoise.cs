@@ -10,14 +10,14 @@ public class MG_PerlinNoise : MG_TerrainBase
     public float lowRatio = 0.35f;
     public bool outEdge = true;
 
-    protected enum MY_VALUE
+    protected enum MY_VALUE     //注意不要跟 OneMap 的預設值衝突
     {
-        NORMAL = 1,
-        LOW = 2,
-        HIGH = 3,
-        HIGH_2 = 4,
-        HIGH_3 = 5,
-        HIGH_4 = 6,
+        NORMAL = 11,
+        LOW = 12,
+        HIGH = 13,
+        HIGH_2 = 14,
+        HIGH_3 = 15,
+        HIGH_4 = 16,
     }
 
 
@@ -60,7 +60,7 @@ public class MG_PerlinNoise : MG_TerrainBase
 
     protected override void FillTiles()
     {
-        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.NORMAL, groundTM, planTG.baseTile);
+        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.NORMAL, groundTM, planTG);
         theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.LOW, groundTM, groundTM, lowTG, lowEdgeTG, outEdge, (int)MY_VALUE.NORMAL);
         theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.NORMAL);
         theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH_2, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.HIGH);
