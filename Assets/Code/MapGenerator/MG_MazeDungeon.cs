@@ -57,6 +57,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     public GameObject initGampleyRef;
 
+    //邊?裝飾物件
+    public MapDecadeGenerator decadeGenerator;
 
 
     //基底地圖相關 TODO: 希望獨立出去
@@ -156,12 +158,12 @@ public class MG_MazeDungeon : MapGeneratorBase
         GenerateNavMesh(theSurface2D);
 
         //裝飾物件建立
-        MapDecadeGeneratorBase dGen = GetComponent<MapDecadeGeneratorBase>();
-        if (dGen)
+        //MapDecadeGeneratorBase dGen = GetComponent<MapDecadeGeneratorBase>();
+        if (decadeGenerator)
         {
             DecadeGenerateParameter p = new DecadeGenerateParameter();
             p.mapValue = (int)MAP_TYPE.BLOCK;
-            dGen.BuildAll(theMap, p);
+            decadeGenerator.BuildAll(theMap, p);
         }
 
         MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
@@ -747,12 +749,6 @@ public class MG_MazeDungeon : MapGeneratorBase
                 }
             }
         }
-
-        //if (dungeonEnemyManager)
-        //{
-        //    print("開始 Build dungeonEnemyManager !!");
-        //    dungeonEnemyManager.BuildAllGameplay(dungeonEnemyDifficulty);
-        //}
 
         print("總共找到的終端:" + deadEnds.Count);
         int expRewardCount = Mathf.Min(exploreRewardNum, deadEnds.Count);

@@ -6,6 +6,7 @@ using static MiniMap;
 
 public class MG_PerlinField : MG_PerlinNoise
 {
+    public DungeonEnemyManagerBase enemyManager;
     public MapDecadeGenerator decadeGenerator;
     public int edgeWidth = 4;
 
@@ -50,6 +51,23 @@ public class MG_PerlinField : MG_PerlinNoise
             DecadeGenerateParameter p = new DecadeGenerateParameter();
             p.mapValue = (int)MY_VALUE.HIGH;
             decadeGenerator.BuildAll(theCellMap.GetOneMap(), p);
+        }
+
+        if (enemyManager)
+        {
+            for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
+            {
+                for ( int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
+                {
+                    if (theCellMap.GetValue(x, y) == (int)MY_VALUE.LOW)
+                    {
+                        Vector2Int iPos = theCellMap.GetCellCenterCoord(x, y);
+                        Vector3 vPos = new Vector3(iPos.x + 0.5f, 0, iPos.y + 0.5f);
+                        enemyManager.AddNormalPosition(vPos);
+                    }
+                }
+            }
+            enemyManager.BuildAllGameplay();
         }
     }
 

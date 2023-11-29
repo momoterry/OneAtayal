@@ -17,7 +17,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
     [System.Serializable]
     public class GameplayInfo
     {
-        public float rate;
+        public float ratePercent;              //¦Ê¤À¤ñ
         public GameObject leader;
         public GameObject[] enemys;
         public float totalNum;
@@ -87,7 +87,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         int usedNum = 0;
         foreach (GameplayInfo info in allGameplays)
         {
-            int needNum = Mathf.RoundToInt(maxPosNum * info.rate * 0.01f);
+            int needNum = Mathf.RoundToInt(maxPosNum * info.ratePercent * 0.01f);
             needNum = Mathf.Min(needNum, maxPosNum - usedNum);
             for (int i=0; i<needNum; i++)
             {
