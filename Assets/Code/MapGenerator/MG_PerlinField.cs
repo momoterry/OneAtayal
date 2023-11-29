@@ -19,7 +19,7 @@ public class MG_PerlinField : MG_PerlinNoise
         }
         else if (perlinValue < lowRatio)
         {
-            return (int)MY_VALUE.HIGH;
+            return (int)MY_VALUE.LOW;
         }
         else
         {
@@ -104,12 +104,8 @@ public class MG_PerlinField : MG_PerlinNoise
         {
             if (initGameplay)
             {
-                //TODO: Cell Map 應該加入位置函式
-                //Vector2Int iPos = theCellMap.GetCellCenterCoord(bestFound.x, bestFound.y);
-                //initGameplay.transform.position = new Vector3(iPos.x + 0.5f, 0, iPos.y + 0.5f);
                 initGameplay.transform.position = theCellMap.GetCellCenterPosition(bestFound.x, bestFound.y);
                 print("移動營地到 :" + bestFound);
-                //print("營地座標 :" + theCellMap.GetCellCenterPosition(bestFound.x, bestFound.y));
             }
         }
     }
