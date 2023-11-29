@@ -18,7 +18,7 @@ public class MG_PerlinField : MG_PerlinNoise
         }
         else if (perlinValue < lowRatio)
         {
-            return (int)MY_VALUE.LOW;
+            return (int)MY_VALUE.HIGH;
         }
         else
             return (int)MY_VALUE.NORMAL;
