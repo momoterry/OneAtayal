@@ -47,6 +47,7 @@ public class CellMap
     public Vector2Int GetCellMinCoord(int x, int y) { return new Vector2Int(x * cellSize - cellSizeH, y * cellSize - cellSizeH); }
     public int GetValue(int x, int y) { return cells[x-xMin,y-yMin]; }
     public virtual void SetValue(int x, int y, int value) { cells[x - xMin, y - yMin] = value; }
+
 }
 
 // 當 CellSize > 1 時，可以確保 Cell(0, 0)  必定包含世界中心，且若 CellSize 是偶數，世界中心位在 Cell(0,0) 中央
@@ -104,5 +105,10 @@ public class OneCellMap : CellMap
         int x1 = x * cellSize - cellSizeH, y1 = y * cellSize - cellSizeH;
         //Debug.Log("To Fill Value From: " + x1 +", " + y1);
         myOneMap.FillValue(x1, y1, cellSize, cellSize, value);
+    }
+
+    public Vector3 GetCellCenterPosition(int x, int y)
+    {
+        return myOneMap.GetCenterPosition(GetCellCenterCoord(x, y));
     }
 }

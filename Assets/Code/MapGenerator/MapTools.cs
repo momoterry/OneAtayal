@@ -72,6 +72,17 @@ public class OneMap
         return INVALID_VALUE;
     }
 
+    public Vector3 GetCenterPosition(int x, int y)
+    {
+        return new Vector3(x + 0.5f, 0, y + 0.5f);
+    }
+
+    public Vector3 GetCenterPosition(Vector2Int coord)
+    {
+        return GetCenterPosition(coord.x, coord.y);
+    }
+
+
     public void InitMap(Vector2Int center, int width, int height, int initValue = DEFAULT_VALUE)
     {
         mapCenter = center;

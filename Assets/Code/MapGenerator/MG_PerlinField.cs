@@ -8,6 +8,7 @@ public class MG_PerlinField : MG_PerlinNoise
 {
     public DungeonEnemyManagerBase enemyManager;
     public MapDecadeGenerator decadeGenerator;
+    public GameObject initGameplay;
     public int edgeWidth = 4;
 
     protected override int GetMapValue(float perlinValue)
@@ -21,25 +22,96 @@ public class MG_PerlinField : MG_PerlinNoise
             return (int)MY_VALUE.HIGH;
         }
         else
+        {
             return (int)MY_VALUE.NORMAL;
+        }
     }
 
     protected override void GenerateCellMap()
     {
-        base.GenerateCellMap();
+        float saveMargin = 0.01f;
+        List<Vector2Int> saveList = new List<Vector2Int>(); ;
+        saveList.Add(Vector2Int.zero);
 
-        //theCellMap.GetOneMap
-
-        //暴力法挖營地，TODO: 用計算的方式放上營地
-        for (int x = -3; x <= 3; x++)
+        float noiseScale = (float)NoiseScaleOn256 / 256.0f;
+        float randomSscale = 10.0f;
+        float xShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
+        float yShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
+        for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
         {
-            for (int y = -3; y <= 3; y++)
+            for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
             {
-                theCellMap.SetValue(x, y, (int)MY_VALUE.NORMAL);
+                float rd = Mathf.PerlinNoise((float)x * noiseScale + xShift, (float)y * noiseScale + yShift);
+                theCellMap.SetValue(x, y, GetMapValue(rd));
+
+                if (rd < 0.5f + saveMargin && rd > 0.5f - saveMargin 
+                    && x > theCellMap.GetXMin() + 2 && x < theCellMap.GetXMax() - 2
+                    && y > theCellMap.GetYMin() + 2 && y < theCellMap.GetYMax() - 2)
+                {
+                    saveList.Add(new Vector2Int(x, y));
+                }
             }
         }
 
         ModifyMapEdge();
+
+        //營地區域尋找
+        float minDis = Mathf.Infinity;
+        int saveAreaSizeH = 2;
+        Vector2Int bestFound = Vector2Int.zero;
+        bool isBestPositionFound = false;
+        foreach( Vector2Int savePos in saveList)
+        {
+            float dis = (savePos.x * savePos.x)  + (savePos.y * savePos.y);
+            if (dis < minDis)
+            {
+                bool isCheck = true;
+                for (int ix = savePos.x - saveAreaSizeH; ix <= savePos.x + saveAreaSizeH; ix++)
+                {
+                    for (int iy = savePos.y - saveAreaSizeH; iy <= savePos.y + saveAreaSizeH; iy++)
+                    {
+                        if (theCellMap.GetValue(ix, iy) != (int)MY_VALUE.NORMAL)
+                        {
+                            isCheck = false;
+                            continue;
+                        }
+                    }
+                }
+                if (isCheck)
+                {
+                    bestFound = savePos;
+                    minDis = dis;
+                    isBestPositionFound = true;
+                    //print("找到更好的點 " + dis);
+                }
+            }
+        }
+
+
+        //暴力法挖營地
+        if (!isBestPositionFound)
+        {
+            print("找不到點，硬挖營地 !!");
+            for (int x = -3; x <= 3; x++)
+            {
+                for (int y = -3; y <= 3; y++)
+                {
+                    theCellMap.SetValue(x, y, (int)MY_VALUE.NORMAL);
+                }
+            }
+        }
+        else
+        {
+            if (initGameplay)
+            {
+                //TODO: Cell Map 應該加入位置函式
+                //Vector2Int iPos = theCellMap.GetCellCenterCoord(bestFound.x, bestFound.y);
+                //initGameplay.transform.position = new Vector3(iPos.x + 0.5f, 0, iPos.y + 0.5f);
+                initGameplay.transform.position = theCellMap.GetCellCenterPosition(bestFound.x, bestFound.y);
+                print("移動營地到 :" + bestFound);
+                //print("營地座標 :" + theCellMap.GetCellCenterPosition(bestFound.x, bestFound.y));
+            }
+        }
     }
 
     protected override void FillTiles()
