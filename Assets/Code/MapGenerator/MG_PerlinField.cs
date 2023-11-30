@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using static MiniMap;
+
 
 public class MG_PerlinField : MG_PerlinNoise
 {
