@@ -10,15 +10,22 @@ public class MapSavePerlinField : MapSaveDataBase
     public int NoiseScaleOn256 = 5;
     public float highRatio = 0.35f;
     public float lowRatio = 0.35f;
+    public float randomShiftX = -1;
+    public float randomShiftY = -1;
 }
 
 
 public class MG_PerlinField : MG_PerlinNoise
 {
+    public string mapName;
     public DungeonEnemyManagerBase enemyManager;
     public MapDecadeGenerator decadeGenerator;
     public GameObject initGameplay;
     public int edgeWidth = 4;
+
+    //隨機記錄的部份
+    protected float randomShiftX = -1;
+    protected float randomShiftY = -1;
 
     protected override int GetMapValue(float perlinValue)
     {
@@ -46,6 +53,11 @@ public class MG_PerlinField : MG_PerlinNoise
         float randomSscale = 10.0f;
         float xShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
         float yShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
+        if (randomShiftX > 0 && randomShiftY > 0)
+        {
+            xShift = randomShiftX;
+            yShift = randomShiftY;
+        }
         for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
         {
             for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
@@ -61,6 +73,8 @@ public class MG_PerlinField : MG_PerlinNoise
                 }
             }
         }
+        randomShiftX = xShift;
+        randomShiftY = yShift;
 
         ModifyMapEdge();
 
@@ -132,6 +146,13 @@ public class MG_PerlinField : MG_PerlinNoise
 
     }
 
+    protected override void PreBuild()
+    {
+        LoadMap();
+
+        base.PreBuild();
+    }
+
     protected override void PostBuild()
     {
         base.PostBuild();
@@ -158,8 +179,10 @@ public class MG_PerlinField : MG_PerlinNoise
             }
             enemyManager.BuildAllGameplay();
         }
-    }
 
+        //地圖存檔
+        SaveMap();
+    }
 
     protected void ModifyMapEdge()
     {
@@ -191,6 +214,48 @@ public class MG_PerlinField : MG_PerlinNoise
             if (theCellMap.GetValue(theCellMap.GetXMax() - edgeWidth, y) == (int)MY_VALUE.LOW)
                 theCellMap.SetValue(theCellMap.GetXMax() - edgeWidth, y, (int)MY_VALUE.NORMAL);
         }
+    }
+
+    protected void SaveMap()
+    {
+        MapSavePerlinField mapData = new MapSavePerlinField();
+        mapData.className = "MG_PerlinField";
+        mapData.mapName = mapName;
+        mapData.mapCellWidthH = mapCellWidthH;
+        mapData.mapCellHeightH = mapCellHeightH;
+        mapData.CellSize = CellSize;
+        mapData.NoiseScaleOn256 = NoiseScaleOn256;
+        mapData.highRatio = highRatio;
+        mapData.lowRatio = lowRatio;
+        mapData.randomShiftX = randomShiftX;
+        mapData.randomShiftY = randomShiftY;
+
+        GameSystem.GetPlayerData().SaveMap(mapName, mapData);
+
+    }
+
+    protected void LoadMap()
+    {
+        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().LoadMap(mapName);
+        if (mapDataBase == null || mapDataBase.className != "MG_PerlinField")
+        {
+            print("LoadMap: 沒有存檔資料");
+            return;
+        }
+
+        print("LoadMap: 找到存檔資料 !!!!");
+        MapSavePerlinField mapData = (MapSavePerlinField)mapDataBase;
+        print("LoaMap Size: " + new Vector2Int(mapData.mapCellWidthH, mapData.mapCellHeightH));
+
+        mapCellWidthH = mapData.mapCellWidthH;
+        mapCellHeightH = mapData.mapCellHeightH;
+        CellSize = mapData.CellSize;
+        NoiseScaleOn256 = mapData.NoiseScaleOn256;
+        highRatio = mapData.highRatio;
+        lowRatio = mapData.lowRatio;
+        randomShiftX = mapData.randomShiftX;
+        randomShiftY = mapData.randomShiftY;
+
     }
 
 }

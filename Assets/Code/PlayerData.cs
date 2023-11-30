@@ -520,7 +520,7 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public MapSaveDataBase GetMap(string name)
+    public MapSaveDataBase LoadMap(string name)
     {
         if (savedMaps.ContainsKey(name))
         {
