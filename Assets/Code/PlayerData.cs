@@ -60,6 +60,7 @@ public class SaveData{
     public SaveDataBackpckItem[] dollBackpack;
     public SaveDataEventItem[] eventData;
     public DollInstanceData[] usingDIs;
+    public MapSavePerlinField[] savedPFields;
 }
 
 
@@ -216,6 +217,18 @@ public class PlayerData : MonoBehaviour
             }
         }
 
+        if (savedMaps.Count > 0)
+        {
+            int i = 0;
+            data.savedPFields = new MapSavePerlinField[savedMaps.Count];
+            foreach (KeyValuePair<string, MapSaveDataBase> k in savedMaps)
+            {
+                data.savedPFields[i] = (MapSavePerlinField)k.Value;
+                i++;
+            }
+            print("----地圖存檔完成----");
+        }
+
         return data;
     }
 
@@ -236,13 +249,6 @@ public class PlayerData : MonoBehaviour
             }
         }
 
-        //if (data.usingDollList != null && data.usingDollList.Length > 0)
-        //{
-        //    for (int i =0; i< data.usingDollList.Length; i++)
-        //    {
-        //        AddUsingDoll(data.usingDollList[i]);
-        //    }
-        //}
 
         if (data.formationDollList != null && data.formationDollList.Length > 0)
         {
@@ -266,6 +272,15 @@ public class PlayerData : MonoBehaviour
             {
                 SaveEvent(data.eventData[i].Event, data.eventData[i].status);
             }
+        }
+
+        if (data.savedPFields !=null && data.savedPFields.Length > 0)
+        {
+            for (int i=0; i<data.savedPFields.Length; i++)
+            {
+                savedMaps.Add(data.savedPFields[i].mapName, data.savedPFields[i]);
+            }
+            print("----地圖載入完成---- ");
         }
 
     }
