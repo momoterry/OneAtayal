@@ -52,10 +52,13 @@ public class MG_TerrainBase : MapGeneratorBase
         theCellMap.GetOneMap().FillTileAll(3, blockTM, blockTM, highTG, highEdgeTG);
     }
 
+    protected virtual void PreBuild() { }
     protected virtual void PostBuild() { }
 
     public override void BuildAll(int buildLevel = 1)
     {
+        PreBuild();
+
         theCellMap.InitCellMap(mapCellWidthH, mapCellHeightH, CellSize);
 
         planTG = theTileGroupLib.GetTileGroup(planID);

@@ -42,6 +42,15 @@ public struct DollInstanceData
     public string fullName; //TODO: 改成 TextID ?
     public DollBuffData[] buffs;
 }
+
+//地圖存檔
+[System.Serializable]
+public class MapSaveDataBase
+{
+    public string mapName;
+    public string className;
+}
+
 [System.Serializable]
 public class SaveData{
     public int Money;
@@ -69,6 +78,9 @@ public class PlayerData : MonoBehaviour
     protected List<FormationDollInfo> formationDollList = new List<FormationDollInfo>();
 
     protected Dictionary<string, int> dollBackpack = new Dictionary<string, int>();
+
+    //地圖記錄
+    protected Dictionary<string, MapSaveDataBase> savedMaps = new Dictionary<string, MapSaveDataBase>();
 
     //事件 Flag 
     protected Dictionary<string, bool> eventData = new Dictionary<string, bool>();
@@ -110,6 +122,7 @@ public class PlayerData : MonoBehaviour
         formationDollList.Clear();
         dollBackpack.Clear();
         eventData.Clear();
+        savedMaps.Clear();
 
         usedIds.Clear();
 
@@ -484,4 +497,35 @@ public class PlayerData : MonoBehaviour
         return false;
     }
 
+    //關於地圖
+    public void SaveMap(string name , MapSaveDataBase data)
+    {
+        if (savedMaps.ContainsKey(name))
+        {
+            if (data != null)
+            {
+                savedMaps[name] = data;
+            }
+            else
+            {
+                savedMaps.Remove(name);
+            }
+        }
+        else
+        {
+            if (data != null) 
+            {
+                savedMaps.Add(name, data);
+            }
+        }
+    }
+
+    public MapSaveDataBase GetMap(string name)
+    {
+        if (savedMaps.ContainsKey(name))
+        {
+            return savedMaps[name];
+        }
+        return null;
+    }
 }

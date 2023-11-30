@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class MapSavePerlinField : MapSaveDataBase
+{
+    public int CellSize = 4;
+    public int mapCellWidthH = 15;
+    public int mapCellHeightH = 10;
+    public int NoiseScaleOn256 = 5;
+    public float highRatio = 0.35f;
+    public float lowRatio = 0.35f;
+}
+
 
 public class MG_PerlinField : MG_PerlinNoise
 {
