@@ -7,41 +7,44 @@ public class SceneTraveler : MonoBehaviour
 {
     static string sceneToGo = "";
     static string entraceToGo = "";
+    static string backSceneToGo = "";
+    static string backEntranceToGo = "";
+    static bool needSetBattleSystem = false;
     static public void GotoScene(string sceneName, string entraceName)
     {
-        sceneToGo = sceneName;
-        entraceToGo = entraceName;
+        if (entraceName != "")
+        {
+            sceneToGo = sceneName;
+            entraceToGo = entraceName;
+            needSetBattleSystem = true;
+        }
         SceneManager.LoadScene(sceneName);
-        //BattleSystem bs = BattleSystem.GetInstance();
-        //print("SceneToGo:LoadScene Done..... BattleSystem.MapGenetatorBase: " + bs.theMG);
-        //if (bs != null) {
-        //    MapGeneratorBase mg = bs.GetMapGenerator();
-        //    if (mg && mg.entraceList.Length > 0)
-        //    {
-        //        for (int i = 0; i < mg.entraceList.Length; i++)
-        //        {
-        //            print("....Check Entrance: " + mg.entraceList[i].name);
-        //            if (mg.entraceList[i].name == entraceName)
-        //            {
-        //                print("....Check Entrance: 成功 !!" + mg.entraceList[i].name);
-        //                bs.initPlayerPos = mg.entraceList[i].pos;
-        //            }
-        //        }
-        //    }
-        //}
+    }
+
+    static public void GotoSceneWithBackInfo(string sceneName, string entraceName, string backScene, string backEntrace)
+    {
+        if (backScene != "" || entraceName != "")
+        {
+            sceneToGo = sceneName;
+            entraceToGo = entraceName;
+            backSceneToGo = backScene;
+            backEntranceToGo = backEntrace;
+            needSetBattleSystem = true;
+        }
+        SceneManager.LoadScene(sceneName);
     }
 
     private void Update()
     {
-        if (sceneToGo != "")
+        if (needSetBattleSystem)
         {
             //print("SceneTraveler: 有 sceneToGo:" + sceneToGo + " _ " + entraceToGo);
             BattleSystem bs = BattleSystem.GetInstance();
-            if (bs != null && bs.theMG != null)
+            if (bs != null )
             {
                 //print("SceneTraveler: MG = " + bs.theMG);
                 MapGeneratorBase mg = bs.theMG;
-                if (mg.entraceList != null && mg.entraceList.Length > 0)
+                if ( entraceToGo != "" && mg.entraceList != null && mg.entraceList.Length > 0)
                 {
                     for (int i = 0; i < mg.entraceList.Length; i++)
                     {
@@ -58,10 +61,20 @@ public class SceneTraveler : MonoBehaviour
                         }
                     }
                 }
+
+                if (backSceneToGo != "")
+                {
+                    print("設定回家點: " + backSceneToGo + " - " + backEntranceToGo);
+                    bs.backScene = backSceneToGo;
+                    bs.backEntrance = backEntranceToGo;
+                }
+
             }
 
             sceneToGo = "";
             entraceToGo = "";
+            backSceneToGo = "";
+            backEntranceToGo = "";
         }
     }
 }
