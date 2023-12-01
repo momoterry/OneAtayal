@@ -513,13 +513,20 @@ public class BattleSystem : MonoBehaviour
     {
         //GameSystem.GetInstance().SaveData();
         OnExitBattle();
-        SceneManager.LoadScene(sceneName);
+        //SceneManager.LoadScene(sceneName);
+        SceneTraveler.GotoScene(sceneName, "");
     }
 
     public void OnGotoScene(string sceneName, string entraceName)
     {
         OnExitBattle();
         SceneTraveler.GotoScene(sceneName, entraceName);
+    }
+
+    public void OnGotoSceneWithBack(string sceneName, string entraceName, string _backScene, string _backEntrance)
+    {
+        OnExitBattle();
+        SceneTraveler.GotoSceneWithBackInfo(sceneName, entraceName, _backScene, _backEntrance);
     }
 
     public void OnBackPrevScene()

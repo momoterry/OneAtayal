@@ -2719,14 +2719,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: CaveMiniA
   entraceName: 
-  fadeBlocker: {fileID: 4843501856526371852}
-  fadeTime: 0.25
+  fadeBlocker: {fileID: 0}
+  fadeTime: 0.5
   showupTime: -1
   showupSprites: []
   messageHint: 0
   hintLevelName: 
   isClearLevel: 0
   showWinUI: 0
+  backScene: FieldOpenForest
+  backEntrance: CaveMiniAExit
 --- !u!212 &3841512863425697681
 SpriteRenderer:
   m_ObjectHideFlags: 0

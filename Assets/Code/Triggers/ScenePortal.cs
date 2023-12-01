@@ -18,6 +18,9 @@ public class ScenePortal : MonoBehaviour
     public bool isClearLevel = false;
     public bool showWinUI = false;
 
+    public string backScene = "";
+    public string backEntrance = "";
+
     protected enum PHASE
     {
         NONE,
@@ -181,7 +184,15 @@ public class ScenePortal : MonoBehaviour
         }
         else
         {
-            BattleSystem.GetInstance().OnGotoScene(sceneName, entraceName);
+            if (backScene != "")
+            {
+                BattleSystem.GetInstance().OnGotoSceneWithBack(sceneName, entraceName, backScene, backEntrance);
+                //BattleSystem.GetInstance().OnGotoScene(sceneName, backEntrance);
+            }
+            else
+            {
+                BattleSystem.GetInstance().OnGotoScene(sceneName, entraceName);
+            }
         }
     }
 }

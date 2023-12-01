@@ -12,17 +12,18 @@ public class SceneTraveler : MonoBehaviour
     static bool needSetBattleSystem = false;
     static public void GotoScene(string sceneName, string entraceName)
     {
+        SceneManager.LoadScene(sceneName);
         if (entraceName != "")
         {
             sceneToGo = sceneName;
             entraceToGo = entraceName;
             needSetBattleSystem = true;
         }
-        SceneManager.LoadScene(sceneName);
     }
 
     static public void GotoSceneWithBackInfo(string sceneName, string entraceName, string backScene, string backEntrace)
     {
+        SceneManager.LoadScene(sceneName);
         if (backScene != "" || entraceName != "")
         {
             sceneToGo = sceneName;
@@ -31,7 +32,6 @@ public class SceneTraveler : MonoBehaviour
             backEntranceToGo = backEntrace;
             needSetBattleSystem = true;
         }
-        SceneManager.LoadScene(sceneName);
     }
 
     private void Update()
@@ -42,7 +42,7 @@ public class SceneTraveler : MonoBehaviour
             BattleSystem bs = BattleSystem.GetInstance();
             if (bs != null )
             {
-                //print("SceneTraveler: MG = " + bs.theMG);
+                print("SceneTraveler: MG = " + bs.theMG);
                 MapGeneratorBase mg = bs.theMG;
                 if ( entraceToGo != "" && mg.entraceList != null && mg.entraceList.Length > 0)
                 {
@@ -64,6 +64,7 @@ public class SceneTraveler : MonoBehaviour
 
                 if (backSceneToGo != "")
                 {
+                    print("本來的回家點: " + bs.backScene);
                     print("設定回家點: " + backSceneToGo + " - " + backEntranceToGo);
                     bs.backScene = backSceneToGo;
                     bs.backEntrance = backEntranceToGo;
@@ -75,6 +76,7 @@ public class SceneTraveler : MonoBehaviour
             entraceToGo = "";
             backSceneToGo = "";
             backEntranceToGo = "";
+            needSetBattleSystem = false;
         }
     }
 }
