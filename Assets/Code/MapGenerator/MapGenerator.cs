@@ -4,9 +4,17 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using NavMeshPlus.Components;
 
+[System.Serializable]
+public class MapEntraceData
+{
+    public string name;
+    public Transform pos;
+}
+
 public class MapGeneratorBase : MonoBehaviour
 {
     public NavMeshSurface theSurface2D;
+    public MapEntraceData[] entraceList;
 
     public virtual void BuildAll(int buildLevel = 1)
     {
