@@ -66,15 +66,12 @@ public class BattleSystem : MonoBehaviour
 
     public int GetEnemyCount() { return enemyList.Count; }
 
+    public delegate void BattleSystemAwakeCB(BattleSystem bs);
+    static protected List<BattleSystemAwakeCB> awakeCBs = new List<BattleSystemAwakeCB>();
+    static public void RegisterAwakeCallBack(BattleSystemAwakeCB _cb) { awakeCBs.Add(_cb); }
+
     protected static BattleSystem instance = null;
     public static BattleSystem GetInstance() { return instance; }
-
-    public BattleSystem() : base()
-    {
-        //if (instance != null)
-        //    print("ERROR !! 超過一份 BattleSystem 存在: ");
-        //instance = this;
-    }
 
     protected void Awake()
     {
@@ -83,6 +80,12 @@ public class BattleSystem : MonoBehaviour
         if (instance != null)
             print("ERROR !! 超過一份 BattleSystem 存在: ");
         instance = this;
+
+        foreach( BattleSystemAwakeCB cb in awakeCBs)
+        {
+            cb(this);
+        }
+        awakeCBs.Clear();
 
         touchLayer = LayerMask.GetMask("TouchPlane", "UI");
         theDollSkillManager = GetComponent<DollSkillManager>();
