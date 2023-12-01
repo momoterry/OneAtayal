@@ -7,6 +7,7 @@ public class ScenePortal : MonoBehaviour
 {
     // Start is called before the first frame update
     public string sceneName;
+    public string entraceName;              //跳到下個場景的指定入口
     public SpriteRenderer fadeBlocker;
     public float fadeTime = 0.5f;
     public float showupTime = -1.0f;
@@ -180,7 +181,7 @@ public class ScenePortal : MonoBehaviour
         }
         else
         {
-            BattleSystem.GetInstance().OnGotoScene(sceneName);
+            BattleSystem.GetInstance().OnGotoScene(sceneName, entraceName);
         }
     }
 }

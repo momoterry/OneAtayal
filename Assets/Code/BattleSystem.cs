@@ -515,6 +515,11 @@ public class BattleSystem : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void OnGotoScene(string sceneName, string entraceName)
+    {
+        SceneTraveler.GotoScene(sceneName, entraceName);
+    }
+
     public void OnBackPrevScene()
     {
         //GameSystem.GetInstance().SaveData();
