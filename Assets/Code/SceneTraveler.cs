@@ -40,8 +40,8 @@ public class SceneTraveler : MonoBehaviour
             if (bs != null && bs.theMG != null)
             {
                 //print("SceneTraveler: MG = " + bs.theMG);
-                MapGeneratorBase mg = bs.GetMapGenerator();
-                if (mg && mg.entraceList.Length > 0)
+                MapGeneratorBase mg = bs.theMG;
+                if (mg.entraceList != null && mg.entraceList.Length > 0)
                 {
                     for (int i = 0; i < mg.entraceList.Length; i++)
                     {

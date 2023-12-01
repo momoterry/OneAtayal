@@ -10,6 +10,7 @@ public class BattleSystem : MonoBehaviour
 {
     public Battle_HUD theBattleHUD;
     public string backScene = "StartMenu";
+    public string backEntrance = "";
     //public VPad theVPad;
 
     public MapGeneratorBase theMG;
@@ -523,9 +524,9 @@ public class BattleSystem : MonoBehaviour
 
     public void OnBackPrevScene()
     {
-        //GameSystem.GetInstance().SaveData();
         OnExitBattle();
-        SceneManager.LoadScene(backScene);
+        //SceneManager.LoadScene(backScene);
+        SceneTraveler.GotoScene(backScene, backEntrance);
     }
 
 
