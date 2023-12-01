@@ -50,6 +50,11 @@ public class SceneTraveler : MonoBehaviour
                         {
                             //print("....Check Entrance: 成功 !!" + mg.entraceList[i].name);
                             bs.initPlayerPos = mg.entraceList[i].pos;
+                            if (Camera.main)    //暴力法移動位置，應該透過 BattleCamera
+                            {
+                                Vector3 newPos = mg.entraceList[i].pos.position;
+                                Camera.main.transform.position = new Vector3(newPos.x, Camera.main.transform.position.y, newPos.z);
+                            }
                         }
                     }
                 }
