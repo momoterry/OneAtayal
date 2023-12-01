@@ -517,6 +517,7 @@ public class BattleSystem : MonoBehaviour
 
     public void OnGotoScene(string sceneName, string entraceName)
     {
+        OnExitBattle();
         SceneTraveler.GotoScene(sceneName, entraceName);
     }
 
