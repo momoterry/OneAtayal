@@ -163,7 +163,7 @@ public class DataTableConverter
     {
         if (data == null)
         {
-            print("DataToTable 發現空資料 !! " + prefix + " ,Type = " + _type.Name);
+            //print("DataToTable 發現空資料 !! " + prefix + " ,Type = " + _type.Name);
             return;
         }
 

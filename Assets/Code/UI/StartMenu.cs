@@ -81,7 +81,7 @@ public class StartMenu : MonoBehaviour
 
     public void OnGameStart()
     {
-        print("START!!");
+        //print("START!!");
 
 
         if (OptionMenu)

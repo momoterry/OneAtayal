@@ -38,7 +38,7 @@ public class SceneTraveler : MonoBehaviour
 
     static void SetupBattleSystem(BattleSystem bs)
     {
-        print(sceneToGo + "SetupBattleSystem");
+        //print(sceneToGo + "SetupBattleSystem");
         //BattleSystem bs = BattleSystem.GetInstance();
 
         if (bs != null)

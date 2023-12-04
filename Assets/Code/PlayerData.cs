@@ -70,7 +70,7 @@ public class PlayerData : MonoBehaviour
 
     //public DollData theDollData;
 
-    protected int Money = 0;
+    protected int Money;
 
     protected CharacterStat mainCharacterStat = new CharacterStat();
 
@@ -115,7 +115,7 @@ public class PlayerData : MonoBehaviour
     public void InitData()
     {
         print("==== GameSystem ªº PlayerData.InitData()");
-        Money = 0;
+        Money = 500;
         mainCharacterStat.LV = 1;
         mainCharacterStat.Exp = 0;
         usingDIs.Clear();
