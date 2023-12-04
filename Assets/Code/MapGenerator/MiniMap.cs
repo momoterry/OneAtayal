@@ -308,6 +308,9 @@ public class MiniMap : MonoBehaviour
             BigMapRoot.SetActive(false);
     }
 
+
+    public Texture2D GetMaskTexture() { return maskTexture; }
+
     //private void OnGUI()
     //{
     //    //GUI.TextArea(new Rect(100, 100, 100, 50), "( " + px + ", " + py + " )");

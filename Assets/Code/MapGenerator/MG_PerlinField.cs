@@ -13,6 +13,7 @@ public class MapSavePerlinField : MapSaveDataBase
     public float lowRatio = 0.35f;
     public float randomShiftX = -1;
     public float randomShiftY = -1;
+    public string mapMask64 = null;
 }
 
 
@@ -27,6 +28,12 @@ public class MG_PerlinField : MG_PerlinNoise
     //隨機記錄的部份
     protected float randomShiftX = -1;
     protected float randomShiftY = -1;
+
+
+    public override void OnEixtMap()
+    {
+        SaveExploreMap();
+    }
 
     protected override int GetMapValue(float perlinValue)
     {
@@ -164,6 +171,7 @@ public class MG_PerlinField : MG_PerlinNoise
             theMiniMap.CreateMiniMap(theCellMap.GetOneMap());
         }
 
+
         if (enemyManager)
         {
             for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
@@ -180,9 +188,12 @@ public class MG_PerlinField : MG_PerlinNoise
             }
             enemyManager.BuildAllGameplay();
         }
+        //載入已探索的資訊
+        LoadExploreMap();
 
         //地圖存檔
         SaveMap();
+
     }
 
     protected void ModifyMapEdge()
@@ -237,7 +248,7 @@ public class MG_PerlinField : MG_PerlinNoise
 
     protected void LoadMap()
     {
-        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().LoadMap(mapName);
+        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
         if (mapDataBase == null || mapDataBase.className != "MG_PerlinField")
         {
             print("LoadMap: 沒有存檔資料");
@@ -247,6 +258,7 @@ public class MG_PerlinField : MG_PerlinNoise
         print("LoadMap: 找到存檔資料 !!!!");
         MapSavePerlinField mapData = (MapSavePerlinField)mapDataBase;
         print("LoaMap Size: " + new Vector2Int(mapData.mapCellWidthH, mapData.mapCellHeightH));
+        print("LoadMap map64: " + mapData.mapMask64);
 
         mapCellWidthH = mapData.mapCellWidthH;
         mapCellHeightH = mapData.mapCellHeightH;
@@ -257,6 +269,149 @@ public class MG_PerlinField : MG_PerlinNoise
         randomShiftX = mapData.randomShiftX;
         randomShiftY = mapData.randomShiftY;
 
+    }
+    // ======= 有關探索地圖的記錄和回復 =======================
+
+    protected byte[] CompressData(byte[] data )
+    {
+        List<byte> compressedList = new List<byte>();
+
+        int count = 1;
+        for (int i = 1; i < data.Length; i++)
+        {
+            if (data[i] == data[i - 1])
+            {
+                count++;
+                if (count == 255)
+                {
+                    compressedList.Add(data[i]);
+                    compressedList.Add((byte)255);
+                    count = 1;
+                    i++;
+                }
+            }
+            else
+            {
+                compressedList.Add(data[i - 1]);
+                compressedList.Add((byte)count);
+                count = 1;
+            }
+        }
+
+        // Add the last run
+        compressedList.Add(data[data.Length - 1]);
+        compressedList.Add((byte)count);
+
+        // Convert list to array
+        //compressedAlphaData = compressedList.ToArray();
+        return compressedList.ToArray();
+    }
+
+    protected byte[] DeCompressData(byte[] compressedData)
+    {
+        List<byte> decompressedList = new List<byte>();
+
+        for (int i = 0; i < compressedData.Length; i += 2)
+        {
+            byte value = compressedData[i];
+            int count = compressedData[i + 1];
+
+            for (int j = 0; j < count; j++)
+            {
+                decompressedList.Add(value);
+            }
+        }
+
+        return decompressedList.ToArray();
+    }
+
+    protected void SaveExploreMap()
+    {
+        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        if (mapDataBase == null || mapDataBase.className != "MG_PerlinField")
+        {
+            print("SaveExploreMap: 沒有存檔資料 MapSaveData，不處理");
+            return;
+        }
+
+        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+        if (theMiniMap)
+        {
+            //print("開始嘗試儲存 MiniMap");
+
+            Texture2D maskT = theMiniMap.GetMaskTexture();
+            // 獲取Texture2D的所有像素
+            Color[] pixels = maskT.GetPixels();
+
+            // 初始化alphaData數組
+            byte[] alphaData = new byte[pixels.Length];
+
+            // 將每個像素的alpha值轉換為字節數據
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                alphaData[i] = (byte)(pixels[i].a * 255);
+            }
+            //print("Byte 總量: " + alphaData.Length);
+
+            byte[] compressedAlphaData = CompressData(alphaData);
+            //print("壓縮後 Byte 總量" + compressedAlphaData.Length);
+            //print("壓縮後內容: " + compressedAlphaData);
+
+            string compressedAlpha64Text = System.Convert.ToBase64String(compressedAlphaData);
+            print("SaveExploreMap 壓縮後的文字量: " + compressedAlpha64Text.Length);
+            //print("TEXT: " + compressedAlpha64Text);
+
+
+            MapSavePerlinField mapData = (MapSavePerlinField)mapDataBase;
+            mapData.mapMask64 = compressedAlpha64Text;
+        }
+    }
+
+    protected void LoadExploreMap()
+    {
+        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+        if (!theMiniMap)
+        {
+            return;
+        }
+        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        if (mapDataBase == null || mapDataBase.className != "MG_PerlinField")
+        {
+            print("LoadExploreMap : 沒有存檔資料，不處理");
+            return;
+        }
+
+        MapSavePerlinField mapData = (MapSavePerlinField)mapDataBase;
+        if (mapData.mapMask64 == null || mapData.mapMask64 == "")
+        {
+            print("空的地圖探索資訊: " + mapData.mapMask64);
+            print("mapData: " + mapData.mapName + " mapName :" + mapName);
+            return;
+        }
+
+        byte[] compressedAlphaData = System.Convert.FromBase64String(mapData.mapMask64);
+        print("找到的壓縮資料，Byte 總量: " + compressedAlphaData.Length);
+        //print("壓縮資料: " + compressedAlphaData);
+
+        byte[] alphaData = DeCompressData(compressedAlphaData);
+        //print("解壓縮資料，Byte 總量: " + alphaData.Length);
+
+        Texture2D maskT = theMiniMap.GetMaskTexture();
+        Color[] pixels = maskT.GetPixels();
+        if (pixels.Length != alphaData.Length)
+        {
+            print("解壓縮錯誤，載入的探索地圖大小和實際不符 !! " + alphaData.Length + " / " + pixels.Length);
+            return;
+        }
+
+        //print("開始改寫探索地圖....");
+        for (int i=0; i<pixels.Length; i++)
+        {
+            pixels[i].a = alphaData[i] / 255.0f;
+        }
+        maskT.SetPixels(pixels);
+        maskT.Apply();
+        //print("完成....");
     }
 
 }

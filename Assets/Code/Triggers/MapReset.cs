@@ -9,6 +9,7 @@ public class MapReset : MonoBehaviour
     void OnTG(GameObject whoTG)
     {
         GameSystem.GetPlayerData().SaveMap(mapNameToRest, null);
+        GameSystem.GetInstance().SaveData();
 
         SystemUI.ShowMessageBox(null, "Ãö¥d­«¸m: " + mapNameToRest);
     }

@@ -535,7 +535,7 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public MapSaveDataBase LoadMap(string name)
+    public MapSaveDataBase GetSavedMap(string name)
     {
         if (savedMaps.ContainsKey(name))
         {

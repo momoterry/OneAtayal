@@ -81,8 +81,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         difficultRate = _difficultRate;
         OneUtility.Shuffle(normalPosList);
         int maxPosNum = normalPosList.Count;
-        //print("BuildAllGameplay diffculty: " + difficultRate);
-        print("BuildAllGameplay : maxPosNum = " + maxPosNum);
+        //print("BuildAllGameplay : maxPosNum = " + maxPosNum);
 
         int usedNum = 0;
         foreach (GameplayInfo info in allGameplays)

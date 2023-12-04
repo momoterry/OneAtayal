@@ -542,6 +542,10 @@ public class BattleSystem : MonoBehaviour
 
     protected void OnExitBattle()
     {
+        if (theMG)
+        {
+            theMG.OnEixtMap();
+        }
         ContinuousBattleManager.OnSceneExit();
         GameSystem.GetInstance().SaveData();
     }

@@ -16,9 +16,9 @@ public class MapGeneratorBase : MonoBehaviour
     public NavMeshSurface theSurface2D;
     public MapEntraceData[] entraceList;
 
-    public virtual void BuildAll(int buildLevel = 1)
-    {
-    }
+    public virtual void BuildAll(int buildLevel = 1) {}
+
+    public virtual void OnEixtMap() { }
 
     public void RebuildNavmesh()
     {
