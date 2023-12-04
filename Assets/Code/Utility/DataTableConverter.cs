@@ -11,6 +11,7 @@ public class DataTableConverter
 
     public Dictionary<string, string> stringTable;
     public Dictionary<string, int> intTable;
+    public Dictionary<string, float> floatTable;
 
     public DataTableConverter()
     {
@@ -18,6 +19,8 @@ public class DataTableConverter
             stringTable = new Dictionary<string, string>();
         if (intTable == null)
             intTable = new Dictionary<string, int>();
+        if (floatTable == null)
+            floatTable = new Dictionary<string, float>();
     }
 
     virtual public void AddInt(string _id, int value)
@@ -28,6 +31,11 @@ public class DataTableConverter
     virtual public void AddString(string _id, string value)
     {
         stringTable.Add(_id, value);
+    }
+
+    virtual public void AddFloat(string _id, float value)
+    {
+        floatTable.Add(_id, value);
     }
 
     virtual public int GetInt(string _id)
@@ -42,6 +50,13 @@ public class DataTableConverter
         if (stringTable.ContainsKey(_id))
             return stringTable[_id];
         return "";
+    }
+
+    virtual public float GetFloat(string _id)
+    {
+        if (floatTable.ContainsKey(_id))
+            return floatTable[_id];
+        return 0;
     }
 
     protected void print(string str) { Debug.Log(str); }
@@ -89,6 +104,12 @@ public class DataTableConverter
         {
             bool data = (GetInt(prefix) != 0);
             //print(prefix + " :是一個 bool, 值設為: " + (bool)data);
+            return data;
+        }
+        else if (_type == typeof(float))
+        {
+            float data = GetFloat(prefix);
+            //print(prefix + " :是一個 float, 值設為: " + (float)data);
             return data;
         }
         else if (_type == typeof(string))
@@ -160,6 +181,11 @@ public class DataTableConverter
         {
             //print(prefix + " :是一個 bool, 值等於: " + (bool)data);
             AddInt(prefix, (bool)data == true ? 1 : 0);
+        }
+        else if (_type == typeof(float))
+        {
+            //print(prefix + " :是一個 float, 值等於: " + (float)data);
+            AddFloat(prefix, (float)data);
         }
         else if (_type.IsArray)
         {

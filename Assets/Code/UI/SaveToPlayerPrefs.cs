@@ -21,6 +21,11 @@ public class SaveToPlayerPrefs : DataTableConverter
         PlayerPrefs.SetInt(_id, value);
     }
 
+    public override void AddFloat(string _id, float value)
+    {
+        PlayerPrefs.SetFloat(_id, value);
+    }
+
     public override void AddString(string _id, string value)
     {
         PlayerPrefs.SetString(_id, value);
@@ -29,6 +34,11 @@ public class SaveToPlayerPrefs : DataTableConverter
     public override int GetInt(string _id)
     {
         return PlayerPrefs.GetInt(_id, 0);
+    }
+
+    public override float GetFloat(string _id)
+    {
+        return PlayerPrefs.GetFloat(_id);
     }
 
     public override string GetString(string _id)

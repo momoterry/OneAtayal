@@ -258,7 +258,8 @@ public class MG_PerlinField : MG_PerlinNoise
         print("LoadMap: 找到存檔資料 !!!!");
         MapSavePerlinField mapData = (MapSavePerlinField)mapDataBase;
         print("LoaMap Size: " + new Vector2Int(mapData.mapCellWidthH, mapData.mapCellHeightH));
-        print("LoadMap map64: " + mapData.mapMask64);
+        //print("LoaMap RandomShift: " + new Vector2(mapData.randomShiftX, mapData.randomShiftY));
+        //print("LoadMap map64: " + mapData.mapMask64);
 
         mapCellWidthH = mapData.mapCellWidthH;
         mapCellHeightH = mapData.mapCellHeightH;
@@ -385,12 +386,13 @@ public class MG_PerlinField : MG_PerlinNoise
         if (mapData.mapMask64 == null || mapData.mapMask64 == "")
         {
             print("空的地圖探索資訊: " + mapData.mapMask64);
-            print("mapData: " + mapData.mapName + " mapName :" + mapName);
             return;
         }
 
+        print("LoadExploreMap: 找到的文字壓縮資料，Byte 總量: " + mapData.mapMask64.Length);
+        //print("找到的文字壓縮資料內容: " + mapData.mapMask64);
         byte[] compressedAlphaData = System.Convert.FromBase64String(mapData.mapMask64);
-        print("找到的壓縮資料，Byte 總量: " + compressedAlphaData.Length);
+        //print("找到的壓縮資料，Byte 總量: " + compressedAlphaData.Length);
         //print("壓縮資料: " + compressedAlphaData);
 
         byte[] alphaData = DeCompressData(compressedAlphaData);
