@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: DHeroStoneDamage
-  icon: {fileID: 4601728623675395250, guid: 0912fa18d6688a54f8734e039c2fd137, type: 3}
+  icon: {fileID: -1914451179, guid: ffd60fab92cd22e469e318a0d37fb356, type: 3}
   positionType: 0
   bulletRef: {fileID: 3710000809252070552, guid: cc38025dec94ad540a30b44c77129863, type: 3}
   bulletInitDis: 0.25
@@ -147,13 +147,11 @@ MonoBehaviour:
   SearchRange: 3
   canRevie: 1
   searchCenter: 2
-  PositionRangeOut: 2
   AttackRangeIn: 2.5
   AttackRangeOut: 3.5
-  attackWait: 0.2
   attackCD: 0.5
+  attackWhenFollow: 0
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
-  myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 1574345511545568187}
   useDefaultAgentSetting: 1
   DashTime: 0.1
