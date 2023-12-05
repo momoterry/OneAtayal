@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Image dollIcon;
+    public Image hpBar;
     public Image outLine;
 
     protected RectTransform myRect;
@@ -51,6 +52,13 @@ public class DollLayoutItem : MonoBehaviour, IDragHandler, IPointerDownHandler, 
 
         originalRoot = transform.parent;
         originalLocalPos = myRect.localPosition;
+
+        HitBody hBody = myDoll.GetComponent<HitBody>();
+        if (hBody && hpBar)
+        {
+            float hpRatio = hBody.GetHP() / hBody.GetHPMax();
+            hpBar.transform.localScale = new Vector3(hpRatio, 1.0f, 1.0f);
+        }
     }
 
     public void OnPointerDown(PointerEventData data)
