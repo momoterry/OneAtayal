@@ -710,6 +710,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         List<Vector2Int> deadEnds = new List<Vector2Int>();
         int startValue = puzzleDSU.Find(iStart);
         float enemyMinDistanceToStart = Mathf.Sqrt((cellHeight * cellHeight) + (cellWidth * cellWidth)) * noEnemyDistanceRate + 0.1f;
+        //用來標記判斷敵人強度變化的值 TODO: 想辦法改用路徑
+        float maxDistance = Mathf.Sqrt((puzzleWidth * cellWidth * 0.5f) * (puzzleWidth * cellWidth * 0.5f) + (puzzleHeight * cellHeight * 0.5f) * (puzzleHeight * cellHeight * 0.5f));
         for (int i = 0; i < puzzleWidth; i++)
         {
             for (int j = 0; j < puzzleHeight; j++)
@@ -724,18 +726,20 @@ public class MG_MazeDungeon : MapGeneratorBase
                 if (puzzleMap[i][j].value == cellInfo.NORMAL)
                 {
                     Vector3 pos = GetCellCenterPos(i, j);
+                    float startDis = Vector3.Distance(pos, startPos);
 
                     int wallCount = (puzzleMap[i][j].U ? 0 : 1) + (puzzleMap[i][j].D ? 0 : 1) + (puzzleMap[i][j].L ? 0 : 1) + +(puzzleMap[i][j].R ? 0 : 1);
                     if (wallCount == 3)
                     {
                         deadEnds.Add(new Vector2Int(i, j));
                     }
-                    else if (dungeonEnemyManager && Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
+                    else if (dungeonEnemyManager && startDis > enemyMinDistanceToStart)
                     {
-                        dungeonEnemyManager.AddNormalPosition(pos);
+                        //print("diffAdd: " + startDis / maxDistance);
+                        dungeonEnemyManager.AddNormalPosition(pos, startDis/maxDistance);
                     }
 
-                    if (normalGroup && !dungeonEnemyManager && Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
+                    if (normalGroup && !dungeonEnemyManager && startDis > enemyMinDistanceToStart)
                     {
                         if (Random.Range(0, 1.0f) < normalEnemyRate)
                         {

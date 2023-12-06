@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DungeonEnemyManagerBase : MonoBehaviour
 {
-    public float diffAddRatio = 1.0f;
+    public float diffAddRatio = 0;
     public virtual void AddNormalPosition(Vector3 pos, float diffAdd = 0) { }
 
     public virtual void BuildAllGameplay( float difficultRate = 1.0f ) { }
