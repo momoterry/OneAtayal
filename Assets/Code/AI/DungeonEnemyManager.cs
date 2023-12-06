@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 
 public class DungeonEnemyManagerBase : MonoBehaviour
 {
-    public virtual void AddNormalPosition(Vector3 pos) { }
+    public float diffAddRatio = 1.0f;
+    public virtual void AddNormalPosition(Vector3 pos, float diffAdd = 0) { }
 
     public virtual void BuildAllGameplay( float difficultRate = 1.0f ) { }
 }
@@ -26,23 +28,33 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
 
     public GameObject[]  randomLeaderAuraRefs;
 
-    protected List<Vector3> normalPosList = new List<Vector3>();
-    protected float difficultRate = 1.0f;
-
-    public override void AddNormalPosition(Vector3 pos)
+    protected class NormalPosData
     {
-        normalPosList.Add(pos);
+        public Vector3 pos;
+        public float diffAdd;
     }
 
-    protected void SpawnEnemyGroup(int index, Vector3 pos, GameplayInfo gameInfo)
+    protected List<NormalPosData> normalPosList = new List<NormalPosData>();
+    //protected List<Vector3> normalPosList = new List<Vector3>();
+    protected float difficultRate = 1.0f;
+
+    public override void AddNormalPosition(Vector3 pos, float diffAdd = 0)
+    {
+        NormalPosData data = new NormalPosData();
+        data.pos = pos;
+        data.diffAdd = diffAdd;
+        normalPosList.Add(data);
+    }
+
+    protected void SpawnEnemyGroup(int index, NormalPosData data, GameplayInfo gameInfo)
     {
         GameObject o = new GameObject("NormalGroup " + index);
-        o.transform.position = pos;
+        o.transform.position = data.pos;
         EnemyGroup enemyGroup = o.AddComponent<EnemyGroup>();
         enemyGroup.width = 4;
         enemyGroup.height = 4;
         enemyGroup.isRandomEnemyTotal = true;
-        enemyGroup.randomEnemyTotal = Mathf.FloorToInt(gameInfo.totalNum * difficultRate);
+        enemyGroup.randomEnemyTotal = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * (data.diffAdd * diffAddRatio + 1.0f));
         enemyGroup.enemyInfos = new EnemyGroup.EnemyInfo[gameInfo.enemys.Length];
         for (int i=0; i<gameInfo.enemys.Length; i++)
         {
@@ -52,10 +64,10 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
 
     }
 
-    protected void SpawnEnemyFormation(int index, Vector3 pos, GameplayInfo gameInfo)
+    protected void SpawnEnemyFormation(int index, NormalPosData data, GameplayInfo gameInfo)
     {
         GameObject o = new GameObject("FormationGroup " + index);
-        o.transform.position = pos;
+        o.transform.position = data.pos;
         EFormation eF = o.AddComponent<EFormation>();
         eF.leaderRef = gameInfo.leader;
         eF.frontEnemyRef = gameInfo.enemys[0];
@@ -66,9 +78,10 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         //eF.backCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * 0.3f);
 
         //TODO: 先暴力法處理小兵分布
-        eF.frontCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * Random.Range(0.3f, 0.5f));
-        eF.middleCount = Mathf.FloorToInt((gameInfo.totalNum * difficultRate - eF.frontCount) * Random.Range(0.5f, 0.7f));
-        eF.backCount = Mathf.FloorToInt(gameInfo.totalNum * difficultRate - eF.frontCount - eF.middleCount);
+        float dr = difficultRate * (data.diffAdd * diffAddRatio + 1.0f);
+        eF.frontCount = Mathf.FloorToInt(gameInfo.totalNum * dr * Random.Range(0.3f, 0.5f));
+        eF.middleCount = Mathf.FloorToInt((gameInfo.totalNum * dr - eF.frontCount) * Random.Range(0.5f, 0.7f));
+        eF.backCount = Mathf.FloorToInt(gameInfo.totalNum * dr - eF.frontCount - eF.middleCount);
 
         if (randomLeaderAuraRefs.Length > 0)
         {

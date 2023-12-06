@@ -25,6 +25,8 @@ public class MG_PerlinField : MG_PerlinNoise
     public GameObject initGameplay;
     public int edgeWidth = 4;
 
+    protected Vector2Int initCell = Vector2Int.zero;
+
     //隨機記錄的部份
     protected float randomShiftX = -1;
     protected float randomShiftY = -1;
@@ -133,10 +135,11 @@ public class MG_PerlinField : MG_PerlinNoise
         }
         else
         {
+            initCell = bestFound;
             if (initGameplay)
             {
-                initGameplay.transform.position = theCellMap.GetCellCenterPosition(bestFound.x, bestFound.y);
-                print("移動營地到 :" + bestFound);
+                initGameplay.transform.position = theCellMap.GetCellCenterPosition(initCell.x, initCell.y);
+                print("移動營地到 :" + initCell);
             }
         }
     }
@@ -174,6 +177,7 @@ public class MG_PerlinField : MG_PerlinNoise
 
         if (enemyManager)
         {
+            float dis2Max = Mathf.Sqrt((mapCellHeightH * mapCellHeightH) + (mapCellWidthH * mapCellWidthH));
             for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
             {
                 for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
@@ -182,7 +186,10 @@ public class MG_PerlinField : MG_PerlinNoise
                     {
                         Vector2Int iPos = theCellMap.GetCellCenterCoord(x, y);
                         Vector3 vPos = new Vector3(iPos.x + 0.5f, 0, iPos.y + 0.5f);
-                        enemyManager.AddNormalPosition(vPos);
+
+                        float dis2Ratio = Mathf.Sqrt((x - initCell.x)* (x - initCell.x) + (y - initCell.y)* (y - initCell.y)) / dis2Max;
+                        //print("dis2Ratio:" + dis2Ratio);
+                        enemyManager.AddNormalPosition(vPos, dis2Ratio);
                     }
                 }
             }
