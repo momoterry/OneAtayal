@@ -195,6 +195,26 @@ public class MG_PerlinField : MG_PerlinNoise
             }
             enemyManager.BuildAllGameplay();
         }
+
+        //設定地城入口
+        float minCavDis = Mathf.Sqrt(mapCellWidthH * mapCellWidthH +  mapCellHeightH * mapCellHeightH) * 0.5f;
+        List<Vector2Int> cavCandidates = new List<Vector2Int>();
+        for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
+        {
+            for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
+            {
+                if (theCellMap.GetValue(x, y) != (int)MY_VALUE.NORMAL)
+                    continue;
+                Vector2Int pos = new Vector2Int(x, y);
+                float dis = Vector2Int.Distance(initCell, pos);
+                if (dis > minCavDis)
+                {
+                    cavCandidates.Add(pos);
+                    print("Cav Candidate Add:" + pos);
+                }
+            }
+        }
+
         //載入已探索的資訊
         LoadExploreMap();
 
