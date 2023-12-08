@@ -280,58 +280,6 @@ public class MG_PerlinField : MG_PerlinNoise
     }
     // ======= 有關探索地圖的記錄和回復 =======================
 
-    protected byte[] CompressData(byte[] data )
-    {
-        List<byte> compressedList = new List<byte>();
-
-        int count = 1;
-        for (int i = 1; i < data.Length; i++)
-        {
-            if (data[i] == data[i - 1])
-            {
-                count++;
-                if (count == 255)
-                {
-                    compressedList.Add(data[i]);
-                    compressedList.Add((byte)255);
-                    count = 1;
-                    i++;
-                }
-            }
-            else
-            {
-                compressedList.Add(data[i - 1]);
-                compressedList.Add((byte)count);
-                count = 1;
-            }
-        }
-
-        // Add the last run
-        compressedList.Add(data[data.Length - 1]);
-        compressedList.Add((byte)count);
-
-        // Convert list to array
-        //compressedAlphaData = compressedList.ToArray();
-        return compressedList.ToArray();
-    }
-
-    protected byte[] DeCompressData(byte[] compressedData)
-    {
-        List<byte> decompressedList = new List<byte>();
-
-        for (int i = 0; i < compressedData.Length; i += 2)
-        {
-            byte value = compressedData[i];
-            int count = compressedData[i + 1];
-
-            for (int j = 0; j < count; j++)
-            {
-                decompressedList.Add(value);
-            }
-        }
-
-        return decompressedList.ToArray();
-    }
 
     protected void SaveExploreMap()
     {
@@ -361,7 +309,7 @@ public class MG_PerlinField : MG_PerlinNoise
             }
             //print("Byte 總量: " + alphaData.Length);
 
-            byte[] compressedAlphaData = CompressData(alphaData);
+            byte[] compressedAlphaData = OneUtility.CompressData(alphaData);
             //print("壓縮後 Byte 總量" + compressedAlphaData.Length);
             //print("壓縮後內容: " + compressedAlphaData);
 
@@ -402,7 +350,7 @@ public class MG_PerlinField : MG_PerlinNoise
         //print("找到的壓縮資料，Byte 總量: " + compressedAlphaData.Length);
         //print("壓縮資料: " + compressedAlphaData);
 
-        byte[] alphaData = DeCompressData(compressedAlphaData);
+        byte[] alphaData = OneUtility.DeCompressData(compressedAlphaData);
         //print("解壓縮資料，Byte 總量: " + alphaData.Length);
 
         Texture2D maskT = theMiniMap.GetMaskTexture();

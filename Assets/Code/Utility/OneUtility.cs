@@ -81,4 +81,58 @@ class OneUtility
         }
     }
     // ================================================== 
+
+    // ¦³ÃöÀ£ÁY (RLE)
+    static public byte[] CompressData(byte[] data)
+    {
+        List<byte> compressedList = new List<byte>();
+
+        int count = 1;
+        for (int i = 1; i < data.Length; i++)
+        {
+            if (data[i] == data[i - 1])
+            {
+                count++;
+                if (count == 255)
+                {
+                    compressedList.Add(data[i]);
+                    compressedList.Add((byte)255);
+                    count = 1;
+                    i++;
+                }
+            }
+            else
+            {
+                compressedList.Add(data[i - 1]);
+                compressedList.Add((byte)count);
+                count = 1;
+            }
+        }
+
+        // Add the last run
+        compressedList.Add(data[data.Length - 1]);
+        compressedList.Add((byte)count);
+
+        // Convert list to array
+        return compressedList.ToArray();
+    }
+
+    static public byte[] DeCompressData(byte[] compressedData)
+    {
+        List<byte> decompressedList = new List<byte>();
+
+        for (int i = 0; i < compressedData.Length; i += 2)
+        {
+            byte value = compressedData[i];
+            int count = compressedData[i + 1];
+
+            for (int j = 0; j < count; j++)
+            {
+                decompressedList.Add(value);
+            }
+        }
+
+        return decompressedList.ToArray();
+    }
+
 }
