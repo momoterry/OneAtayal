@@ -25,6 +25,8 @@ public class MG_PerlinField : MG_PerlinNoise
     public GameObject initGameplay;
     public int edgeWidth = 4;
 
+    public GameObject cavRef;
+
     protected Vector2Int initCell = Vector2Int.zero;
 
     //隨機記錄的部份
@@ -197,7 +199,8 @@ public class MG_PerlinField : MG_PerlinNoise
         }
 
         //設定地城入口
-        float minCavDis = Mathf.Sqrt(mapCellWidthH * mapCellWidthH +  mapCellHeightH * mapCellHeightH) * 0.5f;
+        //float timeStart = Time.realtimeSinceStartup;
+        float minCavDis = Mathf.Sqrt(mapCellWidthH * mapCellWidthH +  mapCellHeightH * mapCellHeightH) * 0.3f;
         List<Vector2Int> cavCandidates = new List<Vector2Int>();
         for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
         {
@@ -210,10 +213,20 @@ public class MG_PerlinField : MG_PerlinNoise
                 if (dis > minCavDis)
                 {
                     cavCandidates.Add(pos);
-                    print("Cav Candidate Add:" + pos);
+                    //print("Cav Candidate Add:" + pos);
                 }
             }
         }
+        List<Vector2Int> cavPoints = GetMaxDistancePoints(cavCandidates, 5);
+        for (int i=0; i<cavPoints.Count; i++)
+        {
+            if (cavRef)
+            {
+                //print("Cav :" + cavPoints[i]);
+                BattleSystem.SpawnGameObj(cavRef, theCellMap.GetCellCenterPosition(cavPoints[i].x, cavPoints[i].y));
+            }
+        }
+        //print("入口計算秏時: " + (Time.realtimeSinceStartup - timeStart));
 
         //載入已探索的資訊
         LoadExploreMap();
@@ -300,13 +313,13 @@ public class MG_PerlinField : MG_PerlinNoise
     }
 
     //From AI
-    private List<Vector2> GetMaxDistancePoints(List<Vector2> inputPoints)
+    private List<Vector2Int> GetMaxDistancePoints(List<Vector2Int> inputPoints, int maxAttempt = 100)
     {
-        List<Vector2> maxDistancePoints = new List<Vector2>();
+        List<Vector2Int> maxDistancePoints = new List<Vector2Int>();
         float maxDistance = float.MinValue;
 
         // 簡單的啟發式方法，隨機選擇一些三點組合進行計算
-        for (int attempt = 0; attempt < 100; attempt++)
+        for (int attempt = 0; attempt < maxAttempt; attempt++)
         {
             int i = Random.Range(0, inputPoints.Count);
             int j = Random.Range(0, inputPoints.Count);
