@@ -298,8 +298,44 @@ public class MG_PerlinField : MG_PerlinNoise
         randomShiftY = mapData.randomShiftY;
 
     }
-    // ======= 有關探索地圖的記錄和回復 =======================
 
+    //From AI
+    private List<Vector2> GetMaxDistancePoints(List<Vector2> inputPoints)
+    {
+        List<Vector2> maxDistancePoints = new List<Vector2>();
+        float maxDistance = float.MinValue;
+
+        // 簡單的啟發式方法，隨機選擇一些三點組合進行計算
+        for (int attempt = 0; attempt < 100; attempt++)
+        {
+            int i = Random.Range(0, inputPoints.Count);
+            int j = Random.Range(0, inputPoints.Count);
+            int k = Random.Range(0, inputPoints.Count);
+
+            // 確保三個點不相等
+            if (i != j && i != k && j != k)
+            {
+                // 計算三個點之間的距離
+                float distance = Vector2.Distance(inputPoints[i], inputPoints[j]) +
+                                 Vector2.Distance(inputPoints[j], inputPoints[k]) +
+                                 Vector2.Distance(inputPoints[k], inputPoints[i]);
+
+                // 如果距離更大，更新最大距離和對應的三點
+                if (distance > maxDistance)
+                {
+                    maxDistance = distance;
+                    maxDistancePoints.Clear();
+                    maxDistancePoints.Add(inputPoints[i]);
+                    maxDistancePoints.Add(inputPoints[j]);
+                    maxDistancePoints.Add(inputPoints[k]);
+                }
+            }
+        }
+
+        return maxDistancePoints;
+    }
+
+    // ======= 有關探索地圖的記錄和回復 =======================
 
     protected void SaveExploreMap()
     {
