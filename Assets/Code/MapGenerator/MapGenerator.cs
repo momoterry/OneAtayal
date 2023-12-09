@@ -16,9 +16,28 @@ public class MapGeneratorBase : MonoBehaviour
     public NavMeshSurface theSurface2D;
     public MapEntraceData[] entraceList;
 
+    protected string entranceID;
+
     public virtual void BuildAll(int buildLevel = 1) {}
 
     public virtual void OnEixtMap() { }
+    public virtual void SetEntrance(string _ID) { 
+        entranceID = _ID;
+        //print("SetEntrance: " + _ID);
+        for (int i=0; i < entraceList.Length;i++)
+        {
+            if (_ID == entraceList[i].name)
+            {
+                print("找到入口" + _ID);
+                BattleSystem.GetInstance().initPlayerPos = entraceList[i].pos;
+                if (Camera.main)    //暴力法移動位置，應該透過 BattleCamera
+                {
+                    Vector3 newPos = entraceList[i].pos.position;
+                    Camera.main.transform.position = new Vector3(newPos.x, Camera.main.transform.position.y, newPos.z);
+                }
+            }
+        }
+    }
 
     public void RebuildNavmesh()
     {

@@ -218,13 +218,36 @@ public class MG_PerlinField : MG_PerlinNoise
             }
         }
         List<Vector2Int> cavPoints = GetMaxDistancePoints(cavCandidates, 5);
+        List<SceneEntrance> entraceToAdd = new List<SceneEntrance>();
         for (int i=0; i<cavPoints.Count; i++)
         {
             if (cavRef)
             {
                 //print("Cav :" + cavPoints[i]);
-                BattleSystem.SpawnGameObj(cavRef, theCellMap.GetCellCenterPosition(cavPoints[i].x, cavPoints[i].y));
+                GameObject oCavP = BattleSystem.SpawnGameObj(cavRef, theCellMap.GetCellCenterPosition(cavPoints[i].x, cavPoints[i].y));
+                SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();
+                ScenePortal sp = oCavP.GetComponent<ScenePortal>();
+                if (se && sp)
+                {
+                    print("新增入口: ");
+                    entraceToAdd.Add(se);
+                    sp.backEntrance = "EXTRA_ENTRACE_" + i;
+                }
             }
+        }
+        int listOriginal = entraceList.Length;
+        MapEntraceData[] newList = new MapEntraceData[listOriginal + entraceToAdd.Count];
+        System.Array.Copy(entraceList, newList, listOriginal);
+        for (int i=0; i<entraceToAdd.Count; i++)
+        {
+            newList[listOriginal + i] = new MapEntraceData();
+            newList[listOriginal + i].pos = entraceToAdd[i].transform;
+            newList[listOriginal + i].name = "EXTRA_ENTRACE_" + i;
+        }
+        entraceList = newList;
+        if (entranceID != "")
+        {
+            SetEntrance(entranceID);
         }
         //print("入口計算秏時: " + (Time.realtimeSinceStartup - timeStart));
 

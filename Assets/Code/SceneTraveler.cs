@@ -45,21 +45,22 @@ public class SceneTraveler : MonoBehaviour
         {
             //print("SceneTraveler: MG = " + bs.theMG);
             MapGeneratorBase mg = bs.theMG;
-            if (entraceToGo != "" && mg.entraceList != null && mg.entraceList.Length > 0)
-            {
-                for (int i = 0; i < mg.entraceList.Length; i++)
-                {
-                    if (mg.entraceList[i].name == entraceToGo)
-                    {
-                        bs.initPlayerPos = mg.entraceList[i].pos;
-                        if (Camera.main)    //暴力法移動位置，應該透過 BattleCamera
-                        {
-                            Vector3 newPos = mg.entraceList[i].pos.position;
-                            Camera.main.transform.position = new Vector3(newPos.x, Camera.main.transform.position.y, newPos.z);
-                        }
-                    }
-                }
-            }
+            mg.SetEntrance(entraceToGo);
+            //if (entraceToGo != "" && mg.entraceList != null && mg.entraceList.Length > 0)
+            //{
+            //    for (int i = 0; i < mg.entraceList.Length; i++)
+            //    {
+            //        if (mg.entraceList[i].name == entraceToGo)
+            //        {
+            //            bs.initPlayerPos = mg.entraceList[i].pos;
+            //            if (Camera.main)    //暴力法移動位置，應該透過 BattleCamera
+            //            {
+            //                Vector3 newPos = mg.entraceList[i].pos.position;
+            //                Camera.main.transform.position = new Vector3(newPos.x, Camera.main.transform.position.y, newPos.z);
+            //            }
+            //        }
+            //    }
+            //}
 
             if (backSceneToGo != "")
             {

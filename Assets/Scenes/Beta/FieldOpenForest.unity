@@ -1345,6 +1345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 911017398}
+  - component: {fileID: 911017399}
   m_Layer: 0
   m_Name: PortalExit
   m_TagString: Untagged
@@ -1367,6 +1368,19 @@ Transform:
   m_Father: {fileID: 1786628995}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &911017399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911017397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5930dd147b195a543b505da0efddfe12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInitAngle: 180
 --- !u!1001 &920415771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2963,8 +2977,8 @@ MonoBehaviour:
   - name: CaveMiniAExit
     pos: {fileID: 911017398}
   CellSize: 2
-  mapCellWidthH: 50
-  mapCellHeightH: 50
+  mapCellWidthH: 20
+  mapCellHeightH: 20
   theTileGroupLib: {fileID: 8538045908281839540}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
