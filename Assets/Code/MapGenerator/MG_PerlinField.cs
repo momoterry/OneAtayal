@@ -215,6 +215,7 @@ public class MG_PerlinField : MG_PerlinNoise
         {
             newList[listOriginal + _i] = new MapEntraceData();
             newList[listOriginal + _i].pos = p.Value.transform;
+            newList[listOriginal + _i].faceAngle = p.Value.playerInitAngle;
             newList[listOriginal + _i].name = p.Key;
             _i++;
         }
@@ -272,6 +273,7 @@ public class MG_PerlinField : MG_PerlinNoise
         {
             newList[listOriginal + i] = new MapEntraceData();
             newList[listOriginal + i].pos = entraceToAdd[i].transform;
+            newList[listOriginal + i].faceAngle = entraceToAdd[i].playerInitAngle;
             newList[listOriginal + i].name = CAVE_PREFIX + i;
         }
         entraceList = newList;
