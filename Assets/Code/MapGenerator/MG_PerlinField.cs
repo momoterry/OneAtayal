@@ -12,6 +12,12 @@ public class MapPoint
 }
 
 [System.Serializable]
+public class CavPoint: MapPoint
+{
+
+}
+
+[System.Serializable]
 public class MapSavePerlinField : MapSaveDataBase
 {
     public int CellSize = 4;
@@ -23,7 +29,8 @@ public class MapSavePerlinField : MapSaveDataBase
     public float randomShiftX = -1;
     public float randomShiftY = -1;
     public string mapMask64 = null;
-    public MapPoint[] mapPoints;
+    //public MapPoint[] mapPoints;
+    public CavPoint[] cavPoints;
 }
 
 
@@ -184,26 +191,26 @@ public class MG_PerlinField : MG_PerlinNoise
 
     protected bool TryLoadCavEntraces()
     {
-        if (loadedMapData == null || loadedMapData.mapPoints == null || cavRef == null)
+        if (loadedMapData == null || loadedMapData.cavPoints == null || cavRef == null)
             return false;
 
         print("嘗試載入地城入口中 ......");
         List<Vector2Int> loadedPoints = new List<Vector2Int>();
         Dictionary<string, SceneEntrance> entraceToAdd = new Dictionary<string, SceneEntrance>();
-        for (int i=0; i< loadedMapData.mapPoints.Length; i++)
+        for (int i=0; i< loadedMapData.cavPoints.Length; i++)
         {
-            if (loadedMapData.mapPoints[i].name.StartsWith(CAVE_PREFIX))
+            if (loadedMapData.cavPoints[i].name.StartsWith(CAVE_PREFIX))
             {
-                string strLeft = loadedMapData.mapPoints[i].name.Substring(CAVE_PREFIX.Length);
+                string strLeft = loadedMapData.cavPoints[i].name.Substring(CAVE_PREFIX.Length);
                 //print("抓到存檔字首，剩下的為: " + strLeft);
                 if (int.TryParse(strLeft, out int _index))
                 {
-                    GameObject oCavP = BattleSystem.SpawnGameObj(cavRef, new Vector3(loadedMapData.mapPoints[i].x, 0, loadedMapData.mapPoints[i].y));
+                    GameObject oCavP = BattleSystem.SpawnGameObj(cavRef, new Vector3(loadedMapData.cavPoints[i].x, 0, loadedMapData.cavPoints[i].y));
                     SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();
                     ScenePortal sp = oCavP.GetComponent<ScenePortal>();
-                    sp.backEntrance = loadedMapData.mapPoints[i].name;
-                    entraceToAdd.Add(loadedMapData.mapPoints[i].name, se);
-                    allCavs.Add(loadedMapData.mapPoints[i].name, oCavP);
+                    sp.backEntrance = loadedMapData.cavPoints[i].name;
+                    entraceToAdd.Add(loadedMapData.cavPoints[i].name, se);
+                    allCavs.Add(loadedMapData.cavPoints[i].name, oCavP);
                 }
             }
         }
@@ -378,15 +385,15 @@ public class MG_PerlinField : MG_PerlinNoise
         //if (entraceList.Length > 0)
         if (allCavs.Count > 0)
         {
-            mapData.mapPoints = new MapPoint[allCavs.Count];
+            mapData.cavPoints = new CavPoint[allCavs.Count];
             //for (int i=0; i<mapData.mapPoints.Length; i++)
             int i = 0;
             foreach (KeyValuePair<string, GameObject> p in allCavs)
             {
-                mapData.mapPoints[i] = new MapPoint();
-                mapData.mapPoints[i].name = p.Key;
-                mapData.mapPoints[i].x = p.Value.transform.position.x;
-                mapData.mapPoints[i].y = p.Value.transform.position.z;
+                mapData.cavPoints[i] = new CavPoint();
+                mapData.cavPoints[i].name = p.Key;
+                mapData.cavPoints[i].x = p.Value.transform.position.x;
+                mapData.cavPoints[i].y = p.Value.transform.position.z;
                 i++;
             }
         }
