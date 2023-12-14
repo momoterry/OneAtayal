@@ -550,6 +550,11 @@ public class BattleSystem : MonoBehaviour
         GameSystem.GetInstance().SaveData();
     }
 
+    static public string GetCurrScene()
+    {
+        return SceneManager.GetActiveScene().name;
+    }
+
     //float timeTotal = 0;
     //int frameCount = 0;
     //float FPS = 0;

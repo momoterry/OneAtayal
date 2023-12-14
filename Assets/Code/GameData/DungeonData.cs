@@ -28,14 +28,14 @@ public class DungeonData : MonoBehaviour
 
         for (int i=0; i<jsonFiles.Length; i++)
         {
-            print("開始 Parse 一個 DungeonData Json");
+            //print("開始 Parse 一個 DungeonData Json");
             DungeonListJsonData dgList = JsonUtility.FromJson<DungeonListJsonData>(jsonFiles[i].text);
-            print("Parse 完成，找到的 Dungeon 數量: " + dgList.dungeons.Length);
+            //print("Parse 完成，找到的 Dungeon 數量: " + dgList.dungeons.Length);
             for (int j=0; j<dgList.dungeons.Length; j++)
             {
                 dgList.dungeons[j].Convert(objRefMap);
                 allDungeons.Add(dgList.dungeons[j].ID, dgList.dungeons[j]);
-                print("加入了地城: " + dgList.dungeons[j].name);
+                //print("加入了地城: " + dgList.dungeons[j].name);
             }
         }
     }

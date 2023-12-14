@@ -49,18 +49,10 @@ public class CMazeJsonPortal : ScenePortal
 
     void Start()
     {
-        //CMazeJsonData jData = new CMazeJsonData();
-        //jData.levels = new ContinuousMazeDataSimple[2];
-        //for (int i=0; i< jData.levels.Length; i++)
-        //{
-        //    jData.levels[i] = new ContinuousMazeDataSimple();
-        //    jData.levels[i].puzzleWidth = 10 + i;
-        //    jData.levels[i].puzzleHeight = 10 + 2 * i;
-        //}
-        //string str = JsonUtility.ToJson(jData, true);
-        //print(str);
 
-        //print("CMazeJsonPortal: " + jsonFile.text);
+        if (!jsonFile)
+            return;
+
         mazeData = JsonUtility.FromJson<CMazeJsonData>(jsonFile.text);
 
         for (int i=0; i< objectRefs.Length; i++)
@@ -69,12 +61,11 @@ public class CMazeJsonPortal : ScenePortal
         }
 
         mazeData.Convert(objRefMap);
+    }
 
-        //for (int i = 0; i < mazeData.levels.Length; i++)
-        //{
-        //    mazeData.levels[i].Convert(objRefMap);
-        //}
-
+    public void SetupCMazeJsonData(CMazeJsonData data)
+    {
+        mazeData = data;
     }
 
     protected override void DoTeleport()

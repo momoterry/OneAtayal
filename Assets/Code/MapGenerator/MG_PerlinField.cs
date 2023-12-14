@@ -271,8 +271,10 @@ public class MG_PerlinField : MG_PerlinNoise
         int i = 0;
         foreach (KeyValuePair<string, Vector3> p in cavPoints)
         {
-            print(p.Key == dungeons[i].dungeonID ? "" : "ERROR!! DungeonID 對不上 !!!!");
+            if (p.Key != dungeons[i].dungeonID)
+                print("ERROR!! DungeonID 對不上 !!!!");
             GameObject oCavP = BattleSystem.SpawnGameObj(dungeons[i].entranceRef, p.Value);
+            oCavP.name = p.Key;
             SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();
             ScenePortal sp = oCavP.GetComponent<ScenePortal>();
 
@@ -283,12 +285,16 @@ public class MG_PerlinField : MG_PerlinNoise
                 newList[listOriginal + i].name = p.Key;
                 newList[listOriginal + i].pos = se.transform;
                 newList[listOriginal + i].faceAngle = se.playerInitAngle;
+                sp.backScene = BattleSystem.GetCurrScene();
+                //print("設定地城入口的回程: " + sp.backScene);
                 sp.backEntrance = p.Key;
 
                 CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(dungeons[i].dungeonID);
-                if (data != null)
+                CMazeJsonPortal spJson = oCavP.GetComponent<CMazeJsonPortal>();
+                if (data != null && spJson)
                 {
-                    print("有地城資料: " + data.name);
+                    //print("有地城資料: " + data.name);
+                    spJson.SetupCMazeJsonData(data);
                 }
 
             }
