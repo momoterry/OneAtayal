@@ -42,7 +42,7 @@ public class MG_PerlinField : MG_PerlinNoise
     public GameObject initGameplay;
     public int edgeWidth = 4;
 
-    public GameObject cavRef;
+    //public GameObject cavRef;
 
     protected Vector2Int initCell = Vector2Int.zero;
 
@@ -230,7 +230,7 @@ public class MG_PerlinField : MG_PerlinNoise
 
     protected Dictionary<string, Vector3> TryLoadCavPoints()
     {
-        if (loadedMapData == null || loadedMapData.cavPoints == null || cavRef == null)
+        if (loadedMapData == null || loadedMapData.cavPoints == null )
             return null;
 
         print("嘗試載入地城入口中 ......");
