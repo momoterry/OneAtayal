@@ -19,6 +19,7 @@ public class GameSystem : MonoBehaviour
     public PlayerData thePlayerData;
     public LevelManager theLevelManager;
     public DollData theDollData;
+    public DungeonData theDungeonData;
 
     public bool isOnlineSave = false;
     public OnlineSaveLoad theOnlineSaveLoad;

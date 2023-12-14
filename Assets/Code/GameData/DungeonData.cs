@@ -51,4 +51,13 @@ public class DungeonData : MonoBehaviour
     {
         
     }
+
+    public CMazeJsonData GetMazeJsonData(string ID)
+    {
+        if (allDungeons.ContainsKey(ID))
+        {
+            return allDungeons[ID];
+        }
+        return null;
+    }
 }

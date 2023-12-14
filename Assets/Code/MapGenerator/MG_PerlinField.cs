@@ -275,6 +275,7 @@ public class MG_PerlinField : MG_PerlinNoise
             GameObject oCavP = BattleSystem.SpawnGameObj(dungeons[i].entranceRef, p.Value);
             SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();
             ScenePortal sp = oCavP.GetComponent<ScenePortal>();
+
             if (se && sp)
             {
                 //print("新增入口: ");
@@ -283,6 +284,13 @@ public class MG_PerlinField : MG_PerlinNoise
                 newList[listOriginal + i].pos = se.transform;
                 newList[listOriginal + i].faceAngle = se.playerInitAngle;
                 sp.backEntrance = p.Key;
+
+                CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(dungeons[i].dungeonID);
+                if (data != null)
+                {
+                    print("有地城資料: " + data.name);
+                }
+
             }
             allCavs.Add(p.Key, oCavP);
             i++;
