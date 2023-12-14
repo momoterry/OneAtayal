@@ -25,9 +25,18 @@ public class ContinuousMazeJsonData : ContinuousMazeData
 }
 
 [System.Serializable]
-public class CMazeJsonData
+public class CMazeJsonData  //一整個地城的資料內容 (包含每一層的迷宮)
 {
+    public string ID;
+    public string name;
     public ContinuousMazeJsonData[] levels;
+    public void Convert(Dictionary<string, GameObject> refMap)
+    { 
+        for (int i = 0; i < levels.Length; i++)
+        {
+            levels[i].Convert(refMap);
+        }
+    }
 }
 
 public class CMazeJsonPortal : ScenePortal
@@ -59,10 +68,12 @@ public class CMazeJsonPortal : ScenePortal
             objRefMap.Add(objectRefs[i].name, objectRefs[i]);
         }
 
-        for (int i = 0; i < mazeData.levels.Length; i++)
-        {
-            mazeData.levels[i].Convert(objRefMap);
-        }
+        mazeData.Convert(objRefMap);
+
+        //for (int i = 0; i < mazeData.levels.Length; i++)
+        //{
+        //    mazeData.levels[i].Convert(objRefMap);
+        //}
 
     }
 

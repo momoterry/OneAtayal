@@ -1,0 +1,41 @@
+{
+    "dungeons": [
+        {
+            "ID": "ForestCave01",
+            "name": "迷你洞穴",
+            "levels": [
+                {
+                    "scene": "CaveMiniA",
+                    "name": "迷你洞穴  1/1",
+                    "puzzleWidth": 7,
+                    "puzzleHeight": 7,
+                    "dungeonEnemyManager_ID": "DEM_One",
+                    "portalAfterFirstRoomGamplay": false
+                }
+            ]
+        },
+        {
+            "ID": "ForestCave02",
+            "name": "小型洞穴",
+            "levels": [
+                {
+                    "scene": "CaveMiniA",
+                    "name": "小型洞穴  1/2",
+                    "puzzleWidth": 7,
+                    "puzzleHeight": 7,
+                    "dungeonEnemyManager_ID": "DEM_One",
+                    "portalAfterFirstRoomGamplay": false
+                },
+                {
+                    "scene": "CaveMiniA",
+                    "name": "小型洞穴  2/2",
+                    "puzzleWidth": 8,
+                    "puzzleHeight": 8,
+                    "dungeonEnemyManager_ID": "DEM_OneC",
+                    "portalAfterFirstRoomGamplay": false
+                }
+            ]
+        }
+    ]
+}
+
