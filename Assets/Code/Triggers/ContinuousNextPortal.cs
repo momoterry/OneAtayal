@@ -11,7 +11,9 @@ public class ContinuousNextPortal : ScenePortal
         if (nextBattle != null)
         {
             sceneName = nextBattle.scene;
-            //print("ContinuousNextPortal1!! 有資料，往下一關出發!!");
+            backScene = BattleSystem.GetInstance().backScene;
+            backEntrance = BattleSystem.GetInstance().backEntrance;
+            //print("ContinuousNextPortal1!! 有資料，往下一關出發!! 並且設定回程:" + backScene + " - " + backEntrance);
         }
         else
         {
