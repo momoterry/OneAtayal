@@ -11,7 +11,7 @@ public class MapPoint
     public float y;
 }
 
-[System.Serializable]
+[System.Serializable]           //地城入口的位置存檔
 public class CavPoint: MapPoint
 {
 
@@ -53,9 +53,17 @@ public class MG_PerlinField : MG_PerlinNoise
     protected MapSavePerlinField loadedMapData = null;
 
     //地城相關
+    [System.Serializable]
+    public class DungeonInfo
+    {
+        public string dungeonID;
+        public GameObject entranceRef;
+    }
+    public DungeonInfo[] dungeons;
+    protected Dictionary<string, GameObject> allCavs = new Dictionary<string, GameObject>();    //cav = dungeon entrance
     //關鍵字
     protected const string CAVE_PREFIX = "EXTRA_ENTRACE_";
-    protected Dictionary<string, GameObject> allCavs = new Dictionary<string, GameObject>(); 
+    //rotected Dictionary<string, GameObject> allCavs = new Dictionary<string, GameObject>(); 
 
     public override void OnEixtMap()
     {
@@ -189,52 +197,9 @@ public class MG_PerlinField : MG_PerlinNoise
         base.PreBuild();
     }
 
-    protected bool TryLoadCavEntraces()
+    protected Dictionary<string, Vector3> CalculateCavPoints()
     {
-        if (loadedMapData == null || loadedMapData.cavPoints == null || cavRef == null)
-            return false;
-
-        print("嘗試載入地城入口中 ......");
-        List<Vector2Int> loadedPoints = new List<Vector2Int>();
-        Dictionary<string, SceneEntrance> entraceToAdd = new Dictionary<string, SceneEntrance>();
-        for (int i=0; i< loadedMapData.cavPoints.Length; i++)
-        {
-            if (loadedMapData.cavPoints[i].name.StartsWith(CAVE_PREFIX))
-            {
-                string strLeft = loadedMapData.cavPoints[i].name.Substring(CAVE_PREFIX.Length);
-                //print("抓到存檔字首，剩下的為: " + strLeft);
-                if (int.TryParse(strLeft, out int _index))
-                {
-                    GameObject oCavP = BattleSystem.SpawnGameObj(cavRef, new Vector3(loadedMapData.cavPoints[i].x, 0, loadedMapData.cavPoints[i].y));
-                    SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();
-                    ScenePortal sp = oCavP.GetComponent<ScenePortal>();
-                    sp.backEntrance = loadedMapData.cavPoints[i].name;
-                    entraceToAdd.Add(loadedMapData.cavPoints[i].name, se);
-                    allCavs.Add(loadedMapData.cavPoints[i].name, oCavP);
-                }
-            }
-        }
-        int listOriginal = entraceList.Length;
-        MapEntraceData[] newList = new MapEntraceData[listOriginal + entraceToAdd.Count];
-        System.Array.Copy(entraceList, newList, listOriginal);
-        int _i = 0;
-        foreach (KeyValuePair<string, SceneEntrance> p in entraceToAdd)
-        {
-            newList[listOriginal + _i] = new MapEntraceData();
-            newList[listOriginal + _i].pos = p.Value.transform;
-            newList[listOriginal + _i].faceAngle = p.Value.playerInitAngle;
-            newList[listOriginal + _i].name = p.Key;
-            _i++;
-        }
-        entraceList = newList;
-
-        return true;
-    }
-
-
-    protected void CreateCavEntrances()
-    {
-        print("無法載入地城入口，重新創建中 ......");
+        print("無法載入 Cav 位置，計算中 ....");
         //float timeStart = Time.realtimeSinceStartup;
         float minCavDis = Mathf.Sqrt(mapCellWidthH * mapCellWidthH + mapCellHeightH * mapCellHeightH) * 0.3f;
         List<Vector2Int> cavCandidates = new List<Vector2Int>();
@@ -249,42 +214,175 @@ public class MG_PerlinField : MG_PerlinNoise
                 if (dis > minCavDis)
                 {
                     cavCandidates.Add(pos);
-                    //print("Cav Candidate Add:" + pos);
                 }
             }
         }
-        List<Vector2Int> cavPoints = GetMaxDistancePoints(cavCandidates, 5);
-        List<SceneEntrance> entraceToAdd = new List<SceneEntrance>();
-        for (int i = 0; i < cavPoints.Count; i++)
+        //TODO: 根據入口的名稱
+        List<Vector2Int> cav2DPoints = GetMaxDistancePoints(cavCandidates, 5);
+        Dictionary<string, Vector3> cavPoints = new Dictionary<string, Vector3>();
+        for (int i = 0; i < dungeons.Length; i++)
         {
-            if (cavRef)
+            //string cavName = CAVE_PREFIX + i;
+            cavPoints.Add(dungeons[i].dungeonID, theCellMap.GetCellCenterPosition(cav2DPoints[i].x, cav2DPoints[i].y));
+        }
+        return cavPoints;
+    }
+
+    protected Dictionary<string, Vector3> TryLoadCavPoints()
+    {
+        if (loadedMapData == null || loadedMapData.cavPoints == null || cavRef == null)
+            return null;
+
+        print("嘗試載入地城入口中 ......");
+        Dictionary<string, Vector3> cavPoints = new Dictionary<string, Vector3>();
+        for (int i = 0; i < dungeons.Length; i++)
+        {
+            bool isFound = false;
+            for (int j=0; j<loadedMapData.cavPoints.Length; j++)
             {
-                //print("Cav :" + cavPoints[i]);
-                GameObject oCavP = BattleSystem.SpawnGameObj(cavRef, theCellMap.GetCellCenterPosition(cavPoints[i].x, cavPoints[i].y));
-                SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();
-                ScenePortal sp = oCavP.GetComponent<ScenePortal>();
-                string cavName = CAVE_PREFIX + i;
-                if (se && sp)
+                print(dungeons[i].dungeonID + " -- " + loadedMapData.cavPoints[j].name);
+                if (dungeons[i].dungeonID == loadedMapData.cavPoints[j].name)
                 {
-                    //print("新增入口: ");
-                    entraceToAdd.Add(se);
-                    sp.backEntrance = cavName;
+                    isFound = true;
+                    //print("找到入口!!");
+                    cavPoints.Add(dungeons[i].dungeonID, new Vector3(loadedMapData.cavPoints[i].x, 0, loadedMapData.cavPoints[i].y));
                 }
-                allCavs.Add(cavName, oCavP);
+                //else
+                //{
+                //    print("不是入口!!");
+                //}
+            }
+            if (!isFound)
+            {
+                //print("至少一個入口存檔找不到，重新計算");
+                return null;
             }
         }
+
+        return cavPoints;
+    }
+
+    //protected bool TryLoadCavEntraces()
+    //{
+    //    if (loadedMapData == null || loadedMapData.cavPoints == null || cavRef == null)
+    //        return false;
+
+    //    print("嘗試載入地城入口中 ......");
+    //    List<Vector2Int> loadedPoints = new List<Vector2Int>();
+    //    Dictionary<string, SceneEntrance> entraceToAdd = new Dictionary<string, SceneEntrance>();
+    //    for (int i=0; i< loadedMapData.cavPoints.Length; i++)
+    //    {
+    //        if (loadedMapData.cavPoints[i].name.StartsWith(CAVE_PREFIX))
+    //        {
+    //            string strLeft = loadedMapData.cavPoints[i].name.Substring(CAVE_PREFIX.Length);
+    //            //print("抓到存檔字首，剩下的為: " + strLeft);
+    //            if (int.TryParse(strLeft, out int _index))
+    //            {
+    //                GameObject oCavP = BattleSystem.SpawnGameObj(cavRef, new Vector3(loadedMapData.cavPoints[i].x, 0, loadedMapData.cavPoints[i].y));
+    //                SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();
+    //                ScenePortal sp = oCavP.GetComponent<ScenePortal>();
+    //                sp.backEntrance = loadedMapData.cavPoints[i].name;
+    //                entraceToAdd.Add(loadedMapData.cavPoints[i].name, se);
+    //                allCavs.Add(loadedMapData.cavPoints[i].name, oCavP);
+    //            }
+    //        }
+    //    }
+    //    int listOriginal = entraceList.Length;
+    //    MapEntraceData[] newList = new MapEntraceData[listOriginal + entraceToAdd.Count];
+    //    System.Array.Copy(entraceList, newList, listOriginal);
+    //    int _i = 0;
+    //    foreach (KeyValuePair<string, SceneEntrance> p in entraceToAdd)
+    //    {
+    //        newList[listOriginal + _i] = new MapEntraceData();
+    //        newList[listOriginal + _i].pos = p.Value.transform;
+    //        newList[listOriginal + _i].faceAngle = p.Value.playerInitAngle;
+    //        newList[listOriginal + _i].name = p.Key;
+    //        _i++;
+    //    }
+    //    entraceList = newList;
+
+    //    return true;
+    //}
+
+
+    //protected void CreateCavEntrances()
+    //{
+    //    print("無法載入地城入口，重新創建中 ......");
+    //    //float timeStart = Time.realtimeSinceStartup;
+    //    float minCavDis = Mathf.Sqrt(mapCellWidthH * mapCellWidthH + mapCellHeightH * mapCellHeightH) * 0.3f;
+    //    List<Vector2Int> cavCandidates = new List<Vector2Int>();
+    //    for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
+    //    {
+    //        for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
+    //        {
+    //            if (theCellMap.GetValue(x, y) != (int)MY_VALUE.NORMAL)
+    //                continue;
+    //            Vector2Int pos = new Vector2Int(x, y);
+    //            float dis = Vector2Int.Distance(initCell, pos);
+    //            if (dis > minCavDis)
+    //            {
+    //                cavCandidates.Add(pos);
+    //            }
+    //        }
+    //    }
+    //    List<Vector2Int> cavPoints = GetMaxDistancePoints(cavCandidates, 5);
+    //    List<SceneEntrance> entraceToAdd = new List<SceneEntrance>();
+    //    for (int i = 0; i < cavPoints.Count; i++)
+    //    {
+    //        if (cavRef)
+    //        {
+    //            //print("Cav :" + cavPoints[i]);
+    //            GameObject oCavP = BattleSystem.SpawnGameObj(cavRef, theCellMap.GetCellCenterPosition(cavPoints[i].x, cavPoints[i].y));
+    //            SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();
+    //            ScenePortal sp = oCavP.GetComponent<ScenePortal>();
+    //            string cavName = CAVE_PREFIX + i;
+    //            if (se && sp)
+    //            {
+    //                //print("新增入口: ");
+    //                entraceToAdd.Add(se);
+    //                sp.backEntrance = cavName;
+    //            }
+    //            allCavs.Add(cavName, oCavP);
+    //        }
+    //    }
+    //    int listOriginal = entraceList.Length;
+    //    MapEntraceData[] newList = new MapEntraceData[listOriginal + entraceToAdd.Count];
+    //    System.Array.Copy(entraceList, newList, listOriginal);
+    //    for (int i = 0; i < entraceToAdd.Count; i++)
+    //    {
+    //        newList[listOriginal + i] = new MapEntraceData();
+    //        newList[listOriginal + i].pos = entraceToAdd[i].transform;
+    //        newList[listOriginal + i].faceAngle = entraceToAdd[i].playerInitAngle;
+    //        newList[listOriginal + i].name = CAVE_PREFIX + i;
+    //    }
+    //    entraceList = newList;
+    //    //print("入口計算秏時: " + (Time.realtimeSinceStartup - timeStart));
+    //}
+
+    protected  void CreateCavEntrances( Dictionary<string, Vector3> cavPoints)
+    {
         int listOriginal = entraceList.Length;
-        MapEntraceData[] newList = new MapEntraceData[listOriginal + entraceToAdd.Count];
+        MapEntraceData[] newList = new MapEntraceData[listOriginal + cavPoints.Count];
         System.Array.Copy(entraceList, newList, listOriginal);
-        for (int i = 0; i < entraceToAdd.Count; i++)
+        int i = 0;
+        foreach (KeyValuePair<string, Vector3> p in cavPoints)
         {
-            newList[listOriginal + i] = new MapEntraceData();
-            newList[listOriginal + i].pos = entraceToAdd[i].transform;
-            newList[listOriginal + i].faceAngle = entraceToAdd[i].playerInitAngle;
-            newList[listOriginal + i].name = CAVE_PREFIX + i;
+            GameObject oCavP = BattleSystem.SpawnGameObj(cavRef, p.Value);
+            SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();
+            ScenePortal sp = oCavP.GetComponent<ScenePortal>();
+            if (se && sp)
+            {
+                //print("新增入口: ");
+                newList[listOriginal + i] = new MapEntraceData();
+                newList[listOriginal + i].name = p.Key;
+                newList[listOriginal + i].pos = se.transform;
+                newList[listOriginal + i].faceAngle = se.playerInitAngle;
+                sp.backEntrance = p.Key;
+            }
+            allCavs.Add(p.Key, oCavP);
+            i++;
         }
         entraceList = newList;
-        //print("入口計算秏時: " + (Time.realtimeSinceStartup - timeStart));
     }
 
     protected override void PostBuild()
@@ -319,8 +417,12 @@ public class MG_PerlinField : MG_PerlinNoise
         }
 
         //載入或重新計算地城入口
-        if (!TryLoadCavEntraces())
-            CreateCavEntrances();
+        //if (!TryLoadCavEntraces())
+        //    CreateCavEntrances();
+        Dictionary<string, Vector3> cavPoints = TryLoadCavPoints();
+        if (cavPoints == null)
+            cavPoints = CalculateCavPoints();
+        CreateCavEntrances(cavPoints);
 
         //設定地城入口
         if (entranceID != "")
