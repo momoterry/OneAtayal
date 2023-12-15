@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 327809252}
   - component: {fileID: 327809253}
   - component: {fileID: 327809254}
+  - component: {fileID: 327809255}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -178,6 +179,7 @@ MonoBehaviour:
   theLevelManager: {fileID: 327809250}
   theDollData: {fileID: 327809249}
   theDungeonData: {fileID: 327809254}
+  theWorldMap: {fileID: 327809255}
   isOnlineSave: 0
   theOnlineSaveLoad: {fileID: 327809251}
   useDirectionControl: 1
@@ -324,6 +326,18 @@ MonoBehaviour:
   objectRefs:
   - {fileID: 8303291338163373934, guid: e95d5cddaf0146a408a51c13d7229100, type: 3}
   - {fileID: 8303291338163373934, guid: ac09a92a1d28d5248ad78ce07229dd57, type: 3}
+--- !u!114 &327809255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327809245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec009020bdff68e4da8b3b86cdb5bbb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7834770927938505534
 PrefabInstance:
   m_ObjectHideFlags: 0

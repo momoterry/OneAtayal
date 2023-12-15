@@ -20,6 +20,7 @@ public class GameSystem : MonoBehaviour
     public LevelManager theLevelManager;
     public DollData theDollData;
     public DungeonData theDungeonData;
+    public WorldMap theWorldMap;
 
     public bool isOnlineSave = false;
     public OnlineSaveLoad theOnlineSaveLoad;
@@ -111,33 +112,6 @@ public class GameSystem : MonoBehaviour
     }
 
 
-
-    //protected void OnlineInit()
-    //{
-    //    ChatGPT.GetKeyStaticAsync();
-    //    if (isOnlineSave)
-    //    {
-    //        onlineID = PlayerPrefs.GetString(PREF_ONLINE_ID, "");
-    //        nickName = PlayerPrefs.GetString(PREF_NICK_NAME, "");
-    //        print("Online ID = " + onlineID + "  Nick Name = " + nickName);
-
-    //        //檢查 ID 正確性
-    //        if (onlineID != "")
-    //        {
-    //            if (theOnlineSaveLoad.CheckID(onlineID, nickName))
-    //            {
-    //                print("帳號暱稱檢查通過 .....");
-    //            }
-    //            else
-    //            {
-    //                print("帳號暱稱檢查失敗，設為錯誤帳號錯誤狀態 .....");
-    //                onlineID = INVALID_ID;
-    //                nickName = "";
-    //            }
-    //        }
-    //    }
-    //}
-
     static public bool IsUseDirectionControl() { return instance.useDirectionControl; }
     static public void SetUseVPad( bool useVPad ) { instance.useVpadControl = useVPad; }
     static public bool IsUseVpad() { return instance.useVpadControl; }
@@ -150,6 +124,16 @@ public class GameSystem : MonoBehaviour
             return null;
         }
         return instance.thePlayerData;
+    }
+
+    static public WorldMap GetWorldMap()
+    {
+        if (!instance || !instance.theLevelManager)
+        {
+            print("ERROR !!! GameSystem 找不到 WorldMap !!" + instance);
+            return null;
+        }
+        return instance.theWorldMap;
     }
 
     static public LevelManager GetLevelManager()
