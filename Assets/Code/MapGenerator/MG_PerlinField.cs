@@ -26,8 +26,8 @@ public class MapSavePerlinField : MapSaveDataBase
     public int NoiseScaleOn256 = 5;
     public float highRatio = 0.35f;
     public float lowRatio = 0.35f;
-    public float randomShiftX = -1;
-    public float randomShiftY = -1;
+    public float randomShiftX = -9999;
+    public float randomShiftY = -9999;
     public string mapMask64 = null;
     //public MapPoint[] mapPoints;
     public CavPoint[] cavPoints;
@@ -68,13 +68,14 @@ public class MG_PerlinField : MG_PerlinNoise
 
     public void SetZone(ZonePF zone)        //由 WorldMap 設定的內容
     {
-        print("MG_PerlinField.SetZone !!");
+        //print("MG_PerlinField.SetZone !!");
         randomShiftX = zone.perlinShiftX;
         randomShiftY = zone.perlinShiftY;
         CellSize = zone.cellSize;
         mapName = zone.ID;
         mapCellWidthH = (int)zone.width / CellSize / 2;
         mapCellHeightH = (int)zone.height / CellSize / 2;
+        edgeWidth = zone.edgeWidth;
     }
 
     public override void OnEixtMap()
@@ -108,11 +109,18 @@ public class MG_PerlinField : MG_PerlinNoise
         float randomSscale = 10.0f;
         float xShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
         float yShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
-        if (randomShiftX > 0 && randomShiftY > 0)
+        if (randomShiftX > -9998 && randomShiftY > -9998)
         {
             xShift = randomShiftX;
             yShift = randomShiftY;
         }
+        //print("TEST XMin, Xmax: " + theCellMap.GetXMin() + "," + theCellMap.GetXMax());
+        //print((float)theCellMap.GetXMin() * noiseScale + xShift);
+        //print(xShift);
+        //print((float)theCellMap.GetXMax() * noiseScale + xShift);
+        //print((float)theCellMap.GetYMin() * noiseScale + yShift);
+        //print(yShift);
+        //print((float)theCellMap.GetYMax() * noiseScale + yShift);
         for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
         {
             for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)

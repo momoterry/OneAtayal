@@ -20,8 +20,16 @@ public class WorldMap : MonoBehaviour
 
         int hCellNum = 30;
         int cellSize = 2;
+        int NoiseScaleOn256 = 10;
+        int edgeWidth = 6;
         float zWidth = (hCellNum + hCellNum) * cellSize;
         float zHeight = (hCellNum + hCellNum) * cellSize;
+
+        float xShiftStep = (hCellNum + hCellNum - edgeWidth - edgeWidth) * (float)NoiseScaleOn256 / 256.0f;
+        float yShiftStep = (hCellNum + hCellNum - edgeWidth - edgeWidth) * (float)NoiseScaleOn256 / 256.0f;
+
+        float xShiftCenter = 10.5f;
+        float yShiftCenter = 10.5f;
 
         for (int y = -1; y <= 1; y++)
         {
@@ -34,9 +42,10 @@ public class WorldMap : MonoBehaviour
                 zone.width = zWidth;
                 zone.height = zHeight;
                 zone.scene = forestScene;
-                zone.perlinShiftX = 0.5f;
-                zone.perlinShiftY = 0.5f;
+                zone.perlinShiftX = xShiftCenter + ( x * xShiftStep );
+                zone.perlinShiftY = yShiftCenter + ( y * yShiftStep );
                 zone.cellSize = cellSize;
+                zone.edgeWidth = edgeWidth;
 
                 zones.Add(zone.worldIndex, zone);
             }
@@ -51,7 +60,7 @@ public class WorldMap : MonoBehaviour
             currTravleingZone = zones[zoneIndex];
             currEnterPosition = enterPosition;
             currEnterAngle = faceAngel;
-            print("即將傳送到世界地圖的 " + currTravleingZone.ID);
+            //print("即將傳送到世界地圖的 " + currTravleingZone.ID);
             BattleSystem.RegisterAwakeCallBack(SetupBattleSystem);
             SceneManager.LoadScene(currTravleingZone.scene);
         }
@@ -65,7 +74,7 @@ public class WorldMap : MonoBehaviour
     {
         if (bs != null)
         {
-            print("WorldMap:SetupBattleSystem MG = " + bs.theMG);
+            //print("WorldMap:SetupBattleSystem MG = " + bs.theMG);
             MG_PerlinField mgPF = (MG_PerlinField)bs.theMG;
             if (mgPF == null)
             {

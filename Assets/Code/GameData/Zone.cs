@@ -17,6 +17,7 @@ public class ZonePF: ZoneBase           //以 Perlin Filed 為基底的 Zone
     public float perlinShiftX;
     public float perlinShiftY;
     public int cellSize;
+    public int edgeWidth;
 }
 
 
