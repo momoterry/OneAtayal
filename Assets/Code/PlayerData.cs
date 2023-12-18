@@ -127,6 +127,7 @@ public class PlayerData : MonoBehaviour
 
         usedIds.Clear();
 
+        GameSystem.GetWorldMap().Init();
         GameSystem.GetLevelManager().InitFirstLevel();
     }
 

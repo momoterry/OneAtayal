@@ -23,8 +23,7 @@ public class SceneTraveler : MonoBehaviour
     }
 
     static public void GotoSceneWithBackInfo(string sceneName, string entraceName, string backScene, string backEntrace)
-    {
-        SceneManager.LoadScene(sceneName);
+    {   
         if (backScene != "" || entraceName != "")
         {
             sceneToGo = sceneName;
@@ -33,6 +32,7 @@ public class SceneTraveler : MonoBehaviour
             backEntranceToGo = backEntrace;
             BattleSystem.RegisterAwakeCallBack(SetupBattleSystem);
         }
+        SceneManager.LoadScene(sceneName);
     }
 
 

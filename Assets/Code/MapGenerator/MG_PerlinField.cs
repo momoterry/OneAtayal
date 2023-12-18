@@ -65,6 +65,18 @@ public class MG_PerlinField : MG_PerlinNoise
     protected const string CAVE_PREFIX = "EXTRA_ENTRACE_";
     //rotected Dictionary<string, GameObject> allCavs = new Dictionary<string, GameObject>(); 
 
+
+    public void SetZone(ZonePF zone)        //由 WorldMap 設定的內容
+    {
+        print("MG_PerlinField.SetZone !!");
+        randomShiftX = zone.perlinShiftX;
+        randomShiftY = zone.perlinShiftY;
+        CellSize = zone.cellSize;
+        mapName = zone.ID;
+        mapCellWidthH = (int)zone.width / CellSize / 2;
+        mapCellHeightH = (int)zone.height / CellSize / 2;
+    }
+
     public override void OnEixtMap()
     {
         SaveExploreMap();
