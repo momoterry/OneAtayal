@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class WorldMap : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    protected Dictionary<Vector2, ZonePF> filedZones = new Dictionary<Vector2, ZonePF>();
 
-    // Update is called once per frame
-    void Update()
+    public void CreateZones()
     {
-        
+        int hCellNum = 20;
+        float zWidth = (hCellNum + hCellNum) * 2;
+        float zHeight = (hCellNum + hCellNum) * 2;
+
+        for (int y = -1; y <= 1; y++)
+        {
+            for (int x=-1; x<=1; x++)
+            {
+                ZonePF zone = new ZonePF();
+                zone.ID = "WORLD_(" + x + "," + y + ")";
+                zone.worldIndex = new Vector2Int(x, y);
+                zone.worldPos = new Vector2(x * zWidth, y * zHeight);
+                zone.width = zWidth;
+                zone.height = zHeight;
+
+                filedZones.Add(zone.worldIndex, zone);
+            }
+        }
     }
 }
