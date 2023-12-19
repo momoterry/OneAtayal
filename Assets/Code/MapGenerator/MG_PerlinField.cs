@@ -47,6 +47,7 @@ public class MG_PerlinField : MG_PerlinNoise
     protected Vector2Int initCell = Vector2Int.zero;
 
     //隨機記錄的部份
+    protected bool needRandomShift = true;
     protected float randomShiftX = -1;
     protected float randomShiftY = -1;
     //地圖存檔資料
@@ -76,6 +77,7 @@ public class MG_PerlinField : MG_PerlinNoise
         //print("MG_PerlinField.SetZone !!");
         randomShiftX = zone.perlinShiftX;
         randomShiftY = zone.perlinShiftY;
+        needRandomShift = false;
         CellSize = zone.cellSize;
         mapName = zone.ID;
         mapCellWidthH = (int)zone.width / CellSize / 2;
@@ -119,7 +121,7 @@ public class MG_PerlinField : MG_PerlinNoise
         float randomSscale = 10.0f;
         float xShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
         float yShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
-        if (randomShiftX > -9998 && randomShiftY > -9998)
+        if (!needRandomShift)
         {
             xShift = randomShiftX;
             yShift = randomShiftY;
@@ -480,6 +482,7 @@ public class MG_PerlinField : MG_PerlinNoise
         lowRatio = mapData.lowRatio;
         randomShiftX = mapData.randomShiftX;
         randomShiftY = mapData.randomShiftY;
+        needRandomShift = false;
 
         loadedMapData = mapData;
     }
