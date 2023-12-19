@@ -60,8 +60,8 @@ public class WorldMap : MonoBehaviour
         float xShiftStep = (hCellNum + hCellNum - edgeWidth - edgeWidth) * (float)NoiseScaleOn256 / 256.0f;
         float yShiftStep = (hCellNum + hCellNum - edgeWidth - edgeWidth) * (float)NoiseScaleOn256 / 256.0f;
 
-        float xShiftCenter = Random.Range(0, 10 * NoiseScaleOn256 * 10);  //先亂寫
-        float yShiftCenter = Random.Range(0, 10 * NoiseScaleOn256 * 10);  //先亂寫
+        float xShiftCenter = Random.Range(0, (float)(100 * NoiseScaleOn256) );  //先亂寫
+        float yShiftCenter = Random.Range(0, (float)(100 * NoiseScaleOn256) );  //先亂寫
         //print("Random!!")
 
         int xMin = -1; int xMax = 1;
@@ -101,7 +101,8 @@ public class WorldMap : MonoBehaviour
             currEnterAngle = faceAngel;
             //print("即將傳送到世界地圖的 " + currTravleingZone.ID);
             BattleSystem.RegisterAwakeCallBack(SetupBattleSystem);
-            SceneManager.LoadScene(currTravleingZone.scene);
+            //SceneManager.LoadScene(currTravleingZone.scene);
+            BattleSystem.GetInstance().OnGotoScene(currTravleingZone.scene);
         }
         else
         {
