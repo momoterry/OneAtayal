@@ -53,6 +53,8 @@ public class MG_PerlinField : MG_PerlinNoise
     //地圖存檔資料
     protected MapSavePerlinField loadedMapData = null;
 
+    //世界地連接相關資訊
+    protected Vector2Int myWolrdIndex;
     protected bool N;          //上方是否連接
     protected bool S;          //下方是否連接
     protected bool W;          //左方是否連接
@@ -88,6 +90,7 @@ public class MG_PerlinField : MG_PerlinNoise
         S = zone.S;
         W = zone.W;
         E = zone.E;
+        myWolrdIndex = zone.worldIndex;
 }
 
     public override void OnEixtMap()
@@ -428,7 +431,12 @@ public class MG_PerlinField : MG_PerlinNoise
         if (W)
         {
             print("W 門");
-            WorldMap.CreateZoneEdgeTrigger(new Vector2Int(0, 0), theCellMap.GetCellCenterPosition(theCellMap.GetXMin(), 0), edgeWidth* CellSize, theCellMap.GetHeight()*CellSize);
+            WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(-1,0), theCellMap.GetCellCenterPosition(theCellMap.GetXMin(), 0), edgeWidth* CellSize, theCellMap.GetHeight()*CellSize);
+        }
+        if (E)
+        {
+            print("E 門");
+            WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(1, 0), theCellMap.GetCellCenterPosition(theCellMap.GetXMax(), 0), edgeWidth * CellSize, theCellMap.GetHeight() * CellSize);
         }
     }
 
