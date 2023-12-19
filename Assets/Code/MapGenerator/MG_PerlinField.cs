@@ -430,13 +430,19 @@ public class MG_PerlinField : MG_PerlinNoise
         //加入傳送門
         if (W)
         {
-            print("W 門");
             WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(-1,0), theCellMap.GetCellCenterPosition(theCellMap.GetXMin(), 0), edgeWidth* CellSize, theCellMap.GetHeight()*CellSize);
         }
         if (E)
         {
-            print("E 門");
             WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(1, 0), theCellMap.GetCellCenterPosition(theCellMap.GetXMax(), 0), edgeWidth * CellSize, theCellMap.GetHeight() * CellSize);
+        }
+        if (S)
+        {
+            WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, -1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMin()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize);
+        }
+        if (N)
+        {
+            WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, 1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMax()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize);
         }
     }
 
