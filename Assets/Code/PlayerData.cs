@@ -51,6 +51,7 @@ public class MapSaveDataBase
     public string className;
 }
 
+
 [System.Serializable]
 public class SaveData{
     public int Money;
@@ -60,6 +61,7 @@ public class SaveData{
     public SaveDataBackpckItem[] dollBackpack;
     public SaveDataEventItem[] eventData;
     public DollInstanceData[] usingDIs;
+    public WorldMapSaveData worldMap;
     public MapSavePerlinField[] savedPFields;
 }
 
@@ -230,6 +232,8 @@ public class PlayerData : MonoBehaviour
             print("----地圖存檔完成----");
         }
 
+        data.worldMap = GameSystem.GetWorldMap().SaveData();
+
         return data;
     }
 
@@ -282,6 +286,12 @@ public class PlayerData : MonoBehaviour
                 savedMaps.Add(data.savedPFields[i].mapName, data.savedPFields[i]);
             }
             print("----地圖載入完成---- ");
+        }
+
+        if (data.worldMap != null)
+        {
+            GameSystem.GetWorldMap().LoadData(data.worldMap);
+            print("----世界地圖載入完成---- ");
         }
 
     }

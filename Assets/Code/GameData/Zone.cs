@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+
 public class ZoneBase
 {
     public string ID;
@@ -10,6 +12,7 @@ public class ZoneBase
     public float width;
     public float height;
 }
+[System.Serializable]
 
 public class ZonePF: ZoneBase           //以 Perlin Filed 為基底的 Zone
 {

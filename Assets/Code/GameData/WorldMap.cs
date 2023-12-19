@@ -3,16 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class WorldMapSaveData
+{
+    public ZonePF[] zones;
+}
+
 public class WorldMap : MonoBehaviour
 {
     public string forestScene;
 
     protected Dictionary<Vector2Int, ZonePF> zones = new Dictionary<Vector2Int, ZonePF>();
-    protected KeyValuePair<Vector2Int, ZonePF> currTravelingZoneP;
     protected ZonePF currTravleingZone = null;
     protected Vector2Int currTravelingIndex;
     protected Vector3 currEnterPosition;
     protected float currEnterAngle;
+
+    public void LoadData(WorldMapSaveData savedData)
+    {
+        ClearAllZones();
+        if (savedData.zones != null)
+        {
+            for (int i = 0; i < savedData.zones.Length; i++)
+            {
+                zones.Add(savedData.zones[i].worldIndex, savedData.zones[i]);
+            }
+        }
+    }
+
+    public WorldMapSaveData SaveData()
+    {
+        print("WorldMapSaveData 開始存資料: " + zones.Count);
+        WorldMapSaveData savedData = new WorldMapSaveData();
+        savedData.zones = new ZonePF[zones.Count];
+        int i = 0;
+        foreach (KeyValuePair<Vector2Int, ZonePF> pe in zones)
+        {
+            savedData.zones[i] = pe.Value;
+            i++;
+        }
+        return savedData;
+    }
 
     public void Init()
     {
@@ -91,6 +122,7 @@ public class WorldMap : MonoBehaviour
     protected void ClearAllZones()
     {
         zones.Clear();
+        currTravleingZone = null;
     }
 
 }
