@@ -28,8 +28,9 @@ public class WorldMap : MonoBehaviour
         float xShiftStep = (hCellNum + hCellNum - edgeWidth - edgeWidth) * (float)NoiseScaleOn256 / 256.0f;
         float yShiftStep = (hCellNum + hCellNum - edgeWidth - edgeWidth) * (float)NoiseScaleOn256 / 256.0f;
 
-        float xShiftCenter = 10.5f;
-        float yShiftCenter = 10.5f;
+        float xShiftCenter = Random.Range(0, 10 * NoiseScaleOn256 * 10);  //¥ý¶Ã¼g
+        float yShiftCenter = Random.Range(0, 10 * NoiseScaleOn256 * 10);  //¥ý¶Ã¼g
+        //print("Random!!")
 
         for (int y = -1; y <= 1; y++)
         {
