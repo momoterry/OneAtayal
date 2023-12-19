@@ -133,4 +133,20 @@ public class WorldMap : MonoBehaviour
         currTravleingZone = null;
     }
 
+    static public GameObject CreateZoneEdgeTrigger(Vector2Int toZoneIndex, Vector3 center, float width, float height)
+    {
+        GameObject o = new GameObject("ZoneTrigger_" + toZoneIndex);
+        o.transform.position = center;
+        BoxCollider bc = o.AddComponent<BoxCollider>();
+        bc.size = new Vector3(width, 2.0f, height);
+        bc.isTrigger = true;
+        AreaTG atg = o.AddComponent<AreaTG>();
+        atg.TriggerTargets = new GameObject[1];
+        atg.TriggerTargets[0] = o;
+        WorldPortal wp = o.AddComponent<WorldPortal>();
+        wp.toWorldZoneIndex = toZoneIndex;
+        wp.messageHint = true;
+        return o;
+    }
+
 }

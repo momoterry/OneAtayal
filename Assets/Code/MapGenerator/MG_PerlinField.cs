@@ -423,6 +423,13 @@ public class MG_PerlinField : MG_PerlinNoise
             if (!E && theCellMap.GetValue(theCellMap.GetXMax() - edgeWidth, y) == (int)MY_VALUE.LOW)
                 theCellMap.SetValue(theCellMap.GetXMax() - edgeWidth, y, (int)MY_VALUE.NORMAL);
         }
+
+        //加入傳送門
+        if (W)
+        {
+            print("W 門");
+            WorldMap.CreateZoneEdgeTrigger(new Vector2Int(0, 0), theCellMap.GetCellCenterPosition(theCellMap.GetXMin(), 0), edgeWidth* CellSize, theCellMap.GetHeight()*CellSize);
+        }
     }
 
     protected void SaveMap()
