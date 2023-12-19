@@ -52,6 +52,11 @@ public class MG_PerlinField : MG_PerlinNoise
     //地圖存檔資料
     protected MapSavePerlinField loadedMapData = null;
 
+    protected bool N;          //上方是否連接
+    protected bool S;          //下方是否連接
+    protected bool W;          //左方是否連接
+    protected bool E;          //右方是否連接
+
     //地城相關
     [System.Serializable]
     public class DungeonInfo
@@ -76,7 +81,12 @@ public class MG_PerlinField : MG_PerlinNoise
         mapCellWidthH = (int)zone.width / CellSize / 2;
         mapCellHeightH = (int)zone.height / CellSize / 2;
         edgeWidth = zone.edgeWidth;
-    }
+
+        N = zone.N;
+        S = zone.S;
+        W = zone.W;
+        E = zone.E;
+}
 
     public override void OnEixtMap()
     {
@@ -386,25 +396,29 @@ public class MG_PerlinField : MG_PerlinNoise
         {
             for (int i = 0; i < edgeWidth; i++)
             {
-                theCellMap.SetValue(x, theCellMap.GetYMin() + i, (int)MY_VALUE.HIGH);
-                theCellMap.SetValue(x, theCellMap.GetYMax() - i, (int)MY_VALUE.HIGH);
+                if (!S)
+                    theCellMap.SetValue(x, theCellMap.GetYMin() + i, (int)MY_VALUE.HIGH);
+                if (!N)
+                    theCellMap.SetValue(x, theCellMap.GetYMax() - i, (int)MY_VALUE.HIGH);
             }
-            if (theCellMap.GetValue(x, theCellMap.GetYMin() + edgeWidth) == (int)MY_VALUE.LOW)
+            if (!S && theCellMap.GetValue(x, theCellMap.GetYMin() + edgeWidth) == (int)MY_VALUE.LOW)
                 theCellMap.SetValue(x, theCellMap.GetYMin() + edgeWidth, (int)MY_VALUE.NORMAL);
-            if (theCellMap.GetValue(x, theCellMap.GetYMax() - edgeWidth) == (int)MY_VALUE.LOW)
+            if (!N && theCellMap.GetValue(x, theCellMap.GetYMax() - edgeWidth) == (int)MY_VALUE.LOW)
                 theCellMap.SetValue(x, theCellMap.GetYMax() - edgeWidth, (int)MY_VALUE.NORMAL);
         }
 
-        for (int y = theCellMap.GetYMin() + edgeWidth; y <= theCellMap.GetYMax() - edgeWidth; y++)
+        for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
         {
             for (int i = 0; i < edgeWidth; i++)
             {
-                theCellMap.SetValue(theCellMap.GetXMin() +i, y, (int)MY_VALUE.HIGH);
-                theCellMap.SetValue(theCellMap.GetXMax() -i, y, (int)MY_VALUE.HIGH);
+                if (!W)
+                    theCellMap.SetValue(theCellMap.GetXMin() +i, y, (int)MY_VALUE.HIGH);
+                if (!E)
+                    theCellMap.SetValue(theCellMap.GetXMax() -i, y, (int)MY_VALUE.HIGH);
             }
-            if (theCellMap.GetValue(theCellMap.GetXMin() + edgeWidth, y) == (int)MY_VALUE.LOW)
+            if (!W && theCellMap.GetValue(theCellMap.GetXMin() + edgeWidth, y) == (int)MY_VALUE.LOW)
                 theCellMap.SetValue(theCellMap.GetXMin() + edgeWidth, y, (int)MY_VALUE.NORMAL);
-            if (theCellMap.GetValue(theCellMap.GetXMax() - edgeWidth, y) == (int)MY_VALUE.LOW)
+            if (!E && theCellMap.GetValue(theCellMap.GetXMax() - edgeWidth, y) == (int)MY_VALUE.LOW)
                 theCellMap.SetValue(theCellMap.GetXMax() - edgeWidth, y, (int)MY_VALUE.NORMAL);
         }
     }

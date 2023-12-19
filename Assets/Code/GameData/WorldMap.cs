@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -63,9 +64,11 @@ public class WorldMap : MonoBehaviour
         float yShiftCenter = Random.Range(0, 10 * NoiseScaleOn256 * 10);  //¥ý¶Ã¼g
         //print("Random!!")
 
-        for (int y = -1; y <= 1; y++)
+        int xMin = -1; int xMax = 1;
+        int yMin = -1; int yMax = 1;
+        for (int y = yMin; y <= yMax; y++)
         {
-            for (int x = -1; x <= 1; x++)
+            for (int x = xMin; x <= xMax; x++)
             {
                 ZonePF zone = new ZonePF();
                 zone.ID = "WORLD_(" + x + "," + y + ")";
@@ -78,8 +81,12 @@ public class WorldMap : MonoBehaviour
                 zone.perlinShiftY = yShiftCenter + ( y * yShiftStep );
                 zone.cellSize = cellSize;
                 zone.edgeWidth = edgeWidth;
-
+                zone.W = (x != xMin);
+                zone.E = (x != xMax);
+                zone.S = (y != yMin);
+                zone.N = (y != yMax);
                 zones.Add(zone.worldIndex, zone);
+
             }
         }
     }
