@@ -127,6 +127,7 @@ public class WorldMap : MonoBehaviour
             o.transform.position = currEnterPosition;
             bs.initPlayerPos = o.transform;
             bs.initPlayerDirAngle = currEnterAngle;
+            bs.SetInitPosition(currEnterPosition);
             print("SetupBattleSystem: " + currEnterPosition + " -- " + currEnterAngle);
 
             mgPF.SetZone(currTravleingZone);

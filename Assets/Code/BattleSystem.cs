@@ -125,10 +125,10 @@ public class BattleSystem : MonoBehaviour
                 BattlePlayerData.GetInstance().OnKillEnemy(e);
             }
 
-            if (GetEnemyCount()==0)
-            {
-                OnEnemyClear();
-            }      
+            //if (GetEnemyCount()==0)
+            //{
+            //    OnEnemyClear();
+            //}      
         }
         else
         {
@@ -169,14 +169,13 @@ public class BattleSystem : MonoBehaviour
         return instance.SpawnGameplayObject(objRef, pos, clearByBS);
     }
 
-    //TODO: 可以拿掉了
-    protected void OnEnemyClear()
+    public void SetInitPosition(Vector3 pos)       //設定遊戲開始的位置
     {
-        //if (clearGate)
-        //    clearGate.SetActive(true);
+        if (Camera.main)
+        {
+            Camera.main.transform.position = new Vector3(pos.x, Camera.main.transform.position.y, pos.z);
+        }
     }
-
-
 
     // Start is called before the first frame update
     protected virtual void Start()

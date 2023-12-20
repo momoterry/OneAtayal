@@ -32,11 +32,12 @@ public class MapGeneratorBase : MonoBehaviour
                 print("找到入口" + _ID);
                 BattleSystem.GetInstance().initPlayerPos = entraceList[i].pos;
                 BattleSystem.GetInstance().initPlayerDirAngle = entraceList[i].faceAngle;
-                if (Camera.main)    //暴力法移動位置，應該透過 BattleCamera
-                {
-                    Vector3 newPos = entraceList[i].pos.position;
-                    Camera.main.transform.position = new Vector3(newPos.x, Camera.main.transform.position.y, newPos.z);
-                }
+                //if (Camera.main)    //暴力法移動位置，應該透過 BattleCamera
+                //{
+                //    Vector3 newPos = entraceList[i].pos.position;
+                //    Camera.main.transform.position = new Vector3(newPos.x, Camera.main.transform.position.y, newPos.z);
+                //}
+                BattleSystem.GetInstance().SetInitPosition(entraceList[i].pos.position);
             }
         }
     }
