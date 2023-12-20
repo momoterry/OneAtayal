@@ -430,20 +430,62 @@ public class MG_PerlinField : MG_PerlinNoise
         //加入傳送門
         if (W)
         {
-            WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(-1,0), theCellMap.GetCellCenterPosition(theCellMap.GetXMin(), 0), edgeWidth* CellSize, theCellMap.GetHeight()*CellSize);
+            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(-1,0), theCellMap.GetCellCenterPosition(theCellMap.GetXMin(), 0), edgeWidth* CellSize, theCellMap.GetHeight()*CellSize, ZONE_EDGE_DIR.W);
         }
         if (E)
         {
-            WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(1, 0), theCellMap.GetCellCenterPosition(theCellMap.GetXMax(), 0), edgeWidth * CellSize, theCellMap.GetHeight() * CellSize);
+            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(1, 0), theCellMap.GetCellCenterPosition(theCellMap.GetXMax(), 0), edgeWidth * CellSize, theCellMap.GetHeight() * CellSize, ZONE_EDGE_DIR.E);
         }
         if (S)
         {
-            WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, -1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMin()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize);
+            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, -1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMin()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize, ZONE_EDGE_DIR.S);
         }
         if (N)
         {
-            WorldMap.CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, 1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMax()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize);
+            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, 1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMax()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize, ZONE_EDGE_DIR.N);
         }
+    }
+
+    protected enum ZONE_EDGE_DIR { S,N,E,W,}
+
+    protected GameObject CreateZoneEdgeTrigger(Vector2Int toZoneIndex, Vector3 center, float width, float height, ZONE_EDGE_DIR dir)
+    {
+        GameObject o = new GameObject("ZoneTrigger_" + toZoneIndex);
+        o.transform.position = center;
+        BoxCollider bc = o.AddComponent<BoxCollider>();
+        bc.size = new Vector3(width, 2.0f, height);
+        bc.isTrigger = true;
+        AreaTG atg = o.AddComponent<AreaTG>();
+        atg.TriggerTargets = new GameObject[1];
+        atg.triggerOnce = false;
+        atg.TriggerTargets[0] = o;
+        WorldPortal wp = o.AddComponent<WorldPortal>();
+        wp.toWorldZoneIndex = toZoneIndex;
+        wp.messageHint = true;
+        switch (dir)
+        {
+            case ZONE_EDGE_DIR.N:
+                wp.enterFaceAngle = 0;
+                wp.enterPosition = theCellMap.GetCellCenterPosition(0, theCellMap.GetYMin() + edgeWidth);
+                wp.enterWithCurrX = true;
+                break;
+            case ZONE_EDGE_DIR.S:
+                wp.enterFaceAngle = 180;
+                wp.enterPosition = theCellMap.GetCellCenterPosition(0, theCellMap.GetYMax() - edgeWidth);
+                wp.enterWithCurrX = true;
+                break;
+            case ZONE_EDGE_DIR.E:
+                wp.enterFaceAngle = 90;
+                wp.enterPosition = theCellMap.GetCellCenterPosition(theCellMap.GetXMin() + edgeWidth, 0);
+                wp.enterWithCurrZ = true;
+                break;
+            case ZONE_EDGE_DIR.W:
+                wp.enterFaceAngle = -90;
+                wp.enterPosition = theCellMap.GetCellCenterPosition(theCellMap.GetXMax() - edgeWidth, 0);
+                wp.enterWithCurrZ = true;
+                break;
+        }
+        return o;
     }
 
     protected void SaveMap()

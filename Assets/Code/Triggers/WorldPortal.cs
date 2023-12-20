@@ -6,8 +6,13 @@ public class WorldPortal : MonoBehaviour
 {
     public SpriteRenderer fadeBlocker;
     public Vector2Int toWorldZoneIndex;
+    public Vector3 enterPosition;
+    public float enterFaceAngle;
+    public bool enterWithCurrX = false;
+    public bool enterWithCurrZ = false;
 
     public bool messageHint = false;
+
     protected float fadeTime = 0.5f;
 
     protected enum PHASE
@@ -68,7 +73,7 @@ public class WorldPortal : MonoBehaviour
 
     }
 
-    void OnTG(GameObject whoTG)
+    public void OnTG(GameObject whoTG)
     {
         if (currPhase != PHASE.NORMAL)
             return;
@@ -98,6 +103,9 @@ public class WorldPortal : MonoBehaviour
 
     void DoLoadScene()
     {
-        GameSystem.GetWorldMap().GotoZone(toWorldZoneIndex, Vector2.zero);
+        Vector3 pPos = BattleSystem.GetPC().transform.position;
+        Vector3 fixEnterPos = new Vector3(enterWithCurrX ? pPos.x : enterPosition.x, enterPosition.y, enterWithCurrZ ? pPos.z : enterPosition.z);
+        print("Ready to GotoZone: " + enterPosition  + "/" + fixEnterPos + " -- " + enterFaceAngle);
+        GameSystem.GetWorldMap().GotoZone(toWorldZoneIndex, fixEnterPos, enterFaceAngle);
     }
 }

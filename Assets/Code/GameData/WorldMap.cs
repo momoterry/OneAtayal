@@ -91,7 +91,7 @@ public class WorldMap : MonoBehaviour
         }
     }
 
-    public void GotoZone(Vector2Int zoneIndex, Vector2 enterPosition, float faceAngel = 0)
+    public void GotoZone(Vector2Int zoneIndex, Vector3 enterPosition, float faceAngel = 0)
     {
         if (zones.ContainsKey(zoneIndex))
         {
@@ -122,6 +122,13 @@ public class WorldMap : MonoBehaviour
                 return;
             }
 
+
+            GameObject o = new GameObject("NEW_PLAYER_POS");        //從新創建一個 Dummy 以免影響初始營地結構
+            o.transform.position = currEnterPosition;
+            bs.initPlayerPos = o.transform;
+            bs.initPlayerDirAngle = currEnterAngle;
+            print("SetupBattleSystem: " + currEnterPosition + " -- " + currEnterAngle);
+
             mgPF.SetZone(currTravleingZone);
             currTravleingZone = null;
         }
@@ -133,20 +140,20 @@ public class WorldMap : MonoBehaviour
         currTravleingZone = null;
     }
 
-    static public GameObject CreateZoneEdgeTrigger(Vector2Int toZoneIndex, Vector3 center, float width, float height)
-    {
-        GameObject o = new GameObject("ZoneTrigger_" + toZoneIndex);
-        o.transform.position = center;
-        BoxCollider bc = o.AddComponent<BoxCollider>();
-        bc.size = new Vector3(width, 2.0f, height);
-        bc.isTrigger = true;
-        AreaTG atg = o.AddComponent<AreaTG>();
-        atg.TriggerTargets = new GameObject[1];
-        atg.TriggerTargets[0] = o;
-        WorldPortal wp = o.AddComponent<WorldPortal>();
-        wp.toWorldZoneIndex = toZoneIndex;
-        wp.messageHint = true;
-        return o;
-    }
+    //static public GameObject CreateZoneEdgeTrigger(Vector2Int toZoneIndex, Vector3 center, float width, float height)
+    //{
+    //    GameObject o = new GameObject("ZoneTrigger_" + toZoneIndex);
+    //    o.transform.position = center;
+    //    BoxCollider bc = o.AddComponent<BoxCollider>();
+    //    bc.size = new Vector3(width, 2.0f, height);
+    //    bc.isTrigger = true;
+    //    AreaTG atg = o.AddComponent<AreaTG>();
+    //    atg.TriggerTargets = new GameObject[1];
+    //    atg.TriggerTargets[0] = o;
+    //    WorldPortal wp = o.AddComponent<WorldPortal>();
+    //    wp.toWorldZoneIndex = toZoneIndex;
+    //    wp.messageHint = true;
+    //    return o;
+    //}
 
 }
