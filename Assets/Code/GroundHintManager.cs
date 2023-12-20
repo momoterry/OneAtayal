@@ -20,33 +20,40 @@ public class GroundHintManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void ShowSquareHint( Vector3 vCenter, Vector3 vDir, Vector2 size, float duration )
+    public void ShowSquareHint(Vector3 vCenter, Vector3 vDir, Vector2 size, float duration)
     {
-        //GameObject o = new GameObject("_GroundHint");
-        //SpriteRenderer sr = o.AddComponent<SpriteRenderer>();
-        //FlashFX fx = o.AddComponent<FlashFX>();
-        //fx.LifeTime = duration;
-        //sr.sprite = SquareSprite;
-        //sr.sortingLayerName = "GroundEffect";
-        //sr.color = new Color(1.0f, 0, 0, 0.5f);
-        //o.transform.position = vCenter;
-        //o.transform.rotation = Quaternion.Euler(90.0f, Vector3.SignedAngle(Vector3.back, vDir, Vector3.up), 0);
-        //o.transform.localScale = new Vector3(size.x, size.y, 1.0f);
-
         GameObject so = Instantiate(SquareHintRef, vCenter, Quaternion.Euler(90.0f, Vector3.SignedAngle(Vector3.back, vDir, Vector3.up), 0));
         //so.transform.localScale = new Vector3(size.x, size.y, 1.0f);
         GroundHintSquare gs = so.GetComponent<GroundHintSquare>();
         gs.SetSize(size.x, size.y);
-        FlashFX ff = so.AddComponent<FlashFX>();
-        ff.LifeTime = duration;
+        if (duration >= 0)
+        {
+            FlashFX ff = so.AddComponent<FlashFX>();
+            ff.LifeTime = duration;
+        }
+    }
+
+    public void ShowSquareHint(Vector3 vCenter, Vector3 vDir, Vector2 size, float duration, Color color)
+    {
+        GameObject so = Instantiate(SquareHintRef, vCenter, Quaternion.Euler(90.0f, Vector3.SignedAngle(Vector3.back, vDir, Vector3.up), 0));
+        GroundHintSquare gs = so.GetComponent<GroundHintSquare>();
+        gs.SetSize(size.x, size.y);
+        if (duration >= 0) {
+            FlashFX ff = so.AddComponent<FlashFX>();
+            ff.LifeTime = duration;
+        }
+        foreach (SpriteRenderer sr in so.GetComponentsInChildren<SpriteRenderer>())
+        {
+            sr.color = color;
+        }
     }
 }

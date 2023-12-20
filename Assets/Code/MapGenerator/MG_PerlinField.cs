@@ -485,6 +485,7 @@ public class MG_PerlinField : MG_PerlinNoise
                 wp.enterWithCurrZ = true;
                 break;
         }
+        GroundHintManager.GetInstance().ShowSquareHint(center, Vector3.back, new Vector2(width, height), -1, Color.green);
         return o;
     }
 
