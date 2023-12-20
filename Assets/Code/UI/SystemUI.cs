@@ -6,6 +6,8 @@ using UnityEngine;
 public class SystemUI : MonoBehaviour
 {
     public MessageBox theMessageBox;
+    [SerializeField]
+    protected Sprite whiteSprite;
 
     static private SystemUI instance;
 
@@ -42,6 +44,8 @@ public class SystemUI : MonoBehaviour
     {
         
     }
+    //==== 常用資源相關
+    static public Sprite GetWitheSprite() { return instance.whiteSprite; }
 
     //==== Message Box 相關
 
