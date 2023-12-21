@@ -14,7 +14,7 @@ public class WorldPortal : MonoBehaviour
 
     public bool messageHint = false;
 
-    protected float fadeTime = 0.5f;
+    protected float fadeTime = 0.25f;
 
     protected enum PHASE
     {
@@ -25,7 +25,7 @@ public class WorldPortal : MonoBehaviour
     protected PHASE currPhase = PHASE.NONE;
     protected PHASE nextPhase = PHASE.NONE;
 
-    protected float stateTimeLeft = 0;
+    //protected float stateTimeLeft = 0;
 
     protected void Start()
     {
@@ -53,36 +53,44 @@ public class WorldPortal : MonoBehaviour
             currPhase = nextPhase;
         }
 
-        if (stateTimeLeft > 0)
-        {
-            stateTimeLeft -= Time.deltaTime;
-        }
+        //if (stateTimeLeft > 0)
+        //{
+        //    stateTimeLeft -= Time.deltaTime;
+        //}
 
-        switch (currPhase)
-        {
-            case PHASE.FADEOUT:
-                if (stateTimeLeft <= 0)
-                {
-                    stateTimeLeft = 0;
-                    DoLoadScene();
-                }
-                else if (fadeBlocker)
-                {
-                    fadeBlocker.color = new Color(0, 0, 0, 1.0f - (stateTimeLeft / fadeTime));
-                }
-                break;
-        }
+        //switch (currPhase)
+        //{
+        //    case PHASE.FADEOUT:
+        //        if (stateTimeLeft <= 0)
+        //        {
+        //            stateTimeLeft = 0;
+        //            DoLoadScene();
+        //        }
+        //        else if (fadeBlocker)
+        //        {
+        //            fadeBlocker.color = new Color(0, 0, 0, 1.0f - (stateTimeLeft / fadeTime));
+        //        }
+        //        break;
+        //}
     }
 
-    virtual protected void DoTeleport()
+    //virtual protected void DoTeleport()
+    //{
+    //    nextPhase = PHASE.FADEOUT;
+    //    stateTimeLeft = fadeTime;
+    //    if (fadeBlocker)
+    //        fadeBlocker.gameObject.SetActive(true);
+    //    BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
+
+    //}
+    protected void DoTeleport()
     {
         nextPhase = PHASE.FADEOUT;
-        stateTimeLeft = fadeTime;
-        if (fadeBlocker)
-            fadeBlocker.gameObject.SetActive(true);
+        BattleSystem.GetInstance().StartFadeOut(fadeTime, DoLoadScene);
         BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
 
     }
+
 
     public void OnTG(GameObject whoTG)
     {

@@ -73,6 +73,22 @@ public class BattleSystem : MonoBehaviour
     protected static BattleSystem instance = null;
     public static BattleSystem GetInstance() { return instance; }
 
+    //Fade In/Out 相關
+    [SerializeField]
+    protected FadeBlocker fadeBlocker;
+
+    public void StartFadeOut(float fadeTime, FadeBlockerDelegate _cb) 
+    {
+        if (fadeBlocker)
+            fadeBlocker.StartFadeOut(fadeTime, _cb);
+    }
+
+    public void StartFadeIn(float fadeTime, FadeBlockerDelegate _cb)
+    {
+        if (fadeBlocker)
+            fadeBlocker.StartFadeIn(fadeTime, _cb);
+    }
+
     protected void Awake()
     {
         GameSystem.Ensure();    //為了讓任何 Scene 都可以直接 Play !!
