@@ -5,10 +5,7 @@ using UnityEngine.SceneManagement;  //為了透過 Scene 自動加載 GameSystem
 using UnityEngine.Networking;
 using System.IO;    //存讀檔
 using System.Text;  //存讀檔
-using System.Data;
-using UnityEngine.InputSystem;
-using System;
-using static DataTableConverter;
+
 
 public class GameSystem : MonoBehaviour
 {
