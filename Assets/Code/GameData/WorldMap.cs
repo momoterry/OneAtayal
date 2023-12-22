@@ -13,13 +13,20 @@ public class WorldMapSaveData
 public class WorldMap : MonoBehaviour
 {
     public string forestScene;
+    public const string WORLDMAP_SCENE = "WORLDMAP_SCENE";
 
     protected Dictionary<Vector2Int, ZonePF> zones = new Dictionary<Vector2Int, ZonePF>();
     protected ZonePF currTravleingZone = null;
     protected Vector2Int currTravelingIndex;
+    protected string currTravelingEntrance = "";    //如果有指定，就無視 currEnterPosition
     protected Vector3 currEnterPosition;
     protected float currEnterAngle;
 
+    protected ZonePF currZone = null;
+    protected Vector2Int currZoneIndex;
+
+    public ZonePF GetCurrZone() { return currZone; }
+    public Vector2Int GetCurrZoneIndex() { return currZoneIndex; }
     public void LoadData(WorldMapSaveData savedData)
     {
         ClearAllZones();
@@ -97,6 +104,7 @@ public class WorldMap : MonoBehaviour
         {
             currTravelingIndex = zoneIndex;
             currTravleingZone = zones[zoneIndex];
+            currTravelingEntrance = "";
             currEnterPosition = enterPosition;
             currEnterAngle = faceAngel;
             //print("即將傳送到世界地圖的 " + currTravleingZone.ID);
@@ -110,6 +118,24 @@ public class WorldMap : MonoBehaviour
         }
     }
 
+    public void GotoCurrZone(string entrance)
+    {
+        if (currZone == null)
+        {
+            print("ERROR!!!! GotoCurrZone but currZone == null");
+            return;
+        }
+        currTravelingIndex = currZoneIndex;
+        currTravleingZone = currZone;
+        currTravelingEntrance = entrance;
+        //currEnterPosition = enterPosition;
+        //currEnterAngle = faceAngel;
+        print("即將「回到」世界地圖的 " + currTravleingZone.ID);
+        BattleSystem.RegisterAwakeCallBack(SetupBattleSystem);
+        BattleSystem.GetInstance().OnGotoScene(currTravleingZone.scene);
+    }
+
+
     void SetupBattleSystem(BattleSystem bs)
     {
         if (bs != null)
@@ -122,15 +148,26 @@ public class WorldMap : MonoBehaviour
                 return;
             }
 
+            currZone = currTravleingZone;
+            currZoneIndex = currTravelingIndex;
+            if (currTravelingEntrance == "")
+            {
+                GameObject o = new GameObject("NEW_PLAYER_POS");        //從新創建一個 Dummy 以免影響初始營地結構
+                o.transform.position = currEnterPosition;
+                bs.initPlayerPos = o.transform;
+                bs.initPlayerDirAngle = currEnterAngle;
+                bs.SetInitPosition(currEnterPosition);
+                //print("SetupBattleSystem: " + currEnterPosition + " -- " + currEnterAngle);
+            }
+            else
+            {
+                //print("WorldMap : 設定入口 ID:" + currTravelingEntrance);
+                mgPF.SetEntrance(currTravelingEntrance);
+            }
 
-            GameObject o = new GameObject("NEW_PLAYER_POS");        //從新創建一個 Dummy 以免影響初始營地結構
-            o.transform.position = currEnterPosition;
-            bs.initPlayerPos = o.transform;
-            bs.initPlayerDirAngle = currEnterAngle;
-            bs.SetInitPosition(currEnterPosition);
-            print("SetupBattleSystem: " + currEnterPosition + " -- " + currEnterAngle);
 
             mgPF.SetZone(currTravleingZone);
+
             currTravleingZone = null;
         }
     }
