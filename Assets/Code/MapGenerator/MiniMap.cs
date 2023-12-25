@@ -178,8 +178,14 @@ public class MiniMap : MonoBehaviour
         renderCamera.transform.position = new Vector3(theMap.mapCenter.x, 10, theMap.mapCenter.y);
         RenderTexture.active = renderCamera.targetTexture;
 
+        if (BattleSystem.GetInstance().fadeBlocker)
+            BattleSystem.GetInstance().fadeBlocker.gameObject.SetActive(false);
+
         renderCamera.Render();
         miniMapTexture.ReadPixels(new Rect(0, 0, tWidth, tHeight), 0, 0);
+
+        if (BattleSystem.GetInstance().fadeBlocker)
+            BattleSystem.GetInstance().fadeBlocker.gameObject.SetActive(true);
 
         miniMapTexture.Apply();
         miniMapSprite = Sprite.Create(miniMapTexture, new Rect(0, 0, tWidth, tHeight), Vector2.zero);

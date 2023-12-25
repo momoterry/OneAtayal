@@ -74,8 +74,7 @@ public class BattleSystem : MonoBehaviour
     public static BattleSystem GetInstance() { return instance; }
 
     //Fade In/Out ¬ÛÃö
-    [SerializeField]
-    protected FadeBlocker fadeBlocker;
+    public FadeBlocker fadeBlocker;
 
     public void StartFadeOut(float fadeTime, FadeBlockerDelegate _cb = null) 
     {
