@@ -20,6 +20,7 @@ public class WorldMap : MonoBehaviour
     protected ZonePF currTravleingZone = null;
     protected Vector2Int currTravelingIndex;
     protected string currTravelingEntrance = "";    //如果有指定，就無視 currEnterPosition
+    protected const string DEFAULT_ENTRACE = "DEFAULT_ENTRACE";
     protected Vector3 currEnterPosition;
     protected float currEnterAngle;
 
@@ -102,13 +103,18 @@ public class WorldMap : MonoBehaviour
         }
     }
 
-    public void GotoZone(Vector2Int zoneIndex, Vector3 enterPosition, float faceAngel = 0)
+    public void GotoZone(Vector2Int zoneIndex)
+    {
+        GotoZone(zoneIndex, Vector3.zero, 0, DEFAULT_ENTRACE);
+    }
+
+    public void GotoZone(Vector2Int zoneIndex, Vector3 enterPosition, float faceAngel = 0, string entraceName = "" )
     {
         if (zones.ContainsKey(zoneIndex))
         {
             currTravelingIndex = zoneIndex;
             currTravleingZone = zones[zoneIndex];
-            currTravelingEntrance = "";
+            currTravelingEntrance = entraceName;
             currEnterPosition = enterPosition;
             currEnterAngle = faceAngel;
             //print("即將傳送到世界地圖的 " + currTravleingZone.ID);
@@ -121,6 +127,7 @@ public class WorldMap : MonoBehaviour
             print("ERRPR!!!! WorldMap 沒有對應的 Zone !!" + zoneIndex);
         }
     }
+
 
     public void GotoCurrZone(string entrance)
     {
@@ -163,7 +170,7 @@ public class WorldMap : MonoBehaviour
                 bs.SetInitPosition(currEnterPosition);
                 //print("SetupBattleSystem: " + currEnterPosition + " -- " + currEnterAngle);
             }
-            else
+            else if (currTravelingEntrance != DEFAULT_ENTRACE)
             {
                 //print("WorldMap : 設定入口 ID:" + currTravelingEntrance);
                 mgPF.SetEntrance(currTravelingEntrance);

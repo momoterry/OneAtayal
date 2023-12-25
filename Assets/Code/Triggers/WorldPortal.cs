@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class WorldPortal : MonoBehaviour
 {
-    protected SpriteRenderer fadeBlocker;
+    //protected SpriteRenderer fadeBlocker;
     public Vector2Int toWorldZoneIndex;
+    public bool enterDefaultPosition = false;
     public Vector3 enterPosition;
     public float enterFaceAngle;
     public bool enterWithCurrX = false;
@@ -29,18 +30,16 @@ public class WorldPortal : MonoBehaviour
 
     protected void Start()
     {
-        //if (fadeBlocker)
-        //    fadeBlocker.gameObject.SetActive(false);
-        GameObject o = new GameObject("WorldPortal_FadeBlocker");
-        fadeBlocker = o.AddComponent<SpriteRenderer>();
-        fadeBlocker.color = Color.black;
-        fadeBlocker.sprite = SystemUI.GetWitheSprite();
-        fadeBlocker.transform.rotation = Quaternion.Euler(90, 0, 0);
-        fadeBlocker.transform.localScale = Vector3.one * 1000.0f;
-        fadeBlocker.sortingLayerName = "UI_Block";
-        fadeBlocker.gameObject.SetActive(false);
-        o.transform.SetParent(transform);
-        fadeBlocker.gameObject.SetActive(false);
+        //GameObject o = new GameObject("WorldPortal_FadeBlocker");
+        //fadeBlocker = o.AddComponent<SpriteRenderer>();
+        //fadeBlocker.color = Color.black;
+        //fadeBlocker.sprite = SystemUI.GetWitheSprite();
+        //fadeBlocker.transform.rotation = Quaternion.Euler(90, 0, 0);
+        //fadeBlocker.transform.localScale = Vector3.one * 1000.0f;
+        //fadeBlocker.sortingLayerName = "UI_Block";
+        //fadeBlocker.gameObject.SetActive(false);
+        //o.transform.SetParent(transform);
+        //fadeBlocker.gameObject.SetActive(false);
         nextPhase = PHASE.NORMAL;
     }
 
@@ -124,7 +123,10 @@ public class WorldPortal : MonoBehaviour
     {
         Vector3 pPos = BattleSystem.GetPC().transform.position;
         Vector3 fixEnterPos = new Vector3(enterWithCurrX ? pPos.x : enterPosition.x, enterPosition.y, enterWithCurrZ ? pPos.z : enterPosition.z);
-        print("Ready to GotoZone: " + enterPosition  + "/" + fixEnterPos + " -- " + enterFaceAngle);
-        GameSystem.GetWorldMap().GotoZone(toWorldZoneIndex, fixEnterPos, enterFaceAngle);
+        //print("Ready to GotoZone: " + enterPosition  + "/" + fixEnterPos + " -- " + enterFaceAngle);
+        if (enterDefaultPosition)
+            GameSystem.GetWorldMap().GotoZone(toWorldZoneIndex);
+        else
+            GameSystem.GetWorldMap().GotoZone(toWorldZoneIndex, fixEnterPos, enterFaceAngle);
     }
 }
