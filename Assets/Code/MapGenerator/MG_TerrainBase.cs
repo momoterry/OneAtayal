@@ -16,19 +16,25 @@ public class MG_TerrainBase : MapGeneratorBase
     public Tilemap groundTM;
     public Tilemap blockTM;
 
-    public TILE_GROUP_ID planID = TILE_GROUP_ID.GRASS;
-    public TILE_GROUP_ID lowID = TILE_GROUP_ID.DIRT;
-    public TILE_GROUP_ID lowEdgeID = TILE_GROUP_ID.DIRT_EDGE;
-    public TILE_GROUP_ID highID = TILE_GROUP_ID.GRASS;
-    public TILE_GROUP_ID highEdgeID = TILE_GROUP_ID.HIGH_EDGE;
-
-    protected TileGroup planTG;
-    protected TileGroup highTG;
-    protected TileGroup lowTG;
+    protected TILE_GROUP_ID planID = TILE_GROUP_ID.GRASS;
+    protected TILE_GROUP_ID lowID = TILE_GROUP_ID.DIRT;
+    protected TILE_GROUP_ID lowEdgeID = TILE_GROUP_ID.DIRT_EDGE;
+    protected TILE_GROUP_ID highID = TILE_GROUP_ID.GRASS;
+    protected TILE_GROUP_ID highEdgeID = TILE_GROUP_ID.HIGH_EDGE;
+    
+    
+    protected TileGroupBase planTG;
+    protected TileGroupBase highTG;
+    protected TileGroupBase lowTG;
     protected TileEdgeGroup lowEdgeTG;
     protected TileEdgeGroup highEdgeTG;
 
-    public TileEdgeGroupDataBase highEdgeTileGroupData; //測試
+    //以下如果有設定，就無視 the TileGroupLib
+    public TileGroupDataBase planTGData;
+    public TileGroupDataBase highTGData;
+    public TileGroupDataBase lowTGData;
+    public TileEdgeGroupDataBase highEdgeTileGroupData; 
+    public TileEdgeGroupDataBase lowEdgeTileGroupData;
 
     protected OneCellMap theCellMap = new OneCellMap();
     //protected OneMap theMap = new OneMap();
@@ -63,15 +69,24 @@ public class MG_TerrainBase : MapGeneratorBase
 
         theCellMap.InitCellMap(mapCellWidthH, mapCellHeightH, CellSize);
 
-        planTG = theTileGroupLib.GetTileGroup(planID);
-        lowTG = theTileGroupLib.GetTileGroup(lowID);
-        highTG = theTileGroupLib.GetTileGroup(highID);
-        lowEdgeTG = theTileGroupLib.GetTileEdgeGroup(lowEdgeID);
-        highEdgeTG = theTileGroupLib.GetTileEdgeGroup(highEdgeID);
-        if (highEdgeTileGroupData)
+        if (theTileGroupLib)
         {
-            highEdgeTG = highEdgeTileGroupData.GetTileEdgeGroup();
+            planTG = theTileGroupLib.GetTileGroup(planID);
+            lowTG = theTileGroupLib.GetTileGroup(lowID);
+            highTG = theTileGroupLib.GetTileGroup(highID);
+            lowEdgeTG = theTileGroupLib.GetTileEdgeGroup(lowEdgeID);
+            highEdgeTG = theTileGroupLib.GetTileEdgeGroup(highEdgeID);
         }
+        if (planTGData)
+            planTG = planTGData.GetTileGroup();
+        if (lowTGData)
+            lowTG = lowTGData.GetTileGroup();
+        if (highTGData)
+            highTG = highTGData.GetTileGroup();
+        if (highEdgeTileGroupData)
+            highEdgeTG = highEdgeTileGroupData.GetTileEdgeGroup();
+        if (lowEdgeTileGroupData)
+            lowEdgeTG = lowEdgeTileGroupData.GetTileEdgeGroup();
 
         GenerateCellMap();
 

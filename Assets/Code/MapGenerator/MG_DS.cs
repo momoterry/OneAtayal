@@ -24,7 +24,7 @@ public class MG_DS : MG_TerrainBase
     }
     protected override void FillTiles()
     {
-        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.NORMAL, groundTM, planTG.baseTile);
+        theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.NORMAL, groundTM, planTG.GetOneTile());
         theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.LOW, groundTM, groundTM, lowTG, lowEdgeTG, outEdge, (int)MY_VALUE.NORMAL);
         theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.NORMAL);
         theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH_2, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.HIGH);
