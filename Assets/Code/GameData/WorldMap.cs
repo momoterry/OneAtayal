@@ -12,7 +12,8 @@ public class WorldMapSaveData
 
 public class WorldMap : MonoBehaviour
 {
-    public string forestScene;
+    protected const string forestScene = "FieldOpenForest";
+    protected const string desertScene = "FieldOpenDesert";
     public const string WORLDMAP_SCENE = "WORLDMAP_SCENE";
 
     protected Dictionary<Vector2Int, ZonePF> zones = new Dictionary<Vector2Int, ZonePF>();
@@ -58,7 +59,7 @@ public class WorldMap : MonoBehaviour
         ClearAllZones();
 
         int hCellNum = 30;
-        int cellSize = 2;
+        int cellSize = 4;
         int NoiseScaleOn256 = 10;
         int edgeWidth = 6;
         float zWidth = (hCellNum + hCellNum) * cellSize;
@@ -83,7 +84,10 @@ public class WorldMap : MonoBehaviour
                 zone.worldPos = new Vector2(x * zWidth, y * zHeight);
                 zone.width = zWidth;
                 zone.height = zHeight;
-                zone.scene = forestScene;
+                if (x + y < 1)
+                    zone.scene = forestScene;
+                else
+                    zone.scene = desertScene;
                 zone.perlinShiftX = xShiftCenter + ( x * xShiftStep );
                 zone.perlinShiftY = yShiftCenter + ( y * yShiftStep );
                 zone.cellSize = cellSize;
