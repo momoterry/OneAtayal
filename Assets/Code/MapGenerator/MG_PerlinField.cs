@@ -54,6 +54,7 @@ public class MG_PerlinField : MG_PerlinNoise
     protected MapSavePerlinField loadedMapData = null;
 
     //世界地連接相關資訊
+    protected bool isWorldMap = false;
     protected Vector2Int myWolrdIndex;
     protected bool N;          //上方是否連接
     protected bool S;          //下方是否連接
@@ -77,6 +78,8 @@ public class MG_PerlinField : MG_PerlinNoise
     public void SetZone(ZonePF zone)        //由 WorldMap 設定的內容
     {
         //print("MG_PerlinField.SetZone !!");
+        isWorldMap = true;
+
         randomShiftX = zone.perlinShiftX;
         randomShiftY = zone.perlinShiftY;
         needRandomShift = false;
@@ -320,7 +323,11 @@ public class MG_PerlinField : MG_PerlinNoise
                 newList[listOriginal + i].name = p.Key;
                 newList[listOriginal + i].pos = se.transform;
                 newList[listOriginal + i].faceAngle = se.playerInitAngle;
-                sp.backScene = BattleSystem.GetCurrScene();
+
+                if (isWorldMap)
+                    sp.backScene = WorldMap.WORLDMAP_SCENE;
+                else
+                    sp.backScene = BattleSystem.GetCurrScene();
                 //print("設定地城入口的回程: " + sp.backScene);
                 sp.backEntrance = p.Key;
 
@@ -427,7 +434,7 @@ public class MG_PerlinField : MG_PerlinNoise
                 theCellMap.SetValue(theCellMap.GetXMax() - edgeWidth, y, (int)MY_VALUE.NORMAL);
         }
 
-        //加入傳送門
+        //加入邊界傳送區
         if (W)
         {
             CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(-1,0), theCellMap.GetCellCenterPosition(theCellMap.GetXMin(), 0), edgeWidth* CellSize, theCellMap.GetHeight()*CellSize, ZONE_EDGE_DIR.W);

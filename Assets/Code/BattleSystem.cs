@@ -551,8 +551,12 @@ public class BattleSystem : MonoBehaviour
     public void OnBackPrevScene()
     {
         OnExitBattle();
-        //SceneManager.LoadScene(backScene);
-        SceneTraveler.GotoScene(backScene, backEntrance);
+        if (backScene == WorldMap.WORLDMAP_SCENE)
+        {
+            GameSystem.GetWorldMap().GotoCurrZone(backEntrance);
+        }
+        else
+            SceneTraveler.GotoScene(backScene, backEntrance);
     }
 
 
