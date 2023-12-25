@@ -77,13 +77,13 @@ public class BattleSystem : MonoBehaviour
     [SerializeField]
     protected FadeBlocker fadeBlocker;
 
-    public void StartFadeOut(float fadeTime, FadeBlockerDelegate _cb) 
+    public void StartFadeOut(float fadeTime, FadeBlockerDelegate _cb = null) 
     {
         if (fadeBlocker)
             fadeBlocker.StartFadeOut(fadeTime, _cb);
     }
 
-    public void StartFadeIn(float fadeTime, FadeBlockerDelegate _cb)
+    public void StartFadeIn(float fadeTime, FadeBlockerDelegate _cb = null)
     {
         if (fadeBlocker)
             fadeBlocker.StartFadeIn(fadeTime, _cb);
@@ -91,6 +91,7 @@ public class BattleSystem : MonoBehaviour
 
     protected void Awake()
     {
+        StartFadeIn(0.25f);
         GameSystem.Ensure();    //為了讓任何 Scene 都可以直接 Play !!
 
         if (instance != null)

@@ -30,6 +30,11 @@ public class FadeBlocker : MonoBehaviour
 
     public void StartFadeOut(float duration, FadeBlockerDelegate cb)
     {
+        if (currPhase != FADE_PHASE.NONE)
+        {
+            print("ERROR!!! 不能 Fade Out 在這狀態: " + currPhase);
+            return;
+        }
         finishCB = cb;
         fadeDuration = duration;
         fadeTime = 0;
@@ -38,6 +43,11 @@ public class FadeBlocker : MonoBehaviour
     }
     public void StartFadeIn(float duration, FadeBlockerDelegate cb)
     {
+        if (currPhase != FADE_PHASE.NONE)
+        {
+            print("ERROR!!! 不能 Fade In 在這狀態: " + currPhase);
+            return;
+        }
         finishCB = cb;
         fadeDuration = duration;
         fadeTime = 0;
@@ -87,6 +97,7 @@ public class FadeBlocker : MonoBehaviour
                 }
                 break;
             case FADE_PHASE.FADEIN:
+                fadeTime += Time.deltaTime;
                 SetBlocekRate(1.0f - (fadeTime / fadeDuration));
                 if (fadeTime >= fadeDuration)
                 {
