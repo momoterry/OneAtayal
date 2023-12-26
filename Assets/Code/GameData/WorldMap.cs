@@ -71,8 +71,9 @@ public class WorldMap : MonoBehaviour
 
         float xShiftCenter = Random.Range(0, (float)(20 * NoiseScaleOn256) );  //先亂寫
         float yShiftCenter = Random.Range(0, (float)(20 * NoiseScaleOn256) );  //先亂寫
-        xShiftCenter = 100;//測試
-        yShiftCenter = 100;//測試
+        //xShiftCenter = 100;//測試
+        //yShiftCenter = 100;//測試
+        //print("世界地圖建造，隨機中心: " + new Vector2(xShiftCenter, yShiftStep));
 
         int xMin = -1; int xMax = 1;
         int yMin = -1; int yMax = 1;
