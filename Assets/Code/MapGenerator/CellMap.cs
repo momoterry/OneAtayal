@@ -64,6 +64,11 @@ public class OneCellMap : CellMap
     public int GetOneMapYMin() { return oneMapYMin; }
     public int GetOneMapYMax() { return oneMapYMax; }
 
+    public float GetBooundXMin() { return (float)oneMapXMin; }
+    public float GetBooundYMin() { return (float)oneMapYMin; }
+    public float GetBooundXMax() { return (float)(oneMapXMax + 1); }
+    public float GetBooundYMax() { return (float)(oneMapYMax + 1); }
+
     public OneMap GetOneMap() { return myOneMap; }
     public void InitCellMap(int cellMapWidthH, int cellMapHeightH, int _cellSize)
     {

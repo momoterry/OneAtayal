@@ -435,21 +435,32 @@ public class MG_PerlinField : MG_PerlinNoise
         }
 
         //加入邊界傳送區
+        float xTotal = theCellMap.GetBooundXMax() - theCellMap.GetBooundXMin();
+        float yTotal = theCellMap.GetBooundYMax() - theCellMap.GetBooundYMin();
+        float xCenter = theCellMap.GetBooundXMin() + ( xTotal * 0.5f );
+        float yCenter = theCellMap.GetBooundYMin() + (yTotal * 0.5f);
+        float hEdge = 0.5f * edgeWidth * CellSize;
         if (W)
         {
-            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(-1,0), theCellMap.GetCellCenterPosition(theCellMap.GetXMin(), 0), edgeWidth* CellSize, theCellMap.GetHeight()*CellSize, ZONE_EDGE_DIR.W);
+            //CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(-1,0), theCellMap.GetCellCenterPosition(theCellMap.GetXMin(), 0), edgeWidth* CellSize, theCellMap.GetHeight()*CellSize, ZONE_EDGE_DIR.W);
+            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(-1, 0), new Vector3(theCellMap.GetBooundXMin()+ hEdge, yCenter), hEdge+ hEdge, yTotal, ZONE_EDGE_DIR.W);
+
         }
         if (E)
         {
-            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(1, 0), theCellMap.GetCellCenterPosition(theCellMap.GetXMax(), 0), edgeWidth * CellSize, theCellMap.GetHeight() * CellSize, ZONE_EDGE_DIR.E);
+            //CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(1, 0), theCellMap.GetCellCenterPosition(theCellMap.GetXMax(), 0), edgeWidth * CellSize, theCellMap.GetHeight() * CellSize, ZONE_EDGE_DIR.E);
+            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(1, 0), new Vector3(theCellMap.GetBooundXMax() - hEdge, 0, yCenter), hEdge + hEdge, yTotal, ZONE_EDGE_DIR.E);
+
         }
         if (S)
         {
-            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, -1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMin()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize, ZONE_EDGE_DIR.S);
+            //CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, -1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMin()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize, ZONE_EDGE_DIR.S);
+            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, -1), new Vector3(xCenter, 0, theCellMap.GetBooundYMin() + hEdge), xTotal, hEdge + hEdge, ZONE_EDGE_DIR.S);
         }
         if (N)
         {
-            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, 1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMax()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize, ZONE_EDGE_DIR.N);
+            //CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, 1), theCellMap.GetCellCenterPosition(0, theCellMap.GetYMax()), theCellMap.GetWidth() * CellSize, edgeWidth * CellSize, ZONE_EDGE_DIR.N);
+            CreateZoneEdgeTrigger(myWolrdIndex + new Vector2Int(0, 1), new Vector3(xCenter, 0, theCellMap.GetBooundYMax() - hEdge), xTotal, hEdge + hEdge, ZONE_EDGE_DIR.N);
         }
     }
 

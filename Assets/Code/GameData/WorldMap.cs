@@ -62,16 +62,17 @@ public class WorldMap : MonoBehaviour
         int hCellNum = 30;
         int cellSize = 4;
         int NoiseScaleOn256 = 10;
-        int edgeWidth = 6;
+        int edgeWidth = 4;
         float zWidth = (hCellNum + hCellNum) * cellSize;
         float zHeight = (hCellNum + hCellNum) * cellSize;
 
-        float xShiftStep = (hCellNum + hCellNum - edgeWidth ) * (float)NoiseScaleOn256 / 256.0f;
-        float yShiftStep = (hCellNum + hCellNum - edgeWidth ) * (float)NoiseScaleOn256 / 256.0f;
+        float xShiftStep = (hCellNum + hCellNum - edgeWidth - edgeWidth + 1) * (float)NoiseScaleOn256 / 256.0f;
+        float yShiftStep = (hCellNum + hCellNum - edgeWidth - edgeWidth + 1) * (float)NoiseScaleOn256 / 256.0f;
 
         float xShiftCenter = Random.Range(0, (float)(20 * NoiseScaleOn256) );  //先亂寫
         float yShiftCenter = Random.Range(0, (float)(20 * NoiseScaleOn256) );  //先亂寫
-        //print("Random!!")
+        xShiftCenter = 100;//測試
+        yShiftCenter = 100;//測試
 
         int xMin = -1; int xMax = 1;
         int yMin = -1; int yMax = 1;
