@@ -523,7 +523,7 @@ public class PlayerData : MonoBehaviour
         return false;
     }
 
-    //關於地圖
+    // ========================================= 關於地圖 ============================= 
     public void SaveMap(string name , MapSaveDataBase data)
     {
         if (savedMaps.ContainsKey(name))
@@ -553,5 +553,11 @@ public class PlayerData : MonoBehaviour
             return savedMaps[name];
         }
         return null;
+    }
+
+    public void ResetWorldMap()
+    {
+        savedMaps.Clear();      //清除所有地圖存檔
+        GameSystem.GetWorldMap().Init();    //重設世界地圖
     }
 }
