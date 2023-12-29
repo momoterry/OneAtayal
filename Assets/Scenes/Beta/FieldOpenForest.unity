@@ -2790,7 +2790,7 @@ MonoBehaviour:
   lowTGData: {fileID: 183520711}
   highEdgeTileGroupData: {fileID: 115545865}
   lowEdgeTileGroupData: {fileID: 27125530}
-  NoiseScaleOn256: 10
+  NoiseScaleOn256: 15
   highRatio: 0.4
   lowRatio: 0.35
   outEdge: 1
@@ -2798,11 +2798,13 @@ MonoBehaviour:
   enemyManager: {fileID: 898018668}
   decadeGenerator: {fileID: 3089051280789332371}
   initGameplay: {fileID: 240394000}
-  edgeWidth: 6
+  edgeWidth: 4
   dungeons:
   - dungeonID: ForestCave01
     entranceRef: {fileID: 9211581241814964865, guid: 52ffd2d79b234cf4e8dcf7be05985387, type: 3}
   - dungeonID: ForestCave02
+    entranceRef: {fileID: 9211581241814964865, guid: 52ffd2d79b234cf4e8dcf7be05985387, type: 3}
+  - dungeonID: ForestCave03
     entranceRef: {fileID: 9211581241814964865, guid: 52ffd2d79b234cf4e8dcf7be05985387, type: 3}
 --- !u!114 &3089051280789332371
 MonoBehaviour:

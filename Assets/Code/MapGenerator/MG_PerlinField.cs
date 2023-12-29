@@ -240,10 +240,11 @@ public class MG_PerlinField : MG_PerlinNoise
         print("無法載入 Cav 位置，計算中 ....");
         //float timeStart = Time.realtimeSinceStartup;
         float minCavDis = Mathf.Sqrt(mapCellWidthH * mapCellWidthH + mapCellHeightH * mapCellHeightH) * 0.3f;
+        int noCavBuff = edgeWidth + 1;
         List<Vector2Int> cavCandidates = new List<Vector2Int>();
-        for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
+        for (int x = theCellMap.GetXMin() + noCavBuff; x <= theCellMap.GetXMax() - noCavBuff; x++)
         {
-            for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
+            for (int y = theCellMap.GetYMin() + noCavBuff; y <= theCellMap.GetYMax() - noCavBuff; y++)
             {
                 if (theCellMap.GetValue(x, y) != (int)MY_VALUE.NORMAL)
                     continue;
