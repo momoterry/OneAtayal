@@ -61,7 +61,7 @@ public class WorldMap : MonoBehaviour
 
         int hCellNum = 30;
         int cellSize = 4;
-        int NoiseScaleOn256 = 10;
+        float NoiseScaleOn256 = 15;
         int edgeWidth = 4;
         float zWidth = (hCellNum + hCellNum) * cellSize;
         float zHeight = (hCellNum + hCellNum) * cellSize;
@@ -91,6 +91,8 @@ public class WorldMap : MonoBehaviour
                     zone.scene = forestScene;
                 else
                     zone.scene = desertScene;
+
+                zone.NoiseScaleOn256 = NoiseScaleOn256;
                 zone.perlinShiftX = xShiftCenter + ( x * xShiftStep );
                 zone.perlinShiftY = yShiftCenter + ( y * yShiftStep );
                 zone.cellSize = cellSize;

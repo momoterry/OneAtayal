@@ -23,7 +23,7 @@ public class MapSavePerlinField : MapSaveDataBase
     public int CellSize = 4;
     public int mapCellWidthH = 15;
     public int mapCellHeightH = 10;
-    public int NoiseScaleOn256 = 5;
+    public float NoiseScaleOn256 = 5.0f;
     public float highRatio = 0.35f;
     public float lowRatio = 0.35f;
     public float randomShiftX = -9999;
@@ -80,6 +80,7 @@ public class MG_PerlinField : MG_PerlinNoise
         //print("MG_PerlinField.SetZone !!");
         isWorldMap = true;
 
+        NoiseScaleOn256 = zone.NoiseScaleOn256;
         randomShiftX = zone.perlinShiftX;
         randomShiftY = zone.perlinShiftY;
         needRandomShift = false;
@@ -123,7 +124,7 @@ public class MG_PerlinField : MG_PerlinNoise
         List<Vector2Int> saveList = new List<Vector2Int>(); ;
         saveList.Add(Vector2Int.zero);
 
-        float noiseScale = (float)NoiseScaleOn256 / 256.0f;
+        float noiseScale = NoiseScaleOn256 / 256.0f;
         float randomSscale = 10.0f;
         float xShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
         float yShift = Random.Range(0, NoiseScaleOn256 * randomSscale);
@@ -336,7 +337,7 @@ public class MG_PerlinField : MG_PerlinNoise
                 CMazeJsonPortal spJson = oCavP.GetComponent<CMazeJsonPortal>();
                 if (data != null && spJson)
                 {
-                    //print("有地城資料: " + data.name);
+                    print("有地城資料: " + data.name);
                     spJson.SetupCMazeJsonData(data);
                 }
 

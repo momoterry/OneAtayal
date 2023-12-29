@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MG_PerlinNoise : MG_TerrainBase
 {
-    public int NoiseScaleOn256 = 5;
+    public float NoiseScaleOn256 = 5.0f;
     public float highRatio = 0.35f;
     public float lowRatio = 0.35f;
     public bool outEdge = true;
