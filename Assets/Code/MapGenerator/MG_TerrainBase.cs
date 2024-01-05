@@ -29,12 +29,18 @@ public class MG_TerrainBase : MapGeneratorBase
     protected TileEdgeGroup lowEdgeTG;
     protected TileEdgeGroup highEdgeTG;
 
+    protected TileGroupBase edgeTG;
+    protected TileEdgeGroup edgeEdgeTG;
+
     //以下如果有設定，就無視 the TileGroupLib
     public TileGroupDataBase planTGData;
     public TileGroupDataBase highTGData;
     public TileGroupDataBase lowTGData;
     public TileEdgeGroupDataBase highEdgeTileGroupData; 
     public TileEdgeGroupDataBase lowEdgeTileGroupData;
+
+    public TileGroupDataBase edgeTGData;
+    public TileEdgeGroupDataBase edgeEdgeTileGroupData;
 
     protected OneCellMap theCellMap = new OneCellMap();
     //protected OneMap theMap = new OneMap();
@@ -87,6 +93,11 @@ public class MG_TerrainBase : MapGeneratorBase
             highEdgeTG = highEdgeTileGroupData.GetTileEdgeGroup();
         if (lowEdgeTileGroupData)
             lowEdgeTG = lowEdgeTileGroupData.GetTileEdgeGroup();
+
+        if (edgeTGData)
+            edgeTG = edgeTGData.GetTileGroup();
+        if (edgeEdgeTileGroupData)
+            edgeEdgeTG = edgeEdgeTileGroupData.GetTileEdgeGroup();
 
         GenerateCellMap();
 

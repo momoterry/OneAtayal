@@ -404,6 +404,8 @@ public class MG_PerlinField : MG_PerlinNoise
     protected void ModifyMapEdge()
     {
         //Ãä¬É
+        int iEdge = (int)MY_VALUE.HIGH;
+
         if (edgeWidth >= mapCellWidthH || edgeWidth > mapCellHeightH)
             return;
         for (int x = theCellMap.GetXMin(); x <= theCellMap.GetXMax(); x++)
@@ -411,9 +413,9 @@ public class MG_PerlinField : MG_PerlinNoise
             for (int i = 0; i < edgeWidth; i++)
             {
                 if (!S)
-                    theCellMap.SetValue(x, theCellMap.GetYMin() + i, (int)MY_VALUE.HIGH);
+                    theCellMap.SetValue(x, theCellMap.GetYMin() + i, iEdge);
                 if (!N)
-                    theCellMap.SetValue(x, theCellMap.GetYMax() - i, (int)MY_VALUE.HIGH);
+                    theCellMap.SetValue(x, theCellMap.GetYMax() - i, iEdge);
             }
             if (!S && theCellMap.GetValue(x, theCellMap.GetYMin() + edgeWidth) == (int)MY_VALUE.LOW)
                 theCellMap.SetValue(x, theCellMap.GetYMin() + edgeWidth, (int)MY_VALUE.NORMAL);
@@ -426,9 +428,9 @@ public class MG_PerlinField : MG_PerlinNoise
             for (int i = 0; i < edgeWidth; i++)
             {
                 if (!W)
-                    theCellMap.SetValue(theCellMap.GetXMin() +i, y, (int)MY_VALUE.HIGH);
+                    theCellMap.SetValue(theCellMap.GetXMin() +i, y, iEdge);
                 if (!E)
-                    theCellMap.SetValue(theCellMap.GetXMax() -i, y, (int)MY_VALUE.HIGH);
+                    theCellMap.SetValue(theCellMap.GetXMax() -i, y, iEdge);
             }
             if (!W && theCellMap.GetValue(theCellMap.GetXMin() + edgeWidth, y) == (int)MY_VALUE.LOW)
                 theCellMap.SetValue(theCellMap.GetXMin() + edgeWidth, y, (int)MY_VALUE.NORMAL);

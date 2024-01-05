@@ -17,6 +17,7 @@ public class MG_PerlinNoise : MG_TerrainBase
         HIGH_2 = 14,
         HIGH_3 = 15,
         HIGH_4 = 16,
+        EDGE = 20,
     }
 
 
@@ -65,6 +66,10 @@ public class MG_PerlinNoise : MG_TerrainBase
         theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH_2, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.HIGH);
         theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH_3, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.HIGH_2);
         theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.HIGH_4, blockTM, blockTM, highTG, highEdgeTG, outEdge, (int)MY_VALUE.HIGH_3);
+
+        if (edgeTG != null)
+            theCellMap.GetOneMap().FillTileAll((int)MY_VALUE.EDGE, blockTM, blockTM, edgeTG, edgeEdgeTG, outEdge, (int)MY_VALUE.NORMAL);
+
     }
 
 }
