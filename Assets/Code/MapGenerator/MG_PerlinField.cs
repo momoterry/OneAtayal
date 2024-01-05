@@ -404,7 +404,7 @@ public class MG_PerlinField : MG_PerlinNoise
     protected void ModifyMapEdge()
     {
         //邊界
-        int iEdge = (int)MY_VALUE.HIGH;
+        int iEdge = edgeTG == null ? (int)MY_VALUE.HIGH : (int)MY_VALUE.EDGE;
 
         if (edgeWidth >= mapCellWidthH || edgeWidth > mapCellHeightH)
             return;
@@ -417,10 +417,21 @@ public class MG_PerlinField : MG_PerlinNoise
                 if (!N)
                     theCellMap.SetValue(x, theCellMap.GetYMax() - i, iEdge);
             }
-            if (!S && theCellMap.GetValue(x, theCellMap.GetYMin() + edgeWidth) == (int)MY_VALUE.LOW)
-                theCellMap.SetValue(x, theCellMap.GetYMin() + edgeWidth, (int)MY_VALUE.NORMAL);
-            if (!N && theCellMap.GetValue(x, theCellMap.GetYMax() - edgeWidth) == (int)MY_VALUE.LOW)
-                theCellMap.SetValue(x, theCellMap.GetYMax() - edgeWidth, (int)MY_VALUE.NORMAL);
+
+            if (edgeTG == null)
+            {
+                if (!S && theCellMap.GetValue(x, theCellMap.GetYMin() + edgeWidth) == (int)MY_VALUE.LOW)
+                    theCellMap.SetValue(x, theCellMap.GetYMin() + edgeWidth, (int)MY_VALUE.NORMAL);
+                if (!N && theCellMap.GetValue(x, theCellMap.GetYMax() - edgeWidth) == (int)MY_VALUE.LOW)
+                    theCellMap.SetValue(x, theCellMap.GetYMax() - edgeWidth, (int)MY_VALUE.NORMAL);
+            }
+            else
+            {
+                if (!S)
+                    theCellMap.SetValue(x, theCellMap.GetYMin() + edgeWidth, (int)MY_VALUE.NORMAL);
+                if (!N)
+                    theCellMap.SetValue(x, theCellMap.GetYMax() - edgeWidth, (int)MY_VALUE.NORMAL);
+            }
         }
 
         for (int y = theCellMap.GetYMin(); y <= theCellMap.GetYMax(); y++)
@@ -432,10 +443,20 @@ public class MG_PerlinField : MG_PerlinNoise
                 if (!E)
                     theCellMap.SetValue(theCellMap.GetXMax() -i, y, iEdge);
             }
-            if (!W && theCellMap.GetValue(theCellMap.GetXMin() + edgeWidth, y) == (int)MY_VALUE.LOW)
-                theCellMap.SetValue(theCellMap.GetXMin() + edgeWidth, y, (int)MY_VALUE.NORMAL);
-            if (!E && theCellMap.GetValue(theCellMap.GetXMax() - edgeWidth, y) == (int)MY_VALUE.LOW)
-                theCellMap.SetValue(theCellMap.GetXMax() - edgeWidth, y, (int)MY_VALUE.NORMAL);
+            if (edgeTG == null)
+            {
+                if (!W && theCellMap.GetValue(theCellMap.GetXMin() + edgeWidth, y) == (int)MY_VALUE.LOW)
+                    theCellMap.SetValue(theCellMap.GetXMin() + edgeWidth, y, (int)MY_VALUE.NORMAL);
+                if (!E && theCellMap.GetValue(theCellMap.GetXMax() - edgeWidth, y) == (int)MY_VALUE.LOW)
+                    theCellMap.SetValue(theCellMap.GetXMax() - edgeWidth, y, (int)MY_VALUE.NORMAL);
+            }
+            else
+            {
+                if (!W && theCellMap.GetValue(theCellMap.GetXMin() + edgeWidth, y) != (int)MY_VALUE.EDGE)
+                    theCellMap.SetValue(theCellMap.GetXMin() + edgeWidth, y, (int)MY_VALUE.NORMAL);
+                if (!E && theCellMap.GetValue(theCellMap.GetXMax() - edgeWidth, y) != (int)MY_VALUE.EDGE)
+                    theCellMap.SetValue(theCellMap.GetXMax() - edgeWidth, y, (int)MY_VALUE.NORMAL);
+            }
         }
 
         //加入邊界傳送區

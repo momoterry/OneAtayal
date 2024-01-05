@@ -1548,6 +1548,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1032966888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1032966890}
+  - component: {fileID: 1032966891}
+  m_Layer: 0
+  m_Name: SeaEdge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1032966890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032966888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 921728900496089879}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1032966891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032966888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68ab9311db8512458b922dd67af2328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    UU: {fileID: 11400000, guid: 64694ddfca53a1345b69994894abc026, type: 2}
+    DD: {fileID: 11400000, guid: e7540da97ca66b641a8341c77ad9d71f, type: 2}
+    LL: {fileID: 11400000, guid: 0708dec9d023ba54ca1a9a467922d8c4, type: 2}
+    RR: {fileID: 11400000, guid: cf4a71ae3dbb63d4396f0df4280e57de, type: 2}
+    LU: {fileID: 11400000, guid: 2dd4b45c7c326ae498574b8a19bf7f9f, type: 2}
+    RU: {fileID: 11400000, guid: 3fbb966744b2cee47926114dc8ef773b, type: 2}
+    LD: {fileID: 11400000, guid: ca9a647540a1a8b4a8593fac7744838b, type: 2}
+    RD: {fileID: 11400000, guid: 008805f1d271a9942ba9aaf51b824b58, type: 2}
+    LU_S: {fileID: 11400000, guid: 9816ae3d23d590b45b295c2765f950a5, type: 2}
+    RU_S: {fileID: 11400000, guid: 8e9ccbb9a1e179649983224fe9e70d86, type: 2}
+    LD_S: {fileID: 11400000, guid: 486418478e160f445a384a7efd34189a, type: 2}
+    RD_S: {fileID: 11400000, guid: a07fd9b211968124b9f490fd9e3fad76, type: 2}
+    DD2: {fileID: 0}
+    LD2: {fileID: 0}
+    RD2: {fileID: 0}
+    LD_S2: {fileID: 11400000, guid: 0708dec9d023ba54ca1a9a467922d8c4, type: 2}
+    RD_S2: {fileID: 11400000, guid: cf4a71ae3dbb63d4396f0df4280e57de, type: 2}
+    UU2: {fileID: 11400000, guid: 3c19c7e88a4aa4a4da776457eddc1196, type: 2}
+    LU2: {fileID: 11400000, guid: caffd06a6091ebd46846db2831fc545c, type: 2}
+    RU2: {fileID: 11400000, guid: 94d8c56f20bd35d4faecac3ba219ac40, type: 2}
+    LU_S2: {fileID: 11400000, guid: 04b3e0aeb2b106f4e86e3e2385081496, type: 2}
+    RU_S2: {fileID: 11400000, guid: a3f597c439351d4468a7455fc85ac8ff, type: 2}
 --- !u!1 &1130639276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,6 +1776,54 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1326158947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1326158949}
+  - component: {fileID: 1326158948}
+  m_Layer: 0
+  m_Name: SeaTG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1326158948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326158947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4bc83c655d36f4a808fc12c660e692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    baseTile: {fileID: 11400000, guid: 24c12ac5c25d7794585bc03e71b9f690, type: 2}
+    decorateTiles: []
+    decorateRate: 0.03
+--- !u!4 &1326158949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326158947}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 921728900496089879}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1439518096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4275894634175769932, guid: b04abafe2fc6ce841ab40e2108861fce, type: 3}
@@ -1950,15 +2065,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160138, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.3254902
+      value: 0.70980394
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160138, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.6901961
+      value: 0.35686275
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160138, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.5058824
+      value: 0.12941177
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2741,6 +2856,8 @@ Transform:
   - {fileID: 183520710}
   - {fileID: 115545864}
   - {fileID: 27125529}
+  - {fileID: 1326158949}
+  - {fileID: 1032966890}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2779,7 +2896,7 @@ MonoBehaviour:
   - name: CaveMiniAExit
     pos: {fileID: 0}
     faceAngle: 0
-  CellSize: 2
+  CellSize: 4
   mapCellWidthH: 20
   mapCellHeightH: 20
   theTileGroupLib: {fileID: 0}
@@ -2790,6 +2907,8 @@ MonoBehaviour:
   lowTGData: {fileID: 183520711}
   highEdgeTileGroupData: {fileID: 115545865}
   lowEdgeTileGroupData: {fileID: 27125530}
+  edgeTGData: {fileID: 1326158948}
+  edgeEdgeTileGroupData: {fileID: 1032966891}
   NoiseScaleOn256: 15
   highRatio: 0.4
   lowRatio: 0.35
