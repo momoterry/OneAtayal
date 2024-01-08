@@ -233,6 +233,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainLevels:
+  - ID: SD_CavArea
+    sceneName: CaveMiniA
+    prefix: "\u7B2C\u4E00\u5C64"
+    name: "\u5730\u6D1E\u5165\u53E3"
+    requireLevel: -1
+  - ID: SD_ForestArea
+    sceneName: MazeForestBattle
+    prefix: "\u7B2C\u4E94\u5C64"
+    name: "\u5730\u5E95\u68EE\u6797"
+    requireLevel: -1
+  - ID: SD_DesertArea
+    sceneName: MazeDesert
+    prefix: "\u7B2C\u4E5D\u5C64"
+    name: "\u6DF1\u6DF5\u6C99\u6F20"
+    requireLevel: -1
   - ID: 0_1
     sceneName: ForestBegin
     prefix: "\u5E8F\u7AE0"
@@ -338,7 +353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec009020bdff68e4da8b3b86cdb5bbb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forestScene: FieldOpenForest
 --- !u!1001 &7834770927938505534
 PrefabInstance:
   m_ObjectHideFlags: 0
