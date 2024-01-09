@@ -176,7 +176,7 @@ public class ScenePortal : MonoBehaviour
         }
     }
 
-    void DoLoadScene()
+    virtual protected void DoLoadScene()
     {
         if (sceneName == "")
         {

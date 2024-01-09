@@ -21,6 +21,7 @@ public class LevelMenuTrigger : MonoBehaviour
             }
             itemInfos[i] = new LevelItemInfo();
             itemInfos[i].ID = info.ID;
+            itemInfos[i].levelType = info.type;
             itemInfos[i].scene = info.sceneName;
             itemInfos[i].name = info.prefix + " " + info.name;
             string requireStr = info.requireLevel >= 0 ? info.requireLevel.ToString() : "??";

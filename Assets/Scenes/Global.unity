@@ -234,56 +234,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainLevels:
   - ID: SD_CavArea
-    sceneName: CaveMiniA
+    type: 1
+    sceneName: ForestCave01
     prefix: "\u7B2C\u4E00\u5C64"
     name: "\u5730\u6D1E\u5165\u53E3"
     requireLevel: -1
   - ID: SD_ForestArea
+    type: 0
     sceneName: MazeForestBattle
     prefix: "\u7B2C\u4E94\u5C64"
     name: "\u5730\u5E95\u68EE\u6797"
     requireLevel: -1
   - ID: SD_DesertArea
+    type: 0
     sceneName: MazeDesert
     prefix: "\u7B2C\u4E5D\u5C64"
     name: "\u6DF1\u6DF5\u6C99\u6F20"
     requireLevel: -1
   - ID: 0_1
+    type: 0
     sceneName: ForestBegin
     prefix: "\u5E8F\u7AE0"
     name: "\u68EE\u6797\u5165\u53E3"
     requireLevel: 1
   - ID: 1_1
+    type: 0
     sceneName: ForestSmall
     prefix: 1-1
     name: "\u77F3\u4E4B\u602A"
     requireLevel: 2
   - ID: 1_2
+    type: 0
     sceneName: ForestS2
     prefix: 1-2
     name: "\u6A39\u5996\u7684\u9006\u8972"
     requireLevel: 3
   - ID: 1_3
+    type: 0
     sceneName: ForestS3
     prefix: 1-3
     name: "\u4E0D\u7965\u68EE\u6797"
     requireLevel: 5
   - ID: 2_1
+    type: 0
     sceneName: Dun_M1
     prefix: 2-1
     name: "\u5730\u57CE\u5165\u53E3"
     requireLevel: 8
   - ID: 2_2
+    type: 0
     sceneName: Dun_H1
     prefix: 2-2
     name: "\u8FF7\u5BAE\u63A2\u7D22"
     requireLevel: 10
   - ID: 2_3
+    type: 0
     sceneName: Dun_H_Boss
     prefix: 2-3
     name: "\u53EF\u6015\u7684\u9ED1\u5F71"
     requireLevel: -1
   - ID: 2_4
+    type: 0
     sceneName: Dun_E1
     prefix: "\u7D42\u7AE0"
     name: "\u7CBE\u82F1\u6311\u6230"

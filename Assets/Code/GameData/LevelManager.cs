@@ -10,8 +10,14 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class LevelInfo
 {
+    public enum LEVEL_TYPE
+    {
+        SCENE,
+        DUNGEON,
+    }
     public string ID;
-    public string sceneName;
+    public LEVEL_TYPE type;
+    public string sceneName;        //當關卡類型是 Scene 時使用
     public string prefix;
     public string name;
     public int requireLevel;    //-1 表示 ??

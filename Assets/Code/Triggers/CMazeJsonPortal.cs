@@ -74,10 +74,32 @@ public class CMazeJsonPortal : ScenePortal
     {
         if (mazeData.levels.Length > 0 && mazeData.levels[0].scene != "")
         {
-            ContinuousBattleManager.StartNewBattle(mazeData.levels);
+            //ContinuousBattleManager.StartNewBattle(mazeData.levels);
 
-            sceneName = mazeData.levels[0].scene;
+            //sceneName = mazeData.levels[0].scene;
             base.DoTeleport();
+        }
+    }
+
+    protected override void DoLoadScene()
+    {
+        //base.DoLoadScene();
+        DoLoadJsonMazeScene(mazeData, backScene, backEntrance);
+    }
+
+    public static void DoLoadJsonMazeScene(CMazeJsonData data, string backScene = "", string backEntrance = "")
+    {
+        ContinuousBattleManager.StartNewBattle(data.levels);
+
+        string sceneName = data.levels[0].scene;
+        if (backScene != "")
+        {
+            BattleSystem.GetInstance().OnGotoSceneWithBack(sceneName, "", backScene, backEntrance);
+            //BattleSystem.GetInstance().OnGotoScene(sceneName, backEntrance);
+        }
+        else
+        {
+            BattleSystem.GetInstance().OnGotoScene(sceneName, "");
         }
     }
 }

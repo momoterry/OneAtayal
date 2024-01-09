@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class LevelItemInfo
 {
     public string ID;
+    public LevelInfo.LEVEL_TYPE levelType;
     public string scene;
     public string name;
     public string desc;
@@ -83,7 +84,20 @@ public class LevelSelectMenu : MonoBehaviour
 
     protected void DoGoToLevel()
     {
-        BattleSystem.GetInstance().OnGotoScene(levelToGo.scene);
+        //if (levelToGo.levelType == LevelInfo.LEVEL_TYPE.SCENE)
+        //    BattleSystem.GetInstance().OnGotoScene(levelToGo.scene);
+       
+        switch (levelToGo.levelType)
+        {
+            case LevelInfo.LEVEL_TYPE.SCENE:
+                BattleSystem.GetInstance().OnGotoScene(levelToGo.scene);
+                break;
+            case LevelInfo.LEVEL_TYPE.DUNGEON:
+                CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(levelToGo.scene);
+                if (data != null)
+                    CMazeJsonPortal.DoLoadJsonMazeScene(data);
+                break;
+        }
     }
 
     protected void ClearLevelMenuItems()
