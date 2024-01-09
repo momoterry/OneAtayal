@@ -235,13 +235,13 @@ MonoBehaviour:
   mainLevels:
   - ID: SD_CavArea
     type: 1
-    sceneName: ForestCave01
+    sceneName: BigDungeon_A1_Cave
     prefix: "\u7B2C\u4E00\u5C64"
     name: "\u5730\u6D1E\u5165\u53E3"
     requireLevel: -1
   - ID: SD_ForestArea
-    type: 0
-    sceneName: MazeForestBattle
+    type: 1
+    sceneName: BigDungeon_A1_Forest
     prefix: "\u7B2C\u4E94\u5C64"
     name: "\u5730\u5E95\u68EE\u6797"
     requireLevel: -1
@@ -349,6 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jsonFiles:
   - {fileID: 4900000, guid: a6e73c1297fec9246b9e9cfa130ae20a, type: 3}
+  - {fileID: 4900000, guid: ccbb43c754300ec44ba1dfc5282d0bc6, type: 3}
   objectRefs:
   - {fileID: 8303291338163373934, guid: e95d5cddaf0146a408a51c13d7229100, type: 3}
   - {fileID: 8303291338163373934, guid: ac09a92a1d28d5248ad78ce07229dd57, type: 3}
