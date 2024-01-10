@@ -29,14 +29,14 @@ public class CMazeJsonData  //一整個地城的資料內容 (包含每一層的迷宮)
 {
     public string ID;
     public string name;
-    public ContinuousMazeJsonData[] levels;
+    public ContinuousMazeJsonData[] battles;
     public void Convert(Dictionary<string, GameObject> refMap)
     {
-        Debug.Log("levels: " + levels);
-        for (int i = 0; i < levels.Length; i++)
+        Debug.Log("battles: " + battles);
+        for (int i = 0; i < battles.Length; i++)
         {
-            Debug.Log("level: " + i + " => " + levels[i]);
-            levels[i].Convert(refMap);
+            Debug.Log("battle: " + i + " => " + battles[i]);
+            battles[i].Convert(refMap);
         }
     }
 }
@@ -72,11 +72,11 @@ public class CMazeJsonPortal : ScenePortal
 
     protected override void DoTeleport()
     {
-        if (mazeData.levels.Length > 0 && mazeData.levels[0].scene != "")
+        if (mazeData.battles.Length > 0 && mazeData.battles[0].scene != "")
         {
-            //ContinuousBattleManager.StartNewBattle(mazeData.levels);
+            //ContinuousBattleManager.StartNewBattle(mazeData.battles);
 
-            //sceneName = mazeData.levels[0].scene;
+            //sceneName = mazeData.battles[0].scene;
             base.DoTeleport();
         }
     }
@@ -89,9 +89,9 @@ public class CMazeJsonPortal : ScenePortal
 
     public static void DoLoadJsonMazeScene(CMazeJsonData data, string backScene = "", string backEntrance = "")
     {
-        ContinuousBattleManager.StartNewBattle(data.levels);
+        ContinuousBattleManager.StartNewBattle(data.battles);
 
-        string sceneName = data.levels[0].scene;
+        string sceneName = data.battles[0].scene;
         if (backScene != "")
         {
             BattleSystem.GetInstance().OnGotoSceneWithBack(sceneName, "", backScene, backEntrance);

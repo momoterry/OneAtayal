@@ -15,9 +15,9 @@ public class ContinuousBattleManager : MonoBehaviour
 {
     static ContinuousBattleManager instance;
 
-    //protected List<ContinuousBattleDataBase> battleList = new List<ContinuousBattleDataBase>();
     protected ContinuousBattleDataBase[] currBattleArray = null;
     protected int currBattleIndex;
+    //連續戰鬥中，需要跨 Scene 繼續持有的戰鬥資料，如戰鬥升級等，只在換 Scene 時從 BattlePlayerData 取得
     protected BattlePlayerCrossSceneData battlePlayerData = null;
 
     protected bool isGoingContinuousBattle = false; //在開啟或進入 ContinuousBattle 時打開的 Flag，讓戰鬥離開時知道是否需要留下記錄
