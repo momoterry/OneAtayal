@@ -27,6 +27,9 @@ public class LevelSelectMenu : MonoBehaviour
     protected float fadeTime = 0.5f;
     protected float timeToFade = 0;
 
+    protected string backScene = "";
+    protected string backEntrance = "";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,8 +56,11 @@ public class LevelSelectMenu : MonoBehaviour
         }
     }
 
-    public void OpenMenu(LevelItemInfo[] levelInfos)
+    public void OpenMenu(LevelItemInfo[] levelInfos, string _backScene = "", string _backEntrance = "")
     {
+        backScene = _backScene;
+        backEntrance = _backEntrance;
+
         LevelMenuRoot.gameObject.SetActive(true);
         ClearLevelMenuItems();
 
@@ -95,7 +101,7 @@ public class LevelSelectMenu : MonoBehaviour
             case LevelInfo.LEVEL_TYPE.DUNGEON:
                 CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(levelToGo.scene);
                 if (data != null)
-                    CMazeJsonPortal.DoLoadJsonMazeScene(data);
+                    CMazeJsonPortal.DoLoadJsonMazeScene(data, backScene, backEntrance);
                 break;
         }
     }

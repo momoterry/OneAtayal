@@ -8,6 +8,9 @@ public class LevelMenuTrigger : MonoBehaviour
     protected LevelItemInfo[] itemInfos;
     public string[] levelIDs;
 
+    public string backScene = "";
+    public string backEntrance = "";
+
     private void Start()
     {
         itemInfos = new LevelItemInfo[levelIDs.Length];
@@ -33,7 +36,7 @@ public class LevelMenuTrigger : MonoBehaviour
     {
         if (theMenu)
         {
-            theMenu.OpenMenu(itemInfos);
+            theMenu.OpenMenu(itemInfos, backScene, backEntrance);
             whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
         }
     }
