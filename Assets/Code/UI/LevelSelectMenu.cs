@@ -101,7 +101,14 @@ public class LevelSelectMenu : MonoBehaviour
             case LevelInfo.LEVEL_TYPE.DUNGEON:
                 CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(levelToGo.scene);
                 if (data != null)
+                {
+                    data.levelID = levelToGo.ID;
+                    foreach (ContinuousMazeData mData in data.battles)
+                    {
+                        mData.levelID = levelToGo.ID;
+                    }
                     CMazeJsonPortal.DoLoadJsonMazeScene(data, backScene, backEntrance);
+                }
                 break;
         }
     }

@@ -25,6 +25,10 @@ public class MapGeneratorBase : MonoBehaviour
     public virtual void SetEntrance(string _ID) { 
         entranceID = _ID;
         //print("SetEntrance: " + _ID);
+        if (entraceList == null)
+        {
+            return;
+        }
         for (int i=0; i < entraceList.Length;i++)
         {
             if (_ID == entraceList[i].name)

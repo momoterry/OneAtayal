@@ -51,6 +51,10 @@ public class LevelManager : MonoBehaviour
 
     public string GetCurrLevelID()
     {
+        if (BattleSystem.GetInstance() && BattleSystem.GetInstance().levelID != "")
+        {
+            return BattleSystem.GetInstance().levelID;
+        }
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneLevelMap.ContainsKey(sceneName))
         {
@@ -86,7 +90,7 @@ public class LevelManager : MonoBehaviour
             return;
         }
         int i = levelMap[levelID];
-        if (i+1 < mainLevels.Length)
+        if (i + 1 < mainLevels.Length)
         {
             string toOpenLevelID = mainLevels[i + 1].ID;
             SetLevelOpen(toOpenLevelID);
@@ -112,7 +116,7 @@ public class LevelManager : MonoBehaviour
         return isClear;
     }
 
-    public LevelInfo GetLevelInfo( string levelID)
+    public LevelInfo GetLevelInfo(string levelID)
     {
         if (levelMap.ContainsKey(levelID))
         {
@@ -123,7 +127,7 @@ public class LevelManager : MonoBehaviour
 
     public void DebugClearAllMainLevels()
     {
-        for (int i=0; i<mainLevels.Length; i++)
+        for (int i = 0; i < mainLevels.Length; i++)
         {
             SetLevelClear(mainLevels[i].ID);
             print("Clear : " + mainLevels[i].ID);

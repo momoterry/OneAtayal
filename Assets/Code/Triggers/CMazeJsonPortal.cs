@@ -30,12 +30,14 @@ public class CMazeJsonData  //一整個地城的資料內容 (包含每一層的迷宮)
     public string ID;
     public string name;
     public ContinuousMazeJsonData[] battles;
+    public string levelID;  //如果是一個地城 level 的時候才會有值
+
     public void Convert(Dictionary<string, GameObject> refMap)
     {
-        Debug.Log("battles: " + battles);
+        //Debug.Log("battles: " + battles);
         for (int i = 0; i < battles.Length; i++)
         {
-            Debug.Log("battle: " + i + " => " + battles[i]);
+            //Debug.Log("battle: " + i + " => " + battles[i]);
             battles[i].Convert(refMap);
         }
     }

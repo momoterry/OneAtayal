@@ -19,6 +19,12 @@ public class ContinuousNextPortal : ScenePortal
         {
             sceneName = "";
             //print("ContinuousNextPortal1!! 沒有資料，回到營地 !!");
+            print("ContinuousNextPortal1!! 沒有資料, 連續戰鬥結束!!");
+            if (BattleSystem.GetInstance().levelID != "")
+            {
+                print("ContinuousNextPortal1!! 關卡完成 " + BattleSystem.GetInstance().levelID);
+                GameSystem.GetInstance().theLevelManager.SetLevelClear(BattleSystem.GetInstance().levelID);
+            }
         }
         base.DoTeleport();
     }

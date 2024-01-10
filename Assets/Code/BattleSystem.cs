@@ -11,6 +11,7 @@ public class BattleSystem : MonoBehaviour
     public Battle_HUD theBattleHUD;
     public string backScene = "StartMenu";
     public string backEntrance = "";
+    public string levelID = "";  //如果有指定的話，就是屬於 LevelManager 中的指定 ID
     //public VPad theVPad;
 
     public MapGeneratorBase theMG;

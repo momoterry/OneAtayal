@@ -57,7 +57,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     public GameObject initGampleyRef;
 
-    //邊?裝飾物件
+    //裝飾物件
     public MapDecadeGenerator decadeGenerator;
 
 
@@ -243,6 +243,11 @@ public class MG_MazeDungeon : MapGeneratorBase
                 else if (cData.maxExploreReward > 0)
                 {
                     exploreRewardNum = Mathf.Min(exploreRewardNum, cData.maxExploreReward);
+                }
+
+                if (cData.levelID != null)
+                {
+                    BattleSystem.GetInstance().levelID = cData.levelID;
                 }
             }
             else
