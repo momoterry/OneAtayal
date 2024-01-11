@@ -134,4 +134,38 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    //==================================== 直接由 LevelManager 處理關卡載入的實操作
+    public void GotoLevel(string levelID, string backScene = "", string backEntrance = "")
+    {
+        LevelInfo info = GetLevelInfo(levelID);
+        if (info == null)
+        {
+            print("ERROR!!!! GotoLevel Error, no such level ID: " + levelID);
+            return;
+        }
+
+        switch (info.type)
+        {
+            case LevelInfo.LEVEL_TYPE.SCENE:
+                //print("Goto Level: (SCENE):" + info.sceneName);
+                BattleSystem.GetInstance().OnGotoScene(info.sceneName);
+                break;
+            case LevelInfo.LEVEL_TYPE.DUNGEON:
+                CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(info.sceneName);
+                if (data != null)
+                {
+                    //print("Goto Level: (DUNGEON):" + info.sceneName);
+                    data.levelID = levelID;
+                    foreach (ContinuousMazeData mData in data.battles)
+                    {
+                        mData.levelID = levelID;
+                    }
+                    CMazeJsonPortal.DoLoadJsonMazeScene(data, backScene, backEntrance);
+                }
+                break;
+        }
+
+    }
+
+
 }

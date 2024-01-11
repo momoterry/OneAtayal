@@ -90,27 +90,25 @@ public class LevelSelectMenu : MonoBehaviour
 
     protected void DoGoToLevel()
     {
-        //if (levelToGo.levelType == LevelInfo.LEVEL_TYPE.SCENE)
-        //    BattleSystem.GetInstance().OnGotoScene(levelToGo.scene);
-       
-        switch (levelToGo.levelType)
-        {
-            case LevelInfo.LEVEL_TYPE.SCENE:
-                BattleSystem.GetInstance().OnGotoScene(levelToGo.scene);
-                break;
-            case LevelInfo.LEVEL_TYPE.DUNGEON:
-                CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(levelToGo.scene);
-                if (data != null)
-                {
-                    data.levelID = levelToGo.ID;
-                    foreach (ContinuousMazeData mData in data.battles)
-                    {
-                        mData.levelID = levelToGo.ID;
-                    }
-                    CMazeJsonPortal.DoLoadJsonMazeScene(data, backScene, backEntrance);
-                }
-                break;
-        }
+        GameSystem.GetInstance().theLevelManager.GotoLevel(levelToGo.ID, backScene, backEntrance);
+        //switch (levelToGo.levelType)
+        //{
+        //    case LevelInfo.LEVEL_TYPE.SCENE:
+        //        BattleSystem.GetInstance().OnGotoScene(levelToGo.scene);
+        //        break;
+        //    case LevelInfo.LEVEL_TYPE.DUNGEON:
+        //        CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(levelToGo.scene);
+        //        if (data != null)
+        //        {
+        //            data.levelID = levelToGo.ID;
+        //            foreach (ContinuousMazeData mData in data.battles)
+        //            {
+        //                mData.levelID = levelToGo.ID;
+        //            }
+        //            CMazeJsonPortal.DoLoadJsonMazeScene(data, backScene, backEntrance);
+        //        }
+        //        break;
+        //}
     }
 
     protected void ClearLevelMenuItems()
