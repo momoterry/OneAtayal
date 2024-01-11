@@ -167,5 +167,15 @@ public class LevelManager : MonoBehaviour
 
     }
 
-
+    public LevelInfo GetNextLevel(string levelID)
+    {
+        for (int i=0; i < (mainLevels.Length-1); i++)
+        {
+            if (mainLevels[i].ID == levelID)
+            {
+                return mainLevels[i + 1];
+            }
+        }
+        return null;
+    }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ContinuousNextPortal : ScenePortal
 {
+    public bool gotoNextLevelOnFinish = false;
     //protected override void DoTeleport()
     //{
     //    ContinuousBattleManager.GotoNextBattle();
@@ -52,10 +53,21 @@ public class ContinuousNextPortal : ScenePortal
         {
             //sceneName = "";
             //print("ContinuousNextPortal1!! 沒有資料, 連續戰鬥結束, 準備回城!!");
-            if (BattleSystem.GetInstance().levelID != "")
+            string currLevelID = BattleSystem.GetInstance().levelID;
+            if (currLevelID != "")
             {
                 //print("ContinuousNextPortal1!! 關卡完成 " + BattleSystem.GetInstance().levelID);
-                GameSystem.GetInstance().theLevelManager.SetLevelClear(BattleSystem.GetInstance().levelID);
+                GameSystem.GetInstance().theLevelManager.SetLevelClear(currLevelID);
+                if (gotoNextLevelOnFinish)
+                {
+                    LevelInfo nextLevel = GameSystem.GetInstance().theLevelManager.GetNextLevel(currLevelID);
+                    if (nextLevel != null)
+                    {
+                        print("直接往下一關進發 !! " + nextLevel.ID);
+                        GameSystem.GetInstance().theLevelManager.GotoLevel(nextLevel.ID);
+                        return;
+                    }
+                }
             }
 
             BattleSystem.GetInstance().OnBackPrevScene();
