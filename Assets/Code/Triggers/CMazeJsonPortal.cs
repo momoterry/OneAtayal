@@ -8,10 +8,11 @@ using UnityEngine.InputSystem.Interactions;
 public class ContinuousMazeJsonData : ContinuousMazeData
 {
     public string dungeonEnemyManager_ID;
+    public string initGampleyRef_ID;
 
     public void Convert(Dictionary<string, GameObject> refMap)
     {
-        if (dungeonEnemyManager_ID != null)
+        if (dungeonEnemyManager_ID != null && dungeonEnemyManager_ID != "")
         {
             GameObject o = refMap[dungeonEnemyManager_ID];
             if (o)
@@ -19,6 +20,11 @@ public class ContinuousMazeJsonData : ContinuousMazeData
                 dungeonEnemyManager = o.GetComponent<DungeonEnemyManager>();
                 //Debug.Log("有有有，有看到 DungeonManager: " + dungeonEnemyManager_ID);
             }
+        }
+        if (initGampleyRef_ID != null && initGampleyRef_ID != "")
+        {
+            //Debug.Log("有有有，有看到 initGampleyRef: " + initGampleyRef_ID);
+            initGameplayRef = refMap[initGampleyRef_ID];
         }
 
     }
