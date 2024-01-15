@@ -123,6 +123,80 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &123536157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 123536158}
+  - component: {fileID: 123536159}
+  m_Layer: 0
+  m_Name: ForestDecade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &123536158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123536157}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806008470}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &123536159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123536157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00ea0d3670326a4ba54e7aaca9c8bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decades:
+  - decadeObjRef: {fileID: 9012201109167824958, guid: a3367b009f3cebc4c81079a6c167e696, type: 3}
+    ratePercent: 0.5
+    posShift: {x: 0, y: 0, z: 0}
+    upBound: 0
+    lowBound: 0
+    leftBound: 0
+    rightBound: 0
+  - decadeObjRef: {fileID: 5208935664984992519, guid: df424259a9b85354096b1c9e43752758, type: 3}
+    ratePercent: 0.5
+    posShift: {x: 0, y: 0, z: 0}
+    upBound: 0
+    lowBound: 0
+    leftBound: 0
+    rightBound: 0
+  - decadeObjRef: {fileID: 5771173703211685343, guid: 77d1df5ce88f2fa4db89eb196aae4c31, type: 3}
+    ratePercent: 0.5
+    posShift: {x: 0, y: 0, z: 0}
+    upBound: 0
+    lowBound: 0
+    leftBound: 0
+    rightBound: 0
+  - decadeObjRef: {fileID: 8385347139642117392, guid: cb9ac00f61c1cd242b173fe352480ba9, type: 3}
+    ratePercent: 15
+    posShift: {x: 0, y: 0, z: 1.5}
+    upBound: 1
+    lowBound: 0
+    leftBound: 1
+    rightBound: 1
+  decadeDefaultArea: 0
 --- !u!114 &210802122 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2946355047569297642, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
@@ -1956,7 +2030,7 @@ MonoBehaviour:
   - {fileID: 4032685806379418579, guid: 24370a31510131746805bfc36062d4d5, type: 3}
   - {fileID: 4032685806379418579, guid: 09da63a85b90a964f8f135664ce7cc04, type: 3}
   initGampleyRef: {fileID: 0}
-  decadeGenerator: {fileID: 0}
+  decadeGenerator: {fileID: 123536159}
 --- !u!4 &1806008470
 Transform:
   m_ObjectHideFlags: 0
@@ -1974,6 +2048,7 @@ Transform:
   - {fileID: 645653465}
   - {fileID: 1643079205}
   - {fileID: 1976327562}
+  - {fileID: 123536158}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
