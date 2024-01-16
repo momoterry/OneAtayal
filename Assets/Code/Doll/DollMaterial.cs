@@ -23,5 +23,14 @@ public class DollMaterial : MonoBehaviour
     public void OnConvertToMaterial()
     {
         print("OnConvertToMaterial.... " + gameObject.name);
+        Doll doll = GetComponent<Doll>();
+        if (doll)
+        {
+            GameSystem.GetPlayerData().AddItem("Mat_DollOne");
+
+            gameObject.SendMessage("OnLeavePlayer", SendMessageOptions.DontRequireReceiver);
+            BattleSystem.GetPC().GetDollManager().OnDollDestroy(doll);
+            Destroy(gameObject);
+        }
     }
 }

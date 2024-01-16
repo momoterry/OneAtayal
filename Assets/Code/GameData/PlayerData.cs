@@ -7,6 +7,13 @@ using UnityEngine;
 //PlayerData 記錄玩家跨關卡間的進度內容
 //都要加上 [System.Serializable] 才能確保被 Json 轉到
 [System.Serializable]
+public struct SaveDataItem
+{
+    public string ID;
+    public int num;
+}
+
+[System.Serializable]
 public struct SaveDataBackpckItem
 {
     public string ID;
@@ -58,6 +65,7 @@ public class SaveData{
     public CharacterStat mainCharacterStat;
     public string[] usingDollList;
     public FormationDollInfo[] formationDollList;
+    public SaveDataItem[] itemData;
     public SaveDataBackpckItem[] dollBackpack;
     public SaveDataEventItem[] eventData;
     public DollInstanceData[] usingDIs;
@@ -80,6 +88,7 @@ public class PlayerData : MonoBehaviour
     protected List<string> usingDollList = new List<string>();
     protected List<FormationDollInfo> formationDollList = new List<FormationDollInfo>();
 
+    protected Dictionary<string, int> itemData = new Dictionary<string, int>();
     protected Dictionary<string, int> dollBackpack = new Dictionary<string, int>();
 
     //地圖記錄
@@ -123,6 +132,7 @@ public class PlayerData : MonoBehaviour
         usingDIs.Clear();
         usingDollList.Clear();
         formationDollList.Clear();
+        itemData.Clear();
         dollBackpack.Clear();
         eventData.Clear();
         savedMaps.Clear();
@@ -196,6 +206,18 @@ public class PlayerData : MonoBehaviour
             }
         }
 
+        if (itemData.Count > 0)
+        {
+            data.itemData = new SaveDataItem[itemData.Count];
+            int i = 0;
+            foreach (KeyValuePair<string, int> k in itemData)
+            {
+                data.itemData[i].ID = k.Key;
+                data.itemData[i].num = k.Value;
+                i++;
+            }
+        }
+
         if (dollBackpack.Count > 0)
         {
             data.dollBackpack = new SaveDataBackpckItem[dollBackpack.Count];
@@ -260,6 +282,16 @@ public class PlayerData : MonoBehaviour
             for (int i = 0; i < data.formationDollList.Length; i++)
             {
                 AddUsingDoll(data.formationDollList[i].dollID, data.formationDollList[i].group, data.formationDollList[i].index);
+            }
+        }
+
+        if (data.itemData != null && data.itemData.Length > 0)
+        {
+            for (int i = 0; i < data.itemData.Length; i++)
+            {
+                //AddDollToBackpack(data.itemData[i].ID, data.itemData[i].num);
+                //itemData.Add(data.itemData[i].ID, data.itemData[i].num);
+                AddItem(data.itemData[i].ID, data.itemData[i].num);
             }
         }
 
@@ -422,6 +454,18 @@ public class PlayerData : MonoBehaviour
     {
         usingDollList.Clear();
         formationDollList.Clear();
+    }
+
+    public void AddItem(string ID, int add = 1)
+    {
+        if (itemData.ContainsKey(ID))
+        {
+            itemData[ID] += add;
+        }
+        else
+        {
+            itemData.Add(ID, add);
+        }
     }
 
     public void AddDollToBackpack( string dollID, int add = 1 )

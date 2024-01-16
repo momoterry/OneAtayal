@@ -13,13 +13,20 @@ public class DollMaterialConverter : MonoBehaviour
     protected void ConvertAll()
     {
         List<Doll> dolls = BattleSystem.GetPC().GetDollManager().GetDolls();
+        List<DollMaterial> dmList = new List<DollMaterial>();
         foreach (Doll d in dolls)
         {
             DollMaterial m = d.GetComponent<DollMaterial>();
             if (m != null)
             {
-                m.OnConvertToMaterial();
+                dmList.Add(m);
+                //m.OnConvertToMaterial();
             }
+        }
+
+        foreach (DollMaterial dm in dmList)
+        {
+            dm.OnConvertToMaterial();
         }
     }
 }
