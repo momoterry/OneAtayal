@@ -28,6 +28,9 @@ public class GameSystem : MonoBehaviour
     public const string INVALID_ID = "INVALID_ID";
     protected string nickName = "";
 
+    //一般方便開發中切換的遊戲方向設定
+    public bool showBasicLevelUp = true;
+
     //TODO: 這部份應該改到 PlayerData 中
     protected GameObject playerCharacterRef = null;
 

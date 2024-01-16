@@ -8,6 +8,7 @@ public class Battle_HUD : MonoBehaviour
     // Start is called before the first frame update
 
     // LV / EXP
+    public GameObject BasicLevelRoot;
     public Text LVText;
     public Slider expBar;
 
@@ -25,7 +26,7 @@ public class Battle_HUD : MonoBehaviour
     public Text DollMaxText;
 
     //關卡資訊
-    public GameObject levelRoot;    //用來開關
+    public GameObject levelRoot;    //關卡名稱的 Root，用來開關
     public Text levelText;
 
     //Mini Map
@@ -198,6 +199,10 @@ public class Battle_HUD : MonoBehaviour
 
         if (BattleLevelUpRoot)
             BattleLevelUpRoot.SetActive(BattleSystem.GetInstance().IsBattleLevelUp);
+        if (BasicLevelRoot)
+        {
+            BasicLevelRoot.SetActive(GameSystem.GetInstance().showBasicLevelUp && (!BattleSystem.GetInstance().IsBattleLevelUp));
+        }
 
         CheckScreenResolution();
 
