@@ -19,10 +19,16 @@ public class DollCollect : MonoBehaviour
         {
             print("ERROR !!!! There is no Doll as child of DollCollct !!");
         }
+
+        if (!collectForever)
+        {
+            //野生 Doll 的處理
+            DollMaterial m = theDoll.gameObject.AddComponent<DollMaterial>();
+        }
     }
 
 
-    void OnTG(GameObject whoTG)
+    public void OnTG(GameObject whoTG)
     {
         //print("DollCollect OnTG");
 
