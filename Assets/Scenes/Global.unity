@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 327809246}
   - component: {fileID: 327809247}
   - component: {fileID: 327809248}
+  - component: {fileID: 327809256}
   - component: {fileID: 327809249}
   - component: {fileID: 327809250}
   - component: {fileID: 327809251}
@@ -182,6 +183,7 @@ MonoBehaviour:
   theWorldMap: {fileID: 327809255}
   isOnlineSave: 0
   theOnlineSaveLoad: {fileID: 327809251}
+  showBasicLevelUp: 1
   useDirectionControl: 1
 --- !u!114 &327809248
 MonoBehaviour:
@@ -367,6 +369,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec009020bdff68e4da8b3b86cdb5bbb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &327809256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327809245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56eaeb93b30d3b4d93794f6dc22371e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfos:
+  - ID: Mat_DollOne
+    type: 0
+    Name: "\u65E5\u9748\u77F3"
+    Icon: {fileID: 299799174, guid: 5bef06e9263e55d4389e4fa6935d5eac, type: 3}
+  - ID: Mat_DollStone
+    type: 0
+    Name: "\u77F3\u9748\u77F3"
+    Icon: {fileID: 21300000, guid: 641eda9abb6de0143bd78d85e15551ae, type: 3}
 --- !u!1001 &7834770927938505534
 PrefabInstance:
   m_ObjectHideFlags: 0

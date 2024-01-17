@@ -26,7 +26,10 @@ public class DollMaterial : MonoBehaviour
         Doll doll = GetComponent<Doll>();
         if (doll)
         {
-            GameSystem.GetPlayerData().AddItem("Mat_DollOne");
+            string matID = ItemDef.GetDollMaterialID(doll.ID);
+            GameSystem.GetPlayerData().AddItem(matID);
+
+            print("加入了 Item: " + matID + ", 名稱為:" + ItemDef.GetInstance().GetItemInfo(matID).Name);
 
             gameObject.SendMessage("OnLeavePlayer", SendMessageOptions.DontRequireReceiver);
             BattleSystem.GetPC().GetDollManager().OnDollDestroy(doll);
