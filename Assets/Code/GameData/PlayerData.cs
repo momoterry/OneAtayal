@@ -456,6 +456,12 @@ public class PlayerData : MonoBehaviour
         formationDollList.Clear();
     }
 
+
+    public Dictionary<string, int> GetItemInventory()
+    {
+        return itemData;
+    }
+
     public void AddItem(string ID, int add = 1)
     {
         if (itemData.ContainsKey(ID))
