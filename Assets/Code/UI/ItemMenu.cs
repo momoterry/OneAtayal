@@ -9,7 +9,7 @@ public class ItemMenu : MonoBehaviour
 
     protected List<GameObject> itemList = new List<GameObject>();
 
-    public void OpenMenu(DollShopItemInfo[] infos)
+    public void OpenMenu()
     {
         if (MenuRoot)
         {
@@ -47,6 +47,7 @@ public class ItemMenu : MonoBehaviour
         foreach ( KeyValuePair<string, int> p in items)
         {
             GameObject itemObj = Instantiate(ItemRef, MenuRoot);
+            itemObj.SetActive(true);
             RectTransform rt = itemObj.GetComponent<RectTransform>();
             if (rt)
             {
