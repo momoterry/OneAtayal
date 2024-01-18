@@ -22,7 +22,7 @@ public class DollMaterial : MonoBehaviour
 
     public void OnConvertToMaterial()
     {
-        print("OnConvertToMaterial.... " + gameObject.name);
+        //print("OnConvertToMaterial.... " + gameObject.name);
         Doll doll = GetComponent<Doll>();
         if (doll)
         {

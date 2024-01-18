@@ -46,6 +46,12 @@ public class ItemMenu : MonoBehaviour
         int i = 0;
         foreach ( KeyValuePair<string, int> p in items)
         {
+            ItemInfo iInfo = ItemDef.GetInstance().GetItemInfo(p.Key);
+            if (iInfo == null)
+            {
+                print("ERROR!! No suck Item ID: " + p.Key);
+                continue;
+            }
             GameObject itemObj = Instantiate(ItemRef, MenuRoot);
             itemObj.SetActive(true);
             RectTransform rt = itemObj.GetComponent<RectTransform>();
@@ -56,6 +62,8 @@ public class ItemMenu : MonoBehaviour
             itemList.Add(itemObj);
 
             ItemMenuItem item = itemObj.GetComponent<ItemMenuItem>();
+            item.InitValue(iInfo, p.Value);
+
             i++;
         }
     }

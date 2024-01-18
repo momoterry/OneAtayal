@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemMenuItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Text nameText;
+    public Text numText;
+    public Image itemIcon;
 
-    // Update is called once per frame
-    void Update()
+    public void InitValue(ItemInfo iInfo, int num)
     {
-        
+        nameText.text = iInfo.Name;
+        itemIcon.sprite = iInfo.Icon;
+        numText.text = num.ToString();
     }
 }
