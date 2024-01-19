@@ -28,7 +28,6 @@ public class ItemMenu : MonoBehaviour
             MenuRoot.gameObject.SetActive(false);
         }
         BattleSystem.GetPC().ForceStop(false);
-        //GameSystem.GetInstance().SaveData();
     }
 
     protected void ClearAllItems()
