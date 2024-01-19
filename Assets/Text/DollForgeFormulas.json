@@ -4,7 +4,30 @@
 		{
 			"outputID":"DollOne",
 			"outputType":1,
-			"inputs":[]
+			"requireMoney":300,
+			"inputs":
+			[
+				{
+					"ID":"Mat_DollOne",
+					"num":2
+				}
+			]
+		},
+		{
+			"outputID":"DollStone",
+			"outputType":1,
+			"requireMoney":400,
+			"inputs":
+			[
+				{
+					"ID":"Mat_DollOne",
+					"num":1
+				},
+				{
+					"ID":"Mat_DollStone",
+					"num":2
+				}
+			]
 		}
 	]
 }

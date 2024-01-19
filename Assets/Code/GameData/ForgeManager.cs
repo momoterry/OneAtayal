@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class ForgeMaterialInfo
 {
-    public string itemID;
-    public int requireNum;
+    public string matID;
+    public int num;
 }
 
 [System.Serializable]
@@ -14,6 +14,7 @@ public class ForgeFormula
 {
     public string outputID;
     public ITEM_TYPE outputType;
+    public int requireMoney;
     public ForgeMaterialInfo[] inputs;
 }
 
@@ -27,16 +28,24 @@ public class ForgeFormulaJsonData       //寫在 Json 檔中的格式
 public class ForgeManager : MonoBehaviour
 {
     public TextAsset[] formulaJsons;
+    protected List<ForgeFormula> formulaList = new List<ForgeFormula>();
+
+    static protected ForgeManager instance;
+    public static ForgeManager GetInstance() { return instance; }
 
     private void Awake()
     {
-        ForgeFormulaJsonData jTest = new ForgeFormulaJsonData();
-        jTest.formulas = new ForgeFormula[1];
-        jTest.formulas[0] = new ForgeFormula();
-        jTest.formulas[0].outputID = "TestDollItem";
-        jTest.formulas[0].outputType = ITEM_TYPE.DOLL;
-        print("測試 Forge Json");
-        print(JsonUtility.ToJson(jTest));
+        if (instance != null)
+            print("ERROR !! 超過一份 ForgeManager 存在 ");
+        instance = this;
+
+        //ForgeFormulaJsonData jTest = new ForgeFormulaJsonData();
+        //jTest.formulas = new ForgeFormula[1];
+        //jTest.formulas[0] = new ForgeFormula();
+        //jTest.formulas[0].outputID = "TestDollItem";
+        //jTest.formulas[0].outputType = ITEM_TYPE.DOLL;
+        //print("測試 Forge Json");
+        //print(JsonUtility.ToJson(jTest));
 
         for (int i = 0; i < formulaJsons.Length; i++)
         {
@@ -46,7 +55,14 @@ public class ForgeManager : MonoBehaviour
 
             for (int j = 0; j < jFormulas.formulas.Length; j++)
             {
+                formulaList.Add(jFormulas.formulas[j]);
             }
         }
     }
+
+    public List<ForgeFormula> GetValidFormulas()
+    {
+        return formulaList;
+    }
+
 }
