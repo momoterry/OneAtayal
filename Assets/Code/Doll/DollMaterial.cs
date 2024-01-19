@@ -27,8 +27,14 @@ public class DollMaterial : MonoBehaviour
         if (doll)
         {
             string matID = ItemDef.GetDollMaterialID(doll.ID);
-            GameSystem.GetPlayerData().AddItem(matID);
+            ItemInfo iInfo = ItemDef.GetInstance().GetItemInfo(matID);
+            if (iInfo == null)
+            {
+                print("無法轉換成素材的野巫靈: " + doll.ID);
+                return;
+            }
 
+            GameSystem.GetPlayerData().AddItem(matID);
             print("加入了 Item: " + matID + ", 名稱為:" + ItemDef.GetInstance().GetItemInfo(matID).Name);
 
             gameObject.SendMessage("OnLeavePlayer", SendMessageOptions.DontRequireReceiver);

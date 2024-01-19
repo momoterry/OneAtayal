@@ -41,6 +41,11 @@ public class ItemDef : MonoBehaviour
 
     public ItemInfo GetItemInfo(string ID) 
     {
+        if (!itemMap.ContainsKey(ID))
+        {
+            print("ERROR!! no such Item ID: " + ID);
+            return null;
+        }
         return itemMap[ID];
     }
 

@@ -53,6 +53,10 @@ public class ForgeMenu : MonoBehaviour
             GameObject o = Instantiate(itemRef, MenuRoot);
             RectTransform rt = o.GetComponent<RectTransform>();
             rt.anchoredPosition = pos2;
+
+            ForgeMenuItem item = o.GetComponent<ForgeMenuItem>();
+            item.InitValue(f);
+
             o.SetActive(true);
             pos2.y -= itemStep;
             i++;
