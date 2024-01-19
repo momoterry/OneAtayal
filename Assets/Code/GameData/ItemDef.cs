@@ -6,7 +6,8 @@ using UnityEngine;
 
 public enum ITEM_TYPE
 {
-    MATERIAL,
+    MATERIAL    = 0,
+    DOLL        = 1,
 }
 [System.Serializable]
 public class ItemInfo

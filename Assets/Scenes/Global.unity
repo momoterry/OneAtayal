@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 327809253}
   - component: {fileID: 327809254}
   - component: {fileID: 327809255}
+  - component: {fileID: 327809257}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -398,6 +399,20 @@ MonoBehaviour:
     type: 0
     Name: "\u706B\u9748\u77F3"
     Icon: {fileID: -820080628, guid: 627e206e3d5b17e48a789d69eed93871, type: 3}
+--- !u!114 &327809257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327809245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50ba1412413324438dce3d7907625f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formulaJsons:
+  - {fileID: 4900000, guid: 35587dcee9d4712499dabea4a137d5f4, type: 3}
 --- !u!1001 &7834770927938505534
 PrefabInstance:
   m_ObjectHideFlags: 0
