@@ -11,6 +11,11 @@ public class ForgeMenu : MonoBehaviour
 
     protected List<GameObject> itemList = new List<GameObject>();
 
+    void Awake()
+    {
+        MenuRoot.gameObject.SetActive(false);
+    }
+
     public void OpenMenu()
     {
         if (MenuRoot)

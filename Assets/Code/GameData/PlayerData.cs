@@ -462,6 +462,18 @@ public class PlayerData : MonoBehaviour
         return itemData;
     }
 
+    public int GetItemNum(string ID)
+    {
+        if (itemData.ContainsKey(ID))
+        {
+            return itemData[ID];
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public void AddItem(string ID, int add = 1)
     {
         if (itemData.ContainsKey(ID))

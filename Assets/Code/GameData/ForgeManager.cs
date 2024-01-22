@@ -44,6 +44,10 @@ public class ForgeManager : MonoBehaviour
         //jTest.formulas[0] = new ForgeFormula();
         //jTest.formulas[0].outputID = "TestDollItem";
         //jTest.formulas[0].outputType = ITEM_TYPE.DOLL;
+        //jTest.formulas[0].inputs = new ForgeMaterialInfo[1];
+        //jTest.formulas[0].inputs[0] = new ForgeMaterialInfo();
+        //jTest.formulas[0].inputs[0].matID = "TestMatOne";
+        //jTest.formulas[0].inputs[0].num = 3;
         //print("ด๚ธี Forge Json");
         //print(JsonUtility.ToJson(jTest));
 
@@ -55,7 +59,12 @@ public class ForgeManager : MonoBehaviour
 
             for (int j = 0; j < jFormulas.formulas.Length; j++)
             {
+                //print("Output:" + jFormulas.formulas[j].outputID + "Input:" + jFormulas.formulas[j].inputs);
                 formulaList.Add(jFormulas.formulas[j]);
+                //for (int k=0; k< jFormulas.formulas[j].inputs.Length; k++)
+                //{
+                //    print("Input: " + jFormulas.formulas[j].inputs[k].matID);
+                //}
             }
         }
     }
