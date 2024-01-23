@@ -9,6 +9,7 @@ public class ForgeMenuItem : MonoBehaviour
 {
     public Image resultIcon;
     public Text resultText;
+    public Text costText;
     public GameObject matItemRef;
     public Transform matMenuRoot;
 
@@ -24,6 +25,7 @@ public class ForgeMenuItem : MonoBehaviour
         Doll doll = dInfo.objRef.GetComponent<Doll>();
         resultIcon.sprite = doll.icon;
         resultText.text = dInfo.dollName;
+        costText.text = formula.requireMoney.ToString();
 
         RectTransform refRT = matItemRef.GetComponent<RectTransform>();
         Vector2 pos = refRT.anchoredPosition;

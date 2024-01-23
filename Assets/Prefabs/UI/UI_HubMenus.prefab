@@ -805,6 +805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultIcon: {fileID: 6142134979362547599}
   resultText: {fileID: 3716360525596361818}
+  costText: {fileID: 1888579071830396026}
   matItemRef: {fileID: 5256540303333677150}
   matMenuRoot: {fileID: 1087320203869582853}
 --- !u!114 &3505159747386192114
@@ -906,12 +907,12 @@ GameObject:
   - component: {fileID: 1164222593324690999}
   - component: {fileID: 987805445721284615}
   m_Layer: 5
-  m_Name: MatName
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2814340104384184975
 RectTransform:
   m_ObjectHideFlags: 0
@@ -929,9 +930,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 8, y: 0}
+  m_AnchoredPosition: {x: 34, y: 0}
   m_SizeDelta: {x: 32, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!222 &741041153581688968
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -953,7 +954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.32941177, g: 0.8588236, b: 0.9215687, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -973,7 +974,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5927\u706B\u9748\u77F3"
+  m_Text: "\u8CBB\u7528"
 --- !u!114 &987805445721284615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4170,8 +4171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 32, y: -6.5}
-  m_SizeDelta: {x: 10, y: 10}
+  m_AnchoredPosition: {x: 8, y: -6.5}
+  m_SizeDelta: {x: 8, y: 8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4175827061142891060
 CanvasRenderer:
@@ -4420,9 +4421,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 8, y: 0}
+  m_AnchoredPosition: {x: 34, y: 0}
   m_SizeDelta: {x: 32, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!222 &3718770249559895387
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4464,7 +4465,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5927\u706B\u9748\u77F3"
+  m_Text: "\u706B\u9748\u77F3"
 --- !u!114 &6964123364100703287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4990,7 +4991,7 @@ GameObject:
   - component: {fileID: 1888579071830396026}
   - component: {fileID: 6166881186549781479}
   m_Layer: 5
-  m_Name: MatNumRequire
+  m_Name: MoneyRequire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5003,7 +5004,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7683971316652344262}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5461,7 +5462,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8007570187227818952}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5471,9 +5472,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 36, y: 0}
+  m_AnchoredPosition: {x: 52, y: 0}
   m_SizeDelta: {x: 16, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!222 &6242141159104896504
 CanvasRenderer:
   m_ObjectHideFlags: 0
