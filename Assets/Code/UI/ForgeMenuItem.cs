@@ -26,6 +26,11 @@ public class ForgeMenuItem : MonoBehaviour
         resultIcon.sprite = doll.icon;
         resultText.text = dInfo.dollName;
         costText.text = formula.requireMoney.ToString();
+        int iHasMoney = GameSystem.GetPlayerData().GetMoney();
+        if (iHasMoney < formula.requireMoney)
+        {
+            costText.color = Color.red;
+        }
 
         RectTransform refRT = matItemRef.GetComponent<RectTransform>();
         Vector2 pos = refRT.anchoredPosition;
