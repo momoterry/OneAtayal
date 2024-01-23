@@ -13,8 +13,14 @@ public class ForgeMenuItem : MonoBehaviour
     public GameObject matItemRef;
     public Transform matMenuRoot;
 
-    public void InitValue(ForgeFormula formula)
+    protected ForgeMenu myParentMenu;
+    protected ForgeFormula myFormula;
+
+    public void InitValue(ForgeMenu parentMenu, ForgeFormula formula)
     {
+        myParentMenu = parentMenu;
+        myFormula = formula;
+
         string dollID = formula.outputID;
         DollInfo dInfo = GameSystem.GetInstance().theDollData.GetDollInfoByID(dollID);
         if (dInfo == null)
@@ -49,5 +55,10 @@ public class ForgeMenuItem : MonoBehaviour
             pos.y -= itemStep;
         }
         matItemRef.SetActive(false);
+    }
+
+    public void OnTryForge()
+    {
+        myParentMenu.OnTryToForge(this, myFormula);
     }
 }

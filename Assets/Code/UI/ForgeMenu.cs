@@ -60,11 +60,16 @@ public class ForgeMenu : MonoBehaviour
             rt.anchoredPosition = pos2;
 
             ForgeMenuItem item = o.GetComponent<ForgeMenuItem>();
-            item.InitValue(f);
+            item.InitValue(this, f);
 
             o.SetActive(true);
             pos2.y -= itemStep;
             i++;
         }
+    }
+
+    public void OnTryToForge( ForgeMenuItem item, ForgeFormula formula)
+    {
+        print("試著打造: " + formula.outputID);
     }
 }
