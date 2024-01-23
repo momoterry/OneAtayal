@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [System.Serializable]
 public class ForgeMaterialInfo
@@ -24,6 +25,13 @@ public class ForgeFormulaJsonData       //寫在 Json 檔中的格式
     public ForgeFormula[] formulas;
 }
 
+public enum FORGE_RESULT
+{
+    OK,
+    NO_MONEY,
+    NO_MATERIAL,
+    ERROR,
+}
 
 public class ForgeManager : MonoBehaviour
 {
@@ -72,6 +80,75 @@ public class ForgeManager : MonoBehaviour
     public List<ForgeFormula> GetValidFormulas()
     {
         return formulaList;
+    }
+
+    static public FORGE_RESULT ForgeOneDoll( ForgeFormula formula)
+    {
+        PlayerData pData = GameSystem.GetPlayerData();
+        if (formula.requireMoney > pData.GetMoney())
+            return FORGE_RESULT.NO_MONEY;
+
+        for (int i= 0; i < formula.inputs.Length; i++)
+        {
+            if (formula.inputs[i].num > pData.GetItemNum(formula.inputs[i].matID))
+            {
+                print("素材不足..." + formula.inputs[i].matID);
+                return FORGE_RESULT.NO_MATERIAL;
+            }
+        }
+
+        //檢查完畢，開始產生 Doll
+        string dollID = formula.outputID;
+        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
+        if (dollRef == null)
+        {
+            print("鍛造錯誤，不是正確的 doll ID" + dollID);
+            return FORGE_RESULT.ERROR;
+        }
+
+        DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
+
+        //bool isToBackpack = false;
+        if (pData.GetCurrDollNum() >= pData.GetMaxDollNum())
+        {
+            pData.AddDollToBackpack(dollID);
+            //isToBackpack = true;
+        }
+        else
+        {
+            Vector3 pos = dm.transform.position + Vector3.back * 1.0f;
+
+            //if (SpawnFX)
+            //    BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
+
+            GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
+
+            Doll theDoll = dollObj.GetComponent<Doll>();
+
+            //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
+            NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
+            if (dAgent)
+            {
+                dAgent.updateRotation = false;
+                dAgent.updateUpAxis = false;
+                dAgent.enabled = false;
+            }
+
+            if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
+            {
+                print("Woooooooooops.......");
+                return FORGE_RESULT.ERROR;
+            }
+        }
+
+        //減去資源
+        pData.AddMoney(-formula.requireMoney);
+        for (int i = 0; i < formula.inputs.Length; i++)
+        {
+            pData.AddItem(formula.inputs[i].matID, -formula.inputs[i].num);
+        }
+
+        return FORGE_RESULT.OK;
     }
 
 }

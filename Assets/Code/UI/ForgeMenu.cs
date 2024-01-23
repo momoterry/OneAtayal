@@ -71,5 +71,24 @@ public class ForgeMenu : MonoBehaviour
     public void OnTryToForge( ForgeMenuItem item, ForgeFormula formula)
     {
         print("試著打造: " + formula.outputID);
+
+        FORGE_RESULT result = ForgeManager.ForgeOneDoll(formula);
+
+        if (result == FORGE_RESULT.OK)
+        {
+            CloseMenu();
+            return;
+        }
+
+        switch (result)
+        {
+            case FORGE_RESULT.NO_MONEY:
+                SystemUI.ShowMessageBox(null, "金錢不足");
+                break;
+            case FORGE_RESULT.NO_MATERIAL:
+                SystemUI.ShowMessageBox(null, "素材不足");
+                break;
+        }
+
     }
 }
