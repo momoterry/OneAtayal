@@ -97,48 +97,53 @@ public class ForgeManager : MonoBehaviour
             }
         }
 
-        //檢查完畢，開始產生 Doll
-        string dollID = formula.outputID;
-        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
-        if (dollRef == null)
+        ////檢查完畢，開始產生 Doll
+        //string dollID = formula.outputID;
+        //GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
+        //if (dollRef == null)
+        //{
+        //    print("鍛造錯誤，不是正確的 doll ID" + dollID);
+        //    return FORGE_RESULT.ERROR;
+        //}
+
+        //DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
+
+        ////bool isToBackpack = false;
+        //if (pData.GetCurrDollNum() >= pData.GetMaxDollNum())
+        //{
+        //    pData.AddDollToBackpack(dollID);
+        //    //isToBackpack = true;
+        //}
+        //else
+        //{
+        //    Vector3 pos = dm.transform.position + Vector3.back * 1.0f;
+
+        //    //if (SpawnFX)
+        //    //    BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
+
+        //    GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
+
+        //    Doll theDoll = dollObj.GetComponent<Doll>();
+
+        //    //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
+        //    NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
+        //    if (dAgent)
+        //    {
+        //        dAgent.updateRotation = false;
+        //        dAgent.updateUpAxis = false;
+        //        dAgent.enabled = false;
+        //    }
+
+        //    if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
+        //    {
+        //        print("Woooooooooops.......");
+        //        return FORGE_RESULT.ERROR;
+        //    }
+        //}
+        bool isToBackPack = false;
+        if (!GameSystem.GetInstance().theDollData.AddDollByID(formula.outputID, ref isToBackPack))
         {
-            print("鍛造錯誤，不是正確的 doll ID" + dollID);
             return FORGE_RESULT.ERROR;
-        }
-
-        DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
-
-        //bool isToBackpack = false;
-        if (pData.GetCurrDollNum() >= pData.GetMaxDollNum())
-        {
-            pData.AddDollToBackpack(dollID);
-            //isToBackpack = true;
-        }
-        else
-        {
-            Vector3 pos = dm.transform.position + Vector3.back * 1.0f;
-
-            //if (SpawnFX)
-            //    BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
-
-            GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
-
-            Doll theDoll = dollObj.GetComponent<Doll>();
-
-            //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
-            NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
-            if (dAgent)
-            {
-                dAgent.updateRotation = false;
-                dAgent.updateUpAxis = false;
-                dAgent.enabled = false;
-            }
-
-            if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
-            {
-                print("Woooooooooops.......");
-                return FORGE_RESULT.ERROR;
-            }
         }
 
         //減去資源
