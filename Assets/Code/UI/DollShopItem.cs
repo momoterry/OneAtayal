@@ -13,7 +13,7 @@ public class DollShopItem : MonoBehaviour
     public Text nameText;
     public Text descText;
     public Text moneyText;
-    public GameObject SpawnFX;  //TODO: 似乎應該放到別的地方更好
+    //public GameObject SpawnFX;  //TODO: 似乎應該放到別的地方更好
 
     protected string dollID;
     protected int CostMoney;
@@ -73,14 +73,6 @@ public class DollShopItem : MonoBehaviour
     {
         //print("來了喔!! " + dollID);
         PlayerData pData = GameSystem.GetPlayerData();
-        DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
-
-        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
-        if (dollRef == null || dm == null)
-        {
-            return;
-        }
-
         if (pData.GetMoney() < CostMoney)
         {
             //print("你好像錢不太夠了呀.....");
@@ -88,52 +80,64 @@ public class DollShopItem : MonoBehaviour
             return;
         }
 
+        DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
+        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
+        if (dollRef == null || dm == null)
+        {
+            return;
+        }
 
         bool isToBackpack = false;
-        if (pData.GetCurrDollNum() >= pData.GetMaxDollNum())
+
+        if (!GameSystem.GetInstance().theDollData.AddDollByID(dollID, ref isToBackpack))
         {
-            //print("無論如何，先放到背包...... ");
-
-            pData.AddDollToBackpack(dollID);
-            //return;
-            //myMenu.ShowTempMessage("購買的巫靈放到背包了");
-            isToBackpack = true;
+            return;
         }
-        else
-        {
-            Vector3 pos = dm.transform.position + Vector3.back * 1.0f;
 
-            if (SpawnFX)
-                BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
+        //if (pData.GetCurrDollNum() >= pData.GetMaxDollNum())
+        //{
+        //    //print("無論如何，先放到背包...... ");
 
-            GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
+        //    pData.AddDollToBackpack(dollID);
+        //    //return;
+        //    //myMenu.ShowTempMessage("購買的巫靈放到背包了");
+        //    isToBackpack = true;
+        //}
+        //else
+        //{
+        //    Vector3 pos = dm.transform.position + Vector3.back * 1.0f;
 
-            Doll theDoll = dollObj.GetComponent<Doll>();
-            if (theDoll == null)
-            {
-                print("Error!! There is no Doll in dollRef !!");
-                Destroy(dollObj);
-                return;
-            }
+        //    if (SpawnFX)
+        //        BattleSystem.GetInstance().SpawnGameplayObject(SpawnFX, pos, false);
 
-            //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
-            NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
-            if (dAgent)
-            {
-                dAgent.updateRotation = false;
-                dAgent.updateUpAxis = false;
-                dAgent.enabled = false;
-            }
+        //    GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
 
-            if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
-            {
-                print("Woooooooooops.......");
-                return;
-            }
+        //    Doll theDoll = dollObj.GetComponent<Doll>();
+        //    if (theDoll == null)
+        //    {
+        //        print("Error!! There is no Doll in dollRef !!");
+        //        Destroy(dollObj);
+        //        return;
+        //    }
 
-            //pData.AddUsingDoll(dollID);
-            //myMenu.ShowTempMessage("購買成功");
-        }
+        //    //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
+        //    NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
+        //    if (dAgent)
+        //    {
+        //        dAgent.updateRotation = false;
+        //        dAgent.updateUpAxis = false;
+        //        dAgent.enabled = false;
+        //    }
+
+        //    if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
+        //    {
+        //        print("Woooooooooops.......");
+        //        return;
+        //    }
+
+        //    //pData.AddUsingDoll(dollID);
+        //    //myMenu.ShowTempMessage("購買成功");
+        //}
 
         int totalNum = pData.GetDollNumByID(dollID);
         string msg;
