@@ -74,14 +74,23 @@ public class ForgeMenu : MonoBehaviour
 
         FORGE_RESULT result = ForgeManager.ForgeOneDoll(formula);
 
-        if (result == FORGE_RESULT.OK)
-        {
-            CloseMenu();
-            return;
-        }
+        //if (result == FORGE_RESULT.OK)
+        //{
+        //    CloseMenu();
+        //    return;
+        //}
 
+        DollInfo dInfo = GameSystem.GetInstance().theDollData.GetDollInfoByID(formula.outputID);
         switch (result)
         {
+            case FORGE_RESULT.OK:
+                CloseMenu();
+                SystemUI.ShowMessageBox(null, dInfo.dollName + " 召喚成功");
+                break;
+            case FORGE_RESULT.OK_TOBACKPACK:
+                CloseMenu();
+                SystemUI.ShowMessageBox(null, "召喚成功，" + dInfo.dollName + " 己放到背包");
+                break;
             case FORGE_RESULT.NO_MONEY:
                 SystemUI.ShowMessageBox(null, "金錢不足");
                 break;

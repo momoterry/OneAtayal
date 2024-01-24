@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -28,6 +29,7 @@ public class ForgeFormulaJsonData       //寫在 Json 檔中的格式
 public enum FORGE_RESULT
 {
     OK,
+    OK_TOBACKPACK,
     NO_MONEY,
     NO_MATERIAL,
     ERROR,
@@ -152,6 +154,9 @@ public class ForgeManager : MonoBehaviour
         {
             pData.AddItem(formula.inputs[i].matID, -formula.inputs[i].num);
         }
+
+        if (isToBackpack)
+            return FORGE_RESULT.OK_TOBACKPACK;
 
         return FORGE_RESULT.OK;
     }
