@@ -13,7 +13,7 @@ public class ForgeMaterialItem : MonoBehaviour
 
     public void InitValue(ForgeMaterialInfo info)
     {
-        print("ForgeMaterialItem.IntValue: " + info.matID);
+        //print("ForgeMaterialItem.IntValue: " + info.matID);
         ItemInfo matInfo = ItemDef.GetInstance().GetItemInfo(info.matID);
         if (matInfo == null)
         {
