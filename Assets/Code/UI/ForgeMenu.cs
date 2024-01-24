@@ -8,6 +8,7 @@ public class ForgeMenu : MonoBehaviour
 {
     public GameObject itemRef;
     public Transform MenuRoot;
+    public RectTransform scrollContentRoot;
 
     protected List<GameObject> itemList = new List<GameObject>();
 
@@ -67,6 +68,8 @@ public class ForgeMenu : MonoBehaviour
             pos2.y -= itemStep;
             i++;
         }
+
+        scrollContentRoot.sizeDelta = new Vector2(scrollContentRoot.sizeDelta.x, itemStep * i + 8);
     }
 
     public void OnTryToForge( ForgeMenuItem item, ForgeFormula formula)
