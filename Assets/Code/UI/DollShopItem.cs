@@ -29,13 +29,20 @@ public class DollShopItem : MonoBehaviour
     {
         myMenu = theMenu;
 
+        DollInfo dInfo = GameSystem.GetInstance().theDollData.GetDollInfoByID(info.ID);
+        if (dInfo == null)
+        {
+            print("ERROR!! DollShopItem got wrong doll ID: " + info.ID);
+            return;
+        }
+
         if (nameText)
         {
-            nameText.text = info.name;
+            nameText.text = dInfo.dollName;
         }
         if (descText)
         {
-            descText.text = info.desc;
+            descText.text = dInfo.dollDesc;
         }
         if (moneyText)
         {

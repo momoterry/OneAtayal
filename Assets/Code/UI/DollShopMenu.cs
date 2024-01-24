@@ -8,8 +8,8 @@ public class DollShopItemInfo
 {
     public string ID;
     public int cost;
-    public string name;
-    public string desc;
+    //public string name;
+    //public string desc;
 }
 
 public class DollShopMenu : MonoBehaviour

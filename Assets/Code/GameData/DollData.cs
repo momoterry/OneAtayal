@@ -7,11 +7,12 @@ public class DollInfo
 {
     public GameObject objRef;
     public string dollName;
+    public string dollDesc;
 }
 
 public class DollData : MonoBehaviour
 {
-    public GameObject[] DollRefs;
+    //public GameObject[] DollRefs;
     public DollInfo[] DollInfos;
     // Start is called before the first frame update
 
