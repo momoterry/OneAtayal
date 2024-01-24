@@ -14,18 +14,32 @@
 			]
 		},
 		{
-			"outputID":"DollStone",
-			"outputType":1,
-			"requireMoney":400,
-			"inputs":
-			[
+			"outputID": "DollStone",
+			"outputType": 1,
+			"requireMoney": 400,
+			"inputs": [
 				{
-					"matID":"Mat_DollOne",
-					"num":1
+					"matID": "Mat_DollOne",
+					"num": 1
 				},
 				{
-					"matID":"Mat_DollStone",
-					"num":2
+					"matID": "Mat_DollStone",
+					"num": 2
+				}
+			]
+		},
+		{
+			"outputID": "DollFire",
+			"outputType": 1,
+			"requireMoney": 400,
+			"inputs": [
+				{
+					"matID": "Mat_DollOne",
+					"num": 1
+				},
+				{
+					"matID": "Mat_DollFire",
+					"num": 3
 				}
 			]
 		}
