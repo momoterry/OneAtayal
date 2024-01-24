@@ -51,11 +51,12 @@ public class ForgeMenu : MonoBehaviour
         float itemStep = 50.0f;
         List<ForgeFormula> list = ForgeManager.GetInstance().GetValidFormulas();
         Vector2 pos2 = itemRef.GetComponent<RectTransform>().anchoredPosition;
+        Transform listRoot = itemRef.transform.parent;
         itemRef.SetActive(false);
         int i = 0;
         foreach (ForgeFormula f in list)
         {
-            GameObject o = Instantiate(itemRef, MenuRoot);
+            GameObject o = Instantiate(itemRef, listRoot);
             RectTransform rt = o.GetComponent<RectTransform>();
             rt.anchoredPosition = pos2;
 
