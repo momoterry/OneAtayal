@@ -63,7 +63,7 @@ public class MapSaveDataBase
 public class SaveData{
     public int Money;
     public CharacterStat mainCharacterStat;
-    public string[] usingDollList;
+    //public string[] usingDollList;
     public FormationDollInfo[] formationDollList;
     public SaveDataItem[] itemData;
     public SaveDataBackpckItem[] dollBackpack;
@@ -85,7 +85,7 @@ public class PlayerData : MonoBehaviour
     protected CharacterStat mainCharacterStat = new CharacterStat();
 
     protected List<DollInstanceData> usingDIs = new List<DollInstanceData>();
-    protected List<string> usingDollList = new List<string>();
+    //protected List<string> usingDollList = new List<string>();
     protected List<FormationDollInfo> formationDollList = new List<FormationDollInfo>();
 
     protected Dictionary<string, int> itemData = new Dictionary<string, int>();
@@ -130,7 +130,7 @@ public class PlayerData : MonoBehaviour
         mainCharacterStat.LV = 1;
         mainCharacterStat.Exp = 0;
         usingDIs.Clear();
-        usingDollList.Clear();
+        //usingDollList.Clear();
         formationDollList.Clear();
         itemData.Clear();
         dollBackpack.Clear();
@@ -188,14 +188,14 @@ public class PlayerData : MonoBehaviour
             }
         }
 
-        if (usingDollList.Count > 0)
-        {
-            data.usingDollList = new string[usingDollList.Count];
-            for (int i = 0; i < usingDollList.Count; i++)
-            {
-                data.usingDollList[i] = usingDollList[i];
-            }
-        }
+        //if (usingDollList.Count > 0)
+        //{
+        //    data.usingDollList = new string[usingDollList.Count];
+        //    for (int i = 0; i < usingDollList.Count; i++)
+        //    {
+        //        data.usingDollList[i] = usingDollList[i];
+        //    }
+        //}
 
         if (formationDollList.Count > 0)
         {
@@ -400,19 +400,13 @@ public class PlayerData : MonoBehaviour
 
     public void AddUsingDoll( string dollID, int group = -1, int index = -1 )
     {
-        usingDollList.Add(dollID);
-        //formationDollList.Add()
-        //
+        //usingDollList.Add(dollID);
+
         FormationDollInfo fdInfo = new FormationDollInfo();
         fdInfo.dollID = dollID;
         fdInfo.group = group;
         fdInfo.index = index;
         formationDollList.Add(fdInfo);
-        //print("--All Formation Doll Lilst --");
-        //foreach (FormationDollInfo info in formationDollList)
-        //{
-        //    print("--" + info.dollID + "(" + info.group + ", " + info.index + ")");
-        //}
     }
 
     public FormationDollInfo[] GetAllFormationDolls()
@@ -434,13 +428,25 @@ public class PlayerData : MonoBehaviour
 
     public string[] GetAllUsingDolls()
     {
-        if (usingDollList.Count > 0)
+        //if (usingDollList.Count > 0)
+        //{
+        //    string[] allDolls = new string[usingDollList.Count];
+        //    int i = 0;
+        //    foreach( string ds in usingDollList)
+        //    {
+        //        allDolls[i] = ds;
+        //        i++;
+        //    }
+
+        //    return allDolls;
+        //}
+        if (formationDollList.Count > 0)
         {
-            string[] allDolls = new string[usingDollList.Count];
+            string[] allDolls = new string[formationDollList.Count];
             int i = 0;
-            foreach( string ds in usingDollList)
+            foreach (FormationDollInfo dInfo in formationDollList)
             {
-                allDolls[i] = ds;
+                allDolls[i] = dInfo.dollID;
                 i++;
             }
 
@@ -452,7 +458,7 @@ public class PlayerData : MonoBehaviour
 
     public void RemoveAllUsingDolls()
     {
-        usingDollList.Clear();
+        //usingDollList.Clear();
         formationDollList.Clear();
     }
 
@@ -546,9 +552,16 @@ public class PlayerData : MonoBehaviour
     public int GetDollNumByID(string ID)
     {
         int usingNum = 0;
-        foreach (string s in usingDollList)
+        //foreach (string s in usingDollList)
+        //{
+        //    if (s == ID)
+        //    {
+        //        usingNum++;
+        //    }
+        //}
+        foreach (FormationDollInfo dInfo in formationDollList)
         {
-            if (s == ID)
+            if (dInfo.dollID == ID)
             {
                 usingNum++;
             }
