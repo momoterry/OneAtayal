@@ -3,8 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[System.Serializable]
+public class MapSaveMazeDungeon : MapSaveDataBase
+{
+    public int cellWidth = 4;
+    public int cellHeight = 4;
+    public int wallWidth = 2;
+    public int wallHeight = 2;
+    public int puzzleHeight = 6;
+    public int puzzleWidth = 6;
+
+    public string puzzleMapData = null;
+
+    public string mapMask64 = null;
+    public CavPoint[] cavPoints;
+}
+
 public class MG_MazeDungeon : MapGeneratorBase
 {
+    public string mapName;
     // 迷宮資料相關
     public int cellWidth = 4;
     public int cellHeight = 4;
@@ -171,6 +188,9 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             theMiniMap.CreateMiniMap(theMap, MyGetColorCB);
         }
+
+        //地圖存檔
+        SaveMap();
     }
 
     public Color MyGetColorCB(int value)
@@ -926,5 +946,71 @@ public class MG_MazeDungeon : MapGeneratorBase
         return false;
     }
 
+
+    protected int EncodeCell( cellInfo cell)
+    {
+        int iDoor = 0;
+        iDoor += cell.U ? 8 : 0;
+        iDoor += cell.D ? 4 : 0;
+        iDoor += cell.L ? 2 : 0;
+        iDoor += cell.R ? 1 : 0;
+        int iAll = cell.value * 16 + iDoor;
+        //iAll = iDoor;//測試
+        //print(iAll);
+        if (iAll > 255)
+        {
+            print("ERROR!!!! EncodeCell > 255!!");
+        }
+        return iAll;
+    }
+
+    protected void SaveMap()
+    {
+        print("================= SaveMap");
+        if (mapName == null || mapName == "")
+            return;
+        MapSaveMazeDungeon mapData = new MapSaveMazeDungeon();
+        mapData.className = "MG_MazeDungeon";
+        mapData.mapName = mapName;
+        mapData.cellWidth = cellWidth;
+        mapData.cellHeight = cellHeight;
+        mapData.puzzleWidth = puzzleWidth;
+        mapData.puzzleHeight = puzzleHeight;
+        mapData.wallWidth = wallWidth;
+        mapData.wallHeight = wallHeight;
+
+        int i = 0;
+        byte[] bData = new byte[puzzleHeight * puzzleWidth];
+        for (int x = 0; x < puzzleWidth; x++)
+        {
+            for (int y = 0; y < puzzleHeight; y++)
+            {
+                int ec = EncodeCell(puzzleMap[x][y]);
+                bData[i] = (byte)ec;
+                i++;
+            }
+        }
+        mapData.puzzleMapData = System.Convert.ToBase64String(bData);
+        print("編碼結果!!" + mapData.puzzleMapData);
+
+        ////if (entraceList.Length > 0)
+        //if (allCavs.Count > 0)
+        //{
+        //    mapData.cavPoints = new CavPoint[allCavs.Count];
+        //    //for (int i=0; i<mapData.mapPoints.Length; i++)
+        //    int i = 0;
+        //    foreach (KeyValuePair<string, GameObject> p in allCavs)
+        //    {
+        //        mapData.cavPoints[i] = new CavPoint();
+        //        mapData.cavPoints[i].name = p.Key;
+        //        mapData.cavPoints[i].x = p.Value.transform.position.x;
+        //        mapData.cavPoints[i].y = p.Value.transform.position.z;
+        //        i++;
+        //    }
+        //}
+
+        //GameSystem.GetPlayerData().SaveMap(mapName, mapData);
+
+    }
 }
 
