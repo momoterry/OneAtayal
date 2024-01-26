@@ -71,6 +71,7 @@ public class SaveData{
     public DollInstanceData[] usingDIs;
     public WorldMapSaveData worldMap;
     public MapSavePerlinField[] savedPFields;
+    public MapSaveMazeDungeon[] savedMazes;
 }
 
 
@@ -244,11 +245,40 @@ public class PlayerData : MonoBehaviour
 
         if (savedMaps.Count > 0)
         {
-            int i = 0;
-            data.savedPFields = new MapSavePerlinField[savedMaps.Count];
+            int nPF = 0; 
+            int nMaze = 0;
+
             foreach (KeyValuePair<string, MapSaveDataBase> k in savedMaps)
             {
-                data.savedPFields[i] = (MapSavePerlinField)k.Value;
+                if (k.Value.className == "MG_PerlinField")
+                {
+                    nPF++;
+                }
+                else if (k.Value.className == "MG_MazeDungeon")
+                {
+                    nMaze++;
+                }
+            }
+
+            int i = 0;
+            int iPF = 0;
+            int iMaze = 0;
+            //data.savedPFields = new MapSavePerlinField[savedMaps.Count];
+            data.savedPFields = new MapSavePerlinField[nPF];
+            data.savedMazes = new MapSaveMazeDungeon[nMaze];
+            foreach (KeyValuePair<string, MapSaveDataBase> k in savedMaps)
+            {
+                //data.savedPFields[i] = (MapSavePerlinField)k.Value;
+                if (k.Value.className == "MG_PerlinField")
+                {
+                    data.savedPFields[iPF] = (MapSavePerlinField)k.Value;
+                    iPF++;
+                }
+                else if (k.Value.className == "MG_MazeDungeon")
+                {
+                    data.savedMazes[iMaze] = (MapSaveMazeDungeon)k.Value;
+                    iMaze++;
+                }
                 i++;
             }
             print("----地圖存檔完成----");
@@ -317,7 +347,16 @@ public class PlayerData : MonoBehaviour
             {
                 savedMaps.Add(data.savedPFields[i].mapName, data.savedPFields[i]);
             }
-            print("----地圖載入完成---- ");
+            print("----PField 地圖載入完成---- ");
+        }
+
+        if (data.savedMazes != null && data.savedMazes.Length > 0)
+        {
+            for (int i=0; i<data.savedMazes.Length; i++)
+            {
+                savedMaps.Add(data.savedMazes[i].mapName, data.savedMazes[i]);
+            }
+            print("----Maze 地圖載入完成---- ");
         }
 
         if (data.worldMap != null)

@@ -21,7 +21,9 @@ public class MapSaveMazeDungeon : MapSaveDataBase
 
 public class MG_MazeDungeon : MapGeneratorBase
 {
-    public string mapName;
+    public string mapName;              //用來識別存檔
+    //地圖存檔資料
+    protected MapSaveMazeDungeon loadedMapData = null;  //如果有的話，是載入存檔的形式
     // 迷宮資料相關
     public int cellWidth = 4;
     public int cellHeight = 4;
@@ -139,6 +141,9 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         PresetByContinuousBattle();
+
+        if (mapName != null && mapName != "")
+            LoadMap();  //先嘗試載入存檔
 
         PreCreateMap();
 
@@ -993,24 +998,35 @@ public class MG_MazeDungeon : MapGeneratorBase
         mapData.puzzleMapData = System.Convert.ToBase64String(bData);
         print("編碼結果!!" + mapData.puzzleMapData);
 
-        ////if (entraceList.Length > 0)
-        //if (allCavs.Count > 0)
-        //{
-        //    mapData.cavPoints = new CavPoint[allCavs.Count];
-        //    //for (int i=0; i<mapData.mapPoints.Length; i++)
-        //    int i = 0;
-        //    foreach (KeyValuePair<string, GameObject> p in allCavs)
-        //    {
-        //        mapData.cavPoints[i] = new CavPoint();
-        //        mapData.cavPoints[i].name = p.Key;
-        //        mapData.cavPoints[i].x = p.Value.transform.position.x;
-        //        mapData.cavPoints[i].y = p.Value.transform.position.z;
-        //        i++;
-        //    }
-        //}
+        GameSystem.GetPlayerData().SaveMap(mapName, mapData);
 
-        //GameSystem.GetPlayerData().SaveMap(mapName, mapData);
+    }
 
+    protected void LoadMap()
+    {
+        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        if (mapDataBase == null || mapDataBase.className != "MG_MazeDungeon")
+        {
+            print("MG_MazeDungeon.LoadMap: 沒有存檔資料");
+            return;
+        }
+
+        print("MG_MazeDungeon.LoadMap: 找到存檔資料 !!!!");
+        loadedMapData = (MapSaveMazeDungeon)mapDataBase;
+
+        mapName = loadedMapData.mapName;
+        cellWidth = loadedMapData.cellWidth;
+        cellHeight = loadedMapData.cellHeight;
+        puzzleWidth = loadedMapData.puzzleWidth;
+        puzzleHeight = loadedMapData.puzzleHeight;
+        wallWidth = loadedMapData.wallWidth;
+        wallHeight = loadedMapData.wallHeight;
+
+        byte[] bData = System.Convert.FromBase64String(loadedMapData.puzzleMapData);
+        if (bData.Length != puzzleWidth * puzzleHeight)
+        {
+            print("ERROR!!!! Size 不符 !!");
+        }
     }
 }
 
