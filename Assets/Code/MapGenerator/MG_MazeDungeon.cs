@@ -112,7 +112,37 @@ public class MG_MazeDungeon : MapGeneratorBase
         public const int NORMAL = 0;
         public const int ROOM = 1;
         public const int TERNIMAL = 2;  //出、入口
-        public const int INVALID = -1;
+        public const int INVALID = 7;
+
+        public int Encode()
+        {
+            int iDoor = 0;
+            iDoor += U ? 8 : 0;
+            iDoor += D ? 4 : 0;
+            iDoor += L ? 2 : 0;
+            iDoor += R ? 1 : 0;
+            int iAll = value * 16 + iDoor;
+            if (iAll > 255)
+            {
+                print("ERROR!!!! cellInfo.Encode > 255!!");
+            }
+            return iAll;
+        }
+
+        public void Decode(int code )
+        {
+            //print(code);
+            R = (code % 2) == 1? true : false ;
+            code = code >> 1;
+            L = (code % 2) == 1 ? true : false;
+            code = code >> 1;
+            D = (code % 2) == 1 ? true : false;
+            code = code >> 1;
+            U = (code % 2) == 1 ? true : false;
+            code = code >> 1;
+
+            value = code;
+        }
     }
 
     protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
@@ -151,8 +181,14 @@ public class MG_MazeDungeon : MapGeneratorBase
 
 
         //主要地圖設計部份
-        CreatMazeMap();
-
+        if (loadedMapData != null)
+        {
+            LoadMazeMap();
+        }
+        else
+        {
+            CreatMazeMap();
+        }
         //theMap.PrintMap();
         if (defautTileGroup)
             theMap.FillTileAll(OneMap.DEFAULT_VALUE, blockTM, defautTileGroup.GetTileGroup());
@@ -304,6 +340,9 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             mapCenter.x = -cellWidth / 2;
         }
+
+        puzzleX1 = mapCenter.x - (puzzleWidth * cellWidth / 2);
+        puzzleY1 = mapCenter.y - (puzzleHeight * cellHeight / 2);
     }
 
     protected void FillBlock(float x1, float y1, float width, float height)
@@ -690,8 +729,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //==== Set up all cells
-        puzzleX1 = mapCenter.x - (puzzleWidth * cellWidth / 2);
-        puzzleY1 = mapCenter.y - (puzzleHeight * cellHeight / 2);
+        //puzzleX1 = mapCenter.x - (puzzleWidth * cellWidth / 2);
+        //puzzleY1 = mapCenter.y - (puzzleHeight * cellHeight / 2);
 
         startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iStart) * cellHeight + cellHeight / 2);
         endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
@@ -737,78 +776,80 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //==== 一般通道處理
-        List<Vector2Int> deadEnds = new List<Vector2Int>();
-        int startValue = puzzleDSU.Find(iStart);
-        float enemyMinDistanceToStart = Mathf.Sqrt((cellHeight * cellHeight) + (cellWidth * cellWidth)) * noEnemyDistanceRate + 0.1f;
-        //用來標記判斷敵人強度變化的值 TODO: 想辦法改用路徑
-        float maxDistance = Mathf.Sqrt((puzzleWidth * cellWidth * 0.5f) * (puzzleWidth * cellWidth * 0.5f) + (puzzleHeight * cellHeight * 0.5f) * (puzzleHeight * cellHeight * 0.5f));
-        for (int i = 0; i < puzzleWidth; i++)
-        {
-            for (int j = 0; j < puzzleHeight; j++)
-            {
-                int x1 = puzzleX1 + i * cellWidth;
-                int y1 = puzzleY1 + j * cellHeight;
-                if (allConnect)
-                    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
-                else if (puzzleDSU.Find(GetCellID(i, j)) == startValue)
-                    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
+        ProcessNormalCells();
 
-                if (puzzleMap[i][j].value == cellInfo.NORMAL)
-                {
-                    Vector3 pos = GetCellCenterPos(i, j);
-                    float startDis = Vector3.Distance(pos, startPos);
+        //List<Vector2Int> deadEnds = new List<Vector2Int>();
+        //int startValue = puzzleDSU.Find(iStart);
+        //float enemyMinDistanceToStart = Mathf.Sqrt((cellHeight * cellHeight) + (cellWidth * cellWidth)) * noEnemyDistanceRate + 0.1f;
+        ////用來標記判斷敵人強度變化的值 TODO: 想辦法改用路徑
+        //float maxDistance = Mathf.Sqrt((puzzleWidth * cellWidth * 0.5f) * (puzzleWidth * cellWidth * 0.5f) + (puzzleHeight * cellHeight * 0.5f) * (puzzleHeight * cellHeight * 0.5f));
+        //for (int i = 0; i < puzzleWidth; i++)
+        //{
+        //    for (int j = 0; j < puzzleHeight; j++)
+        //    {
+        //        int x1 = puzzleX1 + i * cellWidth;
+        //        int y1 = puzzleY1 + j * cellHeight;
+        //        if (allConnect)
+        //            FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
+        //        else if (puzzleDSU.Find(GetCellID(i, j)) == startValue)
+        //            FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
 
-                    int wallCount = (puzzleMap[i][j].U ? 0 : 1) + (puzzleMap[i][j].D ? 0 : 1) + (puzzleMap[i][j].L ? 0 : 1) + +(puzzleMap[i][j].R ? 0 : 1);
-                    if (wallCount == 3)
-                    {
-                        deadEnds.Add(new Vector2Int(i, j));
-                    }
-                    else if (dungeonEnemyManager && startDis > enemyMinDistanceToStart)
-                    {
-                        //print("diffAdd: " + startDis / maxDistance);
-                        dungeonEnemyManager.AddNormalPosition(pos, startDis/maxDistance);
-                    }
+        //        if (puzzleMap[i][j].value == cellInfo.NORMAL)
+        //        {
+        //            Vector3 pos = GetCellCenterPos(i, j);
+        //            float startDis = Vector3.Distance(pos, startPos);
 
-                    if (normalGroup && !dungeonEnemyManager && startDis > enemyMinDistanceToStart)
-                    {
-                        if (Random.Range(0, 1.0f) < normalEnemyRate)
-                        {
-                            GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
-                            EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
-                            eg.isRandomEnemyTotal = true;
-                            //TODO: 敵人的動態強度需要根據迷宮深淺來調整 ?
-                            //eg.randomEnemyTotal = 4 + (j * (4 + 1) / puzzleHeight);
-                        }
-                    }
-                }
-            }
-        }
+        //            int wallCount = (puzzleMap[i][j].U ? 0 : 1) + (puzzleMap[i][j].D ? 0 : 1) + (puzzleMap[i][j].L ? 0 : 1) + +(puzzleMap[i][j].R ? 0 : 1);
+        //            if (wallCount == 3)
+        //            {
+        //                deadEnds.Add(new Vector2Int(i, j));
+        //            }
+        //            else if (dungeonEnemyManager && startDis > enemyMinDistanceToStart)
+        //            {
+        //                //print("diffAdd: " + startDis / maxDistance);
+        //                dungeonEnemyManager.AddNormalPosition(pos, startDis/maxDistance);
+        //            }
 
-        print("總共找到的終端:" + deadEnds.Count);
-        int expRewardCount = Mathf.Min(exploreRewardNum, deadEnds.Count);
-        OneUtility.Shuffle(deadEnds);
-        OneUtility.Shuffle(exploreRewards);     //因應獎勵可能更少的時候
-        for ( int i=0; i< deadEnds.Count; i++)
-        {
-            Vector3 pos = GetCellCenterPos(deadEnds[i].x, deadEnds[i].y );
-            if (i < expRewardCount)
-            {
-                BattleSystem.SpawnGameObj(exploreRewards[i], pos);
-            }
-            else if (dungeonEnemyManager)
-            {
-                if (Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
-                {
-                    dungeonEnemyManager.AddNormalPosition(pos); //如果沒放寶，就可以放怪
-                }
-            }
-        }
+        //            if (normalGroup && !dungeonEnemyManager && startDis > enemyMinDistanceToStart)
+        //            {
+        //                if (Random.Range(0, 1.0f) < normalEnemyRate)
+        //                {
+        //                    GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
+        //                    EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
+        //                    eg.isRandomEnemyTotal = true;
+        //                    //TODO: 敵人的動態強度需要根據迷宮深淺來調整 ?
+        //                    //eg.randomEnemyTotal = 4 + (j * (4 + 1) / puzzleHeight);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
-        if (dungeonEnemyManager)
-        {
-            print("開始 Build dungeonEnemyManager !!");
-            dungeonEnemyManager.BuildAllGameplay(dungeonEnemyDifficulty);
-        }
+        //print("總共找到的終端:" + deadEnds.Count);
+        //int expRewardCount = Mathf.Min(exploreRewardNum, deadEnds.Count);
+        //OneUtility.Shuffle(deadEnds);
+        //OneUtility.Shuffle(exploreRewards);     //因應獎勵可能更少的時候
+        //for ( int i=0; i< deadEnds.Count; i++)
+        //{
+        //    Vector3 pos = GetCellCenterPos(deadEnds[i].x, deadEnds[i].y );
+        //    if (i < expRewardCount)
+        //    {
+        //        BattleSystem.SpawnGameObj(exploreRewards[i], pos);
+        //    }
+        //    else if (dungeonEnemyManager)
+        //    {
+        //        if (Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
+        //        {
+        //            dungeonEnemyManager.AddNormalPosition(pos); //如果沒放寶，就可以放怪
+        //        }
+        //    }
+        //}
+
+        //if (dungeonEnemyManager)
+        //{
+        //    print("開始 Build dungeonEnemyManager !!");
+        //    dungeonEnemyManager.BuildAllGameplay(dungeonEnemyDifficulty);
+        //}
 
         //==== Big Room 的部份處理
         bool isFinishPortalDone = false;
@@ -874,6 +915,84 @@ public class MG_MazeDungeon : MapGeneratorBase
         //破關門
         if (finishPortalRef && !isFinishPortalDone)
             BattleSystem.SpawnGameObj(finishPortalRef, endPos);
+    }
+
+    protected void ProcessNormalCells()
+    {
+        //==== 一般通道處理
+        List<Vector2Int> deadEnds = new List<Vector2Int>();
+        //int startValue = puzzleDSU.Find(iStart);
+        float enemyMinDistanceToStart = Mathf.Sqrt((cellHeight * cellHeight) + (cellWidth * cellWidth)) * noEnemyDistanceRate + 0.1f;
+        //用來標記判斷敵人強度變化的值 TODO: 想辦法改用路徑
+        float maxDistance = Mathf.Sqrt((puzzleWidth * cellWidth * 0.5f) * (puzzleWidth * cellWidth * 0.5f) + (puzzleHeight * cellHeight * 0.5f) * (puzzleHeight * cellHeight * 0.5f));
+        for (int i = 0; i < puzzleWidth; i++)
+        {
+            for (int j = 0; j < puzzleHeight; j++)
+            {
+                int x1 = puzzleX1 + i * cellWidth;
+                int y1 = puzzleY1 + j * cellHeight;
+                //if (allConnect)
+                //    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
+                //else if (puzzleDSU.Find(GetCellID(i, j)) == startValue)
+                //    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
+                FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
+
+                if (puzzleMap[i][j].value == cellInfo.NORMAL)
+                {
+                    Vector3 pos = GetCellCenterPos(i, j);
+                    float startDis = Vector3.Distance(pos, startPos);
+
+                    int wallCount = (puzzleMap[i][j].U ? 0 : 1) + (puzzleMap[i][j].D ? 0 : 1) + (puzzleMap[i][j].L ? 0 : 1) + +(puzzleMap[i][j].R ? 0 : 1);
+                    if (wallCount == 3)
+                    {
+                        deadEnds.Add(new Vector2Int(i, j));
+                    }
+                    else if (dungeonEnemyManager && startDis > enemyMinDistanceToStart)
+                    {
+                        //print("diffAdd: " + startDis / maxDistance);
+                        dungeonEnemyManager.AddNormalPosition(pos, startDis / maxDistance);
+                    }
+
+                    if (normalGroup && !dungeonEnemyManager && startDis > enemyMinDistanceToStart)
+                    {
+                        if (Random.Range(0, 1.0f) < normalEnemyRate)
+                        {
+                            GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
+                            EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
+                            eg.isRandomEnemyTotal = true;
+                            //TODO: 敵人的動態強度需要根據迷宮深淺來調整 ?
+                            //eg.randomEnemyTotal = 4 + (j * (4 + 1) / puzzleHeight);
+                        }
+                    }
+                }
+            }
+        }
+
+        print("總共找到的終端:" + deadEnds.Count);
+        int expRewardCount = Mathf.Min(exploreRewardNum, deadEnds.Count);
+        OneUtility.Shuffle(deadEnds);
+        OneUtility.Shuffle(exploreRewards);     //因應獎勵可能更少的時候
+        for (int i = 0; i < deadEnds.Count; i++)
+        {
+            Vector3 pos = GetCellCenterPos(deadEnds[i].x, deadEnds[i].y);
+            if (i < expRewardCount)
+            {
+                BattleSystem.SpawnGameObj(exploreRewards[i], pos);
+            }
+            else if (dungeonEnemyManager)
+            {
+                if (Vector3.Distance(pos, startPos) > enemyMinDistanceToStart)
+                {
+                    dungeonEnemyManager.AddNormalPosition(pos); //如果沒放寶，就可以放怪
+                }
+            }
+        }
+
+        if (dungeonEnemyManager)
+        {
+            print("開始 Build dungeonEnemyManager !!");
+            dungeonEnemyManager.BuildAllGameplay(dungeonEnemyDifficulty);
+        }
     }
 
 
@@ -952,21 +1071,30 @@ public class MG_MazeDungeon : MapGeneratorBase
     }
 
 
-    protected int EncodeCell( cellInfo cell)
+    protected void LoadMazeMap()
     {
-        int iDoor = 0;
-        iDoor += cell.U ? 8 : 0;
-        iDoor += cell.D ? 4 : 0;
-        iDoor += cell.L ? 2 : 0;
-        iDoor += cell.R ? 1 : 0;
-        int iAll = cell.value * 16 + iDoor;
-        //iAll = iDoor;//測試
-        //print(iAll);
-        if (iAll > 255)
+        print("載入 PuzzleMap 資料!!" + loadedMapData.puzzleMapData);
+
+        byte[] bData = System.Convert.FromBase64String(loadedMapData.puzzleMapData);
+        if (bData.Length != puzzleWidth * puzzleHeight)
         {
-            print("ERROR!!!! EncodeCell > 255!!");
+            print("ERROR!!!! Size 不符 !!");
         }
-        return iAll;
+
+        int i = 0;
+        puzzleMap = new cellInfo[puzzleWidth][];
+        for (int x = 0; x < puzzleWidth; x++)
+        {
+            puzzleMap[x] = new cellInfo[puzzleHeight];
+            for (int y = 0; y < puzzleHeight; y++)
+            {
+                puzzleMap[x][y] = new cellInfo();
+                puzzleMap[x][y].Decode((int)bData[i]);
+                i++;
+            }
+        }
+
+        ProcessNormalCells();
     }
 
     protected void SaveMap()
@@ -990,7 +1118,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             for (int y = 0; y < puzzleHeight; y++)
             {
-                int ec = EncodeCell(puzzleMap[x][y]);
+                //int ec = EncodeCell(puzzleMap[x][y]);
+                int ec = puzzleMap[x][y].Encode();
                 bData[i] = (byte)ec;
                 i++;
             }
@@ -1022,11 +1151,11 @@ public class MG_MazeDungeon : MapGeneratorBase
         wallWidth = loadedMapData.wallWidth;
         wallHeight = loadedMapData.wallHeight;
 
-        byte[] bData = System.Convert.FromBase64String(loadedMapData.puzzleMapData);
-        if (bData.Length != puzzleWidth * puzzleHeight)
-        {
-            print("ERROR!!!! Size 不符 !!");
-        }
+        //byte[] bData = System.Convert.FromBase64String(loadedMapData.puzzleMapData);
+        //if (bData.Length != puzzleWidth * puzzleHeight)
+        //{
+        //    print("ERROR!!!! Size 不符 !!");
+        //}
     }
 }
 
