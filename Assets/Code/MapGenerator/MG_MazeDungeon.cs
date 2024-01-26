@@ -18,6 +18,9 @@ public class MapSaveMazeDungeon : MapSaveDataBase
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
 
+    public bool extendTerminal = true;
+    public bool portalAfterFirstRoomGamplay = false;
+
     public Vector3 startPos;
     public Vector3 endPos;
     public string puzzleMapData = null;
@@ -1002,6 +1005,7 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     protected void ProcessNormalCells()
     {
+
         //==== 一般通道處理
         List<Vector2Int> deadEnds = new List<Vector2Int>();
         //int startValue = puzzleDSU.Find(iStart);
@@ -1203,6 +1207,9 @@ public class MG_MazeDungeon : MapGeneratorBase
         mapData.wallWidth = wallWidth;
         mapData.wallHeight = wallHeight;
 
+        mapData.extendTerminal = extendTerminal;
+        mapData.portalAfterFirstRoomGamplay = portalAfterFirstRoomGamplay;
+
         mapData.startPos = startPos;
         mapData.endPos = endPos;
 
@@ -1257,6 +1264,9 @@ public class MG_MazeDungeon : MapGeneratorBase
         puzzleHeight = loadedMapData.puzzleHeight;
         wallWidth = loadedMapData.wallWidth;
         wallHeight = loadedMapData.wallHeight;
+
+        extendTerminal = loadedMapData.extendTerminal;
+        portalAfterFirstRoomGamplay = loadedMapData.portalAfterFirstRoomGamplay;
 
         startPos = loadedMapData.startPos;
         endPos = loadedMapData.endPos;
