@@ -18,6 +18,8 @@ public class MapSaveMazeDungeon : MapSaveDataBase
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
 
+    public Vector3 startPos;
+    public Vector3 endPos;
     public string puzzleMapData = null;
     public RoomSave[] rooms;
 
@@ -92,7 +94,7 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected int borderWidth = 4;
     protected Vector3Int mapCenter;
     protected OneMap theMap = new OneMap();
-    protected enum MAP_TYPE 
+    protected enum MAP_TYPE
     {
         GROUND = 4,
         ROOM = 5,
@@ -135,10 +137,10 @@ public class MG_MazeDungeon : MapGeneratorBase
             return iAll;
         }
 
-        public void Decode(int code )
+        public void Decode(int code)
         {
             //print(code);
-            R = (code % 2) == 1? true : false ;
+            R = (code % 2) == 1 ? true : false;
             code = code >> 1;
             L = (code % 2) == 1 ? true : false;
             code = code >> 1;
@@ -250,8 +252,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             case (int)MAP_TYPE.GROUND:
                 return new Color(0.5f, 0.5f, 0.5f);
-            //case (int)MAP_TYPE.BLOCK:
-            //    return new Color(1.0f, 1.0f, 1.0f);
+                //case (int)MAP_TYPE.BLOCK:
+                //    return new Color(1.0f, 1.0f, 1.0f);
         }
         return Color.black;
     }
@@ -286,7 +288,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                 {
                     //dungeonEnemyManager = cData.dungeonEnemyManager;      //不能直接使用，要產生一個實體
 
-                    GameObject o = Instantiate( cData.dungeonEnemyManager.gameObject );
+                    GameObject o = Instantiate(cData.dungeonEnemyManager.gameObject);
                     o.transform.parent = gameObject.transform;
                     dungeonEnemyManager = o.GetComponent<DungeonEnemyManager>();
                 }
@@ -434,7 +436,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
     }
 
-    protected void FillRoomWallColliders( RectInt rc)
+    protected void FillRoomWallColliders(RectInt rc)
     {
         int x1 = puzzleX1 + rc.x * cellWidth;
         int y1 = puzzleY1 + rc.y * cellHeight;
@@ -464,7 +466,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         float yU = y1 + rc.height * cellHeight - wallHeight + wallBuffer;
         for (int ix = rc.x; ix < rc.x + rc.width; ix++)
         {
-            if (puzzleMap[ix][rc.y+rc.height-1].U)
+            if (puzzleMap[ix][rc.y + rc.height - 1].U)
             {
                 //print("上方| |");
                 FillBlock(startx, yU, endx - startx + wallWidth - wallBuffer, wallHeight - wallBuffer);
@@ -503,7 +505,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         float xR = x1 + rc.width * cellWidth - wallWidth + wallBuffer;
         for (int iy = rc.y; iy < rc.y + rc.height; iy++)
         {
-            if (puzzleMap[rc.x+rc.width-1][iy].R)
+            if (puzzleMap[rc.x + rc.width - 1][iy].R)
             {
                 //print("右方| |");
                 FillBlock(xR, starty, wallWidth - wallBuffer, endy - starty + wallHeight - wallBuffer);
@@ -539,12 +541,12 @@ public class MG_MazeDungeon : MapGeneratorBase
     protected int GetCellX(int id) { return id % puzzleWidth; }
     protected int GetCellY(int id) { return id / puzzleWidth; }
 
-    protected Vector3 GetCellCenterPos(int x, int y) 
+    protected Vector3 GetCellCenterPos(int x, int y)
     {
         return new Vector3(puzzleX1 + cellWidth * (x + 0.5f), 0, puzzleY1 + cellHeight * (y + 0.5f));
     }
 
-    virtual protected void InitPuzzleMap(){}
+    virtual protected void InitPuzzleMap() { }
 
     protected List<RectInt> rectList;
 
@@ -580,14 +582,14 @@ public class MG_MazeDungeon : MapGeneratorBase
                 if (puzzleMap[x][y].value == cellInfo.INVALID)
                     addToWallList = false;
 
-                if ( x < puzzleWidth - 1 )
+                if (x < puzzleWidth - 1)
                 {
                     wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x + 1, y));
                     if (addToWallList && puzzleMap[x + 1][y].value != cellInfo.INVALID)
                         wallList.Add(w);
                     lrWalls[x, y] = w;
                 }
-                if ( y < puzzleHeight - 1 )
+                if (y < puzzleHeight - 1)
                 {
                     wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x, y + 1));
                     if (addToWallList && puzzleMap[x][y + 1].value != cellInfo.INVALID)
@@ -601,7 +603,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         List<Vector2Int> sizeList = new List<Vector2Int>();
         for (int i = 0; i < bigRoomNum; i++)
         {
-            if (bigRooms[i].size.x >0 && bigRooms[i].size.y > 0)
+            if (bigRooms[i].size.x > 0 && bigRooms[i].size.y > 0)
                 sizeList.Add(bigRooms[i].size);
         }
         rectList = CreateNonOverlappingRects(sizeList, new RectInt(0, noRoomBuffer, puzzleWidth, puzzleHeight - noRoomBuffer));
@@ -691,7 +693,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //==== 連結完再處理 Big Room 的開口
-        for (int i=0; i<rectList.Count; i++)
+        for (int i = 0; i < rectList.Count; i++)
         {
             RectInt rc = rectList[i];
             List<wallInfo> roomWalls = new List<wallInfo>();
@@ -699,7 +701,7 @@ public class MG_MazeDungeon : MapGeneratorBase
             {
                 if (rc.y > 0)
                 {
-                    if (puzzleMap[x][rc.y-1].value != cellInfo.INVALID)
+                    if (puzzleMap[x][rc.y - 1].value != cellInfo.INVALID)
                         roomWalls.Add(udWalls[x, rc.y - 1]);
                 }
                 if (rc.yMax < puzzleHeight)
@@ -712,7 +714,7 @@ public class MG_MazeDungeon : MapGeneratorBase
             {
                 if (rc.x > 0)
                 {
-                    if (puzzleMap[rc.x-1][y].value != cellInfo.INVALID)
+                    if (puzzleMap[rc.x - 1][y].value != cellInfo.INVALID)
                         roomWalls.Add(lrWalls[rc.x - 1, y]);
                 }
                 if (rc.xMax < puzzleWidth)
@@ -1089,7 +1091,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         int maxAttempts = 1000;
         int retryCount = 0;
         int maxRetryCount = 100;
-        List<RectInt>  rects = new List<RectInt>();
+        List<RectInt> rects = new List<RectInt>();
 
         //TEST
         //rects.Add(new RectInt(2, 3, 3, 3));
@@ -1140,8 +1142,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             //if (existingRect.xMax + 1 >= newRect.x - 1 && existingRect.xMin - 1 <= newRect.xMax + 1 &&
             //    existingRect.yMax + 1 >= newRect.y - 1 && existingRect.yMin - 1 <= newRect.yMax + 1)
-            if (existingRect.xMax >= newRect.xMin && existingRect.xMin <= newRect.xMax && 
-                existingRect.yMax >= newRect.yMin && existingRect.yMin <= newRect.yMax )
+            if (existingRect.xMax >= newRect.xMin && existingRect.xMin <= newRect.xMax &&
+                existingRect.yMax >= newRect.yMin && existingRect.yMin <= newRect.yMax)
             {
                 //print("相交: " + newRect + "--" + existingRect);
                 return true;
@@ -1178,7 +1180,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         //載入 Room 的資訊
         print("loadedMapData.rooms.Length: " + loadedMapData.rooms.Length);
         rectList = new List<RectInt>();
-        for (i=0; i<loadedMapData.rooms.Length; i++)
+        for (i = 0; i < loadedMapData.rooms.Length; i++)
         {
             rectList.Add(loadedMapData.rooms[i].rect);
         }
@@ -1200,6 +1202,9 @@ public class MG_MazeDungeon : MapGeneratorBase
         mapData.puzzleHeight = puzzleHeight;
         mapData.wallWidth = wallWidth;
         mapData.wallHeight = wallHeight;
+
+        mapData.startPos = startPos;
+        mapData.endPos = endPos;
 
         int i = 0;
         byte[] bData = new byte[puzzleHeight * puzzleWidth];
@@ -1253,11 +1258,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         wallWidth = loadedMapData.wallWidth;
         wallHeight = loadedMapData.wallHeight;
 
-        //byte[] bData = System.Convert.FromBase64String(loadedMapData.puzzleMapData);
-        //if (bData.Length != puzzleWidth * puzzleHeight)
-        //{
-        //    print("ERROR!!!! Size 不符 !!");
-        //}
+        startPos = loadedMapData.startPos;
+        endPos = loadedMapData.endPos;
     }
 }
 
