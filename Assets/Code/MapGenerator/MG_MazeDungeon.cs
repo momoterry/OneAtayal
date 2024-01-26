@@ -948,7 +948,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                     rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)MAP_TYPE.GROUND);
 
             Vector3 pos = new Vector3(x1 + rc.width * cellWidth / 2, 0, y1 + rc.height * cellHeight / 2);
-            if (bigRooms[i].gameplayRef)
+            if (i < bigRooms.Length && bigRooms[i].gameplayRef)
             {
                 GameObject o = BattleSystem.SpawnGameObj(bigRooms[i].gameplayRef, pos);
                 if (portalAfterFirstRoomGamplay && i == 0)
