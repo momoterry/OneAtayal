@@ -173,7 +173,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         PresetByContinuousBattle();
 
         if (mapName != null && mapName != "")
-            LoadMap();  //先嘗試載入存檔
+            LoadMap();  //先嘗試載入存檔，有的話更新地圖參數等
 
         PreCreateMap();
 
@@ -189,6 +189,9 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             CreatMazeMap();
         }
+
+        //ProcessNormalCells();
+
         //theMap.PrintMap();
         if (defautTileGroup)
             theMap.FillTileAll(OneMap.DEFAULT_VALUE, blockTM, defautTileGroup.GetTileGroup());
