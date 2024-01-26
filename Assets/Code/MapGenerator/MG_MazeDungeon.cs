@@ -6,6 +6,11 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public class MapSaveMazeDungeon : MapSaveDataBase
 {
+    [System.Serializable]
+    public class RoomSave
+    {
+        public RectInt rect;
+    }
     public int cellWidth = 4;
     public int cellHeight = 4;
     public int wallWidth = 2;
@@ -14,6 +19,7 @@ public class MapSaveMazeDungeon : MapSaveDataBase
     public int puzzleWidth = 6;
 
     public string puzzleMapData = null;
+    public RoomSave[] rooms;
 
     public string mapMask64 = null;
     public CavPoint[] cavPoints;
@@ -190,7 +196,8 @@ public class MG_MazeDungeon : MapGeneratorBase
             CreatMazeMap();
         }
 
-        //ProcessNormalCells();
+        ProcessNormalCells();
+        ProcessBigRoomAndInitFinish();
 
         //theMap.PrintMap();
         if (defautTileGroup)
@@ -779,7 +786,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //==== 一般通道處理
-        ProcessNormalCells();
+        //ProcessNormalCells();
 
         //List<Vector2Int> deadEnds = new List<Vector2Int>();
         //int startValue = puzzleDSU.Find(iStart);
@@ -855,8 +862,78 @@ public class MG_MazeDungeon : MapGeneratorBase
         //}
 
         //==== Big Room 的部份處理
+        //ProcessBigRoomAndInitFinish();
+        //bool isFinishPortalDone = false;
+        //for (int i=0; i<rectList.Count; i++)
+        //{
+        //    RectInt rc = rectList[i];
+        //    int x1 = puzzleX1 + rc.x * cellWidth;
+        //    int y1 = puzzleY1 + rc.y * cellHeight;
+        //    if (roomGroundTileGroup != null)
+        //        theMap.FillValue(x1 + borderWidth, y1 + borderWidth,
+        //            rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)MAP_TYPE.ROOM);
+        //    else
+        //        theMap.FillValue(x1 + borderWidth, y1 + borderWidth,
+        //            rc.width * cellWidth - borderWidth - borderWidth, rc.height * cellHeight - borderWidth - borderWidth, (int)MAP_TYPE.GROUND);
+
+        //    Vector3 pos = new Vector3(x1 + rc.width * cellWidth / 2, 0, y1 + rc.height * cellHeight / 2);
+        //    if (bigRooms[i].gameplayRef)
+        //    {
+        //        GameObject o = BattleSystem.SpawnGameObj(bigRooms[i].gameplayRef, pos);
+        //        if (portalAfterFirstRoomGamplay && i == 0)
+        //        {
+        //            MultiSpawner s = o.AddComponent<MultiSpawner>();
+        //            s.AreaHeight = s.AreaWidth = 0;
+        //            s.MaxNum = s.MinNum = 1;
+        //            s.objRef = finishPortalRef;
+        //            isFinishPortalDone = true;
+        //        }
+
+        //        //難度校正
+        //        if (bigRooms[i].difficultyAdd != 0)
+        //        {
+        //            //print("=================難度校正: " + (1.0f + bigRooms[i].difficultyAdd));
+        //            EnemyGroup[] epArray = o.GetComponentsInChildren<EnemyGroup>();
+        //            foreach (EnemyGroup ep in epArray)
+        //            {
+        //                ep.difficulty = 1.0f + bigRooms[i].difficultyAdd;
+        //            }
+        //        }
+        //    }
+        //    else if (normalGroup)
+        //    {
+        //        GameObject egObj = BattleSystem.SpawnGameObj(normalGroup.gameObject, pos);
+        //        EnemyGroup eg = egObj.GetComponent<EnemyGroup>();
+        //        eg.isRandomEnemyTotal = true;
+        //        //eg.randomEnemyTotal = rc.width * rc.height * 2;
+        //        eg.randomEnemyTotal = normalEnemyNum * 2;
+        //        //eg.height = rc.height * 4;
+        //        //eg.width = rc.width * 4;
+        //        eg.height *= 2;
+        //        eg.width *= 2;
+        //    }
+
+        //    //Big Room 的牆面處理
+        //    FillRoomWallColliders(rc);
+        //}
+
+        ////初始 Gameplay
+        //if (initGampleyRef)
+        //{
+        //    BattleSystem.SpawnGameObj(initGampleyRef, startPos);
+        //}
+
+        ////破關門
+        //if (finishPortalRef && !isFinishPortalDone)
+        //    BattleSystem.SpawnGameObj(finishPortalRef, endPos);
+    }
+
+
+
+    protected void ProcessBigRoomAndInitFinish()
+    {
         bool isFinishPortalDone = false;
-        for (int i=0; i<rectList.Count; i++)
+        for (int i = 0; i < rectList.Count; i++)
         {
             RectInt rc = rectList[i];
             int x1 = puzzleX1 + rc.x * cellWidth;
@@ -919,6 +996,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         if (finishPortalRef && !isFinishPortalDone)
             BattleSystem.SpawnGameObj(finishPortalRef, endPos);
     }
+
 
     protected void ProcessNormalCells()
     {
@@ -1097,7 +1175,15 @@ public class MG_MazeDungeon : MapGeneratorBase
             }
         }
 
-        ProcessNormalCells();
+        //載入 Room 的資訊
+        print("loadedMapData.rooms.Length: " + loadedMapData.rooms.Length);
+        rectList = new List<RectInt>();
+        for (i=0; i<loadedMapData.rooms.Length; i++)
+        {
+            rectList.Add(loadedMapData.rooms[i].rect);
+        }
+
+        //ProcessNormalCells();
     }
 
     protected void SaveMap()
@@ -1129,6 +1215,19 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
         mapData.puzzleMapData = System.Convert.ToBase64String(bData);
         print("編碼結果!!" + mapData.puzzleMapData);
+
+        //記錄 Rooms
+        i = 0;
+        if (rectList.Count > 0)
+        {
+            mapData.rooms = new MapSaveMazeDungeon.RoomSave[rectList.Count];
+            foreach (RectInt rc in rectList)
+            {
+                mapData.rooms[i] = new MapSaveMazeDungeon.RoomSave();
+                mapData.rooms[i].rect = rc;
+                i++;
+            }
+        }
 
         GameSystem.GetPlayerData().SaveMap(mapName, mapData);
 
