@@ -20,6 +20,8 @@ public class MG_MazeCave : MG_MazeDungeon
 
         //洞穴地型，中心點移到全圖中間
         mapCenter.y -= cellHeight * (puzzleHeight / 2);
+        puzzleX1 = mapCenter.x - (puzzleWidth * cellWidth / 2);
+        puzzleY1 = mapCenter.y - (puzzleHeight * cellHeight / 2);
     }
 
     protected override void InitPuzzleMap()
