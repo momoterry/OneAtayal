@@ -21,6 +21,8 @@ public class MapSaveMazeDungeon : MapSaveDataBase
     public bool extendTerminal = true;
     public bool portalAfterFirstRoomGamplay = false;
 
+    public Vector2Int puzzleStart;
+    public Vector2Int puzzleEnd;
     public Vector3 startPos;
     public Vector3 endPos;
     public string puzzleMapData = null;
@@ -758,28 +760,28 @@ public class MG_MazeDungeon : MapGeneratorBase
             {
                 cellInfo cStart = new cellInfo();
                 cStart.U = true;
-                FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellWidth, puzzleY1 + (GetCellY(iStart) - 1) * cellHeight, cellWidth, cellHeight);
+                FillCell(cStart, puzzleX1 + puzzleStart.x * cellWidth, puzzleY1 + (puzzleStart.y - 1) * cellHeight, cellWidth, cellHeight);
             }
             else
             {
-                puzzleMap[GetCellX(iStart)][GetCellY(iStart) - 1].U = true;
-                puzzleMap[GetCellX(iStart)][GetCellY(iStart) - 1].value = cellInfo.TERNIMAL;
+                puzzleMap[puzzleStart.x][puzzleStart.y - 1].U = true;
+                puzzleMap[puzzleStart.x][puzzleStart.y - 1].value = cellInfo.TERNIMAL;
             }
 
             if (puzzleEnd.y == (puzzleHeight - 1))
             {
                 cellInfo cEnd = new cellInfo();
                 cEnd.D = true;
-                FillCell(cEnd, puzzleX1 + GetCellX(iEnd) * cellWidth, puzzleY1 + (GetCellY(iEnd) + 1) * cellHeight, cellWidth, cellHeight);
+                FillCell(cEnd, puzzleX1 + puzzleEnd.x * cellWidth, puzzleY1 + (puzzleEnd.y + 1) * cellHeight, cellWidth, cellHeight);
             }
             else
             {
-                puzzleMap[GetCellX(iEnd)][GetCellY(iEnd) + 1].D = true;
-                puzzleMap[GetCellX(iEnd)][GetCellY(iEnd) + 1].value = cellInfo.TERNIMAL;
+                puzzleMap[puzzleEnd.x][puzzleEnd.y + 1].D = true;
+                puzzleMap[puzzleEnd.x][puzzleEnd.y + 1].value = cellInfo.TERNIMAL;
             }
 
-            puzzleMap[GetCellX(iStart)][GetCellY(iStart)].D = true;
-            puzzleMap[GetCellX(iEnd)][GetCellY(iEnd)].U = true;
+            puzzleMap[puzzleStart.x][puzzleStart.y].D = true;
+            puzzleMap[puzzleEnd.x][puzzleEnd.y].U = true;
 
             startPos.z -= cellHeight;
             endPos.z += cellHeight;
@@ -1005,6 +1007,26 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     protected void ProcessNormalCells()
     {
+        //上下延伸區如果超過範圍的處理
+        //==== 起終點上下延申處理
+        if (extendTerminal)
+        {
+            //起始區處理
+            if (puzzleStart.y == 0)
+            {
+                cellInfo cStart = new cellInfo();
+                cStart.U = true;
+                FillCell(cStart, puzzleX1 + puzzleStart.x * cellWidth, puzzleY1 + (puzzleStart.y - 1) * cellHeight, cellWidth, cellHeight);
+                //FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellWidth, puzzleY1 + (GetCellY(iStart) - 1) * cellHeight, cellWidth, cellHeight);
+            }
+
+            if (puzzleEnd.y == (puzzleHeight - 1))
+            {
+                cellInfo cEnd = new cellInfo();
+                cEnd.D = true;
+                FillCell(cEnd, puzzleX1 + puzzleEnd.x * cellWidth, puzzleY1 + (puzzleEnd.y + 1) * cellHeight, cellWidth, cellHeight);
+            }
+        }
 
         //==== 一般通道處理
         List<Vector2Int> deadEnds = new List<Vector2Int>();
@@ -1209,7 +1231,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
         mapData.extendTerminal = extendTerminal;
         mapData.portalAfterFirstRoomGamplay = portalAfterFirstRoomGamplay;
-
+        mapData.puzzleStart = puzzleStart;
+        mapData.puzzleEnd = puzzleEnd;
         mapData.startPos = startPos;
         mapData.endPos = endPos;
 
@@ -1267,7 +1290,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
         extendTerminal = loadedMapData.extendTerminal;
         portalAfterFirstRoomGamplay = loadedMapData.portalAfterFirstRoomGamplay;
-
+        puzzleStart = loadedMapData.puzzleStart;
+        puzzleEnd = loadedMapData.puzzleEnd;
         startPos = loadedMapData.startPos;
         endPos = loadedMapData.endPos;
     }
