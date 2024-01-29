@@ -519,9 +519,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD_AlphaV
       objectReference: {fileID: 0}
+    - target: {fileID: 6971823420909225931, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7025706906285660581, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7872380883086319681, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8521069236102477579, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: useRenderCamera
@@ -1410,6 +1418,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_HubMenus
       objectReference: {fileID: 0}
+    - target: {fileID: 6936922310033895920, guid: 9050f11007a554f419e6163f7a7751f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6936922310033895932, guid: 9050f11007a554f419e6163f7a7751f5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1567,6 +1579,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleSystemAlpha
       objectReference: {fileID: 0}
+    - target: {fileID: 5781492699891297191, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1583,6 +1599,10 @@ PrefabInstance:
     - target: {fileID: 8104819324499160132, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_Name
       value: BattleCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104819324499160132, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160137, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_RootOrder
@@ -1994,7 +2014,7 @@ MonoBehaviour:
   cellHeight: 12
   wallWidth: 3
   wallHeight: 3
-  puzzleHeight: 7
+  puzzleHeight: 10
   puzzleWidth: 7
   allConnect: 1
   extendTerminal: 1
@@ -2011,6 +2031,10 @@ MonoBehaviour:
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
   bigRooms:
+  - size: {x: 2, y: 2}
+    numDoor: 1
+    gameplayRef: {fileID: 0}
+    difficultyAdd: 0
   - size: {x: 2, y: 2}
     numDoor: 1
     gameplayRef: {fileID: 0}
