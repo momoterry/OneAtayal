@@ -317,6 +317,60 @@ public class MiniMap : MonoBehaviour
 
     public Texture2D GetMaskTexture() { return maskTexture; }
 
+
+    public string EncodeMaskTexture()
+    {
+        // 獲取Texture2D的所有像素
+        Color[] pixels = maskTexture.GetPixels();
+
+        // 初始化alphaData數組
+        byte[] alphaData = new byte[pixels.Length];
+
+        // 將每個像素的alpha值轉換為字節數據
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            alphaData[i] = (byte)(pixels[i].a * 255);
+        }
+        //print("Byte 總量: " + alphaData.Length);
+
+        byte[] compressedAlphaData = OneUtility.CompressData(alphaData);
+        //print("壓縮後 Byte 總量" + compressedAlphaData.Length);
+        //print("壓縮後內容: " + compressedAlphaData);
+
+        string compressedAlpha64Text = System.Convert.ToBase64String(compressedAlphaData);
+        //print("SaveExploreMap 壓縮後的文字量: " + compressedAlpha64Text.Length);
+        //print("TEXT: " + compressedAlpha64Text);
+
+        return compressedAlpha64Text;
+    }
+
+    public void DecodeMaskTexture(string codeStr)
+    {
+
+        byte[] compressedAlphaData = System.Convert.FromBase64String(codeStr);
+        //print("找到的壓縮資料，Byte 總量: " + compressedAlphaData.Length);
+        //print("壓縮資料: " + compressedAlphaData);
+
+        byte[] alphaData = OneUtility.DeCompressData(compressedAlphaData);
+        //print("解壓縮資料，Byte 總量: " + alphaData.Length);
+
+        //Texture2D maskT = theMiniMap.GetMaskTexture();
+        Color[] pixels = maskTexture.GetPixels();
+        if (pixels.Length != alphaData.Length)
+        {
+            print("解壓縮錯誤，載入的探索地圖大小和實際不符 !! " + alphaData.Length + " / " + pixels.Length);
+            return;
+        }
+
+        //print("開始改寫探索地圖....");
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i].a = alphaData[i] / 255.0f;
+        }
+        maskTexture.SetPixels(pixels);
+        maskTexture.Apply();
+    }
+
     //private void OnGUI()
     //{
     //    //GUI.TextArea(new Rect(100, 100, 100, 50), "( " + px + ", " + py + " )");

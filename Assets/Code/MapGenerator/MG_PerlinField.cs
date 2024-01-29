@@ -644,33 +644,35 @@ public class MG_PerlinField : MG_PerlinNoise
         MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
         if (theMiniMap)
         {
-            //print("開始嘗試儲存 MiniMap");
+            ////print("開始嘗試儲存 MiniMap");
 
-            Texture2D maskT = theMiniMap.GetMaskTexture();
-            // 獲取Texture2D的所有像素
-            Color[] pixels = maskT.GetPixels();
+            //Texture2D maskT = theMiniMap.GetMaskTexture();
+            //// 獲取Texture2D的所有像素
+            //Color[] pixels = maskT.GetPixels();
 
-            // 初始化alphaData數組
-            byte[] alphaData = new byte[pixels.Length];
+            //// 初始化alphaData數組
+            //byte[] alphaData = new byte[pixels.Length];
 
-            // 將每個像素的alpha值轉換為字節數據
-            for (int i = 0; i < pixels.Length; i++)
-            {
-                alphaData[i] = (byte)(pixels[i].a * 255);
-            }
-            //print("Byte 總量: " + alphaData.Length);
+            //// 將每個像素的alpha值轉換為字節數據
+            //for (int i = 0; i < pixels.Length; i++)
+            //{
+            //    alphaData[i] = (byte)(pixels[i].a * 255);
+            //}
+            ////print("Byte 總量: " + alphaData.Length);
 
-            byte[] compressedAlphaData = OneUtility.CompressData(alphaData);
-            //print("壓縮後 Byte 總量" + compressedAlphaData.Length);
-            //print("壓縮後內容: " + compressedAlphaData);
+            //byte[] compressedAlphaData = OneUtility.CompressData(alphaData);
+            ////print("壓縮後 Byte 總量" + compressedAlphaData.Length);
+            ////print("壓縮後內容: " + compressedAlphaData);
 
-            string compressedAlpha64Text = System.Convert.ToBase64String(compressedAlphaData);
-            print("SaveExploreMap 壓縮後的文字量: " + compressedAlpha64Text.Length);
-            //print("TEXT: " + compressedAlpha64Text);
+            //string compressedAlpha64Text = System.Convert.ToBase64String(compressedAlphaData);
+            //print("SaveExploreMap 壓縮後的文字量: " + compressedAlpha64Text.Length);
+            ////print("TEXT: " + compressedAlpha64Text);
 
 
+            //MapSavePerlinField mapData = (MapSavePerlinField)mapDataBase;
+            //mapData.mapMask64 = compressedAlpha64Text;
             MapSavePerlinField mapData = (MapSavePerlinField)mapDataBase;
-            mapData.mapMask64 = compressedAlpha64Text;
+            mapData.mapMask64 = theMiniMap.EncodeMaskTexture();
         }
     }
 
@@ -697,28 +699,31 @@ public class MG_PerlinField : MG_PerlinNoise
 
         print("LoadExploreMap: 找到的文字壓縮資料，Byte 總量: " + mapData.mapMask64.Length);
         //print("找到的文字壓縮資料內容: " + mapData.mapMask64);
-        byte[] compressedAlphaData = System.Convert.FromBase64String(mapData.mapMask64);
-        //print("找到的壓縮資料，Byte 總量: " + compressedAlphaData.Length);
-        //print("壓縮資料: " + compressedAlphaData);
 
-        byte[] alphaData = OneUtility.DeCompressData(compressedAlphaData);
-        //print("解壓縮資料，Byte 總量: " + alphaData.Length);
+        theMiniMap.DecodeMaskTexture(mapData.mapMask64);
 
-        Texture2D maskT = theMiniMap.GetMaskTexture();
-        Color[] pixels = maskT.GetPixels();
-        if (pixels.Length != alphaData.Length)
-        {
-            print("解壓縮錯誤，載入的探索地圖大小和實際不符 !! " + alphaData.Length + " / " + pixels.Length);
-            return;
-        }
+        //byte[] compressedAlphaData = System.Convert.FromBase64String(mapData.mapMask64);
+        ////print("找到的壓縮資料，Byte 總量: " + compressedAlphaData.Length);
+        ////print("壓縮資料: " + compressedAlphaData);
 
-        //print("開始改寫探索地圖....");
-        for (int i=0; i<pixels.Length; i++)
-        {
-            pixels[i].a = alphaData[i] / 255.0f;
-        }
-        maskT.SetPixels(pixels);
-        maskT.Apply();
+        //byte[] alphaData = OneUtility.DeCompressData(compressedAlphaData);
+        ////print("解壓縮資料，Byte 總量: " + alphaData.Length);
+
+        //Texture2D maskT = theMiniMap.GetMaskTexture();
+        //Color[] pixels = maskT.GetPixels();
+        //if (pixels.Length != alphaData.Length)
+        //{
+        //    print("解壓縮錯誤，載入的探索地圖大小和實際不符 !! " + alphaData.Length + " / " + pixels.Length);
+        //    return;
+        //}
+
+        ////print("開始改寫探索地圖....");
+        //for (int i=0; i<pixels.Length; i++)
+        //{
+        //    pixels[i].a = alphaData[i] / 255.0f;
+        //}
+        //maskT.SetPixels(pixels);
+        //maskT.Apply();
         //print("完成....");
     }
 
