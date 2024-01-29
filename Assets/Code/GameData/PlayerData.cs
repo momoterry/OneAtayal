@@ -662,6 +662,9 @@ public class PlayerData : MonoBehaviour
 
     public MapSaveDataBase GetSavedMap(string name)
     {
+        if (name == null || name == "")
+            return null;
+
         if (savedMaps.ContainsKey(name))
         {
             return savedMaps[name];
