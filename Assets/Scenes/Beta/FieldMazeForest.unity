@@ -1575,6 +1575,10 @@ PrefabInstance:
       propertyPath: initPlayerPos
       value: 
       objectReference: {fileID: 846517816}
+    - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
+      propertyPath: IsBattleLevelUp
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5781492699891297191, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: m_Name
       value: BattleSystemAlpha
@@ -2010,12 +2014,12 @@ MonoBehaviour:
   theSurface2D: {fileID: 1252285827}
   entraceList: []
   mapName: ForestMazeField
-  cellWidth: 12
-  cellHeight: 12
+  cellWidth: 18
+  cellHeight: 24
   wallWidth: 3
   wallHeight: 3
-  puzzleHeight: 10
-  puzzleWidth: 7
+  puzzleHeight: 3
+  puzzleWidth: 3
   allConnect: 1
   extendTerminal: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
@@ -2030,15 +2034,7 @@ MonoBehaviour:
   roomGroundTileEdgeGroup: {fileID: 1643079206}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
-  bigRooms:
-  - size: {x: 2, y: 2}
-    numDoor: 1
-    gameplayRef: {fileID: 0}
-    difficultyAdd: 0
-  - size: {x: 2, y: 2}
-    numDoor: 1
-    gameplayRef: {fileID: 0}
-    difficultyAdd: 0
+  bigRooms: []
   noRoomBuffer: 1
   dungeonEnemyManager: {fileID: 402024212967028791, guid: c2fa1c4cdd4b08d44aca9089515a741f, type: 3}
   normalGroup: {fileID: 2283165509847586994, guid: 506baf8ee1cfb01489d18e00614c0b45, type: 3}
