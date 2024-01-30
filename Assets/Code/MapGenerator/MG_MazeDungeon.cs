@@ -44,6 +44,9 @@ public class MG_MazeDungeon : MapGeneratorBase
     public int wallHeight = 2;
     public int puzzleHeight = 6;
     public int puzzleWidth = 6;
+
+    public int fixDoorWidth = -1; // 如果值 > 0 就表非門口會縮小，通道較窄
+
     public bool allConnect = true;
     public bool extendTerminal = true;
     public GameObject finishPortalRef;
@@ -383,6 +386,15 @@ public class MG_MazeDungeon : MapGeneratorBase
     {
         int x2 = x1 + width - wallWidth;
         int y2 = y1 + height - wallHeight;
+
+        int wallGapWidth = 0;
+        int wallGapHeight = 0;
+        if (fixDoorWidth > 0)
+        {
+            wallGapWidth = (width - fixDoorWidth) / 2 - wallWidth;
+            wallGapHeight = (height - fixDoorWidth) / 2 - wallHeight;
+        }
+
         if (cell.value == cellInfo.INVALID)
         {
             theMap.FillValue(x1, y1, width, height, (int)MAP_TYPE.BLOCK);
@@ -405,6 +417,11 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
         else
         {
+            if (wallGapWidth > 0)
+            {
+                theMap.FillValue(x1 + wallWidth, y1, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+                theMap.FillValue(x1 + wallWidth + wallGapWidth + fixDoorWidth, y1, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+            }
             if (isFillBlock)
                 FillBlock(x1, y1, wallWidth - wallBuffer, wallHeight - wallBuffer);   // 左下
         }
@@ -416,6 +433,11 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
         else
         {
+            if (wallGapWidth > 0)
+            {
+                theMap.FillValue(x1 + wallWidth, y2, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+                theMap.FillValue(x1 + wallWidth + wallGapWidth + fixDoorWidth, y2, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+            }
             if (isFillBlock)
                 FillBlock(x2 + wallBuffer, y2 + wallBuffer, wallWidth - wallBuffer, wallHeight - wallBuffer);   // 右上
         }
@@ -428,6 +450,11 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
         else
         {
+            if (wallGapHeight > 0)
+            {
+                theMap.FillValue(x1, y1 + wallHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
+                theMap.FillValue(x1, y1 + wallHeight + wallGapHeight + fixDoorWidth, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
+            }
             if (isFillBlock)
                 FillBlock(x1, y2 + wallBuffer, wallWidth - wallBuffer, wallHeight - wallBuffer);    //左上
         }
@@ -439,6 +466,11 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
         else
         {
+            if (wallGapHeight > 0)
+            {
+                theMap.FillValue(x2, y1 + wallHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
+                theMap.FillValue(x2, y1 + wallHeight + wallGapHeight + fixDoorWidth, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
+            }
             if (isFillBlock)
                 FillBlock(x2 + wallBuffer, y1, wallWidth - wallBuffer, wallHeight - wallBuffer);   //右下
         }
