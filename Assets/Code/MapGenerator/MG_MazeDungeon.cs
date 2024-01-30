@@ -393,6 +393,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         {
             wallGapWidth = (width - fixDoorWidth) / 2 - wallWidth;
             wallGapHeight = (height - fixDoorWidth) / 2 - wallHeight;
+            wallGapWidth = wallGapWidth > 0 ? wallGapWidth : 0;
+            wallGapHeight = wallGapHeight > 0 ? wallGapHeight : 0;
         }
 
         if (cell.value == cellInfo.INVALID)
@@ -423,13 +425,20 @@ public class MG_MazeDungeon : MapGeneratorBase
                 theMap.FillValue(x1 + wallWidth + wallGapWidth + fixDoorWidth, y1, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
             }
             if (isFillBlock)
-                FillBlock(x1, y1, wallWidth - wallBuffer, wallHeight - wallBuffer);   // 左下
+            {
+                FillBlock(x1, y1, wallWidth + wallGapWidth - wallBuffer, wallHeight - wallBuffer);   // 左下
+                if (wallGapWidth > 0)
+                {
+                    FillBlock(x1 + wallWidth + wallGapWidth + fixDoorWidth + wallBuffer, y1, wallGapWidth, wallHeight - wallBuffer);   // 左下
+                }
+            }
         }
         if (!cell.U)
         {
             theMap.FillValue(x1 + wallWidth, y2, width - wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
             if (isFillBlock)
                 FillBlock(x1 + wallWidth - wallBuffer, y2 + wallBuffer, width - wallWidth + wallBuffer, wallHeight - wallBuffer);   //右上和上
+
         }
         else
         {
@@ -439,7 +448,13 @@ public class MG_MazeDungeon : MapGeneratorBase
                 theMap.FillValue(x1 + wallWidth + wallGapWidth + fixDoorWidth, y2, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
             }
             if (isFillBlock)
-                FillBlock(x2 + wallBuffer, y2 + wallBuffer, wallWidth - wallBuffer, wallHeight - wallBuffer);   // 右上
+            {
+                FillBlock(x2 - wallGapWidth + wallBuffer, y2 + wallBuffer, wallWidth + wallGapWidth - wallBuffer, wallHeight - wallBuffer);   // 右上
+                if (wallGapWidth > 0)
+                {
+                    FillBlock(x1 + wallWidth - wallBuffer, y2 + wallBuffer, wallGapWidth, wallHeight - wallBuffer);   // 右上
+                }
+            }
         }
 
         if (!cell.L)
@@ -456,7 +471,13 @@ public class MG_MazeDungeon : MapGeneratorBase
                 theMap.FillValue(x1, y1 + wallHeight + wallGapHeight + fixDoorWidth, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
             }
             if (isFillBlock)
-                FillBlock(x1, y2 + wallBuffer, wallWidth - wallBuffer, wallHeight - wallBuffer);    //左上
+            {
+                FillBlock(x1, y2 + wallBuffer - wallGapHeight, wallWidth - wallBuffer, wallHeight + wallGapHeight - wallBuffer);    //左上
+                if (wallGapHeight > 0)
+                {
+                    FillBlock(x1, y1 + wallHeight - wallBuffer, wallWidth - wallBuffer, wallGapHeight);    //左上
+                }
+            }
         }
         if (!cell.R)
         {
@@ -472,7 +493,13 @@ public class MG_MazeDungeon : MapGeneratorBase
                 theMap.FillValue(x2, y1 + wallHeight + wallGapHeight + fixDoorWidth, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
             }
             if (isFillBlock)
-                FillBlock(x2 + wallBuffer, y1, wallWidth - wallBuffer, wallHeight - wallBuffer);   //右下
+            {
+                FillBlock(x2 + wallBuffer, y1, wallWidth - wallBuffer, wallHeight + wallGapHeight - wallBuffer);   //右下
+                if (wallGapHeight > 0)
+                {
+                    FillBlock(x2 + wallBuffer, y1 + wallHeight + wallGapHeight + fixDoorWidth + wallBuffer, wallWidth - wallBuffer, wallGapHeight);   //右下
+                }
+            }
         }
     }
 
