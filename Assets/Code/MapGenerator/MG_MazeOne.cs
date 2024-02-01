@@ -455,15 +455,24 @@ public class MG_MazeOne : MapGeneratorBase
 
     protected void FillCell(cellInfo cell, int x1, int y1, int width, int height)
     {
+        //ด๚ธี
+        int wallWidth = this.wallWidth;
+        int wallHeight = this.wallHeight;
+        int roomWidth = this.roomWidth;
+        int roomHeight = this.roomHeight;
+        if (Random.Range(0, 2) == 0)
+        {
+            wallWidth = (roomWidth - pathWidth) / 2 + wallWidth;
+            wallHeight = (roomHeight - pathHeight) / 2 + wallHeight;
+            roomWidth = pathWidth;
+            roomHeight = pathHeight;
+        }
+
         int x2 = x1 + width - wallWidth;
         int y2 = y1 + height - wallHeight;
 
-        int wallGapWidth = 0;
-        int wallGapHeight = 0;
-        //if (fixDoorWidth > 0)
-
-        wallGapWidth = (roomWidth - pathWidth) / 2;
-        wallGapHeight = (roomHeight - pathHeight) / 2;
+        int wallGapWidth = (roomWidth - pathWidth) / 2;
+        int wallGapHeight = (roomHeight - pathHeight) / 2;
 
 
         if (cell.value == cellInfo.INVALID)
