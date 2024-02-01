@@ -10,14 +10,23 @@ public class MG_MazeOne : MapGeneratorBase
     //地圖存檔資料
     //protected MapSaveMazeDungeon loadedMapData = null;  //如果有的話，是載入存檔的形式
     // 迷宮資料相關
-    public int cellWidth = 4;
-    public int cellHeight = 4;
-    public int wallWidth = 2;
-    public int wallHeight = 2;
-    public int puzzleHeight = 6;
-    public int puzzleWidth = 6;
 
-    public int fixDoorWidth = -1; // 如果值 > 0 就表非門口會縮小，通道較窄
+
+    public int puzzleWidth = 6;
+    public int puzzleHeight = 6;
+
+    public int roomWidth = 12;
+    public int roomHeight = 16;
+    public int wallWidth = 4;
+    public int wallHeight = 4;
+
+    public int pathWidth = 4;
+    public int pathHeight = 4;
+    //public int fixDoorWidth = -1; // 如果值 > 0 就表非門口會縮小，通道較窄
+
+    protected int cellWidth = 4;
+    protected int cellHeight = 4;
+
 
     public bool allConnect = true;
     public bool extendTerminal = true;
@@ -260,6 +269,11 @@ public class MG_MazeOne : MapGeneratorBase
 
     virtual protected void PresetMapInfo()
     {
+        cellWidth = roomWidth + wallWidth + wallWidth;
+        cellHeight = roomHeight + wallHeight + wallHeight;
+        pathWidth = pathWidth > roomWidth ? roomWidth : pathWidth;
+        pathHeight = pathHeight > roomHeight ? roomHeight : pathHeight;
+
         // =============== 各種內部參數設定
         if (extendTerminal)
         {
@@ -442,13 +456,11 @@ public class MG_MazeOne : MapGeneratorBase
 
         int wallGapWidth = 0;
         int wallGapHeight = 0;
-        if (fixDoorWidth > 0)
-        {
-            wallGapWidth = (width - fixDoorWidth) / 2 - wallWidth;
-            wallGapHeight = (height - fixDoorWidth) / 2 - wallHeight;
-            wallGapWidth = wallGapWidth > 0 ? wallGapWidth : 0;
-            wallGapHeight = wallGapHeight > 0 ? wallGapHeight : 0;
-        }
+        //if (fixDoorWidth > 0)
+
+        wallGapWidth = (roomWidth - pathWidth) / 2;
+        wallGapHeight = (roomHeight - pathHeight) / 2;
+
 
         if (cell.value == cellInfo.INVALID)
         {
@@ -475,14 +487,14 @@ public class MG_MazeOne : MapGeneratorBase
             if (wallGapWidth > 0)
             {
                 theMap.FillValue(x1 + wallWidth, y1, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-                theMap.FillValue(x1 + wallWidth + wallGapWidth + fixDoorWidth, y1, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+                theMap.FillValue(x1 + wallWidth + wallGapWidth + pathWidth, y1, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
             }
             if (isFillBlock)
             {
                 FillBlock(x1, y1, wallWidth + wallGapWidth - wallBuffer, wallHeight - wallBuffer);   // 左下
                 if (wallGapWidth > 0)
                 {
-                    FillBlock(x1 + wallWidth + wallGapWidth + fixDoorWidth + wallBuffer, y1, wallGapWidth, wallHeight - wallBuffer);   // 左下
+                    FillBlock(x1 + wallWidth + wallGapWidth + pathWidth + wallBuffer, y1, wallGapWidth, wallHeight - wallBuffer);   // 左下
                 }
             }
         }
@@ -498,7 +510,7 @@ public class MG_MazeOne : MapGeneratorBase
             if (wallGapWidth > 0)
             {
                 theMap.FillValue(x1 + wallWidth, y2, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-                theMap.FillValue(x1 + wallWidth + wallGapWidth + fixDoorWidth, y2, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
+                theMap.FillValue(x1 + wallWidth + wallGapWidth + pathWidth, y2, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
             }
             if (isFillBlock)
             {
@@ -521,7 +533,7 @@ public class MG_MazeOne : MapGeneratorBase
             if (wallGapHeight > 0)
             {
                 theMap.FillValue(x1, y1 + wallHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
-                theMap.FillValue(x1, y1 + wallHeight + wallGapHeight + fixDoorWidth, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
+                theMap.FillValue(x1, y1 + wallHeight + wallGapHeight + pathHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
             }
             if (isFillBlock)
             {
@@ -543,14 +555,14 @@ public class MG_MazeOne : MapGeneratorBase
             if (wallGapHeight > 0)
             {
                 theMap.FillValue(x2, y1 + wallHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
-                theMap.FillValue(x2, y1 + wallHeight + wallGapHeight + fixDoorWidth, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
+                theMap.FillValue(x2, y1 + wallHeight + wallGapHeight + pathHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
             }
             if (isFillBlock)
             {
                 FillBlock(x2 + wallBuffer, y1, wallWidth - wallBuffer, wallHeight + wallGapHeight - wallBuffer);   //右下
                 if (wallGapHeight > 0)
                 {
-                    FillBlock(x2 + wallBuffer, y1 + wallHeight + wallGapHeight + fixDoorWidth + wallBuffer, wallWidth - wallBuffer, wallGapHeight);   //右下
+                    FillBlock(x2 + wallBuffer, y1 + wallHeight + wallGapHeight + pathHeight + wallBuffer, wallWidth - wallBuffer, wallGapHeight);   //右下
                 }
             }
         }
