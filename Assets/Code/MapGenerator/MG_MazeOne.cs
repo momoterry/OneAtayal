@@ -11,6 +11,11 @@ public class MG_MazeOne : MapGeneratorBase
     //protected MapSaveMazeDungeon loadedMapData = null;  //如果有的話，是載入存檔的形式
     // 迷宮資料相關
 
+    public enum DIRECTION
+    {
+        U,D,L,R,
+    }
+
 
     public int puzzleWidth = 6;
     public int puzzleHeight = 6;
@@ -93,6 +98,8 @@ public class MG_MazeOne : MapGeneratorBase
     {
         public bool U, D, L, R;
         public int value = NORMAL;
+        public int deep;    //距離出發點的深度，最小值為 1，0 表示未處理
+        public DIRECTION from;  //離起點最近的方向
 
         public const int NORMAL = 0;
         public const int ROOM = 1;
@@ -173,8 +180,13 @@ public class MG_MazeOne : MapGeneratorBase
             CreatMazeMap();
         }
 
+        //=========================== 各種 Cell 資訊的計算
+        PreCalculateGameplayInfo();
+
+        //=========================== 把 Cell 的內容填到 OneMap 中
         ProcessNormalCells();
         ProcessInitFinish();
+
 
         //============================= 以下開始舖設 Tiles ===========================================
         //theMap.PrintMap();
@@ -203,7 +215,9 @@ public class MG_MazeOne : MapGeneratorBase
 
         GenerateNavMesh(theSurface2D);
 
-        // ====================== 裝飾物件建立 =====================================
+        //============== 在 NavMesh 產生完成後，開始進行 Gameplay 物件的生成
+
+        //====================== 裝飾物件建立 =====================================
         //MapDecadeGeneratorBase dGen = GetComponent<MapDecadeGeneratorBase>();
         if (decadeGenerator)
         {
@@ -438,6 +452,7 @@ public class MG_MazeOne : MapGeneratorBase
             puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
             puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
         }
+
     }
     protected void FillBlock(float x1, float y1, float width, float height)
     {
@@ -613,6 +628,37 @@ public class MG_MazeOne : MapGeneratorBase
     protected Vector2Int puzzleStart, puzzleEnd;
 
 
+    protected void CheckCellDeep(int x, int y, DIRECTION from, int deep )
+    {
+        if (x < 0 || x >= puzzleWidth || y < 0 || y >= puzzleHeight)
+            return;
+        if (puzzleMap[x][y].value != cellInfo.NORMAL)
+            return;
+
+        if (puzzleMap[x][y].deep > 0 && puzzleMap[x][y].deep <= deep)        //已經有更短路徑
+        {
+            print("目前不應該跑到這裡 ....... ");
+            return;
+        }
+
+        puzzleMap[x][y].deep = deep;
+        puzzleMap[x][y].from = from;
+        if (puzzleMap[x][y].U && from != DIRECTION.U)
+            CheckCellDeep(x, y + 1, DIRECTION.D, deep + 1);
+        if (puzzleMap[x][y].D && from != DIRECTION.D)
+            CheckCellDeep(x, y - 1, DIRECTION.U, deep + 1);
+        if (puzzleMap[x][y].L && from != DIRECTION.L)
+            CheckCellDeep(x - 1, y, DIRECTION.R, deep + 1);
+        if (puzzleMap[x][y].R && from != DIRECTION.R)
+            CheckCellDeep(x + 1, y, DIRECTION.L, deep + 1);
+    }
+
+    protected void PreCalculateGameplayInfo()
+    {
+        print("PreCalculateGameplayInfo");
+        CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.D, 1);
+    }
+
     protected void ProcessInitFinish()
     {
 
@@ -668,6 +714,21 @@ public class MG_MazeOne : MapGeneratorBase
         }
     }
 
+
+    //private void OnDrawGizmos()
+    //{
+    //    //UnityEditor.Handles.Label(Vector3.zero, "畫了個爽");
+    //    if (puzzleMap != null)
+    //    {
+    //        for (int i=0; i<puzzleWidth; i++)
+    //        {
+    //            for (int j=0; j<puzzleHeight; j++)
+    //            {
+    //                UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].from.ToString() + " " + puzzleMap[i][j].deep.ToString());
+    //            }
+    //        }
+    //    }
+    //}
 }
 
 
