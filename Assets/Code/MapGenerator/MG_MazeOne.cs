@@ -269,12 +269,16 @@ public class MG_MazeOne : MapGeneratorBase
 
     virtual protected void PresetMapInfo()
     {
+        // =============== 贺ず场把计砞﹚
         cellWidth = roomWidth + wallWidth + wallWidth;
         cellHeight = roomHeight + wallHeight + wallHeight;
         pathWidth = pathWidth > roomWidth ? roomWidth : pathWidth;
         pathHeight = pathHeight > roomHeight ? roomHeight : pathHeight;
+        if ((pathWidth) % 2 != (roomWidth % 2))
+            pathWidth++;
+        if ((pathHeight) % 2 != (roomHeight % 2))
+            pathHeight++;
 
-        // =============== 贺ず场把计砞﹚
         if (extendTerminal)
         {
             bufferX = 0;
