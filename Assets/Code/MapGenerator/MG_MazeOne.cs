@@ -99,6 +99,8 @@ public class MG_MazeOne : MapGeneratorBase
         public bool U, D, L, R;
         public int value = NORMAL;
         public int deep;    //距離出發點的深度，最小值為 1，0 表示未處理
+        public bool isMain; //是否主幹道
+        public int mainDeep; //主幹道上的深度
         public DIRECTION from;  //離起點最近的方向
 
         public const int NORMAL = 0;
@@ -630,11 +632,12 @@ public class MG_MazeOne : MapGeneratorBase
 
     protected void CheckCellDeep(int x, int y, DIRECTION from, int deep )
     {
+        //print("CheckCellDeep:  " + x + ", " + y );
         if (x < 0 || x >= puzzleWidth || y < 0 || y >= puzzleHeight)
             return;
-        if (puzzleMap[x][y].value != cellInfo.NORMAL)
+        if (puzzleMap[x][y].value == cellInfo.INVALID)
             return;
-
+        //print("CheckCellDeep Value:  " + puzzleMap[x][y].value);
         if (puzzleMap[x][y].deep > 0 && puzzleMap[x][y].deep <= deep)        //已經有更短路徑
         {
             print("目前不應該跑到這裡 ....... ");
@@ -653,10 +656,51 @@ public class MG_MazeOne : MapGeneratorBase
             CheckCellDeep(x + 1, y, DIRECTION.L, deep + 1);
     }
 
+    protected void CheckMainPathDeep(int x, int y, DIRECTION from, bool isMain, int mainDeep)
+    {
+        if (x < 0 || x >= puzzleWidth || y < 0 || y >= puzzleHeight)
+            return;
+        if (puzzleMap[x][y].value == cellInfo.INVALID)
+            return;
+        puzzleMap[x][y].isMain = isMain;
+        puzzleMap[x][y].mainDeep = mainDeep;
+
+        //if (isMain)
+        //{
+        //    print("deep == mainDeep? " + puzzleMap[x][y].deep + " - " + puzzleMap[x][y].mainDeep);
+        //}
+        //else
+        //    print("Branch.... " + mainDeep);
+
+        DIRECTION mainFrom = puzzleMap[x][y].from;
+        if (puzzleMap[x][y].U && from != DIRECTION.U)
+        {
+            bool mainCheck = isMain && (mainFrom == DIRECTION.U);
+            CheckMainPathDeep(x, y + 1, DIRECTION.D, mainCheck, mainDeep + (mainCheck ? -1:0));
+        }
+        if (puzzleMap[x][y].D && from != DIRECTION.D)
+        {
+            bool mainCheck = isMain && (mainFrom == DIRECTION.D);
+            CheckMainPathDeep(x, y - 1, DIRECTION.U, mainCheck, mainDeep + (mainCheck ? -1 : 0));
+        }
+        if (puzzleMap[x][y].L && from != DIRECTION.L)
+        {
+            bool mainCheck = isMain && (mainFrom == DIRECTION.L);
+            CheckMainPathDeep(x - 1, y, DIRECTION.R, mainCheck, mainDeep + (mainCheck ? -1 : 0));
+        }
+        if (puzzleMap[x][y].R && from != DIRECTION.R)
+        {
+            bool mainCheck = isMain && (mainFrom == DIRECTION.R);
+            CheckMainPathDeep(x + 1, y, DIRECTION.L, mainCheck, mainDeep + (mainCheck ? -1 : 0));
+        }
+    }
+
     protected void PreCalculateGameplayInfo()
     {
-        print("PreCalculateGameplayInfo");
+        //print("PreCalculateGameplayInfo");
         CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.D, 1);
+        int maxMainDeep = puzzleMap[puzzleEnd.x][puzzleEnd.y].deep;
+        CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.U, true, maxMainDeep);
     }
 
     protected void ProcessInitFinish()
@@ -720,11 +764,13 @@ public class MG_MazeOne : MapGeneratorBase
     //    //UnityEditor.Handles.Label(Vector3.zero, "畫了個爽");
     //    if (puzzleMap != null)
     //    {
-    //        for (int i=0; i<puzzleWidth; i++)
+    //        for (int i = 0; i < puzzleWidth; i++)
     //        {
-    //            for (int j=0; j<puzzleHeight; j++)
+    //            for (int j = 0; j < puzzleHeight; j++)
     //            {
-    //                UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].from.ToString() + " " + puzzleMap[i][j].deep.ToString());
+    //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].from.ToString() + " " + puzzleMap[i][j].deep.ToString());
+    //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].isMain.ToString() + " " + puzzleMap[i][j].mainDeep.ToString());
+    //                UnityEditor.Handles.Label(GetCellCenterPos(i, j), (puzzleMap[i][j].deep - puzzleMap[i][j].mainDeep).ToString());
     //            }
     //        }
     //    }
