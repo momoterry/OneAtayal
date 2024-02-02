@@ -410,6 +410,16 @@ public class MG_MazeOne : MapGeneratorBase
                     }
                 }
             }
+            //把剩下的 Cell 標成 Block
+            int startValue = puzzleDSU.Find(iStart);
+            for (int i = 0; i < puzzleWidth; i++)
+            {
+                for (int j = 0; j < puzzleHeight; j++)
+                {
+                    if (puzzleDSU.Find(GetCellID(i, j)) != startValue)
+                        puzzleMap[i][j].value = cellInfo.INVALID;
+                }
+            }
         }
 
         startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iStart) * cellHeight + cellHeight / 2);
