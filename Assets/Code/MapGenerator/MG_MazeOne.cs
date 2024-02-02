@@ -83,8 +83,8 @@ public class MG_MazeOne : MapGeneratorBase
         BLOCK = 6,
     }
 
-    protected int bufferX = 0;
-    protected int bufferY = 0;
+    //protected int bufferX = 0;
+    //protected int bufferY = 0;
 
     protected int puzzleX1;
     protected int puzzleY1;
@@ -295,21 +295,29 @@ public class MG_MazeOne : MapGeneratorBase
         if ((pathHeight) % 2 != (roomHeight % 2))
             pathHeight++;
 
+        //if (extendTerminal)
+        //{
+        //    bufferX = 0;
+        //    bufferY = 1;
+        //}
+        //else
+        //{
+        //    bufferY = 0;
+        //    bufferX = 0;
+        //}
+        //mapHeight = (puzzleHeight + bufferY + bufferY) * cellHeight;  //加入上下緩衝
+        //mapWidth = (puzzleWidth + bufferX + bufferX) * cellWidth;
+
         if (extendTerminal)
         {
-            bufferX = 0;
-            bufferY = 1;
+            puzzleHeight += 2;  //加入上下緩衝
         }
-        else
-        {
-            bufferY = 0;
-            bufferX = 0;
-        }
-        mapHeight = (puzzleHeight + bufferY + bufferY) * cellHeight;  //加入上下緩衝
-        mapWidth = (puzzleWidth + bufferX + bufferX) * cellWidth;
+        mapHeight = puzzleHeight * cellHeight;
+        mapWidth = puzzleWidth * cellWidth;
+
         mapCenter.y = puzzleHeight * cellHeight / 2 - (cellHeight / 2);
-        if (extendTerminal)
-            mapCenter.y += cellHeight;
+        //if (extendTerminal)
+        //    mapCenter.y += cellHeight;
 
         if (puzzleWidth % 2 == 0)
         {
@@ -336,6 +344,18 @@ public class MG_MazeOne : MapGeneratorBase
             }
         }
 
+        if (extendTerminal)
+        {
+            for (int i = 0; i < puzzleWidth; i++)
+            {
+                puzzleMap[i][0].value = cellInfo.INVALID;
+                puzzleMap[i][puzzleHeight-1].value = cellInfo.INVALID;
+            }
+        }
+        puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
+        puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
+        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
+        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
     }
 
     protected void CreatMazeMap()
@@ -343,8 +363,8 @@ public class MG_MazeOne : MapGeneratorBase
         //==== Init
         puzzleDSU.Init(puzzleHeight * puzzleWidth);
 
-        puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
-        puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
+        //puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
+        //puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
 
         //==== Init Connection Info
         wallInfo[,] lrWalls = new wallInfo[puzzleWidth - 1, puzzleHeight];
@@ -410,7 +430,7 @@ public class MG_MazeOne : MapGeneratorBase
                     }
                 }
             }
-            //把剩下的 Cell 標成 Block
+            //把剩下的 Cell 標成 Invalid
             int startValue = puzzleDSU.Find(iStart);
             for (int i = 0; i < puzzleWidth; i++)
             {
@@ -426,44 +446,44 @@ public class MG_MazeOne : MapGeneratorBase
         endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
 
         //==== 起終點上下延申處理
-        if (extendTerminal)
-        {
-            //起始區處理
-            if (puzzleStart.y == 0)
-            {
-                cellInfo cStart = new cellInfo();
-                cStart.U = true;
-                FillCell(cStart, puzzleX1 + puzzleStart.x * cellWidth, puzzleY1 + (puzzleStart.y - 1) * cellHeight, cellWidth, cellHeight);
-            }
-            else
-            {
-                puzzleMap[puzzleStart.x][puzzleStart.y - 1].U = true;
-                puzzleMap[puzzleStart.x][puzzleStart.y - 1].value = cellInfo.TERNIMAL;
-            }
+        //if (extendTerminal)
+        //{
+        //    //起始區處理
+        //    if (puzzleStart.y == 0)
+        //    {
+        //        cellInfo cStart = new cellInfo();
+        //        cStart.U = true;
+        //        FillCell(cStart, puzzleX1 + puzzleStart.x * cellWidth, puzzleY1 + (puzzleStart.y - 1) * cellHeight, cellWidth, cellHeight);
+        //    }
+        //    else
+        //    {
+        //        puzzleMap[puzzleStart.x][puzzleStart.y - 1].U = true;
+        //        puzzleMap[puzzleStart.x][puzzleStart.y - 1].value = cellInfo.TERNIMAL;
+        //    }
 
-            if (puzzleEnd.y == (puzzleHeight - 1))
-            {
-                cellInfo cEnd = new cellInfo();
-                cEnd.D = true;
-                FillCell(cEnd, puzzleX1 + puzzleEnd.x * cellWidth, puzzleY1 + (puzzleEnd.y + 1) * cellHeight, cellWidth, cellHeight);
-            }
-            else
-            {
-                puzzleMap[puzzleEnd.x][puzzleEnd.y + 1].D = true;
-                puzzleMap[puzzleEnd.x][puzzleEnd.y + 1].value = cellInfo.TERNIMAL;
-            }
+        //    if (puzzleEnd.y == (puzzleHeight - 1))
+        //    {
+        //        cellInfo cEnd = new cellInfo();
+        //        cEnd.D = true;
+        //        FillCell(cEnd, puzzleX1 + puzzleEnd.x * cellWidth, puzzleY1 + (puzzleEnd.y + 1) * cellHeight, cellWidth, cellHeight);
+        //    }
+        //    else
+        //    {
+        //        puzzleMap[puzzleEnd.x][puzzleEnd.y + 1].D = true;
+        //        puzzleMap[puzzleEnd.x][puzzleEnd.y + 1].value = cellInfo.TERNIMAL;
+        //    }
 
-            puzzleMap[puzzleStart.x][puzzleStart.y].D = true;
-            puzzleMap[puzzleEnd.x][puzzleEnd.y].U = true;
+        //    puzzleMap[puzzleStart.x][puzzleStart.y].D = true;
+        //    puzzleMap[puzzleEnd.x][puzzleEnd.y].U = true;
 
-            startPos.z -= cellHeight;
-            endPos.z += cellHeight;
-        }
-        else
-        {
-            puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
-        }
+        //    startPos.z -= cellHeight;
+        //    endPos.z += cellHeight;
+        //}
+        //else
+        //{
+        //    puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
+        //    puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        //}
 
     }
     protected void FillBlock(float x1, float y1, float width, float height)
@@ -732,24 +752,24 @@ public class MG_MazeOne : MapGeneratorBase
     {
         //上下延伸區如果超過範圍的處理
         //==== 起終點上下延申處理
-        if (extendTerminal)
-        {
-            //起始區處理
-            if (puzzleStart.y == 0)
-            {
-                cellInfo cStart = new cellInfo();
-                cStart.U = true;
-                FillCell(cStart, puzzleX1 + puzzleStart.x * cellWidth, puzzleY1 + (puzzleStart.y - 1) * cellHeight, cellWidth, cellHeight);
-                //FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellWidth, puzzleY1 + (GetCellY(iStart) - 1) * cellHeight, cellWidth, cellHeight);
-            }
+        //if (extendTerminal)
+        //{
+        //    //起始區處理
+        //    if (puzzleStart.y == 0)
+        //    {
+        //        cellInfo cStart = new cellInfo();
+        //        cStart.U = true;
+        //        FillCell(cStart, puzzleX1 + puzzleStart.x * cellWidth, puzzleY1 + (puzzleStart.y - 1) * cellHeight, cellWidth, cellHeight);
+        //        //FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellWidth, puzzleY1 + (GetCellY(iStart) - 1) * cellHeight, cellWidth, cellHeight);
+        //    }
 
-            if (puzzleEnd.y == (puzzleHeight - 1))
-            {
-                cellInfo cEnd = new cellInfo();
-                cEnd.D = true;
-                FillCell(cEnd, puzzleX1 + puzzleEnd.x * cellWidth, puzzleY1 + (puzzleEnd.y + 1) * cellHeight, cellWidth, cellHeight);
-            }
-        }
+        //    if (puzzleEnd.y == (puzzleHeight - 1))
+        //    {
+        //        cellInfo cEnd = new cellInfo();
+        //        cEnd.D = true;
+        //        FillCell(cEnd, puzzleX1 + puzzleEnd.x * cellWidth, puzzleY1 + (puzzleEnd.y + 1) * cellHeight, cellWidth, cellHeight);
+        //    }
+        //}
 
         //==== 一般通道處理
 
