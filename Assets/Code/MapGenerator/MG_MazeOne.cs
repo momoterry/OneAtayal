@@ -507,7 +507,11 @@ public class MG_MazeOne : MapGeneratorBase
         int wallHeight = this.wallHeight;
         int roomWidth = this.roomWidth;
         int roomHeight = this.roomHeight;
-        if (Random.Range(0, 2) == 0)
+        bool isPath = false;
+        isPath = Random.Range(0, 2) == 0;
+        if (cell.value == cellInfo.TERNIMAL)
+            isPath = true;
+        if (isPath)
         {
             wallWidth = (roomWidth - pathWidth) / 2 + wallWidth;
             wallHeight = (roomHeight - pathHeight) / 2 + wallHeight;
