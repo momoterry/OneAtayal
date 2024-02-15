@@ -27,11 +27,11 @@ public class MG_MazeOne : MapGeneratorBase
 
     public int pathWidth = 4;
     public int pathHeight = 4;
-    //public int fixDoorWidth = -1; // 如果值 > 0 就表非門口會縮小，通道較窄
 
     protected int cellWidth = 4;
     protected int cellHeight = 4;
 
+    public float pathRate = 0.5f;
 
     public bool allConnect = true;
     public bool extendTerminal = true;
@@ -507,8 +507,7 @@ public class MG_MazeOne : MapGeneratorBase
         int wallHeight = this.wallHeight;
         int roomWidth = this.roomWidth;
         int roomHeight = this.roomHeight;
-        bool isPath = false;
-        isPath = Random.Range(0, 2) == 0;
+        bool isPath = Random.Range(0, 1.0f) < pathRate;
         if (cell.value == cellInfo.TERNIMAL)
             isPath = true;
         if (isPath)
