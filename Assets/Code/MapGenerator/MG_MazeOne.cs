@@ -307,7 +307,7 @@ public class MG_MazeOne : MapGeneratorBase
 
     }
 
-    protected void InitPuzzleMap() 
+    virtual protected void InitPuzzleMap() 
     {
         theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
 
@@ -422,7 +422,6 @@ public class MG_MazeOne : MapGeneratorBase
         endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
 
         BattleSystem.GetInstance().SetInitPosition(startPos);
-        print("startPos!! " + startPos);
     }
     protected void FillBlock(float x1, float y1, float width, float height)
     {
@@ -446,8 +445,8 @@ public class MG_MazeOne : MapGeneratorBase
         int roomWidth = this.roomWidth;
         int roomHeight = this.roomHeight;
         bool isPath = Random.Range(0, 1.0f) < pathRate;
-        if (cell.value == cellInfo.TERNIMAL)
-            isPath = true;
+        //if (cell.value == cellInfo.TERNIMAL)
+        //    isPath = true;
         if (isPath)
         {
             wallWidth = (roomWidth - pathWidth) / 2 + wallWidth;
