@@ -729,7 +729,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &694266821
 GameObject:
@@ -986,7 +986,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &967592698
 GameObject:
@@ -1159,7 +1159,7 @@ Transform:
   m_Children:
   - {fileID: 1952747575}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1152930586
 GameObject:
@@ -1233,7 +1233,7 @@ Transform:
   - {fileID: 1531470869}
   - {fileID: 1399216994}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185413415
 GameObject:
@@ -1530,7 +1530,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1399216993
 GameObject:
@@ -1760,7 +1760,7 @@ PrefabInstance:
     - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: theMG
       value: 
-      objectReference: {fileID: 1152930587}
+      objectReference: {fileID: 1806008471}
     - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: theBattleHUD
       value: 
@@ -1887,15 +1887,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160138, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0
+      value: 0.54901963
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160138, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0
+      value: 0.8352942
       objectReference: {fileID: 0}
     - target: {fileID: 8104819324499160138, guid: 5e0768fb4ce6da947aa6513999547213, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0
+      value: 0.8862746
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2134,7 +2134,7 @@ Transform:
   - {fileID: 1261100835}
   - {fileID: 82330164}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1806008471
 MonoBehaviour:
@@ -2159,8 +2159,6 @@ MonoBehaviour:
   pathWidth: 5
   pathHeight: 5
   pathRate: 0
-  allConnect: 1
-  extendTerminal: 1
   finishPortalRef: {fileID: 0}
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 1
@@ -2176,6 +2174,8 @@ MonoBehaviour:
   dungeonEnemyManager: {fileID: 0}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 82330165}
+  allConnect: 1
+  extendTerminal: 1
 --- !u!1001 &1807413653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2202,7 +2202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6936922310033895932, guid: 9050f11007a554f419e6163f7a7751f5, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6936922310033895932, guid: 9050f11007a554f419e6163f7a7751f5, type: 3}
       propertyPath: m_AnchorMax.x

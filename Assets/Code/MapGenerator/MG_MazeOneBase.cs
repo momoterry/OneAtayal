@@ -160,13 +160,16 @@ public class MG_MazeOneBase : MapGeneratorBase
         //============================= 以下設置每個 Cell 的 Layout 內容 ===========================================
         CreatMazeMap();
 
+        //=========================== 設定起點和終點的 Gameplay ，並且把設定主角出生點
+        ProcessInitFinish();
+
         //=========================== 各種 Cell 內 Gameplay 用資訊的計算
         PreCalculateGameplayInfo();
 
         //=========================== 把 Cell 的內容填到 OneMap 中
         ProcessNormalCells();
-        ProcessInitFinish();
 
+        //BattleSystem.GetInstance().SetInitPosition(startPos);
 
         //============================= 以下開始舖設 Tiles ===========================================
         //theMap.PrintMap();
@@ -321,8 +324,8 @@ public class MG_MazeOneBase : MapGeneratorBase
         //}
         puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
         puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
-        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        //puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
+        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
     }
 
     virtual protected void CreatMazeMap()
@@ -581,6 +584,8 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     protected void ProcessInitFinish()
     {
+        startPos = GetCellCenterPos(puzzleStart.x, puzzleStart.y);
+        endPos = GetCellCenterPos(puzzleEnd.x, puzzleEnd.y);
 
         //初始 Gameplay
         if (initGampleyRef)
@@ -591,6 +596,8 @@ public class MG_MazeOneBase : MapGeneratorBase
         //破關門
         if (finishPortalRef)
             BattleSystem.SpawnGameObj(finishPortalRef, endPos);
+
+        BattleSystem.GetInstance().SetInitPosition(startPos);
     }
 
     //==== 一般通道處理
