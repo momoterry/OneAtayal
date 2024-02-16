@@ -163,26 +163,15 @@ public class MG_MazeOne : MapGeneratorBase
         //if (mapName != null && mapName != "")
         //    LoadMap();  //先嘗試載入存檔，有的話更新地圖參數等
 
-        //PreCreateMap();
+        PresetMapInfo();    //各種內部參數的初始化，包含預設起點終點，必須在讀取進度或連續戰鬥資訊等確認參數後進行
 
-        PresetMapInfo();    //各種內部參數的初始化，必須在讀取進度或連續戰鬥資訊等確認參數後進行
-
-        InitPuzzleMap();
+        InitPuzzleMap();    //初始化 OneMap 和 CellMap 的內容為預設值
 
 
         //============================= 以下設置每個 Cell 的內容 ===========================================
+        CreatMazeMap();
 
-        //主要迷宮結構的架設
-        //if (loadedMapData != null)
-        //{
-        //    LoadMazeMap();
-        //}
-        //else
-        {
-            CreatMazeMap();
-        }
-
-        //=========================== 各種 Cell 資訊的計算
+        //=========================== 各種 Cell 內 Gameplay 用資訊的計算
         PreCalculateGameplayInfo();
 
         //=========================== 把 Cell 的內容填到 OneMap 中
@@ -295,19 +284,6 @@ public class MG_MazeOne : MapGeneratorBase
         if ((pathHeight) % 2 != (roomHeight % 2))
             pathHeight++;
 
-        //if (extendTerminal)
-        //{
-        //    bufferX = 0;
-        //    bufferY = 1;
-        //}
-        //else
-        //{
-        //    bufferY = 0;
-        //    bufferX = 0;
-        //}
-        //mapHeight = (puzzleHeight + bufferY + bufferY) * cellHeight;  //加入上下緩衝
-        //mapWidth = (puzzleWidth + bufferX + bufferX) * cellWidth;
-
         if (extendTerminal)
         {
             puzzleHeight += 2;  //加入上下緩衝
@@ -315,13 +291,15 @@ public class MG_MazeOne : MapGeneratorBase
         mapHeight = puzzleHeight * cellHeight;
         mapWidth = puzzleWidth * cellWidth;
 
-        mapCenter.y = puzzleHeight * cellHeight / 2 - (cellHeight / 2);
-        //if (extendTerminal)
-        //    mapCenter.y += cellHeight;
+        //mapCenter.y = puzzleHeight * cellHeight / 2 - (cellHeight / 2);
+        if (puzzleHeight % 2 == 0)
+        {
+            mapCenter.y = cellHeight / 2;
+        }
 
         if (puzzleWidth % 2 == 0)
         {
-            mapCenter.x = -cellWidth / 2;
+            mapCenter.x = cellWidth / 2;
         }
 
         puzzleX1 = mapCenter.x - (puzzleWidth * cellWidth / 2);
@@ -396,8 +374,6 @@ public class MG_MazeOne : MapGeneratorBase
         }
 
         //==== 開始隨機連結 !!
-        //iStart = GetCellID(puzzleWidth / 2, 0);
-        //iEnd = GetCellID(puzzleWidth / 2, puzzleHeight - 1);
         iStart = GetCellID(puzzleStart.x, puzzleStart.y);
         iEnd = GetCellID(puzzleEnd.x, puzzleEnd.y);
         if (allConnect)
@@ -445,46 +421,8 @@ public class MG_MazeOne : MapGeneratorBase
         startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iStart) * cellHeight + cellHeight / 2);
         endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
 
-        //==== 起終點上下延申處理
-        //if (extendTerminal)
-        //{
-        //    //起始區處理
-        //    if (puzzleStart.y == 0)
-        //    {
-        //        cellInfo cStart = new cellInfo();
-        //        cStart.U = true;
-        //        FillCell(cStart, puzzleX1 + puzzleStart.x * cellWidth, puzzleY1 + (puzzleStart.y - 1) * cellHeight, cellWidth, cellHeight);
-        //    }
-        //    else
-        //    {
-        //        puzzleMap[puzzleStart.x][puzzleStart.y - 1].U = true;
-        //        puzzleMap[puzzleStart.x][puzzleStart.y - 1].value = cellInfo.TERNIMAL;
-        //    }
-
-        //    if (puzzleEnd.y == (puzzleHeight - 1))
-        //    {
-        //        cellInfo cEnd = new cellInfo();
-        //        cEnd.D = true;
-        //        FillCell(cEnd, puzzleX1 + puzzleEnd.x * cellWidth, puzzleY1 + (puzzleEnd.y + 1) * cellHeight, cellWidth, cellHeight);
-        //    }
-        //    else
-        //    {
-        //        puzzleMap[puzzleEnd.x][puzzleEnd.y + 1].D = true;
-        //        puzzleMap[puzzleEnd.x][puzzleEnd.y + 1].value = cellInfo.TERNIMAL;
-        //    }
-
-        //    puzzleMap[puzzleStart.x][puzzleStart.y].D = true;
-        //    puzzleMap[puzzleEnd.x][puzzleEnd.y].U = true;
-
-        //    startPos.z -= cellHeight;
-        //    endPos.z += cellHeight;
-        //}
-        //else
-        //{
-        //    puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-        //    puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
-        //}
-
+        BattleSystem.GetInstance().SetInitPosition(startPos);
+        print("startPos!! " + startPos);
     }
     protected void FillBlock(float x1, float y1, float width, float height)
     {
@@ -753,27 +691,6 @@ public class MG_MazeOne : MapGeneratorBase
 
     protected void ProcessNormalCells()
     {
-        //上下延伸區如果超過範圍的處理
-        //==== 起終點上下延申處理
-        //if (extendTerminal)
-        //{
-        //    //起始區處理
-        //    if (puzzleStart.y == 0)
-        //    {
-        //        cellInfo cStart = new cellInfo();
-        //        cStart.U = true;
-        //        FillCell(cStart, puzzleX1 + puzzleStart.x * cellWidth, puzzleY1 + (puzzleStart.y - 1) * cellHeight, cellWidth, cellHeight);
-        //        //FillCell(cStart, puzzleX1 + GetCellX(iStart) * cellWidth, puzzleY1 + (GetCellY(iStart) - 1) * cellHeight, cellWidth, cellHeight);
-        //    }
-
-        //    if (puzzleEnd.y == (puzzleHeight - 1))
-        //    {
-        //        cellInfo cEnd = new cellInfo();
-        //        cEnd.D = true;
-        //        FillCell(cEnd, puzzleX1 + puzzleEnd.x * cellWidth, puzzleY1 + (puzzleEnd.y + 1) * cellHeight, cellWidth, cellHeight);
-        //    }
-        //}
-
         //==== 一般通道處理
 
         for (int i = 0; i < puzzleWidth; i++)

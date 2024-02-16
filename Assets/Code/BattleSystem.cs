@@ -192,6 +192,10 @@ public class BattleSystem : MonoBehaviour
         {
             Camera.main.transform.position = new Vector3(pos.x, Camera.main.transform.position.y, pos.z);
         }
+        if (initPlayerPos)
+        {
+            initPlayerPos.position = pos;
+        }
     }
 
     // Start is called before the first frame update

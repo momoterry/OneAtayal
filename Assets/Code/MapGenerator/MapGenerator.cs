@@ -34,7 +34,7 @@ public class MapGeneratorBase : MonoBehaviour
             if (_ID == entraceList[i].name)
             {
                 print("找到入口" + _ID);
-                BattleSystem.GetInstance().initPlayerPos = entraceList[i].pos;
+                //BattleSystem.GetInstance().initPlayerPos = entraceList[i].pos;
                 BattleSystem.GetInstance().initPlayerDirAngle = entraceList[i].faceAngle;
                 //if (Camera.main)    //暴力法移動位置，應該透過 BattleCamera
                 //{
