@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
-public class MG_MazeOne : MapGeneratorBase
+public class MG_MazeOneBase : MapGeneratorBase
 {
-    //public string mapName;              //用來識別存檔
-    //地圖存檔資料
-    //protected MapSaveMazeDungeon loadedMapData = null;  //如果有的話，是載入存檔的形式
-    // 迷宮資料相關
-
     public enum DIRECTION
     {
-        U,D,L,R,NONE,
+        U, D, L, R, NONE,
     }
-
 
     public int puzzleWidth = 6;
     public int puzzleHeight = 6;
@@ -31,10 +24,10 @@ public class MG_MazeOne : MapGeneratorBase
     protected int cellWidth = 4;
     protected int cellHeight = 4;
 
-    public float pathRate = 0.5f;
+    public float pathRate = 0;
 
-    public bool allConnect = true;
-    public bool extendTerminal = true;
+    //public bool allConnect = true;
+    //public bool extendTerminal = true;
     public GameObject finishPortalRef;
     public bool portalAfterFirstRoomGamplay = false;
     public bool createWallCollider = true;
@@ -54,7 +47,7 @@ public class MG_MazeOne : MapGeneratorBase
 
     //Gameplay 用
     //[Header("Gameplay 設定")]
-    public DungeonEnemyManagerBase dungeonEnemyManager; 
+    public DungeonEnemyManagerBase dungeonEnemyManager;
     //public EnemyGroup normalGroup;
     //public float normalEnemyRate = 0.2f;
     //protected int normalEnemyNum;
@@ -82,9 +75,6 @@ public class MG_MazeOne : MapGeneratorBase
         ROOM = 5,
         BLOCK = 6,
     }
-
-    //protected int bufferX = 0;
-    //protected int bufferY = 0;
 
     protected int puzzleX1;
     protected int puzzleY1;
@@ -139,7 +129,6 @@ public class MG_MazeOne : MapGeneratorBase
         }
     }
 
-    //protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
     protected cellInfo[][] puzzleMap;
 
     protected class wallInfo
@@ -168,7 +157,7 @@ public class MG_MazeOne : MapGeneratorBase
         InitPuzzleMap();    //初始化 OneMap 和 CellMap 的內容為預設值
 
 
-        //============================= 以下設置每個 Cell 的內容 ===========================================
+        //============================= 以下設置每個 Cell 的 Layout 內容 ===========================================
         CreatMazeMap();
 
         //=========================== 各種 Cell 內 Gameplay 用資訊的計算
@@ -284,10 +273,10 @@ public class MG_MazeOne : MapGeneratorBase
         if ((pathHeight) % 2 != (roomHeight % 2))
             pathHeight++;
 
-        if (extendTerminal)
-        {
-            puzzleHeight += 2;  //加入上下緩衝
-        }
+        //if (extendTerminal)
+        //{
+        //    puzzleHeight += 2;  //加入上下緩衝
+        //}
         mapHeight = puzzleHeight * cellHeight;
         mapWidth = puzzleWidth * cellWidth;
 
@@ -307,7 +296,7 @@ public class MG_MazeOne : MapGeneratorBase
 
     }
 
-    virtual protected void InitPuzzleMap() 
+    virtual protected void InitPuzzleMap()
     {
         theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
 
@@ -322,108 +311,31 @@ public class MG_MazeOne : MapGeneratorBase
             }
         }
 
-        if (extendTerminal)
-        {
-            for (int i = 0; i < puzzleWidth; i++)
-            {
-                puzzleMap[i][0].value = cellInfo.INVALID;
-                puzzleMap[i][puzzleHeight-1].value = cellInfo.INVALID;
-            }
-        }
+        //if (extendTerminal)
+        //{
+        //    for (int i = 0; i < puzzleWidth; i++)
+        //    {
+        //        puzzleMap[i][0].value = cellInfo.INVALID;
+        //        puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
+        //    }
+        //}
         puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
         puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
         puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
         puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
     }
 
-    protected void CreatMazeMap()
+    virtual protected void CreatMazeMap()
     {
-        //==== Init
-        DisjointSetUnion puzzleDSU = new DisjointSetUnion();
-        puzzleDSU.Init(puzzleHeight * puzzleWidth);
-
-        //puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
-        //puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
-
-        //==== Init Connection Info
-        wallInfo[,] lrWalls = new wallInfo[puzzleWidth - 1, puzzleHeight];
-        wallInfo[,] udWalls = new wallInfo[puzzleWidth, puzzleHeight + 1];
-
-        for (int x = 0; x < puzzleWidth; x++)
+        for (int i = 0; i < puzzleWidth; i++)
         {
-            for (int y = 0; y < puzzleHeight; y++)
+            for (int j = 0; j < puzzleHeight; j++)
             {
-                bool addToWallList = true;
-                if (puzzleMap[x][y].value == cellInfo.INVALID)
-                    addToWallList = false;
-
-                if (x < puzzleWidth - 1)
-                {
-                    wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x + 1, y));
-                    if (addToWallList && puzzleMap[x + 1][y].value != cellInfo.INVALID)
-                        wallList.Add(w);
-                    lrWalls[x, y] = w;
-                }
-                if (y < puzzleHeight - 1)
-                {
-                    wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x, y + 1));
-                    if (addToWallList && puzzleMap[x][y + 1].value != cellInfo.INVALID)
-                        wallList.Add(w);
-                    udWalls[x, y] = w;
-                }
+                puzzleMap[i][j].value = cellInfo.NORMAL;
             }
         }
-
-        //==== 開始隨機連結 !!
-        iStart = GetCellID(puzzleStart.x, puzzleStart.y);
-        iEnd = GetCellID(puzzleEnd.x, puzzleEnd.y);
-        if (allConnect)
-        {
-            //使用隨機排序
-            OneUtility.Shuffle(wallList);
-            foreach (wallInfo w in wallList)
-            {
-                if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
-                {
-                    ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-                    puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-                }
-            }
-        }
-        else
-        {
-            //使用隨機排序
-            OneUtility.Shuffle(wallList);
-            foreach (wallInfo w in wallList)
-            {
-                if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
-                {
-                    ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-                    puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-                    if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
-                    {
-                        //print("發現大祕寶啦 !! Loop = " + (loop + 1));
-                        break;
-                    }
-                }
-            }
-            //把剩下的 Cell 標成 Invalid
-            int startValue = puzzleDSU.Find(iStart);
-            for (int i = 0; i < puzzleWidth; i++)
-            {
-                for (int j = 0; j < puzzleHeight; j++)
-                {
-                    if (puzzleDSU.Find(GetCellID(i, j)) != startValue)
-                        puzzleMap[i][j].value = cellInfo.INVALID;
-                }
-            }
-        }
-
-        startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iStart) * cellHeight + cellHeight / 2);
-        endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
-
-        BattleSystem.GetInstance().SetInitPosition(startPos);
     }
+
     protected void FillBlock(float x1, float y1, float width, float height)
     {
         if (!createWallCollider)
@@ -569,26 +481,26 @@ public class MG_MazeOne : MapGeneratorBase
         }
     }
 
+    //============== 對應 DisjointSetUnion 用的函式群
+    //protected void ConnectCellsByID(int id_1, int id_2)
+    //{
+    //    cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
+    //    cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
+    //    if (id_1 + 1 == id_2) //左連到右
+    //    {
+    //        cell_1.R = true;
+    //        cell_2.L = true;
+    //    }
+    //    else if (id_1 + puzzleWidth == id_2) //下連到上
+    //    {
+    //        cell_1.U = true;
+    //        cell_2.D = true;
+    //    }
+    //}
 
-    protected void ConnectCellsByID(int id_1, int id_2)
-    {
-        cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
-        cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
-        if (id_1 + 1 == id_2) //左連到右
-        {
-            cell_1.R = true;
-            cell_2.L = true;
-        }
-        else if (id_1 + puzzleWidth == id_2) //下連到上
-        {
-            cell_1.U = true;
-            cell_2.D = true;
-        }
-    }
-
-    protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
-    protected int GetCellX(int id) { return id % puzzleWidth; }
-    protected int GetCellY(int id) { return id / puzzleWidth; }
+    //protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
+    //protected int GetCellX(int id) { return id % puzzleWidth; }
+    //protected int GetCellY(int id) { return id / puzzleWidth; }
 
     protected Vector3 GetCellCenterPos(int x, int y)
     {
@@ -601,7 +513,7 @@ public class MG_MazeOne : MapGeneratorBase
     protected Vector2Int puzzleStart, puzzleEnd;
 
 
-    protected void CheckCellDeep(int x, int y, DIRECTION from, int deep )
+    protected void CheckCellDeep(int x, int y, DIRECTION from, int deep)
     {
         //print("CheckCellDeep:  " + x + ", " + y );
         if (x < 0 || x >= puzzleWidth || y < 0 || y >= puzzleHeight)
@@ -636,18 +548,11 @@ public class MG_MazeOne : MapGeneratorBase
         puzzleMap[x][y].isMain = isMain;
         puzzleMap[x][y].mainDeep = mainDeep;
 
-        //if (isMain)
-        //{
-        //    print("deep == mainDeep? " + puzzleMap[x][y].deep + " - " + puzzleMap[x][y].mainDeep);
-        //}
-        //else
-        //    print("Branch.... " + mainDeep);
-
         DIRECTION mainFrom = puzzleMap[x][y].from;
         if (puzzleMap[x][y].U && from != DIRECTION.U)
         {
             bool mainCheck = isMain && (mainFrom == DIRECTION.U);
-            CheckMainPathDeep(x, y + 1, DIRECTION.D, mainCheck, mainDeep + (mainCheck ? -1:0));
+            CheckMainPathDeep(x, y + 1, DIRECTION.D, mainCheck, mainDeep + (mainCheck ? -1 : 0));
         }
         if (puzzleMap[x][y].D && from != DIRECTION.D)
         {
@@ -684,48 +589,21 @@ public class MG_MazeOne : MapGeneratorBase
         }
 
         //破關門
-        if (finishPortalRef )
+        if (finishPortalRef)
             BattleSystem.SpawnGameObj(finishPortalRef, endPos);
     }
 
-
+    //==== 一般通道處理
     protected void ProcessNormalCells()
     {
-        //==== 一般通道處理
-
         for (int i = 0; i < puzzleWidth; i++)
         {
             for (int j = 0; j < puzzleHeight; j++)
             {
                 int x1 = puzzleX1 + i * cellWidth;
                 int y1 = puzzleY1 + j * cellHeight;
-                //if (allConnect)
-                //    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
-                //else if (puzzleDSU.Find(GetCellID(i, j)) == startValue)
-                //    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
                 FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
             }
         }
     }
-
-
-    //private void OnDrawGizmos()
-    //{
-    //    //UnityEditor.Handles.Label(Vector3.zero, "畫了個爽");
-    //    if (puzzleMap != null)
-    //    {
-    //        for (int i = 0; i < puzzleWidth; i++)
-    //        {
-    //            for (int j = 0; j < puzzleHeight; j++)
-    //            {
-    //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].from.ToString() + " " + puzzleMap[i][j].deep.ToString());
-    //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].deep.ToString());
-    //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].isMain.ToString() + " " + puzzleMap[i][j].mainDeep.ToString());
-    //                UnityEditor.Handles.Label(GetCellCenterPos(i, j), (puzzleMap[i][j].deep - puzzleMap[i][j].mainDeep).ToString());
-    //            }
-    //        }
-    //    }
-    //}
 }
-
-
