@@ -13,7 +13,7 @@ public class MG_MazeOne : MapGeneratorBase
 
     public enum DIRECTION
     {
-        U,D,L,R,
+        U,D,L,R,NONE,
     }
 
 
@@ -668,9 +668,9 @@ public class MG_MazeOne : MapGeneratorBase
     protected void PreCalculateGameplayInfo()
     {
         //print("PreCalculateGameplayInfo");
-        CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.D, 1);
+        CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);
         int maxMainDeep = puzzleMap[puzzleEnd.x][puzzleEnd.y].deep;
-        CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.U, true, maxMainDeep);
+        CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.NONE, true, maxMainDeep);
     }
 
     protected void ProcessInitFinish()
@@ -718,6 +718,7 @@ public class MG_MazeOne : MapGeneratorBase
     //            for (int j = 0; j < puzzleHeight; j++)
     //            {
     //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].from.ToString() + " " + puzzleMap[i][j].deep.ToString());
+    //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].deep.ToString());
     //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].isMain.ToString() + " " + puzzleMap[i][j].mainDeep.ToString());
     //                UnityEditor.Handles.Label(GetCellCenterPos(i, j), (puzzleMap[i][j].deep - puzzleMap[i][j].mainDeep).ToString());
     //            }
