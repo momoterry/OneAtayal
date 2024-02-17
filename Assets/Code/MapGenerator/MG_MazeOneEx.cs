@@ -151,11 +151,20 @@ public class MG_MazeOneEx : MG_MazeOne
 {
     public bool extendTerminal = true;
 
+    public enum MAZE_DIR
+    {
+        DONW_TO_TOP,
+        LEFT_TO_RIGHT
+    }
+    public MAZE_DIR mazeDir = MAZE_DIR.DONW_TO_TOP;
     protected override void PresetMapInfo()
     {
         if (extendTerminal)
         {
-            puzzleHeight += 2;
+            if (mazeDir == MAZE_DIR.DONW_TO_TOP)
+                puzzleHeight += 2;
+            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT)
+                puzzleWidth += 2;
         }
         base.PresetMapInfo();
     }
@@ -163,12 +172,36 @@ public class MG_MazeOneEx : MG_MazeOne
     protected override void InitPuzzleMap()
     {
         base.InitPuzzleMap();
+        if (mazeDir == MAZE_DIR.DONW_TO_TOP)
+        {
+            puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
+            puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
+            BattleSystem.GetInstance().initPlayerDirAngle = 0;
+        }
+        else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT)
+        {
+            puzzleStart = new Vector2Int(0, puzzleHeight / 2);
+            puzzleEnd = new Vector2Int(puzzleWidth-1, puzzleHeight / 2);
+            BattleSystem.GetInstance().initPlayerDirAngle = 90;
+        }
+    
         if (extendTerminal)
         {
-            for (int i = 0; i < puzzleWidth; i++)
+            if (mazeDir == MAZE_DIR.DONW_TO_TOP)
             {
-                puzzleMap[i][0].value = cellInfo.INVALID;
-                puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
+                for (int i = 0; i < puzzleWidth; i++)
+                {
+                    puzzleMap[i][0].value = cellInfo.INVALID;
+                    puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
+                }
+            }
+            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT)
+            {
+                for (int i = 0; i < puzzleHeight; i++)
+                {
+                    puzzleMap[0][i].value = cellInfo.INVALID;
+                    puzzleMap[puzzleWidth - 1][i].value = cellInfo.INVALID;
+                }
             }
             puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
             puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
