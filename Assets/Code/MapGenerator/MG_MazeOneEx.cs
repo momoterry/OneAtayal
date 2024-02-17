@@ -154,7 +154,8 @@ public class MG_MazeOneEx : MG_MazeOne
     public enum MAZE_DIR
     {
         DONW_TO_TOP,
-        LEFT_TO_RIGHT
+        LEFT_TO_RIGHT,
+        RIGHT_TO_LEFT,
     }
     public MAZE_DIR mazeDir = MAZE_DIR.DONW_TO_TOP;
     protected override void PresetMapInfo()
@@ -163,7 +164,7 @@ public class MG_MazeOneEx : MG_MazeOne
         {
             if (mazeDir == MAZE_DIR.DONW_TO_TOP)
                 puzzleHeight += 2;
-            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT)
+            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
                 puzzleWidth += 2;
         }
         base.PresetMapInfo();
@@ -184,6 +185,12 @@ public class MG_MazeOneEx : MG_MazeOne
             puzzleEnd = new Vector2Int(puzzleWidth-1, puzzleHeight / 2);
             BattleSystem.GetInstance().initPlayerDirAngle = 90;
         }
+        else if (mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
+        {
+            puzzleStart = new Vector2Int(puzzleWidth - 1, puzzleHeight / 2);
+            puzzleEnd = new Vector2Int(0, puzzleHeight / 2);
+            BattleSystem.GetInstance().initPlayerDirAngle = -90;
+        }
     
         if (extendTerminal)
         {
@@ -195,7 +202,7 @@ public class MG_MazeOneEx : MG_MazeOne
                     puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
                 }
             }
-            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT)
+            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
             {
                 for (int i = 0; i < puzzleHeight; i++)
                 {
