@@ -79,8 +79,8 @@ public class MG_MazeOneBase : MapGeneratorBase
     protected int puzzleX1;
     protected int puzzleY1;
 
-    protected int iStart;
-    protected int iEnd;
+    //protected int iStart;
+    //protected int iEnd;
     protected Vector3 startPos;
     protected Vector3 endPos;
 

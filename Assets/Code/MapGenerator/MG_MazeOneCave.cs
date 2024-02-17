@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class MG_MazeOneCave : MG_MazeOne
 {
-    void Awake()
-    {
+    //void Awake()
+    //{
         //強制修正!!
-        if (extendTerminal)
-        {
-            print("ERROR 強制修正!!!! MG_MazeOneCave 不能使用 extendTerminal");
-            extendTerminal = false;
-        }
-        if (!allConnect)
-        {
-            print("ERROR 強制修正!!!! MG_MazeOneCave 必定為 allConnect");
-            allConnect = true;
-        }
-    }
+        //if (extendTerminal)
+        //{
+        //    print("ERROR 強制修正!!!! MG_MazeOneCave 不能使用 extendTerminal");
+        //    extendTerminal = false;
+        //}
+        //if (!allConnect)
+        //{
+        //    print("ERROR 強制修正!!!! MG_MazeOneCave 必定為 allConnect");
+        //    allConnect = true;
+        //}
+    //}
 
     protected override void InitPuzzleMap()
     {
         base.InitPuzzleMap();
         //先把預設起終點還原
-        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
-        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
+        //puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
+        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
 
         puzzleStart.x = puzzleWidth / 2;
         puzzleStart.y = puzzleHeight / 2;
@@ -41,8 +41,8 @@ public class MG_MazeOneCave : MG_MazeOne
                 }
             }
         }
-        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        //puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
+        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
     }
     //========================== RandomWalker 參數 =============================
     public float blockFillRatio = 0.35f;

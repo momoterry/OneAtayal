@@ -2055,13 +2055,11 @@ MonoBehaviour:
   puzzleHeight: 6
   roomWidth: 11
   roomHeight: 15
-  wallWidth: 2
-  wallHeight: 2
+  wallWidth: 4
+  wallHeight: 4
   pathWidth: 5
   pathHeight: 5
   pathRate: 0
-  allConnect: 1
-  extendTerminal: 1
   finishPortalRef: {fileID: 0}
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 1
@@ -2077,6 +2075,7 @@ MonoBehaviour:
   dungeonEnemyManager: {fileID: 0}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
+  extendTerminal: 1
 --- !u!1001 &1807413653
 PrefabInstance:
   m_ObjectHideFlags: 0

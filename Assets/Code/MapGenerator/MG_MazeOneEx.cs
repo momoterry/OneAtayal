@@ -6,33 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class MG_MazeOne : MG_MazeOneBase
 {
-    public bool allConnect = true;
-    public bool extendTerminal = true;
-
-
-    protected override void PresetMapInfo()
-    {
-        if (extendTerminal)
-        {
-            puzzleHeight += 2;
-        }
-        base.PresetMapInfo();
-    }
-
-    protected override void InitPuzzleMap()
-    {
-        base.InitPuzzleMap();
-        if (extendTerminal)
-        {
-            for (int i = 0; i < puzzleWidth; i++)
-            {
-                puzzleMap[i][0].value = cellInfo.INVALID;
-                puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
-            }
-            puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
-            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
-        }
-    }
+    //protected bool allConnect = true;
 
     protected class wallInfo
     {
@@ -85,49 +59,64 @@ public class MG_MazeOne : MG_MazeOneBase
         }
 
         //==== 開始隨機連結 !!
-        iStart = GetCellID(puzzleStart.x, puzzleStart.y);
-        iEnd = GetCellID(puzzleEnd.x, puzzleEnd.y);
-        if (allConnect)
+        //iStart = GetCellID(puzzleStart.x, puzzleStart.y);
+        //iEnd = GetCellID(puzzleEnd.x, puzzleEnd.y);
+        //使用隨機排序
+        OneUtility.Shuffle(wallList);
+        foreach (wallInfo w in wallList)
         {
-            //使用隨機排序
-            OneUtility.Shuffle(wallList);
-            foreach (wallInfo w in wallList)
+            if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
             {
-                if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
-                {
-                    ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-                    puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-                }
+                ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+                puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+                //if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
+                //{
+                //    //print("發現大祕寶啦 !! Loop = " + (loop + 1));
+                //    break;
+                //}
             }
         }
-        else
-        {
-            //使用隨機排序
-            OneUtility.Shuffle(wallList);
-            foreach (wallInfo w in wallList)
-            {
-                if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
-                {
-                    ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-                    puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-                    if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
-                    {
-                        //print("發現大祕寶啦 !! Loop = " + (loop + 1));
-                        break;
-                    }
-                }
-            }
-            //把剩下的 Cell 標成 Invalid
-            int startValue = puzzleDSU.Find(iStart);
-            for (int i = 0; i < puzzleWidth; i++)
-            {
-                for (int j = 0; j < puzzleHeight; j++)
-                {
-                    if (puzzleDSU.Find(GetCellID(i, j)) != startValue)
-                        puzzleMap[i][j].value = cellInfo.INVALID;
-                }
-            }
-        }
+        //if (allConnect)
+        //{
+        //    //使用隨機排序
+        //    OneUtility.Shuffle(wallList);
+        //    foreach (wallInfo w in wallList)
+        //    {
+        //        if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
+        //        {
+        //            ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+        //            puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    //使用隨機排序
+        //    OneUtility.Shuffle(wallList);
+        //    foreach (wallInfo w in wallList)
+        //    {
+        //        if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
+        //        {
+        //            ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+        //            puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+        //            if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
+        //            {
+        //                //print("發現大祕寶啦 !! Loop = " + (loop + 1));
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    //把剩下的 Cell 標成 Invalid
+        //    int startValue = puzzleDSU.Find(iStart);
+        //    for (int i = 0; i < puzzleWidth; i++)
+        //    {
+        //        for (int j = 0; j < puzzleHeight; j++)
+        //        {
+        //            if (puzzleDSU.Find(GetCellID(i, j)) != startValue)
+        //                puzzleMap[i][j].value = cellInfo.INVALID;
+        //        }
+        //    }
+        //}
 
         //startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iStart) * cellHeight + cellHeight / 2);
         //endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
@@ -158,3 +147,31 @@ public class MG_MazeOne : MG_MazeOneBase
 }
 
 
+public class MG_MazeOneEx : MG_MazeOne
+{
+    public bool extendTerminal = true;
+
+    protected override void PresetMapInfo()
+    {
+        if (extendTerminal)
+        {
+            puzzleHeight += 2;
+        }
+        base.PresetMapInfo();
+    }
+
+    protected override void InitPuzzleMap()
+    {
+        base.InitPuzzleMap();
+        if (extendTerminal)
+        {
+            for (int i = 0; i < puzzleWidth; i++)
+            {
+                puzzleMap[i][0].value = cellInfo.INVALID;
+                puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
+            }
+            puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
+            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
+        }
+    }
+}
