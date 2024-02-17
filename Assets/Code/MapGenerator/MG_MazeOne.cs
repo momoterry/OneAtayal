@@ -6,271 +6,9 @@ using UnityEngine.Tilemaps;
 
 public class MG_MazeOne : MG_MazeOneBase
 {
-    ////public string mapName;              //用來識別存檔
-    ////地圖存檔資料
-    ////protected MapSaveMazeDungeon loadedMapData = null;  //如果有的話，是載入存檔的形式
-    //// 迷宮資料相關
-
-    //public enum DIRECTION
-    //{
-    //    U,D,L,R,NONE,
-    //}
-
-
-    //public int puzzleWidth = 6;
-    //public int puzzleHeight = 6;
-
-    //public int roomWidth = 12;
-    //public int roomHeight = 16;
-    //public int wallWidth = 4;
-    //public int wallHeight = 4;
-
-    //public int pathWidth = 4;
-    //public int pathHeight = 4;
-
-    //protected int cellWidth = 4;
-    //protected int cellHeight = 4;
-
-    //public float pathRate = 0.5f;
-
     public bool allConnect = true;
     public bool extendTerminal = true;
-    //public GameObject finishPortalRef;
-    //public bool portalAfterFirstRoomGamplay = false;
-    //public bool createWallCollider = true;
-    //protected const float wallBuffer = 0.25f;
 
-    //// Tile 資料相關
-    //public TileGroupDataBase groundTileGroup;
-    //public TileEdgeGroupDataBase groundEdgeTileGroup;
-    //public TileEdgeGroupDataBase groundOutEdgeTileGroup;
-    //public TileGroupDataBase blockTileGroup;                //用在非邊界的 Block 區域
-    //public TileGroupDataBase defautTileGroup;               //用在地圖的外邊界
-    //public TileGroupDataBase roomGroundTileGroup;
-    //public TileEdgeGroupDataBase roomGroundTileEdgeGroup;
-    //public Tilemap groundTM;
-    //public Tilemap blockTM;
-
-
-    ////Gameplay 用
-    ////[Header("Gameplay 設定")]
-    //public DungeonEnemyManagerBase dungeonEnemyManager; 
-    ////public EnemyGroup normalGroup;
-    ////public float normalEnemyRate = 0.2f;
-    ////protected int normalEnemyNum;
-    //protected float dungeonEnemyDifficulty = 1.0f;
-    ////public float noEnemyDistanceRate = 1.0f;    //以 Cell 對角長度為單位
-
-    ////public GameObject[] exploreRewards;
-    ////protected int exploreRewardNum;
-
-    //public GameObject initGampleyRef;
-
-    ////裝飾物件
-    //public MapDecadeGenerator decadeGenerator;
-
-
-    ////基底地圖相關 TODO: 希望獨立出去
-    //protected int mapWidth = 0;
-    //protected int mapHeight = 0;
-    //protected int borderWidth = 4;
-    //protected Vector3Int mapCenter;
-    //protected OneMap theMap = new OneMap();
-    //protected enum MAP_TYPE
-    //{
-    //    GROUND = 4,
-    //    ROOM = 5,
-    //    BLOCK = 6,
-    //}
-
-    ////protected int bufferX = 0;
-    ////protected int bufferY = 0;
-
-    //protected int puzzleX1;
-    //protected int puzzleY1;
-
-    //protected int iStart;
-    //protected int iEnd;
-    //protected Vector3 startPos;
-    //protected Vector3 endPos;
-
-    //protected class cellInfo
-    //{
-    //    public bool U, D, L, R;
-    //    public int value = NORMAL;
-    //    public int deep;    //距離出發點的深度，最小值為 1，0 表示未處理
-    //    public bool isMain; //是否主幹道
-    //    public int mainDeep; //主幹道上的深度
-    //    public DIRECTION from;  //離起點最近的方向
-
-    //    public const int NORMAL = 0;
-    //    public const int ROOM = 1;
-    //    public const int TERNIMAL = 2;  //出、入口
-    //    public const int INVALID = 7;
-
-    //    public int Encode()
-    //    {
-    //        int iDoor = 0;
-    //        iDoor += U ? 8 : 0;
-    //        iDoor += D ? 4 : 0;
-    //        iDoor += L ? 2 : 0;
-    //        iDoor += R ? 1 : 0;
-    //        int iAll = value * 16 + iDoor;
-    //        if (iAll > 255)
-    //        {
-    //            print("ERROR!!!! cellInfo.Encode > 255!!");
-    //        }
-    //        return iAll;
-    //    }
-
-    //    public void Decode(int code)
-    //    {
-    //        //print(code);
-    //        R = (code % 2) == 1 ? true : false;
-    //        code = code >> 1;
-    //        L = (code % 2) == 1 ? true : false;
-    //        code = code >> 1;
-    //        D = (code % 2) == 1 ? true : false;
-    //        code = code >> 1;
-    //        U = (code % 2) == 1 ? true : false;
-    //        code = code >> 1;
-
-    //        value = code;
-    //    }
-    //}
-
-    ////protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
-    //protected cellInfo[][] puzzleMap;
-
-    //protected class wallInfo
-    //{
-    //    public wallInfo(int _id1, int _id2)
-    //    {
-    //        cell_ID_1 = _id1;
-    //        cell_ID_2 = _id2;
-    //    }
-    //    public int cell_ID_1;
-    //    public int cell_ID_2;
-    //}
-    //protected List<wallInfo> wallList = new List<wallInfo>();
-
-
-    //public override void BuildAll(int buildLevel = 1)
-    //{
-
-    //    PresetByContinuousBattle();
-
-    //    //if (mapName != null && mapName != "")
-    //    //    LoadMap();  //先嘗試載入存檔，有的話更新地圖參數等
-
-    //    PresetMapInfo();    //各種內部參數的初始化，包含預設起點終點，必須在讀取進度或連續戰鬥資訊等確認參數後進行
-
-    //    InitPuzzleMap();    //初始化 OneMap 和 CellMap 的內容為預設值
-
-
-    //    //============================= 以下設置每個 Cell 的內容 ===========================================
-    //    CreatMazeMap();
-
-    //    //=========================== 各種 Cell 內 Gameplay 用資訊的計算
-    //    PreCalculateGameplayInfo();
-
-    //    //=========================== 把 Cell 的內容填到 OneMap 中
-    //    ProcessNormalCells();
-    //    ProcessInitFinish();
-
-
-    //    //============================= 以下開始舖設 Tiles ===========================================
-    //    //theMap.PrintMap();
-    //    if (defautTileGroup)
-    //        theMap.FillTileAll(OneMap.DEFAULT_VALUE, blockTM, defautTileGroup.GetTileGroup());
-
-    //    if (groundEdgeTileGroup)
-    //        theMap.FillTileAll((int)MAP_TYPE.GROUND, groundTM, groundTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false, (int)MAP_TYPE.BLOCK);
-    //    else
-    //        theMap.FillTileAll((int)MAP_TYPE.GROUND, groundTM, groundTileGroup.GetTileGroup());
-
-    //    if (roomGroundTileGroup != null)
-    //    {
-    //        if (roomGroundTileEdgeGroup)
-    //            theMap.FillTileAll((int)MAP_TYPE.ROOM, groundTM, groundTM, roomGroundTileGroup.GetTileGroup(), roomGroundTileEdgeGroup.GetTileEdgeGroup(), false);
-    //        else
-    //            theMap.FillTileAll((int)MAP_TYPE.ROOM, groundTM, roomGroundTileGroup.GetTileGroup());
-    //    }
-
-    //    if (blockTileGroup)
-    //        theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTileGroup.GetTileGroup());
-
-
-    //    if (groundOutEdgeTileGroup)
-    //        theMap.FillTileAll((int)MAP_TYPE.GROUND, null, blockTM, null, groundOutEdgeTileGroup.GetTileEdgeGroup(), true, (int)MAP_TYPE.BLOCK);
-
-    //    GenerateNavMesh(theSurface2D);
-
-    //    //============== 在 NavMesh 產生完成後，開始進行 Gameplay 物件的生成
-
-    //    //====================== 裝飾物件建立 =====================================
-    //    //MapDecadeGeneratorBase dGen = GetComponent<MapDecadeGeneratorBase>();
-    //    if (decadeGenerator)
-    //    {
-    //        DecadeGenerateParameter p = new DecadeGenerateParameter();
-    //        p.mapValue = (int)MAP_TYPE.BLOCK;
-    //        decadeGenerator.BuildAll(theMap, p);
-    //    }
-
-    //    MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
-    //    if (theMiniMap)
-    //    {
-    //        theMiniMap.CreateMiniMap(theMap);
-    //    }
-
-    //    //載入已探索的資訊
-    //    //LoadExploreMap();
-
-    //    ////地圖存檔
-    //    //SaveMap();
-    //}
-
-    //virtual protected void PresetByContinuousBattle()
-    //{
-    //    ContinuousBattleDataBase cBase = ContinuousBattleManager.GetCurrBattleData();
-    //    if (cBase != null)
-    //    {
-    //        if (cBase is ContinuousMazeData)
-    //        {
-    //            ContinuousMazeData cData = (ContinuousMazeData)cBase;
-    //            puzzleWidth = cData.puzzleWidth;
-    //            puzzleHeight = cData.puzzleHeight;
-
-    //            print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
-
-    //            if (cData.dungeonDifficulty > 0)
-    //            {
-    //                dungeonEnemyDifficulty = cData.dungeonDifficulty;
-    //            }
-    //            ////print("DungeonEnemyDifficulty : " + dungeonEnemyDifficulty);
-    //            if (cData.dungeonEnemyManager != null)
-    //            {
-    //                GameObject o = Instantiate(cData.dungeonEnemyManager.gameObject);
-    //                o.transform.parent = gameObject.transform;
-    //                dungeonEnemyManager = o.GetComponent<DungeonEnemyManager>();
-    //            }
-
-    //            if (cData.initGameplayRef)
-    //            {
-    //                initGampleyRef = cData.initGameplayRef;
-    //            }
-
-    //            if (cData.levelID != null)
-    //            {
-    //                BattleSystem.GetInstance().levelID = cData.levelID;
-    //            }
-    //        }
-    //        else
-    //        {
-    //            print("ERROR!! ContinuousBattle 錯誤，下個關卡資料不是 ContinuousMazeData !!");
-    //        }
-    //    }
-    //}
 
     protected override void PresetMapInfo()
     {
@@ -280,41 +18,6 @@ public class MG_MazeOne : MG_MazeOneBase
         }
         base.PresetMapInfo();
     }
-
-    //virtual protected void PresetMapInfo()
-    //{
-    //    // =============== 各種內部參數設定
-    //    cellWidth = roomWidth + wallWidth + wallWidth;
-    //    cellHeight = roomHeight + wallHeight + wallHeight;
-    //    pathWidth = pathWidth > roomWidth ? roomWidth : pathWidth;
-    //    pathHeight = pathHeight > roomHeight ? roomHeight : pathHeight;
-    //    if ((pathWidth) % 2 != (roomWidth % 2))
-    //        pathWidth++;
-    //    if ((pathHeight) % 2 != (roomHeight % 2))
-    //        pathHeight++;
-
-    //    if (extendTerminal)
-    //    {
-    //        puzzleHeight += 2;  //加入上下緩衝
-    //    }
-    //    mapHeight = puzzleHeight * cellHeight;
-    //    mapWidth = puzzleWidth * cellWidth;
-
-    //    //mapCenter.y = puzzleHeight * cellHeight / 2 - (cellHeight / 2);
-    //    if (puzzleHeight % 2 == 0)
-    //    {
-    //        mapCenter.y = cellHeight / 2;
-    //    }
-
-    //    if (puzzleWidth % 2 == 0)
-    //    {
-    //        mapCenter.x = cellWidth / 2;
-    //    }
-
-    //    puzzleX1 = mapCenter.x - (puzzleWidth * cellWidth / 2);
-    //    puzzleY1 = mapCenter.y - (puzzleHeight * cellHeight / 2);
-
-    //}
 
     protected override void InitPuzzleMap()
     {
@@ -331,34 +34,16 @@ public class MG_MazeOne : MG_MazeOneBase
         }
     }
 
-    //virtual protected void InitPuzzleMap() 
-    //{
-    //    theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
-
-    //    // =============== 初始化 PuzzleMap
-    //    puzzleMap = new cellInfo[puzzleWidth][];
-    //    for (int i = 0; i < puzzleWidth; i++)
-    //    {
-    //        puzzleMap[i] = new cellInfo[puzzleHeight];
-    //        for (int j = 0; j < puzzleHeight; j++)
-    //        {
-    //            puzzleMap[i][j] = new cellInfo();
-    //        }
-    //    }
-
-    //    if (extendTerminal)
-    //    {
-    //        for (int i = 0; i < puzzleWidth; i++)
-    //        {
-    //            puzzleMap[i][0].value = cellInfo.INVALID;
-    //            puzzleMap[i][puzzleHeight-1].value = cellInfo.INVALID;
-    //        }
-    //    }
-    //    puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
-    //    puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
-    //    puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-    //    puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
-    //}
+    protected class wallInfo
+    {
+        public wallInfo(int _id1, int _id2)
+        {
+            cell_ID_1 = _id1;
+            cell_ID_2 = _id2;
+        }
+        public int cell_ID_1;
+        public int cell_ID_2;
+    }
 
     override protected void CreatMazeMap()
     {
@@ -366,6 +51,7 @@ public class MG_MazeOne : MG_MazeOneBase
         DisjointSetUnion puzzleDSU = new DisjointSetUnion();
         puzzleDSU.Init(puzzleHeight * puzzleWidth);
 
+        List<wallInfo> wallList = new List<wallInfo>();
         //puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
         //puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
 
@@ -449,308 +135,26 @@ public class MG_MazeOne : MG_MazeOneBase
         //BattleSystem.GetInstance().SetInitPosition(startPos);
     }
 
-    //protected void FillBlock(float x1, float y1, float width, float height)
+    //protected void ConnectCellsByID(int id_1, int id_2)
     //{
-    //    if (!createWallCollider)
-    //        return;
-    //    GameObject newObject = new GameObject("MyBoxObj");
-    //    newObject.transform.position = new Vector3(x1 + width * 0.5f, 0, y1 + height * 0.5f);
-    //    BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
-    //    boxCollider.size = new Vector3(width, 2.0f, height);
-    //    //boxCollider.l
-    //    newObject.transform.parent = gameObject.transform;
-    //    newObject.isStatic = true;
-    //    newObject.layer = LayerMask.NameToLayer("Wall");
-    //}
-
-    //protected void FillCell(cellInfo cell, int x1, int y1, int width, int height)
-    //{
-    //    //測試
-    //    int wallWidth = this.wallWidth;
-    //    int wallHeight = this.wallHeight;
-    //    int roomWidth = this.roomWidth;
-    //    int roomHeight = this.roomHeight;
-    //    bool isPath = Random.Range(0, 1.0f) < pathRate;
-    //    //if (cell.value == cellInfo.TERNIMAL)
-    //    //    isPath = true;
-    //    if (isPath)
+    //    cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
+    //    cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
+    //    if (id_1 + 1 == id_2) //左連到右
     //    {
-    //        wallWidth = (roomWidth - pathWidth) / 2 + wallWidth;
-    //        wallHeight = (roomHeight - pathHeight) / 2 + wallHeight;
-    //        roomWidth = pathWidth;
-    //        roomHeight = pathHeight;
+    //        cell_1.R = true;
+    //        cell_2.L = true;
     //    }
-
-    //    int x2 = x1 + width - wallWidth;
-    //    int y2 = y1 + height - wallHeight;
-
-    //    int wallGapWidth = (roomWidth - pathWidth) / 2;
-    //    int wallGapHeight = (roomHeight - pathHeight) / 2;
-
-
-    //    if (cell.value == cellInfo.INVALID)
+    //    else if (id_1 + puzzleWidth == id_2) //下連到上
     //    {
-    //        theMap.FillValue(x1, y1, width, height, (int)MAP_TYPE.BLOCK);
-    //        return;
-    //    }
-    //    theMap.FillValue(x1, y1, width, height, (int)MAP_TYPE.GROUND);
-
-    //    theMap.FillValue(x1, y1, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-    //    theMap.FillValue(x1, y2, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-    //    theMap.FillValue(x2, y1, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-    //    theMap.FillValue(x2, y2, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-
-    //    bool isFillBlock = createWallCollider && (cell.value != cellInfo.ROOM);
-
-    //    if (!cell.D)
-    //    {
-    //        theMap.FillValue(x1 + wallWidth, y1, width - wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-    //        if (isFillBlock)
-    //            FillBlock(x1, y1, width - wallWidth + wallBuffer, wallHeight - wallBuffer);   //左下和下
-    //    }
-    //    else
-    //    {
-    //        if (wallGapWidth > 0)
-    //        {
-    //            theMap.FillValue(x1 + wallWidth, y1, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-    //            theMap.FillValue(x1 + wallWidth + wallGapWidth + pathWidth, y1, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-    //        }
-    //        if (isFillBlock)
-    //        {
-    //            FillBlock(x1, y1, wallWidth + wallGapWidth - wallBuffer, wallHeight - wallBuffer);   // 左下
-    //            if (wallGapWidth > 0)
-    //            {
-    //                FillBlock(x1 + wallWidth + wallGapWidth + pathWidth + wallBuffer, y1, wallGapWidth, wallHeight - wallBuffer);   // 左下
-    //            }
-    //        }
-    //    }
-    //    if (!cell.U)
-    //    {
-    //        theMap.FillValue(x1 + wallWidth, y2, width - wallWidth - wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-    //        if (isFillBlock)
-    //            FillBlock(x1 + wallWidth - wallBuffer, y2 + wallBuffer, width - wallWidth + wallBuffer, wallHeight - wallBuffer);   //右上和上
-
-    //    }
-    //    else
-    //    {
-    //        if (wallGapWidth > 0)
-    //        {
-    //            theMap.FillValue(x1 + wallWidth, y2, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-    //            theMap.FillValue(x1 + wallWidth + wallGapWidth + pathWidth, y2, wallGapWidth, wallHeight, (int)MAP_TYPE.BLOCK);
-    //        }
-    //        if (isFillBlock)
-    //        {
-    //            FillBlock(x2 - wallGapWidth + wallBuffer, y2 + wallBuffer, wallWidth + wallGapWidth - wallBuffer, wallHeight - wallBuffer);   // 右上
-    //            if (wallGapWidth > 0)
-    //            {
-    //                FillBlock(x1 + wallWidth - wallBuffer, y2 + wallBuffer, wallGapWidth, wallHeight - wallBuffer);   // 右上
-    //            }
-    //        }
-    //    }
-
-    //    if (!cell.L)
-    //    {
-    //        theMap.FillValue(x1, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
-    //        if (isFillBlock)
-    //            FillBlock(x1, y1 + wallHeight - wallBuffer, wallWidth - wallBuffer, height - wallHeight + wallBuffer); //左上和左
-    //    }
-    //    else
-    //    {
-    //        if (wallGapHeight > 0)
-    //        {
-    //            theMap.FillValue(x1, y1 + wallHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
-    //            theMap.FillValue(x1, y1 + wallHeight + wallGapHeight + pathHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
-    //        }
-    //        if (isFillBlock)
-    //        {
-    //            FillBlock(x1, y2 + wallBuffer - wallGapHeight, wallWidth - wallBuffer, wallHeight + wallGapHeight - wallBuffer);    //左上
-    //            if (wallGapHeight > 0)
-    //            {
-    //                FillBlock(x1, y1 + wallHeight - wallBuffer, wallWidth - wallBuffer, wallGapHeight);    //左上
-    //            }
-    //        }
-    //    }
-    //    if (!cell.R)
-    //    {
-    //        theMap.FillValue(x2, y1 + wallHeight, wallWidth, height - wallHeight - wallHeight, (int)MAP_TYPE.BLOCK);
-    //        if (isFillBlock)
-    //            FillBlock(x2 + wallBuffer, y1, wallWidth - wallBuffer, height - wallHeight + wallBuffer);  //右下和右
-    //    }
-    //    else
-    //    {
-    //        if (wallGapHeight > 0)
-    //        {
-    //            theMap.FillValue(x2, y1 + wallHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
-    //            theMap.FillValue(x2, y1 + wallHeight + wallGapHeight + pathHeight, wallWidth, wallGapHeight, (int)MAP_TYPE.BLOCK);
-    //        }
-    //        if (isFillBlock)
-    //        {
-    //            FillBlock(x2 + wallBuffer, y1, wallWidth - wallBuffer, wallHeight + wallGapHeight - wallBuffer);   //右下
-    //            if (wallGapHeight > 0)
-    //            {
-    //                FillBlock(x2 + wallBuffer, y1 + wallHeight + wallGapHeight + pathHeight + wallBuffer, wallWidth - wallBuffer, wallGapHeight);   //右下
-    //            }
-    //        }
+    //        cell_1.U = true;
+    //        cell_2.D = true;
     //    }
     //}
 
+    //protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
+    //protected int GetCellX(int id) { return id % puzzleWidth; }
+    //protected int GetCellY(int id) { return id / puzzleWidth; }
 
-    protected void ConnectCellsByID(int id_1, int id_2)
-    {
-        cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
-        cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
-        if (id_1 + 1 == id_2) //左連到右
-        {
-            cell_1.R = true;
-            cell_2.L = true;
-        }
-        else if (id_1 + puzzleWidth == id_2) //下連到上
-        {
-            cell_1.U = true;
-            cell_2.D = true;
-        }
-    }
-
-    protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
-    protected int GetCellX(int id) { return id % puzzleWidth; }
-    protected int GetCellY(int id) { return id / puzzleWidth; }
-
-    //protected Vector3 GetCellCenterPos(int x, int y)
-    //{
-    //    return new Vector3(puzzleX1 + cellWidth * (x + 0.5f), 0, puzzleY1 + cellHeight * (y + 0.5f));
-    //}
-
-
-    ////protected List<RectInt> rectList;
-
-    //protected Vector2Int puzzleStart, puzzleEnd;
-
-
-    //protected void CheckCellDeep(int x, int y, DIRECTION from, int deep )
-    //{
-    //    //print("CheckCellDeep:  " + x + ", " + y );
-    //    if (x < 0 || x >= puzzleWidth || y < 0 || y >= puzzleHeight)
-    //        return;
-    //    if (puzzleMap[x][y].value == cellInfo.INVALID)
-    //        return;
-    //    //print("CheckCellDeep Value:  " + puzzleMap[x][y].value);
-    //    if (puzzleMap[x][y].deep > 0 && puzzleMap[x][y].deep <= deep)        //已經有更短路徑
-    //    {
-    //        print("目前不應該跑到這裡 ....... ");
-    //        return;
-    //    }
-
-    //    puzzleMap[x][y].deep = deep;
-    //    puzzleMap[x][y].from = from;
-    //    if (puzzleMap[x][y].U && from != DIRECTION.U)
-    //        CheckCellDeep(x, y + 1, DIRECTION.D, deep + 1);
-    //    if (puzzleMap[x][y].D && from != DIRECTION.D)
-    //        CheckCellDeep(x, y - 1, DIRECTION.U, deep + 1);
-    //    if (puzzleMap[x][y].L && from != DIRECTION.L)
-    //        CheckCellDeep(x - 1, y, DIRECTION.R, deep + 1);
-    //    if (puzzleMap[x][y].R && from != DIRECTION.R)
-    //        CheckCellDeep(x + 1, y, DIRECTION.L, deep + 1);
-    //}
-
-    //protected void CheckMainPathDeep(int x, int y, DIRECTION from, bool isMain, int mainDeep)
-    //{
-    //    if (x < 0 || x >= puzzleWidth || y < 0 || y >= puzzleHeight)
-    //        return;
-    //    if (puzzleMap[x][y].value == cellInfo.INVALID)
-    //        return;
-    //    puzzleMap[x][y].isMain = isMain;
-    //    puzzleMap[x][y].mainDeep = mainDeep;
-
-    //    //if (isMain)
-    //    //{
-    //    //    print("deep == mainDeep? " + puzzleMap[x][y].deep + " - " + puzzleMap[x][y].mainDeep);
-    //    //}
-    //    //else
-    //    //    print("Branch.... " + mainDeep);
-
-    //    DIRECTION mainFrom = puzzleMap[x][y].from;
-    //    if (puzzleMap[x][y].U && from != DIRECTION.U)
-    //    {
-    //        bool mainCheck = isMain && (mainFrom == DIRECTION.U);
-    //        CheckMainPathDeep(x, y + 1, DIRECTION.D, mainCheck, mainDeep + (mainCheck ? -1:0));
-    //    }
-    //    if (puzzleMap[x][y].D && from != DIRECTION.D)
-    //    {
-    //        bool mainCheck = isMain && (mainFrom == DIRECTION.D);
-    //        CheckMainPathDeep(x, y - 1, DIRECTION.U, mainCheck, mainDeep + (mainCheck ? -1 : 0));
-    //    }
-    //    if (puzzleMap[x][y].L && from != DIRECTION.L)
-    //    {
-    //        bool mainCheck = isMain && (mainFrom == DIRECTION.L);
-    //        CheckMainPathDeep(x - 1, y, DIRECTION.R, mainCheck, mainDeep + (mainCheck ? -1 : 0));
-    //    }
-    //    if (puzzleMap[x][y].R && from != DIRECTION.R)
-    //    {
-    //        bool mainCheck = isMain && (mainFrom == DIRECTION.R);
-    //        CheckMainPathDeep(x + 1, y, DIRECTION.L, mainCheck, mainDeep + (mainCheck ? -1 : 0));
-    //    }
-    //}
-
-    //protected void PreCalculateGameplayInfo()
-    //{
-    //    //print("PreCalculateGameplayInfo");
-    //    CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);
-    //    int maxMainDeep = puzzleMap[puzzleEnd.x][puzzleEnd.y].deep;
-    //    CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.NONE, true, maxMainDeep);
-    //}
-
-    //protected void ProcessInitFinish()
-    //{
-
-    //    //初始 Gameplay
-    //    if (initGampleyRef)
-    //    {
-    //        BattleSystem.SpawnGameObj(initGampleyRef, startPos);
-    //    }
-
-    //    //破關門
-    //    if (finishPortalRef )
-    //        BattleSystem.SpawnGameObj(finishPortalRef, endPos);
-    //}
-
-
-    //protected void ProcessNormalCells()
-    //{
-    //    //==== 一般通道處理
-
-    //    for (int i = 0; i < puzzleWidth; i++)
-    //    {
-    //        for (int j = 0; j < puzzleHeight; j++)
-    //        {
-    //            int x1 = puzzleX1 + i * cellWidth;
-    //            int y1 = puzzleY1 + j * cellHeight;
-    //            //if (allConnect)
-    //            //    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
-    //            //else if (puzzleDSU.Find(GetCellID(i, j)) == startValue)
-    //            //    FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
-    //            FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
-    //        }
-    //    }
-    //}
-
-
-    //private void OnDrawGizmos()
-    //{
-    //    //UnityEditor.Handles.Label(Vector3.zero, "畫了個爽");
-    //    if (puzzleMap != null)
-    //    {
-    //        for (int i = 0; i < puzzleWidth; i++)
-    //        {
-    //            for (int j = 0; j < puzzleHeight; j++)
-    //            {
-    //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].from.ToString() + " " + puzzleMap[i][j].deep.ToString());
-    //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].deep.ToString());
-    //                //UnityEditor.Handles.Label(GetCellCenterPos(i, j), puzzleMap[i][j].isMain.ToString() + " " + puzzleMap[i][j].mainDeep.ToString());
-    //                UnityEditor.Handles.Label(GetCellCenterPos(i, j), (puzzleMap[i][j].deep - puzzleMap[i][j].mainDeep).ToString());
-    //            }
-    //        }
-    //    }
-    //}
 }
 
 

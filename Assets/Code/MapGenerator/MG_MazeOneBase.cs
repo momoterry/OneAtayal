@@ -131,17 +131,38 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     protected cellInfo[][] puzzleMap;
 
-    protected class wallInfo
+    //protected class wallInfo
+    //{
+    //    public wallInfo(int _id1, int _id2)
+    //    {
+    //        cell_ID_1 = _id1;
+    //        cell_ID_2 = _id2;
+    //    }
+    //    public int cell_ID_1;
+    //    public int cell_ID_2;
+    //}
+    //protected List<wallInfo> wallList = new List<wallInfo>();
+
+    // ===================== 房間連結相關
+    protected void ConnectCellsByID(int id_1, int id_2)
     {
-        public wallInfo(int _id1, int _id2)
+        cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
+        cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
+        if (id_1 + 1 == id_2) //左連到右
         {
-            cell_ID_1 = _id1;
-            cell_ID_2 = _id2;
+            cell_1.R = true;
+            cell_2.L = true;
         }
-        public int cell_ID_1;
-        public int cell_ID_2;
+        else if (id_1 + puzzleWidth == id_2) //下連到上
+        {
+            cell_1.U = true;
+            cell_2.D = true;
+        }
     }
-    protected List<wallInfo> wallList = new List<wallInfo>();
+
+    protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
+    protected int GetCellX(int id) { return id % puzzleWidth; }
+    protected int GetCellY(int id) { return id / puzzleWidth; }
 
 
     public override void BuildAll(int buildLevel = 1)
