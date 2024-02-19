@@ -12,6 +12,7 @@ public class MG_MazeOneEx : MG_MazeOne
     public enum MAZE_DIR
     {
         DONW_TO_TOP,
+        TOP_TO_DOWN,
         LEFT_TO_RIGHT,
         RIGHT_TO_LEFT,
     }
@@ -20,7 +21,7 @@ public class MG_MazeOneEx : MG_MazeOne
     {
         if (extendTerminal)
         {
-            if (mazeDir == MAZE_DIR.DONW_TO_TOP)
+            if (mazeDir == MAZE_DIR.DONW_TO_TOP || mazeDir == MAZE_DIR.TOP_TO_DOWN)
                 puzzleHeight += 2;
             else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
                 puzzleWidth += 2;
@@ -37,6 +38,12 @@ public class MG_MazeOneEx : MG_MazeOne
             puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
             BattleSystem.GetInstance().initPlayerDirAngle = 0;
         }
+        else if (mazeDir == MAZE_DIR.TOP_TO_DOWN)
+        {
+            puzzleStart = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
+            puzzleEnd = new Vector2Int(puzzleWidth / 2, 0);
+            BattleSystem.GetInstance().initPlayerDirAngle = 180;
+        }
         else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT)
         {
             puzzleStart = new Vector2Int(0, puzzleHeight / 2);
@@ -52,7 +59,7 @@ public class MG_MazeOneEx : MG_MazeOne
 
         if (extendTerminal)
         {
-            if (mazeDir == MAZE_DIR.DONW_TO_TOP)
+            if (mazeDir == MAZE_DIR.DONW_TO_TOP || mazeDir == MAZE_DIR.TOP_TO_DOWN)
             {
                 for (int i = 0; i < puzzleWidth; i++)
                 {
