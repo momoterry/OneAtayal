@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class MG_MazeOneCave : MG_MazeOne
 {
+    public bool extendTerminal = false;
+
     public enum MAZE_DIR
     {
         INSIDE_OUT,     //從中間往外走
@@ -17,21 +19,56 @@ public class MG_MazeOneCave : MG_MazeOne
     }
     public MAZE_DIR mazeDir = MAZE_DIR.INSIDE_OUT;
 
+    protected override void PresetMapInfo()
+    {
+        if (extendTerminal)
+        {
+            if (mazeDir == MAZE_DIR.DONW_TO_TOP || mazeDir == MAZE_DIR.TOP_TO_DOWN)
+                puzzleHeight += 2;
+            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
+                puzzleWidth += 2;
+        }
+        base.PresetMapInfo();
+    }
+
     protected override void InitPuzzleMap()
     {
         base.InitPuzzleMap();
-        //先把預設起終點還原
-        //puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
-        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
 
         puzzleStart.x = puzzleWidth / 2;
         puzzleStart.y = puzzleHeight / 2;
 
         RandamWalkerMap theRWMap = new RandamWalkerMap();
         theRWMap.blockFillRatio = blockFillRatio;
-        //print("maxWalkers: " + theRWMap.maxWalkers);
+        int rwWidth = puzzleWidth;
+        int rwHeight = puzzleHeight;
+        Vector2Int mapShift = Vector2Int.zero;
+        if (extendTerminal)
+        {
+            if (mazeDir == MAZE_DIR.DONW_TO_TOP || mazeDir == MAZE_DIR.TOP_TO_DOWN)
+            {
+                rwHeight -= 2;
+                mapShift = new Vector2Int(0, 1);
+                for (int i = 0; i < puzzleWidth; i++)
+                {
+                    puzzleMap[i][0].value = cellInfo.INVALID;
+                    puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
+                }
+            }
+            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
+            {
+                rwWidth -= 2;
+                mapShift = new Vector2Int(1, 0);
+                for (int i = 0; i < puzzleHeight; i++)
+                {
+                    puzzleMap[0][i].value = cellInfo.INVALID;
+                    puzzleMap[puzzleWidth - 1][i].value = cellInfo.INVALID;
+                }
+            }
+        }
 
-        theRWMap.CreateRandomWalkerMap(puzzleWidth, puzzleHeight, puzzleStart, ref puzzleEnd);
+        theRWMap.CreateRandomWalkerMap(rwWidth, rwHeight, puzzleStart - mapShift, ref puzzleEnd);
+        puzzleEnd = puzzleEnd + mapShift;
 
         List<Vector2Int> leftMost = new List<Vector2Int>();
         List<Vector2Int> rightMost = new List<Vector2Int>();
@@ -45,7 +82,7 @@ public class MG_MazeOneCave : MG_MazeOne
             {
                 if (theRWMap.rwMap[i, j] == 0)
                 {
-                    puzzleMap[i][j].value = cellInfo.INVALID;
+                    puzzleMap[i + mapShift.x][j + mapShift.y].value = cellInfo.INVALID;
                 }
                 else
                 {
@@ -89,25 +126,51 @@ public class MG_MazeOneCave : MG_MazeOne
         switch (mazeDir)
         {
             case MAZE_DIR.DONW_TO_TOP:
-                puzzleStart = downMost[Random.Range(0, downMost.Count)];
-                puzzleEnd = topMost[Random.Range(0, topMost.Count)];
+                puzzleStart = downMost[Random.Range(0, downMost.Count)] + mapShift;
+                puzzleEnd = topMost[Random.Range(0, topMost.Count)] + mapShift;
                 BattleSystem.GetInstance().initPlayerDirAngle = 0;
                 break;
             case MAZE_DIR.TOP_TO_DOWN:
-                puzzleStart = topMost[Random.Range(0, topMost.Count)];
-                puzzleEnd = downMost[Random.Range(0, downMost.Count)];
+                puzzleStart = topMost[Random.Range(0, topMost.Count)] + mapShift;
+                puzzleEnd = downMost[Random.Range(0, downMost.Count)] + mapShift;
                 BattleSystem.GetInstance().initPlayerDirAngle = 180;
                 break;
             case MAZE_DIR.LEFT_TO_RIGHT:
-                puzzleStart = leftMost[Random.Range(0, leftMost.Count)];
-                puzzleEnd = rightMost[Random.Range(0, rightMost.Count)];
+                puzzleStart = leftMost[Random.Range(0, leftMost.Count)] + mapShift;
+                puzzleEnd = rightMost[Random.Range(0, rightMost.Count)] + mapShift;
                 BattleSystem.GetInstance().initPlayerDirAngle = 90;
                 break;
             case MAZE_DIR.RIGHT_TO_LEFT:
-                puzzleStart = rightMost[Random.Range(0, rightMost.Count)];
-                puzzleEnd = leftMost[Random.Range(0, leftMost.Count)];
+                puzzleStart = rightMost[Random.Range(0, rightMost.Count)] + mapShift;
+                puzzleEnd = leftMost[Random.Range(0, leftMost.Count)] + mapShift;
                 BattleSystem.GetInstance().initPlayerDirAngle = -90;
                 break;
+        }
+
+        if (extendTerminal)
+        {
+            switch (mazeDir)
+            {
+                case MAZE_DIR.DONW_TO_TOP:
+                    puzzleStart.y--;
+                    puzzleEnd.y++;
+                    break;
+                case MAZE_DIR.TOP_TO_DOWN:
+                    puzzleStart.y++;
+                    puzzleEnd.y--;
+                    break;
+                case MAZE_DIR.LEFT_TO_RIGHT:
+                    puzzleStart.x--;
+                    puzzleEnd.x++;
+                    break;
+                case MAZE_DIR.RIGHT_TO_LEFT:
+                    puzzleStart.x++;
+                    puzzleEnd.x--;
+                    break;
+            }
+            puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
+            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
+
         }
     }
 
