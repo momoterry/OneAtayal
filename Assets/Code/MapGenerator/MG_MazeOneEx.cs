@@ -4,6 +4,76 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
+
+public class MG_MazeOneEx : MG_MazeOne
+{
+    public bool extendTerminal = true;
+
+    public enum MAZE_DIR
+    {
+        DONW_TO_TOP,
+        LEFT_TO_RIGHT,
+        RIGHT_TO_LEFT,
+    }
+    public MAZE_DIR mazeDir = MAZE_DIR.DONW_TO_TOP;
+    protected override void PresetMapInfo()
+    {
+        if (extendTerminal)
+        {
+            if (mazeDir == MAZE_DIR.DONW_TO_TOP)
+                puzzleHeight += 2;
+            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
+                puzzleWidth += 2;
+        }
+        base.PresetMapInfo();
+    }
+
+    protected override void InitPuzzleMap()
+    {
+        base.InitPuzzleMap();
+        if (mazeDir == MAZE_DIR.DONW_TO_TOP)
+        {
+            puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
+            puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
+            BattleSystem.GetInstance().initPlayerDirAngle = 0;
+        }
+        else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT)
+        {
+            puzzleStart = new Vector2Int(0, puzzleHeight / 2);
+            puzzleEnd = new Vector2Int(puzzleWidth - 1, puzzleHeight / 2);
+            BattleSystem.GetInstance().initPlayerDirAngle = 90;
+        }
+        else if (mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
+        {
+            puzzleStart = new Vector2Int(puzzleWidth - 1, puzzleHeight / 2);
+            puzzleEnd = new Vector2Int(0, puzzleHeight / 2);
+            BattleSystem.GetInstance().initPlayerDirAngle = -90;
+        }
+
+        if (extendTerminal)
+        {
+            if (mazeDir == MAZE_DIR.DONW_TO_TOP)
+            {
+                for (int i = 0; i < puzzleWidth; i++)
+                {
+                    puzzleMap[i][0].value = cellInfo.INVALID;
+                    puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
+                }
+            }
+            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
+            {
+                for (int i = 0; i < puzzleHeight; i++)
+                {
+                    puzzleMap[0][i].value = cellInfo.INVALID;
+                    puzzleMap[puzzleWidth - 1][i].value = cellInfo.INVALID;
+                }
+            }
+            puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
+            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
+        }
+    }
+}
+
 public class MG_MazeOne : MG_MazeOneBase
 {
     //protected bool allConnect = true;
@@ -146,72 +216,3 @@ public class MG_MazeOne : MG_MazeOneBase
 
 }
 
-
-public class MG_MazeOneEx : MG_MazeOne
-{
-    public bool extendTerminal = true;
-
-    public enum MAZE_DIR
-    {
-        DONW_TO_TOP,
-        LEFT_TO_RIGHT,
-        RIGHT_TO_LEFT,
-    }
-    public MAZE_DIR mazeDir = MAZE_DIR.DONW_TO_TOP;
-    protected override void PresetMapInfo()
-    {
-        if (extendTerminal)
-        {
-            if (mazeDir == MAZE_DIR.DONW_TO_TOP)
-                puzzleHeight += 2;
-            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
-                puzzleWidth += 2;
-        }
-        base.PresetMapInfo();
-    }
-
-    protected override void InitPuzzleMap()
-    {
-        base.InitPuzzleMap();
-        if (mazeDir == MAZE_DIR.DONW_TO_TOP)
-        {
-            puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
-            puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
-            BattleSystem.GetInstance().initPlayerDirAngle = 0;
-        }
-        else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT)
-        {
-            puzzleStart = new Vector2Int(0, puzzleHeight / 2);
-            puzzleEnd = new Vector2Int(puzzleWidth-1, puzzleHeight / 2);
-            BattleSystem.GetInstance().initPlayerDirAngle = 90;
-        }
-        else if (mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
-        {
-            puzzleStart = new Vector2Int(puzzleWidth - 1, puzzleHeight / 2);
-            puzzleEnd = new Vector2Int(0, puzzleHeight / 2);
-            BattleSystem.GetInstance().initPlayerDirAngle = -90;
-        }
-    
-        if (extendTerminal)
-        {
-            if (mazeDir == MAZE_DIR.DONW_TO_TOP)
-            {
-                for (int i = 0; i < puzzleWidth; i++)
-                {
-                    puzzleMap[i][0].value = cellInfo.INVALID;
-                    puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
-                }
-            }
-            else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
-            {
-                for (int i = 0; i < puzzleHeight; i++)
-                {
-                    puzzleMap[0][i].value = cellInfo.INVALID;
-                    puzzleMap[puzzleWidth - 1][i].value = cellInfo.INVALID;
-                }
-            }
-            puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
-            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
-        }
-    }
-}

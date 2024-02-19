@@ -7,6 +7,15 @@ using UnityEngine;
 
 public class MG_MazeOneCave : MG_MazeOne
 {
+    public enum MAZE_DIR
+    {
+        INSIDE_OUT,     //從中間往外走
+        DONW_TO_TOP,
+        TOP_TO_DOWN,
+        LEFT_TO_RIGHT,
+        RIGHT_TO_LEFT,
+    }
+    public MAZE_DIR mazeDir = MAZE_DIR.INSIDE_OUT;
 
     protected override void InitPuzzleMap()
     {
@@ -24,6 +33,12 @@ public class MG_MazeOneCave : MG_MazeOne
 
         theRWMap.CreateRandomWalkerMap(puzzleWidth, puzzleHeight, puzzleStart, ref puzzleEnd);
 
+        List<Vector2Int> leftMost = new List<Vector2Int>();
+        List<Vector2Int> rightMost = new List<Vector2Int>();
+        List<Vector2Int> topMost = new List<Vector2Int>();
+        List<Vector2Int> downMost = new List<Vector2Int>();
+        int xMin = int.MaxValue, yMin = int.MaxValue;
+        int xMax = int.MinValue, yMax = int.MinValue;
         for (int i = 0; i < theRWMap.rwWidth; i++)
         {
             for (int j = 0; j < theRWMap.rwHeight; j++)
@@ -32,11 +47,70 @@ public class MG_MazeOneCave : MG_MazeOne
                 {
                     puzzleMap[i][j].value = cellInfo.INVALID;
                 }
+                else
+                {
+                    if (i <= xMin)  //為最左邊端點 
+                    {
+                        if (i < xMin)
+                            leftMost.Clear();
+                        leftMost.Add(new Vector2Int(i, j));
+                        xMin = i;
+                    }
+                    if (i >= xMax)  //為最右邊端點 
+                    {
+                        if (i > xMax)
+                            rightMost.Clear();
+                        rightMost.Add(new Vector2Int(i, j));
+                        xMax = i;
+                    }
+                    if (j <= yMin)  //為最下面端點
+                    {
+                        if (j < yMin)
+                            downMost.Clear();
+                        downMost.Add(new Vector2Int(i, j));
+                        yMin = j;
+                    }
+                    if (j >= yMax)  //為最上面端點
+                    {
+                        if (j > yMax)
+                            topMost.Clear();
+                        topMost.Add(new Vector2Int(i, j));
+                        yMax = j;
+                    }
+                }
             }
         }
-        //puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+
+        //print("最左邊端點: " + leftMost.Count);
+        //print("最右邊端點: " + rightMost.Count);
+        //print("最下邊端點: " + downMost.Count);
+        //print("最上邊端點: " + topMost.Count);
+
+        switch (mazeDir)
+        {
+            case MAZE_DIR.DONW_TO_TOP:
+                puzzleStart = downMost[Random.Range(0, downMost.Count)];
+                puzzleEnd = topMost[Random.Range(0, topMost.Count)];
+                BattleSystem.GetInstance().initPlayerDirAngle = 0;
+                break;
+            case MAZE_DIR.TOP_TO_DOWN:
+                puzzleStart = topMost[Random.Range(0, topMost.Count)];
+                puzzleEnd = downMost[Random.Range(0, downMost.Count)];
+                BattleSystem.GetInstance().initPlayerDirAngle = 180;
+                break;
+            case MAZE_DIR.LEFT_TO_RIGHT:
+                puzzleStart = leftMost[Random.Range(0, leftMost.Count)];
+                puzzleEnd = rightMost[Random.Range(0, rightMost.Count)];
+                BattleSystem.GetInstance().initPlayerDirAngle = 90;
+                break;
+            case MAZE_DIR.RIGHT_TO_LEFT:
+                puzzleStart = rightMost[Random.Range(0, rightMost.Count)];
+                puzzleEnd = leftMost[Random.Range(0, leftMost.Count)];
+                BattleSystem.GetInstance().initPlayerDirAngle = -90;
+                break;
+        }
     }
+
     ////========================== RandomWalker 參數 =============================
     public float blockFillRatio = 0.35f;
     //protected int maxWalkers = 6;
