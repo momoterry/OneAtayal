@@ -19,8 +19,11 @@ public class MG_MazeOneCave : MG_MazeOne
     }
     public MAZE_DIR mazeDir = MAZE_DIR.INSIDE_OUT;
 
+    //RandamWalkerMap theRWMap = null;
+
     protected override void PresetMapInfo()
     {
+        //¹Á¸Õ¥ý­pºâ RWalkerMap
         if (extendTerminal)
         {
             if (mazeDir == MAZE_DIR.DONW_TO_TOP || mazeDir == MAZE_DIR.TOP_TO_DOWN)
@@ -35,8 +38,8 @@ public class MG_MazeOneCave : MG_MazeOne
     {
         base.InitPuzzleMap();
 
-        puzzleStart.x = puzzleWidth / 2;
-        puzzleStart.y = puzzleHeight / 2;
+        //puzzleStart.x = puzzleWidth / 2;
+        //puzzleStart.y = puzzleHeight / 2;
 
         RandamWalkerMap theRWMap = new RandamWalkerMap();
         theRWMap.blockFillRatio = blockFillRatio;
@@ -67,8 +70,9 @@ public class MG_MazeOneCave : MG_MazeOne
             }
         }
 
-        theRWMap.CreateRandomWalkerMap(rwWidth, rwHeight, puzzleStart - mapShift, ref puzzleEnd);
-        puzzleEnd = puzzleEnd + mapShift;
+        theRWMap.CreateRandomWalkerMap(rwWidth, rwHeight);//, puzzleStart - mapShift);
+        puzzleStart = theRWMap.vStart + mapShift;
+        puzzleEnd = theRWMap.vEnd + mapShift;
 
         List<Vector2Int> leftMost = new List<Vector2Int>();
         List<Vector2Int> rightMost = new List<Vector2Int>();
@@ -336,11 +340,11 @@ public class RandamWalkerMap
     public int[,] rwMap;
     public int rwWidth, rwHeight;
     protected int rwXMin, rwXMax, rwYMin, rwYMax;
-    protected Vector2Int vStart;
-    protected Vector2Int vEnd;
+    public Vector2Int vStart;
+    public Vector2Int vEnd;
     protected int endDist;
 
-    public void CreateRandomWalkerMap(int mapWidth, int mapHeight, Vector2Int _vStart, ref Vector2Int _vEnd)
+    public void CreateRandomWalkerMap(int mapWidth, int mapHeight)//, Vector2Int _vStart)//, ref Vector2Int _vEnd)
     {
         rwWidth = mapWidth;
         rwHeight = mapHeight;
@@ -348,7 +352,7 @@ public class RandamWalkerMap
         rwXMin = rwYMin = 0;
         rwXMax = rwWidth - 1;
         rwYMax = rwHeight - 1;
-        vStart = _vStart;
+        vStart = new Vector2Int(rwWidth/2, rwHeight/2);
         vEnd = vStart;
 
         blockNumMax = (int)(rwWidth * rwHeight * blockFillRatio);
@@ -367,7 +371,7 @@ public class RandamWalkerMap
             step++;
         }
         //print("RandomWalker Total Block:" + blockNum);
-        _vEnd = vEnd;
+        //_vEnd = vEnd;
     }
 
     protected bool UpdateWalkers()
