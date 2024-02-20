@@ -6,7 +6,14 @@ using UnityEngine;
 
 public class DungeonEnemyManagerBase : MonoBehaviour
 {
+    public class PosData
+    {
+        public Vector3 pos;
+        public Vector2 area;
+        public float diffAdd;
+    }
     public float diffAddRatio = 0;
+    public virtual void AddNormalPosition(PosData pData) { }
     public virtual void AddNormalPosition(Vector3 pos, float diffAdd = 0) { }
 
     public virtual void BuildAllGameplay( float difficultRate = 1.0f ) { }
@@ -28,31 +35,36 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
 
     public GameObject[]  randomLeaderAuraRefs;
 
-    protected class NormalPosData
-    {
-        public Vector3 pos;
-        public float diffAdd;
-    }
+    //protected class NormalPosData
+    //{
+    //    public Vector3 pos;
+    //    public float diffAdd;
+    //}
 
-    protected List<NormalPosData> normalPosList = new List<NormalPosData>();
+    protected List<PosData> normalPosList = new List<PosData>();
     //protected List<Vector3> normalPosList = new List<Vector3>();
     protected float difficultRate = 1.0f;
 
     public override void AddNormalPosition(Vector3 pos, float diffAdd = 0)
     {
-        NormalPosData data = new NormalPosData();
+        PosData data = new PosData();
         data.pos = pos;
         data.diffAdd = diffAdd;
         normalPosList.Add(data);
     }
 
-    protected void SpawnEnemyGroup(int index, NormalPosData data, GameplayInfo gameInfo)
+    public override void AddNormalPosition(PosData pData)
+    {
+        normalPosList.Add(pData);
+    }
+
+    protected void SpawnEnemyGroup(int index, PosData data, GameplayInfo gameInfo)
     {
         GameObject o = new GameObject("NormalGroup " + index);
         o.transform.position = data.pos;
         EnemyGroup enemyGroup = o.AddComponent<EnemyGroup>();
-        enemyGroup.width = 4;
-        enemyGroup.height = 4;
+        enemyGroup.width = (int)data.area.x > 0 ? (int)data.area.x : 4;
+        enemyGroup.height = (int)data.area.y > 0 ? (int)data.area.y : 4;
         enemyGroup.isRandomEnemyTotal = true;
         enemyGroup.randomEnemyTotal = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * (data.diffAdd * diffAddRatio + 1.0f));
         enemyGroup.enemyInfos = new EnemyGroup.EnemyInfo[gameInfo.enemys.Length];
@@ -64,7 +76,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
 
     }
 
-    protected void SpawnEnemyFormation(int index, NormalPosData data, GameplayInfo gameInfo)
+    protected void SpawnEnemyFormation(int index, PosData data, GameplayInfo gameInfo)
     {
         GameObject o = new GameObject("FormationGroup " + index);
         o.transform.position = data.pos;

@@ -601,7 +601,32 @@ public class MG_MazeOneBase : MapGeneratorBase
         CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);
         int maxMainDeep = puzzleMap[puzzleEnd.x][puzzleEnd.y].deep;
         CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.NONE, true, maxMainDeep);
+
+        //先試著直接來設定 Gameplay
+        if (!dungeonEnemyManager)
+        {
+            return;
+        }
+
+        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
+        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        for (int x = 0; x < puzzleWidth; x++)
+        {
+            for (int y = 0; y < puzzleHeight; y++)
+            {
+                if (puzzleMap[x][y].value == cellInfo.NORMAL)
+                {
+                    DungeonEnemyManagerBase.PosData pData = new DungeonEnemyManagerBase.PosData();
+                    pData.pos = GetCellCenterPos(x, y);
+                    pData.diffAdd = puzzleMap[x][y].deep;
+                    pData.area = new Vector2(roomWidth, roomHeight);
+                    dungeonEnemyManager.AddNormalPosition(pData);
+                }
+            }
+        }
+        dungeonEnemyManager.BuildAllGameplay();
     }
+
 
     protected void ProcessInitFinish()
     {
