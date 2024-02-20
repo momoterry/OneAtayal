@@ -36,7 +36,7 @@ public class HitBody : MonoBehaviour
         }
     }
 
-    void OnDamage(Damage theDamage)
+    public void OnDamage(Damage theDamage)
     {
         hp -= theDamage.damage * DamageRatio *BattleSystem.GetAllEnemyDamageRate();
         if (hp <= 0)
