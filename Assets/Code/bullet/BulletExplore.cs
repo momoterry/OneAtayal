@@ -12,7 +12,7 @@ public class BulletExplore : bullet
         //print("BulletExplore::OnTriggerEnter : " + col);
         bool hit = false;
         bool destroy = false;
-        if (col.gameObject.CompareTag("Enemy") && group == FACTION_GROUP.PLAYER)
+        if ((col.gameObject.CompareTag("Enemy") || col.gameObject.CompareTag("Hittable")) && group == FACTION_GROUP.PLAYER)
         {
             //print("Trigger:  Hit Enemy !!");
             hit = true;
@@ -45,7 +45,7 @@ public class BulletExplore : bullet
             Collider[] cols = Physics.OverlapSphere(hitPos, expRadius);
             foreach(Collider co in cols)
             {
-                if ((co.gameObject.CompareTag("Enemy") && group == FACTION_GROUP.PLAYER)
+                if (((co.gameObject.CompareTag("Enemy") || co.gameObject.CompareTag("Hittable")) && group == FACTION_GROUP.PLAYER)
                     || ((co.gameObject.CompareTag("Player") || co.gameObject.CompareTag("Doll")) && group == FACTION_GROUP.ENEMY))
                 {
                     co.gameObject.SendMessage("OnDamage", myDamage);

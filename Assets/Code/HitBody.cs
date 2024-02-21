@@ -10,12 +10,12 @@ public struct HealData
 }
 public class HitBody : MonoBehaviour
 {
-    const float HITTABLE_TARGET_RANGE = 4.0f;
+    //const float HITTABLE_TARGET_RANGE = 4.0f;
     // Start is called before the first frame update
     public float HP_Max = 100.0f;
     public float DamageRatio = 1.0f;
     public bool hittableObj = false;
-    protected float rangeLimit = Mathf.Infinity;    //必須在這個距離內才可以被自動攻擊
+    //protected float rangeLimit = Mathf.Infinity;    //必須在這個距離內才可以被自動攻擊
     // 
     protected float hp;
 
@@ -25,13 +25,13 @@ public class HitBody : MonoBehaviour
     public float GetHPMax() { return HP_Max; }
     public float GetHP() { return hp; }
 
-    public float GetRangeLimint() { return rangeLimit; }
+    //public float GetRangeLimint() { return rangeLimit; }
 
-    private void Awake()
-    {
-        if (hittableObj)
-            rangeLimit = HITTABLE_TARGET_RANGE;
-    }
+    //private void Awake()
+    //{
+    //    if (hittableObj)
+    //        rangeLimit = HITTABLE_TARGET_RANGE;
+    //}
 
     void Start()
     {

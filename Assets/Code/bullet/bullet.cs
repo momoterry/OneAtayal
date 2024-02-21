@@ -118,7 +118,7 @@ public class bullet : bullet_base
         //print("bullet::OnTriggerEnter : " + col);
         bool hit = false;
         bool destroy = false;
-        if (col.gameObject.CompareTag("Enemy") && group == FACTION_GROUP.PLAYER)
+        if ((col.gameObject.CompareTag("Enemy") || col.gameObject.CompareTag("Hittable")) && group == FACTION_GROUP.PLAYER)
         {
             //print("Trigger:  Hit Enemy !!");
             hit = true;
