@@ -285,7 +285,8 @@ public class DollBeta : Doll
         }
 
         foundEnemy = BattleUtility.SearchClosestTargetForPlayer(vCenter, SearchRange);
-
+        if (!foundEnemy)
+            foundEnemy = BattleSystem.GetPC().GetHittableTarget();
 
         //Collider[] cols = Physics.OverlapSphere(vCenter, SearchRange, LayerMask.GetMask("Character"));
         //foreach (Collider col in cols)

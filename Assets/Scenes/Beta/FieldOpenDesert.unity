@@ -1473,8 +1473,11 @@ MonoBehaviour:
   - ratePercent: 3
     leader: {fileID: 0}
     enemys:
-    - {fileID: 7208015447484052683, guid: a829fd01e49b97842afe03e5c0cb12a4, type: 3}
-    totalNum: 2
+    - {fileID: 7208015447484052683, guid: 3f97bdf46b3cd0f498ba4d26a525ee49, type: 3}
+    - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
+    - {fileID: 7208015447484052683, guid: c6757ec52300c574080406a81876e414, type: 3}
+    isSurround: 0
+    totalNum: 5
   randomLeaderAuraRefs: []
 --- !u!4 &898018669
 Transform:
@@ -1574,8 +1577,6 @@ MonoBehaviour:
   shopItemInfo:
   - ID: DollOne
     cost: 200
-    name: "\u65E5\u9748"
-    desc: "\u55AE\u9AD4\u8F38\u51FA\uFF0C\u4E2D\u6392"
 --- !u!4 &1130639278
 Transform:
   m_ObjectHideFlags: 0
@@ -2735,6 +2736,8 @@ MonoBehaviour:
   lowTGData: {fileID: 427432328}
   highEdgeTileGroupData: {fileID: 6122465375485657913}
   lowEdgeTileGroupData: {fileID: 864523868}
+  edgeTGData: {fileID: 0}
+  edgeEdgeTileGroupData: {fileID: 0}
   NoiseScaleOn256: 10
   highRatio: 0.4
   lowRatio: 0.35

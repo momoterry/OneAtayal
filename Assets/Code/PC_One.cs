@@ -65,6 +65,7 @@ public class PC_One : PlayerControllerBase
 
     //互動物件
     protected GameObject actionObject = null;
+    protected GameObject hittableObject = null;
 
     //直接傷害相關
     protected Damage myDamage;
@@ -117,6 +118,10 @@ public class PC_One : PlayerControllerBase
     public override FaceFrontType GetFaceFront()
     {
         return faceFrontType;
+    }
+    public override GameObject GetHittableTarget()
+    {
+        return hittableObject;
     }
 
     // Start is called before the first frame update
@@ -471,6 +476,8 @@ public class PC_One : PlayerControllerBase
             else
                 autoAttackCDLeft = 0;
         }
+
+        hittableObject = BattleUtility.SearchClosestTargetForPlayer(transform.position, BattleUtility.HITTABLE_OBJ_DISTANCE, "Hittable");
     }
 
     protected virtual void OnUpdateState()
@@ -879,34 +886,34 @@ public class PC_One : PlayerControllerBase
 
     // =================== 攻擊相關 ===================
 
-    virtual protected GameObject FindBestShootTarget(float searchRange = 10.0f)
-    {
-        GameObject bestEnemy = BattleUtility.SearchClosestTargetForPlayer(transform.position, searchRange);
+    //virtual protected GameObject FindBestShootTarget(float searchRange = 10.0f)
+    //{
+    //    GameObject bestEnemy = BattleUtility.SearchClosestTargetForPlayer(transform.position, searchRange);
 
-        //Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
+    //    //Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
 
-        //GameObject bestEnemy = null;
-        //float bestSDis = Mathf.Infinity;
-        //foreach (Collider col in cols)
-        //{
-        //    //print("I Found: " + col.gameObject.name);
-        //    if (col.gameObject.CompareTag("Enemy"))
-        //    {
-        //        Vector3 vDis = col.transform.position - transform.position;
-        //        //float angle = Vector3.Angle(faceFront, vDis);
-        //        //if (angle > searchAngle)
-        //        //    continue;
-        //        float sDis = vDis.sqrMagnitude;
-        //        if (sDis < bestSDis)
-        //        {
-        //            bestEnemy = col.gameObject;
-        //            bestSDis = sDis;
-        //        }
-        //    }
-        //}
+    //    //GameObject bestEnemy = null;
+    //    //float bestSDis = Mathf.Infinity;
+    //    //foreach (Collider col in cols)
+    //    //{
+    //    //    //print("I Found: " + col.gameObject.name);
+    //    //    if (col.gameObject.CompareTag("Enemy"))
+    //    //    {
+    //    //        Vector3 vDis = col.transform.position - transform.position;
+    //    //        //float angle = Vector3.Angle(faceFront, vDis);
+    //    //        //if (angle > searchAngle)
+    //    //        //    continue;
+    //    //        float sDis = vDis.sqrMagnitude;
+    //    //        if (sDis < bestSDis)
+    //    //        {
+    //    //            bestEnemy = col.gameObject;
+    //    //            bestSDis = sDis;
+    //    //        }
+    //    //    }
+    //    //}
 
-        return bestEnemy;
-    }
+    //    return bestEnemy;
+    //}
 
     // 以下兩種方式二擇一
     protected virtual bool DoAutoSkill( SkillBase theSkill)

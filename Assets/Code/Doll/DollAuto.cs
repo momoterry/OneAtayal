@@ -283,6 +283,8 @@ public class DollAuto : Doll
         }
 
         foundEnemy =  BattleUtility.SearchClosestTargetForPlayer(vCenter, SearchRange);
+        if (!foundEnemy)
+            foundEnemy = BattleSystem.GetPC().GetHittableTarget();
 
         //Collider[] cols = Physics.OverlapSphere(vCenter, SearchRange, LayerMask.GetMask("Character"));
         //foreach (Collider col in cols)
@@ -292,13 +294,13 @@ public class DollAuto : Doll
         //    {
         //        float dis = Vector3.Distance(col.gameObject.transform.position, vCenter);
 
-        //        if (dis < minDistance)
-        //        {
-        //            minDistance = dis;
-        //            foundEnemy = col.gameObject;
-        //        }
-        //    }
-        //}
+            //        if (dis < minDistance)
+            //        {
+            //            minDistance = dis;
+            //            foundEnemy = col.gameObject;
+            //        }
+            //    }
+            //}
 
         myTarget = foundEnemy;
 

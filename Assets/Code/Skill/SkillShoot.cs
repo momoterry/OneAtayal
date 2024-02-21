@@ -31,6 +31,8 @@ public class SkillShoot : SkillBase
             return null;
 
         GameObject bestEnemy = BattleUtility.SearchClosestTargetForPlayer(theCaster.transform.position, searchRange);
+        if (!bestEnemy)
+            bestEnemy = BattleSystem.GetPC().GetHittableTarget();
 
         //Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
 

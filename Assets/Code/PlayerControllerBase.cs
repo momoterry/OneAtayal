@@ -66,6 +66,7 @@ public class PlayerControllerBase : MonoBehaviour
     //為了 SkillBase 能取得相關資訊用
     public virtual Vector3 GetFaceDir() { return Vector3.forward; }
     public virtual FaceFrontType GetFaceFront() { return FaceFrontType.DOWN; }
+    public virtual GameObject GetHittableTarget() { return null; }  //也給 Doll 使用
 
 
     // 攻擊行為相關

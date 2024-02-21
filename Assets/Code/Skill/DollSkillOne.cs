@@ -39,6 +39,8 @@ public class DollSkillOne : DollSkillBase
         GameObject foundEnemy = null;
 
         foundEnemy = BattleUtility.SearchClosestTargetForPlayer(transform.position, attackRange);
+        if (!foundEnemy)
+            foundEnemy = BattleSystem.GetPC().GetHittableTarget();
 
         //float minDistance = Mathf.Infinity;
 
