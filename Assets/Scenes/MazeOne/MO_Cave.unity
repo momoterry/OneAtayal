@@ -154,12 +154,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diffAddRatio: 0.2
   allGameplays:
-  - ratePercent: 100
+  - ratePercent: 20
     leader: {fileID: 0}
     enemys:
     - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
     - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
     totalNum: 3
+  - ratePercent: 80
+    leader: {fileID: 0}
+    enemys:
+    - {fileID: 1427553042280373961, guid: 5d766c76be09af54ebd2ed4b61870a53, type: 3}
+    totalNum: 2
   randomLeaderAuraRefs: []
 --- !u!4 &43452559
 Transform:
@@ -865,6 +870,59 @@ Transform:
   - {fileID: 501303295}
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1457036975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1457036977}
+  - component: {fileID: 1457036976}
+  m_Layer: 0
+  m_Name: DEM2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1457036976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457036975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f47b3c7d2a4f674a936ba3b7a9d9b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diffAddRatio: 0.2
+  allGameplays:
+  - ratePercent: 100
+    leader: {fileID: 0}
+    enemys:
+    - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+    - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+    totalNum: 3
+  randomLeaderAuraRefs: []
+--- !u!4 &1457036977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457036975}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1494127079
 PrefabInstance:

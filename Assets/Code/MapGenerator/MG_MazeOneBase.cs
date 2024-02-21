@@ -48,14 +48,8 @@ public class MG_MazeOneBase : MapGeneratorBase
     //Gameplay 用
     //[Header("Gameplay 設定")]
     public DungeonEnemyManagerBase dungeonEnemyManager;
-    //public EnemyGroup normalGroup;
-    //public float normalEnemyRate = 0.2f;
-    //protected int normalEnemyNum;
-    protected float dungeonEnemyDifficulty = 1.0f;
-    //public float noEnemyDistanceRate = 1.0f;    //以 Cell 對角長度為單位
 
-    //public GameObject[] exploreRewards;
-    //protected int exploreRewardNum;
+    protected float dungeonEnemyDifficulty = 1.0f;
 
     public GameObject initGampleyRef;
 
@@ -619,7 +613,7 @@ public class MG_MazeOneBase : MapGeneratorBase
                     DungeonEnemyManagerBase.PosData pData = new DungeonEnemyManagerBase.PosData();
                     pData.pos = GetCellCenterPos(x, y);
                     pData.diffAdd = puzzleMap[x][y].deep;
-                    pData.area = new Vector2(roomWidth, roomHeight);
+                    pData.area = new Vector2(roomWidth-2, roomHeight-2);
                     dungeonEnemyManager.AddNormalPosition(pData);
                 }
             }
