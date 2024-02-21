@@ -29,6 +29,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         public float ratePercent;              //百分比
         public GameObject leader;
         public GameObject[] enemys;
+        public bool isSurround = false;
         public float totalNum;
     }
     public GameplayInfo[] allGameplays;
@@ -101,6 +102,37 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         }
     }
 
+    public void SpawnSurroundObject(int index, PosData data, GameplayInfo gameInfo)
+    {
+        if (data.area.x + data.area.y < 8)
+        {
+            print("ERROR!! SpawnSurroundObject 區域太小: " + data.area.x + data.area.y);
+            return;
+        }
+        GameObject o = new GameObject("SurroundObject " + index);
+        float bandWidth = 1.0f;
+
+        float totalLength = (data.area.x + data.area.y - bandWidth - bandWidth);
+        float hHeight = data.area.y * 0.5f - bandWidth;
+        float hWidth = data.area.x * 0.5f - bandWidth;
+
+        int totalNum = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * (data.diffAdd * diffAddRatio + 1.0f));
+        //totalNum = 100; //測試
+        float WIDTH_PART = data.area.x - bandWidth;
+        for (int i = 0; i< totalNum; i++)
+        {
+            float l = Random.Range(0, totalLength);
+            float w = Random.Range(0, bandWidth);
+            float x = l < WIDTH_PART ? (l - hWidth - bandWidth) : (w + hWidth);
+            float y = l < WIDTH_PART ? (w + hHeight) : (l - WIDTH_PART - hHeight);
+            Vector3 pos = new Vector3(x, 0, y);
+            pos = Random.Range(0, 2) == 0 ? pos : -pos;
+            GameObject oRef = gameInfo.enemys[Random.Range(0, gameInfo.enemys.Length)];
+            GameObject os = BattleSystem.SpawnGameObj(oRef, data.pos + pos);
+            os.transform.parent = o.transform;
+        }
+    }
+
     public override void BuildAllGameplay(float _difficultRate = 1)
     {
         difficultRate = _difficultRate;
@@ -115,7 +147,11 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
             needNum = Mathf.Min(needNum, maxPosNum - usedNum);
             for (int i=0; i<needNum; i++)
             {
-                if (info.leader)
+                if (info.isSurround)
+                {
+                    SpawnSurroundObject(usedNum, normalPosList[usedNum], info);
+                }
+                else if (info.leader)
                 {
                     SpawnEnemyFormation(usedNum, normalPosList[usedNum], info);
                 }
