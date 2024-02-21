@@ -269,7 +269,7 @@ public class DollAuto : Doll
     protected virtual bool SearchTarget()
     {
         GameObject foundEnemy = null;
-        float minDistance = Mathf.Infinity;
+        //float minDistance = Mathf.Infinity;
 
         Vector3 vCenter = transform.position;
         switch (searchCenter)
@@ -282,21 +282,23 @@ public class DollAuto : Doll
                 break;
         }
 
-        Collider[] cols = Physics.OverlapSphere(vCenter, SearchRange, LayerMask.GetMask("Character"));
-        foreach (Collider col in cols)
-        {
-            //print("I Found: "+ col.gameObject.name);
-            if (col.gameObject.CompareTag("Enemy"))
-            {
-                float dis = Vector3.Distance(col.gameObject.transform.position, vCenter);
+        foundEnemy =  BattleUtility.SearchClosestTargetForPlayer(vCenter, SearchRange);
 
-                if (dis < minDistance)
-                {
-                    minDistance = dis;
-                    foundEnemy = col.gameObject;
-                }
-            }
-        }
+        //Collider[] cols = Physics.OverlapSphere(vCenter, SearchRange, LayerMask.GetMask("Character"));
+        //foreach (Collider col in cols)
+        //{
+        //    //print("I Found: "+ col.gameObject.name);
+        //    if (col.gameObject.CompareTag("Enemy"))
+        //    {
+        //        float dis = Vector3.Distance(col.gameObject.transform.position, vCenter);
+
+        //        if (dis < minDistance)
+        //        {
+        //            minDistance = dis;
+        //            foundEnemy = col.gameObject;
+        //        }
+        //    }
+        //}
 
         myTarget = foundEnemy;
 

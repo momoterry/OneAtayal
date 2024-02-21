@@ -191,61 +191,61 @@ public class Doll : MonoBehaviour
 
     virtual public void OnPlayerAttack(Vector3 target)
     {
-        OnPlayerShoot(target);
+        //OnPlayerShoot(target);
     }
 
     virtual public void OnPlayerShoot(Vector3 target)
     {
-        //´M§ä Enemy
-        GameObject foundEnemy = null;
-        float minDistance = Mathf.Infinity;
-#if XZ_PLAN
-        Collider[] cols = Physics.OverlapSphere(transform.position, SearchRange, LayerMask.GetMask("Character"));
-        foreach (Collider col in cols)
-#else
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, SearchRange, LayerMask.GetMask("Character"));
-        foreach (Collider2D col in cols)
-#endif
-        {
-            //print("I Found: "+ col.gameObject.name);
-            if (col.gameObject.CompareTag("Enemy"))
-            {
-#if XZ_PLAN
-                float dis = (col.gameObject.transform.position - gameObject.transform.position).magnitude;
-#else
-                float dis = ((Vector2)col.gameObject.transform.position - (Vector2)gameObject.transform.position).magnitude;
-#endif
-                if (dis < minDistance)
-                {
-                    minDistance = dis;
-                    foundEnemy = col.gameObject;
-                }
-            }
-        }
+//        //´M§ä Enemy
+//        GameObject foundEnemy = null;
+//        float minDistance = Mathf.Infinity;
+//#if XZ_PLAN
+//        Collider[] cols = Physics.OverlapSphere(transform.position, SearchRange, LayerMask.GetMask("Character"));
+//        foreach (Collider col in cols)
+//#else
+//        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, SearchRange, LayerMask.GetMask("Character"));
+//        foreach (Collider2D col in cols)
+//#endif
+//        {
+//            //print("I Found: "+ col.gameObject.name);
+//            if (col.gameObject.CompareTag("Enemy"))
+//            {
+//#if XZ_PLAN
+//                float dis = (col.gameObject.transform.position - gameObject.transform.position).magnitude;
+//#else
+//                float dis = ((Vector2)col.gameObject.transform.position - (Vector2)gameObject.transform.position).magnitude;
+//#endif
+//                if (dis < minDistance)
+//                {
+//                    minDistance = dis;
+//                    foundEnemy = col.gameObject;
+//                }
+//            }
+//        }
 
-        if (foundEnemy && bulletRef)
-        {
-            print("Doll Shoot !!");
-#if XZ_PLAN
-            GameObject bulletObj = Instantiate(bulletRef, transform.position, Quaternion.Euler(90, 0, 0));
-#else
-            GameObject bulletObj = Instantiate(bulletRef, transform.position, Quaternion.identity);
-#endif
-            bullet_base b = bulletObj.GetComponent<bullet_base>();
-            if (b)
-            {
-                //b.baseDamage = AttackInit;
-                //b.SetGroup(FACTION_GROUP.PLAYER);
-                Vector3 td = foundEnemy.transform.position - transform.position;
-#if XZ_PLAN
-                td.y = 0;
-#else
-                td.z = 0;
-#endif
-                //b.targetDir = td.normalized;
-                b.InitValue(FACTION_GROUP.PLAYER, myDamage, td);
-            }
-        }
+//        if (foundEnemy && bulletRef)
+//        {
+//            print("Doll Shoot !!");
+//#if XZ_PLAN
+//            GameObject bulletObj = Instantiate(bulletRef, transform.position, Quaternion.Euler(90, 0, 0));
+//#else
+//            GameObject bulletObj = Instantiate(bulletRef, transform.position, Quaternion.identity);
+//#endif
+//            bullet_base b = bulletObj.GetComponent<bullet_base>();
+//            if (b)
+//            {
+//                //b.baseDamage = AttackInit;
+//                //b.SetGroup(FACTION_GROUP.PLAYER);
+//                Vector3 td = foundEnemy.transform.position - transform.position;
+//#if XZ_PLAN
+//                td.y = 0;
+//#else
+//                td.z = 0;
+//#endif
+//                //b.targetDir = td.normalized;
+//                b.InitValue(FACTION_GROUP.PLAYER, myDamage, td);
+//            }
+//        }
     }
 
     virtual public void OnPlayerDead()

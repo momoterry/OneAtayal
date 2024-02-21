@@ -30,23 +30,25 @@ public class SkillShoot : SkillBase
         if (theCaster == null)
             return null;
 
-        Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
+        GameObject bestEnemy = BattleUtility.SearchClosestTargetForPlayer(theCaster.transform.position, searchRange);
 
-        GameObject bestEnemy = null;
-        float bestSDis = Mathf.Infinity;
-        foreach (Collider col in cols)
-        {
-            if (col.gameObject.CompareTag("Enemy"))
-            {
-                Vector3 vDis = col.transform.position - theCaster.transform.position;
-                float sDis = vDis.sqrMagnitude;
-                if (sDis < bestSDis)
-                {
-                    bestEnemy = col.gameObject;
-                    bestSDis = sDis;
-                }
-            }
-        }
+        //Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
+
+        //GameObject bestEnemy = null;
+        //float bestSDis = Mathf.Infinity;
+        //foreach (Collider col in cols)
+        //{
+        //    if (col.gameObject.CompareTag("Enemy"))
+        //    {
+        //        Vector3 vDis = col.transform.position - theCaster.transform.position;
+        //        float sDis = vDis.sqrMagnitude;
+        //        if (sDis < bestSDis)
+        //        {
+        //            bestEnemy = col.gameObject;
+        //            bestSDis = sDis;
+        //        }
+        //    }
+        //}
 
         return bestEnemy;
     }

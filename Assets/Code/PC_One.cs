@@ -881,29 +881,29 @@ public class PC_One : PlayerControllerBase
 
     virtual protected GameObject FindBestShootTarget(float searchRange = 10.0f)
     {
-        //float searchRange = 10.0f;
+        GameObject bestEnemy = BattleUtility.SearchClosestTargetForPlayer(transform.position, searchRange);
 
-        Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
+        //Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
 
-        GameObject bestEnemy = null;
-        float bestSDis = Mathf.Infinity;
-        foreach (Collider col in cols)
-        {
-            //print("I Found: " + col.gameObject.name);
-            if (col.gameObject.CompareTag("Enemy"))
-            {
-                Vector3 vDis = col.transform.position - transform.position;
-                //float angle = Vector3.Angle(faceFront, vDis);
-                //if (angle > searchAngle)
-                //    continue;
-                float sDis = vDis.sqrMagnitude;
-                if (sDis < bestSDis)
-                {
-                    bestEnemy = col.gameObject;
-                    bestSDis = sDis;
-                }
-            }
-        }
+        //GameObject bestEnemy = null;
+        //float bestSDis = Mathf.Infinity;
+        //foreach (Collider col in cols)
+        //{
+        //    //print("I Found: " + col.gameObject.name);
+        //    if (col.gameObject.CompareTag("Enemy"))
+        //    {
+        //        Vector3 vDis = col.transform.position - transform.position;
+        //        //float angle = Vector3.Angle(faceFront, vDis);
+        //        //if (angle > searchAngle)
+        //        //    continue;
+        //        float sDis = vDis.sqrMagnitude;
+        //        if (sDis < bestSDis)
+        //        {
+        //            bestEnemy = col.gameObject;
+        //            bestSDis = sDis;
+        //        }
+        //    }
+        //}
 
         return bestEnemy;
     }

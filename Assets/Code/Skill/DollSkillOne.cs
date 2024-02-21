@@ -37,22 +37,25 @@ public class DollSkillOne : DollSkillBase
     protected GameObject SearchTarget()
     {
         GameObject foundEnemy = null;
-        float minDistance = Mathf.Infinity;
 
-        Collider[] cols = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Character"));
-        foreach (Collider col in cols)
-        {
-            if (col.gameObject.CompareTag("Enemy"))
-            {
-                float dis = Vector3.Distance(col.gameObject.transform.position, transform.position);
+        foundEnemy = BattleUtility.SearchClosestTargetForPlayer(transform.position, attackRange);
 
-                if (dis < minDistance)
-                {
-                    minDistance = dis;
-                    foundEnemy = col.gameObject;
-                }
-            }
-        }
+        //float minDistance = Mathf.Infinity;
+
+        //Collider[] cols = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Character"));
+        //foreach (Collider col in cols)
+        //{
+        //    if (col.gameObject.CompareTag("Enemy"))
+        //    {
+        //        float dis = Vector3.Distance(col.gameObject.transform.position, transform.position);
+
+        //        if (dis < minDistance)
+        //        {
+        //            minDistance = dis;
+        //            foundEnemy = col.gameObject;
+        //        }
+        //    }
+        //}
 
         return foundEnemy;
     }
