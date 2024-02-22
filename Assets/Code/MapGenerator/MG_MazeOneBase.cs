@@ -604,6 +604,7 @@ public class MG_MazeOneBase : MapGeneratorBase
 
         puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
         puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        float roomEdgeBuffer = 0.5f;
         for (int x = 0; x < puzzleWidth; x++)
         {
             for (int y = 0; y < puzzleHeight; y++)
@@ -613,7 +614,7 @@ public class MG_MazeOneBase : MapGeneratorBase
                     DungeonEnemyManagerBase.PosData pData = new DungeonEnemyManagerBase.PosData();
                     pData.pos = GetCellCenterPos(x, y);
                     pData.diffAdd = puzzleMap[x][y].deep;
-                    pData.area = new Vector2(roomWidth, roomHeight);
+                    pData.area = new Vector2(roomWidth - roomEdgeBuffer - roomEdgeBuffer, roomHeight- roomEdgeBuffer - roomEdgeBuffer);
                     dungeonEnemyManager.AddNormalPosition(pData);
                 }
             }
