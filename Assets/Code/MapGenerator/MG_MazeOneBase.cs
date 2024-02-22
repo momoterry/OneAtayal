@@ -213,8 +213,6 @@ public class MG_MazeOneBase : MapGeneratorBase
 
         GenerateNavMesh(theSurface2D);
 
-        //============== 在 NavMesh 產生完成後，開始進行 Gameplay 物件的生成
-
         //====================== 裝飾物件建立 =====================================
         //MapDecadeGeneratorBase dGen = GetComponent<MapDecadeGeneratorBase>();
         if (decadeGenerator)
@@ -229,6 +227,9 @@ public class MG_MazeOneBase : MapGeneratorBase
         {
             theMiniMap.CreateMiniMap(theMap);
         }
+
+        //============== 在小地圖產生完成後，開始進行 Gameplay 物件的生成 (不顯示在小地圖上的部份)
+        BuildGameplay();
 
         //載入已探索的資訊
         //LoadExploreMap();
@@ -291,10 +292,6 @@ public class MG_MazeOneBase : MapGeneratorBase
         if ((pathHeight) % 2 != (roomHeight % 2))
             pathHeight++;
 
-        //if (extendTerminal)
-        //{
-        //    puzzleHeight += 2;  //加入上下緩衝
-        //}
         mapHeight = puzzleHeight * cellHeight;
         mapWidth = puzzleWidth * cellWidth;
 
@@ -329,18 +326,8 @@ public class MG_MazeOneBase : MapGeneratorBase
             }
         }
 
-        //if (extendTerminal)
-        //{
-        //    for (int i = 0; i < puzzleWidth; i++)
-        //    {
-        //        puzzleMap[i][0].value = cellInfo.INVALID;
-        //        puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
-        //    }
-        //}
         puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
         puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
-        //puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
     }
 
     virtual protected void CreatMazeMap()
@@ -499,27 +486,6 @@ public class MG_MazeOneBase : MapGeneratorBase
         }
     }
 
-    //============== 對應 DisjointSetUnion 用的函式群
-    //protected void ConnectCellsByID(int id_1, int id_2)
-    //{
-    //    cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
-    //    cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
-    //    if (id_1 + 1 == id_2) //左連到右
-    //    {
-    //        cell_1.R = true;
-    //        cell_2.L = true;
-    //    }
-    //    else if (id_1 + puzzleWidth == id_2) //下連到上
-    //    {
-    //        cell_1.U = true;
-    //        cell_2.D = true;
-    //    }
-    //}
-
-    //protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
-    //protected int GetCellX(int id) { return id % puzzleWidth; }
-    //protected int GetCellY(int id) { return id / puzzleWidth; }
-
     protected Vector3 GetCellCenterPos(int x, int y)
     {
         return new Vector3(puzzleX1 + cellWidth * (x + 0.5f), 0, puzzleY1 + cellHeight * (y + 0.5f));
@@ -619,7 +585,7 @@ public class MG_MazeOneBase : MapGeneratorBase
                 }
             }
         }
-        dungeonEnemyManager.BuildAllGameplay();
+        //dungeonEnemyManager.BuildAllGameplay();
     }
 
 
@@ -652,6 +618,14 @@ public class MG_MazeOneBase : MapGeneratorBase
                 int y1 = puzzleY1 + j * cellHeight;
                 FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
             }
+        }
+    }
+
+    virtual protected void BuildGameplay()
+    {
+        if (dungeonEnemyManager)
+        {
+            dungeonEnemyManager.BuildAllGameplay();
         }
     }
 }
