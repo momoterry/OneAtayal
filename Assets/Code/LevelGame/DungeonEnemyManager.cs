@@ -112,23 +112,30 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         GameObject o = new GameObject("SurroundObject " + index);
         float bandWidth = 1.0f;
 
-        float totalLength = (data.area.x + data.area.y - bandWidth - bandWidth);
+        //float totalLength = (data.area.x + data.area.y - bandWidth - bandWidth);
         float hHeight = data.area.y * 0.5f - bandWidth;
         float hWidth = data.area.x * 0.5f - bandWidth;
 
         int totalNum = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * (data.diffAdd * diffAddRatio + 1.0f));
-        //totalNum = 100; //ด๚ธี
-        float WIDTH_PART = data.area.x - bandWidth;
-        for (int i = 0; i< totalNum; i++)
+
+        //List<Rect> rects = new List<Rect>();
+        //rects.Add(new Rect(-hWidth - bandWidth, hHeight, data.area.x - bandWidth, bandWidth));
+        //rects.Add(new Rect(hWidth, -hHeight, bandWidth, data.area.y - bandWidth));
+        //for (int i = 0; i < totalNum; i++)
+        //{
+        //    Vector3 rp = OneUtility.GetRandomPointInRects(rects);
+        //    Vector3 pos = new Vector3(rp.x, 0, rp.y);
+        //    pos = Random.Range(0, 2) == 0 ? pos : -pos;
+        //    GameObject oRef = gameInfo.enemys[Random.Range(0, gameInfo.enemys.Length)];
+        //    GameObject os = BattleSystem.SpawnGameObj(oRef, data.pos + pos);
+        //    os.transform.parent = o.transform;
+        //}
+
+        List<Vector3> rPoints = OneUtility.Get3DRandomPointsInRectBand(data.pos, data.area.x, data.area.y, bandWidth, totalNum);
+        foreach (Vector3 pos in rPoints)
         {
-            float l = Random.Range(0, totalLength);
-            float w = Random.Range(0, bandWidth);
-            float x = l < WIDTH_PART ? (l - hWidth - bandWidth) : (w + hWidth);
-            float y = l < WIDTH_PART ? (w + hHeight) : (l - WIDTH_PART - hHeight);
-            Vector3 pos = new Vector3(x, 0, y);
-            pos = Random.Range(0, 2) == 0 ? pos : -pos;
             GameObject oRef = gameInfo.enemys[Random.Range(0, gameInfo.enemys.Length)];
-            GameObject os = BattleSystem.SpawnGameObj(oRef, data.pos + pos);
+            GameObject os = BattleSystem.SpawnGameObj(oRef, pos);
             os.transform.parent = o.transform;
         }
     }

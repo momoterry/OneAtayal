@@ -32,6 +32,53 @@ class OneUtility
         }
     }
 
+    // ========================= 有關隨機取點 (取自 AI)
+    public static Vector2 GetRandomPointInRects(List<Rect> rects)
+    {
+        // 計算總面機
+        float totalArea = 0f;
+        foreach (Rect rect in rects)
+        {
+            totalArea += rect.width * rect.height;
+        }
+
+        // 隨機挑中一個矩型
+        float randomValue = Random.Range(0f, totalArea);
+        float accumulatedArea = 0f;
+        Rect selectedRect = rects[0];
+        foreach (Rect rect in rects)
+        {
+            float area = rect.width * rect.height;
+            if (randomValue <= accumulatedArea + area)
+            {
+                selectedRect = rect;
+                break;
+            }
+            accumulatedArea += area;
+        }
+
+        // 從挑中的矩型中選一個點
+        float x = Random.Range(selectedRect.xMin, selectedRect.xMax);
+        float y = Random.Range(selectedRect.yMin, selectedRect.yMax);
+        return new Vector2(x, y);
+    }
+
+    public static List<Vector3> Get3DRandomPointsInRectBand(Vector3 vCenter, float Width, float Height, float bandWidth, int totalNum)
+    {
+        List<Vector3> points = new List<Vector3>();
+        List<Rect> rects = new List<Rect>();
+        rects.Add(new Rect(Width * -0.5f, Height * 0.5f - bandWidth, Width - bandWidth, bandWidth));
+        rects.Add(new Rect(Width * 0.5f - bandWidth, Height * -0.5f + bandWidth, bandWidth, Height - bandWidth));
+        for (int i = 0; i < totalNum; i++)
+        {
+            Vector3 rp = GetRandomPointInRects(rects);
+            rp = Random.Range(0, 2) == 0 ? rp : -rp;
+            points.Add(new Vector3(rp.x, 0, rp.y) + vCenter);
+
+        }
+        return points;
+    }
+
     // ========================= 有關加密 ======================================
     public static byte[] EncryptString(string plainText, string key)
     {
