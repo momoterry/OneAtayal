@@ -30,6 +30,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         public GameObject leader;
         public GameObject[] enemys;
         public bool isSurround = false;
+        public float surrondBand = 1.0f;
         public float totalNum;
     }
     public GameplayInfo[] allGameplays;
@@ -110,7 +111,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
             return;
         }
         GameObject o = new GameObject("SurroundObject " + index);
-        float bandWidth = 1.0f;
+        float bandWidth = gameInfo.surrondBand > 0 ? gameInfo.surrondBand:1.0f;
 
         //float totalLength = (data.area.x + data.area.y - bandWidth - bandWidth);
         float hHeight = data.area.y * 0.5f - bandWidth;
