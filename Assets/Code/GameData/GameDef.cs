@@ -9,3 +9,8 @@ public enum FACTION_GROUP
     PLAYER,
     ENEMY,
 }
+
+public enum DIRECTION
+{
+    U, D, L, R, NONE,
+}

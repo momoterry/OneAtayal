@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+//每一個 Cell 中，Build Gameplay 所需要的基本內容
+public class CELL_BASE
+{
+    public bool U, D, L, R;
+    public DIRECTION from;  //離起點最近的方向
+}
+
+
 public class MG_MazeOneBase : MapGeneratorBase
 {
-    public enum DIRECTION
-    {
-        U, D, L, R, NONE,
-    }
 
     public int puzzleWidth = 6;
     public int puzzleHeight = 6;
@@ -48,6 +52,7 @@ public class MG_MazeOneBase : MapGeneratorBase
     //Gameplay 用
     //[Header("Gameplay 設定")]
     public DungeonEnemyManagerBase dungeonEnemyManager;
+    public MazeGameManagerBase gameManager;
 
     protected float dungeonEnemyDifficulty = 1.0f;
 
@@ -78,15 +83,15 @@ public class MG_MazeOneBase : MapGeneratorBase
     protected Vector3 startPos;
     protected Vector3 endPos;
 
-    protected class cellInfo
+    protected class cellInfo : CELL_BASE
     {
-        public bool U, D, L, R;
-        public int value = NORMAL;
+        //public bool U, D, L, R;
         public int deep;    //距離出發點的深度，最小值為 1，0 表示未處理
         public bool isMain; //是否主幹道
         public int mainDeep; //主幹道上的深度
-        public DIRECTION from;  //離起點最近的方向
+        //public DIRECTION from;  //離起點最近的方向
 
+        public int value = NORMAL;
         public const int NORMAL = 0;
         public const int ROOM = 1;
         public const int TERNIMAL = 2;  //出、入口
@@ -562,30 +567,46 @@ public class MG_MazeOneBase : MapGeneratorBase
         int maxMainDeep = puzzleMap[puzzleEnd.x][puzzleEnd.y].deep;
         CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.NONE, true, maxMainDeep);
 
-        //先試著直接來設定 Gameplay
-        if (!dungeonEnemyManager)
-        {
-            return;
-        }
-
         puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
         puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
-        float roomEdgeBuffer = 0.5f;
-        for (int x = 0; x < puzzleWidth; x++)
+
+        if (gameManager)
         {
-            for (int y = 0; y < puzzleHeight; y++)
+            for (int x = 0; x < puzzleWidth; x++)
             {
-                if (puzzleMap[x][y].value == cellInfo.NORMAL)
+                for (int y = 0; y < puzzleHeight; y++)
                 {
-                    DungeonEnemyManagerBase.PosData pData = new DungeonEnemyManagerBase.PosData();
-                    pData.pos = GetCellCenterPos(x, y);
-                    pData.diffAdd = puzzleMap[x][y].deep;
-                    pData.area = new Vector2(roomWidth - roomEdgeBuffer - roomEdgeBuffer, roomHeight- roomEdgeBuffer - roomEdgeBuffer);
-                    dungeonEnemyManager.AddNormalPosition(pData);
+                    cellInfo cell = puzzleMap[x][y];
+                    if (cell.value == cellInfo.NORMAL)
+                    {
+                        float mainRatio = (float)cell.mainDeep / (float)maxMainDeep;
+                        gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, cell.isMain, mainRatio, pathWidth);
+                    }
                 }
             }
         }
-        //dungeonEnemyManager.BuildAllGameplay();
+
+        //先試著直接來設定 Gameplay
+        if (dungeonEnemyManager)
+        {
+            float roomEdgeBuffer = 0.5f;
+            for (int x = 0; x < puzzleWidth; x++)
+            {
+                for (int y = 0; y < puzzleHeight; y++)
+                {
+                    if (puzzleMap[x][y].value == cellInfo.NORMAL)
+                    {
+                        DungeonEnemyManagerBase.PosData pData = new DungeonEnemyManagerBase.PosData();
+                        pData.pos = GetCellCenterPos(x, y);
+                        pData.diffAdd = puzzleMap[x][y].deep;
+                        pData.area = new Vector2(roomWidth - roomEdgeBuffer - roomEdgeBuffer, roomHeight - roomEdgeBuffer - roomEdgeBuffer);
+                        dungeonEnemyManager.AddNormalPosition(pData);
+                    }
+                }
+            }
+        }
+
+
     }
 
 
@@ -626,6 +647,11 @@ public class MG_MazeOneBase : MapGeneratorBase
         if (dungeonEnemyManager)
         {
             dungeonEnemyManager.BuildAllGameplay();
+        }
+
+        if (gameManager)
+        {
+            gameManager.BuildAll();
         }
     }
 }
