@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 
@@ -9,14 +10,18 @@ public class RoomGameplayBase : MonoBehaviour
     public virtual void Build( MazeGameManager.RoomInfo room ) { }
 }
 
-public class MR_NodeBase : MonoBehaviour
-{
-    public const float ROOM_RELATIVE_SIZE = 10.0f;     //罽单膀非
-    virtual public void OnSetupByRoom(MazeGameManager.RoomInfo room)
-    {
-        //TODO: Local 竚タ
-    }
-}
+//public class MR_NodeBase : MonoBehaviour
+//{
+//    public const float ROOM_RELATIVE_SIZE = 10.0f;     //罽单膀非
+//    protected float widthRatio = 1;
+//    protected float heightRatio = 1;
+//    virtual public void OnSetupByRoom(MazeGameManager.RoomInfo room)
+//    {
+//        //TODO: Local 竚タ
+//        widthRatio = room.width / ROOM_RELATIVE_SIZE;
+//        heightRatio = room.height / ROOM_RELATIVE_SIZE;
+//    }
+//}
 
 public class RoomGameplay : RoomGameplayBase
 {
@@ -31,7 +36,7 @@ public class RoomGameplay : RoomGameplayBase
         GameObject o = BattleSystem.SpawnGameObj(centerGame, room.vCenter);
         o.SetActive(true);
 
-        foreach (MR_NodeBase node in o.GetComponentsInChildren<MR_NodeBase>())
+        foreach (MR_Node node in o.GetComponentsInChildren<MR_Node>())
         {
             node.OnSetupByRoom(room);
         }

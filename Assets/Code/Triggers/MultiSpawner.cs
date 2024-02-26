@@ -39,7 +39,7 @@ public class MultiSpawner : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.white;
         Gizmos.DrawWireCube(transform.position, new Vector3(AreaWidth, 2.0f, AreaHeight));
     }
 }

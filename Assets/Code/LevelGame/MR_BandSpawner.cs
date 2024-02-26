@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class MR_BandSpawner : MR_NodeBase
+public class MR_BandSpawner : MR_Node
 {
     public GameObject objRef;
-    protected float Width = 10.0f;
-    protected float Height = 10.0f;
+    public float Width = ROOM_RELATIVE_SIZE;
+    public float Height = ROOM_RELATIVE_SIZE;
     public int TotalNum = 10;
     public float BandWidth = 1.0f;
-    public float BandBuffer = 0.25f;    // 不生成的緩衝距離
+    public float BandBuffer = 0f;    // 不生成的緩衝距離
 
     protected List<Vector3> points;
 
@@ -27,7 +27,18 @@ public class MR_BandSpawner : MR_NodeBase
     {
         //print("收到收到 !!" + name);
         base.OnSetupByRoom(room);
-        Width = room.width;
-        Height = room.height;
+        Width *= widthRatio;
+        Height *= heightRatio;
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        float Buffer = BandBuffer + BandBuffer;
+        Gizmos.DrawWireCube(transform.position, new Vector3(Width- Buffer, 2.0f, Height- Buffer));
+        Gizmos.color = Color.gray;
+        Gizmos.DrawWireCube(transform.position, new Vector3(Width - BandWidth - BandWidth - Buffer, 2.0f, Height -BandWidth - BandWidth - Buffer));
+
+    }
+
 }
