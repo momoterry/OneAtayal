@@ -346,8 +346,8 @@ MonoBehaviour:
   MinNum: 4
   MaxNum: 6
   objRef: {fileID: 7208015447484052683, guid: 3f97bdf46b3cd0f498ba4d26a525ee49, type: 3}
-  AreaWidth: 2
-  AreaHeight: 2
+  AreaWidth: 3
+  AreaHeight: 3
   spawnOnStart: 0
 --- !u!114 &213589014
 MonoBehaviour:
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4255e7dead603498bf7d051572b8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shiftType: 2
+  shiftType: 3
 --- !u!1001 &230889763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -889,6 +889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - timeToWait: 0
+    TriggerTarget: {fileID: 1500446107}
+  - timeToWait: 3
     TriggerTarget: {fileID: 213589011}
   isLoop: 0
   timeBetweenLoop: 0
@@ -1242,7 +1244,7 @@ MonoBehaviour:
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
   extendTerminal: 1
-  mazeDir: 1
+  mazeDir: 3
   blockFillRatio: 0.35
 --- !u!4 &1355948687
 Transform:
@@ -1389,7 +1391,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500446107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

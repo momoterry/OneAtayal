@@ -8,6 +8,7 @@ public class CELL_BASE
 {
     public bool U, D, L, R;
     public DIRECTION from;  //離起點最近的方向
+    public DIRECTION to;    //往終點的方向，如果是分支，預設為起點的相對方向
 }
 
 
@@ -536,6 +537,30 @@ public class MG_MazeOneBase : MapGeneratorBase
             return;
         puzzleMap[x][y].isMain = isMain;
         puzzleMap[x][y].mainDeep = mainDeep;
+
+        if (isMain)
+        {
+            puzzleMap[x][y].to = from;      //往總出口的方向
+        }
+        else
+        {
+            puzzleMap[x][y].to = OneUtility.GetReverseDIR(from);
+            //switch (puzzleMap[x][y].from)
+            //{
+            //    case DIRECTION.U:
+            //        puzzleMap[x][y].to = DIRECTION.D;
+            //        break;
+            //    case DIRECTION.D:
+            //        puzzleMap[x][y].to = DIRECTION.U;
+            //        break;
+            //    case DIRECTION.L:
+            //        puzzleMap[x][y].to = DIRECTION.R;
+            //        break;
+            //    case DIRECTION.R:
+            //        puzzleMap[x][y].to = DIRECTION.L;
+            //        break;
+            //}
+        }
 
         DIRECTION mainFrom = puzzleMap[x][y].from;
         if (puzzleMap[x][y].U && from != DIRECTION.U)

@@ -9,6 +9,7 @@ public class MR_Node : MonoBehaviour
         NONE,
         SIZE_ONLY,
         ENTER,
+        LEAVE,
     }
     public POS_SHIFT shiftType = POS_SHIFT.SIZE_ONLY;
 
@@ -28,23 +29,27 @@ public class MR_Node : MonoBehaviour
         float y = transform.localPosition.y;
         float z = transform.localPosition.z;
 
+        DIRECTION sDir = DIRECTION.NONE;
         if (shiftType == POS_SHIFT.ENTER)
+            sDir = room.cell.from;
+        else if (shiftType == POS_SHIFT.LEAVE)
+            sDir = OneUtility.GetReverseDIR( room.cell.to );
+
+        //以房間面向下方為基準調整位置 (入口在下、出口在上)
+        switch (sDir)
         {
-            switch (room.cell.from)
-            {
-                case DIRECTION.D:
-                    transform.localPosition = new Vector3(x, y, z);
-                    break;
-                case DIRECTION.R:
-                    transform.localPosition = new Vector3(-y, x, z);
-                    break;
-                case DIRECTION.U:
-                    transform.localPosition = new Vector3(-x, -y, z);
-                    break;
-                case DIRECTION.L:
-                    transform.localPosition = new Vector3(y, x, z);
-                    break;
-            }
+            case DIRECTION.D:
+                transform.localPosition = new Vector3(x, y, z);
+                break;
+            case DIRECTION.R:
+                transform.localPosition = new Vector3(-y, x, z);
+                break;
+            case DIRECTION.U:
+                transform.localPosition = new Vector3(-x, -y, z);
+                break;
+            case DIRECTION.L:
+                transform.localPosition = new Vector3(y, x, z);
+                break;
         }
     }
 }

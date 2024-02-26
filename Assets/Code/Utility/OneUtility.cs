@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Security.Cryptography;
 using System.Text;
+using System.IO;
 
 class OneUtility
 {
@@ -30,6 +31,22 @@ class OneUtility
             list[k] = list[n];
             list[n] = value;
         }
+    }
+    //
+    public static DIRECTION GetReverseDIR(DIRECTION dir)
+    {
+        switch (dir)
+        {
+            case DIRECTION.U:
+                return DIRECTION.D;
+            case DIRECTION.D:
+                return DIRECTION.U;
+            case DIRECTION.L:
+                return DIRECTION.R;
+            case DIRECTION.R:
+                return DIRECTION.L;
+        }
+        return DIRECTION.NONE;
     }
 
     // ========================= 有關隨機取點 (取自 AI)
