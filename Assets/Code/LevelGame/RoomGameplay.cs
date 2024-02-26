@@ -21,6 +21,11 @@ public class RoomGameplay : RoomGameplayBase
     {
         GameObject o = BattleSystem.SpawnGameObj(centerGame, room.vCenter);
         o.SetActive(true);
+
+        foreach (Transform t in o.GetComponentsInChildren<Transform>())
+        {
+            t.gameObject.SendMessage("OnSetupByRoom", room, SendMessageOptions.DontRequireReceiver);
+        }
     }
 
 }
