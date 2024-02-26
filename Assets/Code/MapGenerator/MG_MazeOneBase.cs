@@ -545,21 +545,6 @@ public class MG_MazeOneBase : MapGeneratorBase
         else
         {
             puzzleMap[x][y].to = OneUtility.GetReverseDIR(from);
-            //switch (puzzleMap[x][y].from)
-            //{
-            //    case DIRECTION.U:
-            //        puzzleMap[x][y].to = DIRECTION.D;
-            //        break;
-            //    case DIRECTION.D:
-            //        puzzleMap[x][y].to = DIRECTION.U;
-            //        break;
-            //    case DIRECTION.L:
-            //        puzzleMap[x][y].to = DIRECTION.R;
-            //        break;
-            //    case DIRECTION.R:
-            //        puzzleMap[x][y].to = DIRECTION.L;
-            //        break;
-            //}
         }
 
         DIRECTION mainFrom = puzzleMap[x][y].from;
