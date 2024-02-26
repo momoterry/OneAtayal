@@ -2,14 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MR_NodeBase : MonoBehaviour
-{
-    public const float ROOM_RELATIVE_SIZE = 10.0f;     //縮放等的基準
-    virtual public void OnSetupByRoom(MazeGameManager.RoomInfo room)
-    {
-        //TODO: Local 位置校正
-    }
-}
 
 public class MR_BandSpawner : MR_NodeBase
 {
