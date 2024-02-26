@@ -25,7 +25,7 @@ public class MR_BandSpawner : MR_NodeBase
 
     public override void OnSetupByRoom(MazeGameManager.RoomInfo room)
     {
-        print("收到收到 !!" + name);
+        //print("收到收到 !!" + name);
         base.OnSetupByRoom(room);
         Width = room.width;
         Height = room.height;
