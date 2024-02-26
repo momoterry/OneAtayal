@@ -33,6 +33,8 @@ public class RoomGameplay : RoomGameplayBase
     }
     public override void Build( MazeGameManager.RoomInfo room ) 
     {
+        if (!centerGame)
+            return;
         GameObject o = BattleSystem.SpawnGameObj(centerGame, room.vCenter);
         o.SetActive(true);
 
