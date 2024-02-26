@@ -12,6 +12,7 @@ public class MR_Node : MonoBehaviour
         LEAVE,
     }
     public POS_SHIFT shiftType = POS_SHIFT.SIZE_ONLY;
+    public bool rotateWithShiftType = false;
 
     public const float ROOM_RELATIVE_SIZE = 10.0f;     //縮放等的基準
     protected float widthRatio = 1;
@@ -35,21 +36,28 @@ public class MR_Node : MonoBehaviour
         else if (shiftType == POS_SHIFT.LEAVE)
             sDir = OneUtility.GetReverseDIR( room.cell.to );
 
+        float angle = 0;
         //以房間面向下方為基準調整位置 (入口在下、出口在上)
         switch (sDir)
         {
             case DIRECTION.D:
                 transform.localPosition = new Vector3(x, y, z);
+                angle = 0;
                 break;
             case DIRECTION.R:
                 transform.localPosition = new Vector3(-y, x, z);
+                angle = 90;
                 break;
             case DIRECTION.U:
                 transform.localPosition = new Vector3(-x, -y, z);
+                angle = 180;
                 break;
             case DIRECTION.L:
                 transform.localPosition = new Vector3(y, x, z);
+                angle = -90;
                 break;
         }
+        if (rotateWithShiftType)
+            transform.localRotation = Quaternion.Euler(0, 0, angle);
     }
 }
