@@ -31,7 +31,7 @@ public class MazeGameManager : MazeGameManagerBase
     {
         public RoomGameplayBase game;
     }
-    public RoomGameplayBase defautMainGame;
+    public RoomGameplayBase defaultMainGame;
     public FixGameInfo[] fixStartGames;
 
     public RoomGameplayBase defaultBranchGame;
@@ -80,14 +80,45 @@ public class MazeGameManager : MazeGameManagerBase
                 print("Invalid index in fixStartGames: " + fg.relativeIndex);
         }
 
+        List<RoomInfo> normalMainRoomList = new List<RoomInfo>();
         foreach (RoomInfo room in mainRoomList)
         {
             int mIndex = Mathf.RoundToInt(room.mainRatio * (mainRoomList.Count + 1.0f)) - 1;
             //print("Build One Main Room!! " + mIndex);
             if (mainGames[mIndex])
                 mainGames[mIndex].Build(room);
-            else if (defautMainGame)
-                defautMainGame.Build(room);
+            else
+                normalMainRoomList.Add(room);
+            //else if (defaultMainGame)
+            //    defaultMainGame.Build(room);
+        }
+
+        if (fixBranchEndGames.Length > branchEndRoomList.Count)
+        {
+            int iBranchToAdd = fixBranchEndGames.Length - branchEndRoomList.Count;
+            print("branchEndRoomList 分支端點數量不足!! 需要補足: " + iBranchToAdd);
+            while (iBranchToAdd > 0)
+            {
+                if (normalRoomList.Count <= 0)
+                    break;
+                int iRd = Random.Range(0, normalRoomList.Count);
+                branchEndRoomList.Add(normalRoomList[iRd]);
+                normalRoomList.RemoveAt(iRd);
+                iBranchToAdd--;
+            }
+            while (iBranchToAdd > 0)
+            {
+                if (normalMainRoomList.Count <= 0)
+                    break;
+                int iRd = Random.Range(0, normalMainRoomList.Count);
+                branchEndRoomList.Add(normalMainRoomList[iRd]);
+                normalMainRoomList.RemoveAt(iRd);
+                iBranchToAdd--;
+            }
+            if (iBranchToAdd != 0)
+            {
+                print("ERROR!!!! 補完所有房間還是無法滿足 ......... ");
+            }
         }
 
         OneUtility.Shuffle<RoomInfo>(branchEndRoomList);
@@ -105,16 +136,26 @@ public class MazeGameManager : MazeGameManagerBase
             }
             iCount++;
         }
-        //剩下的支線端點
-        if (!defaultBranchGame)
-            return;
-        for (int i=iCount; i < branchEndRoomList.Count; i++)
+
+        //剩下的主線
+        if (defaultMainGame)
         {
-            defaultBranchGame.Build(branchEndRoomList[i]);
+            foreach (RoomInfo room in normalMainRoomList)
+            {
+                defaultMainGame.Build(room);
+            }
         }
-        foreach (RoomInfo room in normalRoomList)
+        //剩下的支線端點
+        if (defaultBranchGame)
         {
-            defaultBranchGame.Build(room);
+            for (int i = iCount; i < branchEndRoomList.Count; i++)
+            {
+                defaultBranchGame.Build(branchEndRoomList[i]);
+            }
+            foreach (RoomInfo room in normalRoomList)
+            {
+                defaultBranchGame.Build(room);
+            }
         }
     }
 
