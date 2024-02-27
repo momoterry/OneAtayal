@@ -31,10 +31,18 @@ public class MazeGameManager : MazeGameManagerBase
     {
         public RoomGameplayBase game;
     }
-    public RoomGameplayBase defaultMainGame;
+    [System.Serializable]
+    public class NormalGameInfo
+    {
+        public RoomGameplayBase game;
+        public float ratioPercent = 50;
+    }
+    //public RoomGameplayBase defaultMainGame;
+    public NormalGameInfo[] defaultMainGames;
     public FixGameInfo[] fixStartGames;
 
-    public RoomGameplayBase defaultBranchGame;
+    //public RoomGameplayBase defaultBranchGame;
+    public NormalGameInfo[] defaultBranchGames;
     public FixBranchEndGameInfo[] fixBranchEndGames;
 
     protected List<RoomInfo> mainRoomList = new List<RoomInfo>();
@@ -138,25 +146,61 @@ public class MazeGameManager : MazeGameManagerBase
         }
 
         //넘짾ず쩊퐑
-        if (defaultMainGame)
+        foreach (RoomInfo room in normalMainRoomList)
         {
-            foreach (RoomInfo room in normalMainRoomList)
-            {
-                defaultMainGame.Build(room);
-            }
+            RoomGameplayBase game = GetRandomGameplay(defaultMainGames);
+            if (game != null)
+                game.Build(room);
         }
         //넘짾ずㅴ퐑붰헕
-        if (defaultBranchGame)
+        for (int i = iCount; i < branchEndRoomList.Count; i++)
         {
-            for (int i = iCount; i < branchEndRoomList.Count; i++)
+            RoomGameplayBase game = GetRandomGameplay(defaultBranchGames);
+            if (game != null)
+                game.Build(branchEndRoomList[i]);
+        }
+        //넘짾ずㅴ퐑
+        foreach (RoomInfo room in normalRoomList)
+        {
+            RoomGameplayBase game = GetRandomGameplay(defaultBranchGames);
+            if (game != null)
+                game.Build(room);
+        }
+        //넘짾ず쩊퐑
+        //if (defaultMainGame)
+        //{
+        //    foreach (RoomInfo room in normalMainRoomList)
+        //    {
+        //        defaultMainGame.Build(room);
+        //    }
+        //}
+        ////넘짾ずㅴ퐑붰헕
+        //if (defaultBranchGame)
+        //{
+        //    for (int i = iCount; i < branchEndRoomList.Count; i++)
+        //    {
+        //        defaultBranchGame.Build(branchEndRoomList[i]);
+        //    }
+        //    foreach (RoomInfo room in normalRoomList)
+        //    {
+        //        defaultBranchGame.Build(room);
+        //    }
+        //}
+    }
+
+    RoomGameplayBase GetRandomGameplay(NormalGameInfo[] games)
+    {
+        float accumulated = 0;
+        float currRandom = Random.Range(0, 100.0f);
+        foreach (NormalGameInfo gInfo in games)
+        {
+            accumulated += gInfo.ratioPercent;
+            if (accumulated > currRandom)
             {
-                defaultBranchGame.Build(branchEndRoomList[i]);
-            }
-            foreach (RoomInfo room in normalRoomList)
-            {
-                defaultBranchGame.Build(room);
+                return gInfo.game;
             }
         }
+        return null;
     }
 
 }
