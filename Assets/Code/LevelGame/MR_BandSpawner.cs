@@ -11,9 +11,15 @@ public class MR_BandSpawner : MR_Node
     public int TotalNum = 10;
     public float BandWidth = 1.0f;
     public float BandBuffer = 0f;    // 不生成的緩衝距離
+    public bool spawnOnStart = false;
 
     protected List<Vector3> points;
 
+    private void Start()
+    {
+        if (spawnOnStart)
+            OnTG(gameObject);
+    }
     public void OnTG(GameObject whoTG)
     {
         points = OneUtility.Get3DRandomPointsInRectBand(transform.position, Width - BandBuffer - BandBuffer, Height - BandBuffer - BandBuffer, BandWidth, TotalNum);

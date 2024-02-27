@@ -39,7 +39,8 @@ public class MazeGameManager : MazeGameManagerBase
     }
     //public RoomGameplayBase defaultMainGame;
     public NormalGameInfo[] defaultMainGames;
-    public FixGameInfo[] fixStartGames;
+    public FixGameInfo[] fixStartGames;         //relativeIndex = 0 代表起點，不能用
+    public FixGameInfo[] fixEndGames;           //relativeIndex = 0 代表終點，不能用
 
     //public RoomGameplayBase defaultBranchGame;
     public NormalGameInfo[] defaultBranchGames;
@@ -86,6 +87,17 @@ public class MazeGameManager : MazeGameManagerBase
                 mainGames[fg.relativeIndex - 1] = fg.game;
             else
                 print("Invalid index in fixStartGames: " + fg.relativeIndex);
+        }
+        foreach (FixGameInfo fg in fixEndGames)
+        {
+            if (fg.relativeIndex > 0 && fg.relativeIndex <= mainRoomList.Count)
+            {
+                if (mainGames[mainGames.Length - fg.relativeIndex] != null)
+                    print("ERROR!!!! fixEndGames 跟 fixStartGames 重疊!!!! " + (mainGames.Length - fg.relativeIndex));
+                mainGames[mainGames.Length - fg.relativeIndex] = fg.game;
+            }
+            else
+                print("Invalid index in fixEndGames: " + fg.relativeIndex);
         }
 
         List<RoomInfo> normalMainRoomList = new List<RoomInfo>();
