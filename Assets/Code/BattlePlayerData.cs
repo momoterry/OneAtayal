@@ -130,4 +130,42 @@ public class BattlePlayerData : MonoBehaviour
         BattleSystem.GetInstance().theBattleHUD.bLVMenu.OnSetBattlePoint(battleLVPoint);
         //print("升級啦，升了" + addLV + " 級，現在是 " + currBattleLV + " 級");
     }
+
+
+    //============================= BattleEvent 相關 ========================================
+    //目前 BattleEvent 先不不支援跨 Scene 的記錄
+    //如果之後要的話，得放到 BattlePlayerCrossSceneData 當中
+
+    protected Dictionary<string, bool> boolEvents = new Dictionary<string, bool>();
+    protected Dictionary<string, int> intEvents = new Dictionary<string, int>();
+
+    public bool GetEventBool(string eventID)
+    {
+        if (boolEvents.ContainsKey(eventID))
+            return boolEvents[eventID];
+        return false;
+    }
+
+    public int GetEventInt(string eventID)
+    {
+        if (intEvents.ContainsKey(eventID))
+            return intEvents[eventID];
+        return 0;
+    }
+
+    public void SetEventBool(string eventID, bool isTrue)
+    {
+        if (boolEvents.ContainsKey(eventID))
+            boolEvents[eventID] = isTrue;
+        else
+            boolEvents.Add(eventID, isTrue);
+    }
+
+    public void AddEventInt(string eventID, int numAdded = 1)
+    {
+        if (intEvents.ContainsKey(eventID))
+            intEvents[eventID] += numAdded;
+        else
+            intEvents.Add(eventID, numAdded);
+    }
 }

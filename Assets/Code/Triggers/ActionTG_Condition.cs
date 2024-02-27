@@ -60,15 +60,17 @@ public class ActionTG_Condition : ActionTG
         {
             if (currentOrder >= 0)
             {
+                if (conditionsInOrder[currentOrder].SaveCondition != "")
+                {
+                    GameSystem.GetPlayerData().SaveEvent(conditionsInOrder[currentOrder].SaveCondition, true);
+                }
+                // 因為在送了 Trigger 以後就會立刻觸發 ActionResult，所以 Event 要先記錄
                 GameObject o = conditionsInOrder[currentOrder].triggerTarget;
                 if (o)
                 {
                     o.SendMessage("OnTG", gameObject);
                 }
-                if (conditionsInOrder[currentOrder].SaveCondition != "")
-                {
-                    GameSystem.GetPlayerData().SaveEvent(conditionsInOrder[currentOrder].SaveCondition, true);
-                }
+
             }
             else if (TriggerTarget)
             {

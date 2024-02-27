@@ -67,7 +67,7 @@ public class ActionTG : MonoBehaviour
         {
             if (!deleteAfterAction)
             {
-                if (!continueAction)
+                if (!continueAction || !IsActionValid())
                 {
                     if (hint)
                     {
@@ -88,9 +88,11 @@ public class ActionTG : MonoBehaviour
         }
     }
 
+    protected virtual bool IsActionValid() { return true; }     //給繼承物件用的
+
     protected virtual void OnGameObjectIn(GameObject obj)
     {
-        if (obj.CompareTag("Player"))
+        if (obj.CompareTag("Player") && IsActionValid())
         {
 
             PlayerControllerBase pc = obj.GetComponent<PlayerControllerBase>();

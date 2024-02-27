@@ -83,7 +83,7 @@ public class MazeGameManager : MazeGameManagerBase
         foreach (RoomInfo room in mainRoomList)
         {
             int mIndex = Mathf.RoundToInt(room.mainRatio * (mainRoomList.Count + 1.0f)) - 1;
-            print("Build One Main Room!! " + mIndex);
+            //print("Build One Main Room!! " + mIndex);
             if (mainGames[mIndex])
                 mainGames[mIndex].Build(room);
             else if (defautMainGame)
