@@ -359,20 +359,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3c23188dd71684785c884e63d42eac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerTarget: {fileID: 524428553}
+  TriggerTarget: {fileID: 0}
   hint: {fileID: 102376542}
   deleteAfterAction: 0
   continueAction: 0
   conditionsInOrder:
-  - eventID: XXX
+  - eventID: SAVED_DOLL_STONE
+    compareType: 1
+    compareValue: 2
+    triggerTarget: {fileID: 287427553}
+    SaveCondition: STONE_NPC_FINISH
+  - eventID: 
     compareType: 0
     compareValue: 0
     triggerTarget: {fileID: 1780552065}
     SaveCondition: STONE_NPC_INTRO
-  - eventID: YYY
-    compareType: 1
-    compareValue: 3
-    triggerTarget: {fileID: 1780552065}
+  - eventID: STONE_NPC_FINISH
+    compareType: 0
+    compareValue: 0
+    triggerTarget: {fileID: 524428553}
     SaveCondition: 
 --- !u!114 &77500527
 MonoBehaviour:
@@ -741,7 +746,7 @@ GameObject:
   - component: {fileID: 277004182}
   - component: {fileID: 277004183}
   m_Layer: 0
-  m_Name: DialogueInit
+  m_Name: DialogueHelp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -776,10 +781,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndTriggers:
   - {fileID: 1993041248}
+  - {fileID: 776664726}
   speakerName: "\u91CE\u77F3\u9748"
   speakerImage: {fileID: 0}
   dialogueContents:
   - "\u8B1D\u8B1D\u4F60\u6551\u4E86\u6211"
+--- !u!1 &287427553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 287427554}
+  - component: {fileID: 287427555}
+  m_Layer: 0
+  m_Name: DialogueFinish
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &287427554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287427553}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 697132365}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &287427555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287427553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f736bc16cc8aee848a9ad8d437558762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndTriggers:
+  - {fileID: 1702939986}
+  speakerName: "\u8457\u6025\u7684\u91CE\u77F3\u9748"
+  speakerImage: {fileID: 0}
+  dialogueContents:
+  - "\u4F60\u6210\u529F\u4E86!! \u82F1\u96C4!!\n\u4F60\u6551\u4E86\u6211\u7684\u5144\u5F1F"
+  - "\u6211\u6703\u9075\u5B88\u8AFE\u8A00\uFF0C\n\u52A0\u5165\u4F60\u7684\u884C\u5217"
+  - "\u5C0D\u4E86\uFF0C\n\u6211\u53EF\u662F\u5F88\u5F37\u7684\u5594 ......."
 --- !u!1001 &314766403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1145,7 +1203,7 @@ MonoBehaviour:
   speakerName: "\u8457\u6025\u7684\u91CE\u77F3\u9748"
   speakerImage: {fileID: 0}
   dialogueContents:
-  - "\u6211\u662F\u8AB0? \u6211\u5728\u54EA?"
+  - "\u8ACB\u4E00\u5B9A\u8981\u6551\u6551\u6211\u7684\u5144\u5F1F\u5011"
 --- !u!1 &631198555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,10 +1403,62 @@ Transform:
   - {fileID: 77500525}
   - {fileID: 1702939985}
   - {fileID: 1780552066}
+  - {fileID: 287427554}
   - {fileID: 524428554}
   m_Father: {fileID: 1236363284}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &744020091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 744020092}
+  - component: {fileID: 744020093}
+  m_Layer: 0
+  m_Name: DialogueHelp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &744020092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744020091}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1838889938}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &744020093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744020091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f736bc16cc8aee848a9ad8d437558762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndTriggers:
+  - {fileID: 1858969593}
+  - {fileID: 1256724701}
+  speakerName: "\u91CE\u77F3\u9748"
+  speakerImage: {fileID: 0}
+  dialogueContents:
+  - "\u8B1D\u8B1D\u4F60\u6551\u4E86\u6211"
 --- !u!1 &755778715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,6 +1557,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerGame: {fileID: 1166737393}
+--- !u!1 &776664726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776664727}
+  - component: {fileID: 776664728}
+  m_Layer: 0
+  m_Name: SaveEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &776664727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776664726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 925166486}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &776664728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776664726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a021d6d5100f72a49bdaf7a9781869c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventID: SAVED_DOLL_STONE
+  eventType: 1
+  eventValue: 1
 --- !u!1 &782236977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,7 +1751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 925166486}
   m_Layer: 0
-  m_Name: MinorStone_NPC
+  m_Name: MinorStone_NPC_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1608,12 +1765,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925166485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: -5, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1993041247}
   - {fileID: 277004182}
+  - {fileID: 776664727}
   m_Father: {fileID: 1236363284}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1860,7 +2018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1236363284
 Transform:
   m_ObjectHideFlags: 0
@@ -1875,6 +2033,7 @@ Transform:
   m_Children:
   - {fileID: 697132365}
   - {fileID: 925166486}
+  - {fileID: 1838889938}
   m_Father: {fileID: 475897334}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -1958,6 +2117,53 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1256724701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1256724702}
+  - component: {fileID: 1256724703}
+  m_Layer: 0
+  m_Name: SaveEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1256724702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256724701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1838889938}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1256724703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256724701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a021d6d5100f72a49bdaf7a9781869c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventID: SAVED_DOLL_STONE
+  eventType: 1
+  eventValue: 1
 --- !u!1 &1355948685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,6 +2796,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4032685806379418581, guid: 6cbab3279bfb52b439bf028f21e17451, type: 3}
   m_PrefabInstance: {fileID: 1702939984}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1702939986 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4032685806379418579, guid: 6cbab3279bfb52b439bf028f21e17451, type: 3}
+  m_PrefabInstance: {fileID: 1702939984}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1767760862
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,7 +2880,7 @@ GameObject:
   - component: {fileID: 1780552066}
   - component: {fileID: 1780552067}
   m_Layer: 0
-  m_Name: DialogueInit
+  m_Name: DialogueIntro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2815,6 +3026,115 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9050f11007a554f419e6163f7a7751f5, type: 3}
+--- !u!1 &1838889937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1838889938}
+  m_Layer: 0
+  m_Name: MinorStone_NPC_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1838889938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838889937}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1858969594}
+  - {fileID: 744020092}
+  - {fileID: 1256724702}
+  m_Father: {fileID: 1236363284}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1858969592
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1838889938}
+    m_Modifications:
+    - target: {fileID: 123641122762753270, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: TriggerTarget
+      value: 
+      objectReference: {fileID: 744020091}
+    - target: {fileID: 4032685806379418579, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_Name
+      value: Doll_Collect_Stone
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+--- !u!1 &1858969593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4032685806379418579, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+  m_PrefabInstance: {fileID: 1858969592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1858969594 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
+  m_PrefabInstance: {fileID: 1858969592}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1882776150
 GameObject:
   m_ObjectHideFlags: 0
