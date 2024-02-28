@@ -831,7 +831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285827}
   entraceList: []
-  puzzleWidth: 7
+  puzzleWidth: 9
   puzzleHeight: 7
   roomWidth: 15
   roomHeight: 15
@@ -839,7 +839,7 @@ MonoBehaviour:
   wallHeight: 2
   pathWidth: 5
   pathHeight: 5
-  pathRate: 0
+  pathRate: 0.5
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 1
@@ -852,13 +852,13 @@ MonoBehaviour:
   roomGroundTileEdgeGroup: {fileID: 0}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
-  dungeonEnemyManager: {fileID: 43452558}
+  dungeonEnemyManager: {fileID: 0}
   gameManager: {fileID: 0}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
-  extendTerminal: 1
+  extendTerminal: 0
   mazeDir: 1
-  blockFillRatio: 0.35
+  blockFillRatio: 0.5
 --- !u!4 &1355948687
 Transform:
   m_ObjectHideFlags: 0

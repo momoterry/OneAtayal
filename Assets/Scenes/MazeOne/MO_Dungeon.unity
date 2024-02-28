@@ -1400,22 +1400,30 @@ MonoBehaviour:
     leader: {fileID: 0}
     enemys:
     - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+    isSurround: 0
+    surrondBand: 1
     totalNum: 2
   - ratePercent: 0
     leader: {fileID: 0}
     enemys:
     - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+    isSurround: 0
+    surrondBand: 1
     totalNum: 3
   - ratePercent: 0
     leader: {fileID: 0}
     enemys:
     - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
     - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+    isSurround: 0
+    surrondBand: 1
     totalNum: 3.6
   - ratePercent: 0
     leader: {fileID: 0}
     enemys:
     - {fileID: 7208015447484052683, guid: 634bfbdd3b7d1774c931b2d6d27a0697, type: 3}
+    isSurround: 0
+    surrondBand: 1
     totalNum: 1.3
   randomLeaderAuraRefs: []
 --- !u!4 &1379791655
@@ -2051,15 +2059,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285827}
   entraceList: []
-  puzzleWidth: 7
-  puzzleHeight: 7
-  roomWidth: 11
-  roomHeight: 15
+  puzzleWidth: 5
+  puzzleHeight: 5
+  roomWidth: 15
+  roomHeight: 17
   wallWidth: 4
   wallHeight: 4
   pathWidth: 5
   pathHeight: 5
-  pathRate: 0
+  pathRate: 0.5
   finishPortalRef: {fileID: 0}
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 1
@@ -2073,9 +2081,10 @@ MonoBehaviour:
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
   dungeonEnemyManager: {fileID: 0}
+  gameManager: {fileID: 0}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
-  extendTerminal: 0
+  extendTerminal: 1
   mazeDir: 0
 --- !u!1001 &1807413653
 PrefabInstance:
