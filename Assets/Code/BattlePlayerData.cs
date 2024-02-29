@@ -16,7 +16,7 @@ public class BattlePlayerCrossSceneData
 public class BattlePlayerData : MonoBehaviour
 {
     const int MAX_BATTLE_LEVEL = 20;
-    const int INIT_EXP_MAX = 100;
+    const int INIT_EXP_MAX = 50;
     public float EXP_MAX_STEP = 1.5f;
 
     protected int currExp = 0;
@@ -94,7 +94,8 @@ public class BattlePlayerData : MonoBehaviour
         //暴力法  TODO: 用表格設定經驗值
         if (BattleSystem.GetInstance().IsBattleLevelUp)
         {
-            AddExp(30);
+            //AddExp(30);
+            AddExp(DropManager.GetInstance().GetExpByID(e.GetDropID()));
         }
     }
     public void AddExp(int value)

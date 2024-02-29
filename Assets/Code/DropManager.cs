@@ -8,6 +8,8 @@ public class DropMapping
     public int ID;
     public float dropRatio = 100.0f;
     public GameObject objRef;
+    public int exp = 0;
+    public string Desc;     //只是方便表格編輯
 }
 
 public class DropManager : MonoBehaviour
@@ -38,6 +40,14 @@ public class DropManager : MonoBehaviour
         }
     }
 
+    public int GetExpByID(int ID)
+    {
+        if (dropMap.ContainsKey(ID))
+        {
+            return dropMap[ID].exp;
+        }
+        return 0;
+    }
     public void DoDropByID(int ID, Vector3 pos)
     {
         //print("Try Drop: " + ID);

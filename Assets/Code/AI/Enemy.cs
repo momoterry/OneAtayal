@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
 
 
     // Public
-    public int GetID() { return ID; }
+    public int GetDropID() { return ID; }
     public void SetSlot( Transform slot) { mySlot = slot; }
 
     private void Awake()

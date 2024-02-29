@@ -29,11 +29,12 @@ public class CharacterData : MonoBehaviour
 
     public void OnKillEnemy(Enemy e)
     {
+        AddExp(DropManager.GetInstance().GetExpByID(e.GetDropID()));
         //暴力法  TODO: 用表格設定經驗值
-        if (e.GetID() > 3000)
-            AddExp(15);
-        else
-            AddExp(100);
+        //if (e.GetDropID() > 3000)
+        //    AddExp(15);
+        //else
+        //    AddExp(100);
     }
     public void AddExp(int value)
     {

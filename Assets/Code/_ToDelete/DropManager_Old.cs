@@ -49,48 +49,48 @@ public class DropManager_Old : MonoBehaviour
 
     public void OnTryDropByEnemyKilled( Enemy e)
     {
-        int enemyID = e.GetID();
+        //int enemyID = e.GetID();
 
-        float dropRate = 0;
-        DropItem.DROPITEM_TYPE toDrop = DropItem.DROPITEM_TYPE.NONE;
+        //float dropRate = 0;
+        //DropItem.DROPITEM_TYPE toDrop = DropItem.DROPITEM_TYPE.NONE;
 
-        switch (enemyID){
-            case 3001:
-                dropRate = 1.0f;
-                toDrop = DropItem.DROPITEM_TYPE.HEAL_POTION;
-                break;
-            case 1001:
-                dropRate = 0.2f;
-                toDrop = DropItem.DROPITEM_TYPE.HEAL_POTION;
-                break;
-            case 1002:
-                dropRate = 0.1f;
-                toDrop = DropItem.DROPITEM_TYPE.POWERUP_MAXHP;
-                break;
-            case 2001:
-                dropRate = 0.2f;
-                toDrop = DropItem.DROPITEM_TYPE.POWERUP_ATTACK;
-                break;
-            default:
-                dropRate = 0.1f;
-                break;
-        }
+        //switch (enemyID){
+        //    case 3001:
+        //        dropRate = 1.0f;
+        //        toDrop = DropItem.DROPITEM_TYPE.HEAL_POTION;
+        //        break;
+        //    case 1001:
+        //        dropRate = 0.2f;
+        //        toDrop = DropItem.DROPITEM_TYPE.HEAL_POTION;
+        //        break;
+        //    case 1002:
+        //        dropRate = 0.1f;
+        //        toDrop = DropItem.DROPITEM_TYPE.POWERUP_MAXHP;
+        //        break;
+        //    case 2001:
+        //        dropRate = 0.2f;
+        //        toDrop = DropItem.DROPITEM_TYPE.POWERUP_ATTACK;
+        //        break;
+        //    default:
+        //        dropRate = 0.1f;
+        //        break;
+        //}
 
-        if (toDrop == DropItem.DROPITEM_TYPE.NONE)
-            return;
+        //if (toDrop == DropItem.DROPITEM_TYPE.NONE)
+        //    return;
 
-        bool isDrop = (Random.Range(0, 1.0f) <= dropRate);
+        //bool isDrop = (Random.Range(0, 1.0f) <= dropRate);
 
-        //TODO: 列表查詢
-        //DropItem.DROPITEM_TYPE toDrop = DropItem.DROPITEM_TYPE.HEAL_POTION;
+        ////TODO: 列表查詢
+        ////DropItem.DROPITEM_TYPE toDrop = DropItem.DROPITEM_TYPE.HEAL_POTION;
 
-        GameObject dropRef = dropObjMap[toDrop];
-        if (isDrop && dropRef)
-        {
-            GameObject o = Instantiate(dropRef, e.transform.position, Quaternion.identity, null);
-            DropItem di = o.GetComponent<DropItem>();
-            di.DoDrop();
+        //GameObject dropRef = dropObjMap[toDrop];
+        //if (isDrop && dropRef)
+        //{
+        //    GameObject o = Instantiate(dropRef, e.transform.position, Quaternion.identity, null);
+        //    DropItem di = o.GetComponent<DropItem>();
+        //    di.DoDrop();
 
-        }
+        //}
     }
 }
