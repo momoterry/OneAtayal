@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3145861483233147258}
+  - component: {fileID: 1515355117970813761}
   - component: {fileID: 2601613982844335518}
   - component: {fileID: 2425988308803265342}
   - component: {fileID: 791723361001708635}
   - component: {fileID: 4326507979549586722}
   - component: {fileID: 5772227188186014706}
-  - component: {fileID: 1515355117970813761}
   m_Layer: 10
   m_Name: BarrelHittable
   m_TagString: Hittable
@@ -37,6 +37,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1515355117970813761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427553042280373961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4071797338336443ae68e0daee27be6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debrisRef: {fileID: 7351430747151533015, guid: fd8adac1b06964846a6b41ebaabb1109, type: 3}
+  DropID: 500
 --- !u!212 &2601613982844335518
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -155,16 +169,3 @@ MonoBehaviour:
   HP_Max: 100
   DamageRatio: 1
   hittableObj: 1
---- !u!114 &1515355117970813761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1427553042280373961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4071797338336443ae68e0daee27be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debrisRef: {fileID: 7351430747151533015, guid: fd8adac1b06964846a6b41ebaabb1109, type: 3}

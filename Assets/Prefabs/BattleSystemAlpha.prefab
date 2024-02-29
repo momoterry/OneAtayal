@@ -120,6 +120,7 @@ MonoBehaviour:
   theBattleHUD: {fileID: 0}
   backScene: HubV_Alpha
   backEntrance: 
+  levelID: 
   theMG: {fileID: 0}
   initPlayerPos: {fileID: 0}
   initPlayerDirAngle: 0
@@ -144,6 +145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropMappingArray:
+  - ID: 500
+    dropRatio: 15
+    objRef: {fileID: 2549458001448485838, guid: e00d26196e3b06e48819c05b7921c32e, type: 3}
   - ID: 1000
     dropRatio: 25
     objRef: {fileID: 8143502755978418841, guid: 67ab84094d2daa24cb6914bdde34adfe, type: 3}
