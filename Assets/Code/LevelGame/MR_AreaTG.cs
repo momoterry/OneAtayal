@@ -17,6 +17,8 @@ public class MR_AreaTG : MR_Node
         base.OnSetupByRoom(room);
 
         DIRECTION dir = DIRECTION.D;
+        float colX = Width;
+        float colY = Height;
         if (shiftType != POS_SHIFT.NONE)
         {
             if (shiftType == POS_SHIFT.ENTER)
@@ -27,20 +29,21 @@ public class MR_AreaTG : MR_Node
             if ((dir == DIRECTION.L || dir == DIRECTION.R) && rotateWithShiftType)
             {
                 //長寬縮放倍率交換
-                Width *= heightRatio;
-                Height *= widthRatio;
+                colX *= heightRatio;
+                colY *= widthRatio;
             }
             else
             {
-                Width *= widthRatio;
-                Height *= heightRatio;
+                colX *= widthRatio;
+                colY *= heightRatio;
             }
         }
+
         if (col == null)
         {
             col = gameObject.AddComponent<BoxCollider>();
         }
-        col.size = new Vector3 (Width, Height, Height);
+        col.size = new Vector3 (colX, colY, colY);
         col.isTrigger = true;
     }
 
