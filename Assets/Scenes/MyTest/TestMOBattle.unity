@@ -187,9 +187,9 @@ MonoBehaviour:
     game: {fileID: 677375465}
   defaultBranchGames:
   - game: {fileID: 765310019}
-    ratioPercent: 50
+    ratioPercent: 0
   - game: {fileID: 735667348}
-    ratioPercent: 50
+    ratioPercent: 100
   fixBranchEndGames:
   - game: {fileID: 1019164512}
   - game: {fileID: 1019164512}
@@ -1759,7 +1759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shiftType: 1
-  rotateWithShiftType: 0
+  rotateWithShiftType: 1
   TriggerTargets:
   - {fileID: 782236977}
   Width: 10
@@ -2311,7 +2311,7 @@ MonoBehaviour:
   puzzleWidth: 5
   puzzleHeight: 5
   roomWidth: 15
-  roomHeight: 15
+  roomHeight: 20
   wallWidth: 2
   wallHeight: 2
   pathWidth: 5

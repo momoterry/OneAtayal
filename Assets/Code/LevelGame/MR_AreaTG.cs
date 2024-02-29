@@ -16,8 +16,26 @@ public class MR_AreaTG : MR_Node
     {
         base.OnSetupByRoom(room);
 
-        Width *= widthRatio;
-        Height *= heightRatio;
+        DIRECTION dir = DIRECTION.D;
+        if (shiftType != POS_SHIFT.NONE)
+        {
+            if (shiftType == POS_SHIFT.ENTER)
+                dir = room.cell.from;
+            else if (shiftType == POS_SHIFT.LEAVE)
+                dir = room.cell.to;
+
+            if ((dir == DIRECTION.L || dir == DIRECTION.R) && rotateWithShiftType)
+            {
+                //長寬縮放倍率交換
+                Width *= heightRatio;
+                Height *= widthRatio;
+            }
+            else
+            {
+                Width *= widthRatio;
+                Height *= heightRatio;
+            }
+        }
         if (col == null)
         {
             col = gameObject.AddComponent<BoxCollider>();
@@ -44,9 +62,9 @@ public class MR_AreaTG : MR_Node
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, new Vector3(Width, 2.0f, Height));
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawWireCube(transform.position, new Vector3(Width, 2.0f, Height));
+    //}
 }
