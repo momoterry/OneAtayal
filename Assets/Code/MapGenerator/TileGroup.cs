@@ -78,7 +78,8 @@ public class TileEdgeGroup
 
     protected bool IsOut(int value, int inValue, int outValue)
     {
-        return value != inValue && (outValue == OneMap.INVALID_VALUE || value == outValue);
+        //整個地圖的邊界也不能視為 Out
+        return value != inValue && (outValue == OneMap.INVALID_VALUE || value == outValue) && value != OneMap.EDGE_VALUE;
     }
 
     //確認這個點是否是外部邊界，首先必須是外部，必須檢查週邊是否為 in

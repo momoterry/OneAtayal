@@ -67,14 +67,14 @@ public class MG_MazeOneBase : MapGeneratorBase
     //裝飾物件
     public MapDecadeGenerator decadeGenerator;
 
-
+    protected MAP_TYPE MapInitValue = MAP_TYPE.BLOCK;   //預設會被填滿的值
     //基底地圖相關 TODO: 希望獨立出去
     protected int mapWidth = 0;
     protected int mapHeight = 0;
     protected int borderWidth = 4;
     protected Vector3Int mapCenter;
     protected OneMap theMap = new OneMap();
-    protected enum MAP_TYPE
+    public enum MAP_TYPE
     {
         DEFAULT = OneMap.DEFAULT_VALUE,
         GROUND = 4,
@@ -228,7 +228,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         if (blockTileGroup)
         {
             if (blockTileEdgeGroup)
-                theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTM, blockTileGroup.GetTileGroup(), blockTileEdgeGroup.GetTileEdgeGroup(), false, (int)MAP_TYPE.GROUND);
+                theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTM, blockTileGroup.GetTileGroup(), blockTileEdgeGroup.GetTileEdgeGroup(), false);
             else
                 theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTileGroup.GetTileGroup());
         }
@@ -339,7 +339,7 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     virtual protected void InitPuzzleMap()
     {
-        theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth);
+        theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth, (int)MapInitValue);
 
         // =============== 初始化 PuzzleMap
         puzzleMap = new cellInfo[puzzleWidth][];
