@@ -46,6 +46,10 @@ public class MG_MazeOneBase : MapGeneratorBase
     public TileGroupDataBase defautTileGroup;               //用在地圖的外邊界
     public TileGroupDataBase roomGroundTileGroup;
     public TileEdgeGroupDataBase roomGroundTileEdgeGroup;
+    public bool showMainPath = false;
+    public int mainPathBuff = 1;    //主路徑提示跟路徑寬的緩衝距離
+    public TileGroupDataBase mainPathTileGroup;       //用來提示主路徑
+    public TileEdgeGroupDataBase mainPathTileEdgeGroup;
     public Tilemap groundTM;
     public Tilemap blockTM;
 
@@ -71,9 +75,11 @@ public class MG_MazeOneBase : MapGeneratorBase
     protected OneMap theMap = new OneMap();
     protected enum MAP_TYPE
     {
+        DEFAULT = OneMap.DEFAULT_VALUE,
         GROUND = 4,
         ROOM = 5,
         BLOCK = 6,
+        PATH = 8,
     }
 
     protected int puzzleX1;
@@ -208,6 +214,14 @@ public class MG_MazeOneBase : MapGeneratorBase
                 theMap.FillTileAll((int)MAP_TYPE.ROOM, groundTM, groundTM, roomGroundTileGroup.GetTileGroup(), roomGroundTileEdgeGroup.GetTileEdgeGroup(), false);
             else
                 theMap.FillTileAll((int)MAP_TYPE.ROOM, groundTM, roomGroundTileGroup.GetTileGroup());
+        }
+
+        if (mainPathTileGroup != null)
+        {
+            if (mainPathTileEdgeGroup)
+                theMap.FillTileAll((int)MAP_TYPE.PATH, groundTM, groundTM, mainPathTileGroup.GetTileGroup(), mainPathTileEdgeGroup.GetTileEdgeGroup(), false);
+            else
+                theMap.FillTileAll((int)MAP_TYPE.PATH, groundTM, mainPathTileGroup.GetTileGroup());     
         }
 
         if (blockTileGroup)
@@ -490,7 +504,28 @@ public class MG_MazeOneBase : MapGeneratorBase
                 }
             }
         }
+
+        //Path
+        if (cell.isMain && showMainPath)
+        {
+            int pathBuffer = mainPathBuff;
+            int path2 = mainPathBuff + mainPathBuff;
+            if (cell.from == DIRECTION.L || cell.to == DIRECTION.L)
+                theMap.FillValue(x1, y1 + wallHeight + wallGapHeight + pathBuffer, 
+                    wallWidth + wallGapWidth + pathWidth - pathBuffer, pathHeight - path2, (int)MAP_TYPE.PATH);
+            if (cell.from == DIRECTION.R || cell.to == DIRECTION.R)
+                theMap.FillValue(x1 + wallWidth + wallGapWidth + pathBuffer, y1 + wallHeight + wallGapHeight + pathBuffer, 
+                    wallWidth + wallGapWidth + pathWidth - pathBuffer, pathHeight - path2, (int)MAP_TYPE.PATH);
+            if (cell.from == DIRECTION.U || cell.to == DIRECTION.U)
+                theMap.FillValue(x1 + wallWidth + wallGapWidth + pathBuffer, y1 + wallHeight + wallGapHeight + pathBuffer, 
+                    pathWidth - path2, pathHeight + wallGapHeight + wallHeight - pathBuffer, (int)MAP_TYPE.PATH);
+            if (cell.from == DIRECTION.D || cell.to == DIRECTION.D)
+                theMap.FillValue(x1 + wallWidth + wallGapWidth + pathBuffer, y1, 
+                    pathWidth - path2, pathHeight + wallGapHeight + wallHeight - pathBuffer, (int)MAP_TYPE.PATH);
+
+        }
     }
+
 
     protected Vector3 GetCellCenterPos(int x, int y)
     {
