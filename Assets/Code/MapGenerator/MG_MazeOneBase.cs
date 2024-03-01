@@ -43,6 +43,7 @@ public class MG_MazeOneBase : MapGeneratorBase
     public TileEdgeGroupDataBase groundEdgeTileGroup;
     public TileEdgeGroupDataBase groundOutEdgeTileGroup;
     public TileGroupDataBase blockTileGroup;                //用在非邊界的 Block 區域
+    public TileEdgeGroupDataBase blockTileEdgeGroup;
     public TileGroupDataBase defautTileGroup;               //用在地圖的外邊界
     public TileGroupDataBase roomGroundTileGroup;
     public TileEdgeGroupDataBase roomGroundTileEdgeGroup;
@@ -225,10 +226,15 @@ public class MG_MazeOneBase : MapGeneratorBase
         }
 
         if (blockTileGroup)
-            theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTileGroup.GetTileGroup());
+        {
+            if (blockTileEdgeGroup)
+                theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTM, blockTileGroup.GetTileGroup(), blockTileEdgeGroup.GetTileEdgeGroup(), false, (int)MAP_TYPE.GROUND);
+            else
+                theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTileGroup.GetTileGroup());
+        }
 
 
-        if (groundOutEdgeTileGroup)
+        if (groundOutEdgeTileGroup && !blockTileEdgeGroup)
             theMap.FillTileAll((int)MAP_TYPE.GROUND, null, blockTM, null, groundOutEdgeTileGroup.GetTileEdgeGroup(), true, (int)MAP_TYPE.BLOCK);
 
         GenerateNavMesh(theSurface2D);

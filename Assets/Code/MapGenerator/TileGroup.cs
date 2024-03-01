@@ -353,24 +353,59 @@ public class TileEdge2LGroup : TileEdgeGroup
 
     public override int GetInEdgeType(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
     {
-        if (theMap.IsValid(new Vector2Int(x, y+1)))
+        //if (theMap.IsValid(new Vector2Int(x, y+1)))
+        //{
+        //    int upEType = base.GetInEdgeType(theMap, x, y+1, inValue, outValue);
+        //    switch (upEType)
+        //    {
+        //        case (int)MAP_EDGE_TYPE.DD:
+        //            return (int)MAP_EDGE_TYPE.DD2;
+        //        case (int)MAP_EDGE_TYPE.LD:
+        //            return (int)MAP_EDGE_TYPE.LD2;
+        //        case (int)MAP_EDGE_TYPE.RD:
+        //            return (int)MAP_EDGE_TYPE.RD2;
+        //        case (int)MAP_EDGE_TYPE.LD_S:
+        //            return (int)MAP_EDGE_TYPE.LD_S2;
+        //        case (int)MAP_EDGE_TYPE.RD_S:
+        //            return (int)MAP_EDGE_TYPE.RD_S2;
+        //    }
+        //}
+        //return base.GetInEdgeType(theMap, x, y, inValue, outValue);
+
+        //本來就是下方 Edge ，改成第二層版本
+        int baseEType = base.GetInEdgeType(theMap, x, y, inValue, outValue);
+        switch (baseEType)
         {
-            int upEType = base.GetInEdgeType(theMap, x, y+1, inValue, outValue);
-            switch (upEType)
+            case (int)MAP_EDGE_TYPE.DD:
+                return (int)MAP_EDGE_TYPE.DD2;
+            case (int)MAP_EDGE_TYPE.LD:
+                return (int)MAP_EDGE_TYPE.LD2;
+            case (int)MAP_EDGE_TYPE.RD:
+                return (int)MAP_EDGE_TYPE.RD2;
+            case (int)MAP_EDGE_TYPE.LD_S:
+                return (int)MAP_EDGE_TYPE.LD_S2;
+            case (int)MAP_EDGE_TYPE.RD_S:
+                return (int)MAP_EDGE_TYPE.RD_S2;
+        }
+        //如果下面那格是下方 Edge ，自己就是
+        if (theMap.IsValid(new Vector2Int(x, y - 1)))
+        {
+            int downEType = base.GetInEdgeType(theMap, x, y - 1, inValue, outValue);
+            switch (downEType)
             {
                 case (int)MAP_EDGE_TYPE.DD:
-                    return (int)MAP_EDGE_TYPE.DD2;
+                    return (int)MAP_EDGE_TYPE.DD;
                 case (int)MAP_EDGE_TYPE.LD:
-                    return (int)MAP_EDGE_TYPE.LD2;
+                    return (int)MAP_EDGE_TYPE.LD;
                 case (int)MAP_EDGE_TYPE.RD:
-                    return (int)MAP_EDGE_TYPE.RD2;
+                    return (int)MAP_EDGE_TYPE.RD;
                 case (int)MAP_EDGE_TYPE.LD_S:
-                    return (int)MAP_EDGE_TYPE.LD_S2;
+                    return (int)MAP_EDGE_TYPE.LD_S;
                 case (int)MAP_EDGE_TYPE.RD_S:
-                    return (int)MAP_EDGE_TYPE.RD_S2;
+                    return (int)MAP_EDGE_TYPE.RD_S;
             }
         }
-        return base.GetInEdgeType(theMap, x, y, inValue, outValue);
+        return baseEType;
     }
 
     public override int GetOutEdgeType(OneMap theMap, int x, int y, int inValue, int outValue = OneMap.INVALID_VALUE)
