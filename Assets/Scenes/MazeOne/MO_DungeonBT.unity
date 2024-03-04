@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 201093773}
   - component: {fileID: 201093774}
   m_Layer: 0
-  m_Name: RoomGroundTileGroup
+  m_Name: BlockGroundTileGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,9 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    baseTile: {fileID: 11400000, guid: 22b2f44bb8ef7bc4dac46951e1a7f948, type: 2}
-    decorateTiles:
-    - {fileID: 11400000, guid: 4a3f82930e4a9db4fadbbf0e669f8c3c, type: 2}
+    baseTile: {fileID: 11400000, guid: bcc82b7e4ee1b6d4c8177653c3b658a8, type: 2}
+    decorateTiles: []
     decorateRate: 0
 --- !u!114 &210802122 stripped
 MonoBehaviour:
@@ -775,63 +774,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &506762293
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 506762294}
-  - component: {fileID: 506762295}
-  m_Layer: 0
-  m_Name: RoomGroundEdgeTileGroup
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &506762294
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506762293}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1445305398}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &506762295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506762293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89fcd6705922feb40a9d0b20adb957d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data:
-    UU: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    DD: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    LL: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    RR: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    LU: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    RU: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    LD: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    RD: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    LU_S: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    RU_S: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    LD_S: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
-    RD_S: {fileID: 11400000, guid: 40294c0d469e9654db49f4efc8ca98e8, type: 2}
 --- !u!1 &523238536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,7 +1516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285827}
   entraceList: []
-  puzzleWidth: 7
+  puzzleWidth: 11
   puzzleHeight: 7
   roomWidth: 6
   roomHeight: 6
@@ -1587,11 +1529,11 @@ MonoBehaviour:
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 0
   groundTileGroup: {fileID: 1538453860}
-  groundEdgeTileGroup: {fileID: 0}
-  groundOutEdgeTileGroup: {fileID: 0}
-  blockTileGroup: {fileID: 0}
+  groundEdgeTileGroup: {fileID: 1629307978}
+  groundOutEdgeTileGroup: {fileID: 463712054}
+  blockTileGroup: {fileID: 201093774}
   blockTileEdgeGroup: {fileID: 0}
-  defautTileGroup: {fileID: 0}
+  defautTileGroup: {fileID: 201093774}
   roomGroundTileGroup: {fileID: 0}
   roomGroundTileEdgeGroup: {fileID: 0}
   showMainPath: 0
@@ -1621,7 +1563,6 @@ Transform:
   - {fileID: 1629307977}
   - {fileID: 463712053}
   - {fileID: 201093773}
-  - {fileID: 506762294}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
