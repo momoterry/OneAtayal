@@ -1574,8 +1574,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theSurface2D: {fileID: 1252285827}
   entraceList: []
-  puzzleWidth: 11
-  puzzleHeight: 13
+  puzzleWidth: 7
+  puzzleHeight: 7
   roomWidth: 6
   roomHeight: 6
   wallWidth: 2
@@ -1585,10 +1585,10 @@ MonoBehaviour:
   pathRate: 0
   finishPortalRef: {fileID: 0}
   portalAfterFirstRoomGamplay: 0
-  createWallCollider: 1
+  createWallCollider: 0
   groundTileGroup: {fileID: 1538453860}
-  groundEdgeTileGroup: {fileID: 1629307978}
-  groundOutEdgeTileGroup: {fileID: 463712054}
+  groundEdgeTileGroup: {fileID: 0}
+  groundOutEdgeTileGroup: {fileID: 0}
   blockTileGroup: {fileID: 0}
   blockTileEdgeGroup: {fileID: 0}
   defautTileGroup: {fileID: 0}
@@ -1604,6 +1604,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
+  isDebug: 0
 --- !u!4 &1445305398
 Transform:
   m_ObjectHideFlags: 0
