@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 //每一個 Cell 中，Build Gameplay 所需要的基本內容
 public class CELL_BASE
 {
+    public int x, y;
     public bool U, D, L, R;
     public DIRECTION from;  //離起點最近的方向
     public DIRECTION to;    //往終點的方向，如果是分支，預設為起點的相對方向
@@ -151,6 +152,26 @@ public class MG_MazeOneBase : MapGeneratorBase
     //protected List<wallInfo> wallList = new List<wallInfo>();
 
     // ===================== 房間連結相關
+
+    protected void ConnectCells( cellInfo cFrom, cellInfo cTo, DIRECTION toDir)
+    {
+        switch (toDir)
+        {
+            case DIRECTION.U:
+                cFrom.U = cTo.D = true;
+                break;
+            case DIRECTION.D:
+                cFrom.D = cTo.U = true;
+                break;
+            case DIRECTION.L:
+                cFrom.L = cTo.R = true;
+                break;
+            case DIRECTION.R:
+                cFrom.R = cTo.L = true;
+                break;
+        }
+    }
+
     protected void ConnectCellsByID(int id_1, int id_2)
     {
         cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
@@ -349,6 +370,8 @@ public class MG_MazeOneBase : MapGeneratorBase
             for (int j = 0; j < puzzleHeight; j++)
             {
                 puzzleMap[i][j] = new cellInfo();
+                puzzleMap[i][j].x = i;
+                puzzleMap[i][j].y = j;
             }
         }
 
@@ -611,7 +634,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         }
     }
 
-    protected void PreCalculateGameplayInfo()
+    virtual protected void PreCalculateGameplayInfo()
     {
         //print("PreCalculateGameplayInfo");
         CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);
