@@ -32,8 +32,8 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     public float pathRate = 0;
 
-    //public bool allConnect = true;
-    //public bool extendTerminal = true;
+    public bool FinishAtDeepest = false;       //ノ瞒程环┬丁沧翴
+
     public GameObject finishPortalRef;
     public bool portalAfterFirstRoomGamplay = false;
     public bool createWallCollider = true;
@@ -689,6 +689,30 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     protected void ProcessInitFinish()
     {
+        CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);
+        if (FinishAtDeepest)
+        {
+            int deepMax = -1;
+            cellInfo mostDeepCell = null;
+            for (int x = 0; x < puzzleWidth; x++)
+            {
+                for (int y = 0; y < puzzleHeight; y++)
+                {
+                    if (puzzleMap[x][y].deep > deepMax)
+                    {
+                        deepMax = puzzleMap[x][y].deep;
+                        mostDeepCell = puzzleMap[x][y];
+                    }
+                }
+            }
+            if (mostDeepCell != null)
+            {
+                print("程环隔畖 = " + mostDeepCell.deep);
+                puzzleEnd.x = mostDeepCell.x;
+                puzzleEnd.y = mostDeepCell.y;
+            }
+        }
+
         startPos = GetCellCenterPos(puzzleStart.x, puzzleStart.y);
         endPos = GetCellCenterPos(puzzleEnd.x, puzzleEnd.y);
 

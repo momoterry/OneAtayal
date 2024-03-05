@@ -26,11 +26,33 @@ public class MG_MazeOneBT : MG_MazeOneBase
         {
             BuildMapImmediate();
         }
+
+        //CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);
+        //int deepMax = -1;
+        //cellInfo mostDeepCell = null;
+        //for (int x=0; x<puzzleWidth; x++)
+        //{
+        //    for (int y=0; y<puzzleHeight; y++)
+        //    {
+        //        if (puzzleMap[x][y].deep > deepMax)
+        //        {
+        //            deepMax = puzzleMap[x][y].deep;
+        //            mostDeepCell = puzzleMap[x][y];
+        //        }
+        //    }
+        //}
+        //if (mostDeepCell != null)
+        //{
+        //    print("³Ì»·¸ô®| = " + mostDeepCell.deep);
+        //    puzzleEnd.x = mostDeepCell.x;
+        //    puzzleEnd.y = mostDeepCell.y;
+        //}
     }
 
     protected override void PreCalculateGameplayInfo()
     {
-
+        if (!isDebug)
+            base.PreCalculateGameplayInfo();
     }
 
 
