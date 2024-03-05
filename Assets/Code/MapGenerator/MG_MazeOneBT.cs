@@ -56,19 +56,6 @@ public class MG_MazeOneBT : MG_MazeOneBase
     }
 
 
-    //protected void RunTraceAtCell(cellInfo cell)
-    //{
-    //    if (cell.x > 0)
-    //        ConnectCells(cell, puzzleMap[cell.x - 1][cell.y], DIRECTION.L);
-    //    if (cell.x < puzzleWidth - 1)
-    //        ConnectCells(cell, puzzleMap[cell.x + 1][cell.y], DIRECTION.R);
-    //    if (cell.y > 0)
-    //        ConnectCells(cell, puzzleMap[cell.x][cell.y - 1], DIRECTION.D);
-    //    if (cell.y < puzzleHeight - 1)
-    //        ConnectCells(cell, puzzleMap[cell.x][cell.y + 1], DIRECTION.U);
-    //}
-
-
     protected cellInfo TryConnectRandomCell(cellInfo cell)
     {
         List<DIRECTION> choices = new List<DIRECTION>();
