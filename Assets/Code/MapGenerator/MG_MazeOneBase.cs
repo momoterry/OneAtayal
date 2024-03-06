@@ -99,6 +99,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         public bool isMain; //是否主幹道
         public int mainDeep; //主幹道上的深度
         //public DIRECTION from;  //離起點最近的方向
+        public bool isPath;
 
         public int value = NORMAL;
         public const int NORMAL = 0;
@@ -414,10 +415,10 @@ public class MG_MazeOneBase : MapGeneratorBase
         int wallHeight = this.wallHeight;
         int roomWidth = this.roomWidth;
         int roomHeight = this.roomHeight;
-        bool isPath = Random.Range(0, 1.0f) < pathRate;
+        //bool isPath = Random.Range(0, 1.0f) < pathRate;
         //if (cell.value == cellInfo.TERNIMAL)
         //    isPath = true;
-        if (isPath)
+        if (cell.isPath)
         {
             wallWidth = (roomWidth - pathWidth) / 2 + wallWidth;
             wallHeight = (roomHeight - pathHeight) / 2 + wallHeight;
@@ -639,13 +640,33 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     virtual protected void PreCalculateGameplayInfo()
     {
+        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
+        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+
+        if (pathRate > 0)
+        {
+            List<cellInfo> allCells = new List<cellInfo>();
+            for (int x = 0; x < puzzleWidth; x++)
+            {
+                for (int y = 0; y < puzzleHeight; y++)
+                {
+                    if (puzzleMap[x][y].value == cellInfo.NORMAL)
+                    {
+                        allCells.Add(puzzleMap[x][y]);
+                    }
+                }
+            }
+            OneUtility.Shuffle<cellInfo>(allCells);
+            int pathNum = Mathf.RoundToInt(pathRate * allCells.Count);
+            for (int i = 0; i < pathNum; i++)
+            {
+                allCells[i].isPath = true;
+            }
+        }
         //print("PreCalculateGameplayInfo");
         //CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);   //移到 ProcessInitFinish()
         int maxMainDeep = puzzleMap[puzzleEnd.x][puzzleEnd.y].deep;
         CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.NONE, true, maxMainDeep);
-
-        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
 
         if (gameManager)
         {
