@@ -22,6 +22,7 @@ public class BookShopMenu : MonoBehaviour
     protected List<GameObject> itemList = new List<GameObject>();
     protected BookItemInfo[] bookInfos;
 
+
     public void OpenMenu(BookItemInfo[] infos)
     {
         bookInfos = infos;
@@ -53,6 +54,9 @@ public class BookShopMenu : MonoBehaviour
                 rt.anchoredPosition = new Vector2(startX + (stepWidth * col), startY - (stepHeight * row));
             }
             o.SetActive(true);
+
+            BookShopItem bi = o.GetComponent<BookShopItem>();
+            bi.InitValue(this, bookInfos[i]);
         }
     }
 
