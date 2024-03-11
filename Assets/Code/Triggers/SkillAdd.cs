@@ -29,11 +29,11 @@ public class SkillAdd : MonoBehaviour
                     thePC.SetActiveSkill(skillOneToAdd, i);
                     break;
                 }
-                if (forceAddIfFull)
-                {
-                    //沒有空的技能欄，強迫清掉技能 I
-                    thePC.SetActiveSkill(skillOneToAdd, 1);
-                }
+            }
+            if (forceAddIfFull)
+            {
+                //沒有空的技能欄，強迫清掉技能 I
+                thePC.SetActiveSkill(skillOneToAdd, 1);
             }
         }
         else

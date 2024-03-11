@@ -210,7 +210,7 @@ public class PC_One : PlayerControllerBase
 
         if (activeSkillls[index])
         {
-            Destroy(activeSkillls[index]);
+            Destroy(activeSkillls[index].gameObject);
             activeSkillls[index] = null;
         }
 
