@@ -5,6 +5,7 @@ using UnityEngine;
 public class SkillAdd : MonoBehaviour
 {
     public SkillBase skillOneToAdd;
+    public bool forceAddIfFull = false;     //如果為 true，強迫第一個技能清掉
 
     void OnTG(GameObject whoTG)
     {
@@ -27,6 +28,11 @@ public class SkillAdd : MonoBehaviour
                     print("找到空的欄位: " + i);
                     thePC.SetActiveSkill(skillOneToAdd, i);
                     break;
+                }
+                if (forceAddIfFull)
+                {
+                    //沒有空的技能欄，強迫清掉技能 I
+                    thePC.SetActiveSkill(skillOneToAdd, 1);
                 }
             }
         }
