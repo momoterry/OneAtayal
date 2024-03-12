@@ -22,7 +22,7 @@ public class BookCard : MonoBehaviour
         BookName.text = dInfo.dollName + "¥l³ê®Ñ";
         Doll doll = dInfo.objRef.GetComponent<Doll>();
         HitBody hBody = dInfo.objRef.GetComponent<HitBody>();
-        float attack = doll.AttackInit * skill.ATK_Percent / 100.0f;
+        float attack = skill.ATK_Percent;
         float hp = hBody.HP_Max * skill.HP_Percent / 100.0f;
         DollStatText.text = "";
         DollStatText.text += "¦å¶q " + Mathf.RoundToInt(hp) + "\n";

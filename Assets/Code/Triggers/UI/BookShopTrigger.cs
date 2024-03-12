@@ -20,6 +20,9 @@ public class BookShopTrigger : MonoBehaviour
 
                 skill.ATK_Percent = skill.ATK_Percent * Random.Range(0.5f, 1.75f);
                 skill.HP_Percent = skill.HP_Percent * Random.Range(0.5f, 1.75f);
+                skill.ATK_Percent = Mathf.Round(skill.ATK_Percent / 10.0f) * 10.0f;
+                skill.HP_Percent = Mathf.Round(skill.HP_Percent / 10.0f) * 10.0f;
+
 
                 info.SkillRef = skill;
                 o.SetActive(true);
