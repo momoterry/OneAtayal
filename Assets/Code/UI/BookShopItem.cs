@@ -31,7 +31,7 @@ public class BookShopItem : MonoBehaviour
 
     public void OnSelected()
     {
-        print("OnSelected");
+        //print("OnSelected");
         if (myCB != null)
             myCB(myIndex);
     }

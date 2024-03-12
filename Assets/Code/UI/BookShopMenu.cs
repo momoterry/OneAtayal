@@ -19,6 +19,7 @@ public class BookShopMenu : MonoBehaviour
     public Transform MenuRoot;
     public GameObject SelectCursor;
     public BookShopItem ItemRef;
+    public BookCard bookCard;
 
     protected List<BookShopItem> itemList = new List<BookShopItem>();
     protected BookItemInfo[] bookInfos;
@@ -36,6 +37,7 @@ public class BookShopMenu : MonoBehaviour
         MenuRoot.gameObject.SetActive(true);
         if (SelectCursor)
             SelectCursor.SetActive(false);
+        bookCard.gameObject.SetActive(false);
         BattleSystem.GetPC().ForceStop(true);
     }
 
@@ -90,17 +92,19 @@ public class BookShopMenu : MonoBehaviour
 
     public void ItemClickCB(int _index)
     {
-        print("Clicked " + _index);
+        //print("Clicked " + _index);
         BookShopItem bi = itemList[_index];
 
         currSelectItem = bi;
 
-        RectTransform rt = bi.GetComponent<RectTransform>();
         if (SelectCursor)
         {
             SelectCursor.transform.position = bi.transform.position;
             SelectCursor.SetActive(true);
         }
+
+        bookCard.SetCard(bookInfos[_index].SkillRef);
+        bookCard.gameObject.SetActive(true);
     }
 
 
