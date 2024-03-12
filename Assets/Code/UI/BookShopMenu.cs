@@ -17,23 +17,33 @@ public class BookShopMenu : MonoBehaviour
     }
 
     public Transform MenuRoot;
-    public GameObject ItemRef;
+    public GameObject SelectCursor;
+    public BookShopItem ItemRef;
 
-    protected List<GameObject> itemList = new List<GameObject>();
+    protected List<BookShopItem> itemList = new List<BookShopItem>();
     protected BookItemInfo[] bookInfos;
+    protected BookShopItem currSelectItem = null;
 
+    private void Awake()
+    {
+        MenuRoot.gameObject.SetActive(false);
+    }
 
     public void OpenMenu(BookItemInfo[] infos)
     {
         bookInfos = infos;
         CreateItems();
         MenuRoot.gameObject.SetActive(true);
+        if (SelectCursor)
+            SelectCursor.SetActive(false);
+        BattleSystem.GetPC().ForceStop(true);
     }
 
     public void CloseMenu()
     {
         MenuRoot.gameObject.SetActive(false);
         ClearItems();
+        BattleSystem.GetPC().ForceStop(false);
     }
 
     protected void CreateItems()
@@ -41,13 +51,19 @@ public class BookShopMenu : MonoBehaviour
         const int numPerRow = 4;
         const float stepWidth = 36.0f;
         const float stepHeight = 36.0f;
-        const float startX = -54.0f;
-        const float startY = 92.0f;
+        float startX = -54.0f;
+        float startY = 60.0f;
+        RectTransform rrt = ItemRef.GetComponent<RectTransform>();
+        if (rrt){
+            startX = rrt.anchoredPosition.x;
+            startY = rrt.anchoredPosition.y;
+        }
+
         for (int i=0; i< bookInfos.Length; i++)
         {
             int row = i / numPerRow;
             int col = i % numPerRow;
-            GameObject o = Instantiate(ItemRef, MenuRoot);
+            GameObject o = Instantiate(ItemRef.gameObject, MenuRoot);
             RectTransform rt = o.GetComponent<RectTransform>();
             if (rt)
             {
@@ -56,17 +72,36 @@ public class BookShopMenu : MonoBehaviour
             o.SetActive(true);
 
             BookShopItem bi = o.GetComponent<BookShopItem>();
-            bi.InitValue(this, bookInfos[i]);
+            bi.InitValue(i, bookInfos[i], ItemClickCB);
+
+            itemList.Add(bi);
         }
     }
 
     protected void ClearItems()
     {
-        foreach (GameObject item in itemList)
+        foreach (BookShopItem item in itemList)
         {
-            Destroy(item);
+            Destroy(item.gameObject);
         }
         itemList.Clear();
     }
+
+
+    public void ItemClickCB(int _index)
+    {
+        print("Clicked " + _index);
+        BookShopItem bi = itemList[_index];
+
+        currSelectItem = bi;
+
+        RectTransform rt = bi.GetComponent<RectTransform>();
+        if (SelectCursor)
+        {
+            SelectCursor.transform.position = bi.transform.position;
+            SelectCursor.SetActive(true);
+        }
+    }
+
 
 }
