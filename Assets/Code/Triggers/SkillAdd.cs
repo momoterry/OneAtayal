@@ -20,17 +20,18 @@ public class SkillAdd : MonoBehaviour
 
         if (skillOneToAdd)
         {
-            //thePC.SetActiveSkill(skillOneToAdd, 1);
+            int foundIndex = -1;
             for (int i = 1; i < maxSkill; i++)
             {
                 if (thePC.GetActiveSkill(i) == null)
                 {
                     print("找到空的欄位: " + i);
                     thePC.SetActiveSkill(skillOneToAdd, i);
+                    foundIndex = i;
                     break;
                 }
             }
-            if (forceAddIfFull)
+            if (foundIndex < 0 && forceAddIfFull)
             {
                 //沒有空的技能欄，強迫清掉技能 I
                 thePC.SetActiveSkill(skillOneToAdd, 1);
