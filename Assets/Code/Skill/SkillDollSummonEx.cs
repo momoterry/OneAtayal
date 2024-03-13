@@ -14,7 +14,7 @@ public class SkillDollSummonEx : SkillBase
 
     private void Awake()
     {
-        if (dollID != "")
+        if (dollID != "" && GameSystem.GetDollData())
         {
             dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
             if (dollRef)

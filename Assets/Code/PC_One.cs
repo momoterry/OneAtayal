@@ -223,6 +223,10 @@ public class PC_One : PlayerControllerBase
             //SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(index + 1);
             activeSkillls[index].InitButton(sb);
             activeSkillls[index].SetSkillIndex(index);
+            if (sb)
+            {
+                sb.gameObject.SetActive(true);
+            }
         }
         else
         {
