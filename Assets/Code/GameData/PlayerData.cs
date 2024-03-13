@@ -150,18 +150,6 @@ public class PlayerData : MonoBehaviour
     }
     public bool IsReady() { return isReady; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //print("==== PlayerData.Start()");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SetMainCharacterData(CharacterStat stat)
     {
         mainCharacterStat = stat;
