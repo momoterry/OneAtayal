@@ -9,6 +9,7 @@ using UnityEngine;
 [System.Serializable]
 public class BookEquipSave
 {
+    public int uID;
     public string skillID;
     public int HP_Percent;
     public int ATK_Percent;

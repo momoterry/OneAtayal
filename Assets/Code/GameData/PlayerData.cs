@@ -6,6 +6,8 @@ using UnityEngine;
 
 //PlayerData 記錄玩家跨關卡間的進度內容
 //都要加上 [System.Serializable] 才能確保被 Json 轉到
+
+//Item: 素材等可以堆疊的物件
 [System.Serializable]
 public struct SaveDataItem
 {
@@ -69,6 +71,7 @@ public class SaveData{
     public SaveDataBackpckItem[] dollBackpack;
     public SaveDataEventItem[] eventData;
     public DollInstanceData[] usingDIs;
+    public BookEquipSaveAll bookEquipAll;
     public WorldMapSaveData worldMap;
     public MapSavePerlinField[] savedPFields;
     public MapSaveMazeDungeon[] savedMazes;
@@ -231,6 +234,8 @@ public class PlayerData : MonoBehaviour
             }
         }
 
+        data.bookEquipAll = GameSystem.GetInstance().theBookEquipManager.ToSaveData();
+
         if (savedMaps.Count > 0)
         {
             int nPF = 0; 
@@ -327,6 +332,11 @@ public class PlayerData : MonoBehaviour
             {
                 SaveEvent(data.eventData[i].Event, data.eventData[i].status);
             }
+        }
+
+        if (data.bookEquipAll != null)
+        {
+            GameSystem.GetInstance().theBookEquipManager.FromLoadData(data.bookEquipAll);
         }
 
         if (data.savedPFields !=null && data.savedPFields.Length > 0)

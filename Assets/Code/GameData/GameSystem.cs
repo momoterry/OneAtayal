@@ -16,6 +16,7 @@ public class GameSystem : MonoBehaviour
     public PlayerData thePlayerData;
     public LevelManager theLevelManager;
     public DollData theDollData;
+    public BookEquipManager theBookEquipManager;
     public DungeonData theDungeonData;
     public WorldMap theWorldMap;
 

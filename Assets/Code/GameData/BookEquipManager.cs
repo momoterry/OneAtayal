@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class BookEquipSaveAll
+public class BookEquipSaveAll   // 存檔資料
 {
     public BookEquipSave[] Inventory;
     public BookEquipSave[] equipped;
 }
+
+
 
 public class BookEquipManager : MonoBehaviour
 {
@@ -26,6 +28,7 @@ public class BookEquipManager : MonoBehaviour
         return new BookEquipSaveAll();
     }
 
+    //注意!! Load
     public void FromLoadData(BookEquipSaveAll data)
     {
         print("BookEquipManager.FromLoadData");
