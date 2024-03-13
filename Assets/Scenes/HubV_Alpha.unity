@@ -42488,62 +42488,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5992393861852875048, guid: e7dfc5d224fdcf844872b104cb8f3c4a, type: 3}
   m_PrefabInstance: {fileID: 843805194}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &868300296
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 868300298}
-  - component: {fileID: 868300297}
-  m_Layer: 0
-  m_Name: BA_Doll_Ace_EX_TEST
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &868300297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868300296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc3f9022276da6343a34e621f9d0039d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageRatio: 1
-  duration: 0.2
-  manaCost: 0
-  coolDown: 0
-  battlePointsCost: 2
-  icon: {fileID: 0}
-  HP_Percent: 500
-  ATK_Percent: 500
-  dollID: DollAce
-  dollRef: {fileID: 0}
-  summonFX: {fileID: 1730805568862363463, guid: a317ae504c9dcdf4d8c1206bcc149841, type: 3}
-  defaultSummonDistance: 2
---- !u!4 &868300298
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868300296}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2093501359}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &871241651
 GameObject:
   m_ObjectHideFlags: 0
@@ -44592,7 +44536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1130883533
 Transform:
   m_ObjectHideFlags: 0
@@ -56892,7 +56836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de596eb0ec29f204bbbb9a7262dee624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillOneToAdd: {fileID: 868300297}
+  skillOneToAdd: {fileID: 5741984129758497934, guid: d166160cfba47d84f8f8bca296400f53, type: 3}
   forceAddIfFull: 1
 --- !u!4 &2093501359
 Transform:
@@ -56910,7 +56854,6 @@ Transform:
   - {fileID: 222668609}
   - {fileID: 871241652}
   - {fileID: 1950560799}
-  - {fileID: 868300298}
   m_Father: {fileID: 0}
   m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
