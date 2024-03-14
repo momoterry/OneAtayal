@@ -25,12 +25,32 @@ public class BookEquipTestTrigger : MonoBehaviour
         newEquip.ATK_Percent = Random.Range(ATK_Percent_Min, ATK_Percent_Max);
         newEquip.HP_Percent = Random.Range(HP_Percent_Min, HP_Percent_Max);
 
-        BookEquipManager.GetInsatance().AddToInventory(newEquip);
         print("新增裝備: ATK: " + newEquip.ATK_Percent + " HP: " + newEquip.HP_Percent);
 
+        bool isEquip = false;
         if (forceEquip)
         {
-
+            for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
+            {
+                if (BookEquipManager.GetInsatance().GetCurrEquip(i) == null)
+                {
+                    print("空欄位 "+ i + " 裝備 EquipBook: " + newEquip.uID);
+                    BookEquipManager.GetInsatance().Equip(newEquip, i);
+                    isEquip = true;
+                    break;
+                }
+            }
+            if (!isEquip)
+            {
+                print("強迫裝備 EquipBook: " + newEquip.uID);
+                BookEquipManager.GetInsatance().Equip(newEquip, 0);
+                isEquip = true;
+            }
+        }
+        if (!isEquip)
+        {
+            print("放進背包: " + newEquip.uID);
+            BookEquipManager.GetInsatance().AddToInventory(newEquip);
         }
 
         GameSystem.GetInstance().SaveData();

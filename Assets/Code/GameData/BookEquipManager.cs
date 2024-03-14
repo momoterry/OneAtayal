@@ -51,11 +51,6 @@ public class BookEquipManager : MonoBehaviour
         print("BookEquipManager.ToSaveData");
         BookEquipSaveAll data = new BookEquipSaveAll();
         data.Equipped = equipped;
-        for (int i=0; i<data.Equipped.Length; i++)
-        {
-            print(i);
-        }
-        //print("data.Equipped :" + data.Equipped.Length);
         data.Inventory = new BookEquipSave[inventory.Count];
         for (int i=0; i<inventory.Count; i++)
         {
@@ -114,6 +109,8 @@ public class BookEquipManager : MonoBehaviour
     {
         BookEquipSave o = new BookEquipSave();
         o.uID = GameSystem.GetPlayerData().GenerateUniqueId();
+        o.ATK_Percent = 100;
+        o.HP_Percent = 100;
         return o;
     }
 
@@ -170,5 +167,14 @@ public class BookEquipManager : MonoBehaviour
     //    }
     //    return null;
     //}
+
+    public BookEquipSave GetCurrEquip(int slotIndex)
+    {
+        if (slotIndex >= 0 && slotIndex < MAX_BOOKEQUIP)
+        {
+            return equipped[slotIndex];
+        }
+        return null;
+    }
 
 }

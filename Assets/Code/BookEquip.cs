@@ -11,8 +11,8 @@ public class BookEquipSave
 {
     public int uID = 0;
     public string skillID = "";
-    public int ATK_Percent = 100;
-    public int HP_Percent = 100;
+    public int ATK_Percent = 0;
+    public int HP_Percent = 0;
 }
 
 public class BookEquip : MonoBehaviour
