@@ -12,7 +12,7 @@ public class BookEquipTestTrigger : MonoBehaviour
     public int ATK_Percent_Min = 100;
     public int ATK_Percent_Max = 200;
 
-    //public bool forceEquip = false;
+    public bool forceEquip = false;
 
     public void OnTG(GameObject whoTG)
     {
@@ -27,6 +27,11 @@ public class BookEquipTestTrigger : MonoBehaviour
 
         BookEquipManager.GetInsatance().AddToInventory(newEquip);
         print("新增裝備: ATK: " + newEquip.ATK_Percent + " HP: " + newEquip.HP_Percent);
+
+        if (forceEquip)
+        {
+
+        }
 
         GameSystem.GetInstance().SaveData();
         whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應

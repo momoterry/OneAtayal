@@ -117,6 +117,11 @@ public class BookEquipManager : MonoBehaviour
         return o;
     }
 
+    public void DestroyOne(BookEquipSave equip)
+    {
+        GameSystem.GetPlayerData().UnRegisterUsedID(equip.uID);
+    }
+
     //====================== Inventory 相關的操作
     public int GetInventorySize()
     {
@@ -141,7 +146,29 @@ public class BookEquipManager : MonoBehaviour
 
     public void Equip(BookEquipSave equip, int slotIndex)
     {
-
+        if (slotIndex >= 0 && slotIndex < MAX_BOOKEQUIP)
+        {
+            BookEquipSave old = equipped[slotIndex];
+            if (old != null)
+            {
+                AddToInventory(old);
+            }
+            equipped[slotIndex] = equip;
+        }
     }
+
+    //public BookEquipSave UnEquip(int slotIndex)
+    //{
+    //    if (slotIndex >=0 && slotIndex < MAX_BOOKEQUIP){
+    //        BookEquipSave old = equipped[slotIndex];
+    //        if (old != null)
+    //        {
+    //            AddToInventory(old);
+    //        }
+    //        equipped[slotIndex] = null;
+    //        return old;
+    //    }
+    //    return null;
+    //}
 
 }
