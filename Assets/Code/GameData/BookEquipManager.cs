@@ -25,13 +25,14 @@ public class BookEquipManager : MonoBehaviour
     static public BookEquipManager GetInsatance() { return instance; }
 
     protected BookEquipSave[] equipped = new BookEquipSave[MAX_BOOKEQUIP];
+    protected BookEquip[] equipInstances = new BookEquip[MAX_BOOKEQUIP];
     protected List<BookEquipSave> inventory = new List<BookEquipSave>();
 
     static Dictionary<string, SkillDollSummonEx> skillMap = new Dictionary<string, SkillDollSummonEx>();
 
     public BookEquipManager() : base()
     {
-        print("--BookEquipManager");
+        //print("--BookEquipManager");
         if (instance != null)
             print("ERROR !! 超過一份 BookEquipManager 存在 ... ");
         instance = this;
@@ -46,16 +47,36 @@ public class BookEquipManager : MonoBehaviour
         }
     }
 
+    public void InitSave()
+    {
+        inventory.Clear();
+        for (int i=0; i<MAX_BOOKEQUIP; i++)
+        {
+            equipped[i] = null;
+            if (equipInstances[i])
+            {
+                Destroy(equipInstances[i].gameObject);
+                equipInstances[i] = null;
+            }
+        }
+    }
+
     public BookEquipSaveAll ToSaveData()
     {
         print("BookEquipManager.ToSaveData");
         BookEquipSaveAll data = new BookEquipSaveAll();
-        data.Equipped = equipped;
+        //data.Equipped = equipped;
+        data.Equipped = new BookEquipSave[MAX_BOOKEQUIP];
+        for (int i=0; i<MAX_BOOKEQUIP; i++)
+        {
+            data.Equipped[i] = equipped[i];
+        }
         data.Inventory = new BookEquipSave[inventory.Count];
         for (int i=0; i<inventory.Count; i++)
         {
             data.Inventory[i] = inventory[i];
         }
+
         return data;
     }
 
@@ -86,14 +107,9 @@ public class BookEquipManager : MonoBehaviour
                 inventory.Add(data.Inventory[i]);
             }
         }
-        print("inventory: " + inventory.Count);
+        //print("inventory: " + inventory.Count);
     }
 
-    //主角裝備初始化
-    public void SetupToPC()
-    {
-        print("BookEquipManager.SetupToPC");
-    }
 
     public SkillDollSummonEx GetSkillByID(string ID)
     {
@@ -102,6 +118,22 @@ public class BookEquipManager : MonoBehaviour
             return skillMap[ID];
         }
         return null;
+    }
+
+    protected void DebugCheck()
+    {
+        print("equipped check ...........");
+        for (int i = 0; i < MAX_BOOKEQUIP; i++)
+        {
+            BookEquipSave eq = equipped[i];
+            print("=> " + i + "uID: " + (eq == null ? "null" : eq.uID.ToString()) + " ATK: " + (eq == null ? "0x0" : eq.ATK_Percent.ToString()));
+        }
+        print("inventory check ..........." + inventory.Count);
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            BookEquipSave eq = inventory[i];
+            print("=> " + i + "uID: " + (eq == null ? "null" : eq.uID.ToString()));
+        }
     }
 
     //====================== 各種 BookEquip 操作
@@ -117,6 +149,55 @@ public class BookEquipManager : MonoBehaviour
     public void DestroyOne(BookEquipSave equip)
     {
         GameSystem.GetPlayerData().UnRegisterUsedID(equip.uID);
+    }
+
+    protected void SetupEquipOnPlayer(int slotIndex)
+    {
+        print("SetupEquipOnPlayer " + slotIndex + "equip ? " + (equipped[slotIndex] == null? "0x0": equipped[slotIndex].uID.ToString()));
+        if (slotIndex < 0 || slotIndex >= MAX_BOOKEQUIP)
+        {
+            return;
+        }
+
+        SkillDollSummonEx skill = null;
+        BookEquipSave equip = equipped[slotIndex];
+        BookEquip inst = equipInstances[slotIndex];
+
+        if (inst != null && equip != null && inst.GetUID() == equip.uID)
+        {
+            print("穿到同一件  ....");
+            return;
+        }
+
+        if (inst != null)
+        {
+            print("清除舊的 Instance  ....");
+            Destroy(inst.gameObject);
+        }
+
+        if (equip != null)
+        {
+            print("建立新的 Instance  ....");
+            GameObject o = new GameObject("BookEquip_" + slotIndex);
+            BookEquip equipInstance = o.AddComponent<BookEquip>();
+            equipInstance.FromSave(equip);
+            skill = equipInstance.skill;
+            equipInstances[slotIndex] = equipInstance;
+        }
+        else
+        {
+            print("空的裝  ....");
+            skill = null;
+            equipInstances[slotIndex] = null;
+        }
+
+        PC_One thePC = BattleSystem.GetInstance().GetPlayer().GetComponent<PC_One>();
+        if (thePC == null)
+        {
+            print("ERROR!! BookEquipManagger only supoort PC_One!!!!");
+            return;
+        }
+        thePC.SetActiveSkill(skill, slotIndex + 1);
     }
 
     //====================== Inventory 相關的操作
@@ -151,6 +232,8 @@ public class BookEquipManager : MonoBehaviour
                 AddToInventory(old);
             }
             equipped[slotIndex] = equip;
+
+            SetupEquipOnPlayer(slotIndex);
         }
     }
 
@@ -177,4 +260,16 @@ public class BookEquipManager : MonoBehaviour
         return null;
     }
 
+    //主角裝備初始化
+    public void InitEquipsOnPC()
+    {
+        print("BookEquipManager.SetupToPC");
+        DebugCheck();
+        for (int i=0; i<MAX_BOOKEQUIP; i++)
+        {
+            SetupEquipOnPlayer(i);
+        }
+
+        DebugCheck();
+    }
 }

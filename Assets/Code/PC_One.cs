@@ -164,6 +164,10 @@ public class PC_One : PlayerControllerBase
             }
         }
 
+        //檢查跨關卡技能之前，先穿上裝備 (BookEquip)
+        activeSkillls = new SkillBase[activeSkillRefs.Length];
+        BookEquipManager.GetInsatance().InitEquipsOnPC();
+
         //先檢查存檔
         SkillBase savedAutoSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(AUTO_SKILL);
         if (savedAutoSkillRef)
@@ -193,7 +197,7 @@ public class PC_One : PlayerControllerBase
 
         if (activeSkillRefs.Length > 0)
         {
-            activeSkillls = new SkillBase[activeSkillRefs.Length];
+            //activeSkillls = new SkillBase[activeSkillRefs.Length];    //因為會有裝備的關係，需要 new
             for (int i = 0; i < activeSkillRefs.Length; i++)
             {
                 //activeSkillls[i] = Instantiate(activeSkillRefs[i], transform);

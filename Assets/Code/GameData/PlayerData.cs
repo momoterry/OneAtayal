@@ -145,6 +145,8 @@ public class PlayerData : MonoBehaviour
 
         GameSystem.GetWorldMap().Init();
         GameSystem.GetLevelManager().InitFirstLevel();
+        BookEquipManager.GetInsatance().InitSave();
+
     }
 
     public void SetDataReady()

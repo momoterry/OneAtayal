@@ -11,7 +11,7 @@ public class BookEquipSave
 {
     public int uID = 0;
     public string skillID = "";
-    public int ATK_Percent = 0;
+    public int ATK_Percent = 44;
     public int HP_Percent = 0;
 }
 
@@ -21,6 +21,11 @@ public class BookEquip : MonoBehaviour
     
     protected BookEquipSave save;
 
+    public int GetUID()
+    {
+        return save.uID;
+    }
+
     public BookEquipSave ToSave()
     {
         return save;
@@ -29,7 +34,10 @@ public class BookEquip : MonoBehaviour
     public void FromSave(BookEquipSave _save)
     {
         save = _save;
-        //TODO:
-        //在這裡建立 skill Instance
+
+        SkillDollSummonEx skillRef = BookEquipManager.GetInsatance().GetSkillByID(save.skillID);
+        skill = Instantiate(skillRef, transform);
+        skill.ATK_Percent = save.ATK_Percent;
+        skill.HP_Percent = save.HP_Percent;
     }
 }
