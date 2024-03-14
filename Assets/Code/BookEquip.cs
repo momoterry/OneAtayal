@@ -9,10 +9,10 @@ using UnityEngine;
 [System.Serializable]
 public class BookEquipSave
 {
-    public int uID;
-    public string skillID;
-    public int HP_Percent;
-    public int ATK_Percent;
+    public int uID = 0;
+    public string skillID = "";
+    public int ATK_Percent = 100;
+    public int HP_Percent = 100;
 }
 
 public class BookEquip : MonoBehaviour

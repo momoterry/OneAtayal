@@ -115,11 +115,11 @@ public class PlayerData : MonoBehaviour
         return id;
     }
 
-    protected void RegisterUsedID(int _id)
+    public void RegisterUsedID(int _id)
     {
         usedIds.Add(_id);
     }
-    protected void UnRegisterUsedID(int _id)
+    public void UnRegisterUsedID(int _id)
     {
         usedIds.Remove(_id);
     }
@@ -234,7 +234,7 @@ public class PlayerData : MonoBehaviour
             }
         }
 
-        data.bookEquipAll = GameSystem.GetInstance().theBookEquipManager.ToSaveData();
+        data.bookEquipAll = BookEquipManager.GetInsatance().ToSaveData();
 
         if (savedMaps.Count > 0)
         {
@@ -336,7 +336,7 @@ public class PlayerData : MonoBehaviour
 
         if (data.bookEquipAll != null)
         {
-            GameSystem.GetInstance().theBookEquipManager.FromLoadData(data.bookEquipAll);
+            BookEquipManager.GetInsatance().FromLoadData(data.bookEquipAll);
         }
 
         if (data.savedPFields !=null && data.savedPFields.Length > 0)
