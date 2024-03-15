@@ -7,12 +7,22 @@ public class BookInventoryMenu : MonoBehaviour
 
     public Transform MenuRoot;
     public BookInventoryItem ItemRef;
+    public BookInventoryItem EquippedRef;
     public BookCard bookCard;
 
-    public BookInventoryItem EquippedRef;
+    public GameObject inventoryCursor;
+    public GameObject equippedCursor;
 
     protected List<BookInventoryItem> itemList = new List<BookInventoryItem>();
-    //protected BookEquipManager bm;
+
+    protected enum SELECT_PHASE
+    {
+        NONE,
+        INVENTORY,
+        EQUIP,
+    }
+    protected SELECT_PHASE selectPhase = SELECT_PHASE.NONE;
+    protected BookEquipSave lastSelect;
 
     private void Awake()
     {
@@ -21,12 +31,12 @@ public class BookInventoryMenu : MonoBehaviour
 
     public void OpenMenu()
     {
-        //bm = BookEquipManager.GetInsatance();
-
         CreateItems();
         MenuRoot.gameObject.SetActive(true);
-        //if (SelectCursor)
-        //    SelectCursor.SetActive(false);
+
+        selectPhase = SELECT_PHASE.NONE;
+        lastSelect = null;
+
         bookCard.gameObject.SetActive(false);
         BattleSystem.GetPC().ForceStop(true);
     }
@@ -105,22 +115,41 @@ public class BookInventoryMenu : MonoBehaviour
     public void ItemClickCB(int _index)
     {
         BookEquipSave equip = BookEquipManager.GetInsatance().GetInventoryByIndex(_index);
-        //SkillDollSummonEx skill = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
-        if (bookCard)
+        if (selectPhase == SELECT_PHASE.INVENTORY && lastSelect == equip) 
+        {
+            //찬을
+            print("찬을 Inventory!!");
+            bookCard.gameObject.SetActive(false);
+            lastSelect = null;
+            selectPhase = SELECT_PHASE.NONE;
+            //inventoryCursor.SetActive(false);
+        }
+        else
         {
             bookCard.SetCard(equip);
             bookCard.gameObject.SetActive(true);
+            lastSelect = equip;
+            selectPhase = SELECT_PHASE.INVENTORY;
         }
     }
 
     public void EquippedItemClickCB(int _index)
     {
         BookEquipSave equip = BookEquipManager.GetInsatance().GetCurrEquip(_index);
-        //SkillDollSummonEx skill = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
-        if (bookCard)
+        if (selectPhase == SELECT_PHASE.EQUIP &&�@lastSelect == equip)
+        {
+            //찬을
+            print("찬을 Equip !!");
+            bookCard.gameObject.SetActive(false);
+            lastSelect = null;
+            selectPhase = SELECT_PHASE.NONE;
+        }
+        else
         {
             bookCard.SetCard(equip);
             bookCard.gameObject.SetActive(true);
+            lastSelect = equip;
+            selectPhase = SELECT_PHASE.EQUIP;
         }
     }
 }
