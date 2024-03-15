@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5339036228136457949}
   - component: {fileID: 5117191884495961862}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: ATK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6040,16 +6040,16 @@ GameObject:
   m_Component:
   - component: {fileID: 6788141777128846910}
   - component: {fileID: 4658194275843887200}
+  - component: {fileID: 1634850650139559515}
   - component: {fileID: 9093305705450541474}
   - component: {fileID: 4539001081247887104}
-  - component: {fileID: 4282523064745453127}
   m_Layer: 5
-  m_Name: BookItemRef
+  m_Name: BookInvItemRef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6788141777128846910
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6080,6 +6080,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6707675854133596685}
   m_CullTransparentMesh: 1
+--- !u!114 &1634850650139559515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6707675854133596685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328e4bed15aca2f409d4402348992d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillIcon: {fileID: 8516765601479094402}
+  atkText: {fileID: 5339036228136457949}
 --- !u!114 &9093305705450541474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6154,7 +6168,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4282523064745453127}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BookShopItem, Assembly-CSharp
         m_MethodName: OnSelected
         m_Mode: 1
@@ -6166,20 +6180,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4282523064745453127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6707675854133596685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8aede12863f6e540a88df3534ceaf9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillIcon: {fileID: 8516765601479094402}
-  costText: {fileID: 5339036228136457949}
 --- !u!1 &6752146711135770145
 GameObject:
   m_ObjectHideFlags: 0
@@ -6721,6 +6721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuRoot: {fileID: 1144513725105118162}
+  ItemRef: {fileID: 1634850650139559515}
   bookCard: {fileID: 5165301088362736243}
 --- !u!1 &7149465284633366476
 GameObject:
@@ -8581,7 +8582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7099937855579525475
 RectTransform:
   m_ObjectHideFlags: 0

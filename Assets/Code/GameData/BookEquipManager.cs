@@ -38,13 +38,22 @@ public class BookEquipManager : MonoBehaviour
         instance = this;
     }
 
+    protected bool oneTimeInit = false;
     protected void Awake()
     {
-        for (int i = 0; i < skillMapItems.Length; i++)
+        if (!oneTimeInit)
         {
-            print("SKILL MAP " + i + "" + skillMapItems[i].skillRef.name);
-            skillMap.Add(skillMapItems[i].ID, skillMapItems[i].skillRef);
+            for (int i = 0; i < skillMapItems.Length; i++)
+            {
+                GameObject o = Instantiate(skillMapItems[i].skillRef.gameObject, transform);
+                skillMapItems[i].skillRef = o.GetComponent<SkillDollSummonEx>();
+
+                print("SKILL MAP " + i + "" + skillMapItems[i].skillRef.name);
+                skillMap.Add(skillMapItems[i].ID, skillMapItems[i].skillRef);
+            }
+            oneTimeInit = true;
         }
+
     }
 
     public void InitSave()
@@ -204,6 +213,11 @@ public class BookEquipManager : MonoBehaviour
     public int GetInventorySize()
     {
         return inventory.Count;
+    }
+
+    public BookEquipSave GetInventoryByIndex(int i)
+    {
+        return inventory[i];
     }
 
     public void AddToInventory(BookEquipSave equip)
