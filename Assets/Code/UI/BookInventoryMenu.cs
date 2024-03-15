@@ -9,6 +9,8 @@ public class BookInventoryMenu : MonoBehaviour
     public BookInventoryItem ItemRef;
     public BookCard bookCard;
 
+    public BookInventoryItem EquippedRef;
+
     protected List<BookInventoryItem> itemList = new List<BookInventoryItem>();
     //protected BookEquipManager bm;
 
@@ -67,6 +69,31 @@ public class BookInventoryMenu : MonoBehaviour
 
             itemList.Add(bi);
         }
+
+        //==================== 已裝備介面
+        RectTransform ert = EquippedRef.GetComponent<RectTransform>();
+        if (ert)
+        {
+            startX = ert.anchoredPosition.x;
+            startY = ert.anchoredPosition.y;
+        }
+        for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
+        {
+            BookEquipSave equip = BookEquipManager.GetInsatance().GetCurrEquip(i);
+            if (equip == null)
+                continue;
+            GameObject o = Instantiate(ItemRef.gameObject, MenuRoot);
+            RectTransform rt = o.GetComponent<RectTransform>();
+            if (rt)
+            {
+                rt.anchoredPosition = new Vector2(startX + (stepWidth * i), startY);
+            }
+            o.SetActive(true);
+
+            BookInventoryItem bi = o.GetComponent<BookInventoryItem>();
+            bi.InitValue(i, equip, EquippedItemClickCB);
+
+        }
     }
 
     protected void ClearItems()
@@ -78,6 +105,17 @@ public class BookInventoryMenu : MonoBehaviour
     public void ItemClickCB(int _index)
     {
         BookEquipSave equip = BookEquipManager.GetInsatance().GetInventoryByIndex(_index);
+        //SkillDollSummonEx skill = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
+        if (bookCard)
+        {
+            bookCard.SetCard(equip);
+            bookCard.gameObject.SetActive(true);
+        }
+    }
+
+    public void EquippedItemClickCB(int _index)
+    {
+        BookEquipSave equip = BookEquipManager.GetInsatance().GetCurrEquip(_index);
         //SkillDollSummonEx skill = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
         if (bookCard)
         {

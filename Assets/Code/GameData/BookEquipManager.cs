@@ -251,19 +251,6 @@ public class BookEquipManager : MonoBehaviour
         }
     }
 
-    //public BookEquipSave UnEquip(int slotIndex)
-    //{
-    //    if (slotIndex >=0 && slotIndex < MAX_BOOKEQUIP){
-    //        BookEquipSave old = equipped[slotIndex];
-    //        if (old != null)
-    //        {
-    //            AddToInventory(old);
-    //        }
-    //        equipped[slotIndex] = null;
-    //        return old;
-    //    }
-    //    return null;
-    //}
 
     public BookEquipSave GetCurrEquip(int slotIndex)
     {
