@@ -10,6 +10,7 @@ public class BookInventoryMenu : MonoBehaviour
     public BookCard bookCard;
 
     protected List<BookInventoryItem> itemList = new List<BookInventoryItem>();
+    //protected BookEquipManager bm;
 
     private void Awake()
     {
@@ -18,6 +19,8 @@ public class BookInventoryMenu : MonoBehaviour
 
     public void OpenMenu()
     {
+        //bm = BookEquipManager.GetInsatance();
+
         CreateItems();
         MenuRoot.gameObject.SetActive(true);
         //if (SelectCursor)
@@ -47,9 +50,7 @@ public class BookInventoryMenu : MonoBehaviour
             startY = rrt.anchoredPosition.y;
         }
 
-
-        BookEquipManager bm = BookEquipManager.GetInsatance();
-        for (int i = 0; i < bm.GetInventorySize(); i++)
+        for (int i = 0; i < BookEquipManager.GetInsatance().GetInventorySize(); i++)
         {
             int row = i / numPerRow;
             int col = i % numPerRow;
@@ -62,7 +63,7 @@ public class BookInventoryMenu : MonoBehaviour
             o.SetActive(true);
 
             BookInventoryItem bi = o.GetComponent<BookInventoryItem>();
-            bi.InitValue(i, bm.GetInventoryByIndex(i), ItemClickCB);
+            bi.InitValue(i, BookEquipManager.GetInsatance().GetInventoryByIndex(i), ItemClickCB);
 
             itemList.Add(bi);
         }
@@ -76,6 +77,12 @@ public class BookInventoryMenu : MonoBehaviour
 
     public void ItemClickCB(int _index)
     {
-        print("Iventory ..... " + _index);
+        BookEquipSave equip = BookEquipManager.GetInsatance().GetInventoryByIndex(_index);
+        //SkillDollSummonEx skill = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
+        if (bookCard)
+        {
+            bookCard.SetCard(equip);
+            bookCard.gameObject.SetActive(true);
+        }
     }
 }
