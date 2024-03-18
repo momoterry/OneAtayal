@@ -13,6 +13,8 @@ public class BookInventoryMenu : MonoBehaviour
     public GameObject inventoryCursor;
     public GameObject equippedCursor;
 
+    public Transform[] equippedSlots;
+
     protected List<BookInventoryItem> itemList = new List<BookInventoryItem>();
     protected BookInventoryItem[] equippedArray = new BookInventoryItem[BookEquipManager.MAX_BOOKEQUIP];
 
@@ -69,7 +71,7 @@ public class BookInventoryMenu : MonoBehaviour
         {
             int row = i / numPerRow;
             int col = i % numPerRow;
-            GameObject o = Instantiate(ItemRef.gameObject, MenuRoot);
+            GameObject o = Instantiate(ItemRef.gameObject, ItemRef.transform.parent);
             RectTransform rt = o.GetComponent<RectTransform>();
             if (rt)
             {
@@ -84,23 +86,24 @@ public class BookInventoryMenu : MonoBehaviour
         }
 
         //==================== 已裝備介面
-        RectTransform ert = EquippedRef.GetComponent<RectTransform>();
-        if (ert)
-        {
-            startX = ert.anchoredPosition.x;
-            startY = ert.anchoredPosition.y;
-        }
+        //RectTransform ert = EquippedRef.GetComponent<RectTransform>();
+        //if (ert)
+        //{
+        //    startX = ert.anchoredPosition.x;
+        //    startY = ert.anchoredPosition.y;
+        //}
         for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
         {
             BookEquipSave equip = BookEquipManager.GetInsatance().GetCurrEquip(i);
             if (equip == null)
                 continue;
-            GameObject o = Instantiate(ItemRef.gameObject, MenuRoot);
-            RectTransform rt = o.GetComponent<RectTransform>();
-            if (rt)
-            {
-                rt.anchoredPosition = new Vector2(startX + (stepWidth * i), startY);
-            }
+            GameObject o = Instantiate(EquippedRef.gameObject, EquippedRef.transform.parent);
+            //RectTransform rt = o.GetComponent<RectTransform>();
+            //if (rt)
+            //{
+            //    rt.anchoredPosition = new Vector2(startX + (stepWidth * i), startY);
+            //}
+            o.transform.position = equippedSlots[i].position;
             o.SetActive(true);
 
             BookInventoryItem bi = o.GetComponent<BookInventoryItem>();
