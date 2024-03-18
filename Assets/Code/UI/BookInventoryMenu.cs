@@ -119,9 +119,18 @@ public class BookInventoryMenu : MonoBehaviour
         itemList.Clear();
         for (int i=0; i < equippedArray.Length; i++)
         {
-            Destroy(equippedArray[i].gameObject);
+            if (equippedArray[i] != null)
+            {
+                Destroy(equippedArray[i].gameObject);
+            }
             equippedArray[i] = null;
         }
+    }
+
+    protected void ResetItems()
+    {
+        ClearItems();
+        CreateItems();
     }
 
 
@@ -137,6 +146,27 @@ public class BookInventoryMenu : MonoBehaviour
             lastSelect = null;
             inventoryCursor.SetActive(false);
             selectPhase = SELECT_PHASE.NONE;
+
+            //穿裝操作
+            int validSlot = -1;
+            for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
+            {
+                if (BookEquipManager.GetInsatance().GetCurrEquip(i) == null)
+                {
+                    validSlot = i;
+                    break;
+                }
+            }
+            if (validSlot >= 0)
+            {
+                BookEquipSave o = BookEquipManager.GetInsatance().RemoveFromInventoryByIndex(_index);
+                BookEquipManager.GetInsatance().Equip(o, validSlot);
+                ResetItems();
+            }
+            else
+            {
+                print("裝備己滿，無法再裝................");
+            }
         }
         else
         {
