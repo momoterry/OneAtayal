@@ -14,6 +14,7 @@ public class BookInventoryMenu : MonoBehaviour
     public GameObject equippedCursor;
 
     protected List<BookInventoryItem> itemList = new List<BookInventoryItem>();
+    protected BookInventoryItem[] equippedArray = new BookInventoryItem[BookEquipManager.MAX_BOOKEQUIP];
 
     protected enum SELECT_PHASE
     {
@@ -36,6 +37,8 @@ public class BookInventoryMenu : MonoBehaviour
 
         selectPhase = SELECT_PHASE.NONE;
         lastSelect = null;
+        inventoryCursor.SetActive(false);
+        equippedCursor.SetActive(false);
 
         bookCard.gameObject.SetActive(false);
         BattleSystem.GetPC().ForceStop(true);
@@ -103,17 +106,28 @@ public class BookInventoryMenu : MonoBehaviour
             BookInventoryItem bi = o.GetComponent<BookInventoryItem>();
             bi.InitValue(i, equip, EquippedItemClickCB);
 
+            equippedArray[i] = bi;
         }
     }
 
     protected void ClearItems()
     {
+        foreach(BookInventoryItem bi in itemList)
+        {
+            Destroy(bi.gameObject);
+        }
         itemList.Clear();
+        for (int i=0; i < equippedArray.Length; i++)
+        {
+            Destroy(equippedArray[i].gameObject);
+            equippedArray[i] = null;
+        }
     }
 
 
     public void ItemClickCB(int _index)
     {
+        equippedCursor.SetActive(false);
         BookEquipSave equip = BookEquipManager.GetInsatance().GetInventoryByIndex(_index);
         if (selectPhase == SELECT_PHASE.INVENTORY && lastSelect == equip) 
         {
@@ -121,20 +135,24 @@ public class BookInventoryMenu : MonoBehaviour
             print("찬을 Inventory!!");
             bookCard.gameObject.SetActive(false);
             lastSelect = null;
+            inventoryCursor.SetActive(false);
             selectPhase = SELECT_PHASE.NONE;
-            //inventoryCursor.SetActive(false);
         }
         else
         {
             bookCard.SetCard(equip);
             bookCard.gameObject.SetActive(true);
             lastSelect = equip;
+            inventoryCursor.transform.position = itemList[_index].transform.position;
+            inventoryCursor.SetActive(true);
             selectPhase = SELECT_PHASE.INVENTORY;
+
         }
     }
 
     public void EquippedItemClickCB(int _index)
     {
+        inventoryCursor.SetActive(false);
         BookEquipSave equip = BookEquipManager.GetInsatance().GetCurrEquip(_index);
         if (selectPhase == SELECT_PHASE.EQUIP &&�@lastSelect == equip)
         {
@@ -142,6 +160,7 @@ public class BookInventoryMenu : MonoBehaviour
             print("찬을 Equip !!");
             bookCard.gameObject.SetActive(false);
             lastSelect = null;
+            equippedCursor.SetActive(false);
             selectPhase = SELECT_PHASE.NONE;
         }
         else
@@ -149,6 +168,8 @@ public class BookInventoryMenu : MonoBehaviour
             bookCard.SetCard(equip);
             bookCard.gameObject.SetActive(true);
             lastSelect = equip;
+            equippedCursor.transform.position = equippedArray[_index].transform.position;
+            equippedCursor.SetActive(true);
             selectPhase = SELECT_PHASE.EQUIP;
         }
     }
