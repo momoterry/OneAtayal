@@ -240,13 +240,12 @@ public class BookEquipManager : MonoBehaviour
     {
         if (slotIndex >= 0 && slotIndex < MAX_BOOKEQUIP)
         {
-            BookEquipSave old = equipped[slotIndex];
-            if (old != null)
-            {
-                AddToInventory(old);
-            }
+            //BookEquipSave old = equipped[slotIndex];
+            //if (old != null)
+            //{
+            //    AddToInventory(old);
+            //}
             equipped[slotIndex] = equip;
-
             SetupEquipOnPlayer(slotIndex);
         }
     }

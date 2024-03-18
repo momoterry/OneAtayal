@@ -159,8 +159,8 @@ public class BookInventoryMenu : MonoBehaviour
             }
             if (validSlot >= 0)
             {
-                BookEquipSave o = BookEquipManager.GetInsatance().RemoveFromInventoryByIndex(_index);
-                BookEquipManager.GetInsatance().Equip(o, validSlot);
+                BookEquipManager.GetInsatance().RemoveFromInventoryByIndex(_index);
+                BookEquipManager.GetInsatance().Equip(equip, validSlot);
                 ResetItems();
             }
             else
@@ -192,6 +192,11 @@ public class BookInventoryMenu : MonoBehaviour
             lastSelect = null;
             equippedCursor.SetActive(false);
             selectPhase = SELECT_PHASE.NONE;
+
+            //²æ¸Ë¾Þ§@
+            BookEquipManager.GetInsatance().Equip(null, _index);
+            BookEquipManager.GetInsatance().AddToInventory(equip);
+            ResetItems();
         }
         else
         {
