@@ -65,7 +65,7 @@ public class BookShopMenu : MonoBehaviour
         {
             int row = i / numPerRow;
             int col = i % numPerRow;
-            GameObject o = Instantiate(ItemRef.gameObject, MenuRoot);
+            GameObject o = Instantiate(ItemRef.gameObject, ItemRef.transform.parent);
             RectTransform rt = o.GetComponent<RectTransform>();
             if (rt)
             {
