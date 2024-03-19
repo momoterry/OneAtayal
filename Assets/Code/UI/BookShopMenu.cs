@@ -20,16 +20,17 @@ public class BookShopMenu : MonoBehaviour
 
     public Transform MenuRoot;
     public GameObject SelectCursor;
-    public BookShopItem ItemRef;
+    //public BookShopItem ItemRef;
+    public BookInventoryItem ItemRef;
     public BookCard bookCard;
     //public GameObject TradeArea;
     public Text costText;
 
     protected BookShop theShop;
 
-    protected List<BookShopItem> itemList = new List<BookShopItem>();
+    protected List<BookInventoryItem> itemList = new List<BookInventoryItem>();
     protected BookItemInfo[] bookInfos;
-    protected BookShopItem currSelectItem = null;
+    protected BookInventoryItem currSelectItem = null;
 
     private void Awake()
     {
@@ -48,12 +49,7 @@ public class BookShopMenu : MonoBehaviour
             newInfos[i].MoneyCost = goods[i].MoneyCost;
         }
         print("採用新的 Menu 開啟方式: " + goods.Count);
-        OpenMenu(newInfos);
-    }
 
-    public void OpenMenu(BookItemInfo[] infos)
-    {
-        bookInfos = infos;
         CreateItems();
         MenuRoot.gameObject.SetActive(true);
         if (SelectCursor)
@@ -61,6 +57,17 @@ public class BookShopMenu : MonoBehaviour
         bookCard.gameObject.SetActive(false);
         BattleSystem.GetPC().ForceStop(true);
     }
+
+    //public void OpenMenu(BookItemInfo[] infos)
+    //{
+    //    bookInfos = infos;
+    //    CreateItems();
+    //    MenuRoot.gameObject.SetActive(true);
+    //    if (SelectCursor)
+    //        SelectCursor.SetActive(false);
+    //    bookCard.gameObject.SetActive(false);
+    //    BattleSystem.GetPC().ForceStop(true);
+    //}
 
     public void CloseMenu()
     {
@@ -82,7 +89,8 @@ public class BookShopMenu : MonoBehaviour
             startY = rrt.anchoredPosition.y;
         }
 
-        for (int i=0; i< bookInfos.Length; i++)
+        List<BookEquipGood> goods = theShop.GetAllGoods();
+        for (int i=0; i< goods.Count; i++)
         {
             int row = i / numPerRow;
             int col = i % numPerRow;
@@ -94,8 +102,8 @@ public class BookShopMenu : MonoBehaviour
             }
             o.SetActive(true);
 
-            BookShopItem bi = o.GetComponent<BookShopItem>();
-            bi.InitValue(i, bookInfos[i], ItemClickCB);
+            BookInventoryItem bi = o.GetComponent<BookInventoryItem>();
+            bi.InitValue(i, goods[i].equip, ItemClickCB);
 
             itemList.Add(bi);
         }
@@ -103,7 +111,7 @@ public class BookShopMenu : MonoBehaviour
 
     protected void ClearItems()
     {
-        foreach (BookShopItem item in itemList)
+        foreach (BookInventoryItem item in itemList)
         {
             Destroy(item.gameObject);
         }
@@ -114,7 +122,7 @@ public class BookShopMenu : MonoBehaviour
     public void ItemClickCB(int _index)
     {
         //print("Clicked " + _index);
-        BookShopItem bi = itemList[_index];
+        BookInventoryItem bi = itemList[_index];
 
         currSelectItem = bi;
 
