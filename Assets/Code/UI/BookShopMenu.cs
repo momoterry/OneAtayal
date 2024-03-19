@@ -2,7 +2,8 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
+using UnityEngine.UI;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 //巫靈書商店介面
 //Book 表示 Doll Summon Skill ，就算改用別的方式包裝
@@ -20,6 +21,8 @@ public class BookShopMenu : MonoBehaviour
     public GameObject SelectCursor;
     public BookShopItem ItemRef;
     public BookCard bookCard;
+    //public GameObject TradeArea;
+    public Text costText;
 
     protected List<BookShopItem> itemList = new List<BookShopItem>();
     protected BookItemInfo[] bookInfos;
@@ -104,8 +107,14 @@ public class BookShopMenu : MonoBehaviour
         }
 
         bookCard.SetCard(bookInfos[_index].SkillRef);
+        costText.text = bookInfos[_index].MoneyCost.ToString();
         bookCard.gameObject.SetActive(true);
     }
 
+
+    public void OnBuyCB()
+    {
+
+    }
 
 }
