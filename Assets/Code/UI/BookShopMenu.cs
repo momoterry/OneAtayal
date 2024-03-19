@@ -31,6 +31,7 @@ public class BookShopMenu : MonoBehaviour
     protected List<BookInventoryItem> itemList = new List<BookInventoryItem>();
     protected BookItemInfo[] bookInfos;
     protected BookInventoryItem currSelectItem = null;
+    protected int currSelectIndex = -1;
 
     private void Awake()
     {
@@ -40,20 +41,20 @@ public class BookShopMenu : MonoBehaviour
     public void OpenMenu(BookShop shop)
     {
         theShop = shop;
-        List<BookEquipGood> goods = shop.GetAllGoods();
-        BookItemInfo[] newInfos = new BookItemInfo[goods.Count];
-        for (int i=0; i<goods.Count; i++)
-        {
-            newInfos[i] = new BookItemInfo();
-            newInfos[i].SkillRef = BookEquipManager.GetInsatance().GetSkillByID(goods[i].equip.skillID);
-            newInfos[i].MoneyCost = goods[i].MoneyCost;
-        }
-        print("採用新的 Menu 開啟方式: " + goods.Count);
+        //List<BookEquipGood> goods = shop.GetAllGoods();
+        //BookItemInfo[] newInfos = new BookItemInfo[goods.Count];
+        //for (int i=0; i<goods.Count; i++)
+        //{
+        //    newInfos[i] = new BookItemInfo();
+        //    newInfos[i].SkillRef = BookEquipManager.GetInsatance().GetSkillByID(goods[i].equip.skillID);
+        //    newInfos[i].MoneyCost = goods[i].MoneyCost;
+        //}
+        //print("採用新的 Menu 開啟方式: " + goods.Count);
 
         CreateItems();
         MenuRoot.gameObject.SetActive(true);
-        if (SelectCursor)
-            SelectCursor.SetActive(false);
+        SelectCursor.SetActive(false);
+        currSelectIndex = -1;
         bookCard.gameObject.SetActive(false);
         BattleSystem.GetPC().ForceStop(true);
     }
@@ -74,6 +75,7 @@ public class BookShopMenu : MonoBehaviour
         MenuRoot.gameObject.SetActive(false);
         ClearItems();
         BattleSystem.GetPC().ForceStop(false);
+        GameSystem.GetInstance().SaveData();
     }
 
     protected void CreateItems()
@@ -119,6 +121,15 @@ public class BookShopMenu : MonoBehaviour
     }
 
 
+    protected void ResetItems()
+    {
+        ClearItems();
+        CreateItems();
+        SelectCursor.SetActive(false);
+        currSelectIndex = -1;
+        bookCard.gameObject.SetActive(false);
+    }
+
     public void ItemClickCB(int _index)
     {
         //print("Clicked " + _index);
@@ -126,11 +137,10 @@ public class BookShopMenu : MonoBehaviour
 
         currSelectItem = bi;
 
-        if (SelectCursor)
-        {
-            SelectCursor.transform.position = bi.transform.position;
-            SelectCursor.SetActive(true);
-        }
+        SelectCursor.transform.position = bi.transform.position;
+        SelectCursor.SetActive(true);
+
+        currSelectIndex = _index;
 
         //bookCard.SetCard(bookInfos[_index].SkillRef);
         bookCard.SetCard(theShop.GetGood(_index).equip);
@@ -141,7 +151,18 @@ public class BookShopMenu : MonoBehaviour
 
     public void OnBuyCB()
     {
+        BookEquipGood good = theShop.GetGood(currSelectIndex);
+        if (good.MoneyCost > GameSystem.GetPlayerData().GetMoney())
+        {
+            SystemUI.ShowMessageBox(null, "金錢不足!!");
+            return;
+        }
 
+        BookEquipManager.GetInsatance().AddToInventory(good.equip);
+        GameSystem.GetPlayerData().AddMoney(-good.MoneyCost);
+        theShop.RemoveGood(currSelectIndex);
+
+        ResetItems();
     }
 
 }
