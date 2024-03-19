@@ -5,6 +5,7 @@ using UnityEngine;
 public class BookShopTrigger : MonoBehaviour
 {
     public BookShopMenu theMenu;
+    public BookShop theShop;
     public BookShopMenu.BookItemInfo[] items;
 
     void Start()
@@ -32,10 +33,21 @@ public class BookShopTrigger : MonoBehaviour
 
     public void OnTG(GameObject whoTG)
     {
-        if (theMenu)
+        if (theMenu && !theShop)
         {
             theMenu.OpenMenu(items);
             whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
+            return;
         }
+
+        print("BookShopTrigger 採用新架構");
+        //List<BookEquipGood> goods = theShop.GetAllGoods();
+        //BookShopMenu.BookItemInfo[] newInfos = new BookShopMenu.BookItemInfo[goods.Count];
+        //for (int i=0;  i<goods.Count; i++)
+        //{
+        //    newInfos[i].
+        //}
+        theMenu.OpenMenu(theShop);
+        whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
     }
 }

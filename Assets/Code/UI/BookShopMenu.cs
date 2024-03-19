@@ -17,12 +17,15 @@ public class BookShopMenu : MonoBehaviour
         public int MoneyCost = 1000;
     }
 
+
     public Transform MenuRoot;
     public GameObject SelectCursor;
     public BookShopItem ItemRef;
     public BookCard bookCard;
     //public GameObject TradeArea;
     public Text costText;
+
+    protected BookShop theShop;
 
     protected List<BookShopItem> itemList = new List<BookShopItem>();
     protected BookItemInfo[] bookInfos;
@@ -31,6 +34,21 @@ public class BookShopMenu : MonoBehaviour
     private void Awake()
     {
         MenuRoot.gameObject.SetActive(false);
+    }
+
+    public void OpenMenu(BookShop shop)
+    {
+        theShop = shop;
+        List<BookEquipGood> goods = shop.GetAllGoods();
+        BookItemInfo[] newInfos = new BookItemInfo[goods.Count];
+        for (int i=0; i<goods.Count; i++)
+        {
+            newInfos[i] = new BookItemInfo();
+            newInfos[i].SkillRef = BookEquipManager.GetInsatance().GetSkillByID(goods[i].equip.skillID);
+            newInfos[i].MoneyCost = goods[i].MoneyCost;
+        }
+        print("採用新的 Menu 開啟方式: " + goods.Count);
+        OpenMenu(newInfos);
     }
 
     public void OpenMenu(BookItemInfo[] infos)

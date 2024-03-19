@@ -54310,6 +54310,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1776752369}
+  - component: {fileID: 1776752371}
   - component: {fileID: 1776752368}
   - component: {fileID: 1776752367}
   - component: {fileID: 1776752370}
@@ -54417,6 +54418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theMenu: {fileID: 6024251573417677040}
+  theShop: {fileID: 1776752371}
   items:
   - SkillRef: {fileID: 1865179191}
     MoneyCost: 800
@@ -54424,6 +54426,25 @@ MonoBehaviour:
     MoneyCost: 700
   - SkillRef: {fileID: 1865179191}
     MoneyCost: 1200
+--- !u!114 &1776752371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776752366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9309a8d3a0971c45837c4e536b82c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseInfos:
+  - skillID: DollAce
+    MoneyCost: 1500
+  - skillID: DollCrystal
+    MoneyCost: 1200
+  - skillID: DollBlackStone
+    MoneyCost: 1000
 --- !u!1 &1792941305
 GameObject:
   m_ObjectHideFlags: 0

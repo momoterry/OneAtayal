@@ -48,7 +48,7 @@ public class BookEquipManager : MonoBehaviour
                 GameObject o = Instantiate(skillMapItems[i].skillRef.gameObject, transform);
                 skillMapItems[i].skillRef = o.GetComponent<SkillDollSummonEx>();
 
-                print("SKILL MAP " + i + "" + skillMapItems[i].skillRef.name);
+                //print("SKILL MAP " + i + "" + skillMapItems[i].skillRef.name);
                 skillMap.Add(skillMapItems[i].ID, skillMapItems[i].skillRef);
             }
             oneTimeInit = true;
@@ -162,7 +162,7 @@ public class BookEquipManager : MonoBehaviour
 
     protected void SetupEquipOnPlayer(int slotIndex)
     {
-        print("SetupEquipOnPlayer " + slotIndex + "equip ? " + (equipped[slotIndex] == null? "0x0": equipped[slotIndex].uID.ToString()));
+        //print("SetupEquipOnPlayer " + slotIndex + "equip ? " + (equipped[slotIndex] == null? "0x0": equipped[slotIndex].uID.ToString()));
         if (slotIndex < 0 || slotIndex >= MAX_BOOKEQUIP)
         {
             return;
@@ -186,7 +186,7 @@ public class BookEquipManager : MonoBehaviour
 
         if (equip != null)
         {
-            print("建立新的 Instance  ....");
+            //print("建立新的 Instance  ....");
             GameObject o = new GameObject("BookEquip_" + slotIndex);
             BookEquip equipInstance = o.AddComponent<BookEquip>();
             equipInstance.FromSave(equip);
@@ -195,7 +195,7 @@ public class BookEquipManager : MonoBehaviour
         }
         else
         {
-            print("空的裝  ....");
+            //print("空的裝  ....");
             skill = null;
             equipInstances[slotIndex] = null;
         }
@@ -263,13 +263,13 @@ public class BookEquipManager : MonoBehaviour
     //主角裝備初始化
     public void InitEquipsOnPC()
     {
-        print("BookEquipManager.SetupToPC");
-        DebugCheck();
+        //print("BookEquipManager.SetupToPC");
+        //DebugCheck();
         for (int i=0; i<MAX_BOOKEQUIP; i++)
         {
             SetupEquipOnPlayer(i);
         }
 
-        DebugCheck();
+        //DebugCheck();
     }
 }
