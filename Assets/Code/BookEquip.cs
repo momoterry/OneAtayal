@@ -11,6 +11,7 @@ public class BookEquipSave
 {
     public int uID = 0;
     public string skillID = "";
+    public ITEM_QUALITY quality = ITEM_QUALITY.COMMON;
     public int ATK_Percent = 0;
     public int HP_Percent = 0;
 }

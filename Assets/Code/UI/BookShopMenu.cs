@@ -132,8 +132,9 @@ public class BookShopMenu : MonoBehaviour
             SelectCursor.SetActive(true);
         }
 
-        bookCard.SetCard(bookInfos[_index].SkillRef);
-        costText.text = bookInfos[_index].MoneyCost.ToString();
+        //bookCard.SetCard(bookInfos[_index].SkillRef);
+        bookCard.SetCard(theShop.GetGood(_index).equip);
+        costText.text = theShop.GetGood(_index).MoneyCost.ToString();
         bookCard.gameObject.SetActive(true);
     }
 

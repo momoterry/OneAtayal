@@ -14,3 +14,12 @@ public enum DIRECTION
 {
     U, D, L, R, NONE,
 }
+
+public enum ITEM_QUALITY
+{
+    COMMON = 0,
+    RARE = 2,
+    EPIC = 4,
+}
+
+

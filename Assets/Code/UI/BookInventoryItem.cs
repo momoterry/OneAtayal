@@ -7,6 +7,8 @@ public class BookInventoryItem : MonoBehaviour
 {
     public Image skillIcon;
     public Text atkText;
+    public Image bookIcon;
+    public Color[] bookColors;
 
     public delegate void ItemClickedCB(int _index);
     protected ItemClickedCB myCB;
@@ -26,8 +28,17 @@ public class BookInventoryItem : MonoBehaviour
         {
             skillIcon.sprite = skillRef.icon;
         }
-    }
 
+        switch (equip.quality)
+        {
+            case ITEM_QUALITY.RARE:
+                bookIcon.color = bookColors[1];
+                break;
+            case ITEM_QUALITY.EPIC:
+                bookIcon.color = bookColors[2];
+                break;
+        }
+    }
 
     public void OnSelected()
     {

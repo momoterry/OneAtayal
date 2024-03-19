@@ -14,6 +14,7 @@ public class BookShop : MonoBehaviour
     public class GoodBaseInfo
     {
         public string skillID;
+        public ITEM_QUALITY quality = ITEM_QUALITY.COMMON;
         public int MoneyCost;
     }
     public GoodBaseInfo[] baseInfos;
@@ -37,6 +38,7 @@ public class BookShop : MonoBehaviour
             good.equip.skillID = baseInfos[i].skillID;
             good.equip.ATK_Percent = Random.Range(100, 200);
             good.equip.HP_Percent = Random.Range(100, 200);
+            good.equip.quality = baseInfos[i].quality;
             good.MoneyCost = baseInfos[i].MoneyCost;
             goodList.Add(good);
         }
@@ -47,12 +49,20 @@ public class BookShop : MonoBehaviour
         return goodList;
     }
 
-    public void RemoveGood(int goodIndex)
+    public BookEquipGood GetGood(int _index)
     {
-        if (goodIndex < 0 || goodIndex >= baseInfos.Length)
+        if (_index < 0 || _index >= baseInfos.Length)
+            return null;
+
+        return goodList[_index];
+    }
+
+    public void RemoveGood(int _index)
+    {
+        if (_index < 0 || _index >= baseInfos.Length)
             return;
 
-        print("BookShop 移除商品: " + goodIndex);
-        goodList.RemoveAt(goodIndex);
+        print("BookShop 移除商品: " + _index);
+        goodList.RemoveAt(_index);
     }
 }
