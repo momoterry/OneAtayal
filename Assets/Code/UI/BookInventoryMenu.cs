@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BookInventoryMenu : MonoBehaviour
 {
+    protected const int defaultSellValue = 100; //暫代，所有裝備固定賣值
 
     public Transform MenuRoot;
     public BookInventoryItem ItemRef;
     public BookInventoryItem EquippedRef;
     public BookCard bookCard;
+
+    public GameObject sellArea;
+    public Text sellValueText;
 
     public GameObject inventoryCursor;
     public GameObject equippedCursor;
@@ -26,6 +31,7 @@ public class BookInventoryMenu : MonoBehaviour
     }
     protected SELECT_PHASE selectPhase = SELECT_PHASE.NONE;
     protected BookEquipSave lastSelect;
+    protected int lastSelectIndex = -1;
 
     private void Awake()
     {
@@ -39,6 +45,7 @@ public class BookInventoryMenu : MonoBehaviour
 
         selectPhase = SELECT_PHASE.NONE;
         lastSelect = null;
+        lastSelectIndex = -1;
         inventoryCursor.SetActive(false);
         equippedCursor.SetActive(false);
 
@@ -51,6 +58,7 @@ public class BookInventoryMenu : MonoBehaviour
         MenuRoot.gameObject.SetActive(false);
         ClearItems();
         BattleSystem.GetPC().ForceStop(false);
+        GameSystem.GetInstance().SaveData();
     }
 
     protected void CreateItems()
@@ -144,9 +152,10 @@ public class BookInventoryMenu : MonoBehaviour
         if (selectPhase == SELECT_PHASE.INVENTORY && lastSelect == equip) 
         {
             //雙擊
-            print("雙擊 Inventory!!");
+            //print("雙擊 Inventory!!");
             bookCard.gameObject.SetActive(false);
             lastSelect = null;
+            lastSelectIndex = -1;
             inventoryCursor.SetActive(false);
             selectPhase = SELECT_PHASE.NONE;
 
@@ -174,8 +183,11 @@ public class BookInventoryMenu : MonoBehaviour
         else
         {
             bookCard.SetCard(equip);
+            sellValueText.text = defaultSellValue.ToString();
+            sellArea.gameObject.SetActive(true);
             bookCard.gameObject.SetActive(true);
             lastSelect = equip;
+            lastSelectIndex = _index;
             inventoryCursor.transform.position = itemList[_index].transform.position;
             inventoryCursor.SetActive(true);
             selectPhase = SELECT_PHASE.INVENTORY;
@@ -190,9 +202,10 @@ public class BookInventoryMenu : MonoBehaviour
         if (selectPhase == SELECT_PHASE.EQUIP &&　lastSelect == equip)
         {
             //雙擊
-            print("雙擊 Equip !!");
+            //print("雙擊 Equip !!");
             bookCard.gameObject.SetActive(false);
             lastSelect = null;
+            lastSelectIndex = -1;
             equippedCursor.SetActive(false);
             selectPhase = SELECT_PHASE.NONE;
 
@@ -204,11 +217,45 @@ public class BookInventoryMenu : MonoBehaviour
         else
         {
             bookCard.SetCard(equip);
+            sellArea.gameObject.SetActive(false);       //不能販賣裝備中的
             bookCard.gameObject.SetActive(true);
             lastSelect = equip;
+            lastSelectIndex = _index;
             equippedCursor.transform.position = equippedArray[_index].transform.position;
             equippedCursor.SetActive(true);
             selectPhase = SELECT_PHASE.EQUIP;
         }
     }
+
+    public void OnSellBookEquipCB()
+    {
+        if (selectPhase != SELECT_PHASE.INVENTORY)
+        {
+            print("ERROR!!!! OnSellBookEquipCB() 不應該走到這裡.....");
+            return; //不應該走到這裡
+        }
+
+        SystemUI.ShowYesNoMessageBox(OnSellBookEquipConfirm, "確定要賣出?");
+    }
+
+
+    public void OnSellBookEquipConfirm(MessageBox.RESULT result)
+    {
+        if (result == MessageBox.RESULT.YES)
+        {
+            //print("真的確家要賣了 ..... " + lastSelect.quality);
+            BookEquipSave equip = BookEquipManager.GetInsatance().RemoveFromInventoryByIndex(lastSelectIndex);
+            BookEquipManager.GetInsatance().DestroyOne(equip);
+            GameSystem.GetPlayerData().AddMoney(defaultSellValue);
+
+            bookCard.gameObject.SetActive(false);
+            lastSelect = null;
+            lastSelectIndex = -1;
+            inventoryCursor.SetActive(false);
+
+            selectPhase = SELECT_PHASE.NONE;
+            ResetItems();
+        }
+    }
+
 }
