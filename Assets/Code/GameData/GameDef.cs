@@ -21,5 +21,20 @@ public enum ITEM_QUALITY
     RARE = 2,
     EPIC = 4,
 }
+public class GameDef
+{
+    public static Color GetQaulityColor( ITEM_QUALITY quality )
+    {
+        switch (quality)
+        {
+            case ITEM_QUALITY.RARE:
+                return new Color(0.4f, 0.5f, 1.0f);
+            case ITEM_QUALITY.EPIC:
+                return new Color(1, 0.7f, 0.2f);
+            default:
+                return Color.white;
+        }
+    }
+}
 
 

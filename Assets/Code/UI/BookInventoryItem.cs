@@ -29,15 +29,16 @@ public class BookInventoryItem : MonoBehaviour
             skillIcon.sprite = skillRef.icon;
         }
 
-        switch (equip.quality)
-        {
-            case ITEM_QUALITY.RARE:
-                bookIcon.color = bookColors[1];
-                break;
-            case ITEM_QUALITY.EPIC:
-                bookIcon.color = bookColors[2];
-                break;
-        }
+        bookIcon.color = GameDef.GetQaulityColor(equip.quality);
+        //switch (equip.quality)
+        //{
+        //    case ITEM_QUALITY.RARE:
+        //        bookIcon.color = bookColors[1];
+        //        break;
+        //    case ITEM_QUALITY.EPIC:
+        //        bookIcon.color = bookColors[2];
+        //        break;
+        //}
     }
 
     public void OnSelected()
