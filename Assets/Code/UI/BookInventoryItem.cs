@@ -8,7 +8,7 @@ public class BookInventoryItem : MonoBehaviour
     public Image skillIcon;
     public Text atkText;
     public Image bookIcon;
-    public Color[] bookColors;
+    //public Color[] bookColors;
 
     public delegate void ItemClickedCB(int _index);
     protected ItemClickedCB myCB;

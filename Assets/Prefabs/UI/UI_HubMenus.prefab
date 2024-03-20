@@ -1546,7 +1546,6 @@ MonoBehaviour:
   skillIcon: {fileID: 0}
   atkText: {fileID: 0}
   bookIcon: {fileID: 0}
-  bookColors: []
 --- !u!114 &7601918726666823019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2410,7 +2409,6 @@ MonoBehaviour:
   skillIcon: {fileID: 0}
   atkText: {fileID: 0}
   bookIcon: {fileID: 0}
-  bookColors: []
 --- !u!114 &5372947040974532611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4068,7 +4066,6 @@ MonoBehaviour:
   skillIcon: {fileID: 0}
   atkText: {fileID: 0}
   bookIcon: {fileID: 0}
-  bookColors: []
 --- !u!114 &8307435790551589690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10757,6 +10754,10 @@ PrefabInstance:
     - target: {fileID: 3108604727124971307, guid: 3684002d755ed3447b638fff882958e3, type: 3}
       propertyPath: m_Name
       value: BookEquipItemUIRef
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108604727124971307, guid: 3684002d755ed3447b638fff882958e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
