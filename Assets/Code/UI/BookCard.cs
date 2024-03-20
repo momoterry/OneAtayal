@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BookCard : MonoBehaviour
 {
     public Image Icon;
+    public Image BookIcon;
     public Text BookName;
     public Text DollStatText;
     public Text EnhanceDesc;
@@ -38,6 +39,7 @@ public class BookCard : MonoBehaviour
         //BookName.text = dInfo.dollName + "¥l³ê®Ñ";
         BookName.text = equip.bookName;
         BookName.color = GameDef.GetQaulityColor(equip.quality);
+        BookIcon.color = GameDef.GetQaulityColor(equip.quality);
         Doll doll = dInfo.objRef.GetComponent<Doll>();
         HitBody hBody = dInfo.objRef.GetComponent<HitBody>();
         float attack = equip.ATK_Percent * doll.AttackInit * 0.01f;
