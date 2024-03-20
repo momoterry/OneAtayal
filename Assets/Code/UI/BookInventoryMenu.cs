@@ -52,6 +52,7 @@ public class BookInventoryMenu : MonoBehaviour
         equippedCursor.SetActive(false);
 
         bookCard.gameObject.SetActive(false);
+        sellArea.SetActive(false);
         BattleSystem.GetPC().ForceStop(true);
     }
 
@@ -156,6 +157,7 @@ public class BookInventoryMenu : MonoBehaviour
             //찬을
             //print("찬을 Inventory!!");
             bookCard.gameObject.SetActive(false);
+            sellArea.SetActive(false);
             lastSelect = null;
             lastSelectIndex = -1;
             inventoryCursor.SetActive(false);
@@ -206,6 +208,7 @@ public class BookInventoryMenu : MonoBehaviour
             //찬을
             //print("찬을 Equip !!");
             bookCard.gameObject.SetActive(false);
+            sellArea.SetActive(false);
             lastSelect = null;
             lastSelectIndex = -1;
             equippedCursor.SetActive(false);
@@ -251,6 +254,7 @@ public class BookInventoryMenu : MonoBehaviour
             GameSystem.GetPlayerData().AddMoney(defaultSellValue);
 
             bookCard.gameObject.SetActive(false);
+            sellArea.SetActive(false);
             lastSelect = null;
             lastSelectIndex = -1;
             inventoryCursor.SetActive(false);
