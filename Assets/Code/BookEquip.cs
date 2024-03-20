@@ -10,6 +10,7 @@ using UnityEngine;
 public class BookEquipSave
 {
     public int uID = 0;
+    public string bookName;
     public string skillID = "";
     public ITEM_QUALITY quality = ITEM_QUALITY.COMMON;
     public int ATK_Percent = 0;

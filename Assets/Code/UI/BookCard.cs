@@ -35,7 +35,8 @@ public class BookCard : MonoBehaviour
         Icon.sprite = skill.icon;
 
         DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(skill.dollID);
-        BookName.text = dInfo.dollName + "¥l³ê®Ñ";
+        //BookName.text = dInfo.dollName + "¥l³ê®Ñ";
+        BookName.text = equip.bookName;
         Doll doll = dInfo.objRef.GetComponent<Doll>();
         HitBody hBody = dInfo.objRef.GetComponent<HitBody>();
         float attack = equip.ATK_Percent;
