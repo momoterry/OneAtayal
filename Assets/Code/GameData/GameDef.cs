@@ -18,6 +18,7 @@ public enum DIRECTION
 public enum ITEM_QUALITY
 {
     COMMON = 0,
+    UNCOMMON = 1,
     RARE = 2,
     EPIC = 4,
 }
@@ -27,10 +28,12 @@ public class GameDef
     {
         switch (quality)
         {
-            case ITEM_QUALITY.RARE:
+            case ITEM_QUALITY.UNCOMMON:
                 return new Color(0.4f, 0.5f, 1.0f);
-            case ITEM_QUALITY.EPIC:
+            case ITEM_QUALITY.RARE:
                 return new Color(1, 0.7f, 0.2f);
+            case ITEM_QUALITY.EPIC:
+                return Color.red;
             default:
                 return Color.white;
         }

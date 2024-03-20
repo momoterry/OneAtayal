@@ -49,7 +49,7 @@ public class BookShop : MonoBehaviour
         EnhanceInfo sufEnhance = null;
         float twoEnhanceRate = 40.0f;
         float hRate = twoEnhanceRate / 2.0f;
-        if (quality == ITEM_QUALITY.RARE)
+        if (quality == ITEM_QUALITY.UNCOMMON)
         {
             float rd = Random.Range(0, 100.0f);
             if (rd < 50.0f + hRate)
