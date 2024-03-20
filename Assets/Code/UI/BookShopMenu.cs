@@ -36,6 +36,7 @@ public class BookShopMenu : MonoBehaviour
     private void Awake()
     {
         MenuRoot.gameObject.SetActive(false);
+        ItemRef.gameObject.SetActive(false);
     }
 
     public void OpenMenu(BookShop shop)

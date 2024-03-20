@@ -21,12 +21,15 @@ public class BookInventoryItem : MonoBehaviour
         myIndex = _index;
         myEquip = equip;
         myCB = _CB;
-        atkText.text = "§ð " + equip.ATK_Percent;
+        atkText.text = "§ð " + equip.ATK_Percent + "%";
         SkillDollSummonEx skillRef = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
 
         if (skillRef)
         {
             skillIcon.sprite = skillRef.icon;
+            DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(skillRef.dollID);
+            Doll d = dInfo.objRef.GetComponent<Doll>();
+            atkText.text = "§ð " + Mathf.RoundToInt(equip.ATK_Percent * 0.01f * d.AttackInit);
         }
 
         bookIcon.color = GameDef.GetQaulityColor(equip.quality);

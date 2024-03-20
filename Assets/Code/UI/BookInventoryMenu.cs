@@ -36,6 +36,8 @@ public class BookInventoryMenu : MonoBehaviour
     private void Awake()
     {
         MenuRoot.gameObject.SetActive(false);
+        ItemRef.gameObject.SetActive(false);
+        EquippedRef.gameObject.SetActive(false);
     }
 
     public void OpenMenu()
