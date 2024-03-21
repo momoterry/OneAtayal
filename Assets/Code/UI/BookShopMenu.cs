@@ -17,14 +17,14 @@ public class BookShopMenu : MonoBehaviour
         public int MoneyCost = 1000;
     }
 
-
     public Transform MenuRoot;
     public GameObject SelectCursor;
-    //public BookShopItem ItemRef;
     public BookInventoryItem ItemRef;
     public BookCard bookCard;
-    //public GameObject TradeArea;
     public Text costText;
+
+    public GameObject showResultMenu;
+    public BookCard resultBookCard;
 
     protected BookShop theShop;
 
@@ -42,21 +42,13 @@ public class BookShopMenu : MonoBehaviour
     public void OpenMenu(BookShop shop)
     {
         theShop = shop;
-        //List<BookEquipGood> goods = shop.GetAllGoods();
-        //BookItemInfo[] newInfos = new BookItemInfo[goods.Count];
-        //for (int i=0; i<goods.Count; i++)
-        //{
-        //    newInfos[i] = new BookItemInfo();
-        //    newInfos[i].SkillRef = BookEquipManager.GetInsatance().GetSkillByID(goods[i].equip.skillID);
-        //    newInfos[i].MoneyCost = goods[i].MoneyCost;
-        //}
-        //print("採用新的 Menu 開啟方式: " + goods.Count);
 
         CreateItems();
         MenuRoot.gameObject.SetActive(true);
         SelectCursor.SetActive(false);
         currSelectIndex = -1;
         bookCard.gameObject.SetActive(false);
+        showResultMenu.SetActive(false);
         BattleSystem.GetPC().ForceStop(true);
     }
 
@@ -163,7 +155,15 @@ public class BookShopMenu : MonoBehaviour
         GameSystem.GetPlayerData().AddMoney(-good.MoneyCost);
         theShop.RemoveGood(currSelectIndex);
 
+        resultBookCard.SetCard(good.equip, false);
+        showResultMenu.SetActive(true);
+
         ResetItems();
     }
 
+
+    public void OnShowResultCB()
+    {
+        showResultMenu.SetActive(false);
+    }
 }
