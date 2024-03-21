@@ -63,7 +63,7 @@ public class ForgeManager : MonoBehaviour
 
         for (int i = 0; i < formulaJsons.Length; i++)
         {
-            print("開始 Parse 一個 ForgeFormula Json");
+            //print("開始 Parse 一個 ForgeFormula Json");
             ForgeFormulaJsonData jFormulas = JsonUtility.FromJson<ForgeFormulaJsonData>(formulaJsons[i].text);
             print("Parse 完成，找到的 Formula 數量: " + jFormulas.formulas.Length);
 

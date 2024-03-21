@@ -136,7 +136,7 @@ public class BookShop : MonoBehaviour
 
     protected void GenerateGoods()
     {
-        print("BookShop 產生商品");
+        //print("BookShop 產生商品");
         for (int i = 0; i < baseInfos.Length; i++)
         {
             BookEquipGood good = new BookEquipGood();
@@ -169,7 +169,7 @@ public class BookShop : MonoBehaviour
         if (_index < 0 || _index >= baseInfos.Length)
             return;
 
-        print("BookShop 移除商品: " + _index);
+        //print("BookShop 移除商品: " + _index);
         goodList.RemoveAt(_index);
     }
 }

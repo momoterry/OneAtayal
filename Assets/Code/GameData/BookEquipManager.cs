@@ -92,7 +92,7 @@ public class BookEquipManager : MonoBehaviour
     //ª`·N!! Load
     public void FromLoadData(BookEquipSaveAll data)
     {
-        print("BookEquipManager.FromLoadData");
+        //print("BookEquipManager.FromLoadData");
         if (data.Equipped != null)
         {
             for (int i=0; i < data.Equipped.Length; i++)

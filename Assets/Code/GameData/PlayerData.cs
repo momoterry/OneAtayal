@@ -362,7 +362,7 @@ public class PlayerData : MonoBehaviour
         if (data.worldMap != null)
         {
             GameSystem.GetWorldMap().LoadData(data.worldMap);
-            print("----世界地圖載入完成---- ");
+            //print("----世界地圖載入完成---- ");
         }
 
     }

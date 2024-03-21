@@ -183,10 +183,11 @@ public class PC_One : PlayerControllerBase
         for (int i = 0; i < activeSkillSaveMax; i++)
         {
             SkillBase savedActiveSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(skillSaveNames[i]);
-            if (savedActiveSkillRef)
-                print("主動技能存檔 !! " + i + " : " + savedActiveSkillRef);
+            //if (savedActiveSkillRef)
+            //    print("主動技能存檔 !! " + i + " : " + savedActiveSkillRef);
             if (savedActiveSkillRef)
             {
+                //print("主動技能存檔 !! " + i + " : " + savedActiveSkillRef);
                 activeSkillRefs[i] = savedActiveSkillRef;
             }
         }
