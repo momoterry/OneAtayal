@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //描述物品內容的容器
-
+//因為會寫入存檔，以下的定義不能任意改變
 public enum ITEM_TYPE
 {
     MATERIAL    = 0,
