@@ -16,12 +16,12 @@ public class BookInventoryItem : MonoBehaviour
 
     protected BookEquipSave myEquip;
 
-    public void InitValue(int _index, BookEquipSave equip, ItemClickedCB _CB = null)
+    public void InitValue(int _index, BookEquipSave equip, ItemClickedCB _CB = null, bool hideValue = false)
     {
         myIndex = _index;
         myEquip = equip;
         myCB = _CB;
-        atkText.text = "§ð " + equip.ATK_Percent + "%";
+        //atkText.text = "§ð " + equip.ATK_Percent + "%";
         SkillDollSummonEx skillRef = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
 
         if (skillRef)
@@ -29,7 +29,10 @@ public class BookInventoryItem : MonoBehaviour
             skillIcon.sprite = skillRef.icon;
             DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(skillRef.dollID);
             Doll d = dInfo.objRef.GetComponent<Doll>();
-            atkText.text = "§ð " + Mathf.RoundToInt(equip.ATK_Percent * 0.01f * d.AttackInit);
+            if (hideValue)
+                atkText.text = "????";
+            else
+                atkText.text = "§ð " + Mathf.RoundToInt(equip.ATK_Percent * 0.01f * d.AttackInit);
         }
 
         bookIcon.color = GameDef.GetQaulityColor(equip.quality);

@@ -6,6 +6,7 @@ public class BookEquipGood
 {
     public BookEquipSave equip;
     public int MoneyCost;
+    public bool hideValue;
 }
 
 public class BookShop : MonoBehaviour
@@ -16,6 +17,7 @@ public class BookShop : MonoBehaviour
         public string skillID;
         public ITEM_QUALITY quality = ITEM_QUALITY.COMMON;
         public int MoneyCost;
+        public bool hideValue;
     }
     public GoodBaseInfo[] baseInfos;
 
@@ -147,6 +149,7 @@ public class BookShop : MonoBehaviour
             //good.equip.quality = baseInfos[i].quality;
             ApplyBookEquipEnhance(ref good.equip, baseInfos[i].quality);
             good.MoneyCost = baseInfos[i].MoneyCost;
+            good.hideValue = baseInfos[i].hideValue;
             goodList.Add(good);
         }
     }

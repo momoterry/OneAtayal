@@ -106,7 +106,7 @@ public class BookShopMenu : MonoBehaviour
             o.SetActive(true);
 
             BookInventoryItem bi = o.GetComponent<BookInventoryItem>();
-            bi.InitValue(i, goods[i].equip, ItemClickCB);
+            bi.InitValue(i, goods[i].equip, ItemClickCB, goods[i].hideValue);
 
             itemList.Add(bi);
         }
@@ -144,7 +144,7 @@ public class BookShopMenu : MonoBehaviour
         currSelectIndex = _index;
 
         //bookCard.SetCard(bookInfos[_index].SkillRef);
-        bookCard.SetCard(theShop.GetGood(_index).equip);
+        bookCard.SetCard(theShop.GetGood(_index).equip, theShop.GetGood(_index).hideValue);
         costText.text = theShop.GetGood(_index).MoneyCost.ToString();
         bookCard.gameObject.SetActive(true);
     }
