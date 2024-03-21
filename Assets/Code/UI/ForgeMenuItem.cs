@@ -16,12 +16,9 @@ public class ForgeMenuItem : MonoBehaviour
     protected ForgeMenu myParentMenu;
     protected ForgeFormula myFormula;
 
-    public void InitValue(ForgeMenu parentMenu, ForgeFormula formula)
-    {
-        myParentMenu = parentMenu;
-        myFormula = formula;
 
-        string dollID = formula.outputID;
+    protected void InitDollInfo(string dollID)
+    {
         DollInfo dInfo = GameSystem.GetInstance().theDollData.GetDollInfoByID(dollID);
         if (dInfo == null)
         {
@@ -31,6 +28,27 @@ public class ForgeMenuItem : MonoBehaviour
         Doll doll = dInfo.objRef.GetComponent<Doll>();
         resultIcon.sprite = doll.icon;
         resultText.text = dInfo.dollName;
+    }
+
+    public void InitValue(ForgeMenu parentMenu, ForgeFormula formula)
+    {
+        myParentMenu = parentMenu;
+        myFormula = formula;
+
+        if (formula.outputType == ITEM_TYPE.DOLL)
+        {
+            InitDollInfo(formula.outputID);
+        }
+        //string dollID = formula.outputID;
+        //DollInfo dInfo = GameSystem.GetInstance().theDollData.GetDollInfoByID(dollID);
+        //if (dInfo == null)
+        //{
+        //    print("ERROR!! No such DollRef for ID:" + dollID);
+        //    return;
+        //}
+        //Doll doll = dInfo.objRef.GetComponent<Doll>();
+        //resultIcon.sprite = doll.icon;
+        //resultText.text = dInfo.dollName;
         costText.text = formula.requireMoney.ToString();
         int iHasMoney = GameSystem.GetPlayerData().GetMoney();
         if (iHasMoney < formula.requireMoney)
