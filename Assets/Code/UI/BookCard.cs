@@ -44,7 +44,7 @@ public class BookCard : MonoBehaviour
         HitBody hBody = dInfo.objRef.GetComponent<HitBody>();
         if (hideValue)
         {
-            BookName.text = "????";
+            BookName.text = "未知的" + dInfo.dollName + "召喚書";
             DollStatText.text = "";
             DollStatText.text += "攻擊 ????\n";
             DollStatText.text += "血量 ????\n";
