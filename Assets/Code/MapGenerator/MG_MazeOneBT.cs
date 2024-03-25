@@ -141,7 +141,7 @@ public class MG_MazeOneBT : MG_MazeOneBase
         if (nextCell != null)
         {
             //print("找到路了，++清單 " + cellList.Count);
-            if (nextCell.x == puzzleEnd.x && nextCell.y == puzzleEnd.y)
+            if ( !FinishAtDeepest && nextCell.x == puzzleEnd.x && nextCell.y == puzzleEnd.y)
             {
                 gotFinal = true;
                 print("連到終點了，改變 gotFinal => " + gotFinal);
