@@ -120,16 +120,37 @@ public class MG_MazeOneBT : MG_MazeOneBase
         return toCell;
     }
 
+    protected bool gotFinal = false;
     protected bool DoOneCycle()
     {
         cellInfo cellToGo;
-        cellToGo = cellList[cellList.Count - 1];
+        if (gotFinal)
+        {
+            //cellToGo = cellList[0];
+            //cellToGo = cellList[Random.Range(0, cellList.Count)];
+            cellToGo = cellList[cellList.Count - 1];
+        }
+        else
+        {
+            //cellToGo = cellList[0];
+            //cellToGo = cellList[Random.Range(0, cellList.Count)];
+            cellToGo = cellList[cellList.Count - 1];
+        }
 
         cellInfo nextCell = TryConnectRandomCell(cellToGo);
         if (nextCell != null)
         {
             //print("找到路了，++清單 " + cellList.Count);
-            cellList.Add(nextCell);
+            if (nextCell.x == puzzleEnd.x && nextCell.y == puzzleEnd.y)
+            {
+                gotFinal = true;
+                print("連到終點了，改變 gotFinal => " + gotFinal);
+                //cellList = List<cellInfo>.re cellList
+            }
+            else
+            {
+                cellList.Add(nextCell);     //無論如何終點不要被加到 cellList，不要再另外連出去
+            }
             return true;
         }
         else
@@ -156,11 +177,22 @@ public class MG_MazeOneBT : MG_MazeOneBase
             {
                 ProcessNormalCells();
                 FillAllTiles();
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.2f);
             }
         }
 
         print("好好好，差不多跑完了");
         yield return new WaitForSeconds(0.1f);
+    }
+
+    protected override void FillAllTiles()
+    {
+        if (!isDebug)
+        {
+            base.FillAllTiles();
+            return;
+        }
+
+        theMap.FillTileAll((int)MAP_TYPE.GROUND, groundTM, groundTileGroup.GetTileGroup());
     }
 }
