@@ -142,19 +142,19 @@ MonoBehaviour:
   icon: {fileID: -1981760688, guid: eed462e8300a157449db3793c512b89f, type: 3}
   positionType: 1
   bulletRef: {fileID: 2820250728779406873, guid: 643742643be00894ea99e808074e6e26, type: 3}
-  AttackInit: 50
+  bulletInitDis: 0.25
+  AttackInit: 250
   SearchRange: 6
+  DamageRatio: 0.2
   canRevie: 1
-  PositionRangeIn: 1
-  PositionRangeOut: 2
+  searchCenter: 0
   AttackRangeIn: 8
   AttackRangeOut: 9
-  attackWait: 0.2
   attackCD: 0.5
-  RunSpeed: 10
+  attackWhenFollow: 0
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
-  myAnimator: {fileID: 0}
   mySpAnimator: {fileID: 7021140444660993118}
+  useDefaultAgentSetting: 1
   theLaserRef: {fileID: 404306278161372763, guid: 7f5bef73c94720b45a20d99fc91ab9d9, type: 3}
 --- !u!212 &4032685806379418580
 SpriteRenderer:
@@ -258,6 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP_Max: 120
   DamageRatio: 1
+  hittableObj: 0
 --- !u!114 &1100153545719211910
 MonoBehaviour:
   m_ObjectHideFlags: 0
