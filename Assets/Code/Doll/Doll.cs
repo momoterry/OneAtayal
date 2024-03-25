@@ -26,6 +26,12 @@ public class Doll : MonoBehaviour
 
     public float AttackInit = 10.0f;
     public float SearchRange = 8.0f;
+    public float DamageRatio = 1.0f;        //Damage = AttackInit x DamageRatio
+    public float damage
+    {
+        get { return AttackInit * DamageRatio; }
+        set { AttackInit = value/DamageRatio; }
+    }
 
     public bool canRevie = false;
 
@@ -59,7 +65,7 @@ public class Doll : MonoBehaviour
     virtual public void SetDamageRate(float ratio) 
     {
         AttackInit = attackDamageOriginal * ratio;
-        myDamage.Init(AttackInit, Damage.OwnerType.DOLL, ID, gameObject);
+        myDamage.Init(damage, Damage.OwnerType.DOLL, ID, gameObject);
     }
 
     protected virtual void Awake()
@@ -79,7 +85,7 @@ public class Doll : MonoBehaviour
         if (nextState == DOLL_STATE.NONE)   //以確保一開始就被加入玩家的情況能正確
             nextState = DOLL_STATE.WAIT;
 
-        myDamage.Init(AttackInit, Damage.OwnerType.DOLL, ID, gameObject);
+        myDamage.Init(damage, Damage.OwnerType.DOLL, ID, gameObject);
     }
 
     void OnStateExit()

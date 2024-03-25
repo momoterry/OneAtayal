@@ -69,7 +69,7 @@ public class DollSkillOne : DollSkillBase
         td.y = 0;
         td.Normalize();
 
-        myDamage.damage = doll.AttackInit * AttackDamageRate;
+        myDamage.damage = doll.damage * AttackDamageRate;
         bullet_base b = bulletObj.GetComponent<bullet_base>();
         if (b)
         {
