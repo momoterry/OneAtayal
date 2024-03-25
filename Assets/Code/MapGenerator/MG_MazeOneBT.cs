@@ -127,8 +127,8 @@ public class MG_MazeOneBT : MG_MazeOneBase
         if (gotFinal)
         {
             //cellToGo = cellList[0];
-            //cellToGo = cellList[Random.Range(0, cellList.Count)];
-            cellToGo = cellList[cellList.Count - 1];
+            cellToGo = cellList[Random.Range(0, cellList.Count)];
+            //cellToGo = cellList[cellList.Count - 1];
         }
         else
         {
