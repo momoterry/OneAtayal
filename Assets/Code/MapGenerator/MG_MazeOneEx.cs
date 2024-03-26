@@ -281,7 +281,7 @@ public class MG_MazeOne : MG_MazeOneBase
             if (!FinishAtDeepest && nextCell.x == puzzleEnd.x && nextCell.y == puzzleEnd.y)
             {
                 gotFinal = true;
-                print("連到終點了，改變 gotFinal => " + gotFinal);
+                //print("連到終點了，改變 gotFinal => " + gotFinal);
                 //cellList = List<cellInfo>.re cellList
             }
             else

@@ -2431,7 +2431,7 @@ MonoBehaviour:
   wallHeight: 2
   pathWidth: 5
   pathHeight: 5
-  pathRate: 0
+  pathRate: 0.5
   FinishAtDeepest: 0
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
@@ -2444,8 +2444,8 @@ MonoBehaviour:
   defautTileGroup: {fileID: 0}
   roomGroundTileGroup: {fileID: 0}
   roomGroundTileEdgeGroup: {fileID: 0}
-  showMainPath: 0
-  mainPathBuff: 0
+  showMainPath: 1
+  mainPathBuff: 1
   mainPathTileGroup: {fileID: 1441736990}
   mainPathTileEdgeGroup: {fileID: 0}
   groundTM: {fileID: 1946328705}
@@ -2454,8 +2454,8 @@ MonoBehaviour:
   gameManager: {fileID: 43452560}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
-  ChooseAlgorithm: 0
-  extendTerminal: 0
+  ChooseAlgorithm: 1
+  extendTerminal: 1
   mazeDir: 1
   blockFillRatio: 0.4
 --- !u!4 &1355948687
@@ -2796,7 +2796,7 @@ PrefabInstance:
     - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: theMG
       value: 
-      objectReference: {fileID: 2067654410}
+      objectReference: {fileID: 1355948686}
     - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: theBattleHUD
       value: 

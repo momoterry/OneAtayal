@@ -140,18 +140,6 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     protected cellInfo[][] puzzleMap;
 
-    //protected class wallInfo
-    //{
-    //    public wallInfo(int _id1, int _id2)
-    //    {
-    //        cell_ID_1 = _id1;
-    //        cell_ID_2 = _id2;
-    //    }
-    //    public int cell_ID_1;
-    //    public int cell_ID_2;
-    //}
-    //protected List<wallInfo> wallList = new List<wallInfo>();
-
     // ===================== 房間連結相關
 
     protected void ConnectCells( cellInfo cFrom, cellInfo cTo, DIRECTION toDir)
@@ -222,45 +210,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         //BattleSystem.GetInstance().SetInitPosition(startPos);
 
         //============================= 以下開始舖設 Tiles ===========================================
-        //theMap.PrintMap();
-
         FillAllTiles();
-
-        //if (defautTileGroup)
-        //    theMap.FillTileAll(OneMap.DEFAULT_VALUE, blockTM, defautTileGroup.GetTileGroup());
-
-        //if (groundEdgeTileGroup)
-        //    theMap.FillTileAll((int)MAP_TYPE.GROUND, groundTM, groundTM, groundTileGroup.GetTileGroup(), groundEdgeTileGroup.GetTileEdgeGroup(), false, (int)MAP_TYPE.BLOCK);
-        //else
-        //    theMap.FillTileAll((int)MAP_TYPE.GROUND, groundTM, groundTileGroup.GetTileGroup());
-
-        //if (roomGroundTileGroup != null)
-        //{
-        //    if (roomGroundTileEdgeGroup)
-        //        theMap.FillTileAll((int)MAP_TYPE.ROOM, groundTM, groundTM, roomGroundTileGroup.GetTileGroup(), roomGroundTileEdgeGroup.GetTileEdgeGroup(), false);
-        //    else
-        //        theMap.FillTileAll((int)MAP_TYPE.ROOM, groundTM, roomGroundTileGroup.GetTileGroup());
-        //}
-
-        //if (mainPathTileGroup != null)
-        //{
-        //    if (mainPathTileEdgeGroup)
-        //        theMap.FillTileAll((int)MAP_TYPE.PATH, groundTM, groundTM, mainPathTileGroup.GetTileGroup(), mainPathTileEdgeGroup.GetTileEdgeGroup(), false);
-        //    else
-        //        theMap.FillTileAll((int)MAP_TYPE.PATH, groundTM, mainPathTileGroup.GetTileGroup());     
-        //}
-
-        //if (blockTileGroup)
-        //{
-        //    if (blockTileEdgeGroup)
-        //        theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTM, blockTileGroup.GetTileGroup(), blockTileEdgeGroup.GetTileEdgeGroup(), false);
-        //    else
-        //        theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTileGroup.GetTileGroup());
-        //}
-
-
-        //if (groundOutEdgeTileGroup && !blockTileEdgeGroup)
-        //    theMap.FillTileAll((int)MAP_TYPE.GROUND, null, blockTM, null, groundOutEdgeTileGroup.GetTileEdgeGroup(), true, (int)MAP_TYPE.BLOCK);
 
         GenerateNavMesh(theSurface2D);
 
