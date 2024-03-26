@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 
 //========================================================
@@ -126,49 +125,6 @@ public class MG_MazeOne : MG_MazeOneBase
                 CreateMazeByBackTrace();
                 break;
         }
-
-        //List<wallInfo> wallList = new List<wallInfo>();
-
-        ////==== Init Connection Info
-        //wallInfo[,] lrWalls = new wallInfo[puzzleWidth - 1, puzzleHeight];
-        //wallInfo[,] udWalls = new wallInfo[puzzleWidth, puzzleHeight + 1];
-
-        //for (int x = 0; x < puzzleWidth; x++)
-        //{
-        //    for (int y = 0; y < puzzleHeight; y++)
-        //    {
-        //        bool addToWallList = true;
-        //        if (puzzleMap[x][y].value == cellInfo.INVALID)
-        //            addToWallList = false;
-
-        //        if (x < puzzleWidth - 1)
-        //        {
-        //            wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x + 1, y));
-        //            if (addToWallList && puzzleMap[x + 1][y].value != cellInfo.INVALID)
-        //                wallList.Add(w);
-        //            lrWalls[x, y] = w;
-        //        }
-        //        if (y < puzzleHeight - 1)
-        //        {
-        //            wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x, y + 1));
-        //            if (addToWallList && puzzleMap[x][y + 1].value != cellInfo.INVALID)
-        //                wallList.Add(w);
-        //            udWalls[x, y] = w;
-        //        }
-        //    }
-        //}
-
-        ////==== 開始隨機連結 !!
-        ////使用隨機排序
-        //OneUtility.Shuffle(wallList);
-        //foreach (wallInfo w in wallList)
-        //{
-        //    if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
-        //    {
-        //        ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-        //        puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-        //    }
-        //}
 
     }
 
