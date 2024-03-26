@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
+//========================================================
+//MazeOneEx: 繼承了 MaxeOne，可以改變入口方向並延申
+//========================================================
 
 public class MG_MazeOneEx : MG_MazeOne
 {
@@ -81,9 +84,18 @@ public class MG_MazeOneEx : MG_MazeOne
     }
 }
 
+//========================================================
+//MazeOne: 使用 DisjointSet 和 Wall 的資訊來連結的迷宮
+//========================================================
+
 public class MG_MazeOne : MG_MazeOneBase
 {
-    //protected bool allConnect = true;
+    public enum MAZE_ALGORITHM
+    {
+        RANDOM_WALL,
+        BACK_TRACE,
+    }
+    public MAZE_ALGORITHM ChooseAlgorithm = MAZE_ALGORITHM.RANDOM_WALL;
 
     protected class wallInfo
     {
@@ -96,15 +108,76 @@ public class MG_MazeOne : MG_MazeOneBase
         public int cell_ID_2;
     }
 
+
+    protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
+
     override protected void CreatMazeMap()
     {
         //==== Init
-        DisjointSetUnion puzzleDSU = new DisjointSetUnion();
+        //DisjointSetUnion puzzleDSU = new DisjointSetUnion();
         puzzleDSU.Init(puzzleHeight * puzzleWidth);
 
+        switch (ChooseAlgorithm)
+        {
+            case MAZE_ALGORITHM.RANDOM_WALL:
+                CreateMazeByRandomWall();
+                break;
+            case MAZE_ALGORITHM.BACK_TRACE:
+                CreateMazeByBackTrace();
+                break;
+        }
+
+        //List<wallInfo> wallList = new List<wallInfo>();
+
+        ////==== Init Connection Info
+        //wallInfo[,] lrWalls = new wallInfo[puzzleWidth - 1, puzzleHeight];
+        //wallInfo[,] udWalls = new wallInfo[puzzleWidth, puzzleHeight + 1];
+
+        //for (int x = 0; x < puzzleWidth; x++)
+        //{
+        //    for (int y = 0; y < puzzleHeight; y++)
+        //    {
+        //        bool addToWallList = true;
+        //        if (puzzleMap[x][y].value == cellInfo.INVALID)
+        //            addToWallList = false;
+
+        //        if (x < puzzleWidth - 1)
+        //        {
+        //            wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x + 1, y));
+        //            if (addToWallList && puzzleMap[x + 1][y].value != cellInfo.INVALID)
+        //                wallList.Add(w);
+        //            lrWalls[x, y] = w;
+        //        }
+        //        if (y < puzzleHeight - 1)
+        //        {
+        //            wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x, y + 1));
+        //            if (addToWallList && puzzleMap[x][y + 1].value != cellInfo.INVALID)
+        //                wallList.Add(w);
+        //            udWalls[x, y] = w;
+        //        }
+        //    }
+        //}
+
+        ////==== 開始隨機連結 !!
+        ////使用隨機排序
+        //OneUtility.Shuffle(wallList);
+        //foreach (wallInfo w in wallList)
+        //{
+        //    if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
+        //    {
+        //        ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
+        //        puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
+        //    }
+        //}
+
+    }
+
+    //===========================================================================================
+    // 隨機牆拆除演算法
+    //===========================================================================================
+    protected void CreateMazeByRandomWall()
+    {
         List<wallInfo> wallList = new List<wallInfo>();
-        //puzzleStart = new Vector2Int(puzzleWidth / 2, 0);
-        //puzzleEnd = new Vector2Int(puzzleWidth / 2, puzzleHeight - 1);
 
         //==== Init Connection Info
         wallInfo[,] lrWalls = new wallInfo[puzzleWidth - 1, puzzleHeight];
@@ -136,8 +209,6 @@ public class MG_MazeOne : MG_MazeOneBase
         }
 
         //==== 開始隨機連結 !!
-        //iStart = GetCellID(puzzleStart.x, puzzleStart.y);
-        //iEnd = GetCellID(puzzleEnd.x, puzzleEnd.y);
         //使用隨機排序
         OneUtility.Shuffle(wallList);
         foreach (wallInfo w in wallList)
@@ -146,80 +217,129 @@ public class MG_MazeOne : MG_MazeOneBase
             {
                 ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
                 puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-                //if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
-                //{
-                //    //print("發現大祕寶啦 !! Loop = " + (loop + 1));
-                //    break;
-                //}
             }
         }
-        //if (allConnect)
-        //{
-        //    //使用隨機排序
-        //    OneUtility.Shuffle(wallList);
-        //    foreach (wallInfo w in wallList)
-        //    {
-        //        if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
-        //        {
-        //            ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-        //            puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-        //        }
-        //    }
-        //}
-        //else
-        //{
-        //    //使用隨機排序
-        //    OneUtility.Shuffle(wallList);
-        //    foreach (wallInfo w in wallList)
-        //    {
-        //        if (puzzleDSU.Find(w.cell_ID_1) != puzzleDSU.Find(w.cell_ID_2)) //不要自體相連
-        //        {
-        //            ConnectCellsByID(w.cell_ID_1, w.cell_ID_2);
-        //            puzzleDSU.Union(w.cell_ID_1, w.cell_ID_2);
-        //            if (puzzleDSU.Find(iStart) == puzzleDSU.Find(iEnd))
-        //            {
-        //                //print("發現大祕寶啦 !! Loop = " + (loop + 1));
-        //                break;
-        //            }
-        //        }
-        //    }
-        //    //把剩下的 Cell 標成 Invalid
-        //    int startValue = puzzleDSU.Find(iStart);
-        //    for (int i = 0; i < puzzleWidth; i++)
-        //    {
-        //        for (int j = 0; j < puzzleHeight; j++)
-        //        {
-        //            if (puzzleDSU.Find(GetCellID(i, j)) != startValue)
-        //                puzzleMap[i][j].value = cellInfo.INVALID;
-        //        }
-        //    }
-        //}
-
-        //startPos = new Vector3(puzzleX1 + GetCellX(iStart) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iStart) * cellHeight + cellHeight / 2);
-        //endPos = new Vector3(puzzleX1 + GetCellX(iEnd) * cellWidth + cellWidth / 2, 1, puzzleY1 + GetCellY(iEnd) * cellHeight + cellHeight / 2);
-
-        //BattleSystem.GetInstance().SetInitPosition(startPos);
     }
 
-    //protected void ConnectCellsByID(int id_1, int id_2)
-    //{
-    //    cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
-    //    cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
-    //    if (id_1 + 1 == id_2) //左連到右
-    //    {
-    //        cell_1.R = true;
-    //        cell_2.L = true;
-    //    }
-    //    else if (id_1 + puzzleWidth == id_2) //下連到上
-    //    {
-    //        cell_1.U = true;
-    //        cell_2.D = true;
-    //    }
-    //}
+    //===========================================================================================
+    //BackTrace 演算法
+    //===========================================================================================
+    protected List<cellInfo> cellList = new List<cellInfo>();
+    protected int startDSU = 0;
 
-    //protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
-    //protected int GetCellX(int id) { return id % puzzleWidth; }
-    //protected int GetCellY(int id) { return id / puzzleWidth; }
+    protected void CreateMazeByBackTrace()
+    {
+        startDSU = puzzleDSU.Find(GetCellID(puzzleStart.x, puzzleStart.y));
+        cellList.Add(puzzleMap[puzzleStart.x][puzzleStart.y]);
+        while (cellList.Count > 0)
+        {
+            DoOneCycle();
+        }
+    }
 
+    protected cellInfo TryConnectRandomCell(cellInfo cell)
+    {
+        List<DIRECTION> choices = new List<DIRECTION>();
+        if (!cell.L && cell.x > 0 && puzzleMap[cell.x - 1][cell.y].value != cellInfo.INVALID)
+        {
+            if (puzzleDSU.Find(GetCellID(cell.x - 1, cell.y)) != startDSU)
+                choices.Add(DIRECTION.L);
+
+        }
+        if (!cell.D && cell.y > 0 && puzzleMap[cell.x][cell.y - 1].value != cellInfo.INVALID)
+        {
+            if (puzzleDSU.Find(GetCellID(cell.x, cell.y - 1)) != startDSU)
+                choices.Add(DIRECTION.D);
+
+        }
+        if (!cell.R && cell.x < puzzleWidth - 1 && puzzleMap[cell.x + 1][cell.y].value != cellInfo.INVALID)
+        {
+            if (puzzleDSU.Find(GetCellID(cell.x + 1, cell.y)) != startDSU)
+                choices.Add(DIRECTION.R);
+
+        }
+        if (!cell.U && cell.y < puzzleHeight - 1 && puzzleMap[cell.x][cell.y + 1].value != cellInfo.INVALID)
+        {
+            if (puzzleDSU.Find(GetCellID(cell.x, cell.y + 1)) != startDSU)
+                choices.Add(DIRECTION.U);
+        }
+
+        if (choices.Count == 0)
+        {
+            //print("找到底囉!!");
+            return null;
+        }
+
+        DIRECTION dir = choices[Random.Range(0, choices.Count)];
+        cellInfo toCell = null;
+        int toDSU = -1;
+        switch (dir)
+        {
+            case DIRECTION.U:
+                toCell = puzzleMap[cell.x][cell.y + 1];
+                toDSU = GetCellID(cell.x, cell.y + 1);
+                break;
+            case DIRECTION.D:
+                toCell = puzzleMap[cell.x][cell.y - 1];
+                toDSU = GetCellID(cell.x, cell.y - 1);
+
+                break;
+            case DIRECTION.L:
+                toCell = puzzleMap[cell.x - 1][cell.y];
+                toDSU = GetCellID(cell.x - 1, cell.y);
+
+                break;
+            case DIRECTION.R:
+                toCell = puzzleMap[cell.x + 1][cell.y];
+                toDSU = GetCellID(cell.x + 1, cell.y);
+
+                break;
+        }
+        ConnectCells(cell, toCell, dir);
+        puzzleDSU.Union(startDSU, toDSU);
+
+        return toCell;
+    }
+
+    protected bool gotFinal = false;
+    protected bool DoOneCycle()
+    {
+        cellInfo cellToGo;
+        if (gotFinal)
+        {
+            //cellToGo = cellList[0];
+            cellToGo = cellList[Random.Range(0, cellList.Count)];
+            //cellToGo = cellList[cellList.Count - 1];
+        }
+        else
+        {
+            //cellToGo = cellList[0];
+            //cellToGo = cellList[Random.Range(0, cellList.Count)];
+            cellToGo = cellList[cellList.Count - 1];
+        }
+
+        cellInfo nextCell = TryConnectRandomCell(cellToGo);
+        if (nextCell != null)
+        {
+            //print("找到路了，++清單 " + cellList.Count);
+            if (!FinishAtDeepest && nextCell.x == puzzleEnd.x && nextCell.y == puzzleEnd.y)
+            {
+                gotFinal = true;
+                print("連到終點了，改變 gotFinal => " + gotFinal);
+                //cellList = List<cellInfo>.re cellList
+            }
+            else
+            {
+                cellList.Add(nextCell);     //無論如何終點不要被加到 cellList，不要再另外連出去
+            }
+            return true;
+        }
+        else
+        {
+            //print("沒路可走，--清單 " + cellList.Count);
+            cellList.Remove(cellToGo);
+            return false;
+        }
+    }
 }
 

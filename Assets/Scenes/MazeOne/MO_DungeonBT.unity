@@ -2919,8 +2919,8 @@ MonoBehaviour:
   entraceList: []
   puzzleWidth: 5
   puzzleHeight: 7
-  roomWidth: 6
-  roomHeight: 6
+  roomWidth: 16
+  roomHeight: 16
   wallWidth: 3
   wallHeight: 3
   pathWidth: 6
@@ -3237,7 +3237,7 @@ PrefabInstance:
     - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: theMG
       value: 
-      objectReference: {fileID: 1445305397}
+      objectReference: {fileID: 1806008471}
     - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: theBattleHUD
       value: 
@@ -3950,8 +3950,8 @@ MonoBehaviour:
   wallHeight: 3
   pathWidth: 6
   pathHeight: 6
-  pathRate: 0.5
-  FinishAtDeepest: 1
+  pathRate: 0
+  FinishAtDeepest: 0
   finishPortalRef: {fileID: 0}
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 1
@@ -3973,8 +3973,9 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
-  extendTerminal: 0
-  mazeDir: 0
+  ChooseAlgorithm: 1
+  extendTerminal: 1
+  mazeDir: 2
 --- !u!1001 &1807413653
 PrefabInstance:
   m_ObjectHideFlags: 0
