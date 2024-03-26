@@ -31,6 +31,8 @@ public class MG_MazeOneBase : MapGeneratorBase
     protected int cellHeight = 4;
 
     public float pathRate = 0;
+    public bool startAsPath = false;
+    public bool finishAsPath = false;
 
     public bool FinishAtDeepest = false;       //用離入口最遠的房間作為終點
 
@@ -592,6 +594,14 @@ public class MG_MazeOneBase : MapGeneratorBase
     {
         puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
         puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        if (startAsPath)
+        {
+            puzzleMap[puzzleStart.x][puzzleStart.y].isPath = true;
+        }
+        if (finishAsPath)
+        {
+            puzzleMap[puzzleEnd.x][puzzleEnd.y].isPath = true;
+        }
 
         if (pathRate > 0)
         {

@@ -2432,7 +2432,9 @@ MonoBehaviour:
   pathWidth: 5
   pathHeight: 5
   pathRate: 0.5
-  FinishAtDeepest: 0
+  startAsPath: 1
+  finishAsPath: 0
+  FinishAtDeepest: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 1
@@ -3949,6 +3951,8 @@ MonoBehaviour:
   pathWidth: 6
   pathHeight: 6
   pathRate: 0
+  startAsPath: 0
+  finishAsPath: 0
   FinishAtDeepest: 0
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
