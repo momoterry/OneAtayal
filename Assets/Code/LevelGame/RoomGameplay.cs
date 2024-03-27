@@ -7,7 +7,35 @@ using UnityEngine;
 //
 public class RoomGameplayBase : MonoBehaviour
 {
+    [System.Serializable]
+    public class EnemyGroupInfo
+    {
+        public GameObject[] enemys;
+        public float totalNumMin = 2;
+        public float totalNumMax = 3;
+    }
+
     public virtual void Build( MazeGameManager.RoomInfo room ) { }
+
+    static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, int width=4, int height=4, float diffAddRate=0)
+    {
+        int num = Mathf.RoundToInt((info.totalNumMax - info.totalNumMin) * diffAddRate + info.totalNumMin);
+        GameObject o = new GameObject();
+        o.transform.position = vCenter;
+        EnemyGroup enemyGroup = o.AddComponent<EnemyGroup>();
+
+        enemyGroup.width = width;
+        enemyGroup.height = height;
+        enemyGroup.isRandomEnemyTotal = true;
+        enemyGroup.randomEnemyTotal = num;
+        enemyGroup.enemyInfos = new EnemyGroup.EnemyInfo[info.enemys.Length];
+        for (int i = 0; i < info.enemys.Length; i++)
+        {
+            enemyGroup.enemyInfos[i] = new EnemyGroup.EnemyInfo();
+            enemyGroup.enemyInfos[i].enemyRef = info.enemys[i];
+        }
+        return o;
+    }
 }
 
 //public class MR_NodeBase : MonoBehaviour
