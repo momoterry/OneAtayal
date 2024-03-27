@@ -10,6 +10,11 @@ public class CELL_BASE
     public bool U, D, L, R;
     public DIRECTION from;  //離起點最近的方向
     public DIRECTION to;    //往終點的方向，如果是分支，預設為起點的相對方向
+
+    //public int deep;    //距離出發點的深度，最小值為 1，0 表示未處理
+    //public bool isMain; //是否主幹道
+    //public int mainDeep; //主幹道上的深度
+    //public bool isPath;
 }
 
 
@@ -638,7 +643,10 @@ public class MG_MazeOneBase : MapGeneratorBase
                     if (cell.value == cellInfo.NORMAL)
                     {
                         float mainRatio = (float)cell.mainDeep / (float)maxMainDeep;
-                        gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, cell.isMain, mainRatio, pathWidth);
+                        if (cell.isPath)
+                            gameManager.AddPath(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, cell.isMain, mainRatio, pathWidth, pathHeight);
+                        else
+                            gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, cell.isMain, mainRatio, pathWidth, pathHeight);
                     }
                 }
             }

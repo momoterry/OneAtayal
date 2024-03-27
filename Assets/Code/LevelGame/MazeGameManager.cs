@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class MazeGameManagerBase:MonoBehaviour
 {
-    virtual public void AddRoom(Vector3 center, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth) { }
+    virtual public void AddRoom(Vector3 center, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) { }
+    virtual public void AddPath(Vector3 center, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) { }
+
     virtual public void BuildAll() {}
 }
 
@@ -18,6 +20,8 @@ public class MazeGameManager : MazeGameManagerBase
         public float height;
         public float mainRatio;
         public CELL_BASE cell;
+        public float doorWidth;
+        public float doorHeight;
     }
 
     [System.Serializable]
@@ -50,12 +54,14 @@ public class MazeGameManager : MazeGameManagerBase
     protected List<RoomInfo> normalRoomList = new List<RoomInfo>();
     protected List<RoomInfo> branchEndRoomList = new List<RoomInfo>();
 
-    override public void AddRoom(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth) 
+    override public void AddRoom(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
     {
         RoomInfo roomInfo = new RoomInfo();
         roomInfo.vCenter = vCenter;
         roomInfo.width = width;
         roomInfo.height = height;
+        roomInfo.doorWidth = doorWidth;
+        roomInfo.doorHeight = doorHeight;
         roomInfo.mainRatio = mainRatio;
         roomInfo.cell = cell;
         if (isMain)
