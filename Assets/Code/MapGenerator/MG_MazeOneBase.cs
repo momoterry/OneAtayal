@@ -665,7 +665,10 @@ public class MG_MazeOneBase : MapGeneratorBase
                         DungeonEnemyManagerBase.PosData pData = new DungeonEnemyManagerBase.PosData();
                         pData.pos = GetCellCenterPos(x, y);
                         pData.diffAdd = (float)puzzleMap[x][y].deep / (float)maxMainDeep;
-                        pData.area = new Vector2(roomWidth - roomEdgeBuffer - roomEdgeBuffer, roomHeight - roomEdgeBuffer - roomEdgeBuffer);
+                        if (puzzleMap[x][y].isPath)
+                            pData.area = new Vector2(pathWidth - roomEdgeBuffer - roomEdgeBuffer, pathHeight - roomEdgeBuffer - roomEdgeBuffer);
+                        else
+                            pData.area = new Vector2(roomWidth - roomEdgeBuffer - roomEdgeBuffer, roomHeight - roomEdgeBuffer - roomEdgeBuffer);
                         dungeonEnemyManager.AddNormalPosition(pData);
                     }
                 }
