@@ -185,6 +185,7 @@ MonoBehaviour:
   fixEndGames:
   - relativeIndex: 1
     game: {fileID: 677375465}
+  defautPathGames: []
   defaultBranchGames:
   - game: {fileID: 765310019}
     ratioPercent: 0
@@ -1110,6 +1111,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3145861483233147258, guid: 5d766c76be09af54ebd2ed4b61870a53, type: 3}
   m_PrefabInstance: {fileID: 402593103}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &438066634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 438066635}
+  - component: {fileID: 438066636}
+  m_Layer: 0
+  m_Name: DefaultPathA
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &438066635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438066634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1991402925}
+  m_Father: {fileID: 1431126863}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &438066636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438066634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce293ccadb1da44cabb07be5098f6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centerGame: {fileID: 1991402924}
 --- !u!1 &466132476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2779,6 +2826,9 @@ MonoBehaviour:
     ratioPercent: 100
   fixStartGames: []
   fixEndGames: []
+  defautPathGames:
+  - game: {fileID: 438066636}
+    ratioPercent: 100
   defaultBranchGames:
   - game: {fileID: 766576794}
     ratioPercent: 100
@@ -2796,6 +2846,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 766576795}
+  - {fileID: 438066635}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3136,7 +3187,7 @@ PrefabInstance:
       objectReference: {fileID: 846517816}
     - target: {fileID: 5781492699891297185, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: IsBattleLevelUp
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5781492699891297191, guid: 3932948eebc1af8408460a3364f5be97, type: 3}
       propertyPath: m_Name
@@ -4163,6 +4214,64 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1 &1991402924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1991402925}
+  - component: {fileID: 1991402926}
+  m_Layer: 0
+  m_Name: EnemyGroupDefault
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1991402925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991402924}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 438066635}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1991402926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991402924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fc55feeb1aba340a164d02382d360c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyInfos:
+  - enemyRef: {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+    num: 2
+  isRandomEnemyTotal: 0
+  randomEnemyTotal: 0
+  width: 4
+  height: 4
+  spwanDistance: 12
+  alertDistance: 8
+  stopDistance: 20
+  speed: 4
+  closeDistance: 4
+  triggerTargetWhenAllKilled: []
+  difficulty: 1
 --- !u!1001 &1993041246
 PrefabInstance:
   m_ObjectHideFlags: 0

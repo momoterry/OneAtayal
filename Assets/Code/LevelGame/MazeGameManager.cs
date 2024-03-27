@@ -46,6 +46,8 @@ public class MazeGameManager : MazeGameManagerBase
     public FixGameInfo[] fixStartGames;         //relativeIndex = 0 代表起點，不能用
     public FixGameInfo[] fixEndGames;           //relativeIndex = 0 代表終點，不能用
 
+    public NormalGameInfo[] defautPathGames;
+
     //public RoomGameplayBase defaultBranchGame;
     public NormalGameInfo[] defaultBranchGames;
     public FixBranchEndGameInfo[] fixBranchEndGames;
@@ -53,6 +55,7 @@ public class MazeGameManager : MazeGameManagerBase
     protected List<RoomInfo> mainRoomList = new List<RoomInfo>();
     protected List<RoomInfo> normalRoomList = new List<RoomInfo>();
     protected List<RoomInfo> branchEndRoomList = new List<RoomInfo>();
+    protected List<RoomInfo> pathList = new List<RoomInfo>();
 
     override public void AddRoom(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
     {
@@ -82,6 +85,20 @@ public class MazeGameManager : MazeGameManagerBase
                 normalRoomList.Add(roomInfo);
             }
         }
+    }
+
+    override public void AddPath(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight)
+    {
+        RoomInfo roomInfo = new RoomInfo();
+        roomInfo.vCenter = vCenter;
+        roomInfo.width = width;
+        roomInfo.height = height;
+        roomInfo.doorWidth = doorWidth;
+        roomInfo.doorHeight = doorHeight;
+        roomInfo.mainRatio = mainRatio;
+        roomInfo.cell = cell;
+        
+        pathList.Add(roomInfo);
     }
 
 
@@ -196,26 +213,13 @@ public class MazeGameManager : MazeGameManagerBase
             if (game != null)
                 game.Build(room);
         }
-        //剩下的主線
-        //if (defaultMainGame)
-        //{
-        //    foreach (RoomInfo room in normalMainRoomList)
-        //    {
-        //        defaultMainGame.Build(room);
-        //    }
-        //}
-        ////剩下的支線端點
-        //if (defaultBranchGame)
-        //{
-        //    for (int i = iCount; i < branchEndRoomList.Count; i++)
-        //    {
-        //        defaultBranchGame.Build(branchEndRoomList[i]);
-        //    }
-        //    foreach (RoomInfo room in normalRoomList)
-        //    {
-        //        defaultBranchGame.Build(room);
-        //    }
-        //}
+        //所有的「通道」
+        foreach (RoomInfo room in pathList)
+        {
+            RoomGameplayBase game = GetRandomGameplay(defautPathGames);
+            if (game != null)
+                game.Build(room);
+        }
     }
 
     RoomGameplayBase GetRandomGameplay(NormalGameInfo[] games)
