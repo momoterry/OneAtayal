@@ -84,6 +84,13 @@ public class MazeGameManager : MazeGameManagerBase
         }
     }
 
+
+    protected int CompareMainRoom(RoomInfo roomA, RoomInfo roomB)
+    {
+        return Mathf.RoundToInt(1000.0f * (roomA.mainRatio - roomB.mainRatio));
+    }
+
+
     override public void BuildAll()
     {
         RoomGameplayBase[] mainGames = new RoomGameplayBase[mainRoomList.Count];
@@ -106,17 +113,22 @@ public class MazeGameManager : MazeGameManagerBase
                 print("Invalid index in fixEndGames: " + fg.relativeIndex);
         }
 
+        //print("mainRoomList Count: " + mainRoomList.Count);
+        mainRoomList.Sort(CompareMainRoom);
+
         List<RoomInfo> normalMainRoomList = new List<RoomInfo>();
+        int mIndex = 0;
         foreach (RoomInfo room in mainRoomList)
         {
-            int mIndex = Mathf.RoundToInt(room.mainRatio * (mainRoomList.Count + 1.0f)) - 1;
-            //print("Build One Main Room!! " + mIndex);
+            //int mIndex = Mathf.RoundToInt(room.mainRatio * (mainRoomList.Count + 1.0f)) - 1;
+            //print("Build One Main Room!! " + mIndex + " main Ratio: " + room.mainRatio);
             if (mainGames[mIndex])
                 mainGames[mIndex].Build(room);
             else
                 normalMainRoomList.Add(room);
             //else if (defaultMainGame)
             //    defaultMainGame.Build(room);
+            mIndex++;
         }
 
         if (fixBranchEndGames.Length > branchEndRoomList.Count)
