@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -360,7 +361,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
         boxCollider.size = new Vector3(width, 2.0f, height);
         //boxCollider.l
-        newObject.transform.parent = gameObject.transform;
+        newObject.transform.parent = colliderRoot.transform;//gameObject.transform;
         newObject.isStatic = true;
         newObject.layer = LayerMask.NameToLayer("Wall");
     }
@@ -722,8 +723,15 @@ public class MG_MazeOneBase : MapGeneratorBase
     }
 
     //==== 一般通道處理
+    protected GameObject colliderRoot = null;
     protected void ProcessNormalCells()
     {
+        if (createWallCollider && colliderRoot == null)
+        {
+            colliderRoot = new GameObject("Root_Colliders");
+            colliderRoot.transform.parent = transform;
+        }
+
         for (int i = 0; i < puzzleWidth; i++)
         {
             for (int j = 0; j < puzzleHeight; j++)
