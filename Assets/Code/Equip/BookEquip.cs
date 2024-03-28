@@ -37,7 +37,7 @@ public class BookEquip : MonoBehaviour
     {
         save = _save;
 
-        SkillDollSummonEx skillRef = BookEquipManager.GetInsatance().GetSkillByID(save.skillID);
+        SkillDollSummonEx skillRef = BookEquipManager.GetInstance().GetSkillByID(save.skillID);
         skill = Instantiate(skillRef, transform);
         skill.ATK_Percent = save.ATK_Percent;
         skill.HP_Percent = save.HP_Percent;

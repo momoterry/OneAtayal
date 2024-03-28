@@ -9,10 +9,21 @@ public class BookEquipSaveAll   // 存檔資料
     public BookEquipSave[] Equipped;
 }
 
+//帶有隨機效果的 BookEquip 定義
+[System.Serializable]
+public class MagicBookEquipInfo
+{
+    public string ID;
+    public ITEM_QUALITY quality;
+    public string[] skillList;
+    public BookEquipEnhancerBase enhancer;
+}
 
 public class BookEquipManager : MonoBehaviour
 {
     public const int MAX_BOOKEQUIP = 3;
+    public MagicBookEquipInfo[] magicBookDef;
+
     [System.Serializable]
     public class SkillMappingItem
     {
@@ -22,12 +33,13 @@ public class BookEquipManager : MonoBehaviour
     public SkillMappingItem[] skillMapItems;
 
     static BookEquipManager instance;
-    static public BookEquipManager GetInsatance() { return instance; }
+    static public BookEquipManager GetInstance() { return instance; }
 
     protected BookEquipSave[] equipped = new BookEquipSave[MAX_BOOKEQUIP];
     protected BookEquip[] equipInstances = new BookEquip[MAX_BOOKEQUIP];
     protected List<BookEquipSave> inventory = new List<BookEquipSave>();
 
+    static Dictionary<string, MagicBookEquipInfo> magicBookMap = new Dictionary<string, MagicBookEquipInfo>();
     static Dictionary<string, SkillDollSummonEx> skillMap = new Dictionary<string, SkillDollSummonEx>();
 
     public BookEquipManager() : base()
@@ -43,6 +55,10 @@ public class BookEquipManager : MonoBehaviour
     {
         if (!oneTimeInit)
         {
+            for (int i=0; i< magicBookDef.Length; i++)
+            {
+                magicBookMap.Add(magicBookDef[i].ID, magicBookDef[i]);
+            }
             for (int i = 0; i < skillMapItems.Length; i++)
             {
                 GameObject o = Instantiate(skillMapItems[i].skillRef.gameObject, transform);
@@ -143,6 +159,27 @@ public class BookEquipManager : MonoBehaviour
             BookEquipSave eq = inventory[i];
             print("=> " + i + "uID: " + (eq == null ? "null" : eq.uID.ToString()));
         }
+    }
+
+
+    //====================== Magic Book 產生相關
+
+    public MagicBookEquipInfo GetMagicBookInfo(string ID)
+    {
+        if (magicBookMap.ContainsKey(ID))
+            return magicBookMap[ID];
+        return null;
+    }
+
+    public BookEquipSave GenerateMagicBook(string ID)
+    {
+        if (!magicBookMap.ContainsKey(ID))
+            return null;
+
+        return null;
+        //BookEquipSave equip = GenerateEmptyOne();
+        ////TODO
+        //return equip;
     }
 
     //====================== 各種 BookEquip 操作

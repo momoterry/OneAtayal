@@ -131,7 +131,7 @@ public class BookShop : MonoBehaviour
         equip.ATK_Percent = atkAdd + 100;
         equip.quality = quality;
 
-        SkillDollSummonEx skill = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
+        SkillDollSummonEx skill = BookEquipManager.GetInstance().GetSkillByID(equip.skillID);
         DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(skill.dollID);
         equip.bookName = prefix + dInfo.dollName + suffix;
     }
@@ -142,7 +142,7 @@ public class BookShop : MonoBehaviour
         for (int i = 0; i < baseInfos.Length; i++)
         {
             BookEquipGood good = new BookEquipGood();
-            good.equip = BookEquipManager.GetInsatance().GenerateEmptyOne();
+            good.equip = BookEquipManager.GetInstance().GenerateEmptyOne();
             good.equip.skillID = baseInfos[i].skillID;
             //good.equip.ATK_Percent = Random.Range(100, 200);
             //good.equip.HP_Percent = Random.Range(100, 200);

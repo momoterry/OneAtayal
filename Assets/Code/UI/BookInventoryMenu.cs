@@ -78,7 +78,7 @@ public class BookInventoryMenu : MonoBehaviour
             startY = rrt.anchoredPosition.y;
         }
 
-        for (int i = 0; i < BookEquipManager.GetInsatance().GetInventorySize(); i++)
+        for (int i = 0; i < BookEquipManager.GetInstance().GetInventorySize(); i++)
         {
             int row = i / numPerRow;
             int col = i % numPerRow;
@@ -91,7 +91,7 @@ public class BookInventoryMenu : MonoBehaviour
             o.SetActive(true);
 
             BookInventoryItem bi = o.GetComponent<BookInventoryItem>();
-            bi.InitValue(i, BookEquipManager.GetInsatance().GetInventoryByIndex(i), ItemClickCB);
+            bi.InitValue(i, BookEquipManager.GetInstance().GetInventoryByIndex(i), ItemClickCB);
 
             itemList.Add(bi);
         }
@@ -105,7 +105,7 @@ public class BookInventoryMenu : MonoBehaviour
         //}
         for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
         {
-            BookEquipSave equip = BookEquipManager.GetInsatance().GetCurrEquip(i);
+            BookEquipSave equip = BookEquipManager.GetInstance().GetCurrEquip(i);
             if (equip == null)
                 continue;
             GameObject o = Instantiate(EquippedRef.gameObject, EquippedRef.transform.parent);
@@ -151,7 +151,7 @@ public class BookInventoryMenu : MonoBehaviour
     public void ItemClickCB(int _index)
     {
         equippedCursor.SetActive(false);
-        BookEquipSave equip = BookEquipManager.GetInsatance().GetInventoryByIndex(_index);
+        BookEquipSave equip = BookEquipManager.GetInstance().GetInventoryByIndex(_index);
         if (selectPhase == SELECT_PHASE.INVENTORY && lastSelect == equip) 
         {
             //雙擊
@@ -167,7 +167,7 @@ public class BookInventoryMenu : MonoBehaviour
             int validSlot = -1;
             for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
             {
-                if (BookEquipManager.GetInsatance().GetCurrEquip(i) == null)
+                if (BookEquipManager.GetInstance().GetCurrEquip(i) == null)
                 {
                     validSlot = i;
                     break;
@@ -175,8 +175,8 @@ public class BookInventoryMenu : MonoBehaviour
             }
             if (validSlot >= 0)
             {
-                BookEquipManager.GetInsatance().RemoveFromInventoryByIndex(_index);
-                BookEquipManager.GetInsatance().Equip(equip, validSlot);
+                BookEquipManager.GetInstance().RemoveFromInventoryByIndex(_index);
+                BookEquipManager.GetInstance().Equip(equip, validSlot);
                 ResetItems();
             }
             else
@@ -202,7 +202,7 @@ public class BookInventoryMenu : MonoBehaviour
     public void EquippedItemClickCB(int _index)
     {
         inventoryCursor.SetActive(false);
-        BookEquipSave equip = BookEquipManager.GetInsatance().GetCurrEquip(_index);
+        BookEquipSave equip = BookEquipManager.GetInstance().GetCurrEquip(_index);
         if (selectPhase == SELECT_PHASE.EQUIP &&　lastSelect == equip)
         {
             //雙擊
@@ -215,8 +215,8 @@ public class BookInventoryMenu : MonoBehaviour
             selectPhase = SELECT_PHASE.NONE;
 
             //脫裝操作
-            BookEquipManager.GetInsatance().Equip(null, _index);
-            BookEquipManager.GetInsatance().AddToInventory(equip);
+            BookEquipManager.GetInstance().Equip(null, _index);
+            BookEquipManager.GetInstance().AddToInventory(equip);
             ResetItems();
         }
         else
@@ -249,8 +249,8 @@ public class BookInventoryMenu : MonoBehaviour
         if (result == MessageBox.RESULT.YES)
         {
             //print("真的確家要賣了 ..... " + lastSelect.quality);
-            BookEquipSave equip = BookEquipManager.GetInsatance().RemoveFromInventoryByIndex(lastSelectIndex);
-            BookEquipManager.GetInsatance().DestroyOne(equip);
+            BookEquipSave equip = BookEquipManager.GetInstance().RemoveFromInventoryByIndex(lastSelectIndex);
+            BookEquipManager.GetInstance().DestroyOne(equip);
             GameSystem.GetPlayerData().AddMoney(defaultSellValue);
 
             bookCard.gameObject.SetActive(false);

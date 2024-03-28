@@ -145,7 +145,7 @@ public class PlayerData : MonoBehaviour
 
         GameSystem.GetWorldMap().Init();
         GameSystem.GetLevelManager().InitFirstLevel();
-        BookEquipManager.GetInsatance().InitSave();
+        BookEquipManager.GetInstance().InitSave();
 
     }
 
@@ -236,7 +236,7 @@ public class PlayerData : MonoBehaviour
             }
         }
 
-        data.bookEquipAll = BookEquipManager.GetInsatance().ToSaveData();
+        data.bookEquipAll = BookEquipManager.GetInstance().ToSaveData();
 
         if (savedMaps.Count > 0)
         {
@@ -338,7 +338,7 @@ public class PlayerData : MonoBehaviour
 
         if (data.bookEquipAll != null)
         {
-            BookEquipManager.GetInsatance().FromLoadData(data.bookEquipAll);
+            BookEquipManager.GetInstance().FromLoadData(data.bookEquipAll);
         }
 
         if (data.savedPFields !=null && data.savedPFields.Length > 0)

@@ -39,6 +39,14 @@ public class ForgeMenuItem : MonoBehaviour
         {
             InitDollInfo(formula.outputID);
         }
+        else if (formula.outputType == ITEM_TYPE.BOOKEQUIP)
+        {
+            MagicBookEquipInfo magic = BookEquipManager.GetInstance().GetMagicBookInfo(formula.outputID);
+            if (magic != null)
+            {
+                resultIcon.color = GameDef.GetQaulityColor(magic.quality);
+            }
+        }
         //string dollID = formula.outputID;
         //DollInfo dInfo = GameSystem.GetInstance().theDollData.GetDollInfoByID(dollID);
         //if (dInfo == null)

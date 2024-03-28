@@ -166,7 +166,7 @@ public class PC_One : PlayerControllerBase
 
         //檢查跨關卡技能之前，先穿上裝備 (BookEquip)
         activeSkillls = new SkillBase[activeSkillRefs.Length];
-        BookEquipManager.GetInsatance().InitEquipsOnPC();
+        BookEquipManager.GetInstance().InitEquipsOnPC();
 
         //先檢查存檔
         SkillBase savedAutoSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(AUTO_SKILL);

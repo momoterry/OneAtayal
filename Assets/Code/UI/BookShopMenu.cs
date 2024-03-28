@@ -151,7 +151,7 @@ public class BookShopMenu : MonoBehaviour
             return;
         }
 
-        BookEquipManager.GetInsatance().AddToInventory(good.equip);
+        BookEquipManager.GetInstance().AddToInventory(good.equip);
         GameSystem.GetPlayerData().AddMoney(-good.MoneyCost);
         theShop.RemoveGood(currSelectIndex);
 

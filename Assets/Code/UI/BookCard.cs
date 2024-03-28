@@ -32,7 +32,7 @@ public class BookCard : MonoBehaviour
 
     public void SetCard(BookEquipSave equip, bool hideValue = false)
     {
-        SkillDollSummonEx skill = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
+        SkillDollSummonEx skill = BookEquipManager.GetInstance().GetSkillByID(equip.skillID);
         Icon.sprite = skill.icon;
 
         DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(skill.dollID);

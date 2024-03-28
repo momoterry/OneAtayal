@@ -16,7 +16,7 @@ public class BookEquipTestTrigger : MonoBehaviour
 
     public void OnTG(GameObject whoTG)
     {
-        BookEquipSave newEquip = BookEquipManager.GetInsatance().GenerateEmptyOne();
+        BookEquipSave newEquip = BookEquipManager.GetInstance().GenerateEmptyOne();
         //print("Default new Equip");
         //print("ATK_Percent: " + newEquip.ATK_Percent);
         //print("HP_Percent: " + newEquip.HP_Percent);
@@ -32,10 +32,10 @@ public class BookEquipTestTrigger : MonoBehaviour
         {
             for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
             {
-                if (BookEquipManager.GetInsatance().GetCurrEquip(i) == null)
+                if (BookEquipManager.GetInstance().GetCurrEquip(i) == null)
                 {
                     print("空欄位 "+ i + " 裝備 EquipBook: " + newEquip.uID);
-                    BookEquipManager.GetInsatance().Equip(newEquip, i);
+                    BookEquipManager.GetInstance().Equip(newEquip, i);
                     isEquip = true;
                     break;
                 }
@@ -43,14 +43,14 @@ public class BookEquipTestTrigger : MonoBehaviour
             if (!isEquip)
             {
                 print("強迫裝備 EquipBook: " + newEquip.uID);
-                BookEquipManager.GetInsatance().Equip(newEquip, 0);
+                BookEquipManager.GetInstance().Equip(newEquip, 0);
                 isEquip = true;
             }
         }
         if (!isEquip)
         {
             print("放進背包: " + newEquip.uID);
-            BookEquipManager.GetInsatance().AddToInventory(newEquip);
+            BookEquipManager.GetInstance().AddToInventory(newEquip);
         }
 
         GameSystem.GetInstance().SaveData();

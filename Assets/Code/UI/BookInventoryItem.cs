@@ -22,7 +22,7 @@ public class BookInventoryItem : MonoBehaviour
         myEquip = equip;
         myCB = _CB;
         //atkText.text = "§ð " + equip.ATK_Percent + "%";
-        SkillDollSummonEx skillRef = BookEquipManager.GetInsatance().GetSkillByID(equip.skillID);
+        SkillDollSummonEx skillRef = BookEquipManager.GetInstance().GetSkillByID(equip.skillID);
 
         if (skillRef)
         {
