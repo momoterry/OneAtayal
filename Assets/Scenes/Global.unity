@@ -528,11 +528,20 @@ MonoBehaviour:
   magicBookDef:
   - ID: MagicBookBasic
     quality: 1
-    skillList: []
+    skillList:
+    - DollOne
+    - DollStone
+    - DollFire
+    - DollLeaf
     enhancer: {fileID: 0}
   - ID: MagicBookAlpha
     quality: 1
-    skillList: []
+    skillList:
+    - DollAce
+    - DollBlackStone
+    - DollWhiteFire
+    - DollCrystal
+    - DollBlaze
     enhancer: {fileID: 0}
   skillMapItems:
   - ID: DollOne

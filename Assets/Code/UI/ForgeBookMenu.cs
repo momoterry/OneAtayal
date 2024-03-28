@@ -34,5 +34,43 @@ public class ForgeBookMenu : ForgeMenu
     public override void OnTryToForge(ForgeMenuItem item, ForgeFormula formula)
     {
         print("試著打造: " + formula.outputID);
+
+        //TODO: 是否集中到 ForgeManager 去處理
+        PlayerData pData = GameSystem.GetPlayerData();
+        if (formula.requireMoney > pData.GetMoney())
+        {
+            SystemUI.ShowMessageBox(null, "錢不夠喔....");
+            return;
+        }
+
+        for (int i = 0; i < formula.inputs.Length; i++)
+        {
+            if (formula.inputs[i].num > pData.GetItemNum(formula.inputs[i].matID))
+            {
+                SystemUI.ShowMessageBox(null, "素材不足....");
+                return;
+            }
+        }
+
+        BookEquipSave equip = BookEquipManager.GetInstance().GenerateMagicBook(formula.outputID);
+        if (equip == null)
+        {
+            SystemUI.ShowMessageBox(null, "嚴重 ERROR....");
+            return;
+        }
+
+        BookEquipManager.GetInstance().AddToInventory(equip);
+
+        //減去資源
+        pData.AddMoney(-formula.requireMoney);
+        for (int i = 0; i < formula.inputs.Length; i++)
+        {
+            pData.AddItem(formula.inputs[i].matID, -formula.inputs[i].num);
+        }
+
+        //TODO: 直接出現書的畫面
+        SystemUI.ShowMessageBox(null, "成功產生 MagicBook");
+
+        CloseMenu();
     }
 }

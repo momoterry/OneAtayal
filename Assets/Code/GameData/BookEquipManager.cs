@@ -176,10 +176,12 @@ public class BookEquipManager : MonoBehaviour
         if (!magicBookMap.ContainsKey(ID))
             return null;
 
-        return null;
-        //BookEquipSave equip = GenerateEmptyOne();
-        ////TODO
-        //return equip;
+        MagicBookEquipInfo info = magicBookMap[ID];
+        BookEquipSave equip = GenerateEmptyOne();
+        equip.skillID = info.skillList[Random.Range(0, info.skillList.Length)];
+        equip.quality = info.quality;
+        //TODO 真正 Enhance 的部份
+        return equip;
     }
 
     //====================== 各種 BookEquip 操作
