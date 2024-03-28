@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
+    public string ItemID;
+
     public void OnTG(GameObject whoTG)
     {
-        //GameSystem.GetPlayerData().AddMoney(moneyAdd);
+
+        GameSystem.GetPlayerData().AddItem(ItemID, 1);
+
         whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);
         Destroy(gameObject);
     }

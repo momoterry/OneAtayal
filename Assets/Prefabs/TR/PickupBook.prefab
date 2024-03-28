@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -949421431
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0a986e62e1a0b0c439dad09f2ec9d186, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ad8e40a944db1b4ea76bdba2bed304d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 5738852675871354694}
   - component: {fileID: 3906463391647340876}
   - component: {fileID: 3433032223411902153}
-  - component: {fileID: -1271234994834618757}
   - component: {fileID: 672923242907503116}
   m_Layer: 0
   m_Name: PickupBook
@@ -185,19 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cee003db50664498c7456755d0fd6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1271234994834618757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8143502755978418841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c8b5bf5ecf601488ab9636d59cb860, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyAdd: 100
+  ItemID: Mat_BookBlue
 --- !u!114 &672923242907503116
 MonoBehaviour:
   m_ObjectHideFlags: 0
