@@ -47,7 +47,7 @@ public class ForgeMenu : MonoBehaviour
         itemList.Clear();
     }
 
-    protected void CreateAllItems()
+    protected virtual void CreateAllItems()
     {
         float itemStep = 50.0f;
         List<ForgeFormula> list = ForgeManager.GetInstance().GetValidFormulas();
@@ -57,6 +57,8 @@ public class ForgeMenu : MonoBehaviour
         int i = 0;
         foreach (ForgeFormula f in list)
         {
+            if (f.outputType != ITEM_TYPE.DOLL)
+                continue;
             GameObject o = Instantiate(itemRef, listRoot);
             RectTransform rt = o.GetComponent<RectTransform>();
             rt.anchoredPosition = pos2;
@@ -72,7 +74,7 @@ public class ForgeMenu : MonoBehaviour
         scrollContentRoot.sizeDelta = new Vector2(scrollContentRoot.sizeDelta.x, itemStep * i + 8);
     }
 
-    public void OnTryToForge( ForgeMenuItem item, ForgeFormula formula)
+    public virtual void OnTryToForge( ForgeMenuItem item, ForgeFormula formula)
     {
         print("試著打造: " + formula.outputID);
 

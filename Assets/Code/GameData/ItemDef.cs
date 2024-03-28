@@ -8,6 +8,7 @@ public enum ITEM_TYPE
 {
     MATERIAL    = 0,
     DOLL        = 1,
+    BOOKEQUIP   = 2,
 }
 [System.Serializable]
 public class ItemInfo
