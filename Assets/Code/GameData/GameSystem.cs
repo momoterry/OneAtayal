@@ -200,6 +200,7 @@ public class GameSystem : MonoBehaviour
 
     public void SaveData()
     {
+        print("......................SaveData");
         if (isOnlineSave)
             SaveDataOnlineAsync();
         else

@@ -17,7 +17,7 @@ public class ForgeMenu : MonoBehaviour
         MenuRoot.gameObject.SetActive(false);
     }
 
-    public void OpenMenu()
+    public virtual void OpenMenu()
     {
         if (MenuRoot)
         {
@@ -28,6 +28,7 @@ public class ForgeMenu : MonoBehaviour
         BattleSystem.GetPC().ForceStop(true);
     }
 
+
     public void CloseMenu()
     {
         ClearAllItems();
@@ -36,6 +37,12 @@ public class ForgeMenu : MonoBehaviour
             MenuRoot.gameObject.SetActive(false);
         }
         BattleSystem.GetPC().ForceStop(false);
+    }
+
+    virtual protected void ResetMenu()
+    {
+        ClearAllItems();
+        CreateAllItems();
     }
 
     protected void ClearAllItems()

@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class ForgeBookMenu : ForgeMenu
 {
+    public GameObject showResultMenu;
+    public BookCard resultBookCard;
+
+    public override void OpenMenu()
+    {
+        base.OpenMenu();
+        showResultMenu.SetActive(false);
+    }
+
     protected override void CreateAllItems()
     {
         float itemStep = 50.0f;
@@ -68,9 +77,17 @@ public class ForgeBookMenu : ForgeMenu
             pData.AddItem(formula.inputs[i].matID, -formula.inputs[i].num);
         }
 
-        //TODO: 直接出現書的畫面
-        SystemUI.ShowMessageBox(null, "成功產生 MagicBook");
+        GameSystem.GetInstance().SaveData();
 
-        CloseMenu();
+        ResetMenu();
+        resultBookCard.SetCard(equip, false);
+        showResultMenu.SetActive(true);
     }
+
+
+    public void OnShowResultClose()
+    {
+        showResultMenu.SetActive(false);
+    }
+
 }
