@@ -45,6 +45,7 @@ public class ForgeMenuItem : MonoBehaviour
             if (magic != null)
             {
                 resultIcon.color = GameDef.GetQaulityColor(magic.quality);
+                resultText.text = magic.nameBeforeEnhance;
             }
         }
         //string dollID = formula.outputID;

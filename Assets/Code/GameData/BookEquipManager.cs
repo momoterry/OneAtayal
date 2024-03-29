@@ -14,6 +14,7 @@ public class BookEquipSaveAll   // 存檔資料
 public class MagicBookEquipInfo
 {
     public string ID;
+    public string nameBeforeEnhance;         //在 enhance 前的名稱
     public ITEM_QUALITY quality;
     public string[] skillList;
     public BookEquipEnhancerBase enhancer;
