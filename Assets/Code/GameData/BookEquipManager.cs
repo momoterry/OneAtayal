@@ -180,7 +180,12 @@ public class BookEquipManager : MonoBehaviour
         BookEquipSave equip = GenerateEmptyOne();
         equip.skillID = info.skillList[Random.Range(0, info.skillList.Length)];
         equip.quality = info.quality;
-        //TODO 真正 Enhance 的部份
+        
+        //真正 Enhance 的部份
+        if (info.enhancer)
+        {
+            info.enhancer.DoEnhance(ref equip);
+        }
         return equip;
     }
 

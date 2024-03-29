@@ -123,6 +123,134 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1064263634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064263635}
+  - component: {fileID: 1064263636}
+  m_Layer: 0
+  m_Name: BookEnhace_Green
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1064263635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064263634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 211609854834628249}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1064263636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064263634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab3b5f60ccdeb84992a2e9c7a795fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enhancePrefixs: []
+  enhanceSuffixs:
+  - type: 1
+    value: 50
+    text: "\u6230\u58EB"
+  - type: 1
+    value: 100
+    text: "\u8ECD\u795E "
+  - type: 4
+    value: 50
+    text: "\u5766\u514B"
+  - type: 4
+    value: 200
+    text: "\u57CE\u5821"
+--- !u!1 &2058633953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2058633954}
+  - component: {fileID: 2058633955}
+  m_Layer: 0
+  m_Name: BookEnhace_Blue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2058633954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058633953}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 211609854834628249}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2058633955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058633953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab3b5f60ccdeb84992a2e9c7a795fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enhancePrefixs:
+  - type: 1
+    value: 50
+    text: "\u6012\u706B"
+  - type: 1
+    value: 100
+    text: "\u72C2\u66B4"
+  - type: 4
+    value: 50
+    text: "\u5F37\u58EF"
+  - type: 4
+    value: 100
+    text: "\u5DE8\u5927"
+  enhanceSuffixs:
+  - type: 1
+    value: 50
+    text: "\u6230\u58EB"
+  - type: 1
+    value: 100
+    text: "\u8ECD\u795E "
+  - type: 4
+    value: 50
+    text: "\u5766\u514B"
+  - type: 4
+    value: 200
+    text: "\u57CE\u5821"
 --- !u!4 &211609854834628249
 Transform:
   m_ObjectHideFlags: 0
@@ -134,7 +262,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1064263635}
+  - {fileID: 2058633954}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -533,16 +663,16 @@ MonoBehaviour:
     - DollStone
     - DollFire
     - DollLeaf
-    enhancer: {fileID: 0}
+    enhancer: {fileID: 1064263636}
   - ID: MagicBookAlpha
-    quality: 1
+    quality: 2
     skillList:
     - DollAce
     - DollBlackStone
     - DollWhiteFire
     - DollCrystal
     - DollBlaze
-    enhancer: {fileID: 0}
+    enhancer: {fileID: 2058633955}
   skillMapItems:
   - ID: DollOne
     skillRef: {fileID: 5741984129758497934, guid: af29c81a7b75d254ab3139e30bfc45e5, type: 3}
