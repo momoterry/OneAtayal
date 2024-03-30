@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 //巫靈書商店介面
 //Book 表示 Doll Summon Skill ，就算改用別的方式包裝
