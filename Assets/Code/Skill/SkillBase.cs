@@ -21,6 +21,7 @@ public class SkillBase : MonoBehaviour
 
     //public bool isBattleLevelUpSkill = false;
     public int battlePointsCost = 0;
+    public int quality = 0;     //如果有裝備，會等同裝備 ITEM_QUALITY
 
     public Sprite icon;
 
@@ -51,6 +52,10 @@ public class SkillBase : MonoBehaviour
             skillButton.SetIcon(icon);
             skillButton.Bind(OnButtonClicked);
             skillButton.SetCost(battlePointsCost);
+            if (skillButton.bgIcon) 
+            {
+                skillButton.bgIcon.color = GameDef.GetQaulityColor((ITEM_QUALITY)quality);
+            }
 
             if (battlePointsCost > 0)
             {

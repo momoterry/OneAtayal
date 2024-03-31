@@ -9,6 +9,7 @@ public class SkillButton : MonoBehaviour
     public Text coolDownText;
     public Image icon;
     public Text costText;
+    public Image bgIcon;
 
     protected float coolDownLeft = 0;
     protected Color costColor = new Color(1.000f, 0.812f, 0.000f, 1.000f);  //TODO: 看如何去抓 costText 中一開始的值
