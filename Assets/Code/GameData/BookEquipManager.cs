@@ -75,6 +75,7 @@ public class BookEquipManager : MonoBehaviour
 
     public void InitSave()
     {
+        string[] initEquips = { "DollOne", "DollStone", "DollFire" };
         inventory.Clear();
         for (int i=0; i<MAX_BOOKEQUIP; i++)
         {
@@ -83,6 +84,11 @@ public class BookEquipManager : MonoBehaviour
             {
                 Destroy(equipInstances[i].gameObject);
                 equipInstances[i] = null;
+            }
+            if (initEquips[i] != "")
+            {
+                equipped[i] = GenerateEmptyOne();
+                equipped[i].skillID = initEquips[i];
             }
         }
     }
