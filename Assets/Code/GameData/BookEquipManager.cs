@@ -289,6 +289,38 @@ public class BookEquipManager : MonoBehaviour
         return null;
     }
 
+    public bool CheckIfEquipPossible(BookEquipSave equip, ref string errMsg, ref int validSlot)
+    {
+        errMsg = "";
+        validSlot = -1;
+        bool repeatErr = false;
+        for (int i= equipped.Length-1; i>=0; i--)   //確保最後的 validSlot 是最小的
+        {
+            if (equipped[i] != null)
+            {
+                if (equipped[i].skillID == equip.skillID)
+                {
+                    repeatErr = true;   //沒有欄位的錯誤要優先，所以不先跳出
+                }
+            }
+            else
+            {
+                validSlot = i;
+            }
+        }
+        if (validSlot < 0)
+        {
+            errMsg = "沒有空的欄位";
+            return false;
+        }
+        else if (repeatErr)
+        {
+            errMsg = "已經有重復的巫靈";
+            return false;
+        }
+        return true;
+    }
+
     public void Equip(BookEquipSave equip, int slotIndex)
     {
         if (slotIndex >= 0 && slotIndex < MAX_BOOKEQUIP)

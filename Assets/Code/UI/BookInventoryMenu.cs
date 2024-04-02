@@ -164,15 +164,21 @@ public class BookInventoryMenu : MonoBehaviour
             selectPhase = SELECT_PHASE.NONE;
 
             //穿裝操作
+            string errMsg = "";
             int validSlot = -1;
-            for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
+            if (!BookEquipManager.GetInstance().CheckIfEquipPossible(equip, ref errMsg, ref validSlot))
             {
-                if (BookEquipManager.GetInstance().GetCurrEquip(i) == null)
-                {
-                    validSlot = i;
-                    break;
-                }
+                SystemUI.ShowMessageBox(null, errMsg);
+                return;
             }
+            //for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
+            //{
+            //    if (BookEquipManager.GetInstance().GetCurrEquip(i) == null)
+            //    {
+            //        validSlot = i;
+            //        break;
+            //    }
+            //}
             if (validSlot >= 0)
             {
                 BookEquipManager.GetInstance().RemoveFromInventoryByIndex(_index);
@@ -181,7 +187,8 @@ public class BookInventoryMenu : MonoBehaviour
             }
             else
             {
-                print("裝備己滿，無法再裝................");
+                //不應該會走到這了
+                print("ERROR!! 不應該走到這裡................");
             }
         }
         else

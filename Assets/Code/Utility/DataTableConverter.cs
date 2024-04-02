@@ -118,6 +118,12 @@ public class DataTableConverter
             //print(prefix + " :是一個 string, 值設為: " + (string)data);
             return data;
         }
+        else if (_type.IsEnum)
+        {
+            int data = GetInt(prefix);
+            //print(prefix + " :是一個 Enum, 值設為: " + (int)data);
+            return data;
+        }
         else if (_type.IsArray)
         {
             int size = GetInt(prefix + ARRAY_LENGTH);
@@ -205,6 +211,11 @@ public class DataTableConverter
             {
                 DataToTable(prefix + "_" + field.Name, field.FieldType, field.GetValue(data));
             }
+        }
+        else if (_type.IsEnum)
+        {
+            //print(prefix + " :是一個 int, 值等於: " + (int)data);
+            AddInt(prefix, (int)data);
         }
         else
         {
