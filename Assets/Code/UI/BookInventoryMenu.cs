@@ -8,6 +8,8 @@ public class BookInventoryMenu : MonoBehaviour
     protected const int defaultSellValue = 100; //暫代，所有裝備固定賣值
 
     public Transform MenuRoot;
+    public RectTransform scrollContentRoot;
+
     public BookInventoryItem ItemRef;
     public BookInventoryItem EquippedRef;
     public BookCard bookCard;
@@ -95,6 +97,10 @@ public class BookInventoryMenu : MonoBehaviour
 
             itemList.Add(bi);
         }
+
+        //ScrollRest
+        int rowMax = (BookEquipManager.GetInstance().GetInventorySize()-1) / numPerRow + 1;
+        scrollContentRoot.sizeDelta = new Vector2(scrollContentRoot.sizeDelta.x, stepHeight * rowMax + 8);
 
         //==================== 已裝備介面
         //RectTransform ert = EquippedRef.GetComponent<RectTransform>();
