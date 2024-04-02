@@ -95,6 +95,16 @@ class OneUtility
         }
         return points;
     }
+    // ========================= 有關其它隨機 ======================================
+
+    public static int FloatToRandomInt(float f)
+    {
+        int min = Mathf.FloorToInt(f);
+        float rd = Random.Range(0.0f, 1.0f);
+        if ((f - min) >= rd)
+            return min+1;
+        return min;
+    }
 
     // ========================= 有關加密 ======================================
     public static byte[] EncryptString(string plainText, string key)
