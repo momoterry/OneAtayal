@@ -68,7 +68,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         enemyGroup.width = (int)data.area.x > 0 ? (int)data.area.x : 4;
         enemyGroup.height = (int)data.area.y > 0 ? (int)data.area.y : 4;
         enemyGroup.isRandomEnemyTotal = true;
-        enemyGroup.randomEnemyTotal = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * (data.diffAdd * diffAddRatio + 1.0f));
+        enemyGroup.randomEnemyTotal = OneUtility.FloatToRandomInt(gameInfo.totalNum * difficultRate * (data.diffAdd * diffAddRatio + 1.0f));
         enemyGroup.enemyInfos = new EnemyGroup.EnemyInfo[gameInfo.enemys.Length];
         for (int i=0; i<gameInfo.enemys.Length; i++)
         {
@@ -93,9 +93,9 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
 
         //TODO: 先暴力法處理小兵分布
         float dr = difficultRate * (data.diffAdd * diffAddRatio + 1.0f);
-        eF.frontCount = Mathf.FloorToInt(gameInfo.totalNum * dr * Random.Range(0.3f, 0.5f));
-        eF.middleCount = Mathf.FloorToInt((gameInfo.totalNum * dr - eF.frontCount) * Random.Range(0.5f, 0.7f));
-        eF.backCount = Mathf.FloorToInt(gameInfo.totalNum * dr - eF.frontCount - eF.middleCount);
+        eF.frontCount = OneUtility.FloatToRandomInt(gameInfo.totalNum * dr * Random.Range(0.3f, 0.5f));
+        eF.middleCount = OneUtility.FloatToRandomInt((gameInfo.totalNum * dr - eF.frontCount) * Random.Range(0.5f, 0.7f));
+        eF.backCount = OneUtility.FloatToRandomInt(gameInfo.totalNum * dr - eF.frontCount - eF.middleCount);
 
         if (randomLeaderAuraRefs.Length > 0)
         {
@@ -117,7 +117,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
         float hHeight = data.area.y * 0.5f - bandWidth;
         float hWidth = data.area.x * 0.5f - bandWidth;
 
-        int totalNum = Mathf.FloorToInt(gameInfo.totalNum * difficultRate * (data.diffAdd * diffAddRatio + 1.0f));
+        int totalNum = OneUtility.FloatToRandomInt(gameInfo.totalNum * difficultRate * (data.diffAdd * diffAddRatio + 1.0f));
 
         //List<Rect> rects = new List<Rect>();
         //rects.Add(new Rect(-hWidth - bandWidth, hHeight, data.area.x - bandWidth, bandWidth));
