@@ -8,25 +8,59 @@ public class Hp_BarDynamic : HpBar_PA
 
     protected float hideTime = 1.0f;
     protected float timeToHide = 0;
-    protected bool toHide = true;
+    //protected bool toHide = true;
 
-    //protected bool hpFull = true;
-    //protected bool mpFull = true;
+    protected enum PHASE
+    {
+        HIDE,
+        SHOW,
+        TO_HIDE,
+    }
+    protected PHASE currPhase = PHASE.HIDE;
+    protected PHASE nextPhase = PHASE.HIDE;
+
+    protected bool hpFull = true;
+    protected bool mpFull = true;
 
     public override void SetValue(float hp, float hpMax)
     {
         base.SetValue(hp, hpMax);
-        if (toHide && hp < hpMax)
+        //if (toHide && hp < hpMax)
+        //{
+        //    toHide = false;
+        //    timeToHide = 0;
+        //    ShowSprite(true);
+        //}
+        //else if (!toHide && hp == hpMax)
+        //{
+        //    timeToHide = hideTime;
+        //    toHide = true;
+        //}
+        hpFull = (hp == hpMax);
+        if (!hpFull)
         {
-            toHide = false;
-            timeToHide = 0;
+            ForceShow();
+        }
+    }
+
+    public override void SetMPValue(float mp, float mpMax)
+    {
+        base.SetMPValue(mp, mpMax);
+        mpFull = (mp == mpMax);
+        if (!mpFull)
+        {
+            print("MP ¥¼º¡ !!");
+            ForceShow();
+        }    
+    }
+
+    protected void ForceShow()
+    {
+        if (currPhase == PHASE.HIDE)
+        {
             ShowSprite(true);
         }
-        else if (!toHide && hp == hpMax)
-        {
-            timeToHide = hideTime;
-            toHide = true;
-        }
+        nextPhase = PHASE.SHOW;
     }
 
     protected void ShowSprite(bool isShow)
@@ -51,14 +85,42 @@ public class Hp_BarDynamic : HpBar_PA
     // Update is called once per frame
     void Update()
     {
-        if (timeToHide > 0)
+        if (nextPhase != currPhase)
         {
-            timeToHide -= Time.deltaTime;
-            if (timeToHide <= 0)
+            switch (nextPhase)
             {
-                ShowSprite(false);
-                timeToHide = 0;
+                case PHASE.TO_HIDE:
+                    timeToHide = hideTime;
+                    break;
             }
         }
+        currPhase = nextPhase;
+        switch (currPhase)
+        {
+            case PHASE.SHOW:
+                if (hpFull && mpFull)
+                {
+                    nextPhase = PHASE.TO_HIDE;
+                }
+                break;
+            case PHASE.TO_HIDE:
+                timeToHide -= Time.deltaTime;
+                if (timeToHide <= 0)
+                {
+                    ShowSprite(false);
+                    timeToHide = 0;
+                    nextPhase = PHASE.TO_HIDE;
+                }
+                break;
+        }
+        //if (timeToHide > 0)
+        //{
+        //    timeToHide -= Time.deltaTime;
+        //    if (timeToHide <= 0)
+        //    {
+        //        ShowSprite(false);
+        //        timeToHide = 0;
+        //    }
+        //}
     }
 }
