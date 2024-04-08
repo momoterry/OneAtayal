@@ -34,11 +34,16 @@ public class Hp_BarDynamic : HpBar_PA
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         ShowSprite(false);
     }
+
+    // Start is called before the first frame update
+    //void Start()
+    //{
+    //    ShowSprite(false);
+    //}
 
     // Update is called once per frame
     void Update()
