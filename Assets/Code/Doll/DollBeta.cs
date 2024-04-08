@@ -23,6 +23,13 @@ public class DollBeta : Doll
     //public float attackWait = 0.2f;
     public float attackCD = 0.5f;
 
+    //Mana ╰参闽
+    public bool isUsingMana = false;
+    public float attackManaCost = 0;
+    public float MP_Gen_Rate = 0;
+    protected float MP_Max = 100.0f;   //TODO: эΘ砆 Buff ╰参糤
+    protected float mp = 0;
+
     public bool attackWhenFollow = false;
 
     [System.NonSerialized]
@@ -33,6 +40,7 @@ public class DollBeta : Doll
     public SPAnimatorUD mySpAnimator;
 
     public bool useDefaultAgentSetting = true;  //  true 杠NavMeshAgent 穦砆参э
+
 
     protected PlayerControllerBase thePC;
 
@@ -138,7 +146,12 @@ public class DollBeta : Doll
             myHpHandler.enabled = true;
         if (myCollider)
             myCollider.enabled = true;
-        //myMaster = BattleSystem.GetPC();
+        
+        if (isUsingMana)
+        {
+            mp = MP_Max;
+        }
+
         thePC = BattleSystem.GetPC();
     }
 
@@ -151,6 +164,12 @@ public class DollBeta : Doll
         if (attackCDLeft > 0)
         {
             attackCDLeft = Mathf.Max(attackCDLeft-Time.deltaTime, 0);
+        }
+
+        if (isUsingMana)
+        {
+            mp += MP_Gen_Rate * Time.deltaTime;
+            mp = Mathf.Min(mp, MP_Max);
         }
 
         //================ 篈场秨﹍ ===================

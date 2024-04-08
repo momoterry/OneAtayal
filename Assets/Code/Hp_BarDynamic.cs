@@ -10,6 +10,9 @@ public class Hp_BarDynamic : HpBar_PA
     protected float timeToHide = 0;
     protected bool toHide = true;
 
+    //protected bool hpFull = true;
+    //protected bool mpFull = true;
+
     public override void SetValue(float hp, float hpMax)
     {
         base.SetValue(hp, hpMax);
