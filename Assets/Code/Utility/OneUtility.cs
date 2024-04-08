@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 
-class OneUtility
+public class OneUtility
 {
     //改寫自 AI
     static public void Shuffle<T>(T[] array)
@@ -209,4 +209,38 @@ class OneUtility
         return decompressedList.ToArray();
     }
 
+    //==================================================================
+    // 其它工具
+    //==================================================================
+    public class DisjointSetUnion
+    {
+        int size;
+        int[] P;
+        public void Init(int _size)
+        {
+            P = new int[_size];
+            for (int i = 0; i < _size; i++)
+                P[i] = i;
+        }
+
+        public int Find(int _id)
+        {
+            if (_id == P[_id])
+                return _id;
+            else
+                return Find(P[_id]);
+        }
+
+        public void Union(int a, int b)
+        {
+            int Fa = Find(a);
+            int Fb = Find(b);
+            if (Fa != Fb)
+            {
+                P[Fb] = P[Fa];
+            }
+        }
+    }
 }
+
+

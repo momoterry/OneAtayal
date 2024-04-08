@@ -8,7 +8,7 @@ public class MG_MazeOneBT : MG_MazeOneBase
 {
     public bool isDebug = true;
 
-    protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
+    protected OneUtility.DisjointSetUnion puzzleDSU = new OneUtility.DisjointSetUnion();
     protected List<cellInfo> cellList = new List<cellInfo>();
     protected int startDSU = 0;
     override protected void CreatMazeMap()

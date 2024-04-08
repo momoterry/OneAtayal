@@ -162,7 +162,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
     }
 
-    protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
+    protected OneUtility.DisjointSetUnion puzzleDSU = new OneUtility.DisjointSetUnion();
     protected cellInfo[][] puzzleMap;
 
     protected class wallInfo

@@ -108,7 +108,7 @@ public class MG_MazeOne : MG_MazeOneBase
     }
 
 
-    protected DisjointSetUnion puzzleDSU = new DisjointSetUnion();
+    protected OneUtility.DisjointSetUnion puzzleDSU = new OneUtility.DisjointSetUnion();
 
     override protected void CreatMazeMap()
     {
