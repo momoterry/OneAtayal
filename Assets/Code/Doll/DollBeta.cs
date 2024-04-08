@@ -168,8 +168,13 @@ public class DollBeta : Doll
 
         if (isUsingMana)
         {
-            mp += MP_Gen_Rate * Time.deltaTime;
-            mp = Mathf.Min(mp, MP_Max);
+            if (mp < MP_Max)
+            {
+                mp += MP_Gen_Rate * Time.deltaTime;
+                mp = Mathf.Min(mp, MP_Max);
+                if (myHpHandler)
+                    myHpHandler.SetMP(mp, MP_Max);
+            }
         }
 
         //================ 狀態部份開始 ===================
@@ -266,6 +271,12 @@ public class DollBeta : Doll
     {
         if (attackCDLeft > 0)
             return;
+        if (isUsingMana && mp < attackManaCost)
+        {
+            //print("Mana 不足: " + mp + " / " + MP_Max + " 需要: " + attackManaCost);
+            return;
+        }
+
         searchCDLeft -= Time.deltaTime;
         if (searchCDLeft > 0)
             return;
@@ -277,6 +288,12 @@ public class DollBeta : Doll
             myTarget = newTarget;
             DoOneAttack();
             attackCDLeft = attackCD;
+            if (isUsingMana)
+            {
+                mp -= attackManaCost;
+                if (myHpHandler)
+                    myHpHandler.SetMP(mp, MP_Max);
+            }
         }
     }
 

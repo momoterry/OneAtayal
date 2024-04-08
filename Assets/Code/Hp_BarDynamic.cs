@@ -49,7 +49,7 @@ public class Hp_BarDynamic : HpBar_PA
         mpFull = (mp == mpMax);
         if (!mpFull)
         {
-            print("MP 未滿 !!");
+            //print("MP 未滿 !!");
             ForceShow();
         }    
     }
@@ -92,6 +92,9 @@ public class Hp_BarDynamic : HpBar_PA
                 case PHASE.TO_HIDE:
                     timeToHide = hideTime;
                     break;
+                case PHASE.HIDE:
+                    ShowSprite(false);
+                    break;
             }
         }
         currPhase = nextPhase;
@@ -107,9 +110,8 @@ public class Hp_BarDynamic : HpBar_PA
                 timeToHide -= Time.deltaTime;
                 if (timeToHide <= 0)
                 {
-                    ShowSprite(false);
                     timeToHide = 0;
-                    nextPhase = PHASE.TO_HIDE;
+                    nextPhase = PHASE.HIDE;
                 }
                 break;
         }
