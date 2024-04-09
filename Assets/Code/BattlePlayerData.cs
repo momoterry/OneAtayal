@@ -11,6 +11,7 @@ public class BattlePlayerCrossSceneData
     public int currExpMax;
     public int currBattleLV;
     public int battleLVPoint;
+    public BattlePlayerData.BattleEvent battleEvent;
 }
 
 public class BattlePlayerData : MonoBehaviour
@@ -52,6 +53,7 @@ public class BattlePlayerData : MonoBehaviour
                 currExp = data.currExp;
                 currExpMax = data.currExpMax;
                 battleLVPoint = data.battleLVPoint;
+                battleEvent = data.battleEvent;
             }
         }
     }
@@ -64,6 +66,7 @@ public class BattlePlayerData : MonoBehaviour
         data.currExp = currExp;
         data.currExpMax = currExpMax;
         data.battleLVPoint = battleLVPoint;
+        data.battleEvent = battleEvent;
         return data;
     }
     public int GetBattleLVPoints() { return battleLVPoint; }
@@ -134,39 +137,43 @@ public class BattlePlayerData : MonoBehaviour
 
 
     //============================= BattleEvent 相關 ========================================
-    //目前 BattleEvent 先不不支援跨 Scene 的記錄
+    //目前 BattleEvent 先不支援跨 Scene 的記錄
     //如果之後要的話，得放到 BattlePlayerCrossSceneData 當中
 
-    protected Dictionary<string, bool> boolEvents = new Dictionary<string, bool>();
-    protected Dictionary<string, int> intEvents = new Dictionary<string, int>();
+    public class BattleEvent
+    {
+        public Dictionary<string, bool> boolEvents = new Dictionary<string, bool>();
+        public Dictionary<string, int> intEvents = new Dictionary<string, int>();
+    }
+    protected BattleEvent battleEvent = new BattleEvent();
 
     public bool GetEventBool(string eventID)
     {
-        if (boolEvents.ContainsKey(eventID))
-            return boolEvents[eventID];
+        if (battleEvent.boolEvents.ContainsKey(eventID))
+            return battleEvent.boolEvents[eventID];
         return false;
     }
 
     public int GetEventInt(string eventID)
     {
-        if (intEvents.ContainsKey(eventID))
-            return intEvents[eventID];
+        if (battleEvent.intEvents.ContainsKey(eventID))
+            return battleEvent.intEvents[eventID];
         return 0;
     }
 
     public void SetEventBool(string eventID, bool isTrue)
     {
-        if (boolEvents.ContainsKey(eventID))
-            boolEvents[eventID] = isTrue;
+        if (battleEvent.boolEvents.ContainsKey(eventID))
+            battleEvent.boolEvents[eventID] = isTrue;
         else
-            boolEvents.Add(eventID, isTrue);
+            battleEvent.boolEvents.Add(eventID, isTrue);
     }
 
     public void AddEventInt(string eventID, int numAdded = 1)
     {
-        if (intEvents.ContainsKey(eventID))
-            intEvents[eventID] += numAdded;
+        if (battleEvent.intEvents.ContainsKey(eventID))
+            battleEvent.intEvents[eventID] += numAdded;
         else
-            intEvents.Add(eventID, numAdded);
+            battleEvent.intEvents.Add(eventID, numAdded);
     }
 }
