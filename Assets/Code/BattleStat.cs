@@ -6,7 +6,13 @@ public class BattleStat : MonoBehaviour
 {
     static private BattleStat instance;
 
-    protected Dictionary<string, float> dollDamageTotal = new Dictionary<string, float>();
+    public class BattleStatSave : BattleSaveBase
+    {
+        public Dictionary<string, float> dollDamageTotal = new Dictionary<string, float>();
+    }
+    protected BattleStatSave saveData = new BattleStatSave();
+
+    protected Dictionary<string, float> dollDamageTotal;// = new Dictionary<string, float>();
 
     private void Awake()
     {
@@ -61,12 +67,8 @@ public class BattleStat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        saveData = (BattleStatSave)BattlePlayerData.GetInstance().SysncSaveData("BattleStatSave", saveData);
+        dollDamageTotal = saveData.dollDamageTotal;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

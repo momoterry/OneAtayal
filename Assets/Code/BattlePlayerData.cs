@@ -4,7 +4,6 @@ using System.Drawing;
 using UnityEngine;
 
 //在關卡戰鬥中的玩家資料，在戰鬥結束後會被清除重設
-
 public class BattlePlayerCrossSceneData
 {
     public int currExp;
@@ -12,7 +11,10 @@ public class BattlePlayerCrossSceneData
     public int currBattleLV;
     public int battleLVPoint;
     public BattlePlayerData.BattleEvent battleEvent;
+    public Dictionary<string, BattleSaveBase> customSaves = new Dictionary<string, BattleSaveBase>();       //各自系統記錄的資訊
 }
+//給其它戰鬥系統在連續戰鬥時需要記錄的資料基礎
+public class BattleSaveBase { }
 
 public class BattlePlayerData : MonoBehaviour
 {
@@ -25,6 +27,7 @@ public class BattlePlayerData : MonoBehaviour
     protected int currBattleLV = 1;
     protected int battleLVPoint = 4;
     //protected BattlePlayerCrossSceneData data;
+    protected Dictionary<string, BattleSaveBase> customSaves = new Dictionary<string, BattleSaveBase>();
 
     protected int[] maxExpArray = new int[MAX_BATTLE_LEVEL];
 
@@ -54,8 +57,14 @@ public class BattlePlayerData : MonoBehaviour
                 currExpMax = data.currExpMax;
                 battleLVPoint = data.battleLVPoint;
                 battleEvent = data.battleEvent;
+                customSaves = data.customSaves;
             }
         }
+        //else
+        //{
+        //    battleEvent = new BattleEvent();
+        //    customSaves = new Dictionary<string, BattleSaveBase>();
+        //}
     }
 
     // Public Functions
@@ -67,6 +76,7 @@ public class BattlePlayerData : MonoBehaviour
         data.currExpMax = currExpMax;
         data.battleLVPoint = battleLVPoint;
         data.battleEvent = battleEvent;
+        data.customSaves = customSaves;
         return data;
     }
     public int GetBattleLVPoints() { return battleLVPoint; }
@@ -176,4 +186,17 @@ public class BattlePlayerData : MonoBehaviour
         else
             battleEvent.intEvents.Add(eventID, numAdded);
     }
+
+    //============================= 給其它戰鬥系統使用 ========================================
+
+    public BattleSaveBase SysncSaveData(string dataID, BattleSaveBase newData)
+    {
+        if (!customSaves.ContainsKey(dataID))
+        {
+            customSaves.Add(dataID, newData);
+        }
+
+        return customSaves[dataID];
+    }
+
 }
