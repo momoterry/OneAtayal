@@ -252,7 +252,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         ContinuousBattleDataBase cBase = ContinuousBattleManager.GetCurrBattleData();
         if (cBase != null)
         {
-            if (cBase is ContinuousMazeData)
+            if (cBase is ContinuousMOData)
             {
                 ContinuousMOData cData = (ContinuousMOData)cBase;
                 puzzleWidth = cData.puzzleWidth;
