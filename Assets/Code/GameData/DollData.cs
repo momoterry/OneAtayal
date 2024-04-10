@@ -15,6 +15,7 @@ public class DollInfo
     public GameObject objRef;
     public string dollName;
     public string dollDesc;
+    public Sprite icon;
 }
 
 public class DollData : MonoBehaviour
@@ -69,6 +70,8 @@ public class DollData : MonoBehaviour
             if (dInfo != null && dInfo.objRef)
             {
                 Doll d = dInfo.objRef.GetComponent<Doll>();
+                if (dInfo.icon == null)
+                    dInfo.icon = d.icon;
                 theDollMapping.Add(d.ID, dInfo);
             }
         }

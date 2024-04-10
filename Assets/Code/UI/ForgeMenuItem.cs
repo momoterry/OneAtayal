@@ -25,8 +25,9 @@ public class ForgeMenuItem : MonoBehaviour
             print("ERROR!! No such DollRef for ID:" + dollID);
             return;
         }
-        Doll doll = dInfo.objRef.GetComponent<Doll>();
-        resultIcon.sprite = doll.icon;
+        //Doll doll = dInfo.objRef.GetComponent<Doll>();
+        //resultIcon.sprite = doll.icon;
+        resultIcon.sprite = dInfo.icon;
         resultText.text = dInfo.dollName;
     }
 

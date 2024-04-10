@@ -71,4 +71,9 @@ public class BattleStat : MonoBehaviour
         dollDamageTotal = saveData.dollDamageTotal;
     }
 
+    public Dictionary<string, float>  GetDollDamageTotal()
+    {
+        return dollDamageTotal;
+    }
+
 }
