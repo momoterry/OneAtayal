@@ -140,7 +140,7 @@ public class ScenePortal : MonoBehaviour
         DoTeleport();
     }
 
-    void OnTG(GameObject whoTG)
+    public virtual void OnTG(GameObject whoTG)
     {
         if (currPhase != PHASE.NORMAL)
             return;

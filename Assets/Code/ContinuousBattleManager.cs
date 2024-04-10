@@ -82,6 +82,19 @@ public class ContinuousBattleManager : MonoBehaviour
         }
     }
 
+    static public ContinuousBattleDataBase GetNextBattleData()      //用來檢查目前進行中的戰鬥是否已經是最終戰
+    {
+        return null;
+    }
+    protected ContinuousBattleDataBase _GetNextBattleData()
+    {
+        if (currBattleArray != null && (currBattleIndex+1) < currBattleArray.Length)
+        {
+            return currBattleArray[currBattleIndex+1];
+        }
+        return null;
+    }
+
 
     static public ContinuousBattleDataBase GetCurrBattleData()
     {
