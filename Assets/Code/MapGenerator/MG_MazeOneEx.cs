@@ -11,16 +11,22 @@ public class MG_MazeOneEx : MG_MazeOne
 {
     public bool extendTerminal = true;
 
-    public enum MAZE_DIR
-    {
-        DONW_TO_TOP,
-        TOP_TO_DOWN,
-        LEFT_TO_RIGHT,
-        RIGHT_TO_LEFT,
-    }
+    //public enum MAZE_DIR
+    //{
+    //    DONW_TO_TOP,
+    //    TOP_TO_DOWN,
+    //    LEFT_TO_RIGHT,
+    //    RIGHT_TO_LEFT,
+    //}
     public MAZE_DIR mazeDir = MAZE_DIR.DONW_TO_TOP;
     protected override void PresetMapInfo()
     {
+
+        if (mazeDir == MAZE_DIR.INSIDE_OUT)
+        {
+            print("ERROR!!! MG_MazeOneEx 不支援的方向類型 INSIDE_OUT");
+            mazeDir = MAZE_DIR.DONW_TO_TOP;
+        }
         if (extendTerminal)
         {
             if (mazeDir == MAZE_DIR.DONW_TO_TOP || mazeDir == MAZE_DIR.TOP_TO_DOWN)
@@ -89,6 +95,16 @@ public class MG_MazeOneEx : MG_MazeOne
 
 public class MG_MazeOne : MG_MazeOneBase
 {
+    public enum MAZE_DIR
+    {
+        DONW_TO_TOP,
+        TOP_TO_DOWN,
+        LEFT_TO_RIGHT,
+        RIGHT_TO_LEFT,
+
+        INSIDE_OUT,     //從中間往外走
+    }
+
     public enum MAZE_ALGORITHM
     {
         RANDOM_WALL,

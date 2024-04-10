@@ -973,6 +973,9 @@ MonoBehaviour:
   pathWidth: 5
   pathHeight: 5
   pathRate: 0
+  startAsPath: 0
+  finishAsPath: 0
+  FinishAtDeepest: 0
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 0
@@ -994,8 +997,9 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
+  ChooseAlgorithm: 0
   extendTerminal: 1
-  mazeDir: 3
+  mazeDir: 2
   blockFillRatio: 0.5
 --- !u!4 &1355948687
 Transform:

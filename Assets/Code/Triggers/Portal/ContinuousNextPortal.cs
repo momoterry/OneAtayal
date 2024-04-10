@@ -8,6 +8,7 @@ public class ContinuousNextPortal : ScenePortal
 
     public override void OnTG(GameObject whoTG)
     {
+        print("ContinuousBattleManager.GetNextBattleData() => " + ContinuousBattleManager.GetNextBattleData());
         if (ContinuousBattleManager.GetNextBattleData() != null)
         {
             showWinUI = false;  //如果還不是最後一場戰鬥，強制關掉 WinUI

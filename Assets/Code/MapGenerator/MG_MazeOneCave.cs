@@ -9,14 +9,15 @@ public class MG_MazeOneCave : MG_MazeOne
 {
     public bool extendTerminal = false;
 
-    public enum MAZE_DIR
-    {
-        INSIDE_OUT,     //從中間往外走
-        DONW_TO_TOP,
-        TOP_TO_DOWN,
-        LEFT_TO_RIGHT,
-        RIGHT_TO_LEFT,
-    }
+    //public enum MAZE_DIR
+    //{
+    //    DONW_TO_TOP,
+    //    TOP_TO_DOWN,
+    //    LEFT_TO_RIGHT,
+    //    RIGHT_TO_LEFT,
+
+    //    INSIDE_OUT,     //從中間往外走
+    //}
     public MAZE_DIR mazeDir = MAZE_DIR.INSIDE_OUT;
 
     protected RandamWalkerMap theRWMap = null;

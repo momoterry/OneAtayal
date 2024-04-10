@@ -254,23 +254,22 @@ public class MG_MazeOneBase : MapGeneratorBase
         {
             if (cBase is ContinuousMazeData)
             {
-                ContinuousMazeData cData = (ContinuousMazeData)cBase;
+                ContinuousMOData cData = (ContinuousMOData)cBase;
                 puzzleWidth = cData.puzzleWidth;
                 puzzleHeight = cData.puzzleHeight;
-
                 print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
+                pathRate = cData.pathRate;
 
-                if (cData.dungeonDifficulty > 0)
-                {
-                    dungeonEnemyDifficulty = cData.dungeonDifficulty;
-                }
-                ////print("DungeonEnemyDifficulty : " + dungeonEnemyDifficulty);
-                if (cData.dungeonEnemyManager != null)
-                {
-                    GameObject o = Instantiate(cData.dungeonEnemyManager.gameObject);
-                    o.transform.parent = gameObject.transform;
-                    dungeonEnemyManager = o.GetComponent<DungeonEnemyManager>();
-                }
+                //if (cData.dungeonDifficulty > 0)
+                //{
+                //    dungeonEnemyDifficulty = cData.dungeonDifficulty;
+                //}
+                //if (cData.dungeonEnemyManager != null)
+                //{
+                //    GameObject o = Instantiate(cData.dungeonEnemyManager.gameObject);
+                //    o.transform.parent = gameObject.transform;
+                //    dungeonEnemyManager = o.GetComponent<DungeonEnemyManager>();
+                //}
 
                 if (cData.initGameplayRef)
                 {

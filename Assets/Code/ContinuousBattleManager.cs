@@ -84,7 +84,7 @@ public class ContinuousBattleManager : MonoBehaviour
 
     static public ContinuousBattleDataBase GetNextBattleData()      //用來檢查目前進行中的戰鬥是否已經是最終戰
     {
-        return null;
+        return instance._GetNextBattleData();
     }
     protected ContinuousBattleDataBase _GetNextBattleData()
     {

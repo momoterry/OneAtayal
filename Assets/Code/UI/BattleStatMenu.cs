@@ -11,7 +11,7 @@ public class BattleStatMenu : MonoBehaviour
 
     private void Awake()
     {
-        print("BattleStatMenu: 我來啦 !!!!");
+        //print("BattleStatMenu: 我來啦 !!!!");
         ClearItems();
         CreateItems();
     }
