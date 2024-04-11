@@ -18,7 +18,7 @@ public class MG_MazeOneCave : MG_MazeOne
 
     //    INSIDE_OUT,     //從中間往外走
     //}
-    public MAZE_DIR mazeDir = MAZE_DIR.INSIDE_OUT;
+    //public MAZE_DIR mazeDir = MAZE_DIR.INSIDE_OUT;
 
     protected RandamWalkerMap theRWMap = null;
     protected Vector2Int rwMapShift = Vector2Int.zero;

@@ -40,6 +40,16 @@ public class MG_MazeOneBase : MapGeneratorBase
     public bool startAsPath = false;
     public bool finishAsPath = false;
 
+    public enum MAZE_DIR
+    {
+        DONW_TO_TOP,
+        TOP_TO_DOWN,
+        LEFT_TO_RIGHT,
+        RIGHT_TO_LEFT,
+
+        INSIDE_OUT,     //從中間往外走，保留給 Cave 型迷宮用
+    }
+    public MAZE_DIR mazeDir = MAZE_DIR.DONW_TO_TOP;
     public bool FinishAtDeepest = false;       //用離入口最遠的房間作為終點
 
     public GameObject finishPortalRef;
@@ -259,6 +269,9 @@ public class MG_MazeOneBase : MapGeneratorBase
                 puzzleHeight = cData.puzzleHeight;
                 print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
                 pathRate = cData.pathRate;
+
+                mazeDir = cData.mazeDir;
+                FinishAtDeepest = cData.finishAtDeepest;
 
                 //if (cData.dungeonDifficulty > 0)
                 //{

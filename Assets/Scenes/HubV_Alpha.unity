@@ -58064,18 +58064,20 @@ MonoBehaviour:
   - scene: MO_Cave
     name: "\u65B0\u5730\u6D1E\u4E00"
     levelID: 
-    puzzleWidth: 2
-    puzzleHeight: 2
+    puzzleWidth: 4
+    puzzleHeight: 4
     pathRate: 0.6
-    mazDir: 0
+    mazeDir: 2
+    finishAtDeepest: 1
     initGameplayRef: {fileID: 0}
   - scene: MO_Cave
     name: "\u65B0\u5730\u6D1E\u4E8C"
     levelID: 
-    puzzleWidth: 3
-    puzzleHeight: 3
+    puzzleWidth: 5
+    puzzleHeight: 5
     pathRate: 0.4
-    mazDir: 2
+    mazeDir: 1
+    finishAtDeepest: 0
     initGameplayRef: {fileID: 0}
 --- !u!114 &1932744872
 MonoBehaviour:
@@ -59586,7 +59588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2065481271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62324,7 +62326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4067819250371761724 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7775953957922375378, guid: 9050f11007a554f419e6163f7a7751f5, type: 3}

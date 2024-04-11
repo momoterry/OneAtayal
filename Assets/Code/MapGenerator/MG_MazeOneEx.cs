@@ -18,7 +18,7 @@ public class MG_MazeOneEx : MG_MazeOne
     //    LEFT_TO_RIGHT,
     //    RIGHT_TO_LEFT,
     //}
-    public MAZE_DIR mazeDir = MAZE_DIR.DONW_TO_TOP;
+    //public MAZE_DIR mazeDir = MAZE_DIR.DONW_TO_TOP;
     protected override void PresetMapInfo()
     {
 
@@ -95,15 +95,16 @@ public class MG_MazeOneEx : MG_MazeOne
 
 public class MG_MazeOne : MG_MazeOneBase
 {
-    public enum MAZE_DIR
-    {
-        DONW_TO_TOP,
-        TOP_TO_DOWN,
-        LEFT_TO_RIGHT,
-        RIGHT_TO_LEFT,
+    //public enum MAZE_DIR
+    //{
+    //    DONW_TO_TOP,
+    //    TOP_TO_DOWN,
+    //    LEFT_TO_RIGHT,
+    //    RIGHT_TO_LEFT,
 
-        INSIDE_OUT,     //從中間往外走
-    }
+    //    INSIDE_OUT,     //從中間往外走，保留給 Cave 型迷宮用
+    //}
+    //public MAZE_DIR mazeDir = MAZE_DIR.DONW_TO_TOP;
 
     public enum MAZE_ALGORITHM
     {
