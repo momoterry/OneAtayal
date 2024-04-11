@@ -159,6 +159,8 @@ public class ContinuousBattleManager : MonoBehaviour
     public static void AddCollectedDoll(string dollID, int group, int index) { instance._AddCollectedDoll(dollID, group, index); }
     protected void _AddCollectedDoll(string dollID, int group, int index)
     {
+        //print("¦¬¶°¾Ô°«§ÅÆF: " + dollID + " Group: " + group + " Index: " + index);
+
         FormationDollInfo info;
         info.dollID = dollID;
         info.group = group;

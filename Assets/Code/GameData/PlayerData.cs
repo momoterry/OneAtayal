@@ -439,6 +439,7 @@ public class PlayerData : MonoBehaviour
 
     public void AddUsingDoll( string dollID, int group = -1, int index = -1 )
     {
+        //print("¥[¤J¥Ã¤[§ÅÆF: " + dollID + " Group: " + group + " Index: " + index);
         //usingDollList.Add(dollID);
 
         FormationDollInfo fdInfo = new FormationDollInfo();

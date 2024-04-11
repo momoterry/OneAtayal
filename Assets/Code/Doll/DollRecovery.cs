@@ -260,7 +260,7 @@ public class DollRecovery : MonoBehaviour
         for (int i = 0; i < battleSavedLength; i++)
         {
             allRecoverDollInfo[allSavedLength+i].fInfo = battleSavedDolls[i];
-            allRecoverDollInfo[allSavedLength+i].saveType = DOLL_JOIN_SAVE_TYPE.FOREVER;
+            allRecoverDollInfo[allSavedLength+i].saveType = DOLL_JOIN_SAVE_TYPE.BATTLE;
         }
         //TODO: 整體需要排序
 
