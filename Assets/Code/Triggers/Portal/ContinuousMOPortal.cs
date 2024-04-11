@@ -11,6 +11,8 @@ public class ContinuousMOData : ContinuousBattleDataBase
     public MG_MazeOne.MAZE_DIR mazeDir;
     public bool finishAtDeepest;
 
+    public MazeGameManagerBase gameManagerRef;
+
     //public float dungeonDifficulty; //大於 0 才有作用，基準值為 1.0f
     //public DungeonEnemyManagerBase dungeonEnemyManager;     //如果有指定，下面的 normalEnemy 資訊無用
     //public int normalEnemyNum;

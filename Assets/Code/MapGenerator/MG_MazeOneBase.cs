@@ -76,7 +76,7 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     //Gameplay 用
     //[Header("Gameplay 設定")]
-    public DungeonEnemyManagerBase dungeonEnemyManager;
+    public DungeonEnemyManagerBase dungeonEnemyManager;        //TODO: 目前還沒用到
     public MazeGameManagerBase gameManager;
 
     protected float dungeonEnemyDifficulty = 1.0f;
@@ -283,6 +283,11 @@ public class MG_MazeOneBase : MapGeneratorBase
                 //    o.transform.parent = gameObject.transform;
                 //    dungeonEnemyManager = o.GetComponent<DungeonEnemyManager>();
                 //}
+                if (cData.gameManagerRef)
+                {
+                    GameObject o = Instantiate(cData.gameManagerRef.gameObject);
+                    gameManager = o.GetComponent<MazeGameManagerBase>();
+                }
 
                 if (cData.initGameplayRef)
                 {
