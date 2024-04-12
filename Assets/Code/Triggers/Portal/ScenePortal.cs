@@ -11,7 +11,7 @@ public class ScenePortal : MonoBehaviour
     public SpriteRenderer fadeBlocker;
     public float fadeTime = 0.5f;
     public float showupTime = -1.0f;
-    public SpriteRenderer[] showupSprites;
+    public SpriteRenderer[] showupSprites;  // Portal 出現時淡入效果的目標 SpriteRenders 
 
     public bool messageHint = false;
     public string hintLevelName = "";
