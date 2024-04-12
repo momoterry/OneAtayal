@@ -18,10 +18,10 @@ public class RoomGameplayBase : MonoBehaviour
 
     static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, int width=4, int height=4, float diffAddRate=0)
     {
-        float numF = ((info.totalNumMax - info.totalNumMin) * diffAddRate + info.totalNumMin);
-        //int num = Mathf.RoundToInt(numF);
+        //float numF = ((info.totalNumMax - info.totalNumMin) * diffAddRate + info.totalNumMin);
+        float numF = Random.Range(info.totalNumMin, info.totalNumMax) * ( 1 + diffAddRate );
         int num = OneUtility.FloatToRandomInt(numF);
-        //print("EG: float: " + numF + "int: "+ num);
+        print("EG: float: " + numF + " int: "+ num + " diffAddRate: " + diffAddRate);
         GameObject o = new GameObject();
         o.transform.position = vCenter;
         EnemyGroup enemyGroup = o.AddComponent<EnemyGroup>();

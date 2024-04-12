@@ -36,7 +36,7 @@ public class RoomEnemyGroup : RoomGameplayBase
         //    enemyGroup.enemyInfos[i].enemyRef = enemys[i];
         //}
         int width, height;
-        int num = Mathf.RoundToInt((eInfo.totalNumMax - eInfo.totalNumMin) * room.mainRatio + eInfo.totalNumMin);
+        //int num = Mathf.RoundToInt((eInfo.totalNumMax - eInfo.totalNumMin) * room.mainRatio + eInfo.totalNumMin);
         if (isPath)
         {
             width = (int)room.doorWidth;
@@ -48,7 +48,7 @@ public class RoomEnemyGroup : RoomGameplayBase
             height = (int)room.height;
         }
         //GameObject o = EnemyGroup.SpawnEnemyGroupObject(enemys, num, width, height);
-        GameObject o = SpawnEnemyGroupObject(eInfo, room.vCenter, width, height, room.mainRatio);
+        GameObject o = SpawnEnemyGroupObject(eInfo, room.vCenter, width, height, room.diffAddRatio);
         //o.transform.position = room.vCenter;
         o.name = "RoomEnemyGroup_ " + (int)(room.mainRatio * 100.0f);
     }

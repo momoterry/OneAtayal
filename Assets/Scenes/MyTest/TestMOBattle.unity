@@ -961,9 +961,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eInfo:
     enemys:
-    - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
-    totalNumMin: 3.7
-    totalNumMax: 3.7
+    - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
+    totalNumMin: 2
+    totalNumMax: 2
   isPath: 1
 --- !u!1 &466132476
 GameObject:
@@ -2293,6 +2293,7 @@ MonoBehaviour:
   pathRate: 0.5
   startAsPath: 1
   finishAsPath: 0
+  mazeDir: 0
   FinishAtDeepest: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
@@ -2311,13 +2312,12 @@ MonoBehaviour:
   mainPathTileEdgeGroup: {fileID: 0}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
-  dungeonEnemyManager: {fileID: 430270029}
-  gameManager: {fileID: 0}
+  dungeonEnemyManager: {fileID: 0}
+  gameManager: {fileID: 1431126862}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
   ChooseAlgorithm: 1
   extendTerminal: 1
-  mazeDir: 0
   blockFillRatio: 0.7
 --- !u!4 &1355948687
 Transform:
@@ -2419,7 +2419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMainGames:
-  - game: {fileID: 134557221}
+  - game: {fileID: 438066636}
     ratioPercent: 100
   fixStartGames: []
   fixEndGames: []
@@ -2427,7 +2427,7 @@ MonoBehaviour:
   - game: {fileID: 438066636}
     ratioPercent: 100
   defaultBranchGames:
-  - game: {fileID: 766576796}
+  - game: {fileID: 438066636}
     ratioPercent: 100
   fixBranchEndGames: []
 --- !u!4 &1431126863
@@ -3683,6 +3683,7 @@ MonoBehaviour:
   pathRate: 0
   startAsPath: 0
   finishAsPath: 0
+  mazeDir: 1
   FinishAtDeepest: 0
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
@@ -3707,7 +3708,6 @@ MonoBehaviour:
   decadeGenerator: {fileID: 0}
   ChooseAlgorithm: 1
   extendTerminal: 1
-  mazeDir: 1
   blockFillRatio: 1
 --- !u!4 &2067654411
 Transform:

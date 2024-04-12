@@ -717,7 +717,7 @@ public class MG_MazeOneBase : MapGeneratorBase
             }
             if (mostDeepCell != null)
             {
-                print("程环隔畖 = " + mostDeepCell.deep);
+                //print("程环隔畖 = " + mostDeepCell.deep);
                 puzzleEnd.x = mostDeepCell.x;
                 puzzleEnd.y = mostDeepCell.y;
             }

@@ -13,6 +13,8 @@ public class MazeGameManagerBase:MonoBehaviour
 
 public class MazeGameManager : MazeGameManagerBase
 {
+    public float difficultRateMin = 1.0f;   //最小難度率，用來調整敵人數量
+    public float difficultRateMax = 2.0f;   //最大難度率，用來調整敵人數量
     public class RoomInfo
     {
         public Vector3 vCenter;
@@ -22,6 +24,7 @@ public class MazeGameManager : MazeGameManagerBase
         public CELL_BASE cell;
         public float doorWidth;
         public float doorHeight;
+        public float diffAddRatio;  //難度增加量 預設 = 0，1.0f = > 兩倍敵人數量
     }
 
     [System.Serializable]
@@ -67,6 +70,7 @@ public class MazeGameManager : MazeGameManagerBase
         roomInfo.doorHeight = doorHeight;
         roomInfo.mainRatio = mainRatio;
         roomInfo.cell = cell;
+        roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
         if (isMain)
             mainRoomList.Add(roomInfo);
         else
@@ -97,7 +101,9 @@ public class MazeGameManager : MazeGameManagerBase
         roomInfo.doorHeight = doorHeight;
         roomInfo.mainRatio = mainRatio;
         roomInfo.cell = cell;
-        
+        roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
+
+
         pathList.Add(roomInfo);
     }
 
