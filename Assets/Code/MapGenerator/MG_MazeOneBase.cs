@@ -287,6 +287,8 @@ public class MG_MazeOneBase : MapGeneratorBase
                 {
                     GameObject o = Instantiate(cData.gameManagerRef.gameObject);
                     gameManager = o.GetComponent<MazeGameManagerBase>();
+                    gameManager.difficultRateMin = cData.gameDiffcultRateMin;
+                    gameManager.difficultRateMax = cData.gameDiffcultRateMax;
                 }
 
                 if (cData.initGameplayRef)

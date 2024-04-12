@@ -48,7 +48,7 @@ MonoBehaviour:
     enemys:
     - {fileID: 7208015447484052683, guid: 3f97bdf46b3cd0f498ba4d26a525ee49, type: 3}
     totalNumMin: 4
-    totalNumMax: 8
+    totalNumMax: 5
   isPath: 0
 --- !u!1 &5516038072370992602
 GameObject:
@@ -98,7 +98,7 @@ MonoBehaviour:
     enemys:
     - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
     totalNumMin: 2
-    totalNumMax: 5
+    totalNumMax: 2.5
   isPath: 1
 --- !u!1 &6910935771116627456
 GameObject:
@@ -148,12 +148,12 @@ MonoBehaviour:
     enemys:
     - {fileID: 7208015447484052683, guid: c6757ec52300c574080406a81876e414, type: 3}
     totalNumMin: 2
-    totalNumMax: 5
+    totalNumMax: 2.5
   eInfos2:
     enemys:
     - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
-    totalNumMin: 3
-    totalNumMax: 6
+    totalNumMin: 2.5
+    totalNumMax: 3
 --- !u!1 &7246625354497072190
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b90d734165236049b0c2c26c8a3b28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficultRateMin: 1
+  difficultRateMax: 2
   defaultMainGames:
   - game: {fileID: 5764251898308864651}
     ratioPercent: 100
