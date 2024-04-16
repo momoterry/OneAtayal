@@ -108,6 +108,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2590200662357474199}
+  - component: {fileID: 4812581999318125109}
   m_Layer: 0
   m_Name: TreasureBox
   m_TagString: Untagged
@@ -129,9 +130,78 @@ Transform:
   m_Children:
   - {fileID: 2508382529006835286}
   - {fileID: 3925012657965875143}
+  - {fileID: 5202889619967664310}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &4812581999318125109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7337370386353562539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a48c895d7f82b4a82b7cc99d300d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnableTargets:
+  - {fileID: 9126386969995161956}
+  DisableTargets: []
+--- !u!1 &9126386969995161956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5202889619967664310}
+  - component: {fileID: 6258862092991902151}
+  m_Layer: 0
+  m_Name: Animator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5202889619967664310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9126386969995161956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2590200662357474199}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6258862092991902151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9126386969995161956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c068845190a0bd0408567d85da11b586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 5688912130186474527}
+  InitAnim:
+    sprites:
+    - {fileID: 1600602234, guid: 9a15eed9bb7a383488ba2607b5dd24e3, type: 3}
+    - {fileID: -571215146, guid: 9a15eed9bb7a383488ba2607b5dd24e3, type: 3}
+    FPS: 4
+  Idle:
+    sprites: []
+    FPS: 4
 --- !u!1001 &950107463963382411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -148,6 +218,10 @@ PrefabInstance:
       propertyPath: TriggerTarget
       value: 
       objectReference: {fileID: 7337370386353562539}
+    - target: {fileID: 1886899707721466646, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
+      propertyPath: deleteAfterAction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3683833485145979750, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
       propertyPath: m_IsActive
       value: 0

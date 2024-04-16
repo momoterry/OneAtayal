@@ -43169,6 +43169,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1657580836909404573, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: deleteAfterAction
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2590200662357474199, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -43213,6 +43217,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4812581999318125109, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: DisableTargets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4812581999318125109, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: DisableTargets.Array.data[0]
+      value: 
+      objectReference: {fileID: 1114175164}
     - target: {fileID: 7337370386353562539, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: m_Name
       value: TreasureBox
@@ -45906,6 +45918,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5738852675871354694, guid: 8c941f08c213add4c8d457f1cd916490, type: 3}
   m_PrefabInstance: {fileID: 1101507211}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1114175164 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1099649364552588934, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+  m_PrefabInstance: {fileID: 832874490}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1115807747
 GameObject:
