@@ -329,62 +329,90 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defautSpawnFX: {fileID: 1730805568862363463, guid: a317ae504c9dcdf4d8c1206bcc149841, type: 3}
   DollInfos:
-  - objRef: {fileID: 4032685806379418579, guid: 5d31c47f41f9e574e93dc4dd9bc6f7c3, type: 3}
+  - dollID: DollOne
+    objRef: {fileID: 4032685806379418579, guid: 5d31c47f41f9e574e93dc4dd9bc6f7c3, type: 3}
     dollName: "\u65E5\u9748"
     dollDesc: "\u55AE\u9AD4\u8F38\u51FA\uFF0C\u4E2D\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 4032685806379418579, guid: 6f19456bd0e40c844bdf8eeae3684a33, type: 3}
+    summonCost: 1
+  - dollID: DollStone
+    objRef: {fileID: 4032685806379418579, guid: 6f19456bd0e40c844bdf8eeae3684a33, type: 3}
     dollName: "\u77F3\u9748"
     dollDesc: "\u9AD8\u8840\u91CF\u5766\u514B\uFF0C\u524D\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 4032685806379418579, guid: bdde668c502bf8240bbbb586077d4817, type: 3}
+    summonCost: 1
+  - dollID: DollLeaf
+    objRef: {fileID: 4032685806379418579, guid: bdde668c502bf8240bbbb586077d4817, type: 3}
     dollName: "\u8349\u9748"
     dollDesc: "\u88DC\u8840\uFF0C\u5F8C\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 2876928013832779465, guid: fe3cd48788a9380449ebd93f4c027f84, type: 3}
+    summonCost: 1
+  - dollID: DollFire
+    objRef: {fileID: 2876928013832779465, guid: fe3cd48788a9380449ebd93f4c027f84, type: 3}
     dollName: "\u706B\u9748"
     dollDesc: "\u7206\u70B8\u653B\u64CA\uFF0C\u5F8C\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 2012205590544976814, guid: 805fe37a6764894409a1c766bcdad2c1, type: 3}
+    summonCost: 1
+  - dollID: DollBlackStone
+    objRef: {fileID: 2012205590544976814, guid: 805fe37a6764894409a1c766bcdad2c1, type: 3}
     dollName: "\u9ED1\u77F3\u9748"
     dollDesc: "\u9AD8\u9632\u79A6\u5766\u514B\uFF0C\u524D\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 4032685806379418579, guid: 5e46ba7bcd1cd6b419b40913150a0511, type: 3}
+    summonCost: 2
+  - dollID: DollAce
+    objRef: {fileID: 4032685806379418579, guid: 5e46ba7bcd1cd6b419b40913150a0511, type: 3}
     dollName: "\u592A\u967D\u738B"
     dollDesc: "\u9023\u767C\u8F38\u51FA\uFF0C\u4E2D\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 2876928013832779465, guid: fe574d4e4ab68d545bb8cefdaa8d74a1, type: 3}
+    summonCost: 2
+  - dollID: DollWhiteFire
+    objRef: {fileID: 2876928013832779465, guid: fe574d4e4ab68d545bb8cefdaa8d74a1, type: 3}
     dollName: "\u767D\u706B\u9748"
     dollDesc: "\u4E32\u71D2\u653B\u64CA\uFF0C\u5F8C\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 4032685806379418579, guid: 98d44cd8edc458a49b0a2426988b1f35, type: 3}
+    summonCost: 2
+  - dollID: DollCrystal
+    objRef: {fileID: 4032685806379418579, guid: 98d44cd8edc458a49b0a2426988b1f35, type: 3}
     dollName: "\u7D2B\u6676\u9748"
     dollDesc: "\u5149\u7DDA\u653B\u64CA\uFF0C\u4E2D\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 4032685806379418579, guid: 6e387aaee449d5149ba56377a57217f5, type: 3}
+    summonCost: 2
+  - dollID: DollSun
+    objRef: {fileID: 4032685806379418579, guid: 6e387aaee449d5149ba56377a57217f5, type: 3}
     dollName: "\u65B0\u65E5"
     dollDesc: "\u55AE\u9AD4\u8F38\u51FA\uFF0C\u4E2D\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 2876928013832779465, guid: 0524b08b4fde5ff429f5f07d2edf113e, type: 3}
+    summonCost: 1
+  - dollID: DollBlaze
+    objRef: {fileID: 2876928013832779465, guid: 0524b08b4fde5ff429f5f07d2edf113e, type: 3}
     dollName: "\u7130\u9748"
     dollDesc: "\u6301\u7E8C\u653E\u706B\uFF0C\u524D\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 4032685806379418579, guid: e548770d1b00d9444af21b2cd2045241, type: 3}
+    summonCost: 2
+  - dollID: DollIronShield
+    objRef: {fileID: 4032685806379418579, guid: e548770d1b00d9444af21b2cd2045241, type: 3}
     dollName: "\u9435\u9748"
     dollDesc: "\u8D85\u786C\uFF0C\u524D\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 4032685806379418579, guid: e9f522bf017663046927144d9f3c11cc, type: 3}
+    summonCost: 1
+  - dollID: DollWood
+    objRef: {fileID: 4032685806379418579, guid: e9f522bf017663046927144d9f3c11cc, type: 3}
     dollName: "\u6728\u9748"
     dollDesc: "\u6301\u7E8C\u5C04\u64CA\uFF0C\u4E2D\u6392"
     icon: {fileID: 0}
-  - objRef: {fileID: 4032685806379418579, guid: 6aaf4e78f331bf84597bde54f8dbdcbc, type: 3}
+    summonCost: 1
+  - dollID: DHeroStoneSpeed
+    objRef: {fileID: 4032685806379418579, guid: 6aaf4e78f331bf84597bde54f8dbdcbc, type: 3}
     dollName: "\u901F\u77F3\u9748"
     dollDesc: 
     icon: {fileID: 0}
-  - objRef: {fileID: 4032685806379418579, guid: 6c88cda2f009e564db3e7faf875a6981, type: 3}
+    summonCost: 0
+  - dollID: DHeroStoneDamage
+    objRef: {fileID: 4032685806379418579, guid: 6c88cda2f009e564db3e7faf875a6981, type: 3}
     dollName: "\u5F37\u77F3\u9748"
     dollDesc: 
     icon: {fileID: 0}
+    summonCost: 0
 --- !u!114 &2497751659763832060
 MonoBehaviour:
   m_ObjectHideFlags: 0

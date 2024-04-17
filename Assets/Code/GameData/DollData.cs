@@ -12,10 +12,12 @@ using UnityEngine.AI;
 [System.Serializable]
 public class DollInfo
 {
+    public string dollID;
     public GameObject objRef;
     public string dollName;
     public string dollDesc;
     public Sprite icon;
+    public int summonCost;
 }
 
 public class DollData : MonoBehaviour
