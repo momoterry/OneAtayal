@@ -684,6 +684,7 @@ MonoBehaviour:
     - DollStone
     - DollFire
     - DollLeaf
+    - DollWood
     enhancer: {fileID: 1064263636}
   - ID: MagicBookAlpha
     nameBeforeEnhance: "\u672A\u77E5\u66F8II"
@@ -695,6 +696,11 @@ MonoBehaviour:
     - DollCrystal
     - DollBlaze
     enhancer: {fileID: 2058633955}
+  dollSummonSkillRefDef:
+  - dollID: DollWood
+    battlePointsCost: 1
+  - dollID: DollIronShield
+    battlePointsCost: 1
   skillMapItems:
   - ID: DollOne
     skillRef: {fileID: 5741984129758497934, guid: af29c81a7b75d254ab3139e30bfc45e5, type: 3}

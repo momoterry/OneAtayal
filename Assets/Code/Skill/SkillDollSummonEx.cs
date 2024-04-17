@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class SkillDollSummonEx : SkillBase
 {
-    public float HP_Percent = 120;
-    public float ATK_Percent = 120;
+    public float HP_Percent = 100;
+    public float ATK_Percent = 100;
 
     public string dollID;       //如果定義了 DollID，就自動找尋 dollRef 和 icon
     public GameObject dollRef;
-    public GameObject summonFX;
+    protected GameObject summonFX;
     public float defaultSummonDistance = 2.0f;
 
     private void Awake()
     {
+        //print("SkillDollSummonEx Awake:" + dollID);
         if (dollID != "" && GameSystem.GetDollData())
         {
             dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
@@ -26,6 +27,7 @@ public class SkillDollSummonEx : SkillBase
                 }
             }
         }
+        summonFX = GameSystem.GetDollData().defautSpawnFX;
     }
 
     public override bool DoStart(ref SKILL_RESULT result)
