@@ -72,9 +72,11 @@ public class DollData : MonoBehaviour
             if (dInfo != null && dInfo.objRef)
             {
                 Doll d = dInfo.objRef.GetComponent<Doll>();
+                if (d.ID != dInfo.dollID)
+                    print("ERROR!!!! dInfo ID ¿ù»~!! " + dInfo.dollID);
                 if (dInfo.icon == null)
                     dInfo.icon = d.icon;
-                theDollMapping.Add(d.ID, dInfo);
+                theDollMapping.Add(dInfo.dollID, dInfo);
             }
         }
     }

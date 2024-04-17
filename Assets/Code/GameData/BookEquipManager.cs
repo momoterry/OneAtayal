@@ -9,12 +9,12 @@ public class BookEquipSaveAll   // 郎戈
     public BookEquipSave[] Equipped;
 }
 
-[System.Serializable]
-public class BookDollSummonDef
-{
-    public string dollID;
-    public int battlePointsCost = 1;
-}
+//[System.Serializable]
+//public class BookDollSummonDef
+//{
+//    public string dollID;
+//    public int battlePointsCost = 1;
+//}
 
 //盿Τ繦诀狦 BookEquip ﹚竡
 [System.Serializable]
@@ -31,7 +31,7 @@ public class BookEquipManager : MonoBehaviour
 {
     public const int MAX_BOOKEQUIP = 3;
     public MagicBookEquipInfo[] magicBookDef;
-    public BookDollSummonDef[] dollSummonSkillRefDef;
+    //public BookDollSummonDef[] dollSummonSkillRefDef;
 
     [System.Serializable]
     public class SkillMappingItem
@@ -62,62 +62,59 @@ public class BookEquipManager : MonoBehaviour
     protected bool oneTimeInit = false;
     protected void Awake()
     {
-        print("BookEquipManager Awake");
         if (!oneTimeInit)
         {
             for (int i=0; i< magicBookDef.Length; i++)
             {
                 magicBookMap.Add(magicBookDef[i].ID, magicBookDef[i]);
             }
-            for (int i = 0; i < skillMapItems.Length; i++)
-            {
-                GameObject o = Instantiate(skillMapItems[i].skillRef.gameObject, transform);
-                skillMapItems[i].skillRef = o.GetComponent<SkillDollSummonEx>();
-
-                //print("SKILL MAP " + i + "" + skillMapItems[i].skillRef.name);
-                skillMap.Add(skillMapItems[i].ID, skillMapItems[i].skillRef);
-            }
-
-            //DollInfo[] allDolls = GameSystem.GetDollData().DollInfos;
-            //foreach (DollInfo dInfo in allDolls)
+            //for (int i = 0; i < skillMapItems.Length; i++)
             //{
-            //    Doll d = dInfo.objRef.GetComponent<Doll>();
-            //    string dollID = d.ID;
-            //    if (!skillMap.ContainsKey(dollID))
-            //    {
-            //        print("祇瞷⊿Τ﹚竡м doll: " + dollID);
-            //    }
+            //    GameObject o = Instantiate(skillMapItems[i].skillRef.gameObject, transform);
+            //    skillMapItems[i].skillRef = o.GetComponent<SkillDollSummonEx>();
+
+            //    //print("SKILL MAP " + i + "" + skillMapItems[i].skillRef.name);
+            //    skillMap.Add(skillMapItems[i].ID, skillMapItems[i].skillRef);
             //}
 
-            foreach (BookDollSummonDef dsDef in dollSummonSkillRefDef)
-            {
-                DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(dsDef.dollID);
-                print("Try Create Skill Ref for : " + dsDef.dollID + " dInfo: " +dInfo.dollName );
+            //foreach (BookDollSummonDef dsDef in dollSummonSkillRefDef)
+            //{
+            //    DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(dsDef.dollID);
+            //    print("Try Create Skill Ref for : " + dsDef.dollID + " dInfo: " +dInfo.dollName );
 
-                GameObject o = new GameObject("SkillEX_"+ dsDef.dollID);
+            //    GameObject o = new GameObject("SkillEX_"+ dsDef.dollID);
+            //    o.SetActive(false);   //絋玂 SkillDollSummonEx 把计砞﹚Ч Awake
+            //    o.transform.SetParent(gameObject.transform);
+            //    SkillDollSummonEx sEx = o.AddComponent<SkillDollSummonEx>();
+            //    sEx.dollID = dsDef.dollID;
+            //    sEx.battlePointsCost = dsDef.battlePointsCost;
+            //    sEx.coolDown = 0;
+
+            //    o.SetActive(true);   //絋玂 SkillDollSummonEx 把计砞﹚Ч Awake
+
+            //    skillMap.Add(dsDef.dollID, sEx);
+            //}
+
+            DollInfo[] dInfos = GameSystem.GetDollData().DollInfos;
+            foreach (DollInfo dInfo in dInfos)
+            {
+                //print("Try Create Skill Ref for : " + dInfo.dollID + " dInfo: " + dInfo.dollName);
+
+                GameObject o = new GameObject("SkillEX_" + dInfo.dollID);
                 o.SetActive(false);   //絋玂 SkillDollSummonEx 把计砞﹚Ч Awake
                 o.transform.SetParent(gameObject.transform);
                 SkillDollSummonEx sEx = o.AddComponent<SkillDollSummonEx>();
-                sEx.dollID = dsDef.dollID;
-                sEx.battlePointsCost = dsDef.battlePointsCost;
+                sEx.dollID = dInfo.dollID;
+                sEx.battlePointsCost = dInfo.summonCost;
                 sEx.coolDown = 0;
-                //sEx.summonFX = defaultSummonFX;
-
-
-                //GameObject o = Instantiate(defaultSkillExRef);
-                //o.name = "SkillEX_" + dsDef.dollID;
-                //o.transform.SetParent(gameObject.transform);
-                //SkillDollSummonEx sEx = o.GetComponent<SkillDollSummonEx>();
-                //sEx.dollID = dsDef.dollID;
 
                 o.SetActive(true);   //絋玂 SkillDollSummonEx 把计砞﹚Ч Awake
 
-                skillMap.Add(dsDef.dollID, sEx);
+                skillMap.Add(dInfo.dollID, sEx);
             }
 
             oneTimeInit = true;
         }
-        print("BookEquipManager Awake Done ...................");
     }
 
     public void InitSave()
