@@ -8,8 +8,8 @@ public class HealMultiPickup : MonoBehaviour
     public GameObject healFX;
     //public int healTotal = 100;
     public int healCount = 10;
-    public float healEach = 10;
-    public float healPercentEach = 5;
+    public float healEach = 10;             //每一「下」補血的絕對量
+    public float healPercentEach = 5;       //每一「下」補血的百分量 (HPMax 越高的補越多)
 
     protected class HealInfo
     {
