@@ -9,6 +9,7 @@ public class HealMultiPickup : MonoBehaviour
     //public int healTotal = 100;
     public int healCount = 10;
     public float healEach = 10;
+    public float healPercentEach = 5;
 
     protected class HealInfo
     {
@@ -81,7 +82,8 @@ public class HealMultiPickup : MonoBehaviour
                     break;
                 }
                 //print("hList Best !!" + theHeal.obj + " hp " + (theHeal.hp + theHeal.hpToHeal) + " / max: " + theHeal.hpMax);
-                theHeal.hpToHeal = Mathf.Min(theHeal.hpToHeal + healEach, theHeal.hpMax - theHeal.hp);
+                float healOnce = healEach + theHeal.hpMax * healPercentEach * 0.01f;
+                theHeal.hpToHeal = Mathf.Min(theHeal.hpToHeal + healOnce, theHeal.hpMax - theHeal.hp);
                 //print("heal to " + theHeal.hpToHeal);
                 theHeal.hpRatio = (theHeal.hp + theHeal.hpToHeal) / theHeal.hpMax;
             }
