@@ -1751,7 +1751,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7320485055280480872}
+      - m_Target: {fileID: 5901630772639380098}
         m_TargetAssemblyTypeName: BookInventoryMenu, Assembly-CSharp
         m_MethodName: OnSellBookEquipCB
         m_Mode: 1
@@ -3550,12 +3550,12 @@ RectTransform:
   - {fileID: 3571024226523020357}
   - {fileID: 5820791259775149940}
   - {fileID: 2013020992977164525}
-  m_Father: {fileID: 508015408028874091}
+  m_Father: {fileID: 5503225711305889629}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2966824688301414823
@@ -5896,7 +5896,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7320485055280480872}
+      - m_Target: {fileID: 5901630772639380098}
         m_TargetAssemblyTypeName: BookInventoryMenu, Assembly-CSharp
         m_MethodName: CloseMenu
         m_Mode: 1
@@ -9202,6 +9202,7 @@ RectTransform:
   - {fileID: 3150760077051045093}
   - {fileID: 1718146737297438187}
   - {fileID: 1101598640163063960}
+  - {fileID: 5503225711305889629}
   - {fileID: 508015408028874091}
   - {fileID: 6702541015802535827}
   m_Father: {fileID: 0}
@@ -9509,9 +9510,8 @@ GameObject:
   m_Component:
   - component: {fileID: 508015408028874091}
   - component: {fileID: 2180216762544711870}
-  - component: {fileID: 7320485055280480872}
   m_Layer: 5
-  m_Name: Pannel_Root
+  m_Name: Pannel_BookShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9530,7 +9530,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4343253101729562966}
-  - {fileID: 1144513725105118162}
   m_Father: {fileID: 6936922310033895932}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9558,31 +9557,6 @@ MonoBehaviour:
   costText: {fileID: 6080640750863175666}
   showResultMenu: {fileID: 7879912651544650779}
   resultBookCard: {fileID: 8742778076177147214}
---- !u!114 &7320485055280480872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7125907039216246609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 005fa3ccb5a82884e854181ee62b8295, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MenuRoot: {fileID: 1144513725105118162}
-  scrollContentRoot: {fileID: 8824904087169357309}
-  ItemRef: {fileID: 1634850650139559515}
-  EquippedRef: {fileID: 7437644099047212749}
-  bookCard: {fileID: 7144373050609096772}
-  sellArea: {fileID: 8707763695998487203}
-  sellValueText: {fileID: 6198051679499667704}
-  inventoryCursor: {fileID: 8639767429639106360}
-  equippedCursor: {fileID: 1410131557884596195}
-  equippedSlots:
-  - {fileID: 4732083560962055645}
-  - {fileID: 1319832377299450346}
-  - {fileID: 30988250535494006}
 --- !u!1 &7181036201974386184
 GameObject:
   m_ObjectHideFlags: 0
@@ -9616,12 +9590,12 @@ RectTransform:
   m_Children:
   - {fileID: 5578738400342097148}
   - {fileID: 3184821126377052399}
-  m_Father: {fileID: 4343253101729562966}
+  m_Father: {fileID: 1576963382530506032}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -50, y: 218}
+  m_AnchoredPosition: {x: 2, y: -0.000045776367}
   m_SizeDelta: {x: 50, y: 48}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &1446444443056883210
@@ -10483,7 +10457,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8902483808331960836}
   - {fileID: 1576963382530506032}
   - {fileID: 4904287176044920853}
   - {fileID: 5129601835834882486}
@@ -10900,6 +10873,69 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 0.5, y: -0.5}
   m_UseGraphicAlpha: 1
+--- !u!1 &8021275702409517737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5503225711305889629}
+  - component: {fileID: 5901630772639380098}
+  m_Layer: 5
+  m_Name: Pannel_BookInventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5503225711305889629
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8021275702409517737}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1144513725105118162}
+  m_Father: {fileID: 6936922310033895932}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5901630772639380098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8021275702409517737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 005fa3ccb5a82884e854181ee62b8295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MenuRoot: {fileID: 1144513725105118162}
+  scrollContentRoot: {fileID: 8824904087169357309}
+  ItemRef: {fileID: 1634850650139559515}
+  EquippedRef: {fileID: 7437644099047212749}
+  bookCard: {fileID: 7144373050609096772}
+  sellArea: {fileID: 8707763695998487203}
+  sellValueText: {fileID: 6198051679499667704}
+  inventoryCursor: {fileID: 8639767429639106360}
+  equippedCursor: {fileID: 1410131557884596195}
+  equippedSlots:
+  - {fileID: 4732083560962055645}
+  - {fileID: 1319832377299450346}
+  - {fileID: 30988250535494006}
 --- !u!1 &8057042006100725121
 GameObject:
   m_ObjectHideFlags: 0
@@ -13293,7 +13329,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5252322952019734387, guid: d6bd8872f133fed4192a5e6a72c96a5f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8902483808331960836}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6bd8872f133fed4192a5e6a72c96a5f, type: 3}
 --- !u!224 &1576963382530506032 stripped
