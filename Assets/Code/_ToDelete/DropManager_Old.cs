@@ -17,19 +17,25 @@ public class DropManager_Old : MonoBehaviour
     //---- Instance ----
     private static DropManager_Old instance = null;
     public static DropManager_Old GetInstance() { return instance; }
-    public DropManager_Old() : base()
-    {
-        if (instance != null)
-        {
-            print("ERROR !! 超過一份 DropManager 存在 ");
-        } 
-        instance = this;
-    }
+    //public DropManager_Old() : base()
+    //{
+    //    if (instance != null)
+    //    {
+    //        print("ERROR !! 超過一份 DropManager 存在 ");
+    //    } 
+    //    instance = this;
+    //}
     //----
 
 
     private void Awake()
     {
+        if (instance != null)
+        {
+            print("ERROR !! 超過一份 DropManager 存在 ");
+        }
+        instance = this;
+
         foreach (DropMapping_Old dm in dropMappingArray)
         {
             dropObjMap.Add(dm.type, dm.objRef);

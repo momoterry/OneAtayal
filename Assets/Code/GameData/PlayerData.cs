@@ -126,7 +126,7 @@ public class PlayerData : MonoBehaviour
     //====
 
 
-    //全新存檔的資料初始化，比  Start() 更早會被呼叫
+    //全新存檔的資料初始化，比  Start() 更早會被呼叫，基本上是在 GameSystem 的 Awake 中被呼叫
     public void InitData()
     {
         print("==== GameSystem 的 PlayerData.InitData()");
@@ -143,9 +143,10 @@ public class PlayerData : MonoBehaviour
 
         usedIds.Clear();
 
+        //除了 GameSystem 以外，不能依賴其它 System 的 Instance (Awake)
         GameSystem.GetWorldMap().Init();
         GameSystem.GetLevelManager().InitFirstLevel();
-        BookEquipManager.GetInstance().InitSave();
+        GameSystem.GetBookEquipManager().InitSave();
 
     }
 

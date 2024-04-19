@@ -59,7 +59,7 @@ public class CharacterData : MonoBehaviour
 
     public void SetupStat()
     {
-        print("PC ªº CharacterData Init !!");
+        //print("PC ªº CharacterData Init !!");
         thePlayerData = GameSystem.GetPlayerData();
         if (!thePlayerData)
         {

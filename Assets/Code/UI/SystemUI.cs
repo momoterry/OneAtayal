@@ -15,10 +15,10 @@ public class SystemUI : MonoBehaviour
     protected GameObject messageBoxOwner;
     protected System.Action<MessageBox.RESULT> messageCB = null;
 
-    public SystemUI() : base()
-    {
-        //print("SystemUI 創建完成");
-    }
+    //public SystemUI() : base()
+    //{
+    //    //print("SystemUI 創建完成");
+    //}
 
     private void Awake()
     {

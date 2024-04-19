@@ -35,9 +35,21 @@ public class BookShop : MonoBehaviour
     protected List<BookEquipGood> goodList = new List<BookEquipGood>();
 
     // Start is called before the first frame update
-    void Start()
+    //void Start()
+    //{
+    //    //print("BookShop Start.......");
+    //    //GenerateGoods();
+    //}
+
+    bool isGoodGenerated = false;
+    private void Update()
     {
-        GenerateGoods();
+        if (!isGoodGenerated)
+        {
+            //print("BookShop GenerateGoods.......");
+            GenerateGoods();
+            isGoodGenerated = true;
+        }
     }
 
 

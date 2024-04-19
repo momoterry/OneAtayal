@@ -33,13 +33,13 @@ public class BookEquipManager : MonoBehaviour
     public MagicBookEquipInfo[] magicBookDef;
     //public BookDollSummonDef[] dollSummonSkillRefDef;
 
-    [System.Serializable]
-    public class SkillMappingItem
-    {
-        public string ID;
-        public SkillDollSummonEx skillRef;
-    }
-    public SkillMappingItem[] skillMapItems;
+    //[System.Serializable]
+    //public class SkillMappingItem
+    //{
+    //    public string ID;
+    //    public SkillDollSummonEx skillRef;
+    //}
+    //public SkillMappingItem[] skillMapItems;
 
     static BookEquipManager instance;
     static public BookEquipManager GetInstance() { return instance; }
@@ -51,50 +51,34 @@ public class BookEquipManager : MonoBehaviour
     static Dictionary<string, MagicBookEquipInfo> magicBookMap = new Dictionary<string, MagicBookEquipInfo>();
     static Dictionary<string, SkillDollSummonEx> skillMap = new Dictionary<string, SkillDollSummonEx>();
 
-    public BookEquipManager() : base()
-    {
-        //print("--BookEquipManager");
-        if (instance != null)
-            print("ERROR !! 禬筁 BookEquipManager  ... ");
-        instance = this;
-    }
+    //public BookEquipManager() : base()
+    //{
+    //    //print("--BookEquipManager");
+    //    if (instance != null)
+    //        print("ERROR !! 禬筁 BookEquipManager  ... ");
+    //    instance = this;
+    //}
 
+    //public DollData theDollData;
     protected bool oneTimeInit = false;
     protected void Awake()
     {
+        //print("BookEquipManager ..... Awake");
+        if (instance != null)
+            print("ERROR !! 禬筁 BookEquipManager  ... ");
+        instance = this;
+
+        for (int i = 0; i < magicBookDef.Length; i++)
+        {
+            magicBookMap.Add(magicBookDef[i].ID, magicBookDef[i]);
+        }
+    }
+
+    private void Start()
+    {
         if (!oneTimeInit)
         {
-            for (int i=0; i< magicBookDef.Length; i++)
-            {
-                magicBookMap.Add(magicBookDef[i].ID, magicBookDef[i]);
-            }
-            //for (int i = 0; i < skillMapItems.Length; i++)
-            //{
-            //    GameObject o = Instantiate(skillMapItems[i].skillRef.gameObject, transform);
-            //    skillMapItems[i].skillRef = o.GetComponent<SkillDollSummonEx>();
-
-            //    //print("SKILL MAP " + i + "" + skillMapItems[i].skillRef.name);
-            //    skillMap.Add(skillMapItems[i].ID, skillMapItems[i].skillRef);
-            //}
-
-            //foreach (BookDollSummonDef dsDef in dollSummonSkillRefDef)
-            //{
-            //    DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(dsDef.dollID);
-            //    print("Try Create Skill Ref for : " + dsDef.dollID + " dInfo: " +dInfo.dollName );
-
-            //    GameObject o = new GameObject("SkillEX_"+ dsDef.dollID);
-            //    o.SetActive(false);   //絋玂 SkillDollSummonEx 把计砞﹚Ч Awake
-            //    o.transform.SetParent(gameObject.transform);
-            //    SkillDollSummonEx sEx = o.AddComponent<SkillDollSummonEx>();
-            //    sEx.dollID = dsDef.dollID;
-            //    sEx.battlePointsCost = dsDef.battlePointsCost;
-            //    sEx.coolDown = 0;
-
-            //    o.SetActive(true);   //絋玂 SkillDollSummonEx 把计砞﹚Ч Awake
-
-            //    skillMap.Add(dsDef.dollID, sEx);
-            //}
-
+            //print("BookEquipManager Init Skill Refs");
             DollInfo[] dInfos = GameSystem.GetDollData().DollInfos;
             foreach (DollInfo dInfo in dInfos)
             {

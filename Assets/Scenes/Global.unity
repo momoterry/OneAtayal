@@ -123,445 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1064263634
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1064263635}
-  - component: {fileID: 1064263636}
-  m_Layer: 0
-  m_Name: BookEnhace_Green
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1064263635
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064263634}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 211609854834628249}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1064263636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064263634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab3b5f60ccdeb84992a2e9c7a795fd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enhancePrefixs: []
-  enhanceSuffixs:
-  - type: 1
-    value: 50
-    text: "\u6230\u58EB"
-  - type: 1
-    value: 100
-    text: "\u8ECD\u795E "
-  - type: 4
-    value: 50
-    text: "\u5766\u514B"
-  - type: 4
-    value: 200
-    text: "\u57CE\u5821"
---- !u!1 &2058633953
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2058633954}
-  - component: {fileID: 2058633955}
-  m_Layer: 0
-  m_Name: BookEnhace_Blue
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2058633954
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2058633953}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 211609854834628249}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2058633955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2058633953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab3b5f60ccdeb84992a2e9c7a795fd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enhancePrefixs:
-  - type: 1
-    value: 50
-    text: "\u6012\u706B"
-  - type: 1
-    value: 100
-    text: "\u72C2\u66B4"
-  - type: 4
-    value: 50
-    text: "\u5F37\u58EF"
-  - type: 4
-    value: 100
-    text: "\u5DE8\u5927"
-  enhanceSuffixs:
-  - type: 1
-    value: 50
-    text: "\u6230\u58EB"
-  - type: 1
-    value: 100
-    text: "\u8ECD\u795E "
-  - type: 4
-    value: 50
-    text: "\u5766\u514B"
-  - type: 4
-    value: 200
-    text: "\u57CE\u5821"
---- !u!4 &211609854834628249
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1064263635}
-  - {fileID: 2058633954}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1108946553966961845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af5dd205378b2b74098c1a7e2f900ac2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jsonFiles:
-  - {fileID: 4900000, guid: a6e73c1297fec9246b9e9cfa130ae20a, type: 3}
-  - {fileID: 4900000, guid: ccbb43c754300ec44ba1dfc5282d0bc6, type: 3}
-  objectRefs:
-  - {fileID: 8303291338163373934, guid: e95d5cddaf0146a408a51c13d7229100, type: 3}
-  - {fileID: 8303291338163373934, guid: ac09a92a1d28d5248ad78ce07229dd57, type: 3}
-  - {fileID: 8303291338163373934, guid: 2542975ac9760d5469ad7e448a17321e, type: 3}
-  - {fileID: 8122666793927156542, guid: 0ee527d090431024f97a6226d6ed3a16, type: 3}
---- !u!114 &1645076465225130241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d50ba1412413324438dce3d7907625f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  formulaJsons:
-  - {fileID: 4900000, guid: 35587dcee9d4712499dabea4a137d5f4, type: 3}
-  - {fileID: 4900000, guid: 2b05b3e08aad1ca4e86776714994a9da, type: 3}
---- !u!114 &1828942075173448263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 314a16add58a5e54b95e9aeb63477818, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2228136465260130490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44c2ce922591016459770d300830c2d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defautSpawnFX: {fileID: 1730805568862363463, guid: a317ae504c9dcdf4d8c1206bcc149841, type: 3}
-  DollInfos:
-  - dollID: DollOne
-    objRef: {fileID: 4032685806379418579, guid: 5d31c47f41f9e574e93dc4dd9bc6f7c3, type: 3}
-    dollName: "\u65E5\u9748"
-    dollDesc: "\u55AE\u9AD4\u8F38\u51FA\uFF0C\u4E2D\u6392"
-    icon: {fileID: 0}
-    summonCost: 1
-  - dollID: DollStone
-    objRef: {fileID: 4032685806379418579, guid: 6f19456bd0e40c844bdf8eeae3684a33, type: 3}
-    dollName: "\u77F3\u9748"
-    dollDesc: "\u9AD8\u8840\u91CF\u5766\u514B\uFF0C\u524D\u6392"
-    icon: {fileID: 0}
-    summonCost: 1
-  - dollID: DollLeaf
-    objRef: {fileID: 4032685806379418579, guid: bdde668c502bf8240bbbb586077d4817, type: 3}
-    dollName: "\u8349\u9748"
-    dollDesc: "\u88DC\u8840\uFF0C\u5F8C\u6392"
-    icon: {fileID: 0}
-    summonCost: 1
-  - dollID: DollFire
-    objRef: {fileID: 2876928013832779465, guid: fe3cd48788a9380449ebd93f4c027f84, type: 3}
-    dollName: "\u706B\u9748"
-    dollDesc: "\u7206\u70B8\u653B\u64CA\uFF0C\u5F8C\u6392"
-    icon: {fileID: 0}
-    summonCost: 1
-  - dollID: DollBlackStone
-    objRef: {fileID: 2012205590544976814, guid: 805fe37a6764894409a1c766bcdad2c1, type: 3}
-    dollName: "\u9ED1\u77F3\u9748"
-    dollDesc: "\u9AD8\u9632\u79A6\u5766\u514B\uFF0C\u524D\u6392"
-    icon: {fileID: 0}
-    summonCost: 2
-  - dollID: DollAce
-    objRef: {fileID: 4032685806379418579, guid: 5e46ba7bcd1cd6b419b40913150a0511, type: 3}
-    dollName: "\u592A\u967D\u738B"
-    dollDesc: "\u9023\u767C\u8F38\u51FA\uFF0C\u4E2D\u6392"
-    icon: {fileID: 0}
-    summonCost: 2
-  - dollID: DollWhiteFire
-    objRef: {fileID: 2876928013832779465, guid: fe574d4e4ab68d545bb8cefdaa8d74a1, type: 3}
-    dollName: "\u767D\u706B\u9748"
-    dollDesc: "\u4E32\u71D2\u653B\u64CA\uFF0C\u5F8C\u6392"
-    icon: {fileID: 0}
-    summonCost: 2
-  - dollID: DollCrystal
-    objRef: {fileID: 4032685806379418579, guid: 98d44cd8edc458a49b0a2426988b1f35, type: 3}
-    dollName: "\u7D2B\u6676\u9748"
-    dollDesc: "\u5149\u7DDA\u653B\u64CA\uFF0C\u4E2D\u6392"
-    icon: {fileID: 0}
-    summonCost: 2
-  - dollID: DollSun
-    objRef: {fileID: 4032685806379418579, guid: 6e387aaee449d5149ba56377a57217f5, type: 3}
-    dollName: "\u65B0\u65E5"
-    dollDesc: "\u55AE\u9AD4\u8F38\u51FA\uFF0C\u4E2D\u6392"
-    icon: {fileID: 0}
-    summonCost: 1
-  - dollID: DollBlaze
-    objRef: {fileID: 2876928013832779465, guid: 0524b08b4fde5ff429f5f07d2edf113e, type: 3}
-    dollName: "\u7130\u9748"
-    dollDesc: "\u6301\u7E8C\u653E\u706B\uFF0C\u524D\u6392"
-    icon: {fileID: 0}
-    summonCost: 2
-  - dollID: DollIronShield
-    objRef: {fileID: 4032685806379418579, guid: e548770d1b00d9444af21b2cd2045241, type: 3}
-    dollName: "\u9435\u9748"
-    dollDesc: "\u8D85\u786C\uFF0C\u524D\u6392"
-    icon: {fileID: 0}
-    summonCost: 1
-  - dollID: DollWood
-    objRef: {fileID: 4032685806379418579, guid: e9f522bf017663046927144d9f3c11cc, type: 3}
-    dollName: "\u6728\u9748"
-    dollDesc: "\u6301\u7E8C\u5C04\u64CA\uFF0C\u4E2D\u6392"
-    icon: {fileID: 0}
-    summonCost: 1
-  - dollID: DHeroStoneSpeed
-    objRef: {fileID: 4032685806379418579, guid: 6aaf4e78f331bf84597bde54f8dbdcbc, type: 3}
-    dollName: "\u901F\u77F3\u9748"
-    dollDesc: 
-    icon: {fileID: 0}
-    summonCost: 0
-  - dollID: DHeroStoneDamage
-    objRef: {fileID: 4032685806379418579, guid: 6c88cda2f009e564db3e7faf875a6981, type: 3}
-    dollName: "\u5F37\u77F3\u9748"
-    dollDesc: 
-    icon: {fileID: 0}
-    summonCost: 0
---- !u!114 &2497751659763832060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f7627d7b344bec4aae90ff76d798ca1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2518461627005379237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a21117f522616a46b4ddb0bd7743cf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainLevels:
-  - ID: SD_CavArea
-    type: 1
-    sceneName: BigDungeon_A1_Cave
-    prefix: "\u7B2C\u4E00\u5C64"
-    name: "\u5730\u6D1E\u5165\u53E3"
-    requireLevel: -1
-  - ID: SD_ForestArea
-    type: 1
-    sceneName: BigDungeon_A1_Forest
-    prefix: "\u7B2C\u4E94\u5C64"
-    name: "\u5730\u5E95\u68EE\u6797"
-    requireLevel: -1
-  - ID: SD_DesertArea
-    type: 0
-    sceneName: MazeDesert
-    prefix: "\u7B2C\u4E5D\u5C64"
-    name: "\u6DF1\u6DF5\u6C99\u6F20"
-    requireLevel: -1
-  - ID: 0_1
-    type: 0
-    sceneName: ForestBegin
-    prefix: "\u5E8F\u7AE0"
-    name: "\u68EE\u6797\u5165\u53E3"
-    requireLevel: 1
-  - ID: 1_1
-    type: 0
-    sceneName: ForestSmall
-    prefix: 1-1
-    name: "\u77F3\u4E4B\u602A"
-    requireLevel: 2
-  - ID: 1_2
-    type: 0
-    sceneName: ForestS2
-    prefix: 1-2
-    name: "\u6A39\u5996\u7684\u9006\u8972"
-    requireLevel: 3
-  - ID: 1_3
-    type: 0
-    sceneName: ForestS3
-    prefix: 1-3
-    name: "\u4E0D\u7965\u68EE\u6797"
-    requireLevel: 5
-  - ID: 2_1
-    type: 0
-    sceneName: Dun_M1
-    prefix: 2-1
-    name: "\u5730\u57CE\u5165\u53E3"
-    requireLevel: 8
-  - ID: 2_2
-    type: 0
-    sceneName: Dun_H1
-    prefix: 2-2
-    name: "\u8FF7\u5BAE\u63A2\u7D22"
-    requireLevel: 10
-  - ID: 2_3
-    type: 0
-    sceneName: Dun_H_Boss
-    prefix: 2-3
-    name: "\u53EF\u6015\u7684\u9ED1\u5F71"
-    requireLevel: -1
-  - ID: 2_4
-    type: 0
-    sceneName: Dun_E1
-    prefix: "\u7D42\u7AE0"
-    name: "\u7CBE\u82F1\u6311\u6230"
-    requireLevel: -1
---- !u!114 &3641295338550857293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0fe0bb1facc1d4caac18cea65dba98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5463084553836102602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3321cac0d2e943344a2de26ea610a5c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thePlayerData: {fileID: 1828942075173448263}
-  theLevelManager: {fileID: 2518461627005379237}
-  theDollData: {fileID: 2228136465260130490}
-  theBookEquipManager: {fileID: 8340995449401313036}
-  theDungeonData: {fileID: 1108946553966961845}
-  theWorldMap: {fileID: 5661107358549702869}
-  isOnlineSave: 0
-  theOnlineSaveLoad: {fileID: 3641295338550857293}
-  showBasicLevelUp: 1
-  useDirectionControl: 1
---- !u!114 &5661107358549702869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec009020bdff68e4da8b3b86cdb5bbb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7758160222594760690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a92997d380175438c80ec7d344d406, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7834770927938505534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -663,121 +224,64 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ba5131b14cab4d438409e3a6b10eecb, type: 3}
---- !u!1 &8103587421774627795
-GameObject:
+--- !u!1001 &8260507399995111084
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 211609854834628249}
-  - component: {fileID: 5463084553836102602}
-  - component: {fileID: 1828942075173448263}
-  - component: {fileID: 8736831563965423352}
-  - component: {fileID: 2228136465260130490}
-  - component: {fileID: 2518461627005379237}
-  - component: {fileID: 3641295338550857293}
-  - component: {fileID: 7758160222594760690}
-  - component: {fileID: 2497751659763832060}
-  - component: {fileID: 1108946553966961845}
-  - component: {fileID: 5661107358549702869}
-  - component: {fileID: 1645076465225130241}
-  - component: {fileID: 8340995449401313036}
-  m_Layer: 0
-  m_Name: GameSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &8340995449401313036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e848fa63b2489c2428bf10431a2f184b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  magicBookDef:
-  - ID: MagicBookBasic
-    nameBeforeEnhance: "\u672A\u77E5\u66F8"
-    quality: 1
-    skillList:
-    - DollOne
-    - DollStone
-    - DollFire
-    - DollLeaf
-    - DollWood
-    enhancer: {fileID: 1064263636}
-  - ID: MagicBookAlpha
-    nameBeforeEnhance: "\u672A\u77E5\u66F8II"
-    quality: 2
-    skillList:
-    - DollAce
-    - DollBlackStone
-    - DollWhiteFire
-    - DollCrystal
-    - DollBlaze
-    enhancer: {fileID: 2058633955}
-  dollSummonSkillRefDef:
-  - dollID: DollWood
-    battlePointsCost: 1
-  - dollID: DollIronShield
-    battlePointsCost: 1
-  skillMapItems:
-  - ID: DollOne
-    skillRef: {fileID: 5741984129758497934, guid: af29c81a7b75d254ab3139e30bfc45e5, type: 3}
-  - ID: DollStone
-    skillRef: {fileID: 5741984129758497934, guid: dde80c2f26c26fb46b104bcc68a9eec7, type: 3}
-  - ID: DollFire
-    skillRef: {fileID: 5741984129758497934, guid: 6804e5f6bdd7b5048846d5c4a221a1c5, type: 3}
-  - ID: DollLeaf
-    skillRef: {fileID: 5741984129758497934, guid: 2e4072352e6129e4a93b0dd2da265a50, type: 3}
-  - ID: DollAce
-    skillRef: {fileID: 5741984129758497934, guid: f466ae94e1a80ce4b9f9aebd8333d74e, type: 3}
-  - ID: DollBlackStone
-    skillRef: {fileID: 5741984129758497934, guid: 8e5652f8350e3e347a74c9f42bfd2c1e, type: 3}
-  - ID: DollWhiteFire
-    skillRef: {fileID: 5741984129758497934, guid: a9639ca2aa668de42a479b7d0b537d34, type: 3}
-  - ID: DollCrystal
-    skillRef: {fileID: 5741984129758497934, guid: a66c1a1c074789449b18285c0442e4b5, type: 3}
-  - ID: DollBlaze
-    skillRef: {fileID: 5741984129758497934, guid: 630820c26d412cd499301855ce4bab3f, type: 3}
---- !u!114 &8736831563965423352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103587421774627795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d56eaeb93b30d3b4d93794f6dc22371e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemInfos:
-  - ID: Mat_BookBlue
-    type: 0
-    Name: "\u5DEB\u9748\u66F8\u7D20\u6750"
-    Icon: {fileID: 21300000, guid: ccffb3832a9a0664898d3692f99a4643, type: 3}
-  - ID: Mat_DollOne
-    type: 0
-    Name: "\u65E5\u9748\u77F3"
-    Icon: {fileID: 250091169, guid: 627e206e3d5b17e48a789d69eed93871, type: 3}
-  - ID: Mat_DollStone
-    type: 0
-    Name: "\u77F3\u9748\u77F3"
-    Icon: {fileID: 1279226314, guid: 627e206e3d5b17e48a789d69eed93871, type: 3}
-  - ID: Mat_DollFire
-    type: 0
-    Name: "\u706B\u9748\u77F3"
-    Icon: {fileID: 1972851860, guid: 627e206e3d5b17e48a789d69eed93871, type: 3}
-  - ID: Mat_DollLeaf
-    type: 0
-    Name: "\u706B\u9748\u77F3"
-    Icon: {fileID: -820080628, guid: 627e206e3d5b17e48a789d69eed93871, type: 3}
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2937486099355114776, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_Name
+      value: GameSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970109436873069519, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 99888b3f5fb25a1418a92ac5f95e6ff8, type: 3}

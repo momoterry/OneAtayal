@@ -62,17 +62,23 @@ public class GameSystem : MonoBehaviour
 
     static private GameSystem instance;
 
-    public GameSystem() : base()
-    {
-        //print("GameSystem : 我被創建了!!!");
-        if (instance != null)
-            print("ERROR !! 超過一份 Game System 存在 ");
-        instance = this;
-        //print("GameSystem 創建完成");
-    }
+    //public GameSystem() : base()
+    //{
+    //    print("GameSystem : 我被創建了!!!");
+    //    if (instance != null)
+    //        print("ERROR !! 超過一份 Game System 存在 ");
+    //    instance = this;
+    //    print("GameSystem 創建完成");
+    //}
 
     private void Awake()
     {
+        //print("GameSystem Awake: 我被創建了!!!");
+        if (instance != null)
+            print("ERROR !! 超過一份 Game System 存在 ");
+        instance = this;
+        //print("GameSystem Awake 創建完成");
+
         if (isOnlineSave)
         {
             OnlineInitAsync();
@@ -105,11 +111,13 @@ public class GameSystem : MonoBehaviour
 
     static public void Ensure()
     {
+        //print("GameSystem Ensure....instance:" + instance);
         if (instance == null)
         {
-            print("還沒有創建 GameSystem，需要加載 Scene: GameSystem!!");
+            //print("還沒有創建 GameSystem，需要加載 Scene: GameSystem!!");
             SceneManager.LoadScene("Global", LoadSceneMode.Additive);
         }
+        //print("GameSystem Ensure 完成....instance:" + instance);
     }
 
 
@@ -155,6 +163,15 @@ public class GameSystem : MonoBehaviour
             return null;
         }
         return instance.theDollData;
+    }
+    static public BookEquipManager GetBookEquipManager()
+    {
+        if (!instance || !instance.theBookEquipManager)
+        {
+            print("ERROR !!! GameSystem 找不到 BookEquipManager !!" + instance);
+            return null;
+        }
+        return instance.theBookEquipManager;
     }
 
     public void SetPlayerCharacterRef( GameObject objRef)

@@ -21,12 +21,12 @@ public class DropManager : MonoBehaviour
 
     protected Dictionary<int, DropMapping> dropMap = new Dictionary<int, DropMapping>();
 
-    public DropManager() : base()
-    {
-        //if (instance != null)
-        //    print("ERROR !! 超過一份 DropManager 存在 ");
-        //instance = this;
-    }
+    //public DropManager() : base()
+    //{
+    //    //if (instance != null)
+    //    //    print("ERROR !! 超過一份 DropManager 存在 ");
+    //    //instance = this;
+    //}
 
     private void Awake()
     {

@@ -11,7 +11,8 @@ public class MazeSizeRecorder : MonoBehaviour
 
     static MazeSizeRecorder instance;
     static public MazeSizeRecorder GetInstace() { return instance; }
-    public MazeSizeRecorder() : base()
+    //public MazeSizeRecorder() : base()
+    void Awake()
     {
         if (instance != null)
             print("ERROR !! 超過一份 MazeSizeRecorder 存在 ");

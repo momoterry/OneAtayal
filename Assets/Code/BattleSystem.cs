@@ -91,6 +91,7 @@ public class BattleSystem : MonoBehaviour
 
     protected void Awake()
     {
+        //print("BattleSystem Awake!!");
         StartFadeIn(0.25f);
         GameSystem.Ensure();    //為了讓任何 Scene 都可以直接 Play !!
 
