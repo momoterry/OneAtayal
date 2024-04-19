@@ -88,6 +88,12 @@ public class PlayerData : MonoBehaviour
 
     protected CharacterStat mainCharacterStat = new CharacterStat();
 
+    //主角的模型 Ref
+    protected GameObject playerCharacterRef = null;
+    //Skill 相關
+    protected Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
+
+
     protected List<DollInstanceData> usingDIs = new List<DollInstanceData>();
     //protected List<string> usingDollList = new List<string>();
     protected List<FormationDollInfo> formationDollList = new List<FormationDollInfo>();
@@ -165,6 +171,34 @@ public class PlayerData : MonoBehaviour
     {
         return mainCharacterStat;
     }
+
+    //========================== 從 GameSystem 移過來 ==========================
+    public void SetPlayerCharacterRef(GameObject objRef)
+    {
+        playerCharacterRef = objRef;
+    }
+
+    public GameObject GetPlayerCharacterRef()
+    {
+        return playerCharacterRef;
+    }
+
+    public void SetPlayerSkillRef(string skillStr, SkillBase skillRef)
+    {
+        if (skillMap.ContainsKey(skillStr))
+            skillMap[skillStr] = skillRef;
+        else
+            skillMap.Add(skillStr, skillRef);
+    }
+
+    public SkillBase GetPlayerSkillRef(string skillStr)
+    {
+        if (skillMap.ContainsKey(skillStr))
+            return skillMap[skillStr];
+        else
+            return null;
+    }
+    //====================================================
 
     //存檔相關
     public SaveData GetSaveData()

@@ -169,7 +169,7 @@ public class PC_One : PlayerControllerBase
         BookEquipManager.GetInstance().InitEquipsOnPC();
 
         //先檢查存檔
-        SkillBase savedAutoSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(AUTO_SKILL);
+        SkillBase savedAutoSkillRef = GameSystem.GetPlayerData().GetPlayerSkillRef(AUTO_SKILL);
         if (savedAutoSkillRef)
             print("技能存檔 !! " + savedAutoSkillRef);
         if (savedAutoSkillRef)
@@ -182,7 +182,7 @@ public class PC_One : PlayerControllerBase
         //{
         for (int i = 0; i < activeSkillSaveMax; i++)
         {
-            SkillBase savedActiveSkillRef = GameSystem.GetInstance().GetPlayerSkillRef(skillSaveNames[i]);
+            SkillBase savedActiveSkillRef = GameSystem.GetPlayerData().GetPlayerSkillRef(skillSaveNames[i]);
             //if (savedActiveSkillRef)
             //    print("主動技能存檔 !! " + i + " : " + savedActiveSkillRef);
             if (savedActiveSkillRef)
@@ -293,13 +293,13 @@ public class PC_One : PlayerControllerBase
 
     public void SetAutoSkill( SkillBase skillRef )
     {
-        GameSystem.GetInstance().SetPlayerSkillRef(AUTO_SKILL, skillRef);
+        GameSystem.GetPlayerData().SetPlayerSkillRef(AUTO_SKILL, skillRef);
         DoSetAutoSkill(skillRef);
     }
 
     public void SetActiveSkill( SkillBase activeSkillRef, int index = 0 )
     {
-        GameSystem.GetInstance().SetPlayerSkillRef(skillSaveNames[index], activeSkillRef);
+        GameSystem.GetPlayerData().SetPlayerSkillRef(skillSaveNames[index], activeSkillRef);
         DoSetActiveSkill(activeSkillRef, index);
     }
 

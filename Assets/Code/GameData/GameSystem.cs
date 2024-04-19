@@ -32,11 +32,11 @@ public class GameSystem : MonoBehaviour
     //一般方便開發中切換的遊戲方向設定
     public bool showBasicLevelUp = true;
 
-    //TODO: 這部份應該改到 PlayerData 中
-    protected GameObject playerCharacterRef = null;
+    ////TODO: 這部份應該改到 PlayerData 中
+    //protected GameObject playerCharacterRef = null;
 
-    //Skill 相關 //TODO: 這部份應該改到 PlayerData 中
-    protected Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
+    ////Skill 相關 //TODO: 這部份應該改到 PlayerData 中
+    //protected Dictionary<string, SkillBase> skillMap = new Dictionary<string, SkillBase>();
 
     public bool useDirectionControl = false;
 
@@ -178,31 +178,31 @@ public class GameSystem : MonoBehaviour
         return instance.theBookEquipManager;
     }
 
-    public void SetPlayerCharacterRef( GameObject objRef)
-    {
-        playerCharacterRef = objRef;
-    }
+    //public void SetPlayerCharacterRef( GameObject objRef)
+    //{
+    //    playerCharacterRef = objRef;
+    //}
 
-    public GameObject GetPlayerCharacterRef()
-    {
-        return playerCharacterRef;
-    }
+    //public GameObject GetPlayerCharacterRef()
+    //{
+    //    return playerCharacterRef;
+    //}
 
-    public void SetPlayerSkillRef( string skillStr, SkillBase skillRef)
-    {
-        if (skillMap.ContainsKey(skillStr))
-            skillMap[skillStr] = skillRef;
-        else
-            skillMap.Add(skillStr, skillRef);
-    }
+    //public void SetPlayerSkillRef( string skillStr, SkillBase skillRef)
+    //{
+    //    if (skillMap.ContainsKey(skillStr))
+    //        skillMap[skillStr] = skillRef;
+    //    else
+    //        skillMap.Add(skillStr, skillRef);
+    //}
 
-    public SkillBase GetPlayerSkillRef(string skillStr)
-    {
-        if (skillMap.ContainsKey(skillStr))
-            return skillMap[skillStr];
-        else
-            return null;
-    }
+    //public SkillBase GetPlayerSkillRef(string skillStr)
+    //{
+    //    if (skillMap.ContainsKey(skillStr))
+    //        return skillMap[skillStr];
+    //    else
+    //        return null;
+    //}
 
     // Start is called before the first frame update
     //void Start()

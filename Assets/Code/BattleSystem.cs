@@ -208,14 +208,14 @@ public class BattleSystem : MonoBehaviour
 
         if (!ForceUsePlayerRef)
         {
-            GameObject playerInfoToSet = GameSystem.GetInstance().GetPlayerCharacterRef();
+            GameObject playerInfoToSet = GameSystem.GetPlayerData().GetPlayerCharacterRef();
             if (playerInfoToSet != null)
             {
                 playerRef = playerInfoToSet;
             }
             else
             {
-                GameSystem.GetInstance().SetPlayerCharacterRef(playerRef);
+                GameSystem.GetPlayerData().SetPlayerCharacterRef(playerRef);
             }
         }
 
