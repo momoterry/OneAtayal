@@ -102,6 +102,10 @@ public class GameSystem : MonoBehaviour
 #if TOUCH_MOVE
         useVpadControl = false;
 #endif
+
+        Application.targetFrameRate = 300;  //強迫 Android 開放 !!
+
+        DontDestroyOnLoad(gameObject);
     }
 
     static public GameSystem GetInstance()
@@ -201,19 +205,19 @@ public class GameSystem : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        Application.targetFrameRate = 300;  //強迫 Android 開放 !!
+    //void Start()
+    //{
+    //    Application.targetFrameRate = 300;  //強迫 Android 開放 !!
 
-        DontDestroyOnLoad(gameObject);
+    //    DontDestroyOnLoad(gameObject);
 
-    }
+    //}
 
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
         
-    }
+    //}
 
     public void SaveData()
     {
