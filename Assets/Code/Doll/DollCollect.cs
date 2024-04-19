@@ -5,25 +5,35 @@ using UnityEngine;
 public class DollCollect : MonoBehaviour
 {
     //public GameObject dollObject;
+    public bool spawnNewDoll = false;
+    public string spawnDollID;
     public bool collectForever;
-
+    public bool isDollMaterial = true;
 
     protected Doll theDoll;
     // Start is called before the first frame update
     void Start()
     {
-        //if (dollObject)
-        //theDoll = dollObject.GetComponent<Doll>();
-        theDoll = GetComponentInChildren<Doll>();
-        if (theDoll == null || theDoll.transform.parent != gameObject.transform)
+        if (!spawnNewDoll)
         {
-            print("ERROR !!!! There is no Doll as child of DollCollct !!");
-        }
+            theDoll = GetComponentInChildren<Doll>();
+            if (theDoll == null || theDoll.transform.parent != gameObject.transform)
+            {
+                print("ERROR !!!! There is no Doll as child of DollCollct !!");
+            }
 
-        if (!collectForever)
+            if (!collectForever)
+            {
+                //野生 Doll 的處理
+                DollMaterial m = theDoll.gameObject.AddComponent<DollMaterial>();
+            }
+        }
+        else
         {
-            //野生 Doll 的處理
-            DollMaterial m = theDoll.gameObject.AddComponent<DollMaterial>();
+            if (collectForever)
+            {
+                print("ERROR!!!! spawnNewDoll 的方式不支援 collectForever !!!!");
+            }
         }
     }
 
@@ -31,7 +41,17 @@ public class DollCollect : MonoBehaviour
     public void OnTG(GameObject whoTG)
     {
         //print("DollCollect OnTG");
-
+        if (spawnNewDoll)
+        {
+            print("Spawn Battle Doll!! ");
+            GameObject o = GameSystem.GetDollData().SpawnBattleDoll(spawnDollID, transform.position);
+            if (!collectForever)
+            {
+                o.AddComponent<DollMaterial>();
+            }
+            Destroy(gameObject);
+            return;
+        }
 
         //回應 ActionTrigger 是否成功
         bool actionResult = theDoll.TryJoinThePlayer(collectForever?DOLL_JOIN_SAVE_TYPE.FOREVER:DOLL_JOIN_SAVE_TYPE.BATTLE);

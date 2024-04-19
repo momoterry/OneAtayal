@@ -3868,7 +3868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 52946823115950276}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.375, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4386,7 +4386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395c75b308f29fb41a5be81c4978f9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectForever: 1
+  spawnNewDoll: 1
+  spawnDollID: DollOne
+  collectForever: 0
+  isDollMaterial: 1
 --- !u!483693784 &6700756584002134437
 TilemapRenderer:
   m_ObjectHideFlags: 0

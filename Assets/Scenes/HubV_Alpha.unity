@@ -44505,7 +44505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &999062836
 Transform:
   m_ObjectHideFlags: 0
@@ -57092,7 +57092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2576829165587491972, guid: ed2dfd37876b5a8438a5ef35a1c121e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.73
+      value: -16.23
       objectReference: {fileID: 0}
     - target: {fileID: 2576829165587491972, guid: ed2dfd37876b5a8438a5ef35a1c121e0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -57100,7 +57100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2576829165587491972, guid: ed2dfd37876b5a8438a5ef35a1c121e0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.33
+      value: -10.83
       objectReference: {fileID: 0}
     - target: {fileID: 2576829165587491972, guid: ed2dfd37876b5a8438a5ef35a1c121e0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -57526,7 +57526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395c75b308f29fb41a5be81c4978f9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnNewDoll: 0
+  spawnDollID: 
   collectForever: 1
+  isDollMaterial: 1
 --- !u!1 &1878255328
 GameObject:
   m_ObjectHideFlags: 0
@@ -62571,7 +62574,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395c75b308f29fb41a5be81c4978f9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnNewDoll: 0
+  spawnDollID: 
   collectForever: 1
+  isDollMaterial: 1
 --- !u!4 &3509949078381067492
 Transform:
   m_ObjectHideFlags: 0
