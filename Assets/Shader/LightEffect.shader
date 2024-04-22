@@ -3,6 +3,7 @@ Shader "Custom/LightEffect"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+		_Color ("Tint", Color) = (1,1,1,1)
         _Brightness ("Brightness", Range(0, 2)) =1.0
     }
 	SubShader
@@ -31,19 +32,24 @@ Shader "Custom/LightEffect"
 			struct appdata_t
 			{
 				float4 vertex   : POSITION;
+				float4 color    : COLOR;
 				float2 texcoord : TEXCOORD0;
 			};
 
 			struct v2f
 			{
 				float4 vertex   : SV_POSITION;
+				float4 color    : COLOR;
 				float2 texcoord  : TEXCOORD0;
 			};
+
+			fixed4 _Color;
 			
 			v2f vert(appdata_t IN)
 			{
 				v2f OUT;
 				OUT.vertex = UnityObjectToClipPos(IN.vertex);
+				OUT.color = IN.color * _Color;
 				OUT.texcoord = IN.texcoord;
 
 				return OUT;
@@ -54,7 +60,7 @@ Shader "Custom/LightEffect"
 
 			fixed4 frag(v2f IN) : SV_Target
 			{
-				fixed4 c = tex2D (_MainTex, IN.texcoord);
+				fixed4 c = tex2D (_MainTex, IN.texcoord) * IN.color;
 				c.rgb *= c.a * _Brightness;
 				return c;
 			}
