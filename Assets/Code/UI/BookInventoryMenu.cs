@@ -200,7 +200,9 @@ public class BookInventoryMenu : MonoBehaviour
         else
         {
             bookCard.SetCard(equip);
-            sellValueText.text = defaultSellValue.ToString();
+            //sellValueText.text = defaultSellValue.ToString();
+            int sellValue = BookEquipManager.GetInstance().GetBookSellValue(equip);
+            sellValueText.text = sellValue.ToString();
             sellArea.gameObject.SetActive(true);
             bookCard.gameObject.SetActive(true);
             lastSelect = equip;
@@ -264,7 +266,8 @@ public class BookInventoryMenu : MonoBehaviour
             //print("真的確家要賣了 ..... " + lastSelect.quality);
             BookEquipSave equip = BookEquipManager.GetInstance().RemoveFromInventoryByIndex(lastSelectIndex);
             BookEquipManager.GetInstance().DestroyOne(equip);
-            GameSystem.GetPlayerData().AddMoney(defaultSellValue);
+            int sellValue = BookEquipManager.GetInstance().GetBookSellValue(equip);
+            GameSystem.GetPlayerData().AddMoney(sellValue);
 
             bookCard.gameObject.SetActive(false);
             sellArea.SetActive(false);

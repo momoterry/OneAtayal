@@ -290,7 +290,7 @@ public class BookEquipManager : MonoBehaviour
         thePC.SetActiveSkill(skill, slotIndex + 1);
     }
 
-    //====================== Inventory 相關的操作
+    //====================== Inventory 相關的操作 ======================
     public int GetInventorySize()
     {
         return inventory.Count;
@@ -315,6 +315,26 @@ public class BookEquipManager : MonoBehaviour
             return equip;
         }
         return null;
+    }
+
+    public int GetBookSellValue(BookEquipSave equip)       //給賣掉書本專用，設定價錢的功能
+    {
+        switch (equip.quality)
+        {
+            case ITEM_QUALITY.COMMON:
+                return 100;
+            case ITEM_QUALITY.UNCOMMON:
+                return 200;
+            case ITEM_QUALITY.RARE:
+                return 500;
+            case ITEM_QUALITY.EPIC:
+                return 2000;
+            case ITEM_QUALITY.UNIQUE:
+                return 5000;
+            case ITEM_QUALITY.LEGENDARY:
+                return 10000;
+        }
+        return 100;
     }
 
     public bool CheckIfEquipPossible(BookEquipSave equip, ref string errMsg, ref int validSlot)
