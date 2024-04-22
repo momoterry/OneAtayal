@@ -1,16 +1,15 @@
-Shader "Custom/FXAdditive"
+Shader "Custom/LightEffect"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Brightness ("Brightness", Range(0, 1)) = 0.5
     }
     SubShader
     {
         Tags { "Queue" = "Transparent" }
         Pass
         {
-            Blend SrcAlpha One
+            Blend DstColor One
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -45,8 +44,8 @@ Shader "Custom/FXAdditive"
 
             half4 frag (v2f i) : SV_Target
             {
-                half4 col = tex2D(_MainTex, i.uv);// * _Brightness;
-                col.a = col.a * _Brightness;
+                half4 col = tex2D(_MainTex, i.uv);
+                col.rgb = col.rgb * col.a;
                 //half gray = dot(col.rgb, float3(0.299, 0.587, 0.114));
                 return col;
             }
