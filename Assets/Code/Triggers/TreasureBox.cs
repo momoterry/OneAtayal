@@ -15,16 +15,19 @@ public class TreasureBox : MonoBehaviour
     }
     public RewardInfo[] rewards;
     public float timeToSpawn = 0.5f;
+    public float timeToFly = 0.25f;
     public Vector2 spawnAreaMax = new Vector2(6, 6);
     public Vector2 spawnAreaIn = new Vector2(2, 2);
 
     protected float waitTime;
+    //protected float flyTime;
 
     protected enum Phase
     {
         NONE,
         WAIT,
         TO_SPAWN,
+        FLYING,
         DONE,
     }
     protected Phase currPhase = Phase.NONE;
@@ -45,10 +48,49 @@ public class TreasureBox : MonoBehaviour
             if (waitTime <= 0)
             {
                 DoSpawnReward();
-                nextPhase = Phase.DONE;
+                nextPhase = Phase.FLYING;
+                waitTime = timeToFly;
             }
         }
+        else if (currPhase == Phase.FLYING)
+        {
+            waitTime -= Time.deltaTime;
+            if (waitTime <=0)
+            {
+                //print("Done......");
+                UpdateFlying(1.0f);
+                nextPhase = Phase.DONE;
+            }
+            else
+                UpdateFlying(1.0f - waitTime / timeToFly);
+        }
     }
+
+    protected class FlyingObjInfo
+    {
+        public GameObject obj;
+        public Vector3 targetPos;
+    }
+    protected List<FlyingObjInfo> flyList = new List<FlyingObjInfo>();
+
+    protected void UpdateFlying(float ratio)
+    {
+        float jumpHeight = 2.0f;
+        foreach (FlyingObjInfo fly in flyList)
+        {
+            if (fly.obj)
+            {
+                Vector3 pos = (fly.targetPos - transform.position) * ratio + transform.position;
+                Vector3 posUp = Vector3.forward * Mathf.Sin(ratio * Mathf.PI) * jumpHeight;
+                fly.obj.transform.position = pos + posUp;
+            }
+            //else
+            //{
+            //    print("Wooops....");
+            //}
+        }
+    }
+
 
     protected void DoSpawnReward()
     {
@@ -94,7 +136,11 @@ public class TreasureBox : MonoBehaviour
             for (int k=0; k< spawnNum[i]; k++)
             {
                 GameObject o = Instantiate(rewards[i].objRef);
-                o.transform.position = choosePos[n];
+                o.transform.position = transform.position;
+                FlyingObjInfo fly = new FlyingObjInfo();
+                fly.obj = o;
+                fly.targetPos = choosePos[n];
+                flyList.Add(fly);
                 n++;
             }
         }

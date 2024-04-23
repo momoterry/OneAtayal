@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6615485237457438182
 Transform:
   m_ObjectHideFlags: 0
@@ -232,10 +232,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewards:
-    objRef: {fileID: 0}
-    numMin: 0
-    numMax: 0
+  - objRef: {fileID: 8143502755978418841, guid: 4c7c16cd36f11f34f8281b286f963f2e, type: 3}
+    numMin: 8
+    numMax: 9
+  - objRef: {fileID: 8143502755978418841, guid: 67ab84094d2daa24cb6914bdde34adfe, type: 3}
+    numMin: 3
+    numMax: 5
+  - objRef: {fileID: 8143502755978418841, guid: 8c941f08c213add4c8d457f1cd916490, type: 3}
+    numMin: 1
+    numMax: 1.7
   timeToSpawn: 0.5
+  timeToFly: 0.1
+  spawnAreaMax: {x: 6, y: 4}
+  spawnAreaIn: {x: 2, y: 2}
 --- !u!1 &7682777807756467943
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5217086943858601849
 Transform:
   m_ObjectHideFlags: 0
@@ -350,6 +359,10 @@ PrefabInstance:
     - target: {fileID: 175016898089978893, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
       propertyPath: m_Name
       value: ActionTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 290467011334818941, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
+      propertyPath: m_Radius
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1886899707721466646, guid: dbf718bbabe54414fb81fc006cd1a081, type: 3}
       propertyPath: TriggerTarget
