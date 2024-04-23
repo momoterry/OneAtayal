@@ -7,6 +7,24 @@ using System.IO;
 
 public class OneUtility
 {
+    // ========================= 有關方向
+    public static DIRECTION GetReverseDIR(DIRECTION dir)
+    {
+        switch (dir)
+        {
+            case DIRECTION.U:
+                return DIRECTION.D;
+            case DIRECTION.D:
+                return DIRECTION.U;
+            case DIRECTION.L:
+                return DIRECTION.R;
+            case DIRECTION.R:
+                return DIRECTION.L;
+        }
+        return DIRECTION.NONE;
+    }
+
+    // ========================= 有關隨機排序
     //改寫自 AI
     static public void Shuffle<T>(T[] array)
     {
@@ -32,21 +50,27 @@ public class OneUtility
             list[n] = value;
         }
     }
-    //
-    public static DIRECTION GetReverseDIR(DIRECTION dir)
+
+    // ========================= 從 N 個數中隨機取不重複
+    static public int[] GetRandomNonRepeatNumbers(int minInclude, int maxExclude, int count)
     {
-        switch (dir)
+        //Debug.Log("GetRandomNonRepeatNumbers count... " + count);
+        int range = maxExclude - minInclude;
+        if (range < count)
+            return null;
+        int[] choose = new int[count];
+        int[] all = new int[range];
+        for (int i = 0; i < range; i++)
+            all[i] = minInclude + i;
+        for (int i = 0; i < count; i++)
         {
-            case DIRECTION.U:
-                return DIRECTION.D;
-            case DIRECTION.D:
-                return DIRECTION.U;
-            case DIRECTION.L:
-                return DIRECTION.R;
-            case DIRECTION.R:
-                return DIRECTION.L;
+            int k = Random.Range(i + 1, range);
+            choose[i] = all[k];
+            all[k] = all[i];
+            all[i] = choose[i];
+            //Debug.Log(choose[i]);
         }
-        return DIRECTION.NONE;
+        return choose;
     }
 
     // ========================= 有關隨機取點 (取自 AI)
