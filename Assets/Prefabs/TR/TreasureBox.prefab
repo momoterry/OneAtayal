@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 2590200662357474199}
   - component: {fileID: 4812581999318125109}
   - component: {fileID: 7126307633081863924}
+  - component: {fileID: 1227951004662146660}
   m_Layer: 0
   m_Name: TreasureBox
   m_TagString: Untagged
@@ -209,7 +210,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7337370386353562539}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33242d63823eb9f44b326c6ab98f0d99, type: 3}
   m_Name: 
@@ -218,6 +219,23 @@ MonoBehaviour:
   TriggerTargets:
   - {fileID: 7682777807756467943}
   - {fileID: 1626945872397101503}
+--- !u!114 &1227951004662146660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7337370386353562539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339fa4c851e9a23449894d3585e3117e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewards:
+    objRef: {fileID: 0}
+    numMin: 0
+    numMax: 0
+  timeToSpawn: 0.5
 --- !u!1 &7682777807756467943
 GameObject:
   m_ObjectHideFlags: 0
