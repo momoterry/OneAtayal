@@ -52,21 +52,51 @@ public class TreasureBox : MonoBehaviour
 
     protected void DoSpawnReward()
     {
-        print("DoSpawnReward !!!!");
+        //print("DoSpawnReward !!!!");
         int totalSpawn = 0;
         int[] spawnNum = new int[rewards.Length];
-        for (int i=0; i<rewards.Length; i++)
+        for (int i = 0; i < rewards.Length; i++)
         {
-            spawnNum [i] = OneUtility.FloatToRandomInt(Random.Range(rewards[i].numMin, rewards[i].numMax));
+            spawnNum[i] = OneUtility.FloatToRandomInt(Random.Range(rewards[i].numMin, rewards[i].numMax));
             totalSpawn += spawnNum[i];
         }
 
-        Vector3[] posList = new Vector3[totalSpawn];
-        for (int i=0; i<totalSpawn; i++)
+
+        List<Vector3> allPos = new List<Vector3>();
+        float fStep = 1.0f;
+        int hWidth = Mathf.RoundToInt(spawnAreaMax.x * 0.5f / fStep);
+        int hHeight = Mathf.RoundToInt(spawnAreaMax.y * 0.5f / fStep);
+        float hWidthMin = spawnAreaIn.x * 0.5f;
+        float hHeightMin = spawnAreaIn.y * 0.5f;
+        for (int x = -hWidth; x <= hWidth; x++)
         {
-            posList[i] = transform.position;
-            //posList[i].x += Random.Range(-spawnAreaMax.x * 0.5f, spawnAreaMax.x * 0.5f);
-            //posList[i].z += Random.Range(-spawnAreaMax.y * 0.5f, spawnAreaMax.y * 0.5f);
+            for (int y = -hHeight; y <= hHeight; y++)
+            {
+                float posX = x * fStep;
+                float posY = y * fStep;
+                if (posX < -hWidthMin || posX > hWidthMin || posY < -hHeightMin || posY > hHeightMin)
+                {
+                    Vector3 pos = transform.position + new Vector3(posX, 0, posY);
+                    allPos.Add(pos);
+                }
+            }
+        }
+
+        List<Vector3> choosePos = new List<Vector3>();
+        int[] chooseIndex = OneUtility.GetRandomNonRepeatNumbers(0, allPos.Count, totalSpawn);
+        for (int i = 0; i < totalSpawn; i++)
+            choosePos.Add(allPos[chooseIndex[i]]);
+
+
+        int n = 0;
+        for (int i = 0; i < rewards.Length; i++)
+        {
+            for (int k=0; k< spawnNum[i]; k++)
+            {
+                GameObject o = Instantiate(rewards[i].objRef);
+                o.transform.position = choosePos[n];
+                n++;
+            }
         }
     }
 
