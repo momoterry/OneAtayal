@@ -76,12 +76,24 @@ public class TreasureBox : MonoBehaviour
     protected void UpdateFlying(float ratio)
     {
         float jumpHeight = 2.0f;
+        float jumpLow = 0.5f;
+        float ratioGap = 0.7f;  //超過這個比例以後往下掉
         foreach (FlyingObjInfo fly in flyList)
         {
             if (fly.obj)
             {
-                Vector3 pos = (fly.targetPos - transform.position) * ratio + transform.position;
-                Vector3 posUp = Vector3.forward * Mathf.Sin(ratio * Mathf.PI) * jumpHeight;
+                Vector3 pos;// = (fly.targetPos - transform.position) * ratio + transform.position;
+                Vector3 posUp;
+                if (ratio <= ratioGap)
+                {
+                    pos = (fly.targetPos - transform.position) * ratio / ratioGap + transform.position;
+                    posUp = Vector3.forward * Mathf.Sin(ratio / ratioGap * Mathf.PI) * jumpHeight;
+                }
+                else
+                {
+                    pos = fly.targetPos;
+                    posUp = Vector3.forward * Mathf.Sin((ratio - ratioGap) / (1.0f - ratioGap) * Mathf.PI) * jumpLow;
+                }
                 fly.obj.transform.position = pos + posUp;
             }
             //else
