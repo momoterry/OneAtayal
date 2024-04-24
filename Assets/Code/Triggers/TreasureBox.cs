@@ -177,6 +177,7 @@ public class TreasureBox : MonoBehaviour
         {
             waitTime = timeToSpawn;
             nextPhase = Phase.TO_SPAWN;
+            whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
         }
     }
 
