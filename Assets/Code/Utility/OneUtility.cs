@@ -62,9 +62,10 @@ public class OneUtility
         int[] all = new int[range];
         for (int i = 0; i < range; i++)
             all[i] = minInclude + i;
+        //int loop = count < range ? count : range - 1;
         for (int i = 0; i < count; i++)
         {
-            int k = Random.Range(i + 1, range);
+            int k = count < range ? Random.Range(i + 1, range) : range-1;
             choose[i] = all[k];
             all[k] = all[i];
             all[i] = choose[i];

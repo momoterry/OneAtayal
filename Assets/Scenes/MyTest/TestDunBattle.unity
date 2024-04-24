@@ -511,7 +511,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &465885882
 Transform:
   m_ObjectHideFlags: 0
@@ -2489,36 +2489,76 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
-      propertyPath: rewards.Array.size
+      propertyPath: timeToFly
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: rewards.Array.data[0].numMax
-      value: 14
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: rewards.Array.data[0].numMin
-      value: 12
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: rewards.Array.data[1].numMax
-      value: 1.7
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: rewards.Array.data[1].numMin
-      value: 1
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: rewards.Array.data[1].objRef
       value: 
-      objectReference: {fileID: 8143502755978418841, guid: 8c941f08c213add4c8d457f1cd916490, type: 3}
+      objectReference: {fileID: 8143502755978418841, guid: 4c7c16cd36f11f34f8281b286f963f2e, type: 3}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[2].numMax
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[2].numMin
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[2].objRef
+      value: 
+      objectReference: {fileID: 8143502755978418841, guid: 67ab84094d2daa24cb6914bdde34adfe, type: 3}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[3].numMax
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[3].numMin
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[3].objRef
+      value: 
+      objectReference: {fileID: 8143502755978418841, guid: 7dbe066d7b176d8448a9f7a4fe8d2887, type: 3}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[4].numMax
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[4].numMin
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[4].objRef
+      value: 
+      objectReference: {fileID: 8143502755978418841, guid: be548e494dd911c4d9f48d8fd5c7bcfe, type: 3}
     - target: {fileID: 2590200662357474199, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2590200662357474199, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2590200662357474199, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: m_LocalPosition.y

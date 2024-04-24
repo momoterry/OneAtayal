@@ -70,6 +70,7 @@ public class TreasureBox : MonoBehaviour
     {
         public GameObject obj;
         public Vector3 targetPos;
+        public HeightController hc;
     }
     protected List<FlyingObjInfo> flyList = new List<FlyingObjInfo>();
 
@@ -94,7 +95,13 @@ public class TreasureBox : MonoBehaviour
                     pos = fly.targetPos;
                     posUp = Vector3.forward * Mathf.Sin((ratio - ratioGap) / (1.0f - ratioGap) * Mathf.PI) * jumpLow;
                 }
-                fly.obj.transform.position = pos + posUp;
+                if (fly.hc != null)
+                {
+                    fly.obj.transform.position = pos;
+                    fly.hc.SetHeight(posUp.z);
+                }
+                else
+                    fly.obj.transform.position = pos + posUp;
             }
             //else
             //{
@@ -138,6 +145,11 @@ public class TreasureBox : MonoBehaviour
 
         List<Vector3> choosePos = new List<Vector3>();
         int[] chooseIndex = OneUtility.GetRandomNonRepeatNumbers(0, allPos.Count, totalSpawn);
+        if (chooseIndex == null)
+        {
+            print("ERROR!!!! 需要產生的 Reward 超過格子數啦!!! ");
+            return;
+        }
         for (int i = 0; i < totalSpawn; i++)
             choosePos.Add(allPos[chooseIndex[i]]);
 
@@ -152,6 +164,7 @@ public class TreasureBox : MonoBehaviour
                 FlyingObjInfo fly = new FlyingObjInfo();
                 fly.obj = o;
                 fly.targetPos = choosePos[n];
+                fly.hc = o.GetComponent<HeightController>();
                 flyList.Add(fly);
                 n++;
             }
