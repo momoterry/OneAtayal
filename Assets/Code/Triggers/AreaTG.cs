@@ -8,7 +8,10 @@ public class AreaTG : MonoBehaviour
 
     public bool triggerOnce = true;
 
-    private bool isTriggered = false;
+    public bool triggerOnlyPlayerMove = false;
+
+    protected bool isTriggered = false;
+    protected PlayerControllerBase pcToCheckMove;
 
     // Start is called before the first frame update
     void Start()
@@ -19,42 +22,114 @@ public class AreaTG : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Player") && isTriggered == false)
+        if (pcToCheckMove != null)
         {
-            //print("Player In !!");
-            foreach (GameObject o in TriggerTargets)
+            if (pcToCheckMove.IsMoving())
             {
-                o.SendMessage("OnTG", col.gameObject);
-            }
-            if (triggerOnce)
-            {
-                isTriggered = true;
-                enabled = false;
+                //print("123 木頭人!! 你動了");
+                DoTrigger(pcToCheckMove.gameObject);
+                pcToCheckMove = null;
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    protected void DoTrigger(GameObject whoTriggered)
     {
-        if (other.gameObject.CompareTag("Player") && isTriggered == false)
+        foreach (GameObject o in TriggerTargets)
         {
-            //print("Player In !!");
-            foreach (GameObject o in TriggerTargets)
-            {
-                if (o)
-                    o.SendMessage("OnTG", other.gameObject);
-            }
-            if (triggerOnce)
-            {
-                isTriggered = true;
-                enabled = false;
-            }
+            o.SendMessage("OnTG", whoTriggered);
         }
+        if (triggerOnce)
+        {
+            isTriggered = true;
+            enabled = false;
+        }
+    }
+
+
+    protected void CheckTriggerEnter(GameObject obj)
+    {
+        if (obj.CompareTag("Player") && isTriggered == false)
+        {
+            if (triggerOnlyPlayerMove)
+            {
+                PlayerControllerBase pc = obj.GetComponent<PlayerControllerBase>();
+                if (!pc || !pc.IsMoving())
+                {
+                    //print("玩家沒在動，先等等 .....");
+                    pcToCheckMove = pc;
+                    return;
+                }
+            }
+            //print("Player In !!");
+            //foreach (GameObject o in TriggerTargets)
+            //{
+            //    o.SendMessage("OnTG", obj);
+            //}
+            //if (triggerOnce)
+            //{
+            //    isTriggered = true;
+            //    enabled = false;
+            //}
+            DoTrigger(obj);
+        }
+    }
+
+    protected void CheckTriggerExit(GameObject obj)
+    {
+        if (pcToCheckMove && pcToCheckMove.gameObject == obj)
+        {
+            //print("追縱中的玩家離開了.....");
+            pcToCheckMove = null;
+        }
+    }
+
+
+    protected void OnTriggerEnter2D(Collider2D col)
+    {
+        CheckTriggerEnter(col.gameObject);
+        //if (col.gameObject.CompareTag("Player") && isTriggered == false)
+        //{
+        //    //print("Player In !!");
+        //    foreach (GameObject o in TriggerTargets)
+        //    {
+        //        o.SendMessage("OnTG", col.gameObject);
+        //    }
+        //    if (triggerOnce)
+        //    {
+        //        isTriggered = true;
+        //        enabled = false;
+        //    }
+        //}
+    }
+
+    protected void OnTriggerEnter(Collider other)
+    {
+        CheckTriggerEnter(other.gameObject);
+        //if (other.gameObject.CompareTag("Player") && isTriggered == false)
+        //{
+        //    //print("Player In !!");
+        //    foreach (GameObject o in TriggerTargets)
+        //    {
+        //        if (o)
+        //            o.SendMessage("OnTG", other.gameObject);
+        //    }
+        //    if (triggerOnce)
+        //    {
+        //        isTriggered = true;
+        //        enabled = false;
+        //    }
+        //}
+    }
+
+    protected void OnTriggerExit(Collider col)
+    {
+        CheckTriggerExit(col.gameObject);
+    }
+
+    protected void OnTriggerExit2D(Collider2D col)
+    {
+        CheckTriggerExit(col.gameObject);
     }
 }
