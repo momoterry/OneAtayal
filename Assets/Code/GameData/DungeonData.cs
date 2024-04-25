@@ -19,15 +19,9 @@ public class DungeonData : MonoBehaviour
     public GameObject[] objectRefs;
 
     protected Dictionary<string , CMazeJsonData> allDungeons = new Dictionary<string, CMazeJsonData>();
+    protected Dictionary<string, MODungeonData> allMoDungeons = new Dictionary<string, MODungeonData>();
     protected Dictionary<string, GameObject> objRefMap = new Dictionary<string, GameObject>();
 
-
-    public class TestClass
-    {
-        public string DungeonID;
-        public int Level;
-        public string Scene;
-    }
     private void Awake()
     {
         for (int i = 0; i < objectRefs.Length; i++)
@@ -37,10 +31,20 @@ public class DungeonData : MonoBehaviour
 
         for (int i=0; i<csvFiles.Length; i++)
         {
-            TestClass[] tests = CSVReader.FromCSV<TestClass>(csvFiles[i].text);
-            for (int t = 0; t < tests.Length; t++)
+            MODungeonStageData[] moStages = CSVReader.FromCSV<MODungeonStageData>(csvFiles[i].text);
+            for (int t = 0; t < moStages.Length; t++)
             {
-                print(tests[t].DungeonID + " - " + tests[t].Level);
+                print(moStages[t].DungeonID + "_" + moStages[t].Level + "Path Rate: " + moStages[i].PathRate);
+                MODungeonData moDungeon;
+                if (!allMoDungeons.ContainsKey(moStages[t].DungeonID))
+                {
+                    moDungeon = new MODungeonData();
+                    moDungeon.DungeonID = moStages[t].DungeonID;
+                    allMoDungeons.Add(moDungeon.DungeonID, moDungeon);
+                }
+                else
+                    moDungeon = allMoDungeons[moStages[t].DungeonID];
+                moDungeon.stageList.Add(moStages[i]);
             }
         }
 

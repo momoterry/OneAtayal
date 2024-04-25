@@ -61,6 +61,10 @@ public class CSVReader : MonoBehaviour
             {
                 field.SetValue(data, int.Parse(strValue));
             }
+            else if (field.FieldType == typeof(float))
+            {
+                field.SetValue(data, float.Parse(strValue));
+            }
             else
             {
                 print("目前無法支援的欄位: " + field.Name);

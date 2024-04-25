@@ -14,28 +14,18 @@ using UnityEngine;
 public class MODungeonData
 {
     public string DungeonID;
+    public List<MODungeonStageData> stageList = new List<MODungeonStageData>();      //基本上按照表單上的順序排列
 }
 
 //MazeOne Dungeion 中每一「層」的描述
 
-public class MODungeonStateData
+public class MODungeonStageData
 {
-    public int Level;       //第幾層
+    public string DungeonID;
+    public int Level;           //第幾層
     public string SceneName;
-
+    public int PuzzleWidth;
+    public int PuzzleHeight;
+    public float PathRate;
 }
 
-public class MazeOneData : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
