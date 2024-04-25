@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,17 +14,34 @@ public class DungeonListJsonData
 
 public class DungeonData : MonoBehaviour
 {
+    public TextAsset[] csvFiles;
     public TextAsset[] jsonFiles;
     public GameObject[] objectRefs;
 
     protected Dictionary<string , CMazeJsonData> allDungeons = new Dictionary<string, CMazeJsonData>();
     protected Dictionary<string, GameObject> objRefMap = new Dictionary<string, GameObject>();
 
+
+    public class TestClass
+    {
+        public string DungeonID;
+        public int Level;
+        public string Scene;
+    }
     private void Awake()
     {
         for (int i = 0; i < objectRefs.Length; i++)
         {
             objRefMap.Add(objectRefs[i].name, objectRefs[i]);
+        }
+
+        for (int i=0; i<csvFiles.Length; i++)
+        {
+            TestClass[] tests = CSVReader.FromCSV<TestClass>(csvFiles[i].text);
+            for (int t = 0; t < tests.Length; t++)
+            {
+                print(tests[t].DungeonID + " - " + tests[t].Level);
+            }
         }
 
         for (int i=0; i<jsonFiles.Length; i++)
