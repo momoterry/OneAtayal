@@ -2068,24 +2068,33 @@ MonoBehaviour:
   pathWidth: 5
   pathHeight: 5
   pathRate: 0.5
-  finishPortalRef: {fileID: 0}
+  startAsPath: 0
+  finishAsPath: 0
+  mazeDir: 0
+  FinishAtDeepest: 0
+  finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 1
   groundTileGroup: {fileID: 1014529279}
   groundEdgeTileGroup: {fileID: 1265013412}
   groundOutEdgeTileGroup: {fileID: 1696140727}
   blockTileGroup: {fileID: 0}
+  blockTileEdgeGroup: {fileID: 0}
   defautTileGroup: {fileID: 0}
   roomGroundTileGroup: {fileID: 1664708986}
   roomGroundTileEdgeGroup: {fileID: 523238538}
+  showMainPath: 0
+  mainPathBuff: 1
+  mainPathTileGroup: {fileID: 0}
+  mainPathTileEdgeGroup: {fileID: 0}
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
   dungeonEnemyManager: {fileID: 0}
   gameManager: {fileID: 0}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
+  ChooseAlgorithm: 0
   extendTerminal: 1
-  mazeDir: 0
 --- !u!1001 &1807413653
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class DungeonData : MonoBehaviour
             MODungeonStageData[] moStages = CSVReader.FromCSV<MODungeonStageData>(csvFiles[i].text);
             for (int t = 0; t < moStages.Length; t++)
             {
-                print(moStages[t].DungeonID + "_" + moStages[t].Level + "Path Rate: " + moStages[i].PathRate);
+                //print(moStages[t].DungeonID + "_" + moStages[t].Level + "Path Rate: " + moStages[i].PathRate);
                 MODungeonData moDungeon;
                 if (!allMoDungeons.ContainsKey(moStages[t].DungeonID))
                 {
@@ -44,7 +44,7 @@ public class DungeonData : MonoBehaviour
                 }
                 else
                     moDungeon = allMoDungeons[moStages[t].DungeonID];
-                moDungeon.stageList.Add(moStages[i]);
+                moDungeon.stageList.Add(moStages[t]);
             }
         }
 
@@ -67,6 +67,15 @@ public class DungeonData : MonoBehaviour
         if (allDungeons.ContainsKey(ID))
         {
             return allDungeons[ID];
+        }
+        return null;
+    }
+
+    public MODungeonData GetMODungeonData(string ID)
+    {
+        if (allMoDungeons.ContainsKey(ID))
+        {
+            return allMoDungeons[ID];
         }
         return null;
     }

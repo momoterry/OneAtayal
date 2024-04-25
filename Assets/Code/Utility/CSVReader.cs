@@ -30,7 +30,7 @@ public class CSVReader : MonoBehaviour
         T[] values = new T[lines.Length-1];
         for (int n = 0; n < lines.Length - 1; n++)
         {
-            print("CSV: " + n + " ¦æ: " + lines[n + 1]);
+            //print("CSV: " + n + " ¦æ: " + lines[n + 1]);
             values[n] = FromCSVLine<T>(lines[n + 1], fieldIndexMap);
         }
 

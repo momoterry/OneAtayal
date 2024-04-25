@@ -15,6 +15,29 @@ public class MODungeonData
 {
     public string DungeonID;
     public List<MODungeonStageData> stageList = new List<MODungeonStageData>();      //基本上按照表單上的順序排列
+
+
+    protected ContinuousMOData StageToContinuousMOData(MODungeonStageData stage)
+    {
+        Debug.Log("StageToContinuousMOData" + stage.Level);
+        ContinuousMOData data = new ContinuousMOData();
+        data.scene = stage.SceneName;
+        data.puzzleWidth = stage.PuzzleWidth;
+        data.puzzleHeight = stage.PuzzleHeight;
+        data.pathRate = stage.PathRate;
+        data.name = "地城 " + stage.Level;
+        return data;
+    }
+
+    public ContinuousMOData[] ToContinuousMODataArray()
+    {
+        ContinuousMOData[] data = new ContinuousMOData[stageList.Count];
+        for (int i=0; i<stageList.Count; i++)
+        {
+            data[i] = StageToContinuousMOData(stageList[i]);
+        }
+        return data;
+    }
 }
 
 //MazeOne Dungeion 中每一「層」的描述

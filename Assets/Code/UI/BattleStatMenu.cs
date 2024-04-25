@@ -45,6 +45,8 @@ public class BattleStatMenu : MonoBehaviour
         float maxDamage = -1;
         
         Dictionary<string, float> allData = BattleStat.GetInstance().GetDollDamageTotal();
+        if (allData.Count == 0)
+            return;
         foreach (KeyValuePair<string, float> p in allData)
         {
             ItemData data = new ItemData();
