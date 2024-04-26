@@ -19,13 +19,16 @@ public class MODungeonData
 
     protected ContinuousMOData StageToContinuousMOData(MODungeonStageData stage)
     {
-        Debug.Log("StageToContinuousMOData" + stage.Level);
+        //Debug.Log("StageToContinuousMOData" + stage.Level);
         ContinuousMOData data = new ContinuousMOData();
         data.scene = stage.SceneName;
         data.puzzleWidth = stage.PuzzleWidth;
         data.puzzleHeight = stage.PuzzleHeight;
         data.pathRate = stage.PathRate;
         data.name = "¦a«° " + stage.Level;
+        data.gameDiffcultRateMin = stage.DifficultStart;
+        data.gameDiffcultRateMax = stage.DifficultEnd;
+        //Debug.Log("DifficultStart: " + stage.DifficultStart + " DifficultEnd: " + stage.DifficultEnd);
         return data;
     }
 
@@ -50,6 +53,8 @@ public class MODungeonStageData
     public int PuzzleWidth;
     public int PuzzleHeight;
     public float PathRate;
+    public float DifficultStart;
+    public float DifficultEnd;
 }
 
 public class MOStageGameplayData_Simple

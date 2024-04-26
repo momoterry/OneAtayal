@@ -15,7 +15,6 @@ public class ContinuousMOData : ContinuousBattleDataBase
     public float gameDiffcultRateMin = 1.0f;
     public float gameDiffcultRateMax = 2.0f;
 
-    //public float dungeonDifficulty; //大於 0 才有作用，基準值為 1.0f
     //public DungeonEnemyManagerBase dungeonEnemyManager;     //如果有指定，下面的 normalEnemy 資訊無用
     //public int normalEnemyNum;
     //public float normalEnemyRate;

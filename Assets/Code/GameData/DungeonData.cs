@@ -15,7 +15,7 @@ public class DungeonListJsonData
 public class DungeonData : MonoBehaviour
 {
     public TextAsset[] csvFiles;
-    public TextAsset[] csvGamefiles;
+    //public TextAsset[] csvGamefiles;
     public TextAsset[] jsonFiles;
     public GameObject[] objectRefs;
 
@@ -35,7 +35,7 @@ public class DungeonData : MonoBehaviour
             MODungeonStageData[] moStages = CSVReader.FromCSV<MODungeonStageData>(csvFiles[i].text);
             for (int t = 0; t < moStages.Length; t++)
             {
-                //print(moStages[t].DungeonID + "_" + moStages[t].Level + "Path Rate: " + moStages[i].PathRate);
+                //print(moStages[t].DungeonID + "_" + moStages[t].Level + "Diff End: " + moStages[i].DifficultEnd);
                 MODungeonData moDungeon;
                 if (!allMoDungeons.ContainsKey(moStages[t].DungeonID))
                 {
@@ -49,26 +49,26 @@ public class DungeonData : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < csvGamefiles.Length; i++)
-        {
-            MOStageGameplayData_Simple[] moGames = CSVReader.FromCSV<MOStageGameplayData_Simple>(csvGamefiles[i].text);
-            for (int t = 0; t < moGames.Length; t++)
-            {
-                print("Game " + moGames[t].DungeonID + "_" + moGames[t].Level);
-                if (allMoDungeons.ContainsKey(moGames[t].DungeonID))
-                {
-                    MODungeonData myDungeon = allMoDungeons[moGames[t].DungeonID];
-                    MODungeonStageData myStage = myDungeon.stageList[moGames[t].Level-1];
-                    if (myStage == null)
-                        print("ERROR!!!! 這個 Stage 不存在 " + moGames[t].DungeonID + " : " + moGames[t].Level);
-                }
-                else
-                {
-                    print("ERROR!!!! 這個 Dungeon 不存在: " + moGames[t].DungeonID);
-                }
-                //moDungeon.stageList.Add(moGames[t]);
-            }
-        }
+        //for (int i = 0; i < csvGamefiles.Length; i++)
+        //{
+        //    MOStageGameplayData_Simple[] moGames = CSVReader.FromCSV<MOStageGameplayData_Simple>(csvGamefiles[i].text);
+        //    for (int t = 0; t < moGames.Length; t++)
+        //    {
+        //        //print("Game " + moGames[t].DungeonID + "_" + moGames[t].Level);
+        //        if (allMoDungeons.ContainsKey(moGames[t].DungeonID))
+        //        {
+        //            MODungeonData myDungeon = allMoDungeons[moGames[t].DungeonID];
+        //            MODungeonStageData myStage = myDungeon.stageList[moGames[t].Level-1];
+        //            if (myStage == null)
+        //                print("ERROR!!!! 這個 Stage 不存在 " + moGames[t].DungeonID + " : " + moGames[t].Level);
+        //        }
+        //        else
+        //        {
+        //            print("ERROR!!!! 這個 Dungeon 不存在: " + moGames[t].DungeonID);
+        //        }
+        //        //moDungeon.stageList.Add(moGames[t]);
+        //    }
+        //}
 
         for (int i=0; i<jsonFiles.Length; i++)
         {

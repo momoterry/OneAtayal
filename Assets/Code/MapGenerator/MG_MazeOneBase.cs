@@ -289,6 +289,11 @@ public class MG_MazeOneBase : MapGeneratorBase
                     gameManager.difficultRateMin = cData.gameDiffcultRateMin;
                     gameManager.difficultRateMax = cData.gameDiffcultRateMax;
                 }
+                else if (gameManager)
+                {
+                    gameManager.difficultRateMin = cData.gameDiffcultRateMin;
+                    gameManager.difficultRateMax = cData.gameDiffcultRateMax;
+                }
 
                 if (cData.initGameplayRef)
                 {
