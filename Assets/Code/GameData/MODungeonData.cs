@@ -52,3 +52,14 @@ public class MODungeonStageData
     public float PathRate;
 }
 
+public class MOStageGameplayData_Simple
+{
+    public string DungeonID;
+    public int Level;           //²Ä´X¼h
+
+    public float DifficultStart;
+    public float DifficultEnd;
+    public string Reward1;
+    public float Reward1_Num;
+}
+

@@ -15,6 +15,7 @@ public class DungeonListJsonData
 public class DungeonData : MonoBehaviour
 {
     public TextAsset[] csvFiles;
+    public TextAsset[] csvGamefiles;
     public TextAsset[] jsonFiles;
     public GameObject[] objectRefs;
 
@@ -45,6 +46,27 @@ public class DungeonData : MonoBehaviour
                 else
                     moDungeon = allMoDungeons[moStages[t].DungeonID];
                 moDungeon.stageList.Add(moStages[t]);
+            }
+        }
+
+        for (int i = 0; i < csvGamefiles.Length; i++)
+        {
+            MOStageGameplayData_Simple[] moGames = CSVReader.FromCSV<MOStageGameplayData_Simple>(csvGamefiles[i].text);
+            for (int t = 0; t < moGames.Length; t++)
+            {
+                print("Game " + moGames[t].DungeonID + "_" + moGames[t].Level);
+                if (allMoDungeons.ContainsKey(moGames[t].DungeonID))
+                {
+                    MODungeonData myDungeon = allMoDungeons[moGames[t].DungeonID];
+                    MODungeonStageData myStage = myDungeon.stageList[moGames[t].Level-1];
+                    if (myStage == null)
+                        print("ERROR!!!! 這個 Stage 不存在 " + moGames[t].DungeonID + " : " + moGames[t].Level);
+                }
+                else
+                {
+                    print("ERROR!!!! 這個 Dungeon 不存在: " + moGames[t].DungeonID);
+                }
+                //moDungeon.stageList.Add(moGames[t]);
             }
         }
 

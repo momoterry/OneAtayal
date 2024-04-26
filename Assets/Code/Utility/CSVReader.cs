@@ -59,11 +59,12 @@ public class CSVReader : MonoBehaviour
             }
             else if (field.FieldType == typeof(int))
             {
-                field.SetValue(data, int.Parse(strValue));
+                field.SetValue(data, strValue == "" ? 0 : int.Parse(strValue));
             }
             else if (field.FieldType == typeof(float))
             {
-                field.SetValue(data, float.Parse(strValue));
+                //print("float value:" + strValue);
+                field.SetValue(data, strValue == "" ? 0:float.Parse(strValue));
             }
             else
             {
