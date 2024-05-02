@@ -19,8 +19,9 @@ public class TreasureBox : MonoBehaviour
     public Vector2 spawnAreaMax = new Vector2(6, 6);
     public Vector2 spawnAreaIn = new Vector2(2, 2);
 
+
+    //protected List<string> special
     protected float waitTime;
-    //protected float flyTime;
 
     protected enum Phase
     {
