@@ -50,6 +50,9 @@ public class TreasureBox : MonoBehaviour
         //TEST
         AddSpecialRewardItem("Mat_BookBlue");
         AddSpecialRewardItem("Mat_BookBlue");
+        //AddSpecialRewardItem("Mat_DollFire");
+        //AddSpecialRewardItem("Mat_DollFire");
+
     }
 
     // Update is called once per frame
