@@ -20,10 +20,14 @@ public class TreasureBox : MonoBehaviour
     public Vector2 spawnAreaMax = new Vector2(6, 6);
     public Vector2 spawnAreaIn = new Vector2(2, 2);
 
+<<<<<<< HEAD
     protected List<string> specialRewardItemIDs = new List<string>();
 
+=======
+
+    //protected List<string> special
+>>>>>>> fb7e93f71d491560878903b9f1c2d60e4dd45d9f
     protected float waitTime;
-    //protected float flyTime;
 
     protected enum Phase
     {
