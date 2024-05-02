@@ -14,10 +14,13 @@ public class TreasureBox : MonoBehaviour
         public float numMax;
     }
     public RewardInfo[] rewards;
+    public GameObject specialRewardTemplateRef;
     public float timeToSpawn = 0.5f;
     public float timeToFly = 0.25f;
     public Vector2 spawnAreaMax = new Vector2(6, 6);
     public Vector2 spawnAreaIn = new Vector2(2, 2);
+
+    protected List<string> specialRewardItemIDs = new List<string>();
 
     protected float waitTime;
     //protected float flyTime;
@@ -33,9 +36,21 @@ public class TreasureBox : MonoBehaviour
     protected Phase currPhase = Phase.NONE;
     protected Phase nextPhase = Phase.NONE;
 
+    public void AddSpecialRewardItem(string itemID)
+    {
+        if (ItemDef.GetInstance().GetItemInfo(itemID) != null)
+            specialRewardItemIDs.Add(itemID);
+        else
+            print("ERROR!!!! AddSpecialRewardItem invalid item ID: " + itemID);
+    }
+
     void Start()
     {
         nextPhase = Phase.WAIT;
+
+        //TEST
+        AddSpecialRewardItem("Mat_BookBlue");
+        AddSpecialRewardItem("Mat_BookBlue");
     }
 
     // Update is called once per frame
@@ -121,7 +136,7 @@ public class TreasureBox : MonoBehaviour
             spawnNum[i] = OneUtility.FloatToRandomInt(Random.Range(rewards[i].numMin, rewards[i].numMax));
             totalSpawn += spawnNum[i];
         }
-
+        totalSpawn += specialRewardItemIDs.Count;
 
         List<Vector3> allPos = new List<Vector3>();
         float fStep = 1.0f;
@@ -168,6 +183,32 @@ public class TreasureBox : MonoBehaviour
                 flyList.Add(fly);
                 n++;
             }
+        }
+
+        //Special Rewards
+        for (int i=0; i<specialRewardItemIDs.Count; i++)
+        {
+            GameObject o = Instantiate(specialRewardTemplateRef);
+            o.transform.position = transform.position;
+
+            ItemInfo item = ItemDef.GetInstance().GetItemInfo(specialRewardItemIDs[i]);
+            ItemPickup ip = o.GetComponent<ItemPickup>();
+            if (ip)
+            {
+                ip.ItemID = item.ID;
+            }
+
+            FlyingObjInfo fly = new FlyingObjInfo();
+            fly.obj = o;
+            fly.targetPos = choosePos[n];
+            fly.hc = o.GetComponent<HeightController>();
+            SpriteRenderer sr = fly.hc.mainBody.GetComponentInChildren<SpriteRenderer>();
+            if (sr)
+            {
+                sr.sprite = item.Icon;
+            }
+            flyList.Add(fly);
+            n++;
         }
     }
 
