@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 2902740215138102527}
   - component: {fileID: 1982363326730726022}
   - component: {fileID: 5481690971876365112}
+  - component: {fileID: -1812208701657497152}
   m_Layer: 0
   m_Name: GameSystemPrefab
   m_TagString: Untagged
@@ -467,8 +468,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   csvFiles:
   - {fileID: 4900000, guid: 06e16ddf9e2306140bfed067105bfff1, type: 3}
-  csvGamefiles:
-  - {fileID: 4900000, guid: 108035dc17ee96341b90c5662028a44b, type: 3}
   jsonFiles:
   - {fileID: 4900000, guid: a6e73c1297fec9246b9e9cfa130ae20a, type: 3}
   - {fileID: 4900000, guid: ccbb43c754300ec44ba1dfc5282d0bc6, type: 3}
@@ -537,3 +536,16 @@ MonoBehaviour:
     - DollCrystal
     - DollBlaze
     enhancer: {fileID: 1512530637576879749}
+--- !u!114 &-1812208701657497152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937486099355114776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577581387a9a17e4f882dc8d8c483985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  csvFile: {fileID: 4900000, guid: 6de766e7f999da84eb61f7bc054cf98c, type: 3}
