@@ -44,6 +44,16 @@ public class EnemyManager : MonoBehaviour
         EnemyData data = enemyMap[_ID];
         GameObject o = BattleSystem.SpawnGameObj(data.objRef, _pos);
 
+        Enemy e = o.GetComponent<Enemy>();
+        if (e != null)
+        {
+            e.Attack = data.ATK;
+            e.MaxHP = data.HP;
+            e.ID = data.DropID;
+        }
+        else
+            print("ERROR!!!! No Enemy Component: " + _ID);
+
         return o;
     }
 
@@ -64,7 +74,8 @@ public class EnemyManager : MonoBehaviour
         for (int i = 0; i < enemyDatas.Length; i++)
         {
             enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
-            print("Enemy " + enemyDatas[i].objRef);
+            //print("Enemy " + enemyDatas[i].objRef);
+            enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
         }
     }
 }

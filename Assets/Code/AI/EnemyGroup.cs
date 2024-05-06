@@ -25,6 +25,7 @@ public class EnemyGroup : MonoBehaviour
     public class EnemyInfo
     {
         public GameObject enemyRef;
+        public string enemyID;      //如果有設定 ID，則 enemyRef 無效
         public int num;
     }
 
@@ -121,7 +122,15 @@ public class EnemyGroup : MonoBehaviour
             {
                 oGrid[slot.x, slot.y] = 1;
                 Vector3 localPos = new Vector3(slot.x * gridWidth + xShift, 0, slot.y * gridHeight + yShift);
-                GameObject eo = BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
+                GameObject eo;
+                if (enemyInfo.enemyID != "")
+                {
+                    eo = EnemyManager.GetInstance().SpawnEnemyByID(enemyInfo.enemyID, transform.position + localPos);
+                }
+                else
+                {
+                    eo = BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
+                }
                 enemies.Add(eo);
                 GameObject o = new GameObject("Slot" + slots.Count);
                 o.transform.position = transform.position + localPos;
