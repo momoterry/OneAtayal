@@ -25,8 +25,8 @@ public class RoomEnemyGroupX : RoomGameplayBase
         if (r2 == r1)
             r2 = 3;
         //print("X: " + r1 + "_" + r2);
-        GameObject o1 = SpawnEnemyGroupObject(eInfos1, room.vCenter + shifts[r1], width, height, room.diffAddRatio);
-        GameObject o2 = SpawnEnemyGroupObject(eInfos2, room.vCenter + shifts[r2], width, height, room.diffAddRatio);
+        GameObject o1 = SpawnEnemyGroupObject(eInfos1, room.vCenter + shifts[r1], width, height, room.diffAddRatio, room.enemyLV);
+        GameObject o2 = SpawnEnemyGroupObject(eInfos2, room.vCenter + shifts[r2], width, height, room.diffAddRatio, room.enemyLV);
         o1.name = "RoomEnemyGroupX_ " + (int)(room.mainRatio * 100.0f) + "_A";
         o2.name = "RoomEnemyGroupX_ " + (int)(room.mainRatio * 100.0f) + "_B";
     }

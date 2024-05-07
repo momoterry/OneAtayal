@@ -176,6 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultRateMin: 1
   difficultRateMax: 2
+  enmeyLV: 1
   defaultMainGames:
   - game: {fileID: 1173091361}
     ratioPercent: 50
@@ -429,11 +430,13 @@ MonoBehaviour:
   eInfos1:
     enemys:
     - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+    enemyIDs: []
     totalNumMin: 2
     totalNumMax: 5
   eInfos2:
     enemys:
     - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
+    enemyIDs: []
     totalNumMin: 3
     totalNumMax: 6
 --- !u!1 &135259728
@@ -964,6 +967,8 @@ MonoBehaviour:
   eInfo:
     enemys:
     - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
+    enemyIDs:
+    - MiniStone
     totalNumMin: 2
     totalNumMax: 2
   isPath: 1
@@ -1552,6 +1557,7 @@ MonoBehaviour:
   eInfo:
     enemys:
     - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
+    enemyIDs: []
     totalNumMin: 3.7
     totalNumMax: 3.7
   isPath: 0
@@ -2422,6 +2428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultRateMin: 1.5
   difficultRateMax: 5
+  enmeyLV: 3
   defaultMainGames:
   - game: {fileID: 438066636}
     ratioPercent: 100

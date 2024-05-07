@@ -48,7 +48,7 @@ public class RoomEnemyGroup : RoomGameplayBase
             height = (int)room.height;
         }
         //GameObject o = EnemyGroup.SpawnEnemyGroupObject(enemys, num, width, height);
-        GameObject o = SpawnEnemyGroupObject(eInfo, room.vCenter, width, height, room.diffAddRatio);
+        GameObject o = SpawnEnemyGroupObject(eInfo, room.vCenter, width, height, room.diffAddRatio, room.enemyLV);
         //o.transform.position = room.vCenter;
         o.name = "RoomEnemyGroup_ " + (int)(room.mainRatio * 100.0f);
     }

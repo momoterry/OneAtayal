@@ -74,6 +74,7 @@ public class MazeGameManager : MazeGameManagerBase
         roomInfo.mainRatio = mainRatio;
         roomInfo.cell = cell;
         roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
+        roomInfo.enemyLV = enmeyLV;
         if (isMain)
             mainRoomList.Add(roomInfo);
         else
@@ -105,7 +106,7 @@ public class MazeGameManager : MazeGameManagerBase
         roomInfo.mainRatio = mainRatio;
         roomInfo.cell = cell;
         roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
-
+        roomInfo.enemyLV = enmeyLV;
 
         pathList.Add(roomInfo);
     }
