@@ -28,6 +28,7 @@ public class MODungeonData
         data.name = "¦a«° " + stage.Level;
         data.gameDiffcultRateMin = stage.DifficultStart;
         data.gameDiffcultRateMax = stage.DifficultEnd;
+        data.gameEnemyLV = stage.EnemyLV;
         //Debug.Log("DifficultStart: " + stage.DifficultStart + " DifficultEnd: " + stage.DifficultEnd);
         return data;
     }

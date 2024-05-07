@@ -25,7 +25,7 @@ public class EnemyGroup : MonoBehaviour
     public class EnemyInfo
     {
         public GameObject enemyRef;
-        public string enemyID;      //如果有設定 ID，則 enemyRef 無效
+        public string enemyID = "";      //如果有設定 ID，則 enemyRef 無效
         public int LV = 1;
         public int num;
     }

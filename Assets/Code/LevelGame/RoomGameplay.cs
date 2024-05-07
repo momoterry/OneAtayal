@@ -23,7 +23,7 @@ public class RoomGameplayBase : MonoBehaviour
         float numF = Random.Range(info.totalNumMin, info.totalNumMax) * ( 1 + diffAddRate );
         int num = OneUtility.FloatToRandomInt(numF);
         //print("EG: float: " + numF + " int: "+ num + " diffAddRate: " + diffAddRate);
-        print("EG LV: " + enemyLV);
+        //print("EG LV: " + enemyLV);
         GameObject o = new GameObject();
         o.transform.position = vCenter;
         EnemyGroup enemyGroup = o.AddComponent<EnemyGroup>();
