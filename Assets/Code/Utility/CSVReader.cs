@@ -78,7 +78,10 @@ public class CSVReader : MonoBehaviour
             else if (field.FieldType == typeof(float))
             {
                 //print("float value:" + strValue);
-                field.SetValue(data, strValue == "" ? 0:float.Parse(strValue));
+                float value;
+                if (!float.TryParse(strValue, out value))
+                    value = 0.0f;
+                field.SetValue(data, value);
             }
             else
             {
