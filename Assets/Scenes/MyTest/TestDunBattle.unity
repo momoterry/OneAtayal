@@ -684,7 +684,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfos:
   - enemyRef: {fileID: 0}
-    enemyID: MiniStoneII
+    enemyID: MiniStone
+    LV: 2
     num: 3
   isRandomEnemyTotal: 0
   randomEnemyTotal: 0
@@ -1445,6 +1446,7 @@ MonoBehaviour:
   enemyInfos:
   - enemyRef: {fileID: 7208015447484052683, guid: 75b1b23eb69f31a41bb3faf0cec1f22e, type: 3}
     enemyID: 
+    LV: 1
     num: 3
   isRandomEnemyTotal: 0
   randomEnemyTotal: 0
@@ -2193,9 +2195,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5914974356280139868, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15.9999695
+      objectReference: {fileID: 0}
     - target: {fileID: 6336307250673488013, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15.999878
+      value: 15.999847
       objectReference: {fileID: 0}
     - target: {fileID: 6971823420909225927, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_Pivot.x
@@ -2291,7 +2297,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7898119010039411957, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15.999878
+      value: 15.999847
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3921,6 +3927,7 @@ MonoBehaviour:
   enemyInfos:
   - enemyRef: {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
     enemyID: 
+    LV: 1
     num: 3
   isRandomEnemyTotal: 0
   randomEnemyTotal: 0

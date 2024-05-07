@@ -26,6 +26,7 @@ public class EnemyGroup : MonoBehaviour
     {
         public GameObject enemyRef;
         public string enemyID;      //如果有設定 ID，則 enemyRef 無效
+        public int LV = 1;
         public int num;
     }
 
@@ -125,7 +126,10 @@ public class EnemyGroup : MonoBehaviour
                 GameObject eo;
                 if (enemyInfo.enemyID != "")
                 {
-                    eo = EnemyManager.GetInstance().SpawnEnemyByID(enemyInfo.enemyID, transform.position + localPos);
+                    if (enemyInfo.LV > 1)
+                        eo = EnemyManager.GetInstance().SpawnEnemyByID(enemyInfo.enemyID, transform.position + localPos, enemyInfo.LV);
+                    else
+                        eo = EnemyManager.GetInstance().SpawnEnemyByID(enemyInfo.enemyID, transform.position + localPos);
                 }
                 else
                 {

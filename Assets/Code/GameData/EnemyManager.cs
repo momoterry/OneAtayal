@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     {
         public string EnemyID;
         public string BaseRef;
-        public int Rank;
+        public int LV;
         public float HP;
         public float ATK;
         public int DropID;
@@ -33,8 +33,13 @@ public class EnemyManager : MonoBehaviour
     static EnemyManager instance;
     static public EnemyManager GetInstance() { return instance; }
 
-    public GameObject SpawnEnemyByID(string _ID, Vector3 _pos)
+    public GameObject SpawnEnemyByID(string _ID, Vector3 _pos, int _LV = 1)
     {
+        if (_LV > 1)
+        {
+            _ID = _ID + _LV;
+            //print("°ª¯Å Enemy: " + _ID);
+        }
         if (!enemyMap.ContainsKey(_ID))
         {
             print("ERROR!!!! No Enemy ID: " + _ID);
@@ -75,6 +80,8 @@ public class EnemyManager : MonoBehaviour
         {
             enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
             //print("Enemy " + enemyDatas[i].objRef);
+            if (enemyDatas[i].LV > 1)
+                enemyDatas[i].EnemyID = enemyDatas[i].EnemyID + enemyDatas[i].LV;
             enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
         }
     }
