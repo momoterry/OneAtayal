@@ -55,16 +55,19 @@ public class MODungeonStageData
     public float PathRate;
     public float DifficultStart;
     public float DifficultEnd;
+    public int EnemyLV;
 }
 
-public class MOStageGameplayData_Simple
-{
-    public string DungeonID;
-    public int Level;           //第幾層
 
-    public float DifficultStart;
-    public float DifficultEnd;
-    public string Reward1;
-    public float Reward1_Num;
-}
+//TODO: 下面目前暫時用不到，應移除
+//public class MOStageGameplayData_Simple
+//{
+//    public string DungeonID;
+//    public int Level;           //第幾層
+
+//    public float DifficultStart;
+//    public float DifficultEnd;
+//    public string Reward1;
+//    public float Reward1_Num;
+//}
 

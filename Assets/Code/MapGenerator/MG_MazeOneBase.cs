@@ -286,13 +286,15 @@ public class MG_MazeOneBase : MapGeneratorBase
                 {
                     GameObject o = Instantiate(cData.gameManagerRef.gameObject);
                     gameManager = o.GetComponent<MazeGameManagerBase>();
-                    gameManager.difficultRateMin = cData.gameDiffcultRateMin;
-                    gameManager.difficultRateMax = cData.gameDiffcultRateMax;
+                    //gameManager.difficultRateMin = cData.gameDiffcultRateMin;
+                    //gameManager.difficultRateMax = cData.gameDiffcultRateMax;
                 }
-                else if (gameManager)
+                
+                if (gameManager)
                 {
                     gameManager.difficultRateMin = cData.gameDiffcultRateMin;
                     gameManager.difficultRateMax = cData.gameDiffcultRateMax;
+                    gameManager.enmeyLV = cData.gameEnemyLV;
                 }
 
                 if (cData.initGameplayRef)

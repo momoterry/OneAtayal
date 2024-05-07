@@ -23,6 +23,7 @@ public class RoomGameplayBase : MonoBehaviour
         float numF = Random.Range(info.totalNumMin, info.totalNumMax) * ( 1 + diffAddRate );
         int num = OneUtility.FloatToRandomInt(numF);
         //print("EG: float: " + numF + " int: "+ num + " diffAddRate: " + diffAddRate);
+        print("EG LV: " + enemyLV);
         GameObject o = new GameObject();
         o.transform.position = vCenter;
         EnemyGroup enemyGroup = o.AddComponent<EnemyGroup>();
@@ -31,18 +32,28 @@ public class RoomGameplayBase : MonoBehaviour
         enemyGroup.height = height;
         enemyGroup.isRandomEnemyTotal = true;
         enemyGroup.randomEnemyTotal = num;
-        int eNum = Mathf.Max(info.enemys.Length, info.enemyIDs.Length);
+        //int eNum = Mathf.Max(info.enemys.Length, info.enemyIDs.Length);
+        int eNum = info.enemys == null ? 0 : info.enemys.Length;
+        if (info.enemyIDs != null)
+            eNum = Mathf.Max(eNum, info.enemyIDs.Length);
         enemyGroup.enemyInfos = new EnemyGroup.EnemyInfo[eNum];
-        for (int i = 0; i < info.enemys.Length; i++)
+
+        if (info.enemys != null)
         {
-            enemyGroup.enemyInfos[i] = new EnemyGroup.EnemyInfo();
-            enemyGroup.enemyInfos[i].enemyRef = info.enemys[i];
-        }
-        for (int i = 0; i < info.enemyIDs.Length; i++)
-        {
-            if (enemyGroup.enemyInfos[i] == null)
+            for (int i = 0; i < info.enemys.Length; i++)
+            {
                 enemyGroup.enemyInfos[i] = new EnemyGroup.EnemyInfo();
-            enemyGroup.enemyInfos[i].enemyID = info.enemyIDs[i];
+                enemyGroup.enemyInfos[i].enemyRef = info.enemys[i];
+            }
+        }
+        if (info.enemyIDs != null)
+        {
+            for (int i = 0; i < info.enemyIDs.Length; i++)
+            {
+                if (enemyGroup.enemyInfos[i] == null)
+                    enemyGroup.enemyInfos[i] = new EnemyGroup.EnemyInfo();
+                enemyGroup.enemyInfos[i].enemyID = info.enemyIDs[i];
+            }
         }
         for (int i=0; i< eNum; i++)
         {

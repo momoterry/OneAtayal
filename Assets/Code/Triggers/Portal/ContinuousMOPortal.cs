@@ -14,6 +14,7 @@ public class ContinuousMOData : ContinuousBattleDataBase
     public MazeGameManagerBase gameManagerRef;
     public float gameDiffcultRateMin = 1.0f;
     public float gameDiffcultRateMax = 2.0f;
+    public int gameEnemyLV = 1;
 
     //public DungeonEnemyManagerBase dungeonEnemyManager;     //如果有指定，下面的 normalEnemy 資訊無用
     //public int normalEnemyNum;
