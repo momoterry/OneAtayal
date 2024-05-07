@@ -19,6 +19,15 @@ public class CSVReader : MonoBehaviour
             print("ERROR!!!!  CSV 不到兩行!!!!");
             return null;
         }
+        for (int i=0; i<lines.Length; i++)
+        {
+            if (lines[i].EndsWith("\r"))
+            {
+                //print("含有 r 結尾: " + lines[i]);
+                lines[i] = lines[i].Remove(lines[i].Length - 1);
+                //print("移除後: " + lines[i]);
+            }
+        }
 
         Dictionary<string, int> fieldIndexMap = new Dictionary<string, int>();
         string[] fieldNames = lines[0].Split(",");
