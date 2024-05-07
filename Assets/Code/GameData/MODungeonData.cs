@@ -54,8 +54,8 @@ public class MODungeonStageData
     public int PuzzleWidth;
     public int PuzzleHeight;
     public float PathRate;
-    //public bool StartAsPath;
-    //public bool EndAsPath;
+    public bool StartAsPath;
+    public bool EndAsPath;
     public float DifficultStart;
     public float DifficultEnd;
     public int EnemyLV;

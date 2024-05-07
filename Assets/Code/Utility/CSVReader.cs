@@ -83,6 +83,14 @@ public class CSVReader : MonoBehaviour
                     value = 0.0f;
                 field.SetValue(data, value);
             }
+            else if (field.FieldType == typeof(bool))
+            {
+                bool value;
+                if (!bool.TryParse(strValue, out value))
+                    value = false;
+                field.SetValue(data, value);
+                //print("bool value:" + strValue + " Result: " + value);
+            }
             else
             {
                 print("目前無法支援的欄位: " + field.Name);
