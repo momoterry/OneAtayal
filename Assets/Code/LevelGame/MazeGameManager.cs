@@ -7,6 +7,7 @@ public class MazeGameManagerBase:MonoBehaviour
 {
     public float difficultRateMin = 1.0f;   //最小難度率，用來調整敵人數量
     public float difficultRateMax = 2.0f;   //最大難度率，用來調整敵人數量
+    public int enmeyLV = 1;
 
     virtual public void AddRoom(Vector3 center, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) { }
     virtual public void AddPath(Vector3 center, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) { }
@@ -26,6 +27,7 @@ public class MazeGameManager : MazeGameManagerBase
         public float doorWidth;
         public float doorHeight;
         public float diffAddRatio;  //難度增加量 預設 = 0，1.0f = > 兩倍敵人數量
+        public int enemyLV; //敵人等級，目前只支援使用 EnemyGroup 時
     }
 
     [System.Serializable]
