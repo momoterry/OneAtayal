@@ -63,7 +63,8 @@ public class SkillDollSummonEx : SkillBase
         if (summonFX)
             BattleSystem.GetInstance().SpawnGameplayObject(summonFX, pos, false);
 
-        GameObject dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
+        GameObject dollObj = GameSystem.GetDollData().SpawnBattleDoll(dollID, pos);
+        //GameObject dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
         Doll theDoll = dollObj.GetComponent<Doll>();
         if (theDoll == null)
         {
@@ -79,10 +80,10 @@ public class SkillDollSummonEx : SkillBase
         }
 
 
-        if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.BATTLE))
-        {
-            print("Woooooooooops.......");
-        }
+        //if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.BATTLE))
+        //{
+        //    print("Woooooooooops.......");
+        //}
 
 
         Vector3 td = (pos - transform.position).normalized;
