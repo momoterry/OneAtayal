@@ -19,6 +19,12 @@ public class DollInfo
     public int summonCost;
 }
 
+public class DollInfoEx : DollInfo
+{
+    public float ATK;
+    public float HP;
+}
+
 [System.Serializable]
 public class DollCSVData
 {
@@ -107,19 +113,22 @@ public class DollData : MonoBehaviour
                 print("ERROR!!!! 錯誤的 BaseID: " + data.BaseID);
                 continue;
             }
-            DollInfo dInfo = new DollInfo();
+            DollInfoEx dInfo = new DollInfoEx();
             dInfo.dollID = data.DollID;
             dInfo.dollName = data.Name;
             dInfo.dollDesc = data.Desc;
             dInfo.summonCost = data.SummonCost;
-            GameObject o = Instantiate(baseInfo.objRef, transform);
-            o.name = data.DollID;
-            o.SetActive(false);
-            Doll d = o.GetComponent<Doll>();
-            d.AttackInit = data.ATK;
-            HitBody h = o.GetComponent<HitBody>();
-            h.HP_Max = data.HP;
-            dInfo.objRef = o;
+            dInfo.ATK = data.ATK;
+            dInfo.HP = data.HP;
+            dInfo.objRef = baseInfo.objRef;
+            //GameObject o = Instantiate(baseInfo.objRef, transform);
+            //o.name = data.DollID;
+            //o.SetActive(false);
+            //Doll d = o.GetComponent<Doll>();
+            //d.AttackInit = data.ATK;
+            //HitBody h = o.GetComponent<HitBody>();
+            //h.HP_Max = data.HP;
+            //dInfo.objRef = o;
             theDollMapping.Add(dInfo.dollID, dInfo);
         }
 
@@ -128,6 +137,7 @@ public class DollData : MonoBehaviour
 
     public bool AddDollByID(string ID, ref bool isToBackpack)
     {
+        //TODO: 這邊也應該跟 SpawnBattleDoll 整合
         isToBackpack = false;
         GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(ID);
         if (dollRef == null)
@@ -175,14 +185,16 @@ public class DollData : MonoBehaviour
 
     public GameObject SpawnBattleDoll(string ID, Vector3 pos)
     {
-        GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(ID);
-        if (dollRef == null)
+        DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(ID);
+        //GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(ID);
+        if (dInfo == null)
         {
             print("嘗試加入 Doll 錯誤，不是正確的 doll ID" + ID);
             return null;
         }
+        GameObject dollRef = dInfo.objRef;
 
-        DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
+        //DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
         //if (dm == null || GameSystem.GetPlayerData().GetCurrDollNum() >= GameSystem.GetPlayerData().GetMaxDollNum())
         //{
         //    GameSystem.GetPlayerData().AddDollToBackpack(ID);
@@ -197,8 +209,16 @@ public class DollData : MonoBehaviour
             BattleSystem.GetInstance().SpawnGameplayObject(defautSpawnFX, pos, false);
 
         GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
+        dollObj.name = dInfo.dollID;
 
         Doll theDoll = dollObj.GetComponent<Doll>();
+        if (dInfo.GetType() == typeof(DollInfoEx))
+        {
+            DollInfoEx dInfoEx = (DollInfoEx)dInfo;
+            theDoll.AttackInit = dInfoEx.ATK;
+            HitBody h = dollObj.GetComponent<HitBody>();
+            h.HP_Max = dInfoEx.HP;
+        }
 
         //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
         NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
