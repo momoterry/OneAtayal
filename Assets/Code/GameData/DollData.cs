@@ -95,7 +95,32 @@ public class DollData : MonoBehaviour
         DollCSVData[] csvDolls = CSVReader.FromCSV<DollCSVData>(csvDollData.text);
         foreach (DollCSVData data in csvDolls)
         {
-            print(data.Name + " base on: " + data.BaseID);
+            //print(data.Name + " base on: " + data.BaseID);
+            if (data.DollID == data.BaseID)
+            {
+                print("目前不需要放基礎 Doll .....");
+                continue;
+            }
+            DollInfo baseInfo = theDollMapping[data.BaseID];
+            if (baseInfo == null)
+            {
+                print("ERROR!!!! 錯誤的 BaseID: " + data.BaseID);
+                continue;
+            }
+            DollInfo dInfo = new DollInfo();
+            dInfo.dollID = data.DollID;
+            dInfo.dollName = data.Name;
+            dInfo.dollDesc = data.Desc;
+            dInfo.summonCost = data.SummonCost;
+            GameObject o = Instantiate(baseInfo.objRef, transform);
+            o.name = data.DollID;
+            o.SetActive(false);
+            Doll d = o.GetComponent<Doll>();
+            d.AttackInit = data.ATK;
+            HitBody h = o.GetComponent<HitBody>();
+            h.HP_Max = data.HP;
+            dInfo.objRef = o;
+            theDollMapping.Add(dInfo.dollID, dInfo);
         }
 
     }

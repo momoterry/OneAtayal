@@ -785,8 +785,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfos:
   - enemyRef: {fileID: 7208015447484052683, guid: c720d4ffc3baf3540b5bc68e4f366beb, type: 3}
+    enemyID: 
+    LV: 1
     num: 1
   - enemyRef: {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
+    enemyID: 
+    LV: 1
     num: 6
   isRandomEnemyTotal: 0
   randomEnemyTotal: 0
@@ -3711,6 +3715,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4032685806379418581, guid: b613092d4bbecf449a2ca7fcf5522128, type: 3}
   m_PrefabInstance: {fileID: 203368098}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2071277234
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5046756676481295474, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: spawnDollID
+      value: DollFireII
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053530953929081836, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_Name
+      value: DollStone_FireII
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_RootOrder
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.5874724
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.0155134
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972769817086006226, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53a667e5fd343914a8aa8d4d389b772a, type: 3}
 --- !u!4 &2097910169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4032685806379418581, guid: 6cbab3279bfb52b439bf028f21e17451, type: 3}

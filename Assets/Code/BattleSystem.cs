@@ -179,6 +179,7 @@ public class BattleSystem : MonoBehaviour
             //}
             o.AddComponent<BSObjectTag>();
         }
+        o.SetActive(true);
         return o;
     }
 
