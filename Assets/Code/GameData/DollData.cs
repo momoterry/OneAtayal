@@ -134,6 +134,18 @@ public class DollData : MonoBehaviour
 
     }
 
+    public DollInfo[] GetAllDollInfo()
+    {
+        DollInfo[] infos = new DollInfo[theDollMapping.Count];
+        int i = 0;
+        foreach (KeyValuePair<string, DollInfo> kvp in theDollMapping)
+        {
+            infos[i] = kvp.Value;
+            i++;
+        }
+        return infos;
+    }
+
 
     public bool AddDollByID(string ID, ref bool isToBackpack)
     {

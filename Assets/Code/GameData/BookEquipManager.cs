@@ -79,7 +79,8 @@ public class BookEquipManager : MonoBehaviour
         if (!oneTimeInit)
         {
             //print("BookEquipManager Init Skill Refs");
-            DollInfo[] dInfos = GameSystem.GetDollData().DollInfos;
+            //DollInfo[] dInfos = GameSystem.GetDollData().DollInfos;
+            DollInfo[] dInfos = GameSystem.GetDollData().GetAllDollInfo();
             foreach (DollInfo dInfo in dInfos)
             {
                 //print("Try Create Skill Ref for : " + dInfo.dollID + " dInfo: " + dInfo.dollName);
