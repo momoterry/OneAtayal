@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,10 +19,23 @@ public class DollInfo
     public int summonCost;
 }
 
+[System.Serializable]
+public class DollCSVData
+{
+    public string DollID;
+    public string BaseID;
+    public float ATK;
+    public float HP;
+    public string Name;
+    public string Desc;
+    public int SummonCost;
+}
+
 public class DollData : MonoBehaviour
 {
     public GameObject defautSpawnFX;
     public DollInfo[] DollInfos;
+    public TextAsset csvDollData;
     // Start is called before the first frame update
 
     protected Dictionary<string, GameObject> theMapping = new Dictionary<string, GameObject>();
@@ -79,6 +91,13 @@ public class DollData : MonoBehaviour
                 theDollMapping.Add(dInfo.dollID, dInfo);
             }
         }
+
+        DollCSVData[] csvDolls = CSVReader.FromCSV<DollCSVData>(csvDollData.text);
+        foreach (DollCSVData data in csvDolls)
+        {
+            print(data.Name + " base on: " + data.BaseID);
+        }
+
     }
 
 
