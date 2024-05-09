@@ -99,6 +99,9 @@ public class DollData : MonoBehaviour
         }
 
         DollCSVData[] csvDolls = CSVReader.FromCSV<DollCSVData>(csvDollData.text);
+        GameObject objRoot = new GameObject("DollRefRoot");
+        objRoot.transform.parent = transform;
+        objRoot.SetActive(false);
         foreach (DollCSVData data in csvDolls)
         {
             //print(data.Name + " base on: " + data.BaseID);
@@ -120,15 +123,16 @@ public class DollData : MonoBehaviour
             dInfo.summonCost = data.SummonCost;
             dInfo.ATK = data.ATK;
             dInfo.HP = data.HP;
-            dInfo.objRef = baseInfo.objRef;
-            //GameObject o = Instantiate(baseInfo.objRef, transform);
-            //o.name = data.DollID;
+            //dInfo.objRef = baseInfo.objRef;
+            GameObject o = Instantiate(baseInfo.objRef, objRoot.transform);
+            o.name = data.DollID;
             //o.SetActive(false);
-            //Doll d = o.GetComponent<Doll>();
-            //d.AttackInit = data.ATK;
-            //HitBody h = o.GetComponent<HitBody>();
-            //h.HP_Max = data.HP;
-            //dInfo.objRef = o;
+            Doll d = o.GetComponent<Doll>();
+            d.ID = data.DollID;
+            d.AttackInit = data.ATK;
+            HitBody h = o.GetComponent<HitBody>();
+            h.HP_Max = data.HP;
+            dInfo.objRef = o;
             theDollMapping.Add(dInfo.dollID, dInfo);
         }
 
@@ -221,16 +225,17 @@ public class DollData : MonoBehaviour
             BattleSystem.GetInstance().SpawnGameplayObject(defautSpawnFX, pos, false);
 
         GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
-        dollObj.name = dInfo.dollID;
-
         Doll theDoll = dollObj.GetComponent<Doll>();
-        if (dInfo.GetType() == typeof(DollInfoEx))
-        {
-            DollInfoEx dInfoEx = (DollInfoEx)dInfo;
-            theDoll.AttackInit = dInfoEx.ATK;
-            HitBody h = dollObj.GetComponent<HitBody>();
-            h.HP_Max = dInfoEx.HP;
-        }
+
+        dollObj.name = dInfo.dollID;
+        //dollObj.SetActive(true);
+        //if (dInfo.GetType() == typeof(DollInfoEx))
+        //{
+        //    DollInfoEx dInfoEx = (DollInfoEx)dInfo;
+        //    theDoll.AttackInit = dInfoEx.ATK;
+        //    HitBody h = dollObj.GetComponent<HitBody>();
+        //    h.HP_Max = dInfoEx.HP;
+        //}
 
         //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
         NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
