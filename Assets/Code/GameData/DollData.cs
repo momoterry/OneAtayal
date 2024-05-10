@@ -30,6 +30,7 @@ public class DollCSVData
 {
     public string DollID;
     public string BaseID;
+    public int Rank;
     public float ATK;
     public float HP;
     public string Name;
@@ -42,7 +43,8 @@ public class DollData : MonoBehaviour
     public GameObject defautSpawnFX;
     public DollInfo[] DollInfos;
     public TextAsset csvDollData;
-    // Start is called before the first frame update
+    public Sprite[] highRankIcons;
+    public Material iconBlendMat;
 
     protected Dictionary<string, GameObject> theMapping = new Dictionary<string, GameObject>();
 
@@ -133,6 +135,14 @@ public class DollData : MonoBehaviour
             HitBody h = o.GetComponent<HitBody>();
             h.HP_Max = data.HP;
             dInfo.objRef = o;
+            dInfo.icon = baseInfo.icon;
+            //print("baseInfo icon: " + baseInfo.icon);
+            print("Rank: " + data.Rank);
+            if (data.Rank > 1 && highRankIcons[data.Rank - 2])
+            {
+                dInfo.icon = OneUtility.BlendSprite(baseInfo.icon, highRankIcons[data.Rank-2], iconBlendMat);
+                d.icon = dInfo.icon;
+            }
             theDollMapping.Add(dInfo.dollID, dInfo);
         }
 
