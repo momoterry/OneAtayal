@@ -241,11 +241,13 @@ public class OneUtility
     {
         // Create a new RenderTexture to render the sprites onto
         Debug.Log("iconA: " + iconA.rect);
+        Vector2 size = new Vector2(iconA.texture.width, iconA.texture.height);
         RenderTexture rt = new RenderTexture((int)iconA.rect.width, (int)iconA.rect.height, 0);
-        Graphics.Blit(iconA.texture, rt, _mat);
+        Graphics.Blit(iconA.texture, rt, iconA.rect.size / size, iconA.rect.position / size);
 
         // Render the second sprite onto the RenderTexture
-        Graphics.Blit(iconB.texture, rt, _mat);
+        Vector2 sizeB = new Vector2(iconB.texture.width, iconB.texture.height);
+        Graphics.Blit(iconB.texture, rt, iconB.rect.size / sizeB, iconB.rect.position / sizeB);
 
         // Create a new Texture2D to read the RenderTexture data
         Texture2D combinedTexture = new Texture2D(rt.width, rt.height);
