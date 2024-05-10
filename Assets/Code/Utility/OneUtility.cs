@@ -235,6 +235,35 @@ public class OneUtility
     }
 
     //==================================================================
+    // Sprite 合成 (參考 ChatGPT)
+    //==================================================================
+    static public Sprite BlendSprite(Sprite iconA, Sprite iconB, Material _mat = null )
+    {
+        // Create a new RenderTexture to render the sprites onto
+        Debug.Log("iconA: " + iconA.rect);
+        RenderTexture rt = new RenderTexture((int)iconA.rect.width, (int)iconA.rect.height, 0);
+        Graphics.Blit(iconA.texture, rt, _mat);
+
+        // Render the second sprite onto the RenderTexture
+        Graphics.Blit(iconB.texture, rt, _mat);
+
+        // Create a new Texture2D to read the RenderTexture data
+        Texture2D combinedTexture = new Texture2D(rt.width, rt.height);
+        combinedTexture.filterMode = FilterMode.Point;
+        combinedTexture.wrapMode = TextureWrapMode.Clamp;
+        RenderTexture.active = rt;
+        combinedTexture.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
+        combinedTexture.Apply();
+        RenderTexture.active = null;
+
+        // Create a new sprite using the combined texture
+        Sprite iconC = Sprite.Create(combinedTexture, new Rect(0, 0, combinedTexture.width, combinedTexture.height), new Vector2(0.5f, 0.5f), 16.0f);
+        //iconC.f
+        return iconC;
+    }
+
+
+    //==================================================================
     // 其它工具
     //==================================================================
     public class DisjointSetUnion
