@@ -89,7 +89,7 @@ public class DollShopItem : MonoBehaviour
 
         bool isToBackpack = false;
 
-        if (!GameSystem.GetInstance().theDollData.AddDollByID(dollID, ref isToBackpack))
+        if (!GameSystem.GetInstance().theDollData.AddForeverDollByID(dollID, ref isToBackpack))
         {
             return;
         }

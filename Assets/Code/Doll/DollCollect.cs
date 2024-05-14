@@ -44,7 +44,7 @@ public class DollCollect : MonoBehaviour
         if (spawnNewDoll)
         {
             print("Spawn Battle Doll!! ");
-            GameObject o = GameSystem.GetDollData().SpawnBattleDoll(spawnDollID, transform.position);
+            GameObject o = GameSystem.GetDollData().AddBattleDollByID(spawnDollID, transform.position);
             if (!collectForever)
             {
                 o.AddComponent<DollMaterial>();

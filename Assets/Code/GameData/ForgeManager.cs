@@ -99,7 +99,7 @@ public class ForgeManager : MonoBehaviour
         }
 
         bool isToBackpack = false;
-        if (!GameSystem.GetInstance().theDollData.AddDollByID(formula.outputID, ref isToBackpack))
+        if (!GameSystem.GetInstance().theDollData.AddForeverDollByID(formula.outputID, ref isToBackpack))
         {
             return FORGE_RESULT.ERROR;
         }

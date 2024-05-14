@@ -161,9 +161,44 @@ public class DollData : MonoBehaviour
     }
 
 
-    public bool AddDollByID(string ID, ref bool isToBackpack)
+    protected GameObject SpawnDollByID(string ID, Vector3 pos, DOLL_JOIN_SAVE_TYPE join_type)
     {
-        //TODO: 這邊也應該跟 SpawnBattleDoll 整合
+        DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(ID);
+        if (dInfo == null)
+        {
+            print("嘗試加入 Doll 錯誤，不是正確的 doll ID" + ID);
+            return null;
+        }
+        GameObject dollRef = dInfo.objRef;
+
+        if (defautSpawnFX)
+            BattleSystem.GetInstance().SpawnGameplayObject(defautSpawnFX, pos, false);
+
+        GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
+        Doll theDoll = dollObj.GetComponent<Doll>();
+
+        dollObj.name = dInfo.dollID;
+
+        //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
+        NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
+        if (dAgent)
+        {
+            dAgent.updateRotation = false;
+            dAgent.updateUpAxis = false;
+            dAgent.enabled = false;
+        }
+
+        if (!theDoll.TryJoinThePlayer(join_type))
+        {
+            print("Woooooooooops.......");
+            return null;
+        }
+
+        return dollObj;
+    }
+
+    public bool AddForeverDollByID(string ID, ref bool isToBackpack)
+    {
         isToBackpack = false;
         GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(ID);
         if (dollRef == null)
@@ -184,84 +219,35 @@ public class DollData : MonoBehaviour
 
         Vector3 pos = dm.transform.position + Vector3.back * 1.0f;
 
-        if (defautSpawnFX)
-            BattleSystem.GetInstance().SpawnGameplayObject(defautSpawnFX, pos, false);
+        //if (defautSpawnFX)
+        //    BattleSystem.GetInstance().SpawnGameplayObject(defautSpawnFX, pos, false);
 
-        GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
+        //GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
 
-        Doll theDoll = dollObj.GetComponent<Doll>();
+        //Doll theDoll = dollObj.GetComponent<Doll>();
 
-        //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
-        NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
-        if (dAgent)
-        {
-            dAgent.updateRotation = false;
-            dAgent.updateUpAxis = false;
-            dAgent.enabled = false;
-        }
+        ////TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
+        //NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
+        //if (dAgent)
+        //{
+        //    dAgent.updateRotation = false;
+        //    dAgent.updateUpAxis = false;
+        //    dAgent.enabled = false;
+        //}
 
-        if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
-        {
-            print("Woooooooooops.......");
-            return false;
-        }
+        //if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
+        //{
+        //    print("Woooooooooops.......");
+        //    return false;
+        //}
 
-        return true;
+        GameObject dollObj = SpawnDollByID(ID, pos, DOLL_JOIN_SAVE_TYPE.FOREVER);
+
+        return dollObj != null ? true : false;
     }
 
-    public GameObject SpawnBattleDoll(string ID, Vector3 pos)
+    public GameObject AddBattleDollByID(string ID, Vector3 pos)
     {
-        DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(ID);
-        //GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(ID);
-        if (dInfo == null)
-        {
-            print("嘗試加入 Doll 錯誤，不是正確的 doll ID" + ID);
-            return null;
-        }
-        GameObject dollRef = dInfo.objRef;
-
-        //DollManager dm = BattleSystem.GetInstance().GetPlayerController().GetDollManager();
-        //if (dm == null || GameSystem.GetPlayerData().GetCurrDollNum() >= GameSystem.GetPlayerData().GetMaxDollNum())
-        //{
-        //    GameSystem.GetPlayerData().AddDollToBackpack(ID);
-        //    return true;
-        //}
-
-        // Spawn Doll 實體並加入隊列
-
-        //Vector3 pos = dm.transform.position + Vector3.back * 1.0f;
-
-        if (defautSpawnFX)
-            BattleSystem.GetInstance().SpawnGameplayObject(defautSpawnFX, pos, false);
-
-        GameObject dollObj = BattleSystem.SpawnGameObj(dollRef, pos);
-        Doll theDoll = dollObj.GetComponent<Doll>();
-
-        dollObj.name = dInfo.dollID;
-        //dollObj.SetActive(true);
-        //if (dInfo.GetType() == typeof(DollInfoEx))
-        //{
-        //    DollInfoEx dInfoEx = (DollInfoEx)dInfo;
-        //    theDoll.AttackInit = dInfoEx.ATK;
-        //    HitBody h = dollObj.GetComponent<HitBody>();
-        //    h.HP_Max = dInfoEx.HP;
-        //}
-
-        //TODO: 先暴力法修，因 Action 觸發的 Doll Spawn ，可能會讓 NavAgent 先 Update
-        NavMeshAgent dAgent = theDoll.GetComponent<NavMeshAgent>();
-        if (dAgent)
-        {
-            dAgent.updateRotation = false;
-            dAgent.updateUpAxis = false;
-            dAgent.enabled = false;
-        }
-
-        if (!theDoll.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.BATTLE))
-        {
-            print("Woooooooooops.......");
-            return null;
-        }
-
-        return dollObj;
+        return SpawnDollByID(ID, pos, DOLL_JOIN_SAVE_TYPE.BATTLE);
     }
 }
