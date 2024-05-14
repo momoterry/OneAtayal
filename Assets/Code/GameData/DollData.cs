@@ -107,11 +107,11 @@ public class DollData : MonoBehaviour
         foreach (DollCSVData data in csvDolls)
         {
             //print(data.Name + " base on: " + data.BaseID);
-            if (data.DollID == data.BaseID)
-            {
-                print("目前不需要放基礎 Doll .....");
-                continue;
-            }
+            //if (data.DollID == data.BaseID)
+            //{
+            //    print("目前不需要放基礎 Doll .....");
+            //    continue;
+            //}
             DollInfo baseInfo = theDollMapping[data.BaseID];
             if (baseInfo == null)
             {
@@ -142,6 +142,11 @@ public class DollData : MonoBehaviour
             {
                 dInfo.icon = OneUtility.BlendSprite(baseInfo.icon, highRankIcons[data.Rank-2], iconBlendMat);
                 d.icon = dInfo.icon;
+            }
+            if (data.DollID == data.BaseID)
+            {
+                print("取代基礎 Doll ....." + data.DollID);
+                theDollMapping.Remove(data.BaseID);
             }
             theDollMapping.Add(dInfo.dollID, dInfo);
         }
