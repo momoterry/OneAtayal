@@ -593,16 +593,17 @@ public class MG_MazeDungeon : MapGeneratorBase
     {
         cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
         cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
-        if (id_1 + 1 == id_2) //左連到右
-        {
-            cell_1.R = true;
-            cell_2.L = true;
-        }
-        else if (id_1 + puzzleWidth == id_2) //下連到上
+        if (id_1 + puzzleWidth == id_2) //下連到上，先處理下連到上，才能正確處理 puzzleWidth == 1 的場合
         {
             cell_1.U = true;
             cell_2.D = true;
         }
+        else if (id_1 + 1 == id_2) //左連到右
+        {
+            cell_1.R = true;
+            cell_2.L = true;
+        }
+        //else 
     }
 
     protected int GetCellID(int x, int y) { return y * puzzleWidth + x; }
