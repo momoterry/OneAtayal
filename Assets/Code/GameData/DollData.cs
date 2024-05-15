@@ -79,14 +79,7 @@ public class DollData : MonoBehaviour
 
     void Awake()
     {
-        //foreach ( GameObject doObj in DollRefs)
-        //{
-        //    Doll d = doObj.GetComponent<Doll>();
-        //    if (d)
-        //    {
-        //        theMapping.Add(d.ID, doObj);
-        //    }
-        //}
+        //string strAll = "";
         foreach (DollInfo dInfo in DollInfos)
         {
             if (dInfo != null && dInfo.objRef)
@@ -97,8 +90,14 @@ public class DollData : MonoBehaviour
                 if (dInfo.icon == null)
                     dInfo.icon = d.icon;
                 theDollMapping.Add(dInfo.dollID, dInfo);
+
+                HitBody hb = dInfo.objRef.GetComponent<HitBody>();
+                //string sep = "\t";
+                //string str = dInfo.dollID + sep + dInfo.dollID + sep + 1 + sep + d.AttackInit + sep + hb.HP_Max + sep + dInfo.dollName + sep + dInfo.dollDesc + sep + 1 + "\n";
+                //strAll += str;
             }
         }
+        //print(strAll);
 
         DollCSVData[] csvDolls = CSVReader.FromCSV<DollCSVData>(csvDollData.text);
         GameObject objRoot = new GameObject("DollRefRoot");
