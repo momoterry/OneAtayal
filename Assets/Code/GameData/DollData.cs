@@ -137,7 +137,6 @@ public class DollData : MonoBehaviour
             dInfo.objRef = o;
             dInfo.icon = baseInfo.icon;
             //print("baseInfo icon: " + baseInfo.icon);
-            print("Rank: " + data.Rank);
             if (data.Rank > 1 && highRankIcons[data.Rank - 2])
             {
                 dInfo.icon = OneUtility.BlendSprite(baseInfo.icon, highRankIcons[data.Rank-2], iconBlendMat);
