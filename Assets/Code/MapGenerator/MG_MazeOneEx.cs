@@ -181,6 +181,7 @@ public class MG_MazeOne : MG_MazeOneBase
             }
         }
 
+
         //==== 開始隨機連結 !!
         //使用隨機排序
         OneUtility.Shuffle(wallList);

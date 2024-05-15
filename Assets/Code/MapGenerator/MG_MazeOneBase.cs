@@ -182,15 +182,15 @@ public class MG_MazeOneBase : MapGeneratorBase
     {
         cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
         cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
-        if (id_1 + 1 == id_2) //左連到右
-        {
-            cell_1.R = true;
-            cell_2.L = true;
-        }
-        else if (id_1 + puzzleWidth == id_2) //下連到上
+        if (id_1 + puzzleWidth == id_2) //下連到上，先檢查下連到上的情況，以免錯算 puzzleWidth == 1 的情況
         {
             cell_1.U = true;
             cell_2.D = true;
+        }
+        else if (id_1 + 1 == id_2) //左連到右
+        {
+            cell_1.R = true;
+            cell_2.L = true;
         }
     }
 

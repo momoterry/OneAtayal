@@ -143,7 +143,7 @@ public class DollData : MonoBehaviour
             }
             if (data.DollID == data.BaseID)
             {
-                print("取代基礎 Doll ....." + data.DollID);
+                //print("取代基礎 Doll ....." + data.DollID);
                 theDollMapping.Remove(data.BaseID);
             }
             theDollMapping.Add(dInfo.dollID, dInfo);
