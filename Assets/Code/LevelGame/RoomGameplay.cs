@@ -88,6 +88,7 @@ public class RoomGameplay : RoomGameplayBase
     {
         if (!centerGame)
             return;
+        print(".... To Spawn Game Object !! " + centerGame.gameObject.name);
         GameObject o = BattleSystem.SpawnGameObj(centerGame, room.vCenter);
         o.SetActive(true);
 
