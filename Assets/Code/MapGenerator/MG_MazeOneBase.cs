@@ -3,6 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
+[System.Serializable]
+public class MapSaveMazeOne : MapSaveDataBase
+{
+    public int puzzleWidth = 6;
+    public int puzzleHeight = 6;
+
+    public int roomWidth = 12;
+    public int roomHeight = 16;
+    public int wallWidth = 4;
+    public int wallHeight = 4;
+
+    public int pathWidth = 4;
+    public int pathHeight = 4;
+
+    //public bool extendTerminal = true;
+    public bool portalAfterFirstRoomGamplay = false;
+
+    public Vector2Int puzzleStart;
+    public Vector2Int puzzleEnd;
+    //public Vector3 startPos;
+    //public Vector3 endPos;
+    public string puzzleMapData = null;
+    public string mapMask64 = null;
+
+}
+
+
 //每一個 Cell 中，Build Gameplay 所需要的基本內容
 public class CELL_BASE
 {
@@ -132,6 +160,7 @@ public class MG_MazeOneBase : MapGeneratorBase
             iDoor += L ? 2 : 0;
             iDoor += R ? 1 : 0;
             int iAll = value * 16 + iDoor;
+            iAll += isPath ? 128 : 0;
             if (iAll > 255)
             {
                 print("ERROR!!!! cellInfo.Encode > 255!!");
@@ -150,6 +179,14 @@ public class MG_MazeOneBase : MapGeneratorBase
             code = code >> 1;
             U = (code % 2) == 1 ? true : false;
             code = code >> 1;
+
+            if (code >= 8)
+            {
+                isPath = true;
+                code -= 8;
+            }
+            else
+                isPath = false;
 
             value = code;
         }
