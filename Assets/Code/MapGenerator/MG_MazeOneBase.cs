@@ -48,6 +48,9 @@ public class CELL_BASE
 
 public class MG_MazeOneBase : MapGeneratorBase
 {
+    public string mapName;              //用來識別存檔
+                                        //地圖存檔資料
+    protected MapSaveMazeOne loadedMapData = null;  //如果有的話，是載入存檔的形式
 
     public int puzzleWidth = 6;
     public int puzzleHeight = 6;
@@ -241,8 +244,8 @@ public class MG_MazeOneBase : MapGeneratorBase
 
         PresetByContinuousBattle();
 
-        //if (mapName != null && mapName != "")
-        //    LoadMap();  //先嘗試載入存檔，有的話更新地圖參數等
+        if (mapName != null && mapName != "")
+            LoadMap();  //先嘗試載入存檔，有的話更新地圖參數等
 
         PresetMapInfo();    //各種內部參數的初始化，包含預設起點終點，必須在讀取進度或連續戰鬥資訊等確認參數後進行
 
@@ -250,7 +253,15 @@ public class MG_MazeOneBase : MapGeneratorBase
 
 
         //============================= 以下設置每個 Cell 的 Layout 內容 ===========================================
-        CreatMazeMap();
+        if (loadedMapData != null)
+        {
+            LoadMazeMap();
+        }
+        else
+        {
+            CreatMazeMap();
+            CalculateRoomPath();
+        }
 
         //=========================== 設定起點和終點的 Gameplay ，並且把設定主角出生點
         ProcessInitFinish();
@@ -289,8 +300,8 @@ public class MG_MazeOneBase : MapGeneratorBase
         //載入已探索的資訊
         //LoadExploreMap();
 
-        ////地圖存檔
-        //SaveMap();
+        //地圖存檔
+        SaveMap();
     }
 
     virtual protected void PresetByContinuousBattle()
@@ -410,6 +421,41 @@ public class MG_MazeOneBase : MapGeneratorBase
             for (int j = 0; j < puzzleHeight; j++)
             {
                 puzzleMap[i][j].value = cellInfo.NORMAL;
+            }
+        }
+    }
+
+    virtual protected void CalculateRoomPath()
+    {
+        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
+        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        if (startAsPath)
+        {
+            puzzleMap[puzzleStart.x][puzzleStart.y].isPath = true;
+        }
+        if (finishAsPath)
+        {
+            puzzleMap[puzzleEnd.x][puzzleEnd.y].isPath = true;
+        }
+
+        if (pathRate > 0)
+        {
+            List<cellInfo> allCells = new List<cellInfo>();
+            for (int x = 0; x < puzzleWidth; x++)
+            {
+                for (int y = 0; y < puzzleHeight; y++)
+                {
+                    if (puzzleMap[x][y].value == cellInfo.NORMAL)
+                    {
+                        allCells.Add(puzzleMap[x][y]);
+                    }
+                }
+            }
+            OneUtility.Shuffle<cellInfo>(allCells);
+            int pathNum = Mathf.RoundToInt(pathRate * allCells.Count);
+            for (int i = 0; i < pathNum; i++)
+            {
+                allCells[i].isPath = true;
             }
         }
     }
@@ -660,39 +706,38 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     virtual protected void PreCalculateGameplayInfo()
     {
-        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
-        if (startAsPath)
-        {
-            puzzleMap[puzzleStart.x][puzzleStart.y].isPath = true;
-        }
-        if (finishAsPath)
-        {
-            puzzleMap[puzzleEnd.x][puzzleEnd.y].isPath = true;
-        }
+        //puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
+        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        //if (startAsPath)
+        //{
+        //    puzzleMap[puzzleStart.x][puzzleStart.y].isPath = true;
+        //}
+        //if (finishAsPath)
+        //{
+        //    puzzleMap[puzzleEnd.x][puzzleEnd.y].isPath = true;
+        //}
 
-        if (pathRate > 0)
-        {
-            List<cellInfo> allCells = new List<cellInfo>();
-            for (int x = 0; x < puzzleWidth; x++)
-            {
-                for (int y = 0; y < puzzleHeight; y++)
-                {
-                    if (puzzleMap[x][y].value == cellInfo.NORMAL)
-                    {
-                        allCells.Add(puzzleMap[x][y]);
-                    }
-                }
-            }
-            OneUtility.Shuffle<cellInfo>(allCells);
-            int pathNum = Mathf.RoundToInt(pathRate * allCells.Count);
-            for (int i = 0; i < pathNum; i++)
-            {
-                allCells[i].isPath = true;
-            }
-        }
-        //print("PreCalculateGameplayInfo");
-        //CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);   //移到 ProcessInitFinish()
+        //if (pathRate > 0)
+        //{
+        //    List<cellInfo> allCells = new List<cellInfo>();
+        //    for (int x = 0; x < puzzleWidth; x++)
+        //    {
+        //        for (int y = 0; y < puzzleHeight; y++)
+        //        {
+        //            if (puzzleMap[x][y].value == cellInfo.NORMAL)
+        //            {
+        //                allCells.Add(puzzleMap[x][y]);
+        //            }
+        //        }
+        //    }
+        //    OneUtility.Shuffle<cellInfo>(allCells);
+        //    int pathNum = Mathf.RoundToInt(pathRate * allCells.Count);
+        //    for (int i = 0; i < pathNum; i++)
+        //    {
+        //        allCells[i].isPath = true;
+        //    }
+        //}
+
         int maxMainDeep = puzzleMap[puzzleEnd.x][puzzleEnd.y].deep;
         CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.NONE, true, maxMainDeep);
 
@@ -855,6 +900,107 @@ public class MG_MazeOneBase : MapGeneratorBase
 
         if (groundOutEdgeTileGroup && !blockTileEdgeGroup)
             theMap.FillTileAll((int)MAP_TYPE.GROUND, null, blockTM, null, groundOutEdgeTileGroup.GetTileEdgeGroup(), true, (int)MAP_TYPE.BLOCK);
+
+    }
+
+    //=========================== 存讀檔相關
+    protected void SaveMap()
+    {
+        print("================= Save MO Map");
+        if (mapName == null || mapName == "")
+            return;
+        MapSaveMazeOne mapData = new MapSaveMazeOne();
+        mapData.className = "MG_MazeOne";
+        mapData.mapName = mapName;
+        //mapData.cellWidth = cellWidth;
+       // mapData.cellHeight = cellHeight;
+        mapData.puzzleWidth = puzzleWidth;
+        mapData.puzzleHeight = puzzleHeight;
+        mapData.wallWidth = wallWidth;
+        mapData.wallHeight = wallHeight;
+        mapData.roomWidth = roomWidth;
+        mapData.roomHeight = roomHeight;
+        mapData.pathWidth = pathWidth;
+        mapData.pathHeight = pathHeight;
+
+        //mapData.extendTerminal = extendTerminal;
+        mapData.portalAfterFirstRoomGamplay = portalAfterFirstRoomGamplay;
+        mapData.puzzleStart = puzzleStart;
+        mapData.puzzleEnd = puzzleEnd;
+        //mapData.startPos = startPos;
+        //mapData.endPos = endPos;
+
+        int i = 0;
+        byte[] bData = new byte[puzzleHeight * puzzleWidth];
+        for (int x = 0; x < puzzleWidth; x++)
+        {
+            for (int y = 0; y < puzzleHeight; y++)
+            {
+                //int ec = EncodeCell(puzzleMap[x][y]);
+                int ec = puzzleMap[x][y].Encode();
+                bData[i] = (byte)ec;
+                i++;
+            }
+        }
+        mapData.puzzleMapData = System.Convert.ToBase64String(bData);
+        print("編碼結果!!" + mapData.puzzleMapData);
+
+        GameSystem.GetPlayerData().SaveMap(mapName, mapData);
+
+    }
+    protected void LoadMap()
+    {
+        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
+        {
+            print("MG_MazeOneBase.LoadMap: 沒有存檔資料");
+            return;
+        }
+
+        print("MG_MazeOneBase.LoadMap: 找到存檔資料 !!!!");
+        loadedMapData = (MapSaveMazeOne)mapDataBase;
+
+        mapName = loadedMapData.mapName;
+        //cellWidth = loadedMapData.cellWidth;
+        //cellHeight = loadedMapData.cellHeight;
+        puzzleWidth = loadedMapData.puzzleWidth;
+        puzzleHeight = loadedMapData.puzzleHeight;
+        wallWidth = loadedMapData.wallWidth;
+        wallHeight = loadedMapData.wallHeight;
+        roomWidth = loadedMapData.roomWidth;
+        roomHeight = loadedMapData.roomHeight;
+        pathWidth = loadedMapData.pathWidth;
+        pathHeight = loadedMapData.pathHeight;
+
+        //extendTerminal = loadedMapData.extendTerminal;
+        portalAfterFirstRoomGamplay = loadedMapData.portalAfterFirstRoomGamplay;
+        puzzleStart = loadedMapData.puzzleStart;
+        puzzleEnd = loadedMapData.puzzleEnd;
+        //startPos = loadedMapData.startPos;
+        //endPos = loadedMapData.endPos;
+    }
+    protected void LoadMazeMap()
+    {
+        print("載入 PuzzleMap 資料!!" + loadedMapData.puzzleMapData);
+
+        byte[] bData = System.Convert.FromBase64String(loadedMapData.puzzleMapData);
+        if (bData.Length != puzzleWidth * puzzleHeight)
+        {
+            print("ERROR!!!! Size 不符 !!");
+        }
+
+        int i = 0;
+        puzzleMap = new cellInfo[puzzleWidth][];
+        for (int x = 0; x < puzzleWidth; x++)
+        {
+            puzzleMap[x] = new cellInfo[puzzleHeight];
+            for (int y = 0; y < puzzleHeight; y++)
+            {
+                puzzleMap[x][y] = new cellInfo();
+                puzzleMap[x][y].Decode((int)bData[i]);
+                i++;
+            }
+        }
 
     }
 }

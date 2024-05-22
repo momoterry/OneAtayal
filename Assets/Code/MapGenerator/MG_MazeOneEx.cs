@@ -27,7 +27,7 @@ public class MG_MazeOneEx : MG_MazeOne
             print("ERROR!!! MG_MazeOneEx 不支援的方向類型 INSIDE_OUT");
             mazeDir = MAZE_DIR.DONW_TO_TOP;
         }
-        if (extendTerminal)
+        if (extendTerminal &&　loadedMapData == null)
         {
             if (mazeDir == MAZE_DIR.DONW_TO_TOP || mazeDir == MAZE_DIR.TOP_TO_DOWN)
                 puzzleHeight += 2;

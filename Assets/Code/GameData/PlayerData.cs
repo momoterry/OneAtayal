@@ -75,6 +75,7 @@ public class SaveData{
     public WorldMapSaveData worldMap;
     public MapSavePerlinField[] savedPFields;
     public MapSaveMazeDungeon[] savedMazes;
+    public MapSaveMazeOne[] saveMazeOnes;
 }
 
 
@@ -277,6 +278,7 @@ public class PlayerData : MonoBehaviour
         {
             int nPF = 0; 
             int nMaze = 0;
+            List<MapSaveMazeOne> moList = new List<MapSaveMazeOne>();
 
             foreach (KeyValuePair<string, MapSaveDataBase> k in savedMaps)
             {
@@ -288,9 +290,14 @@ public class PlayerData : MonoBehaviour
                 {
                     nMaze++;
                 }
+                else if (k.Value.GetType() == typeof(MapSaveMazeOne))
+                {
+                    print("儲存一個 MapSaveMazeOne");
+                    moList.Add((MapSaveMazeOne)k.Value);
+                }
             }
 
-            int i = 0;
+            //int i = 0;
             int iPF = 0;
             int iMaze = 0;
             //data.savedPFields = new MapSavePerlinField[savedMaps.Count];
@@ -309,7 +316,12 @@ public class PlayerData : MonoBehaviour
                     data.savedMazes[iMaze] = (MapSaveMazeDungeon)k.Value;
                     iMaze++;
                 }
-                i++;
+                //i++;
+            }
+            data.saveMazeOnes = new MapSaveMazeOne[moList.Count];
+            for (int i=0; i < moList.Count; i++)
+            {
+                data.saveMazeOnes[i] = moList[i];
             }
             print("----地圖存檔完成----");
         }
@@ -392,6 +404,15 @@ public class PlayerData : MonoBehaviour
                 savedMaps.Add(data.savedMazes[i].mapName, data.savedMazes[i]);
             }
             print("----Maze 地圖載入完成---- ");
+        }
+
+        if (data.saveMazeOnes != null && data.saveMazeOnes.Length > 0)
+        {
+            for (int i = 0; i < data.saveMazeOnes.Length; i++)
+            {
+                savedMaps.Add(data.saveMazeOnes[i].mapName, data.saveMazeOnes[i]);
+            }
+            print("----MO 地圖載入完成---- ");
         }
 
         if (data.worldMap != null)
