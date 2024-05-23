@@ -29,13 +29,13 @@ public class MapSaveMazeDungeon : MapSaveDataBase
     public string puzzleMapData = null;
     public RoomSave[] rooms;
 
-    public string mapMask64 = null;
+    //public string mapMask64 = null;
     public CavPoint[] cavPoints;
 }
 
 public class MG_MazeDungeon : MapGeneratorBase
 {
-    public string mapName;              //用來識別存檔
+    //public string mapName;              //用來識別存檔
     //地圖存檔資料
     protected MapSaveMazeDungeon loadedMapData = null;  //如果有的話，是載入存檔的形式
     // 迷宮資料相關
@@ -1360,55 +1360,55 @@ public class MG_MazeDungeon : MapGeneratorBase
         endPos = loadedMapData.endPos;
     }
 
-    // ======= 有關探索地圖的記錄和回復 =======================
-    public override void OnEixtMap()
-    {
-        SaveExploreMap();
-    }
+    //// ======= 有關探索地圖的記錄和回復 =======================
+    //public override void OnEixtMap()
+    //{
+    //    SaveExploreMap();
+    //}
 
-    protected void SaveExploreMap()
-    {
-        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
-        if (mapDataBase == null || mapDataBase.className != "MG_MazeDungeon")
-        {
-            print("SaveExploreMap: 沒有存檔資料 MapSaveData，不處理");
-            return;
-        }
+    //protected void SaveExploreMap()
+    //{
+    //    MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+    //    if (mapDataBase == null || mapDataBase.className != "MG_MazeDungeon")
+    //    {
+    //        print("SaveExploreMap: 沒有存檔資料 MapSaveData，不處理");
+    //        return;
+    //    }
 
-        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
-        if (theMiniMap)
-        {
-            MapSaveMazeDungeon mapData = (MapSaveMazeDungeon)mapDataBase;
-            mapData.mapMask64 = theMiniMap.EncodeMaskTexture();
-        }
-    }
+    //    MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+    //    if (theMiniMap)
+    //    {
+    //        MapSaveMazeDungeon mapData = (MapSaveMazeDungeon)mapDataBase;
+    //        mapData.mapMask64 = theMiniMap.EncodeMaskTexture();
+    //    }
+    //}
 
-    protected void LoadExploreMap()
-    {
-        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
-        if (!theMiniMap)
-        {
-            return;
-        }
-        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
-        if (mapDataBase == null || mapDataBase.className != "MG_MazeDungeon")
-        {
-            print("LoadExploreMap : 沒有存檔資料，不處理");
-            return;
-        }
+    //protected void LoadExploreMap()
+    //{
+    //    MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+    //    if (!theMiniMap)
+    //    {
+    //        return;
+    //    }
+    //    MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+    //    if (mapDataBase == null || mapDataBase.className != "MG_MazeDungeon")
+    //    {
+    //        print("LoadExploreMap : 沒有存檔資料，不處理");
+    //        return;
+    //    }
 
-        MapSaveMazeDungeon mapData = (MapSaveMazeDungeon)mapDataBase;
-        if (mapData.mapMask64 == null || mapData.mapMask64 == "")
-        {
-            print("空的地圖探索資訊: " + mapData.mapMask64);
-            return;
-        }
+    //    MapSaveMazeDungeon mapData = (MapSaveMazeDungeon)mapDataBase;
+    //    if (mapData.mapMask64 == null || mapData.mapMask64 == "")
+    //    {
+    //        print("空的地圖探索資訊: " + mapData.mapMask64);
+    //        return;
+    //    }
 
-        print("LoadExploreMap: 找到的文字壓縮資料，Byte 總量: " + mapData.mapMask64.Length);
-        //print("找到的文字壓縮資料內容: " + mapData.mapMask64);
+    //    print("LoadExploreMap: 找到的文字壓縮資料，Byte 總量: " + mapData.mapMask64.Length);
+    //    //print("找到的文字壓縮資料內容: " + mapData.mapMask64);
 
-        theMiniMap.DecodeMaskTexture(mapData.mapMask64);
-    }
+    //    theMiniMap.DecodeMaskTexture(mapData.mapMask64);
+    //}
 
 }
 

@@ -58,6 +58,7 @@ public class MapSaveDataBase
 {
     public string mapName;
     public string className;
+    public string mapMask64;
 }
 
 

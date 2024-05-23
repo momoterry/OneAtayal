@@ -26,7 +26,7 @@ public class MapSaveMazeOne : MapSaveDataBase
     //public Vector3 startPos;
     //public Vector3 endPos;
     public string puzzleMapData = null;
-    public string mapMask64 = null;             //TODO: 放到 MapSaveDataBase ?
+    //public string mapMask64 = null;             //TODO: 放到 MapSaveDataBase ?
 
 }
 
@@ -48,7 +48,7 @@ public class CELL_BASE
 
 public class MG_MazeOneBase : MapGeneratorBase
 {
-    public string mapName;              //用來識別存檔
+    //public string mapName;              //用來識別存檔
                                         //地圖存檔資料
     protected MapSaveMazeOne loadedMapData = null;  //如果有的話，是載入存檔的形式
 
@@ -1004,54 +1004,54 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     }
 
-    // ======= 有關探索地圖的記錄和回復 TODO: 這些似乎可以放到 MapGen 的 Base 來處理 =======================
-    public override void OnEixtMap()
-    {
-        SaveExploreMap();
-    }
+    //// ======= 有關探索地圖的記錄和回復 TODO: 這些似乎可以放到 MapGen 的 Base 來處理 =======================
+    //public override void OnEixtMap()
+    //{
+    //    SaveExploreMap();
+    //}
 
-    protected void SaveExploreMap()
-    {
-        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
-        if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
-        {
-            print("SaveExploreMap: 沒有存檔資料 MapSaveData，不處理");
-            return;
-        }
+    //protected void SaveExploreMap()
+    //{
+    //    MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+    //    if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
+    //    {
+    //        print("SaveExploreMap: 沒有存檔資料 MapSaveData，不處理");
+    //        return;
+    //    }
 
-        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
-        if (theMiniMap)
-        {
-            MapSaveMazeOne mapData = (MapSaveMazeOne)mapDataBase;
-            mapData.mapMask64 = theMiniMap.EncodeMaskTexture();
-        }
-    }
+    //    MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+    //    if (theMiniMap)
+    //    {
+    //        MapSaveMazeOne mapData = (MapSaveMazeOne)mapDataBase;
+    //        mapData.mapMask64 = theMiniMap.EncodeMaskTexture();
+    //    }
+    //}
 
-    protected void LoadExploreMap()
-    {
-        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
-        if (!theMiniMap)
-        {
-            return;
-        }
-        MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
-        if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
-        {
-            print("LoadExploreMap : 沒有存檔資料，不處理");
-            return;
-        }
+    //protected void LoadExploreMap()
+    //{
+    //    MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+    //    if (!theMiniMap)
+    //    {
+    //        return;
+    //    }
+    //    MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+    //    if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
+    //    {
+    //        print("LoadExploreMap : 沒有存檔資料，不處理");
+    //        return;
+    //    }
 
-        MapSaveMazeOne mapData = (MapSaveMazeOne)mapDataBase;
-        if (mapData.mapMask64 == null || mapData.mapMask64 == "")
-        {
-            print("空的地圖探索資訊: " + mapData.mapMask64);
-            return;
-        }
+    //    MapSaveMazeOne mapData = (MapSaveMazeOne)mapDataBase;
+    //    if (mapData.mapMask64 == null || mapData.mapMask64 == "")
+    //    {
+    //        print("空的地圖探索資訊: " + mapData.mapMask64);
+    //        return;
+    //    }
 
-        print("LoadExploreMap: 找到的文字壓縮資料，Byte 總量: " + mapData.mapMask64.Length);
-        //print("找到的文字壓縮資料內容: " + mapData.mapMask64);
+    //    print("LoadExploreMap: 找到的文字壓縮資料，Byte 總量: " + mapData.mapMask64.Length);
+    //    //print("找到的文字壓縮資料內容: " + mapData.mapMask64);
 
-        theMiniMap.DecodeMaskTexture(mapData.mapMask64);
-    }
+    //    theMiniMap.DecodeMaskTexture(mapData.mapMask64);
+    //}
 
 }

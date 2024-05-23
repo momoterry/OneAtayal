@@ -14,14 +14,18 @@ public class MapEntraceData
 
 public class MapGeneratorBase : MonoBehaviour
 {
+    public string mapName;      //用來識別地圖存檔
+
     public NavMeshSurface theSurface2D;
     public MapEntraceData[] entraceList;
+
+    protected MapSaveDataBase mapDataBase;      //如果有的話，表示有地圖存檔，目前作為基底主要記錄探索地的結果
 
     protected string entranceID;
 
     public virtual void BuildAll(int buildLevel = 1) {}
 
-    public virtual void OnEixtMap() { }
+    //public virtual void OnEixtMap() { }
     public virtual void SetEntrance(string _ID) { 
         entranceID = _ID;
         //print("SetEntrance: " + _ID);
@@ -59,6 +63,56 @@ public class MapGeneratorBase : MonoBehaviour
             surface.hideEditorLogs = true;
             surface.BuildNavMesh();
         }
+    }
+
+    // ================================ 探索地圖記錄相關
+    public virtual void OnEixtMap()
+    {
+        SaveExploreMap();
+    }
+
+    protected void SaveExploreMap()
+    {
+        //MapSaveDataBase mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        if (mapDataBase == null)
+        {
+            print("SaveExploreMap: 沒有存檔資料 MapSaveData，不處理");
+            return;
+        }
+
+        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+        if (theMiniMap)
+        {
+            //MapSaveMazeOne mapData = (MapSaveMazeOne)mapDataBase;
+            mapDataBase.mapMask64 = theMiniMap.EncodeMaskTexture();
+        }
+    }
+
+    protected void LoadExploreMap()
+    {
+        mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
+        {
+            print("LoadExploreMap : 沒有存檔資料，不處理");
+            return;
+        }
+        MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;
+        if (!theMiniMap)
+        {
+            return;
+        }
+
+        //MapSaveMazeOne mapData = (MapSaveMazeOne)mapDataBase;
+        if (mapDataBase.mapMask64 == null || mapDataBase.mapMask64 == "")
+        {
+            print("空的地圖探索資訊: " + mapDataBase.mapMask64);
+            return;
+        }
+
+        print("LoadExploreMap: 找到的文字壓縮資料，Byte 總量: " + mapDataBase.mapMask64.Length);
+        //print("找到的文字壓縮資料內容: " + mapData.mapMask64);
+
+        theMiniMap.DecodeMaskTexture(mapDataBase.mapMask64);
     }
 }
 
