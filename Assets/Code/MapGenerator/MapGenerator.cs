@@ -91,7 +91,7 @@ public class MapGeneratorBase : MonoBehaviour
     protected void LoadExploreMap()
     {
         mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
-        if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
+        if (mapDataBase == null)
         {
             print("LoadExploreMap : 沒有存檔資料，不處理");
             return;
