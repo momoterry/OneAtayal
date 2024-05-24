@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MyTestMap : MapGeneratorBase
 {
+    public bool useMiniMap = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,9 @@ public class MyTestMap : MapGeneratorBase
 
     public override void BuildAll(int buildLevel = 1)
     {
-        
+        if (useMiniMap)
+        {
+
+        }
     }
 }
