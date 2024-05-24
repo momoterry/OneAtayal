@@ -66,7 +66,7 @@ public class MapGeneratorBase : MonoBehaviour
 
     virtual protected void LoadMap()
     {
-
+        mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
     }
 
     public void RebuildNavmesh()

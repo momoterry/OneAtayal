@@ -1291,6 +1291,8 @@ public class MG_MazeDungeon : MapGeneratorBase
         //MapSaveMazeDungeon mapData = mapDataBase == null ? new MapSaveMazeDungeon() : (MapSaveMazeDungeon)mapDataBase;
         //mapDataBase = mapData;
         base.SaveMap();
+        if (mapDataBase == null)
+            return;
         MapSaveMazeDungeon mapData = (MapSaveMazeDungeon)mapDataBase;
         mapData.className = "MG_MazeDungeon";
         mapData.mapName = mapName;
@@ -1342,7 +1344,8 @@ public class MG_MazeDungeon : MapGeneratorBase
 
     override protected void LoadMap()
     {
-        mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        //mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        base.LoadMap();
         if (mapDataBase == null || mapDataBase.className != "MG_MazeDungeon")
         {
             print("MG_MazeDungeon.LoadMap: 沒有存檔資料");

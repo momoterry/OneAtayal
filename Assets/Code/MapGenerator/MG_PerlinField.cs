@@ -543,6 +543,8 @@ public class MG_PerlinField : MG_PerlinNoise
         //MapSavePerlinField mapData = mapDataBase == null ? new MapSavePerlinField() : (MapSavePerlinField)mapDataBase;
         //mapDataBase = mapData;
         base.SaveMap();
+        if (mapDataBase == null)
+            return;
         MapSavePerlinField mapData = (MapSavePerlinField)mapDataBase;
         mapData.className = "MG_PerlinField";
         mapData.mapName = mapName;
@@ -577,7 +579,8 @@ public class MG_PerlinField : MG_PerlinNoise
 
     override protected void LoadMap()
     {
-        mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        //mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        base.LoadMap();
         if (mapDataBase == null || mapDataBase.className != "MG_PerlinField")
         {
             print("LoadMap: 沒有存檔資料");

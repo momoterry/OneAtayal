@@ -918,6 +918,8 @@ public class MG_MazeOneBase : MapGeneratorBase
         //MapSaveMazeOne mapData = mapDataBase == null ? new MapSaveMazeOne() : (MapSaveMazeOne)mapDataBase;
         //mapDataBase = mapData;
         base.SaveMap();
+        if (mapDataBase == null)
+            return;
         MapSaveMazeOne mapData = (MapSaveMazeOne)mapDataBase;
         mapData.className = "MG_MazeOne";
         mapData.mapName = mapName;
@@ -959,7 +961,8 @@ public class MG_MazeOneBase : MapGeneratorBase
     }
     override protected void LoadMap()
     {
-        mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        //mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
+        base.LoadMap();
         if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
         {
             print("MG_MazeOneBase.LoadMap: 沒有存檔資料");
