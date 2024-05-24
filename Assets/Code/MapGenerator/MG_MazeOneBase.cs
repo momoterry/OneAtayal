@@ -904,7 +904,7 @@ public class MG_MazeOneBase : MapGeneratorBase
     }
 
     //=========================== ¦sÅªÀÉ¬ÛÃö
-    protected void SaveMap()
+    override protected void SaveMap()
     {
         print("================= Save MO Map");
         if (mapName == null || mapName == "")
@@ -950,7 +950,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         GameSystem.GetPlayerData().SaveMap(mapName, mapData);
 
     }
-    protected void LoadMap()
+    override protected void LoadMap()
     {
         mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
         if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))

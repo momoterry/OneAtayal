@@ -532,11 +532,11 @@ public class MG_PerlinField : MG_PerlinNoise
         return o;
     }
 
-    protected void SaveMap()
+    override protected void SaveMap()
     {
         //MapSavePerlinField mapData = new MapSavePerlinField();
         MapSavePerlinField mapData = mapDataBase == null ? new MapSavePerlinField() : (MapSavePerlinField)mapDataBase;
-
+        mapDataBase = mapData;
         mapData.className = "MG_PerlinField";
         mapData.mapName = mapName;
         mapData.mapCellWidthH = mapCellWidthH;
@@ -568,7 +568,7 @@ public class MG_PerlinField : MG_PerlinNoise
 
     }
 
-    protected void LoadMap()
+    override protected void LoadMap()
     {
         mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
         if (mapDataBase == null || mapDataBase.className != "MG_PerlinField")

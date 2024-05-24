@@ -50,6 +50,16 @@ public class MapGeneratorBase : MonoBehaviour
         }
     }
 
+    virtual protected void SaveMap()
+    {
+
+    }
+
+    virtual protected void LoadMap()
+    {
+
+    }
+
     public void RebuildNavmesh()
     {
         if (theSurface2D)
