@@ -904,14 +904,21 @@ public class MG_MazeOneBase : MapGeneratorBase
     }
 
     //=========================== ¦sÅªÀÉ¬ÛÃö
+    override protected void CreateMapSaveData()
+    {
+        mapDataBase = new MapSaveMazeOne();
+    }
+
     override protected void SaveMap()
     {
-        print("================= Save MO Map");
-        if (mapName == null || mapName == "")
-            return;
+        //print("================= Save MO Map");
+        //if (mapName == null || mapName == "")
+        //    return;
 
-        MapSaveMazeOne mapData = mapDataBase == null ? new MapSaveMazeOne() : (MapSaveMazeOne)mapDataBase;
-        mapDataBase = mapData;
+        //MapSaveMazeOne mapData = mapDataBase == null ? new MapSaveMazeOne() : (MapSaveMazeOne)mapDataBase;
+        //mapDataBase = mapData;
+        base.SaveMap();
+        MapSaveMazeOne mapData = (MapSaveMazeOne)mapDataBase;
         mapData.className = "MG_MazeOne";
         mapData.mapName = mapName;
         //mapData.cellWidth = cellWidth;

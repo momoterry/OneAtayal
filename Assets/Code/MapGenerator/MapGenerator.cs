@@ -50,9 +50,18 @@ public class MapGeneratorBase : MonoBehaviour
         }
     }
 
+    virtual protected void CreateMapSaveData()
+    {
+        mapDataBase = new MapSaveDataBase();
+    }
+
     virtual protected void SaveMap()
     {
+        if (mapName == null || mapName == "")
+            return;
 
+        if (mapDataBase == null)
+            CreateMapSaveData();
     }
 
     virtual protected void LoadMap()

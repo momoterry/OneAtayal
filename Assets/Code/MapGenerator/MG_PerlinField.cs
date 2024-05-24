@@ -532,11 +532,18 @@ public class MG_PerlinField : MG_PerlinNoise
         return o;
     }
 
+    override protected void CreateMapSaveData()
+    {
+        mapDataBase = new MapSavePerlinField();
+    }
+
     override protected void SaveMap()
     {
         //MapSavePerlinField mapData = new MapSavePerlinField();
-        MapSavePerlinField mapData = mapDataBase == null ? new MapSavePerlinField() : (MapSavePerlinField)mapDataBase;
-        mapDataBase = mapData;
+        //MapSavePerlinField mapData = mapDataBase == null ? new MapSavePerlinField() : (MapSavePerlinField)mapDataBase;
+        //mapDataBase = mapData;
+        base.SaveMap();
+        MapSavePerlinField mapData = (MapSavePerlinField)mapDataBase;
         mapData.className = "MG_PerlinField";
         mapData.mapName = mapName;
         mapData.mapCellWidthH = mapCellWidthH;

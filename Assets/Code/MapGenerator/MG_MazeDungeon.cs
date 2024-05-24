@@ -1278,13 +1278,20 @@ public class MG_MazeDungeon : MapGeneratorBase
         //ProcessNormalCells();
     }
 
+    override protected void CreateMapSaveData()
+    {
+        mapDataBase = new MapSaveMazeDungeon();
+    }
+
     override protected void SaveMap()
     {
         print("================= SaveMap");
-        if (mapName == null || mapName == "")
-            return;
-        MapSaveMazeDungeon mapData = mapDataBase == null ? new MapSaveMazeDungeon() : (MapSaveMazeDungeon)mapDataBase;
-        mapDataBase = mapData;
+        //if (mapName == null || mapName == "")
+        //    return;
+        //MapSaveMazeDungeon mapData = mapDataBase == null ? new MapSaveMazeDungeon() : (MapSaveMazeDungeon)mapDataBase;
+        //mapDataBase = mapData;
+        base.SaveMap();
+        MapSaveMazeDungeon mapData = (MapSaveMazeDungeon)mapDataBase;
         mapData.className = "MG_MazeDungeon";
         mapData.mapName = mapName;
         mapData.cellWidth = cellWidth;
