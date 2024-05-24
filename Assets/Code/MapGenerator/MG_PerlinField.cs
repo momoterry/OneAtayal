@@ -394,10 +394,10 @@ public class MG_PerlinField : MG_PerlinNoise
         }
 
         //載入已探索的資訊
-        LoadExploreMap();
+        //LoadExploreMap();
 
         //地圖存檔
-        SaveMap();
+        //SaveMap();
 
     }
 

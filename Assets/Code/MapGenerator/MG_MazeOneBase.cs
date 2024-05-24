@@ -298,10 +298,10 @@ public class MG_MazeOneBase : MapGeneratorBase
         BuildGameplay();
 
         //載入已探索的資訊
-        LoadExploreMap();
+        //LoadExploreMap();
 
         //地圖存檔
-        SaveMap();
+        //SaveMap();
     }
 
     virtual protected void PresetByContinuousBattle()

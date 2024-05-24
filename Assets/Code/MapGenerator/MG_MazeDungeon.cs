@@ -252,10 +252,10 @@ public class MG_MazeDungeon : MapGeneratorBase
         }
 
         //載入已探索的資訊
-        LoadExploreMap();
+        //LoadExploreMap();
 
         //地圖存檔
-        SaveMap();
+        //SaveMap();
     }
 
     public Color MyGetColorCB(int value)

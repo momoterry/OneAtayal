@@ -320,6 +320,8 @@ public class MiniMap : MonoBehaviour
 
     public string EncodeMaskTexture()
     {
+        if (maskTexture == null)
+            return null;
         // 獲取Texture2D的所有像素
         Color[] pixels = maskTexture.GetPixels();
 

@@ -399,6 +399,7 @@ public class BattleSystem : MonoBehaviour
         //if (clearGate)
         //    clearGate.SetActive(false);
         theMG.BuildAll(currLevel);
+        theMG.PostBuild();
 
         // ================ 戰鬥資料初始化 ====================
         if (level == 1)

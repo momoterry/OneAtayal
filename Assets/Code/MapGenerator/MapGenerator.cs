@@ -25,6 +25,15 @@ public class MapGeneratorBase : MonoBehaviour
 
     public virtual void BuildAll(int buildLevel = 1) {}
 
+    public virtual void PostBuild()     //處理載入探索地圖等
+    {
+        if (mapName != null && mapName != "")
+        {
+            LoadExploreMap();
+            SaveMap();
+        }
+    }
+
     //public virtual void OnEixtMap() { }
     public virtual void SetEntrance(string _ID) { 
         entranceID = _ID;
