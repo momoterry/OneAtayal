@@ -25,6 +25,7 @@ public class MagicBookEquipInfo
     public ITEM_QUALITY quality;
     public string[] skillList;
     public BookEquipEnhancerBase enhancer;
+    public Sprite subIcon = null;
 }
 
 public class BookEquipManager : MonoBehaviour
@@ -105,6 +106,7 @@ public class BookEquipManager : MonoBehaviour
                 wInfo.skillList[0] = dInfo.dollID;
                 wInfo.nameBeforeEnhance = dInfo.dollName + "®Ñ";
                 wInfo.enhancer = baseEnhancer;
+                wInfo.subIcon = dInfo.icon;
                 magicBookMap.Add(wInfo.ID, wInfo);
             }
             oneTimeInit = true;

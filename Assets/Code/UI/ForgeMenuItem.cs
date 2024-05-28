@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ForgeMenuItem : MonoBehaviour
 {
     public Image resultIcon;
+    public Image resultIconSub;
     public Text resultText;
     public Text costText;
     public GameObject matItemRef;
@@ -47,6 +48,10 @@ public class ForgeMenuItem : MonoBehaviour
             {
                 resultIcon.color = GameDef.GetQaulityColor(magic.quality);
                 resultText.text = magic.nameBeforeEnhance;
+                if (magic.subIcon)
+                {
+                    resultIconSub.sprite = magic.subIcon;
+                }
             }
         }
         //string dollID = formula.outputID;
