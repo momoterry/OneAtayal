@@ -25,7 +25,7 @@ public class MapGeneratorBase : MonoBehaviour
 
     public virtual void BuildAll(int buildLevel = 1) {}
 
-    public virtual void PostBuild()     //矪瞶更贝瓜单
+    public virtual void PostBuildAll()     //矪瞶更贝瓜单
     {
         if (mapName != null && mapName != "")
         {
