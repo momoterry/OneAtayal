@@ -52,12 +52,16 @@ public class TreasureBox : MonoBehaviour
         AddSpecialRewardItem("Mat_BookBlue");
         //AddSpecialRewardItem("Mat_DollFire");
         //AddSpecialRewardItem("Mat_DollFire");
+
         AddSpecialRewardItem("Mat_BlackCrystal");
         AddSpecialRewardItem("Mat_YellowCrystal");
         AddSpecialRewardItem("Mat_WhiteCrystal");
         AddSpecialRewardItem("Mat_BlueCrystal");
         AddSpecialRewardItem("Mat_GreenCrystal");
         AddSpecialRewardItem("Mat_PurpleCrystal");
+        AddSpecialRewardItem("Mat_RedCrystal");
+        AddSpecialRewardItem("Mat_OrangeCrystal");
+
 
     }
 
