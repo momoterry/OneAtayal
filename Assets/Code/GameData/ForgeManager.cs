@@ -34,9 +34,22 @@ public enum FORGE_RESULT
     ERROR,
 }
 
+//====================== CSV 用
+[System.Serializable]
+public class ForgeFormulaCSVData
+{
+    public string ID;
+    public int Money;
+    public string Mat1;
+    public int Num1;
+    public string Mat2;
+    public int Num2;
+}
+
 public class ForgeManager : MonoBehaviour
 {
     public TextAsset[] formulaJsons;
+    public TextAsset whiteBookFormulaCSV;
     protected List<ForgeFormula> formulaList = new List<ForgeFormula>();
 
     static protected ForgeManager instance;
@@ -48,17 +61,32 @@ public class ForgeManager : MonoBehaviour
             print("ERROR !! 超過一份 ForgeManager 存在 ");
         instance = this;
 
-        //ForgeFormulaJsonData jTest = new ForgeFormulaJsonData();
-        //jTest.formulas = new ForgeFormula[1];
-        //jTest.formulas[0] = new ForgeFormula();
-        //jTest.formulas[0].outputID = "TestDollItem";
-        //jTest.formulas[0].outputType = ITEM_TYPE.DOLL;
-        //jTest.formulas[0].inputs = new ForgeMaterialInfo[1];
-        //jTest.formulas[0].inputs[0] = new ForgeMaterialInfo();
-        //jTest.formulas[0].inputs[0].matID = "TestMatOne";
-        //jTest.formulas[0].inputs[0].num = 3;
-        //print("測試 Forge Json");
-        //print(JsonUtility.ToJson(jTest));
+        if (whiteBookFormulaCSV)
+        {
+            ForgeFormulaCSVData[] wfData = CSVReader.FromCSV<ForgeFormulaCSVData>(whiteBookFormulaCSV.text);
+            foreach (ForgeFormulaCSVData cFormula in wfData)
+            {
+                ForgeFormula f = new ForgeFormula();
+                f.outputID = cFormula.ID;
+                f.requireMoney = cFormula.Money;
+                f.outputType = ITEM_TYPE.BOOKEQUIP;
+                int iNum = 1;
+                if (cFormula.Mat2 != null && cFormula.Mat2 != "")
+                    iNum++;
+                f.inputs = new ForgeMaterialInfo[iNum];
+                f.inputs[0] = new ForgeMaterialInfo();
+                f.inputs[0].matID = cFormula.Mat1;
+                f.inputs[0].num = cFormula.Num1;
+                if (iNum > 1)
+                {
+                    f.inputs[1] = new ForgeMaterialInfo();
+                    f.inputs[1].matID = cFormula.Mat2;
+                    f.inputs[1].num = cFormula.Num2;
+                }
+                formulaList.Add(f);
+                //print("Formula: " + f.outputID + " total = " + formulaList.Count);
+            }
+        }
 
         for (int i = 0; i < formulaJsons.Length; i++)
         {
@@ -76,6 +104,7 @@ public class ForgeManager : MonoBehaviour
                 //}
             }
         }
+
     }
 
     public List<ForgeFormula> GetValidFormulas()

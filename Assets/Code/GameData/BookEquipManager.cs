@@ -84,6 +84,7 @@ public class BookEquipManager : MonoBehaviour
                 SkillDollSummonEx sEx = o.AddComponent<SkillDollSummonEx>();
                 sEx.dollID = dInfo.dollID;
                 sEx.battlePointsCost = dInfo.summonCost;
+                //print(sEx.dollID + " cost: " + sEx.battlePointsCost);
                 sEx.coolDown = 0;
 
                 o.SetActive(true);   //確保 SkillDollSummonEx 參數設定完才 Awake
