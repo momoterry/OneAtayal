@@ -16,7 +16,7 @@ public class BookEquipSaveAll   // 存檔資料
 //    public int battlePointsCost = 1;
 //}
 
-//帶有隨機效果的 BookEquip 定義
+//帶有隨機效果的 BookEquip 定義 (2024/0528 新增，白書也可以用同樣方式定義，只是沒有 skillList)
 [System.Serializable]
 public class MagicBookEquipInfo
 {
@@ -31,15 +31,8 @@ public class BookEquipManager : MonoBehaviour
 {
     public const int MAX_BOOKEQUIP = 3;
     public MagicBookEquipInfo[] magicBookDef;
-    //public BookDollSummonDef[] dollSummonSkillRefDef;
 
-    //[System.Serializable]
-    //public class SkillMappingItem
-    //{
-    //    public string ID;
-    //    public SkillDollSummonEx skillRef;
-    //}
-    //public SkillMappingItem[] skillMapItems;
+    public string WHITEBOOK_ID_PREFIX = "WhiteBook_";
 
     static BookEquipManager instance;
     static public BookEquipManager GetInstance() { return instance; }
@@ -98,6 +91,21 @@ public class BookEquipManager : MonoBehaviour
                 skillMap.Add(dInfo.dollID, sEx);
             }
 
+            //加入白書
+            GameObject baseEnhanceObj = new GameObject("BaseEnhance");
+            baseEnhanceObj.transform.parent = transform;
+            BookEquipEnhancerBase baseEnhancer = baseEnhanceObj.AddComponent<BookEquipEnhancerBase>();
+            foreach (DollInfo dInfo in dInfos)
+            {
+                MagicBookEquipInfo wInfo = new MagicBookEquipInfo();
+                wInfo.ID = WHITEBOOK_ID_PREFIX + dInfo.dollID;
+                wInfo.quality = ITEM_QUALITY.COMMON;
+                wInfo.skillList = new string[1];
+                wInfo.skillList[0] = dInfo.dollID;
+                wInfo.nameBeforeEnhance = dInfo.dollName + "書";
+                wInfo.enhancer = baseEnhancer;
+                magicBookMap.Add(wInfo.ID, wInfo);
+            }
             oneTimeInit = true;
         }
     }

@@ -7,7 +7,12 @@ using UnityEngine;
 //=================================================
 public class BookEquipEnhancerBase : MonoBehaviour
 {
-    virtual public void DoEnhance(ref BookEquipSave rEquip) { }
+    virtual public void DoEnhance(ref BookEquipSave rEquip) 
+    {
+        SkillDollSummonEx skill = BookEquipManager.GetInstance().GetSkillByID(rEquip.skillID);
+        DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(skill.dollID);
+        rEquip.bookName = dInfo.dollName + "®Ñ";
+    }
 }
 
 //=================================================

@@ -1,15 +1,24 @@
 {
-	"formulas":
-	[
+	"formulas": [
 		{
-			"outputID":"MagicBookBasic",
-			"outputType":2,
-			"requireMoney":500,
-			"inputs":
-			[
+			"outputID": "WhiteBook_DollAce",
+			"outputType": 2,
+			"requireMoney": 1000,
+			"inputs": [
 				{
-					"matID":"Mat_BookBlue",
-					"num":1
+					"matID": "Mat_YellowCrystal",
+					"num": 1
+				}
+			]
+		},
+		{
+			"outputID": "MagicBookBasic",
+			"outputType": 2,
+			"requireMoney": 500,
+			"inputs": [
+				{
+					"matID": "Mat_BookBlue",
+					"num": 1
 				}
 			]
 		},
