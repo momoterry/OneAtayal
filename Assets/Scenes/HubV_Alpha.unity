@@ -59153,9 +59153,10 @@ MonoBehaviour:
     mazeDir: 0
     finishAtDeepest: 0
     gameManagerRef: {fileID: 5053008012228601930, guid: 1243c4693ce5eea4789e9dc5bf649601, type: 3}
-    gameDiffcultRateMin: 1
-    gameDiffcultRateMax: 2
-    gameEnemyLV: 1
+    gameManagerData:
+      difficultRateMin: 1
+      difficultRateMax: 2
+      enmeyLV: 1
     initGameplayRef: {fileID: 0}
   - scene: MO_Cave
     name: "\u65B0\u5730\u6D1E\u4E8C"
@@ -59166,9 +59167,10 @@ MonoBehaviour:
     mazeDir: 2
     finishAtDeepest: 0
     gameManagerRef: {fileID: 5053008012228601930, guid: 1243c4693ce5eea4789e9dc5bf649601, type: 3}
-    gameDiffcultRateMin: 1.7
-    gameDiffcultRateMax: 3
-    gameEnemyLV: 1
+    gameManagerData:
+      difficultRateMin: 1
+      difficultRateMax: 2
+      enmeyLV: 2
     initGameplayRef: {fileID: 0}
 --- !u!114 &1932744872
 MonoBehaviour:

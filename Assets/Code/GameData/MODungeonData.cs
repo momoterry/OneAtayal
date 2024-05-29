@@ -26,9 +26,13 @@ public class MODungeonData
         data.puzzleHeight = stage.PuzzleHeight;
         data.pathRate = stage.PathRate;
         data.name = "¦a«° " + stage.Level;
-        data.gameDiffcultRateMin = stage.DifficultStart;
-        data.gameDiffcultRateMax = stage.DifficultEnd;
-        data.gameEnemyLV = stage.EnemyLV;
+        //data.gameDiffcultRateMin = stage.DifficultStart;
+        //data.gameDiffcultRateMax = stage.DifficultEnd;
+        //data.gameEnemyLV = stage.EnemyLV;
+        data.gameManagerData = new GameManagerDataBase();
+        data.gameManagerData.difficultRateMin = stage.DifficultStart;
+        data.gameManagerData.difficultRateMax = stage.DifficultEnd;
+        data.gameManagerData.enmeyLV = stage.EnemyLV;
         //Debug.Log("DifficultStart: " + stage.DifficultStart + " DifficultEnd: " + stage.DifficultEnd);
         return data;
     }

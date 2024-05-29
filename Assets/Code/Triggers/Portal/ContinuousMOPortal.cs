@@ -12,9 +12,10 @@ public class ContinuousMOData : ContinuousBattleDataBase
     public bool finishAtDeepest;
 
     public MazeGameManagerBase gameManagerRef;
-    public float gameDiffcultRateMin = 1.0f;
-    public float gameDiffcultRateMax = 2.0f;
-    public int gameEnemyLV = 1;
+    public GameManagerDataBase gameManagerData;
+    //public float gameDiffcultRateMin = 1.0f;
+    //public float gameDiffcultRateMax = 2.0f;
+    //public int gameEnemyLV = 1;
 
     //public DungeonEnemyManagerBase dungeonEnemyManager;     //如果有指定，下面的 normalEnemy 資訊無用
     //public int normalEnemyNum;
@@ -25,6 +26,15 @@ public class ContinuousMOData : ContinuousBattleDataBase
     //public GameObject[] exploreRewards;
     public GameObject initGameplayRef;
     //public bool portalAfterFirstRoomGamplay;
+}
+
+//放到 ContinuousMOData 中的 Gameplay 參數定義基底，可以被用來擴充以支援不同的 Gameplay 類型
+[System.Serializable]
+public class GameManagerDataBase
+{
+    public float difficultRateMin = 1.0f;   //最小難度率，用來調整敵人數量
+    public float difficultRateMax = 2.0f;   //最大難度率，用來調整敵人數量
+    public int enmeyLV = 1;
 }
 
 public class ContinuousMOPortal : ScenePortal
