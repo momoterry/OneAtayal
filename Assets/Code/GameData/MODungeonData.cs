@@ -59,6 +59,10 @@ public class MODungeonStageData
     public float DifficultStart;
     public float DifficultEnd;
     public int EnemyLV;
+
+    //¼úÀyªº³¡¥÷
+    public string Reward1;
+    public float RewardNum1;
 }
 
 

@@ -46,6 +46,7 @@ public class DungeonData : MonoBehaviour
                 else
                     moDungeon = allMoDungeons[moStages[t].DungeonID];
                 moDungeon.stageList.Add(moStages[t]);
+                //print("reward: " + moStages[t].Reward1);
             }
         }
 
