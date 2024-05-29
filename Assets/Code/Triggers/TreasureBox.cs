@@ -61,6 +61,9 @@ public class TreasureBox : MonoBehaviour
         AddSpecialRewardItem("Mat_PurpleCrystal");
         AddSpecialRewardItem("Mat_RedCrystal");
         AddSpecialRewardItem("Mat_OrangeCrystal");
+        AddSpecialRewardItem("Mat_OrangeCrystal");
+        AddSpecialRewardItem("Mat_OrangeCrystal");
+        AddSpecialRewardItem("Mat_OrangeCrystal");
 
 
     }
