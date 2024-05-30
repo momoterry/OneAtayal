@@ -22,6 +22,13 @@ public class MazeGameManagerBase:MonoBehaviour
     public float difficultRateMax = 2.0f;   //最大難度率，用來調整敵人數量
     public int enmeyLV = 1;                 //敵人等級，目前只有針對 RoomEnemyGroup 中指定了 enemyID 的才有作用
 
+    virtual public void Init(GameManagerDataBase data)
+    {
+        difficultRateMin = data.difficultRateMin;
+        difficultRateMax = data.difficultRateMax;
+        enmeyLV = data.enmeyLV;
+    }
+
     virtual public RoomInfo AddRoom(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
     {
         RoomInfo roomInfo = new RoomInfo();
