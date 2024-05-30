@@ -19,7 +19,8 @@ public class TreasureBox : MonoBehaviour
     public float timeToFly = 0.25f;
     public Vector2 spawnAreaMax = new Vector2(6, 6);
     public Vector2 spawnAreaIn = new Vector2(2, 2);
-
+    //[System.NonSerialized]
+    public string[] fixSpecialRewards;
     protected List<string> specialRewardItemIDs = new List<string>();
 
     protected float waitTime;
@@ -45,25 +46,31 @@ public class TreasureBox : MonoBehaviour
 
     void Start()
     {
+        //print("TreatureBox Start");
         nextPhase = Phase.WAIT;
 
+        foreach (string item in fixSpecialRewards)
+        {
+            AddSpecialRewardItem(item);
+            //print("TreatureBox Start: AddSpecialRewardItem => " + item);
+        }
         //TEST
-        AddSpecialRewardItem("Mat_BookBlue");
-        AddSpecialRewardItem("Mat_BookBlue");
-        //AddSpecialRewardItem("Mat_DollFire");
-        //AddSpecialRewardItem("Mat_DollFire");
+        //AddSpecialRewardItem("Mat_BookBlue");
+        //AddSpecialRewardItem("Mat_BookBlue");
+        ////AddSpecialRewardItem("Mat_DollFire");
+        ////AddSpecialRewardItem("Mat_DollFire");
 
-        AddSpecialRewardItem("Mat_BlackCrystal");
-        AddSpecialRewardItem("Mat_YellowCrystal");
-        AddSpecialRewardItem("Mat_WhiteCrystal");
-        AddSpecialRewardItem("Mat_BlueCrystal");
-        AddSpecialRewardItem("Mat_GreenCrystal");
-        AddSpecialRewardItem("Mat_PurpleCrystal");
-        AddSpecialRewardItem("Mat_RedCrystal");
-        AddSpecialRewardItem("Mat_OrangeCrystal");
-        AddSpecialRewardItem("Mat_OrangeCrystal");
-        AddSpecialRewardItem("Mat_OrangeCrystal");
-        AddSpecialRewardItem("Mat_OrangeCrystal");
+        //AddSpecialRewardItem("Mat_BlackCrystal");
+        //AddSpecialRewardItem("Mat_YellowCrystal");
+        //AddSpecialRewardItem("Mat_WhiteCrystal");
+        //AddSpecialRewardItem("Mat_BlueCrystal");
+        //AddSpecialRewardItem("Mat_GreenCrystal");
+        //AddSpecialRewardItem("Mat_PurpleCrystal");
+        //AddSpecialRewardItem("Mat_RedCrystal");
+        //AddSpecialRewardItem("Mat_OrangeCrystal");
+        //AddSpecialRewardItem("Mat_OrangeCrystal");
+        //AddSpecialRewardItem("Mat_OrangeCrystal");
+        //AddSpecialRewardItem("Mat_OrangeCrystal");
 
 
     }

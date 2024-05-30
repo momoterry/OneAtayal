@@ -33,6 +33,8 @@ public class MODungeonData
         data.gameManagerData.difficultRateMin = stage.DifficultStart;
         data.gameManagerData.difficultRateMax = stage.DifficultEnd;
         data.gameManagerData.enmeyLV = stage.EnemyLV;
+        data.gameManagerData.specialReward = stage.Reward1;
+        data.gameManagerData.specialRewardNum = stage.RewardNum1;
         //Debug.Log("DifficultStart: " + stage.DifficultStart + " DifficultEnd: " + stage.DifficultEnd);
         return data;
     }

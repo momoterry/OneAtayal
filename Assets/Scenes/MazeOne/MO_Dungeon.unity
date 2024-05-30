@@ -831,6 +831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultRateMin: 1
   difficultRateMax: 1
+  enmeyLV: 1
   defaultMainGames:
   - game: {fileID: 1571791340}
     ratioPercent: 100
@@ -843,6 +844,7 @@ MonoBehaviour:
   - game: {fileID: 772199447}
     ratioPercent: 100
   fixBranchEndGames: []
+  treasureBoxRef: {fileID: 7337370386353562539, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
 --- !u!4 &618297302
 Transform:
   m_ObjectHideFlags: 0
@@ -924,6 +926,7 @@ MonoBehaviour:
   eInfo:
     enemys:
     - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
+    enemyIDs: []
     totalNumMin: 2
     totalNumMax: 2
   isPath: 1
@@ -1126,6 +1129,7 @@ MonoBehaviour:
   eInfo:
     enemys:
     - {fileID: 7208015447484052683, guid: 7f2493794fab31f4ebf1a6a680df1aab, type: 3}
+    enemyIDs: []
     totalNumMin: 3.7
     totalNumMax: 3.7
   isPath: 0
@@ -1872,11 +1876,13 @@ MonoBehaviour:
   eInfos1:
     enemys:
     - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+    enemyIDs: []
     totalNumMin: 2
     totalNumMax: 5
   eInfos2:
     enemys:
     - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+    enemyIDs: []
     totalNumMin: 3
     totalNumMax: 6
 --- !u!1 &1664708984
@@ -2196,6 +2202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45571ea6d83cb849b03748b37e0b398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapName: 
   theSurface2D: {fileID: 1252285827}
   entraceList: []
   puzzleWidth: 5

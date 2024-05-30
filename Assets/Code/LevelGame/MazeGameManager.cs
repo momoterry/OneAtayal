@@ -92,10 +92,46 @@ public class MazeGameManager : MazeGameManagerBase
     public NormalGameInfo[] defaultBranchGames;
     public FixBranchEndGameInfo[] fixBranchEndGames;
 
+    public GameObject treasureBoxRef;
+
     protected List<RoomInfo> mainRoomList = new List<RoomInfo>();
     protected List<RoomInfo> normalRoomList = new List<RoomInfo>();
     protected List<RoomInfo> branchEndRoomList = new List<RoomInfo>();
     protected List<RoomInfo> pathList = new List<RoomInfo>();
+
+    protected List<RoomGameplayBase> allBranchGames = new List<RoomGameplayBase>();
+
+    public override void Init(GameManagerDataBase data)
+    {
+        base.Init(data);
+
+        //有關寶箱配置
+        if (data.specialReward != null && data.specialReward != "" && treasureBoxRef)
+        {
+            GameObject rgObj = new GameObject("RewardRoomGameplay");
+            rgObj.transform.parent = this.transform;
+            RoomGameplay rg = rgObj.AddComponent<RoomGameplay>();
+            GameObject tObjRef = BattleSystem.SpawnGameObj(treasureBoxRef, rgObj.transform.position);
+            tObjRef.SetActive(false);
+            tObjRef.transform.parent = rgObj.transform;
+            TreasureBox tBox = tObjRef.GetComponent<TreasureBox>();
+            if (tBox != null)
+            {
+                //tBox.AddSpecialRewardItem(data.specialReward);
+                //print("加入了寶物: " + data.specialReward);
+
+                //TODO: 這裡的做法太暴力
+                tBox.fixSpecialRewards = new string[1];
+                tBox.fixSpecialRewards[0] = data.specialReward;
+                //print("Add Treasure....");
+            }
+            rg.centerGame = tObjRef;
+            int count = OneUtility.FloatToRandomInt(data.specialRewardNum);
+            for (int i = 0; i < count; i++)
+                allBranchGames.Add(rg);
+            //print("加入了寶箱數: " + count);
+        }
+    }
 
     override public RoomInfo AddRoom(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
     {
@@ -195,9 +231,14 @@ public class MazeGameManager : MazeGameManagerBase
             mIndex++;
         }
 
-        if (fixBranchEndGames.Length > branchEndRoomList.Count)
+        for (int i=0; i<fixBranchEndGames.Length; i++)
         {
-            int iBranchToAdd = fixBranchEndGames.Length - branchEndRoomList.Count;
+            allBranchGames.Add(fixBranchEndGames[i].game);
+        }
+
+        if (allBranchGames.Count > branchEndRoomList.Count)
+        {
+            int iBranchToAdd = allBranchGames.Count - branchEndRoomList.Count;
             print("branchEndRoomList 分支端點數量不足!! 需要補足: " + iBranchToAdd);
             while (iBranchToAdd > 0)
             {
@@ -225,16 +266,16 @@ public class MazeGameManager : MazeGameManagerBase
 
         OneUtility.Shuffle<RoomInfo>(branchEndRoomList);
         int iCount = 0;
-        foreach (FixBranchEndGameInfo fg in fixBranchEndGames)
+        foreach (RoomGameplayBase g in allBranchGames)
         {
             if (iCount >= branchEndRoomList.Count)
             {
-                print("ERROR: branchEndRoomList 分支端點數量不足!! 需要 " + fixBranchEndGames.Length);
+                print("ERROR: branchEndRoomList 分支端點數量不足!! 需要 " + allBranchGames.Count);
                 break;
             }
-            if (fg.game)
+            if (g)
             {
-                fg.game.Build(branchEndRoomList[iCount]);
+                g.Build(branchEndRoomList[iCount]);
             }
             iCount++;
         }

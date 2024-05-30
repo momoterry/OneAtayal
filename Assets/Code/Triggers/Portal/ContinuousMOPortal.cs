@@ -35,6 +35,8 @@ public class GameManagerDataBase
     public float difficultRateMin = 1.0f;   //最小難度率，用來調整敵人數量
     public float difficultRateMax = 2.0f;   //最大難度率，用來調整敵人數量
     public int enmeyLV = 1;
+    public string specialReward;
+    public float specialRewardNum;
 }
 
 public class ContinuousMOPortal : ScenePortal
