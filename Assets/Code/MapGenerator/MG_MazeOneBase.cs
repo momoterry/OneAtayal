@@ -757,10 +757,11 @@ public class MG_MazeOneBase : MapGeneratorBase
                     if (cell.value == CELL.NORMAL)
                     {
                         float mainRatio = (float)cell.mainDeep / (float)maxMainDeep;
-                        if (cell.isPath)
-                            gameManager.AddPath(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
-                        else
-                            gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
+                        //if (cell.isPath)
+                        //    gameManager.AddPath(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
+                        //else
+                        //    gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
+                        gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
                     }
                 }
             }

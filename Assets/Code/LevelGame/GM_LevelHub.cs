@@ -12,6 +12,9 @@ public class GM_LevelHub : MazeGameManagerBase
 
     public override RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight)
     {
+        if (cell.isPath)
+            return null;
+
         RoomInfo roomInfo =  base.AddRoom(vCenter, width, height, cell, mainRatio, doorWidth, doorHeight);
 
         if (cell.isMain)

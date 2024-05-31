@@ -43,20 +43,20 @@ public class MazeGameManagerBase:MonoBehaviour
         roomInfo.enemyLV = enmeyLV;
         return roomInfo;
     }
-    virtual public RoomInfo AddPath(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 
-    {
-        RoomInfo roomInfo = new RoomInfo();
-        roomInfo.vCenter = vCenter;
-        roomInfo.width = width;
-        roomInfo.height = height;
-        roomInfo.doorWidth = doorWidth;
-        roomInfo.doorHeight = doorHeight;
-        roomInfo.mainRatio = mainRatio;
-        roomInfo.cell = cell;
-        roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
-        roomInfo.enemyLV = enmeyLV;
-        return roomInfo;
-    }
+    //virtual public RoomInfo AddPath(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 
+    //{
+    //    RoomInfo roomInfo = new RoomInfo();
+    //    roomInfo.vCenter = vCenter;
+    //    roomInfo.width = width;
+    //    roomInfo.height = height;
+    //    roomInfo.doorWidth = doorWidth;
+    //    roomInfo.doorHeight = doorHeight;
+    //    roomInfo.mainRatio = mainRatio;
+    //    roomInfo.cell = cell;
+    //    roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
+    //    roomInfo.enemyLV = enmeyLV;
+    //    return roomInfo;
+    //}
 
     virtual public void BuildAll() {}
 }
@@ -135,17 +135,14 @@ public class MazeGameManager : MazeGameManagerBase
 
     override public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 
     {
-        //RoomInfo roomInfo = new RoomInfo();
-        //roomInfo.vCenter = vCenter;
-        //roomInfo.width = width;
-        //roomInfo.height = height;
-        //roomInfo.doorWidth = doorWidth;
-        //roomInfo.doorHeight = doorHeight;
-        //roomInfo.mainRatio = mainRatio;
-        //roomInfo.cell = cell;
-        //roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
-        //roomInfo.enemyLV = enmeyLV;
         RoomInfo roomInfo = base.AddRoom(vCenter, width, height, cell, mainRatio, doorWidth, doorHeight);
+
+        if (cell.isPath)
+        {
+            pathList.Add(roomInfo);
+            return roomInfo;
+        }
+
         if (cell.isMain)
             mainRoomList.Add(roomInfo);
         else
@@ -167,22 +164,23 @@ public class MazeGameManager : MazeGameManagerBase
         return roomInfo;
     }
 
-    override public RoomInfo AddPath(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight)
-    {
-        RoomInfo roomInfo = new RoomInfo();
-        roomInfo.vCenter = vCenter;
-        roomInfo.width = width;
-        roomInfo.height = height;
-        roomInfo.doorWidth = doorWidth;
-        roomInfo.doorHeight = doorHeight;
-        roomInfo.mainRatio = mainRatio;
-        roomInfo.cell = cell;
-        roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
-        roomInfo.enemyLV = enmeyLV;
+    //public RoomInfo AddPath(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight)
+    //{
+    //    //RoomInfo roomInfo = new RoomInfo();
+    //    //roomInfo.vCenter = vCenter;
+    //    //roomInfo.width = width;
+    //    //roomInfo.height = height;
+    //    //roomInfo.doorWidth = doorWidth;
+    //    //roomInfo.doorHeight = doorHeight;
+    //    //roomInfo.mainRatio = mainRatio;
+    //    //roomInfo.cell = cell;
+    //    //roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
+    //    //roomInfo.enemyLV = enmeyLV;
+    //    RoomInfo roomInfo = base.AddRoom(vCenter, width, height, cell, mainRatio, doorWidth, doorHeight);
 
-        pathList.Add(roomInfo);
-        return roomInfo;
-    }
+    //    pathList.Add(roomInfo);
+    //    return roomInfo;
+    //}
 
 
     protected int CompareMainRoom(RoomInfo roomA, RoomInfo roomB)
