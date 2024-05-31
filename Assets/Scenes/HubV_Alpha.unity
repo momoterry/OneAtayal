@@ -43385,6 +43385,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.data[0]
+      value: Mat_BlackCrystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.data[1]
+      value: Mat_YellowCrystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.data[2]
+      value: Mat_WhiteCrystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.data[3]
+      value: Mat_BlueCrystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.data[4]
+      value: Mat_GreenCrystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.data[5]
+      value: Mat_RedCrystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.data[6]
+      value: Mat_OrangeCrystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.data[7]
+      value: Mat_PurpleCrystal
+      objectReference: {fileID: 0}
     - target: {fileID: 2590200662357474199, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -59157,6 +59193,8 @@ MonoBehaviour:
       difficultRateMin: 1
       difficultRateMax: 2
       enmeyLV: 1
+      specialReward: 
+      specialRewardNum: 0
     initGameplayRef: {fileID: 0}
   - scene: MO_Cave
     name: "\u65B0\u5730\u6D1E\u4E8C"
@@ -59171,6 +59209,8 @@ MonoBehaviour:
       difficultRateMin: 1
       difficultRateMax: 2
       enmeyLV: 2
+      specialReward: 
+      specialRewardNum: 0
     initGameplayRef: {fileID: 0}
 --- !u!114 &1932744872
 MonoBehaviour:
