@@ -10,11 +10,11 @@ public class GM_LevelHub : MazeGameManagerBase
     protected List<RoomInfo> branchList = new List<RoomInfo>();
 
 
-    public override RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, bool isMain, float mainRatio, float doorWidth, float doorHeight)
+    public override RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight)
     {
-        RoomInfo roomInfo =  base.AddRoom(vCenter, width, height, cell, isMain, mainRatio, doorWidth, doorHeight);
+        RoomInfo roomInfo =  base.AddRoom(vCenter, width, height, cell, mainRatio, doorWidth, doorHeight);
 
-        if (isMain)
+        if (cell.isMain)
             mainList.Add(roomInfo);
         else
         {
