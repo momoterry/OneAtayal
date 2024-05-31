@@ -9,7 +9,7 @@ public class MG_MazeOneBT : MG_MazeOneBase
     public bool isDebug = true;
 
     protected OneUtility.DisjointSetUnion puzzleDSU = new OneUtility.DisjointSetUnion();
-    protected List<cellInfo> cellList = new List<cellInfo>();
+    protected List<CELL> cellList = new List<CELL>();
     protected int startDSU = 0;
     override protected void CreatMazeMap()
     {
@@ -29,7 +29,7 @@ public class MG_MazeOneBT : MG_MazeOneBase
 
         //CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);
         //int deepMax = -1;
-        //cellInfo mostDeepCell = null;
+        //CELL mostDeepCell = null;
         //for (int x=0; x<puzzleWidth; x++)
         //{
         //    for (int y=0; y<puzzleHeight; y++)
@@ -56,28 +56,28 @@ public class MG_MazeOneBT : MG_MazeOneBase
     }
 
 
-    protected cellInfo TryConnectRandomCell(cellInfo cell)
+    protected CELL TryConnectRandomCell(CELL cell)
     {
         List<DIRECTION> choices = new List<DIRECTION>();
-        if (!cell.L && cell.x > 0 && puzzleMap[cell.x-1][cell.y].value != cellInfo.INVALID)
+        if (!cell.L && cell.x > 0 && puzzleMap[cell.x-1][cell.y].value != CELL.INVALID)
         {
             if (puzzleDSU.Find(GetCellID(cell.x - 1, cell.y)) != startDSU)
                 choices.Add(DIRECTION.L);
 
         }
-        if (!cell.D && cell.y > 0 && puzzleMap[cell.x][cell.y - 1].value != cellInfo.INVALID)
+        if (!cell.D && cell.y > 0 && puzzleMap[cell.x][cell.y - 1].value != CELL.INVALID)
         {
             if (puzzleDSU.Find(GetCellID(cell.x, cell.y - 1)) != startDSU)
                 choices.Add(DIRECTION.D);
 
         }
-        if (!cell.R && cell.x < puzzleWidth - 1 && puzzleMap[cell.x + 1][cell.y].value != cellInfo.INVALID)
+        if (!cell.R && cell.x < puzzleWidth - 1 && puzzleMap[cell.x + 1][cell.y].value != CELL.INVALID)
         {
             if (puzzleDSU.Find(GetCellID(cell.x + 1, cell.y)) != startDSU)
                 choices.Add(DIRECTION.R);
 
         }
-        if (!cell.U && cell.y < puzzleHeight - 1 && puzzleMap[cell.x][cell.y + 1].value != cellInfo.INVALID)
+        if (!cell.U && cell.y < puzzleHeight - 1 && puzzleMap[cell.x][cell.y + 1].value != CELL.INVALID)
         {
             if (puzzleDSU.Find(GetCellID(cell.x, cell.y + 1)) != startDSU)
                 choices.Add(DIRECTION.U);
@@ -90,7 +90,7 @@ public class MG_MazeOneBT : MG_MazeOneBase
         }
 
         DIRECTION dir = choices[Random.Range(0, choices.Count)];
-        cellInfo toCell = null;
+        CELL toCell = null;
         int toDSU = -1;
         switch (dir)
         {
@@ -123,7 +123,7 @@ public class MG_MazeOneBT : MG_MazeOneBase
     protected bool gotFinal = false;
     protected bool DoOneCycle()
     {
-        cellInfo cellToGo;
+        CELL cellToGo;
         if (gotFinal)
         {
             //cellToGo = cellList[0];
@@ -137,7 +137,7 @@ public class MG_MazeOneBT : MG_MazeOneBase
             cellToGo = cellList[cellList.Count - 1];
         }
 
-        cellInfo nextCell = TryConnectRandomCell(cellToGo);
+        CELL nextCell = TryConnectRandomCell(cellToGo);
         if (nextCell != null)
         {
             //print("找到路了，++清單 " + cellList.Count);
@@ -145,7 +145,7 @@ public class MG_MazeOneBT : MG_MazeOneBase
             {
                 gotFinal = true;
                 print("連到終點了，改變 gotFinal => " + gotFinal);
-                //cellList = List<cellInfo>.re cellList
+                //cellList = List<CELL>.re cellList
             }
             else
             {

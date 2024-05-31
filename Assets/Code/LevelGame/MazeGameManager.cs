@@ -29,7 +29,7 @@ public class MazeGameManagerBase:MonoBehaviour
         enmeyLV = data.enmeyLV;
     }
 
-    virtual public RoomInfo AddRoom(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
+    virtual public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
     {
         RoomInfo roomInfo = new RoomInfo();
         roomInfo.vCenter = vCenter;
@@ -43,7 +43,7 @@ public class MazeGameManagerBase:MonoBehaviour
         roomInfo.enemyLV = enmeyLV;
         return roomInfo;
     }
-    virtual public RoomInfo AddPath(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
+    virtual public RoomInfo AddPath(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
     {
         RoomInfo roomInfo = new RoomInfo();
         roomInfo.vCenter = vCenter;
@@ -133,7 +133,7 @@ public class MazeGameManager : MazeGameManagerBase
         }
     }
 
-    override public RoomInfo AddRoom(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
+    override public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, bool isMain, float mainRatio, float doorWidth, float doorHeight) 
     {
         //RoomInfo roomInfo = new RoomInfo();
         //roomInfo.vCenter = vCenter;
@@ -167,7 +167,7 @@ public class MazeGameManager : MazeGameManagerBase
         return roomInfo;
     }
 
-    override public RoomInfo AddPath(Vector3 vCenter, float width, float height, CELL_BASE cell, bool isMain, float mainRatio, float doorWidth, float doorHeight)
+    override public RoomInfo AddPath(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, bool isMain, float mainRatio, float doorWidth, float doorHeight)
     {
         RoomInfo roomInfo = new RoomInfo();
         roomInfo.vCenter = vCenter;

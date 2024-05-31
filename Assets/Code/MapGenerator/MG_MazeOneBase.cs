@@ -140,7 +140,7 @@ public class MG_MazeOneBase : MapGeneratorBase
     protected Vector3 startPos;
     protected Vector3 endPos;
 
-    protected class cellInfo : CELL_BASE
+    public class CELL : CELL_BASE
     {
         //public bool U, D, L, R;
         public int deep;    //距離出發點的深度，最小值為 1，0 表示未處理
@@ -166,7 +166,7 @@ public class MG_MazeOneBase : MapGeneratorBase
             iAll += isPath ? 128 : 0;
             if (iAll > 255)
             {
-                print("ERROR!!!! cellInfo.Encode > 255!!");
+                print("ERROR!!!! CELL.Encode > 255!!");
             }
             return iAll;
         }
@@ -195,11 +195,11 @@ public class MG_MazeOneBase : MapGeneratorBase
         }
     }
 
-    protected cellInfo[][] puzzleMap;
+    protected CELL[][] puzzleMap;
 
     // ===================== 房間連結相關
 
-    protected void ConnectCells( cellInfo cFrom, cellInfo cTo, DIRECTION toDir)
+    protected void ConnectCells( CELL cFrom, CELL cTo, DIRECTION toDir)
     {
         switch (toDir)
         {
@@ -220,8 +220,8 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     protected void ConnectCellsByID(int id_1, int id_2)
     {
-        cellInfo cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
-        cellInfo cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
+        CELL cell_1 = puzzleMap[GetCellX(id_1)][GetCellY(id_1)];
+        CELL cell_2 = puzzleMap[GetCellX(id_2)][GetCellY(id_2)];
         if (id_1 + puzzleWidth == id_2) //下連到上，先檢查下連到上的情況，以免錯算 puzzleWidth == 1 的情況
         {
             cell_1.U = true;
@@ -404,13 +404,13 @@ public class MG_MazeOneBase : MapGeneratorBase
         theMap.InitMap((Vector2Int)mapCenter, mapWidth + borderWidth + borderWidth, mapHeight + borderWidth + borderWidth, (int)MapInitValue);
 
         // =============== 初始化 PuzzleMap
-        puzzleMap = new cellInfo[puzzleWidth][];
+        puzzleMap = new CELL[puzzleWidth][];
         for (int i = 0; i < puzzleWidth; i++)
         {
-            puzzleMap[i] = new cellInfo[puzzleHeight];
+            puzzleMap[i] = new CELL[puzzleHeight];
             for (int j = 0; j < puzzleHeight; j++)
             {
-                puzzleMap[i][j] = new cellInfo();
+                puzzleMap[i][j] = new CELL();
                 puzzleMap[i][j].x = i;
                 puzzleMap[i][j].y = j;
             }
@@ -426,15 +426,15 @@ public class MG_MazeOneBase : MapGeneratorBase
         {
             for (int j = 0; j < puzzleHeight; j++)
             {
-                puzzleMap[i][j].value = cellInfo.NORMAL;
+                puzzleMap[i][j].value = CELL.NORMAL;
             }
         }
     }
 
     virtual protected void CalculateRoomPath()
     {
-        puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        puzzleMap[puzzleStart.x][puzzleStart.y].value = CELL.TERNIMAL;
+        puzzleMap[puzzleEnd.x][puzzleEnd.y].value = CELL.TERNIMAL;
         if (startAsPath)
         {
             puzzleMap[puzzleStart.x][puzzleStart.y].isPath = true;
@@ -446,18 +446,18 @@ public class MG_MazeOneBase : MapGeneratorBase
 
         if (pathRate > 0)
         {
-            List<cellInfo> allCells = new List<cellInfo>();
+            List<CELL> allCells = new List<CELL>();
             for (int x = 0; x < puzzleWidth; x++)
             {
                 for (int y = 0; y < puzzleHeight; y++)
                 {
-                    if (puzzleMap[x][y].value == cellInfo.NORMAL)
+                    if (puzzleMap[x][y].value == CELL.NORMAL)
                     {
                         allCells.Add(puzzleMap[x][y]);
                     }
                 }
             }
-            OneUtility.Shuffle<cellInfo>(allCells);
+            OneUtility.Shuffle<CELL>(allCells);
             int pathNum = Mathf.RoundToInt(pathRate * allCells.Count);
             for (int i = 0; i < pathNum; i++)
             {
@@ -480,7 +480,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         newObject.layer = LayerMask.NameToLayer("Wall");
     }
 
-    protected void FillCell(cellInfo cell, int x1, int y1, int width, int height)
+    protected void FillCell(CELL cell, int x1, int y1, int width, int height)
     {
         //測試
         int wallWidth = this.wallWidth;
@@ -488,7 +488,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         int roomWidth = this.roomWidth;
         int roomHeight = this.roomHeight;
         //bool isPath = Random.Range(0, 1.0f) < pathRate;
-        //if (cell.value == cellInfo.TERNIMAL)
+        //if (cell.value == CELL.TERNIMAL)
         //    isPath = true;
         if (cell.isPath)
         {
@@ -505,7 +505,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         int wallGapHeight = (roomHeight - pathHeight) / 2;
 
 
-        if (cell.value == cellInfo.INVALID)
+        if (cell.value == CELL.INVALID)
         {
             theMap.FillValue(x1, y1, width, height, (int)MAP_TYPE.BLOCK);
             return;
@@ -517,7 +517,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         theMap.FillValue(x2, y1, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
         theMap.FillValue(x2, y2, wallWidth, wallHeight, (int)MAP_TYPE.BLOCK);
 
-        bool isFillBlock = createWallCollider && (cell.value != cellInfo.ROOM);
+        bool isFillBlock = createWallCollider && (cell.value != CELL.ROOM);
 
         if (!cell.D)
         {
@@ -648,7 +648,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         //print("CheckCellDeep:  " + x + ", " + y );
         if (x < 0 || x >= puzzleWidth || y < 0 || y >= puzzleHeight)
             return;
-        if (puzzleMap[x][y].value == cellInfo.INVALID)
+        if (puzzleMap[x][y].value == CELL.INVALID)
             return;
         //print("CheckCellDeep Value:  " + puzzleMap[x][y].value);
         if (puzzleMap[x][y].deep > 0 && puzzleMap[x][y].deep <= deep)        //已經有更短路徑
@@ -673,7 +673,7 @@ public class MG_MazeOneBase : MapGeneratorBase
     {
         if (x < 0 || x >= puzzleWidth || y < 0 || y >= puzzleHeight)
             return;
-        if (puzzleMap[x][y].value == cellInfo.INVALID)
+        if (puzzleMap[x][y].value == CELL.INVALID)
             return;
         puzzleMap[x][y].isMain = isMain;
         puzzleMap[x][y].mainDeep = mainDeep;
@@ -712,8 +712,8 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     virtual protected void PreCalculateGameplayInfo()
     {
-        //puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.TERNIMAL;
-        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.TERNIMAL;
+        //puzzleMap[puzzleStart.x][puzzleStart.y].value = CELL.TERNIMAL;
+        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = CELL.TERNIMAL;
         //if (startAsPath)
         //{
         //    puzzleMap[puzzleStart.x][puzzleStart.y].isPath = true;
@@ -725,18 +725,18 @@ public class MG_MazeOneBase : MapGeneratorBase
 
         //if (pathRate > 0)
         //{
-        //    List<cellInfo> allCells = new List<cellInfo>();
+        //    List<CELL> allCells = new List<CELL>();
         //    for (int x = 0; x < puzzleWidth; x++)
         //    {
         //        for (int y = 0; y < puzzleHeight; y++)
         //        {
-        //            if (puzzleMap[x][y].value == cellInfo.NORMAL)
+        //            if (puzzleMap[x][y].value == CELL.NORMAL)
         //            {
         //                allCells.Add(puzzleMap[x][y]);
         //            }
         //        }
         //    }
-        //    OneUtility.Shuffle<cellInfo>(allCells);
+        //    OneUtility.Shuffle<CELL>(allCells);
         //    int pathNum = Mathf.RoundToInt(pathRate * allCells.Count);
         //    for (int i = 0; i < pathNum; i++)
         //    {
@@ -753,8 +753,8 @@ public class MG_MazeOneBase : MapGeneratorBase
             {
                 for (int y = 0; y < puzzleHeight; y++)
                 {
-                    cellInfo cell = puzzleMap[x][y];
-                    if (cell.value == cellInfo.NORMAL)
+                    CELL cell = puzzleMap[x][y];
+                    if (cell.value == CELL.NORMAL)
                     {
                         float mainRatio = (float)cell.mainDeep / (float)maxMainDeep;
                         if (cell.isPath)
@@ -774,7 +774,7 @@ public class MG_MazeOneBase : MapGeneratorBase
             {
                 for (int y = 0; y < puzzleHeight; y++)
                 {
-                    if (puzzleMap[x][y].value == cellInfo.NORMAL)
+                    if (puzzleMap[x][y].value == CELL.NORMAL)
                     {
                         DungeonEnemyManagerBase.PosData pData = new DungeonEnemyManagerBase.PosData();
                         pData.pos = GetCellCenterPos(x, y);
@@ -799,7 +799,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         if (FinishAtDeepest)
         {
             int deepMax = -1;
-            cellInfo mostDeepCell = null;
+            CELL mostDeepCell = null;
             for (int x = 0; x < puzzleWidth; x++)
             {
                 for (int y = 0; y < puzzleHeight; y++)
@@ -1008,13 +1008,13 @@ public class MG_MazeOneBase : MapGeneratorBase
         }
 
         int i = 0;
-        puzzleMap = new cellInfo[puzzleWidth][];
+        puzzleMap = new CELL[puzzleWidth][];
         for (int x = 0; x < puzzleWidth; x++)
         {
-            puzzleMap[x] = new cellInfo[puzzleHeight];
+            puzzleMap[x] = new CELL[puzzleHeight];
             for (int y = 0; y < puzzleHeight; y++)
             {
-                puzzleMap[x][y] = new cellInfo();
+                puzzleMap[x][y] = new CELL();
                 puzzleMap[x][y].Decode((int)bData[i]);
                 i++;
             }

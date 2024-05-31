@@ -61,7 +61,7 @@ public class MG_MazeOneCave : MG_MazeOne
         {
             for (int j=0; j<puzzleHeight; j++)
             {
-                puzzleMap[i][j].value = cellInfo.INVALID;
+                puzzleMap[i][j].value = CELL.INVALID;
             }
         }
 
@@ -73,7 +73,7 @@ public class MG_MazeOneCave : MG_MazeOne
                 if (theRWMap.rwMap[i, j] != 0)
                 {
                     //print("³]©w " + (i+rwMapShift.x) + ", " + (j + rwMapShift.y));
-                    puzzleMap[i + rwMapShift.x][j + rwMapShift.y].value = cellInfo.NORMAL;
+                    puzzleMap[i + rwMapShift.x][j + rwMapShift.y].value = CELL.NORMAL;
                 }
             }
         }
@@ -127,8 +127,8 @@ public class MG_MazeOneCave : MG_MazeOne
                     puzzleEnd.x--;
                     break;
             }
-            puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
-            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
+            puzzleMap[puzzleStart.x][puzzleStart.y].value = CELL.NORMAL;
+            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = CELL.NORMAL;
 
         }
     }

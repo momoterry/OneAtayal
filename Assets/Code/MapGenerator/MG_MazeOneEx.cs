@@ -71,20 +71,20 @@ public class MG_MazeOneEx : MG_MazeOne
             {
                 for (int i = 0; i < puzzleWidth; i++)
                 {
-                    puzzleMap[i][0].value = cellInfo.INVALID;
-                    puzzleMap[i][puzzleHeight - 1].value = cellInfo.INVALID;
+                    puzzleMap[i][0].value = CELL.INVALID;
+                    puzzleMap[i][puzzleHeight - 1].value = CELL.INVALID;
                 }
             }
             else if (mazeDir == MAZE_DIR.LEFT_TO_RIGHT || mazeDir == MAZE_DIR.RIGHT_TO_LEFT)
             {
                 for (int i = 0; i < puzzleHeight; i++)
                 {
-                    puzzleMap[0][i].value = cellInfo.INVALID;
-                    puzzleMap[puzzleWidth - 1][i].value = cellInfo.INVALID;
+                    puzzleMap[0][i].value = CELL.INVALID;
+                    puzzleMap[puzzleWidth - 1][i].value = CELL.INVALID;
                 }
             }
-            puzzleMap[puzzleStart.x][puzzleStart.y].value = cellInfo.NORMAL;
-            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = cellInfo.NORMAL;
+            puzzleMap[puzzleStart.x][puzzleStart.y].value = CELL.NORMAL;
+            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = CELL.NORMAL;
         }
     }
 }
@@ -161,20 +161,20 @@ public class MG_MazeOne : MG_MazeOneBase
             for (int y = 0; y < puzzleHeight; y++)
             {
                 bool addToWallList = true;
-                if (puzzleMap[x][y].value == cellInfo.INVALID)
+                if (puzzleMap[x][y].value == CELL.INVALID)
                     addToWallList = false;
 
                 if (x < puzzleWidth - 1)
                 {
                     wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x + 1, y));
-                    if (addToWallList && puzzleMap[x + 1][y].value != cellInfo.INVALID)
+                    if (addToWallList && puzzleMap[x + 1][y].value != CELL.INVALID)
                         wallList.Add(w);
                     lrWalls[x, y] = w;
                 }
                 if (y < puzzleHeight - 1)
                 {
                     wallInfo w = new wallInfo(GetCellID(x, y), GetCellID(x, y + 1));
-                    if (addToWallList && puzzleMap[x][y + 1].value != cellInfo.INVALID)
+                    if (addToWallList && puzzleMap[x][y + 1].value != CELL.INVALID)
                         wallList.Add(w);
                     udWalls[x, y] = w;
                 }
@@ -198,7 +198,7 @@ public class MG_MazeOne : MG_MazeOneBase
     //===========================================================================================
     //BackTrace 演算法
     //===========================================================================================
-    protected List<cellInfo> cellList = new List<cellInfo>();
+    protected List<CELL> cellList = new List<CELL>();
     protected int startDSU = 0;
 
     protected void CreateMazeByBackTrace()
@@ -211,28 +211,28 @@ public class MG_MazeOne : MG_MazeOneBase
         }
     }
 
-    protected cellInfo TryConnectRandomCell(cellInfo cell)
+    protected CELL TryConnectRandomCell(CELL cell)
     {
         List<DIRECTION> choices = new List<DIRECTION>();
-        if (!cell.L && cell.x > 0 && puzzleMap[cell.x - 1][cell.y].value != cellInfo.INVALID)
+        if (!cell.L && cell.x > 0 && puzzleMap[cell.x - 1][cell.y].value != CELL.INVALID)
         {
             if (puzzleDSU.Find(GetCellID(cell.x - 1, cell.y)) != startDSU)
                 choices.Add(DIRECTION.L);
 
         }
-        if (!cell.D && cell.y > 0 && puzzleMap[cell.x][cell.y - 1].value != cellInfo.INVALID)
+        if (!cell.D && cell.y > 0 && puzzleMap[cell.x][cell.y - 1].value != CELL.INVALID)
         {
             if (puzzleDSU.Find(GetCellID(cell.x, cell.y - 1)) != startDSU)
                 choices.Add(DIRECTION.D);
 
         }
-        if (!cell.R && cell.x < puzzleWidth - 1 && puzzleMap[cell.x + 1][cell.y].value != cellInfo.INVALID)
+        if (!cell.R && cell.x < puzzleWidth - 1 && puzzleMap[cell.x + 1][cell.y].value != CELL.INVALID)
         {
             if (puzzleDSU.Find(GetCellID(cell.x + 1, cell.y)) != startDSU)
                 choices.Add(DIRECTION.R);
 
         }
-        if (!cell.U && cell.y < puzzleHeight - 1 && puzzleMap[cell.x][cell.y + 1].value != cellInfo.INVALID)
+        if (!cell.U && cell.y < puzzleHeight - 1 && puzzleMap[cell.x][cell.y + 1].value != CELL.INVALID)
         {
             if (puzzleDSU.Find(GetCellID(cell.x, cell.y + 1)) != startDSU)
                 choices.Add(DIRECTION.U);
@@ -245,7 +245,7 @@ public class MG_MazeOne : MG_MazeOneBase
         }
 
         DIRECTION dir = choices[Random.Range(0, choices.Count)];
-        cellInfo toCell = null;
+        CELL toCell = null;
         int toDSU = -1;
         switch (dir)
         {
@@ -278,7 +278,7 @@ public class MG_MazeOne : MG_MazeOneBase
     protected bool gotFinal = false;
     protected bool DoOneCycle()
     {
-        cellInfo cellToGo;
+        CELL cellToGo;
         if (gotFinal)
         {
             //cellToGo = cellList[0];
@@ -292,7 +292,7 @@ public class MG_MazeOne : MG_MazeOneBase
             cellToGo = cellList[cellList.Count - 1];
         }
 
-        cellInfo nextCell = TryConnectRandomCell(cellToGo);
+        CELL nextCell = TryConnectRandomCell(cellToGo);
         if (nextCell != null)
         {
             //print("找到路了，++清單 " + cellList.Count);
@@ -300,7 +300,7 @@ public class MG_MazeOne : MG_MazeOneBase
             {
                 gotFinal = true;
                 //print("連到終點了，改變 gotFinal => " + gotFinal);
-                //cellList = List<cellInfo>.re cellList
+                //cellList = List<CELL>.re cellList
             }
             else
             {
