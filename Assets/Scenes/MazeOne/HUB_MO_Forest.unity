@@ -739,6 +739,11 @@ MonoBehaviour:
   difficultRateMin: 1
   difficultRateMax: 2
   enmeyLV: 1
+  easyDungeons:
+  - dungeonID: RELIC_BETA
+    infoText: "\u5C0F\u5730\u57CE"
+  - dungeonID: RELIC_ALPHA
+    infoText: "\u5927\u5730\u57CE"
   defaultPortalRef: {fileID: 3315251857326075160, guid: d8d7ed47d0050dc4594b0708b043b473, type: 3}
 --- !u!4 &624896255
 Transform:
@@ -1174,6 +1179,7 @@ MonoBehaviour:
   defautPathGames: []
   defaultBranchGames: []
   fixBranchEndGames: []
+  treasureBoxRef: {fileID: 0}
 --- !u!1001 &1064450322
 PrefabInstance:
   m_ObjectHideFlags: 0

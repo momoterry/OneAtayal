@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GM_LevelHub : MazeGameManagerBase
 {
+    public DungeonEnteryHandler.EnteryData[] easyDungeons;
+
     public GameObject defaultPortalRef;
 
     protected List<RoomInfo> mainList = new List<RoomInfo>();
@@ -39,7 +41,18 @@ public class GM_LevelHub : MazeGameManagerBase
     {
         base.BuildAll();
 
-        for (int i=0; i<mainList.Count; i++)
+        int mainDunNum = mainList.Count > easyDungeons.Length ? easyDungeons.Length : mainList.Count;
+        for (int i = 0; i < mainDunNum; i++)
+        {
+            GameObject o = BattleSystem.SpawnGameObj(defaultPortalRef, mainList[i].vCenter);
+            DungeonEnteryHandler handler = o.GetComponent<DungeonEnteryHandler>();
+            if (handler)
+            {
+                handler.SetEnteryData(easyDungeons[i]);
+            }
+        }
+
+        for (int i= mainDunNum; i<mainList.Count; i++)
         {
             BattleSystem.SpawnGameObj(defaultPortalRef, mainList[i].vCenter);
         }

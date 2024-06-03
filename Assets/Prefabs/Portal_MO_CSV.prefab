@@ -106,10 +106,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1594184825682937595}
+  - component: {fileID: 8006790250748340352}
+  - component: {fileID: 6921153055357162825}
   - component: {fileID: 3561682117572750212}
   - component: {fileID: 2601350400102366376}
   - component: {fileID: 7296179674588867687}
-  - component: {fileID: 6921153055357162825}
   m_Layer: 0
   m_Name: Portal_MO_CSV
   m_TagString: Untagged
@@ -135,6 +136,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &8006790250748340352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315251857326075160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b3a1ecc3abf244f9fc5e7c8230525f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enteryText: {fileID: 9165451497414641535}
+  thePortal: {fileID: 6921153055357162825}
+--- !u!114 &6921153055357162825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315251857326075160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b77d28dea830a42aeff9312e83e346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: 
+  entraceName: 
+  fadeBlocker: {fileID: 0}
+  fadeTime: 0.5
+  showupTime: -1
+  showupSprites: []
+  messageHint: 1
+  hintLevelName: "CSV\u6E2C\u8A66"
+  isClearLevel: 0
+  showWinUI: 0
+  backScene: 
+  backEntrance: 
+  DungeonID: RELIC_ALPHA
 --- !u!212 &3561682117572750212
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -222,31 +262,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bias: 0
   onlyAdjustOnStart: 1
---- !u!114 &6921153055357162825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3315251857326075160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b77d28dea830a42aeff9312e83e346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: 
-  entraceName: 
-  fadeBlocker: {fileID: 0}
-  fadeTime: 0.5
-  showupTime: -1
-  showupSprites: []
-  messageHint: 1
-  hintLevelName: "CSV\u6E2C\u8A66"
-  isClearLevel: 0
-  showWinUI: 0
-  backScene: 
-  backEntrance: 
-  DungeonID: RELIC_ALPHA
 --- !u!1 &4313531817719106011
 GameObject:
   m_ObjectHideFlags: 0
