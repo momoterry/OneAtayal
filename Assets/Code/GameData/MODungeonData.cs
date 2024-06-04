@@ -30,6 +30,13 @@ public class MODungeonData
         //data.gameDiffcultRateMax = stage.DifficultEnd;
         //data.gameEnemyLV = stage.EnemyLV;
         data.gameManagerData = new GameManagerDataBase();
+        if (stage.GameName != null && stage.GameName != "")
+        {
+            GameObject o = GameData.GetObjectRef(stage.GameName);
+            data.gameManagerRef = o.GetComponent<MazeGameManagerBase>();
+            if (!data.gameManagerRef)
+                Debug.Log("ERROR!!!! Not valid GameManager: " + stage.GameName);
+        }
         data.gameManagerData.difficultRateMin = stage.DifficultStart;
         data.gameManagerData.difficultRateMax = stage.DifficultEnd;
         data.gameManagerData.enmeyLV = stage.EnemyLV;
@@ -62,6 +69,8 @@ public class MODungeonStageData
     public float PathRate;
     public bool StartAsPath;
     public bool EndAsPath;
+
+    public string GameName;         //«ü©wªº GM
     public float DifficultStart;
     public float DifficultEnd;
     public int EnemyLV;

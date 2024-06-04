@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 1982363326730726022}
   - component: {fileID: 5481690971876365112}
   - component: {fileID: -1812208701657497152}
+  - component: {fileID: -7378470249243132380}
   m_Layer: 0
   m_Name: GameSystemPrefab
   m_TagString: Untagged
@@ -566,6 +567,7 @@ MonoBehaviour:
     - DollLeaf
     - DollWood
     enhancer: {fileID: 7990854258199264216}
+    subIcon: {fileID: 0}
   - ID: MagicBookAlpha
     nameBeforeEnhance: "\u672A\u77E5\u66F8II"
     quality: 2
@@ -576,6 +578,7 @@ MonoBehaviour:
     - DollCrystal
     - DollBlaze
     enhancer: {fileID: 1512530637576879749}
+    subIcon: {fileID: 0}
   WHITEBOOK_ID_PREFIX: WhiteBook_
 --- !u!114 &-1812208701657497152
 MonoBehaviour:
@@ -595,3 +598,17 @@ MonoBehaviour:
     objRef: {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
   - refID: EG_Fire
     objRef: {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+--- !u!114 &-7378470249243132380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937486099355114776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60cc670ca3aa8646b603f156db0bc2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GMDatas:
+  - {fileID: 8425078966826279353, guid: 1243c4693ce5eea4789e9dc5bf649601, type: 3}
