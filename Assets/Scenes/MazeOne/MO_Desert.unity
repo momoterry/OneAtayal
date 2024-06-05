@@ -1546,9 +1546,9 @@ MonoBehaviour:
   eInfo:
     enemys:
     - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
+    enemyIDs: []
     totalNumMin: 2
     totalNumMax: 5
-  isPath: 1
 --- !u!4 &1151299278
 Transform:
   m_ObjectHideFlags: 0
@@ -1593,6 +1593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac17ad3aa60b4eb43a295ef1f4e95500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapName: 
   theSurface2D: {fileID: 1252285827}
   entraceList: []
   puzzleWidth: 6
@@ -1606,6 +1607,7 @@ MonoBehaviour:
   pathRate: 0
   startAsPath: 0
   finishAsPath: 0
+  mazeDir: 1
   FinishAtDeepest: 0
   finishPortalRef: {fileID: 0}
   portalAfterFirstRoomGamplay: 0
@@ -2561,6 +2563,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b90d734165236049b0c2c26c8a3b28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficultRateMin: 1
+  difficultRateMax: 2
+  enmeyLV: 1
   defaultMainGames:
   - game: {fileID: 1776612437}
     ratioPercent: 100
@@ -2575,6 +2580,7 @@ MonoBehaviour:
   fixBranchEndGames:
   - game: {fileID: 253409241}
   - game: {fileID: 253409241}
+  treasureBoxRef: {fileID: 0}
 --- !u!4 &1572511108
 Transform:
   m_ObjectHideFlags: 0
@@ -2623,6 +2629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53c936960bafad4a9533b222ffe2e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapName: 
   theSurface2D: {fileID: 1252285827}
   entraceList: []
   puzzleWidth: 5
@@ -2636,6 +2643,7 @@ MonoBehaviour:
   pathRate: 0.5
   startAsPath: 1
   finishAsPath: 0
+  mazeDir: 0
   FinishAtDeepest: 1
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
@@ -2648,7 +2656,7 @@ MonoBehaviour:
   defautTileGroup: {fileID: 0}
   roomGroundTileGroup: {fileID: 0}
   roomGroundTileEdgeGroup: {fileID: 0}
-  showMainPath: 1
+  showMainPath: 0
   mainPathBuff: 1
   mainPathTileGroup: {fileID: 1226300797}
   mainPathTileEdgeGroup: {fileID: 1107192540}
@@ -2660,7 +2668,6 @@ MonoBehaviour:
   decadeGenerator: {fileID: 2028947388}
   ChooseAlgorithm: 1
   extendTerminal: 1
-  mazeDir: 0
   blockFillRatio: 0.7
 --- !u!4 &1614488169
 Transform:
@@ -2919,11 +2926,13 @@ MonoBehaviour:
   eInfos1:
     enemys:
     - {fileID: 7208015447484052683, guid: c6757ec52300c574080406a81876e414, type: 3}
+    enemyIDs: []
     totalNumMin: 2
     totalNumMax: 5
   eInfos2:
     enemys:
     - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
+    enemyIDs: []
     totalNumMin: 3
     totalNumMax: 6
 --- !u!4 &1776612438
@@ -2992,6 +3001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45571ea6d83cb849b03748b37e0b398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapName: 
   theSurface2D: {fileID: 1252285827}
   entraceList: []
   puzzleWidth: 5
@@ -3005,6 +3015,7 @@ MonoBehaviour:
   pathRate: 0
   startAsPath: 0
   finishAsPath: 0
+  mazeDir: 1
   FinishAtDeepest: 0
   finishPortalRef: {fileID: 0}
   portalAfterFirstRoomGamplay: 0
@@ -3029,7 +3040,6 @@ MonoBehaviour:
   decadeGenerator: {fileID: 82330165}
   ChooseAlgorithm: 0
   extendTerminal: 1
-  mazeDir: 1
 --- !u!1001 &1807413653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3565,9 +3575,9 @@ MonoBehaviour:
   eInfo:
     enemys:
     - {fileID: 7208015447484052683, guid: 3f97bdf46b3cd0f498ba4d26a525ee49, type: 3}
+    enemyIDs: []
     totalNumMin: 4
     totalNumMax: 8
-  isPath: 0
 --- !u!4 &1956886540
 Transform:
   m_ObjectHideFlags: 0
