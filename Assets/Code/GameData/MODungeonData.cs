@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MG_MazeOneBase;
 
 
 // 用來描述一個 MazeOneBase 迷宮參數的資料結構
-// 目前主要用來支援 CSV 的檔案描述
+// 目前主要用來支援 CSV 的檔案描述，將內容轉成 ContinuousMOData 
 // 以後可以跟 CMazeJsonData 也做某種程度上的整合
-
-
 
 
 //一個 MazeOne Dungeion 的描述
@@ -16,6 +15,23 @@ public class MODungeonData
     public string DungeonID;
     public List<MODungeonStageData> stageList = new List<MODungeonStageData>();      //基本上按照表單上的順序排列
 
+    protected MG_MazeOne.MAZE_DIR GetMazeDir(string str)
+    {
+        switch (str)
+        {
+            case "DOWN_TO_TOP":
+                return MAZE_DIR.DONW_TO_TOP;
+            case "TOP_TO_DOWN":
+                return MAZE_DIR.TOP_TO_DOWN;
+            case "LEFT_TO_RIGHT":
+                return MAZE_DIR.LEFT_TO_RIGHT;
+            case "RIGHT_TO_LEFT":
+                return MAZE_DIR.RIGHT_TO_LEFT;
+            case "INSIDE_OUT":
+                break;
+        }
+        return MAZE_DIR.NONE;
+    }
 
     protected ContinuousMOData StageToContinuousMOData(MODungeonStageData stage)
     {
@@ -24,6 +40,7 @@ public class MODungeonData
         data.scene = stage.SceneName;
         data.puzzleWidth = stage.PuzzleWidth;
         data.puzzleHeight = stage.PuzzleHeight;
+        data.mazeDir = GetMazeDir(stage.MazeDir);
         data.pathRate = stage.PathRate;
         data.name = "地城 " + stage.Level;
         //data.gameDiffcultRateMin = stage.DifficultStart;
@@ -66,6 +83,7 @@ public class MODungeonStageData
     public string SceneName;
     public int PuzzleWidth;
     public int PuzzleHeight;
+    public string MazeDir;
     public float PathRate;
     public bool StartAsPath;
     public bool EndAsPath;

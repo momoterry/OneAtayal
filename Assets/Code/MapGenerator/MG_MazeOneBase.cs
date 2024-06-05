@@ -72,6 +72,7 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     public enum MAZE_DIR
     {
+        NONE,
         DONW_TO_TOP,
         TOP_TO_DOWN,
         LEFT_TO_RIGHT,
@@ -317,7 +318,8 @@ public class MG_MazeOneBase : MapGeneratorBase
                 print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
                 pathRate = cData.pathRate;
 
-                mazeDir = cData.mazeDir;
+                if ( cData.mazeDir != MAZE_DIR.NONE )
+                    mazeDir = cData.mazeDir;
                 FinishAtDeepest = cData.finishAtDeepest;
 
                 //if (cData.dungeonDifficulty > 0)

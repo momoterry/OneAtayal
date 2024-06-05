@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//類似 ContinuousMOData，但直接指定 CSV/Json 檔中的 Dungeon ID
+
 public class CMODungeonPortal : ScenePortal
 {
     public string DungeonID;
