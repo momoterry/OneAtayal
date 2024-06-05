@@ -8,6 +8,10 @@ public class ContinuousMOData : ContinuousBattleDataBase
     public int puzzleWidth;
     public int puzzleHeight;
     public float pathRate;
+    public int roomWidth = 15;
+    public int roomHeight = 20;
+    public int pathWidth = 5;
+    public int pathHeight = 5;
     public MG_MazeOne.MAZE_DIR mazeDir;
     public bool finishAtDeepest;
 

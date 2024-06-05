@@ -40,6 +40,9 @@ public class MODungeonData
         data.scene = stage.SceneName;
         data.puzzleWidth = stage.PuzzleWidth;
         data.puzzleHeight = stage.PuzzleHeight;
+        data.roomWidth = stage.RoomWidth;
+        data.roomHeight = stage.RoomHeight;
+        data.pathWidth = data.pathHeight = stage.PathWidth;
         data.mazeDir = GetMazeDir(stage.MazeDir);
         data.pathRate = stage.PathRate;
         data.name = "¦a«° " + stage.Level;
@@ -81,8 +84,11 @@ public class MODungeonStageData
     public string DungeonID;
     public int Level;           //²Ä´X¼h
     public string SceneName;
-    public int PuzzleWidth;
-    public int PuzzleHeight;
+    public int PuzzleWidth = 3;
+    public int PuzzleHeight = 3;
+    public int RoomWidth = 15;
+    public int RoomHeight = 20;
+    public int PathWidth = 5;
     public string MazeDir;
     public float PathRate;
     public bool StartAsPath;

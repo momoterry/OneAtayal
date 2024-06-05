@@ -317,39 +317,23 @@ public class MG_MazeOneBase : MapGeneratorBase
                 puzzleHeight = cData.puzzleHeight;
                 print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
                 pathRate = cData.pathRate;
+                roomWidth = cData.roomWidth;
+                roomHeight = cData.roomHeight;
+                pathWidth = cData.pathWidth;
+                pathHeight = cData.pathHeight;
 
                 if ( cData.mazeDir != MAZE_DIR.NONE )
                     mazeDir = cData.mazeDir;
                 FinishAtDeepest = cData.finishAtDeepest;
 
-                //if (cData.dungeonDifficulty > 0)
-                //{
-                //    dungeonEnemyDifficulty = cData.dungeonDifficulty;
-                //}
-                //if (cData.dungeonEnemyManager != null)
-                //{
-                //    GameObject o = Instantiate(cData.dungeonEnemyManager.gameObject);
-                //    o.transform.parent = gameObject.transform;
-                //    dungeonEnemyManager = o.GetComponent<DungeonEnemyManager>();
-                //}
                 if (cData.gameManagerRef)
                 {
                     GameObject o = Instantiate(cData.gameManagerRef.gameObject);
                     gameManager = o.GetComponent<MazeGameManagerBase>();
-                    //gameManager.difficultRateMin = cData.gameDiffcultRateMin;
-                    //gameManager.difficultRateMax = cData.gameDiffcultRateMax;
                 }
                 
                 if (gameManager && cData.gameManagerData!=null)
                 {
-                    //gameManager.difficultRateMin = cData.gameDiffcultRateMin;
-                    //gameManager.difficultRateMax = cData.gameDiffcultRateMax;
-                    //gameManager.enmeyLV = cData.gameEnemyLV;
-
-                    //gameManager.difficultRateMin = cData.gameManagerData.difficultRateMin;
-                    //gameManager.difficultRateMax = cData.gameManagerData.difficultRateMax;
-                    //gameManager.enmeyLV = cData.gameManagerData.enmeyLV;
-
                     gameManager.Init(cData.gameManagerData);
                 }
 
