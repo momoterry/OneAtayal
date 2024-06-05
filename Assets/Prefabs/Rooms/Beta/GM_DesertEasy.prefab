@@ -47,9 +47,9 @@ MonoBehaviour:
   eInfo:
     enemys:
     - {fileID: 7208015447484052683, guid: 3f97bdf46b3cd0f498ba4d26a525ee49, type: 3}
-    enemyIDs: []
     totalNumMin: 4
     totalNumMax: 5
+  isPath: 0
 --- !u!1 &5516038072370992602
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,9 +97,9 @@ MonoBehaviour:
   eInfo:
     enemys:
     - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
-    enemyIDs: []
     totalNumMin: 2
     totalNumMax: 2.5
+  isPath: 1
 --- !u!1 &6910935771116627456
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,13 +147,11 @@ MonoBehaviour:
   eInfos1:
     enemys:
     - {fileID: 7208015447484052683, guid: c6757ec52300c574080406a81876e414, type: 3}
-    enemyIDs: []
     totalNumMin: 2
     totalNumMax: 2.5
   eInfos2:
     enemys:
     - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
-    enemyIDs: []
     totalNumMin: 2.5
     totalNumMax: 3
 --- !u!1 &7246625354497072190
@@ -213,7 +211,7 @@ GameObject:
   - component: {fileID: 138601044037130468}
   - component: {fileID: 5053008012228601930}
   m_Layer: 0
-  m_Name: GM_CaveSimple
+  m_Name: GM_DesertEasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -252,7 +250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultRateMin: 1
   difficultRateMax: 2
-  enmeyLV: 1
   defaultMainGames:
   - game: {fileID: 5764251898308864651}
     ratioPercent: 100
@@ -267,7 +264,6 @@ MonoBehaviour:
   fixBranchEndGames:
   - game: {fileID: 2776055584339218318}
   - game: {fileID: 2776055584339218318}
-  treasureBoxRef: {fileID: 7337370386353562539, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
 --- !u!1001 &7942531017817608915
 PrefabInstance:
   m_ObjectHideFlags: 0
