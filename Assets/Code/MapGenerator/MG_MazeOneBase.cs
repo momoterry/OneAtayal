@@ -72,7 +72,6 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     public enum MAZE_DIR
     {
-        NONE,
         DONW_TO_TOP,
         TOP_TO_DOWN,
         LEFT_TO_RIGHT,
@@ -322,8 +321,7 @@ public class MG_MazeOneBase : MapGeneratorBase
                 pathWidth = cData.pathWidth;
                 pathHeight = cData.pathHeight;
 
-                if ( cData.mazeDir != MAZE_DIR.NONE )
-                    mazeDir = cData.mazeDir;
+                mazeDir = cData.mazeDir;
                 FinishAtDeepest = cData.finishAtDeepest;
 
                 if (cData.gameManagerRef)

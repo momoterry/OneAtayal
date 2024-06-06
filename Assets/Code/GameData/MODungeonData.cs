@@ -30,7 +30,7 @@ public class MODungeonData
             case "INSIDE_OUT":
                 break;
         }
-        return MAZE_DIR.NONE;
+        return MAZE_DIR.DONW_TO_TOP;
     }
 
     protected ContinuousMOData StageToContinuousMOData(MODungeonStageData stage)
