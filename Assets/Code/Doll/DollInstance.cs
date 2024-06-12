@@ -114,7 +114,7 @@ public class DollInstance : MonoBehaviour
         GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(data.baseDollID);
         if (!dollRef)
         {
-            print("ERROR!!!! No Doll Ref called: " + data.baseDollID);
+            One.ERROR("No Doll Ref called: " + data.baseDollID);
             return null;
         }
         GameObject o = BattleSystem.SpawnGameObj(dollRef, pos);

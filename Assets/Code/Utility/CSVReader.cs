@@ -10,12 +10,12 @@ public class CSVReader : MonoBehaviour
     {
         if (!typeof(T).IsClass)
         {
-            print("ERROR!!!!  CSVReader 只能支援 Class");
+            One.ERROR(" CSVReader 只能支援 Class");
             return null;
         }
         string[] lines = text.Split("\n");
         if (lines.Length < 2) {
-            print("ERROR!!!!  CSV 不到兩行!!!!");
+            One.ERROR(" CSV 不到兩行!!!!");
             return null;
         }
         for (int i=0; i<lines.Length; i++)

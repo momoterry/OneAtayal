@@ -43,7 +43,7 @@ public class OnlineSaveLoad : MonoBehaviour
         else
         {
             print(request.error);
-            print("ERROR!!!! OnlineSaveLoad::GetNewID ¥¢±Ñ ....");
+            One.ERROR("OnlineSaveLoad::GetNewID ¥¢±Ñ ....");
             //return "";
         }
         request.Dispose();

@@ -204,7 +204,7 @@ public class MazeGameManager : MazeGameManagerBase
             if (fg.relativeIndex > 0 && fg.relativeIndex <= mainRoomList.Count)
             {
                 if (mainGames[mainGames.Length - fg.relativeIndex] != null)
-                    print("ERROR!!!! fixEndGames 跟 fixStartGames 重疊!!!! " + (mainGames.Length - fg.relativeIndex));
+                    One.ERROR("fixEndGames 跟 fixStartGames 重疊!!!! " + (mainGames.Length - fg.relativeIndex));
                 mainGames[mainGames.Length - fg.relativeIndex] = fg.game;
             }
             else
@@ -258,7 +258,7 @@ public class MazeGameManager : MazeGameManagerBase
             }
             if (iBranchToAdd != 0)
             {
-                print("ERROR!!!! 補完所有房間還是無法滿足 ......... ");
+                One.ERROR("補完所有房間還是無法滿足 ......... ");
             }
         }
 

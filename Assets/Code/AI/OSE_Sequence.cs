@@ -55,7 +55,7 @@ public class OSE_Sequence : OSEnemy
 
         if (skillList.Length <=0 || skillPattern.Length <= 0)
         {
-            print("ERROR!!!! OSE_Sequence Invalid Data !!!!!");
+            One.ERROR("OSE_Sequence Invalid Data !!!!!");
             currSPIndex = -1;
         }
     }
@@ -80,7 +80,7 @@ public class OSE_Sequence : OSEnemy
         int id = skillPattern[currSPIndex].skillIndex;
         if (id < 0 || id >= skillList.Length)
         {
-            print("ERROR!!!! Invalid Skill Index In Pattern");
+            One.ERROR("Invalid Skill Index In Pattern");
         }
 
         OSE_SkillData theSkill = skillList[skillPattern[currSPIndex].skillIndex];

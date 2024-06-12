@@ -18,7 +18,7 @@ public class GameData : MonoBehaviour
     {
         if (instance.objMaps.ContainsKey(_name))
             return instance.objMaps[_name];
-        print("ERROR!!!! GameObject not exist " + _name);
+        One.ERROR("GameObject not exist " + _name);
         return null;
     } 
 

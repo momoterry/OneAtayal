@@ -251,7 +251,7 @@ public class BookInventoryMenu : MonoBehaviour
     {
         if (selectPhase != SELECT_PHASE.INVENTORY)
         {
-            print("ERROR!!!! OnSellBookEquipCB() 不應該走到這裡.....");
+            One.ERROR("OnSellBookEquipCB() 不應該走到這裡.....");
             return; //不應該走到這裡
         }
 

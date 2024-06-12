@@ -139,7 +139,7 @@ public class LevelManager : MonoBehaviour
         LevelInfo info = GetLevelInfo(levelID);
         if (info == null)
         {
-            print("ERROR!!!! GotoLevel Error, no such level ID: " + levelID);
+            One.ERROR("GotoLevel Error, no such level ID: " + levelID);
             return;
         }
 

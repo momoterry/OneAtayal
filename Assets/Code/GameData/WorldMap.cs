@@ -43,7 +43,7 @@ public class WorldMap : MonoBehaviour
 
     public WorldMapSaveData SaveData()
     {
-        print("WorldMapSaveData 開始存資料: " + zones.Count);
+        One.MSG("WorldMapSaveData 開始存資料: " + zones.Count);
         WorldMapSaveData savedData = new WorldMapSaveData();
         savedData.zones = new ZonePF[zones.Count];
         int i = 0;
@@ -137,7 +137,7 @@ public class WorldMap : MonoBehaviour
     {
         if (currZone == null)
         {
-            print("ERROR!!!! GotoCurrZone but currZone == null");
+            One.ERROR("GotoCurrZone but currZone == null");
             return;
         }
         currTravelingIndex = currZoneIndex;
@@ -159,7 +159,7 @@ public class WorldMap : MonoBehaviour
             MG_PerlinField mgPF = (MG_PerlinField)bs.theMG;
             if (mgPF == null)
             {
-                print("ERROR!!!! 無法處理的 MG 類型，必須是 MG_PerlinField");
+                One.ERROR("無法處理的 MG 類型，必須是 MG_PerlinField");
                 return;
             }
 

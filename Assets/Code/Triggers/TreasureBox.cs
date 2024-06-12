@@ -41,7 +41,7 @@ public class TreasureBox : MonoBehaviour
         if (ItemDef.GetInstance().GetItemInfo(itemID) != null)
             specialRewardItemIDs.Add(itemID);
         else
-            print("ERROR!!!! AddSpecialRewardItem invalid item ID: " + itemID);
+            One.ERROR("AddSpecialRewardItem invalid item ID: " + itemID);
     }
 
     void Start()
@@ -184,7 +184,7 @@ public class TreasureBox : MonoBehaviour
         int[] chooseIndex = OneUtility.GetRandomNonRepeatNumbers(0, allPos.Count, totalSpawn);
         if (chooseIndex == null)
         {
-            print("ERROR!!!! 需要產生的 Reward 超過格子數啦!!! ");
+            One.ERROR("需要產生的 Reward 超過格子數啦!!! ");
             return;
         }
         for (int i = 0; i < totalSpawn; i++)

@@ -141,7 +141,7 @@ public class MG_MazeDungeon : MapGeneratorBase
             int iAll = value * 16 + iDoor;
             if (iAll > 255)
             {
-                print("ERROR!!!! cellInfo.Encode > 255!!");
+                One.ERROR("cellInfo.Encode > 255!!");
             }
             return iAll;
         }
@@ -1212,7 +1212,7 @@ public class MG_MazeDungeon : MapGeneratorBase
                 retryCount++;
                 if (retryCount > maxRetryCount)
                 {
-                    print("ERROR!!!! CreateNonOverlappingRects 一直退回也試不出來，放棄!!!!!!!!!!!!!!");
+                    One.ERROR("CreateNonOverlappingRects 一直退回也試不出來，放棄!!!!!!!!!!!!!!");
                     break;
                 }
                 if (rects.Count > 0)
@@ -1251,7 +1251,7 @@ public class MG_MazeDungeon : MapGeneratorBase
         byte[] bData = System.Convert.FromBase64String(loadedMapData.puzzleMapData);
         if (bData.Length != puzzleWidth * puzzleHeight)
         {
-            print("ERROR!!!! Size 不符 !!");
+            One.ERROR("Size 不符 !!");
         }
 
         int i = 0;

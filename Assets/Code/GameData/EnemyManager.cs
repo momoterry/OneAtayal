@@ -42,7 +42,7 @@ public class EnemyManager : MonoBehaviour
         }
         if (!enemyMap.ContainsKey(_ID))
         {
-            print("ERROR!!!! No Enemy ID: " + _ID);
+            One.ERROR("No Enemy ID: " + _ID);
             return null;
         }
 
@@ -57,7 +57,7 @@ public class EnemyManager : MonoBehaviour
             e.ID = data.DropID;
         }
         else
-            print("ERROR!!!! No Enemy Component: " + _ID);
+            One.ERROR("No Enemy Component: " + _ID);
 
         return o;
     }

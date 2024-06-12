@@ -148,7 +148,7 @@ public class AcountMenu : MonoBehaviour
     //        }
     //        else
     //        {
-    //            print("ERROR!!!! OnRetrieveAccountConfirm Fail");
+    //            One.ERROR("OnRetrieveAccountConfirm Fail");
     //            SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "取回帳號失敗 ....");
     //        }
     //    }

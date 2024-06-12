@@ -74,12 +74,12 @@ public class SystemUI : MonoBehaviour
     {
         if (messageBoxOwner != null)
         {
-            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+            One.ERROR("ShowYesNoMessageBox without close previous one !!");
             messageBoxOwner.SendMessage("OnMessageBoxResult", MessageBox.RESULT.CLOSE);
         }
         if (messageCB != null)
         {
-            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+            One.ERROR("ShowYesNoMessageBox without close previous one !!");
             messageCB(MessageBox.RESULT.CLOSE);
         }
         messageBoxOwner = owner;
@@ -93,12 +93,12 @@ public class SystemUI : MonoBehaviour
     {
         if (messageBoxOwner != null)
         {
-            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+            One.ERROR("ShowYesNoMessageBox without close previous one !!");
             messageBoxOwner.SendMessage("OnMessageBoxResult", MessageBox.RESULT.CLOSE);
         }
         if (messageCB != null)
         {
-            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+            One.ERROR("ShowYesNoMessageBox without close previous one !!");
         }
         messageBoxOwner = null;
         messageCB = cb;
@@ -111,12 +111,12 @@ public class SystemUI : MonoBehaviour
     {
         if (messageBoxOwner != null)
         {
-            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+            One.ERROR("ShowYesNoMessageBox without close previous one !!");
             messageBoxOwner.SendMessage("OnMessageBoxResult", MessageBox.RESULT.CLOSE);
         }
         if (messageCB != null)
         {
-            print("ERROR!!!! ShowYesNoMessageBox without close previous one !!");
+            One.ERROR("ShowYesNoMessageBox without close previous one !!");
         }
         messageBoxOwner = null;
         messageCB = cb;

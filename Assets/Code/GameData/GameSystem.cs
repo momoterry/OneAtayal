@@ -221,7 +221,7 @@ public class GameSystem : MonoBehaviour
 
     public void SaveData()
     {
-        print("......................SaveData");
+        One.MSG("......................SaveData");
         if (isOnlineSave)
             SaveDataOnlineAsync();
         else
@@ -567,7 +567,7 @@ public class GameSystem : MonoBehaviour
     protected bool LoadDataLocal()
     {
         string filePath = Application.persistentDataPath + "/" + strSaveFile;
-        print("GameSystem :: Try LoadData !! " + filePath);
+        One.MSG("GameSystem :: Try LoadData !! " + filePath);
 
         if ( !File.Exists(filePath)) 
         { 
@@ -835,7 +835,7 @@ public class GameSystem : MonoBehaviour
             }
             else
             {
-                print("ERROR!!!! OnlineSaveLoad::GetNewID 失敗 ...." + url);
+                One.ERROR("OnlineSaveLoad::GetNewID 失敗 ...." + url);
                 print(www.error);
                 SystemUI.ShowMessageBox(null, "存檔失敗，無法建新帳號");
                 yield break;

@@ -86,7 +86,7 @@ public class DollData : MonoBehaviour
             {
                 Doll d = dInfo.objRef.GetComponent<Doll>();
                 if (d.ID != dInfo.dollID)
-                    print("ERROR!!!! dInfo ID ¿ù»~!! " + dInfo.dollID);
+                    One.ERROR("dInfo ID ¿ù»~!! " + dInfo.dollID);
                 if (dInfo.icon == null)
                     dInfo.icon = d.icon;
                 theDollMapping.Add(dInfo.dollID, dInfo);
@@ -114,7 +114,7 @@ public class DollData : MonoBehaviour
             DollInfo baseInfo = theDollMapping[data.BaseID];
             if (baseInfo == null)
             {
-                print("ERROR!!!! ¿ù»~ªº BaseID: " + data.BaseID);
+                One.ERROR("¿ù»~ªº BaseID: " + data.BaseID);
                 continue;
             }
             DollInfoEx dInfo = new DollInfoEx();

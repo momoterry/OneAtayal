@@ -55,7 +55,7 @@ public class TeamBuffManager : MonoBehaviour
                 if (buffApplier == null)
                 {
                     //buffApplier = doll.gameObject.AddComponent<BuffApplierDoll>();
-                    print("ERROR!!!! No buffApplier exist for :" + doll.name);
+                    One.ERROR("No buffApplier exist for :" + doll.name);
                     continue;
                 }
                 //print("¹Î¶¤ Buff " + buff.type + "¬I¥[¨ì: " + doll.name);

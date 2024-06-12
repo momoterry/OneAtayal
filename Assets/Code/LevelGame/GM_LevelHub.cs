@@ -54,7 +54,7 @@ public class GM_LevelHub : MazeGameManagerBase
         allList.Sort(CompareRoom);
 
         if (allList.Count < (easyDungeons.Length + hardDungeons.Length))
-            print("ERROR!!!! Room 的數量不足，HUB 將會有重疊的現象 !!!!");
+            One.ERROR("Room 的數量不足，HUB 將會有重疊的現象 !!!!");
 
         for (int i = 0; i < easyDungeons.Length; i++)
         {

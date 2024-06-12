@@ -32,7 +32,7 @@ public class DollCollect : MonoBehaviour
         {
             if (collectForever)
             {
-                print("ERROR!!!! spawnNewDoll 的方式不支援 collectForever !!!!");
+                One.ERROR("spawnNewDoll 的方式不支援 collectForever !!!!");
             }
         }
     }

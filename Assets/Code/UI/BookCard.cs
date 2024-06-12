@@ -16,7 +16,7 @@ public class BookCard : MonoBehaviour
     //    DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(skill.dollID);
     //    if (dInfo == null)
     //    {
-    //        print("ERROR!!!! BookCard ¿ù»~ªº Doll ID: " + skill.dollID);
+    //        One.ERROR("BookCard ¿ù»~ªº Doll ID: " + skill.dollID);
     //        return;
     //    }
     //    Icon.sprite = skill.icon;

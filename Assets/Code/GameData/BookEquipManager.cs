@@ -137,7 +137,7 @@ public class BookEquipManager : MonoBehaviour
 
     public BookEquipSaveAll ToSaveData()
     {
-        print("BookEquipManager.ToSaveData");
+        One.MSG("BookEquipManager.ToSaveData");
         BookEquipSaveAll data = new BookEquipSaveAll();
         //data.Equipped = equipped;
         data.Equipped = new BookEquipSave[MAX_BOOKEQUIP];

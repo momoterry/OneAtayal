@@ -166,7 +166,7 @@ public class MG_MazeOneBase : MapGeneratorBase
             iAll += isPath ? 128 : 0;
             if (iAll > 255)
             {
-                print("ERROR!!!! CELL.Encode > 255!!");
+                One.ERROR("CELL.Encode > 255!!");
             }
             return iAll;
         }
@@ -945,7 +945,7 @@ public class MG_MazeOneBase : MapGeneratorBase
             }
         }
         mapData.puzzleMapData = System.Convert.ToBase64String(bData);
-        print("編碼結果!!" + mapData.puzzleMapData);
+        One.MSG("SaveMap 編碼結果!!" + mapData.puzzleMapData);
 
         GameSystem.GetPlayerData().SaveMap(mapName, mapData);
 
@@ -956,7 +956,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         base.LoadMap();
         if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
         {
-            print("MG_MazeOneBase.LoadMap: 沒有存檔資料");
+            One.MSG("MG_MazeOneBase.LoadMap: 沒有存檔資料");
             return;
         }
 
@@ -989,7 +989,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         byte[] bData = System.Convert.FromBase64String(loadedMapData.puzzleMapData);
         if (bData.Length != puzzleWidth * puzzleHeight)
         {
-            print("ERROR!!!! Size 不符 !!");
+            One.ERROR("Size 不符 !!");
         }
 
         int i = 0;

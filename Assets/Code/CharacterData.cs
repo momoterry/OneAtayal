@@ -63,7 +63,7 @@ public class CharacterData : MonoBehaviour
         thePlayerData = GameSystem.GetPlayerData();
         if (!thePlayerData)
         {
-            print("ERROR!!!! CharacterData Can not Get PlayerData !!!");
+            One.ERROR("CharacterData Can not Get PlayerData !!!");
         }
         myStat = thePlayerData.GetMainChracterData();
 

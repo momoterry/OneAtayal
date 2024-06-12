@@ -28,7 +28,7 @@ public class MG_MazeCave : MG_MazeDungeon
     {
         //if (bigRooms.Length > 0)
         //{
-        //    print("ERROR!!!! 目前 MazeCave 無法支援 Big Rooms !!!!強制清掉 !!");
+        //    One.ERROR("目前 MazeCave 無法支援 Big Rooms !!!!強制清掉 !!");
         //    foreach (BigRoomInfo r in bigRooms)
         //    {
         //        r.size = Vector2Int.zero;

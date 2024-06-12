@@ -67,7 +67,7 @@ public class EnemyOne : Enemy
         base.Start();
         if (skillList.Length <= 0 || skillPattern.Length <= 0)
         {
-            print("ERROR!!!! OSE_Sequence Invalid Data !!!!!");
+            One.ERROR("OSE_Sequence Invalid Data !!!!!");
             currSkillIndex = -1;
         }
     }
@@ -81,7 +81,7 @@ public class EnemyOne : Enemy
         int id = skillPattern[currSkillIndex].skillIndex;
         if (id < 0 || id >= skillList.Length)
         {
-            print("ERROR!!!! Invalid Skill Index In Pattern");
+            One.ERROR("Invalid Skill Index In Pattern");
         }
 
         SkillData theSkill = skillList[skillPattern[currSkillIndex].skillIndex];

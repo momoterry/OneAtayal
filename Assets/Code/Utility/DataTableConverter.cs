@@ -154,7 +154,7 @@ public class DataTableConverter
             object data = Activator.CreateInstance(_type);
             if (fields.Length < 2)
             {
-                print("ERROR!!!! 這個類型無法處理 !! " + prefix + " .... 類型為:" + _type.Name);
+                One.ERROR("這個類型無法處理 !! " + prefix + " .... 類型為:" + _type.Name);
                 return data;
             }
             foreach (FieldInfo field in fields)
@@ -223,7 +223,7 @@ public class DataTableConverter
             FieldInfo[] fields = _type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             if (fields.Length < 2)
             {
-                print("ERROR!!!! 這個類型無法處理 !! " + prefix + " .... 類型為:" + _type.Name);
+                One.ERROR("這個類型無法處理 !! " + prefix + " .... 類型為:" + _type.Name);
                 return;
             }
             foreach (FieldInfo field in fields)

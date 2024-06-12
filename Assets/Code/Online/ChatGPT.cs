@@ -104,7 +104,7 @@ public class ChatGPT : MonoBehaviour
     //    else
     //    {
     //        print(request.error);
-    //        print("ERROR!!!! GetKeyByPHP 失敗 ....");
+    //        One.ERROR("GetKeyByPHP 失敗 ....");
     //        SystemUI.ShowMessageBox(null, "ERROR!!!! GetKeyByPHP 失敗 ....");
     //    }
 
@@ -138,7 +138,7 @@ public class ChatGPT : MonoBehaviour
     {
         if (isWaiting)
         {
-            print("ERROR!!!! 還沒處理完上一個對話 !!");
+            One.ERROR("還沒處理完上一個對話 !!");
             return;
         }
         isWaiting = true;
