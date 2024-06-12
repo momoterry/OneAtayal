@@ -945,7 +945,7 @@ public class MG_MazeOneBase : MapGeneratorBase
             }
         }
         mapData.puzzleMapData = System.Convert.ToBase64String(bData);
-        One.MSG("SaveMap 編碼結果!!" + mapData.puzzleMapData);
+        One.LOG("SaveMap 編碼結果!!" + mapData.puzzleMapData);
 
         GameSystem.GetPlayerData().SaveMap(mapName, mapData);
 
@@ -956,7 +956,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         base.LoadMap();
         if (mapDataBase == null || mapDataBase.GetType() != typeof(MapSaveMazeOne))
         {
-            One.MSG("MG_MazeOneBase.LoadMap: 沒有存檔資料");
+            One.LOG("MG_MazeOneBase.LoadMap: 沒有存檔資料");
             return;
         }
 

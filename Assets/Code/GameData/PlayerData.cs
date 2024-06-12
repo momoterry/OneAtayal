@@ -137,7 +137,7 @@ public class PlayerData : MonoBehaviour
     //全新存檔的資料初始化，比  Start() 更早會被呼叫，基本上是在 GameSystem 的 Awake 中被呼叫
     public void InitData()
     {
-        One.MSG("==== GameSystem 的 PlayerData.InitData()");
+        One.LOG("==== GameSystem 的 PlayerData.InitData()");
         Money = 500;
         mainCharacterStat.LV = 1;
         mainCharacterStat.Exp = 0;

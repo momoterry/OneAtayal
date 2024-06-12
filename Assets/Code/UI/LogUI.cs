@@ -7,22 +7,35 @@ public class LogUI : MonoBehaviour
 {
     public Text totalText;
     public RectTransform textRoot;
-    // Start is called before the first frame update
-    void Start()
-    {
-        string allMsg = "";
-        for (int i = 1; i <= 50; i++)
-        {
-            allMsg += ("第 " + i + "行文字喔 ....\n");
-        }
-        totalText.text = allMsg;
 
+    public void Open()
+    {
+        totalText.text = One.GetLogs();
         textRoot.sizeDelta = new Vector2(textRoot.sizeDelta.x, totalText.preferredHeight);
+        gameObject.SetActive(true);
+    }
+    public void Close()
+    {
+        print("Close....");
+        gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    //// Start is called before the first frame update
+    //void Start()
+    //{
+    //    string allMsg = "";
+    //    for (int i = 1; i <= 50; i++)
+    //    {
+    //        allMsg += ("第 " + i + "行文字喔 ....\n");
+    //    }
+    //    totalText.text = allMsg;
+
+    //    textRoot.sizeDelta = new Vector2(textRoot.sizeDelta.x, totalText.preferredHeight);
+    //}
+
+    //// Update is called once per frame
+    //void Update()
+    //{
         
-    }
+    //}
 }

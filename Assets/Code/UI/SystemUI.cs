@@ -6,6 +6,7 @@ using UnityEngine;
 public class SystemUI : MonoBehaviour
 {
     public MessageBox theMessageBox;
+    public LogUI theLogUI;
     [SerializeField]
     protected Sprite whiteSprite;
 
@@ -33,17 +34,6 @@ public class SystemUI : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     //==== 常用資源相關
     static public Sprite GetWitheSprite() { return instance.whiteSprite; }
 
@@ -140,6 +130,13 @@ public class SystemUI : MonoBehaviour
         }
         messageBoxOwner = null;
         messageCB = null;
+    }
+
+    //==== LOG 相關
+    static public void ShowLOG()
+    {
+        if (instance.theLogUI)
+            instance.theLogUI.Open();
     }
 
 }

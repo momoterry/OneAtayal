@@ -43,7 +43,7 @@ public class WorldMap : MonoBehaviour
 
     public WorldMapSaveData SaveData()
     {
-        One.MSG("WorldMapSaveData 開始存資料: " + zones.Count);
+        One.LOG("WorldMapSaveData 開始存資料: " + zones.Count);
         WorldMapSaveData savedData = new WorldMapSaveData();
         savedData.zones = new ZonePF[zones.Count];
         int i = 0;

@@ -7,12 +7,37 @@ using UnityEngine;
 
 public class One
 {
-    static public void MSG(string msg)
+    static public string GetLogs()
+    {
+        string all = "";
+        for (int i=0; i<logs.Count; i++)
+        {
+            all += (logs[i] + "\n");
+        }
+        return all;
+    }
+
+    static public void LOG(string msg)
     {
         Debug.Log(msg);
+        AddLog(msg);
     }
+
     static public void ERROR(string msg)
     {
-        Debug.Log("ERROR!!!! " + msg);
+        string eMsg = "ERROR!!!! " + msg;
+        Debug.Log(eMsg);
+        AddLog(eMsg);
     }
+
+    static protected List<string> logs = new List<string>();
+    static protected int logTotal = 0;
+
+    static protected void AddLog(string logMsg)
+    {
+        logs.Add(logMsg);
+        if (logs.Count > 50)
+            logs.RemoveAt(0);
+    }
+
 }

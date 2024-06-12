@@ -121,7 +121,7 @@ public class MapGeneratorBase : MonoBehaviour
         mapDataBase = GameSystem.GetPlayerData().GetSavedMap(mapName);
         if (mapDataBase == null)
         {
-            One.MSG("LoadExploreMap : 沒有存檔資料，不處理");
+            One.LOG("LoadExploreMap : 沒有存檔資料，不處理");
             return;
         }
         MiniMap theMiniMap = BattleSystem.GetInstance().theBattleHUD.miniMap;

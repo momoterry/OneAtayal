@@ -221,7 +221,7 @@ public class GameSystem : MonoBehaviour
 
     public void SaveData()
     {
-        One.MSG("......................SaveData");
+        One.LOG("......................SaveData");
         if (isOnlineSave)
             SaveDataOnlineAsync();
         else
@@ -567,7 +567,7 @@ public class GameSystem : MonoBehaviour
     protected bool LoadDataLocal()
     {
         string filePath = Application.persistentDataPath + "/" + strSaveFile;
-        One.MSG("GameSystem :: Try LoadData !! " + filePath);
+        One.LOG("GameSystem :: Try LoadData !! " + filePath);
 
         if ( !File.Exists(filePath)) 
         { 
