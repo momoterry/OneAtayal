@@ -338,6 +338,7 @@ public class PlayerData : MonoBehaviour
         InitData();
 
         Money = data.Money;
+        //One.LOG("----Money 更ЧΘ---- ");
         mainCharacterStat = data.mainCharacterStat;
 
         if (data.usingDIs != null && data.usingDIs.Length > 0)
@@ -348,6 +349,7 @@ public class PlayerData : MonoBehaviour
                 AddUsingDI(data.usingDIs[i]);
             }
         }
+        //One.LOG("----usingDIs 更ЧΘ---- ");
 
 
         if (data.formationDollList != null && data.formationDollList.Length > 0)
@@ -357,6 +359,7 @@ public class PlayerData : MonoBehaviour
                 AddUsingDoll(data.formationDollList[i].dollID, data.formationDollList[i].group, data.formationDollList[i].index);
             }
         }
+        //One.LOG("----formationDollList 更ЧΘ---- ");
 
         if (data.itemData != null && data.itemData.Length > 0)
         {
@@ -367,6 +370,7 @@ public class PlayerData : MonoBehaviour
                 AddItem(data.itemData[i].ID, data.itemData[i].num);
             }
         }
+        //One.LOG("----itemData 更ЧΘ---- ");
 
         if (data.dollBackpack!= null && data.dollBackpack.Length > 0)
         {
@@ -375,6 +379,7 @@ public class PlayerData : MonoBehaviour
                 AddDollToBackpack(data.dollBackpack[i].ID, data.dollBackpack[i].num);
             }
         }
+        //One.LOG("----dollBackpack 更ЧΘ---- ");
 
         if (data.eventData != null &&data.eventData.Length > 0)
         {
@@ -383,11 +388,13 @@ public class PlayerData : MonoBehaviour
                 SaveEvent(data.eventData[i].Event, data.eventData[i].status);
             }
         }
+        //One.LOG("----eventData 更ЧΘ---- ");
 
         if (data.bookEquipAll != null)
         {
-            BookEquipManager.GetInstance().FromLoadData(data.bookEquipAll);
+            GameSystem.GetInstance().theBookEquipManager.FromLoadData(data.bookEquipAll);
         }
+        //One.LOG("----bookEquip 更ЧΘ---- ");
 
         if (data.savedPFields !=null && data.savedPFields.Length > 0)
         {
@@ -395,7 +402,7 @@ public class PlayerData : MonoBehaviour
             {
                 savedMaps.Add(data.savedPFields[i].mapName, data.savedPFields[i]);
             }
-            print("----PField 瓜更ЧΘ---- ");
+            //One.LOG("----PField 瓜更ЧΘ---- ");
         }
 
         if (data.savedMazes != null && data.savedMazes.Length > 0)
@@ -404,7 +411,7 @@ public class PlayerData : MonoBehaviour
             {
                 savedMaps.Add(data.savedMazes[i].mapName, data.savedMazes[i]);
             }
-            print("----Maze 瓜更ЧΘ---- ");
+            //One.LOG("----Maze 瓜更ЧΘ---- ");
         }
 
         if (data.saveMazeOnes != null && data.saveMazeOnes.Length > 0)
@@ -413,15 +420,15 @@ public class PlayerData : MonoBehaviour
             {
                 savedMaps.Add(data.saveMazeOnes[i].mapName, data.saveMazeOnes[i]);
             }
-            print("----MO 瓜更ЧΘ---- ");
+            //One.LOG("----MO 瓜更ЧΘ---- ");
         }
 
         if (data.worldMap != null)
         {
             GameSystem.GetWorldMap().LoadData(data.worldMap);
-            //print("----瓜更ЧΘ---- ");
+            //One.LOG("----瓜更ЧΘ---- ");
         }
-
+        One.LOG("----LoadSavedData 更ЧΘ---- ");
     }
 
     // ざ

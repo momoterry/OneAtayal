@@ -157,7 +157,7 @@ public class BookEquipManager : MonoBehaviour
     //ª`·N!! Load
     public void FromLoadData(BookEquipSaveAll data)
     {
-        //print("BookEquipManager.FromLoadData");
+        //One.LOG("BookEquipManager.FromLoadData");
         if (data.Equipped != null)
         {
             for (int i=0; i < data.Equipped.Length; i++)
@@ -181,7 +181,7 @@ public class BookEquipManager : MonoBehaviour
                 inventory.Add(data.Inventory[i]);
             }
         }
-        //print("inventory: " + inventory.Count);
+        //One.LOG("inventory: " + inventory.Count);
     }
 
 

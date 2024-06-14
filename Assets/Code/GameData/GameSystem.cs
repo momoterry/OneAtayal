@@ -578,8 +578,9 @@ public class GameSystem : MonoBehaviour
         byte[] rawData = File.ReadAllBytes(filePath);
         string strSave = Encoding.UTF8.GetString(rawData);
 
-        //print(strSave);
+        //One.LOG(strSave);
         SaveData loadData = JsonUtility.FromJson<SaveData>(strSave);
+        //One.LOG("loadData: " + loadData);
 
         thePlayerData.LoadSavedData(loadData);
 
