@@ -115,8 +115,8 @@ public class BookEquipManager : MonoBehaviour
 
     public void InitSave()
     {
-        string[] initEquips = { "DollOne", "DollStone", "DollFire" };
-        string[] initEquipNames = { "日靈書", "石靈書", "火靈書" };
+        string[] initEquips = { "DollStone", "DollWood", "DollFire" };
+        string[] initEquipNames = { "石靈書", "木靈書", "火靈書" };
         inventory.Clear();
         for (int i=0; i<MAX_BOOKEQUIP; i++)
         {
