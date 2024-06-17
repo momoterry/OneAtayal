@@ -16,7 +16,7 @@ public class LogUI : MonoBehaviour
     }
     public void Close()
     {
-        print("Close....");
+        //print("Close....");
         gameObject.SetActive(false);
     }
 
