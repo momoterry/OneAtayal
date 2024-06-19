@@ -43448,9 +43448,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 424532148}
     m_Modifications:
     - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: fixSpecialRewards.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[1].numMax
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[1].numMin
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: rewards.Array.data[1].objRef
+      value: 
+      objectReference: {fileID: 8143502755978418841, guid: 4c7c16cd36f11f34f8281b286f963f2e, type: 3}
     - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: fixSpecialRewards.Array.data[0]
       value: Mat_BlackCrystal
@@ -43486,6 +43502,10 @@ PrefabInstance:
     - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: fixSpecialRewards.Array.data[8]
       value: Mat_BookGreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227951004662146660, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
+      propertyPath: fixSpecialRewards.Array.data[9]
+      value: Mat_BookBlue
       objectReference: {fileID: 0}
     - target: {fileID: 2590200662357474199, guid: 376646489d07d7c4f85c340f15f1c19b, type: 3}
       propertyPath: m_RootOrder
