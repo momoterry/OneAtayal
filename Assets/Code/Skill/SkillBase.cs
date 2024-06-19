@@ -14,6 +14,7 @@ public enum SKILL_RESULT
 
 public class SkillBase : MonoBehaviour
 {
+    public FACTION_GROUP faction = FACTION_GROUP.PLAYER;
     public float damageRatio = 1.0f;
     public float duration = 0.2f;   //技能施放期間 (無法操作 )
     public float manaCost = 0;
@@ -36,8 +37,8 @@ public class SkillBase : MonoBehaviour
 
     protected Damage myDamage;
 
+    //===================== 以下只適用於 faction == PLAYER 的場合 
     //Button 相關
-
     public void OnButtonClicked()
     {
         //print("SkillBase::OnButtonClicked() ...." + skillIndex);
@@ -65,6 +66,7 @@ public class SkillBase : MonoBehaviour
             }
         }
     }
+    //===================== 以上只適用於 faction == PLAYER 的場合 
 
     public void SetCDRate(float rate)
     {
@@ -89,7 +91,8 @@ public class SkillBase : MonoBehaviour
 
     public virtual void InitCasterInfo(GameObject oCaster) { 
         theCaster = oCaster;
-        thePC = oCaster.GetComponent<PlayerControllerBase>();
+        if (faction == FACTION_GROUP.PLAYER)
+            thePC = oCaster.GetComponent<PlayerControllerBase>();
         theAnimator = oCaster.GetComponent<Animator>();
     }
     public virtual bool DoStart() {
@@ -114,7 +117,8 @@ public class SkillBase : MonoBehaviour
         }
         else
         {
-            thePC.DoUseMP(manaCost);
+            if (thePC)
+                thePC.DoUseMP(manaCost);
             cdLeft = coolDown;
         }
         if (theButton)
@@ -125,7 +129,7 @@ public class SkillBase : MonoBehaviour
 
     public virtual bool DoStart(ref SKILL_RESULT result)
     {
-        if (thePC == null)
+        if (faction == FACTION_GROUP.PLAYER && thePC == null)
         {
             result = SKILL_RESULT.ERROR;
             return false;
@@ -148,7 +152,7 @@ public class SkillBase : MonoBehaviour
                 return false;
             }
 
-            if (thePC.GetMP() < manaCost)
+            if (thePC && thePC.GetMP() < manaCost)
             {
                 result = SKILL_RESULT.NO_MANA;
                 return false;
