@@ -46,9 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faction: 2
   damageRatio: 1
-  duration: 0.2
+  duration: 0.5
   manaCost: 0
-  coolDown: 1.5
+  coolDown: 2
   battlePointsCost: 0
   quality: 0
   icon: {fileID: -2196896734544574612, guid: 7092e098a702a17418509aa96a39b688, type: 3}
@@ -58,4 +58,5 @@ MonoBehaviour:
   shootEvenNoEnemy: 0
   autoAim: 1
   faceTarget: 0
-  fireFXRefs: []
+  fireFXRefs:
+  - {fileID: 1730805568862363463, guid: 02040de576fdf384d9d9a7e8c65b8242, type: 3}

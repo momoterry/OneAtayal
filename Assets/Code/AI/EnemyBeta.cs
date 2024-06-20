@@ -26,12 +26,12 @@ public class EnemyBeta : Enemy
 
     protected override void DoOneAttack()
     {
-        print("EnemyBeta----DoOneAttack");
+        //print("EnemyBeta----DoOneAttack");
         //base.DoOneAttack();
 
         if (normalSkill)
         {
-            print("----normalSkill.DoStart()");
+            //print("----normalSkill.DoStart()");
             normalSkill.DoStart();
         }
     }
