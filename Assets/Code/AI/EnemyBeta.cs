@@ -20,7 +20,7 @@ public class EnemyBeta : Enemy
         {
             GameObject o = Instantiate(normalSkillRef.gameObject, transform);
             normalSkill = o.GetComponent<SkillBase>();
-            normalSkill.InitCasterInfo(gameObject);
+            normalSkill.InitCasterInfo(gameObject, Attack);
         }
     }
 

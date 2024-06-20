@@ -101,10 +101,11 @@ public class SkillShoot : SkillBase
             bullet_base newBullet = newObj.GetComponent<bullet_base>();
             if (newBullet)
             {
+                //myDamage.damage = casterAttack * damageRatio;
                 if (thePC)
-                    myDamage.damage = thePC.GetATTACK() * damageRatio;
+                    myDamage.damage = thePC.GetATTACK() * damageRatio;  // 為了支援 PC 的 Buff 狀態，先不直接使用 casterAttack TODO: 需要修正
                 else
-                    myDamage.damage = 30.0f;    //!!!!!!!!!!!!!!!!!!!!!!!!!!!! Skill 的 Damage 應該由 Caster 設定
+                    myDamage.damage = casterAttack * damageRatio;
                 newBullet.InitValue(faction, myDamage, td, target);
             }
         }

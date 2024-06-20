@@ -223,7 +223,7 @@ public class PC_One : PlayerControllerBase
         if (skillRef)
         {
             activeSkillls[index] = Instantiate(skillRef, transform);
-            activeSkillls[index].InitCasterInfo(gameObject);
+            activeSkillls[index].InitCasterInfo(gameObject, Attack);
             //BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(activeSkillls[index].icon, index + 1);
             //SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(index + 1);
             activeSkillls[index].InitButton(sb);
@@ -257,7 +257,7 @@ public class PC_One : PlayerControllerBase
         if (skillRef)
         {
             autoSkill = Instantiate(skillRef, transform);
-            autoSkill.InitCasterInfo(gameObject);
+            autoSkill.InitCasterInfo(gameObject, Attack);
             //BattleSystem.GetInstance().theBattleHUD.SetSkillIcon(autoSkill.icon, 0);
             //SkillButton sb = BattleSystem.GetInstance().theBattleHUD.GetSkillButton(0);
             autoSkill.InitButton(sb);

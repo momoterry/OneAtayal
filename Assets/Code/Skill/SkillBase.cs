@@ -29,6 +29,7 @@ public class SkillBase : MonoBehaviour
     protected GameObject theCaster;
     protected PlayerControllerBase thePC;
     protected Animator theAnimator;
+    protected float casterAttack;
 
     protected float cdLeft = 0;
     protected float cdSpeedRate = 1.0f;     //給 CD 加快的 Buff 使用
@@ -89,11 +90,13 @@ public class SkillBase : MonoBehaviour
 
     public float GetCoolDownLeft() { return cdLeft / cdSpeedRate; }
 
-    public virtual void InitCasterInfo(GameObject oCaster) { 
+    public virtual void InitCasterInfo(GameObject oCaster, float _casterAttack) { 
         theCaster = oCaster;
         if (faction == FACTION_GROUP.PLAYER)
             thePC = oCaster.GetComponent<PlayerControllerBase>();
         theAnimator = oCaster.GetComponent<Animator>();
+
+        casterAttack = _casterAttack;
     }
     public virtual bool DoStart() {
         SKILL_RESULT theResult = SKILL_RESULT.SUCCESS;
