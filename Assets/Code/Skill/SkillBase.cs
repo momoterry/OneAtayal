@@ -161,6 +161,12 @@ public class SkillBase : MonoBehaviour
                 return false;
             }
         }
+
+        if (faction == FACTION_GROUP.PLAYER)
+            myDamage.Init(casterAttack * damageRatio, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+        else if (faction == FACTION_GROUP.ENEMY)
+            myDamage.Init(casterAttack * damageRatio, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
+
         return true;
     }
 
@@ -183,6 +189,9 @@ public class SkillBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+        if (faction == FACTION_GROUP.PLAYER)
+            myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+        else if (faction == FACTION_GROUP.ENEMY)
+            myDamage.Init(0, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
     }
 }

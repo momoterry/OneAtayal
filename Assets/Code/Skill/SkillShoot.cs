@@ -57,21 +57,6 @@ public class SkillShoot : SkillBase
             return false;
         }
 
-        // PlayerControllerBase thePC = theCaster.GetComponent<PlayerControllerBase>();
-        //if (thePC == null)
-        //{
-        //    result = SKILL_RESULT.ERROR;
-        //    return false;
-        //}
-
-        //if (thePC.GetMP() < manaCost)
-        //{
-        //    //print("Mana 不夠啦 !!");
-        //    result = SKILL_RESULT.NO_MANA;
-        //    return false;
-        //}
-        //thePC.DoUseMP(manaCost);
-
         Vector3 td;
         if (target != null && autoAim)
             td = target.transform.position - theCaster.transform.position;
@@ -102,10 +87,10 @@ public class SkillShoot : SkillBase
             if (newBullet)
             {
                 //myDamage.damage = casterAttack * damageRatio;
-                if (thePC)
-                    myDamage.damage = thePC.GetATTACK() * damageRatio;  // 為了支援 PC 的 Buff 狀態，先不直接使用 casterAttack TODO: 需要修正
-                else
-                    myDamage.damage = casterAttack * damageRatio;
+                //if (thePC)
+                //    myDamage.damage = thePC.GetATTACK() * damageRatio;  // 為了支援 PC 的 Buff 狀態，先不直接使用 casterAttack TODO: 需要修正
+                //else
+                //    myDamage.damage = casterAttack * damageRatio;
                 newBullet.InitValue(faction, myDamage, td, target);
             }
         }

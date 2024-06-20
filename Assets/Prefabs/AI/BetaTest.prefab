@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5115566394304035097}
   - component: {fileID: 7122030240818378992}
   - component: {fileID: -9219758234234600987}
+  - component: {fileID: 3148973853679903674}
   m_Layer: 10
   m_Name: BetaTest
   m_TagString: Enemy
@@ -107,6 +108,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 3, z: 1}
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &3148973853679903674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2978935288830301964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73172fc6794736341bc242f6334ad36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barRef: {fileID: 3890801454975395505, guid: 973c65eeb08fab642b86710e645afe25, type: 3}
+  barHeight: 4
 --- !u!1 &3841242654419125743
 GameObject:
   m_ObjectHideFlags: 0
