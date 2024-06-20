@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 122030480824612215}
-  - component: {fileID: -7341246982687760167}
+  - component: {fileID: 5091870217862340967}
   m_Layer: 0
-  m_Name: SkillEveilMS
+  m_Name: SkillEvilLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7341246982687760167
+--- !u!114 &5091870217862340967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,21 +41,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6908609267550144693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fee2b5380a98cd74fbcfe22f159ecefc, type: 3}
+  m_Script: {fileID: 11500000, guid: ecc342f6717badf459800ac21222420a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 2
-  damageRatio: 0.3
-  duration: 3
+  damageRatio: 0.2
+  duration: 0.2
   manaCost: 0
-  coolDown: 0.5
+  coolDown: 4
   battlePointsCost: 0
   quality: 0
   icon: {fileID: -2196896734544574612, guid: 7092e098a702a17418509aa96a39b688, type: 3}
-  bulletRef: {fileID: 4641581918583914209, guid: d19b561c8305f2c4ea3323f3b04957b5, type: 3}
-  bulletInitDis: 0
-  searchRange: 8
-  shootEvenNoEnemy: 0
-  autoAim: 0
-  faceTarget: 0
-  fireFXRefs: []
+  theLaserRef: {fileID: 404306278161372763, guid: 7f5bef73c94720b45a20d99fc91ab9d9, type: 3}
+  searchRange: 6
+  maxRange: 8
+  laserDuration: 3
