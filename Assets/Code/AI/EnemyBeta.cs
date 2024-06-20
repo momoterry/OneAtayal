@@ -9,8 +9,20 @@ using UnityEngine;
 public class EnemyBeta : Enemy
 {
     public SkillBase normalSkillRef;
+    public SkillBase bigOneSkillRef;    //大招
+
+    public enum SKILL_TYPE
+    {
+        NORMALL,
+        BIG_ONE,
+    }
+    public SKILL_TYPE[] skillPattern;
 
     protected SkillBase normalSkill;
+    protected SkillBase bigOneSkill;
+
+    protected int skillIndex = 0;
+    protected float currSkillCDLeft = 0;
 
     protected override void Start()
     {
@@ -22,6 +34,12 @@ public class EnemyBeta : Enemy
             normalSkill = o.GetComponent<SkillBase>();
             normalSkill.InitCasterInfo(gameObject, Attack);
         }
+        if (bigOneSkillRef)
+        {
+            GameObject o = Instantiate(bigOneSkillRef.gameObject, transform);
+            bigOneSkill = o.GetComponent<SkillBase>();
+            bigOneSkill.InitCasterInfo(gameObject, Attack);
+        }
     }
 
     protected override void DoOneAttack()
@@ -29,10 +47,31 @@ public class EnemyBeta : Enemy
         //print("EnemyBeta----DoOneAttack");
         //base.DoOneAttack();
 
-        if (normalSkill)
+        if (currSkillCDLeft > 0)
+            return;
+
+        SkillBase currSkill = null;
+        switch (skillPattern[skillIndex])
+        {
+            case SKILL_TYPE.NORMALL:
+                currSkill = normalSkill;
+                break;
+            case SKILL_TYPE.BIG_ONE:
+                currSkill = bigOneSkill;
+                break;
+
+        }
+
+        if (currSkill)
         {
             //print("----normalSkill.DoStart()");
-            normalSkill.DoStart();
+            if (currSkill.DoStart())
+            {
+                skillIndex++;
+                if (skillIndex >= skillPattern.Length)
+                    skillIndex = 0;
+                currSkillCDLeft = currSkill.coolDown;
+            }
         }
     }
 
@@ -40,5 +79,11 @@ public class EnemyBeta : Enemy
     {
         //print("EnemyBeta----UpdateAttack");
         base.UpdateAttack();
+
+        //TODO: 希望把 CD 改用 AttackCD 的方式確保在移動時也會計算 CD
+        if (currSkillCDLeft > 0)
+        {
+            currSkillCDLeft -= Time.deltaTime;
+        }
     }
 }
