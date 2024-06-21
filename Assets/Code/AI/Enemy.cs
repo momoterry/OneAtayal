@@ -215,7 +215,10 @@ public class Enemy : MonoBehaviour
             myHPHandler.SetHP(hp, MaxHP);
         }
 
+        PostUpdate();
     }
+
+    protected virtual void PostUpdate() { }
 
     protected virtual void OnStartAttack()
     {
