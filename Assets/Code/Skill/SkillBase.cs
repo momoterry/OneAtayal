@@ -12,6 +12,7 @@ public enum SKILL_RESULT
     NO_BATTLE_POINT,
 }
 
+
 public class SkillBase : MonoBehaviour
 {
     public FACTION_GROUP faction = FACTION_GROUP.PLAYER;
@@ -37,6 +38,15 @@ public class SkillBase : MonoBehaviour
     protected int skillIndex = 0;
 
     protected Damage myDamage;
+
+    protected enum SKILL_PHASE
+    {
+        NONE,
+        PLAY,
+    }
+    protected SKILL_PHASE currPhase = SKILL_PHASE.NONE;
+    protected SKILL_PHASE nextPhase = SKILL_PHASE.NONE;
+    //public bool 
 
     //===================== 以下只適用於 faction == PLAYER 的場合 
     //Button 相關
