@@ -42,7 +42,9 @@ public class SkillBase : MonoBehaviour
     protected enum SKILL_PHASE
     {
         NONE,
+        PREPARE,    //唱招或提示範圍期間，不一定有
         PLAY,
+        DONE,
     }
     protected SKILL_PHASE currPhase = SKILL_PHASE.NONE;
     protected SKILL_PHASE nextPhase = SKILL_PHASE.NONE;
@@ -138,6 +140,8 @@ public class SkillBase : MonoBehaviour
         {
             theButton.OnSkillRelease(coolDown);
         }
+
+        nextPhase = SKILL_PHASE.PLAY;
     }
 
     public virtual bool DoStart(ref SKILL_RESULT result)
@@ -146,8 +150,13 @@ public class SkillBase : MonoBehaviour
         //{
         //    result = SKILL_RESULT.ERROR;
         //    return false;
-        
         //}
+        if (currPhase != SKILL_PHASE.NONE)
+        {
+            print("ERROR!!!! Skill 尚未完成");
+            result = SKILL_RESULT.ERROR;
+            return false;
+        }
         if (battlePointsCost > 0)
         {
             if (BattlePlayerData.GetInstance().GetBattleLVPoints() < battlePointsCost)
@@ -200,7 +209,33 @@ public class SkillBase : MonoBehaviour
                 }
             }
         }
+        
+        if (nextPhase != currPhase)
+        {
+            //if (faction == FACTION_GROUP.ENEMY)
+            //{
+            //    print("Skill Phase To " + nextPhase);
+            //}
+            currPhase = nextPhase;
+        }
+
+        switch (currPhase)
+        {
+            case SKILL_PHASE.PLAY:
+                UpdatePlay();
+                break;
+            case SKILL_PHASE.DONE:
+                nextPhase = SKILL_PHASE.NONE;
+                break;
+        }
     }
+
+    
+    protected virtual void UpdatePlay()
+    {
+        nextPhase = SKILL_PHASE.DONE;
+    }
+
 
     protected virtual void Start()
     {
@@ -208,5 +243,15 @@ public class SkillBase : MonoBehaviour
         //    myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
         //else if (faction == FACTION_GROUP.ENEMY)
         //    myDamage.Init(0, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
+    }
+
+    private void OnGUI()
+    {
+        //if (faction == FACTION_GROUP.ENEMY)
+        //{
+        //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+        //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+        //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currPhase.ToString());
+        //}
     }
 }

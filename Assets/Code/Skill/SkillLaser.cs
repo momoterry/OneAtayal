@@ -56,9 +56,33 @@ public class SkillLaser : SkillBase
         return true; ;
     }
 
-    protected override void Update()
+    //protected override void Update()
+    //{
+    //    base.Update();
+    //    if (isLaser)
+    //    {
+    //        if (myTarget == null || !myTarget.activeInHierarchy)
+    //        {
+    //            StopLaser();
+    //        }
+    //        else
+    //        {
+    //            laserTime += Time.deltaTime;
+    //            //myLaser.UpdateLaser(myTarget, transform.position);
+    //            if (Vector3.Distance(myTarget.transform.position, transform.position) > maxRange || laserTime > laserDuration)
+    //            {
+    //                StopLaser();
+    //            }
+    //            else
+    //            {
+    //                myLaser.UpdateLaser(myTarget, transform.position);
+    //            }
+    //        }
+    //    }
+    //}
+
+    protected override void UpdatePlay()
     {
-        base.Update();
         if (isLaser)
         {
             if (myTarget == null || !myTarget.activeInHierarchy)
@@ -80,6 +104,7 @@ public class SkillLaser : SkillBase
             }
         }
     }
+
     protected GameObject FindBestShootTarget(float searchRange)
     {
         if (theCaster == null)
@@ -114,5 +139,6 @@ public class SkillLaser : SkillBase
         //print("StopLaser");
         isLaser = false;
         myLaser.gameObject.SetActive(false);
+        nextPhase = SKILL_PHASE.DONE;
     }
 }
