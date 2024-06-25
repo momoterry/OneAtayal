@@ -34,26 +34,37 @@ public class BattleUtility : MonoBehaviour
             }
         }
 
-        //if (bestObj == null)
-        //{
-        //    bestSDis = HITTABLE_OBJ_DISTANCE;
-        //    foreach (Collider col in cols)
-        //    {
-        //        if (col.gameObject.CompareTag("Hittable"))
-        //        {
-        //            Vector3 vDis = col.transform.position - myCenter;
-        //            float sDis = vDis.magnitude;
-        //            //print("Hittable!!" + sDis);
-        //            if (sDis < bestSDis)
-        //            {
-        //                bestObj = col.gameObject;
-        //                bestSDis = sDis;
-        //            }
-        //        }
-        //    }
-        //}
-
         return bestObj;
+    }
+
+    static public List<GameObject> SearchAllTargets(Vector3 myCenter, float distance, string sTag = "Enemy")
+    {
+        List<GameObject> targets = new List<GameObject>();
+        Collider[] cols = Physics.OverlapSphere(myCenter, distance, LayerMask.GetMask("Character"));
+        if (cols.Length == 0)
+            return targets;
+
+        //GameObject bestObj = null;
+        //float bestSDis = Mathf.Infinity;
+        foreach (Collider col in cols)
+        {
+            if (col.gameObject.CompareTag(sTag))
+            {
+                //    Vector3 vDis = col.transform.position - myCenter;
+                //    float sDis = vDis.magnitude;
+                //    if (sDis < bestSDis)
+                //    {
+                //        bestObj = col.gameObject;
+                //        bestSDis = sDis;
+                //        targets.Insert(0, col.gameObject);  //確保最近的目標放在第一個
+                //    }
+                //    else
+                //        targets.Add(col.gameObject);
+                //}
+                targets.Add(col.gameObject);
+            }
+        }
+        return targets;
     }
 
     static public GameObject SearchClosestTargetForEnemy(Vector3 myCenter, float distance)
