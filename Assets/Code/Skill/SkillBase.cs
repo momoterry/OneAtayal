@@ -48,7 +48,8 @@ public class SkillBase : MonoBehaviour
     }
     protected SKILL_PHASE currPhase = SKILL_PHASE.NONE;
     protected SKILL_PHASE nextPhase = SKILL_PHASE.NONE;
-    //public bool 
+
+    protected float stateTimeLeft = 0;
 
     //===================== 以下只適用於 faction == PLAYER 的場合 
     //Button 相關
@@ -66,7 +67,7 @@ public class SkillBase : MonoBehaviour
             skillButton.SetIcon(icon);
             skillButton.Bind(OnButtonClicked);
             skillButton.SetCost(battlePointsCost);
-            if (skillButton.bgIcon) 
+            if (skillButton.bgIcon)
             {
                 skillButton.bgIcon.color = GameDef.GetQaulityColor((ITEM_QUALITY)quality);
             }
@@ -86,7 +87,7 @@ public class SkillBase : MonoBehaviour
         cdSpeedRate = rate;
     }
 
-    public void SetupBattlePoints( int points)
+    public void SetupBattlePoints(int points)
     {
         if (battlePointsCost > 0)
         {
@@ -102,7 +103,7 @@ public class SkillBase : MonoBehaviour
 
     public float GetCoolDownLeft() { return cdLeft / cdSpeedRate; }
 
-    public virtual void InitCasterInfo(GameObject oCaster, float _casterAttack) { 
+    public virtual void InitCasterInfo(GameObject oCaster, float _casterAttack) {
         theCaster = oCaster;
         if (faction == FACTION_GROUP.PLAYER)
             thePC = oCaster.GetComponent<PlayerControllerBase>();
@@ -113,6 +114,16 @@ public class SkillBase : MonoBehaviour
     public virtual bool DoStart() {
         SKILL_RESULT theResult = SKILL_RESULT.SUCCESS;
         return DoStart(ref theResult);
+    }
+
+    public bool IsReady()
+    {
+        switch (currPhase)
+        {
+            case SKILL_PHASE.NONE:
+                return true;
+        }
+        return false;
     }
 
     public virtual void OnSkillSucess()
@@ -212,12 +223,19 @@ public class SkillBase : MonoBehaviour
         
         if (nextPhase != currPhase)
         {
-            //if (faction == FACTION_GROUP.ENEMY)
-            //{
-            //    print("Skill Phase To " + nextPhase);
-            //}
+            switch (nextPhase)
+            {
+                case SKILL_PHASE.PLAY:
+                    stateTimeLeft = duration;
+                    break;
+                default:
+                    stateTimeLeft = 0;
+                    break;
+            }
             currPhase = nextPhase;
         }
+
+        stateTimeLeft -= Time.deltaTime;
 
         switch (currPhase)
         {
@@ -233,7 +251,8 @@ public class SkillBase : MonoBehaviour
     
     protected virtual void UpdatePlay()
     {
-        nextPhase = SKILL_PHASE.DONE;
+        if (stateTimeLeft <= 0)
+            nextPhase = SKILL_PHASE.DONE;
     }
 
 

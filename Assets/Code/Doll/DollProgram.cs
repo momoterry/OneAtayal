@@ -135,9 +135,14 @@ public class DollProgram : DollBeta
 
     protected bool UpdateAction(Action a)
     {
-        actionTimeLeft -= Time.deltaTime;
-        if (actionTimeLeft <= 0)
+        //actionTimeLeft -= Time.deltaTime;
+        //if (actionTimeLeft <= 0)
+        //    return true;
+        if (a.skill != null && a.skill.IsReady())
+        {
+            //print("Skill Ready");
             return true;
+        }
         return false;
     }
     
@@ -153,6 +158,7 @@ public class DollProgram : DollBeta
             }
             else
             {
+                //print("StartAction ....." + currActionIndex);
                 StartAction(currAction);
             }
         }
