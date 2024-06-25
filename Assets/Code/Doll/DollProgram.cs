@@ -73,7 +73,7 @@ public class DollProgram : DollBeta
                 FollowSlot();
                 if (checkContitionWait < 0)
                 {
-                    checkContitionWait = 1.0f;
+                    checkContitionWait = 0.5f;
                     if (CheckAllConditions())
                     {
                         nextProgPhase = PROG_PHASE.RUNNING;
@@ -155,24 +155,29 @@ public class DollProgram : DollBeta
         {
             if (UpdateAction(currAction))
             {
-                print("Action 結束 .....");
+                //print("Action 結束 .....");
+                currAction = null;
                 currActionIndex++;
             }
         }
 
         if (currActionIndex >= currCondition.actionDescs.Length)
         {
-            print("Condition 結束 .....");
+            //print("Condition 結束 .....");
             currCondition = null;
             nextProgPhase = PROG_PHASE.NONE;
             checkContitionWait = 1.0f;
+            currActionIndex = 0;
         }
     }
 
     private void OnGUI()
     {
+        string actionStr = "";
+        if (currCondition != null)
+            actionStr = " " + currActionIndex + " : " + currCondition.actionDescs[currActionIndex];
         Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
         thePoint.y = Camera.main.pixelHeight - thePoint.y;
-        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currProgPhase.ToString());
+        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currProgPhase.ToString() + actionStr);
     }
 }
