@@ -8,7 +8,7 @@ public class DollProgram : DollBeta
     public class Condition
     {
         public string conditionDesc;
-        public float conditionPara;
+        //public float conditionPara;
         public string[] actionDescs;
     }
 
@@ -55,6 +55,7 @@ public class DollProgram : DollBeta
                 GameObject o = Instantiate(actionSkillDefs[i].skillRef.gameObject, transform);
                 Action a = new Action();
                 a.skill = o.GetComponent<SkillBase>();
+                a.skill.InitCasterInfo(gameObject, AttackInit);
                 actions.Add(actionSkillDefs[i].actionDesc, a);
              }
         }
@@ -179,7 +180,7 @@ public class DollProgram : DollBeta
     {
         string actionStr = "";
         if (currCondition != null)
-            actionStr = " " + currActionIndex + " : " + currCondition.actionDescs[currActionIndex];
+            actionStr = currCondition.conditionDesc + " " + currActionIndex + " : " + currCondition.actionDescs[currActionIndex];
         Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
         thePoint.y = Camera.main.pixelHeight - thePoint.y;
         GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currProgPhase.ToString() + actionStr);

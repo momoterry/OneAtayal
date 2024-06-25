@@ -142,12 +142,12 @@ public class SkillBase : MonoBehaviour
 
     public virtual bool DoStart(ref SKILL_RESULT result)
     {
-        if (faction == FACTION_GROUP.PLAYER && thePC == null)
-        {
-            result = SKILL_RESULT.ERROR;
-            return false;
+        //if (faction == FACTION_GROUP.PLAYER && thePC == null)
+        //{
+        //    result = SKILL_RESULT.ERROR;
+        //    return false;
         
-        }
+        //}
         if (battlePointsCost > 0)
         {
             if (BattlePlayerData.GetInstance().GetBattleLVPoints() < battlePointsCost)
@@ -173,7 +173,12 @@ public class SkillBase : MonoBehaviour
         }
 
         if (faction == FACTION_GROUP.PLAYER)
-            myDamage.Init(casterAttack * damageRatio, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+        {
+            if (thePC)
+                myDamage.Init(casterAttack * damageRatio, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+            else
+                myDamage.Init(casterAttack * damageRatio, Damage.OwnerType.DOLL, gameObject.name, gameObject);
+        }
         else if (faction == FACTION_GROUP.ENEMY)
             myDamage.Init(casterAttack * damageRatio, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
 
@@ -199,9 +204,9 @@ public class SkillBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        if (faction == FACTION_GROUP.PLAYER)
-            myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
-        else if (faction == FACTION_GROUP.ENEMY)
-            myDamage.Init(0, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
+        //if (faction == FACTION_GROUP.PLAYER)
+        //    myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+        //else if (faction == FACTION_GROUP.ENEMY)
+        //    myDamage.Init(0, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
     }
 }

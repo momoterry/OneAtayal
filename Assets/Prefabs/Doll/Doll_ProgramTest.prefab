@@ -143,7 +143,7 @@ MonoBehaviour:
   positionType: 0
   bulletRef: {fileID: 0}
   bulletInitDis: 0.25
-  AttackInit: 10
+  AttackInit: 80
   SearchRange: 8
   DamageRatio: 1
   canRevie: 0
@@ -159,14 +159,18 @@ MonoBehaviour:
   mySpAnimator: {fileID: 1574345511545568187}
   useDefaultAgentSetting: 1
   conditionActions:
+  - conditionDesc: "\u7576\u5C04\u7A0B\u5167\u6709\u591A\u500B\u6575\u4EBA\u6642"
+    actionDescs:
+    - "\u767C\u5C04\u6563\u5F48"
   - conditionDesc: "\u7576\u5C04\u7A0B\u5167\u6709\u6575\u4EBA\u6642"
-    conditionPara: 0
     actionDescs:
     - "\u767C\u5C04\u5B50\u5F48"
     - "\u767C\u5C04\u5B50\u5F48"
   actionSkillDefs:
   - actionDesc: "\u767C\u5C04\u5B50\u5F48"
     skillRef: {fileID: -7341246982687760167, guid: ba4e1825d83630247a44cca7024d764f, type: 3}
+  - actionDesc: "\u767C\u5C04\u6563\u5F48"
+    skillRef: {fileID: -7341246982687760167, guid: f2cbf9f7e03dc894dbc91c5ad500516b, type: 3}
 --- !u!114 &-1451147456640922642
 MonoBehaviour:
   m_ObjectHideFlags: 0
