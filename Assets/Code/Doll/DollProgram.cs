@@ -117,6 +117,10 @@ public class DollProgram : DollBeta
                 if (targets.Count > 0)
                     return true;
                 break;
+            case "當射程內有多個敵人時":
+                if (targets.Count >= 3)
+                    return true;
+                break;
         }
         return false;
     }
