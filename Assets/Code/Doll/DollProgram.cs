@@ -182,13 +182,13 @@ public class DollProgram : DollBeta
         }
     }
 
-    private void OnGUI()
-    {
-        string actionStr = "";
-        if (currCondition != null)
-            actionStr = currCondition.conditionDesc + " " + currActionIndex + " : " + currCondition.actionDescs[currActionIndex];
-        Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
-        thePoint.y = Camera.main.pixelHeight - thePoint.y;
-        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currProgPhase.ToString() + actionStr);
-    }
+    //private void OnGUI()
+    //{
+    //    string actionStr = "";
+    //    if (currCondition != null)
+    //        actionStr = currCondition.conditionDesc + " " + currActionIndex + " : " + currCondition.actionDescs[currActionIndex];
+    //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+    //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currProgPhase.ToString() + actionStr);
+    //}
 }

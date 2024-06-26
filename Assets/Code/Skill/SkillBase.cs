@@ -8,7 +8,7 @@ public enum SKILL_RESULT
     ERROR,
     NO_TARGET,
     NO_MANA,
-    COLL_DOWN,
+    COOL_DOWN,
     NO_BATTLE_POINT,
 }
 
@@ -44,6 +44,7 @@ public class SkillBase : MonoBehaviour
         NONE,
         PREPARE,    //唱招或提示範圍期間，不一定有
         PLAY,
+        COOL_DOWN,
         DONE,
     }
     protected SKILL_PHASE currPhase = SKILL_PHASE.NONE;
@@ -145,12 +146,12 @@ public class SkillBase : MonoBehaviour
         {
             if (thePC)
                 thePC.DoUseMP(manaCost);
-            cdLeft = coolDown;
+            //cdLeft = coolDown;
         }
-        if (theButton)
-        {
-            theButton.OnSkillRelease(coolDown);
-        }
+        //if (theButton)
+        //{
+        //    theButton.OnSkillRelease(coolDown);
+        //}
 
         nextPhase = SKILL_PHASE.PLAY;
     }
@@ -164,8 +165,8 @@ public class SkillBase : MonoBehaviour
         //}
         if (currPhase != SKILL_PHASE.NONE)
         {
-            print("ERROR!!!! Skill 尚未完成");
-            result = SKILL_RESULT.ERROR;
+            print("ERROR!!!! Skill 尚未完成.." + name);
+            result = SKILL_RESULT.COOL_DOWN;
             return false;
         }
         if (battlePointsCost > 0)
@@ -180,7 +181,7 @@ public class SkillBase : MonoBehaviour
         {
             if (cdLeft > 0)
             {
-                result = SKILL_RESULT.COLL_DOWN;
+                result = SKILL_RESULT.COOL_DOWN;
                 //print("SKILL CD " + cdLeft);
                 return false;
             }
@@ -208,18 +209,18 @@ public class SkillBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (cdLeft > 0)
-        {
-            cdLeft -= Time.deltaTime * cdSpeedRate;
-            if (cdLeft <= 0)
-            {
-                cdLeft = 0;
-                if (theButton)
-                {
-                    theButton.OnSkillCoolDownFinish();
-                }
-            }
-        }
+        //if (cdLeft > 0)
+        //{
+        //    cdLeft -= Time.deltaTime * cdSpeedRate;
+        //    if (cdLeft <= 0)
+        //    {
+        //        cdLeft = 0;
+        //        if (theButton)
+        //        {
+        //            theButton.OnSkillCoolDownFinish();
+        //        }
+        //    }
+        //}
         
         if (nextPhase != currPhase)
         {
@@ -227,6 +228,9 @@ public class SkillBase : MonoBehaviour
             {
                 case SKILL_PHASE.PLAY:
                     stateTimeLeft = duration;
+                    break;
+                case SKILL_PHASE.COOL_DOWN:
+                    stateTimeLeft = coolDown;
                     break;
                 default:
                     stateTimeLeft = 0;
@@ -242,6 +246,9 @@ public class SkillBase : MonoBehaviour
             case SKILL_PHASE.PLAY:
                 UpdatePlay();
                 break;
+            case SKILL_PHASE.COOL_DOWN:
+                UpdateCoolDown();
+                break;
             case SKILL_PHASE.DONE:
                 nextPhase = SKILL_PHASE.NONE;
                 break;
@@ -252,7 +259,28 @@ public class SkillBase : MonoBehaviour
     protected virtual void UpdatePlay()
     {
         if (stateTimeLeft <= 0)
+        {
+            if (theButton)
+            {
+                theButton.OnSkillRelease(coolDown);
+            }
+            if (coolDown > 0)
+                nextPhase = SKILL_PHASE.COOL_DOWN;
+            else
+                nextPhase = SKILL_PHASE.DONE;
+        }
+    }
+
+    protected virtual void UpdateCoolDown()
+    {
+        if (stateTimeLeft <= 0)
+        {
+            if (theButton)
+            {
+                theButton.OnSkillCoolDownFinish();
+            }
             nextPhase = SKILL_PHASE.DONE;
+        }
     }
 
 
@@ -264,13 +292,13 @@ public class SkillBase : MonoBehaviour
         //    myDamage.Init(0, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
     }
 
-    private void OnGUI()
-    {
-        //if (faction == FACTION_GROUP.ENEMY)
-        //{
-        //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
-        //    thePoint.y = Camera.main.pixelHeight - thePoint.y;
-        //    GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currPhase.ToString());
-        //}
-    }
+    //private void OnGUI()
+    //{
+    //    if (faction == FACTION_GROUP.ENEMY)
+    //    {
+    //        Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+    //        thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currPhase.ToString());
+    //    }
+    //}
 }

@@ -33,7 +33,7 @@ public class SkillLaser : SkillBase
     {
         if (isLaser)
         {
-            result = SKILL_RESULT.COLL_DOWN;
+            result = SKILL_RESULT.COOL_DOWN;
             return false;
         }
 
@@ -139,6 +139,6 @@ public class SkillLaser : SkillBase
         //print("StopLaser");
         isLaser = false;
         myLaser.gameObject.SetActive(false);
-        nextPhase = SKILL_PHASE.DONE;
+        nextPhase = SKILL_PHASE.COOL_DOWN;
     }
 }
