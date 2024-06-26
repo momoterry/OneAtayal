@@ -535,18 +535,20 @@ public class PC_One : PlayerControllerBase
         
         if (autoAttackCDLeft <=0)
         {
-            if (autoSkill)
+            if (autoSkill && autoSkill.IsReady())
             {
-                if (DoAutoSkill(autoSkill))
-                {
-                    //autoAttackCDLeft = autoAttackCD;
-                    autoAttackCDLeft = autoSkill.coolDown;
-                }
-                else
-                {
-                    autoAttackCDLeft = 0.1f;
-                }
+                DoAutoSkill(autoSkill);
+                //if (DoAutoSkill(autoSkill))
+                //{
+                //    //autoAttackCDLeft = autoAttackCD;
+                //    autoAttackCDLeft = autoSkill.coolDown;
+                //}
+                //else
+                //{
+                //    autoAttackCDLeft = 0.1f;
+                //}
             }
+            autoAttackCDLeft = 0.1f;
         }
     }
 
