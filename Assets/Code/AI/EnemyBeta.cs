@@ -42,12 +42,17 @@ public class EnemyBeta : Enemy
         }
     }
 
+
+    protected SkillBase runningSkill = null;
+
     protected override void DoOneAttack()
     {
         //print("EnemyBeta----DoOneAttack");
         //base.DoOneAttack();
 
-        if (currSkillCDLeft > 0)
+        //if (currSkillCDLeft > 0)
+        //    return;
+        if (runningSkill != null)
             return;
 
         SkillBase currSkill = null;
@@ -67,12 +72,18 @@ public class EnemyBeta : Enemy
             //print("----normalSkill.DoStart()");
             if (currSkill.DoStart())
             {
-                skillIndex++;
-                if (skillIndex >= skillPattern.Length)
-                    skillIndex = 0;
-                currSkillCDLeft = currSkill.coolDown;
+                runningSkill = currSkill;
+                //skillIndex++;
+                //if (skillIndex >= skillPattern.Length)
+                //    skillIndex = 0;
+                //currSkillCDLeft = currSkill.coolDown;
             }
         }
+    }
+
+    protected void OnRunningSkillDone()
+    {
+        runningSkill = null;
     }
 
     //protected override void UpdateAttack()
@@ -90,9 +101,16 @@ public class EnemyBeta : Enemy
     protected override void PostUpdate()
     {
         base.PostUpdate();
-        if (currSkillCDLeft > 0)
+        //if (currSkillCDLeft > 0)
+        //{
+        //    currSkillCDLeft -= Time.deltaTime;
+        //}
+        if (runningSkill != null)
         {
-            currSkillCDLeft -= Time.deltaTime;
+            if (runningSkill.IsReady())
+            {
+                OnRunningSkillDone();
+            }
         }
     }
 

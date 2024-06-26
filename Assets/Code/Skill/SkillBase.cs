@@ -42,6 +42,7 @@ public class SkillBase : MonoBehaviour
     protected enum SKILL_PHASE
     {
         NONE,
+        JUST_START,
         PREPARE,    //唱招或提示範圍期間，不一定有
         PLAY,
         COOL_DOWN,
@@ -152,7 +153,7 @@ public class SkillBase : MonoBehaviour
         //{
         //    theButton.OnSkillRelease(coolDown);
         //}
-
+        currPhase = SKILL_PHASE.JUST_START; //確保  IsReady() 為 false
         nextPhase = SKILL_PHASE.PLAY;
     }
 
@@ -292,13 +293,13 @@ public class SkillBase : MonoBehaviour
         //    myDamage.Init(0, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
     }
 
-    //private void OnGUI()
-    //{
-    //    if (faction == FACTION_GROUP.ENEMY)
-    //    {
-    //        Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
-    //        thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currPhase.ToString());
-    //    }
-    //}
+    private void OnGUI()
+    {
+        if (faction == FACTION_GROUP.ENEMY)
+        {
+            Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+            thePoint.y = Camera.main.pixelHeight - thePoint.y;
+            GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), currPhase.ToString());
+        }
+    }
 }
