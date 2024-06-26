@@ -32,7 +32,7 @@ public class SkillBase : MonoBehaviour
     protected Animator theAnimator;
     protected float casterAttack;
 
-    protected float cdLeft = 0;
+    //protected float cdLeft = 0;
     protected float cdSpeedRate = 1.0f;     //給 CD 加快的 Buff 使用
     protected SkillButton theButton;
     protected int skillIndex = 0;
@@ -103,7 +103,7 @@ public class SkillBase : MonoBehaviour
         skillIndex = index;
     }
 
-    public float GetCoolDownLeft() { return cdLeft / cdSpeedRate; }
+    //public float GetCoolDownLeft() { return cdLeft / cdSpeedRate; }
 
     public virtual void InitCasterInfo(GameObject oCaster, float _casterAttack) {
         theCaster = oCaster;
@@ -180,12 +180,12 @@ public class SkillBase : MonoBehaviour
         }
         else
         {
-            if (cdLeft > 0)
-            {
-                result = SKILL_RESULT.COOL_DOWN;
-                //print("SKILL CD " + cdLeft);
-                return false;
-            }
+            //if (cdLeft > 0)
+            //{
+            //    result = SKILL_RESULT.COOL_DOWN;
+            //    //print("SKILL CD " + cdLeft);
+            //    return false;
+            //}
 
             if (thePC && thePC.GetMP() < manaCost)
             {
