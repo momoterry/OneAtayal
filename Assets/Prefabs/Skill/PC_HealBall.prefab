@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,10 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610aaa0d2c1bc7b42bd16e3934483fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faction: 1
   damageRatio: 0.4
   duration: 0.2
   manaCost: 0
-  coolDown: 1
+  coolDown: 0.8
+  battlePointsCost: 0
+  quality: 0
   icon: {fileID: 8036071202008269702, guid: 12740fcbb9b93be4a84a623a5a501659, type: 3}
   bulletRef: {fileID: 2820250728779406873, guid: 32cf3bce9e2c7724bbaf2abc5f4ac97c, type: 3}
   bulletInitDis: 0.25
@@ -54,3 +58,4 @@ MonoBehaviour:
   shootEvenNoEnemy: 0
   autoAim: 1
   faceTarget: 0
+  fireFXRefs: []
