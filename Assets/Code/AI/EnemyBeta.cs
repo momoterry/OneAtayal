@@ -84,6 +84,9 @@ public class EnemyBeta : Enemy
     protected void OnRunningSkillDone()
     {
         runningSkill = null;
+        skillIndex++;
+        if (skillIndex >= skillPattern.Length)
+            skillIndex = 0;
     }
 
     //protected override void UpdateAttack()
