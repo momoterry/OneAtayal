@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 122030480824612215}
   - component: {fileID: 5091870217862340967}
   m_Layer: 0
-  m_Name: SkillEvilLaser
+  m_Name: SE_Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 2
-  damageRatio: 0.2
+  damageRatio: 0.3
   duration: 0.2
   manaCost: 0
-  coolDown: 1
+  coolDown: 0.5
   battlePointsCost: 0
   quality: 0
   icon: {fileID: -2196896734544574612, guid: 7092e098a702a17418509aa96a39b688, type: 3}
   theLaserRef: {fileID: 404306278161372763, guid: 7f5bef73c94720b45a20d99fc91ab9d9, type: 3}
   searchRange: 6
   maxRange: 8
-  laserDuration: 2
+  laserDuration: 1.5
