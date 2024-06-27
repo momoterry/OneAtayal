@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BossCompose : MonoBehaviour
 {
+    public EnemyBeta theBoss;
+
     [System.Serializable]
     public class ModuleData
     {
@@ -17,7 +19,6 @@ public class BossCompose : MonoBehaviour
     public int debugHeadIndex = -1;
     public int debugBodyIndex = -1;
 
-
     protected void RandomCompose()
     {
         int headIndex = debugHeadIndex < 0 ? Random.Range(0, headModuels.Length) : debugHeadIndex;
@@ -30,6 +31,12 @@ public class BossCompose : MonoBehaviour
         for (int i = 0; i < bodyModuels.Length; i++)
         {
             bodyModuels[i].moduelObject.SetActive(i == bodyIndex);
+        }
+
+        if (theBoss)
+        {
+            theBoss.normalSkillRef = headModuels[headIndex].skillRef;
+            theBoss.bigOneSkillRef = bodyModuels[bodyIndex].skillRef;
         }
     }
 
