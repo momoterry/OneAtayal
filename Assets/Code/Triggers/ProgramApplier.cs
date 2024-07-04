@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ProgramApplier : MonoBehaviour
 {
-    //public ItemMenu theMenu;
-
     public void OnTG(GameObject whoTG)
     {
 
