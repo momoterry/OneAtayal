@@ -22,7 +22,7 @@ public class LevelInfo
     public int requireLevel;    //-1 表示 ??
 }
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : GlobalSystemBase
 {
     public LevelInfo[] mainLevels;
     // Start is called before the first frame update
@@ -30,8 +30,22 @@ public class LevelManager : MonoBehaviour
     protected Dictionary<string, int> levelMap = new Dictionary<string, int>();
     protected Dictionary<string, string> sceneLevelMap = new Dictionary<string, string>();
 
-    void Awake()
+    //void Awake()
+    //{
+    //    for (int i = 0; i < mainLevels.Length; i++)
+    //    {
+    //        levelMap.Add(mainLevels[i].ID, i);
+    //        sceneLevelMap.Add(mainLevels[i].sceneName, mainLevels[i].ID);
+    //    }
+
+    //    //先暴力法開放第一關
+    //    //SetLevelOpen(mainLevels[0].ID);
+    //    //print("先暴力法開放第一關");
+    //}
+
+    public override void InitSystem()
     {
+        base.InitSystem();
         for (int i = 0; i < mainLevels.Length; i++)
         {
             levelMap.Add(mainLevels[i].ID, i);

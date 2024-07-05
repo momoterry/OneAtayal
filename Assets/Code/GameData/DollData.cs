@@ -38,7 +38,7 @@ public class DollCSVData
     public int SummonCost;
 }
 
-public class DollData : MonoBehaviour
+public class DollData : GlobalSystemBase
 {
     public GameObject defautSpawnFX;
     public DollInfo[] DollInfos;
@@ -77,9 +77,83 @@ public class DollData : MonoBehaviour
         return theDollMapping[dollID];
     }
 
-    void Awake()
+    //void Awake()
+    //{
+    //    //string strAll = "";
+    //    foreach (DollInfo dInfo in DollInfos)
+    //    {
+    //        if (dInfo != null && dInfo.objRef)
+    //        {
+    //            Doll d = dInfo.objRef.GetComponent<Doll>();
+    //            if (d.ID != dInfo.dollID)
+    //                One.ERROR("dInfo ID 錯誤!! " + dInfo.dollID);
+    //            if (dInfo.icon == null)
+    //                dInfo.icon = d.icon;
+    //            theDollMapping.Add(dInfo.dollID, dInfo);
+
+    //            HitBody hb = dInfo.objRef.GetComponent<HitBody>();
+    //            //string sep = "\t";
+    //            //string str = dInfo.dollID + sep + dInfo.dollID + sep + 1 + sep + d.AttackInit + sep + hb.HP_Max + sep + dInfo.dollName + sep + dInfo.dollDesc + sep + 1 + "\n";
+    //            //strAll += str;
+    //        }
+    //    }
+    //    //print(strAll);
+
+    //    DollCSVData[] csvDolls = CSVReader.FromCSV<DollCSVData>(csvDollData.text);
+    //    GameObject objRoot = new GameObject("DollRefRoot");
+    //    objRoot.transform.parent = transform;
+    //    objRoot.SetActive(false);
+    //    foreach (DollCSVData data in csvDolls)
+    //    {
+    //        //print(data.Name + " base on: " + data.BaseID);
+    //        //if (data.DollID == data.BaseID)
+    //        //{
+    //        //    print("目前不需要放基礎 Doll .....");
+    //        //    continue;
+    //        //}
+    //        DollInfo baseInfo = theDollMapping[data.BaseID];
+    //        if (baseInfo == null)
+    //        {
+    //            One.ERROR("錯誤的 BaseID: " + data.BaseID);
+    //            continue;
+    //        }
+    //        DollInfoEx dInfo = new DollInfoEx();
+    //        dInfo.dollID = data.DollID;
+    //        dInfo.dollName = data.Name;
+    //        dInfo.dollDesc = data.Desc;
+    //        dInfo.summonCost = data.SummonCost;
+    //        dInfo.ATK = data.ATK;
+    //        dInfo.HP = data.HP;
+    //        //dInfo.objRef = baseInfo.objRef;
+    //        GameObject o = Instantiate(baseInfo.objRef, objRoot.transform);
+    //        o.name = data.DollID;
+    //        //o.SetActive(false);
+    //        Doll d = o.GetComponent<Doll>();
+    //        d.ID = data.DollID;
+    //        d.AttackInit = data.ATK;
+    //        HitBody h = o.GetComponent<HitBody>();
+    //        h.HP_Max = data.HP;
+    //        dInfo.objRef = o;
+    //        dInfo.icon = baseInfo.icon;
+    //        //print("baseInfo icon: " + baseInfo.icon);
+    //        if (data.Rank > 1 && highRankIcons[data.Rank - 2])
+    //        {
+    //            dInfo.icon = OneUtility.BlendSprite(baseInfo.icon, highRankIcons[data.Rank-2], iconBlendMat);
+    //            d.icon = dInfo.icon;
+    //        }
+    //        if (data.DollID == data.BaseID)
+    //        {
+    //            //print("取代基礎 Doll ....." + data.DollID);
+    //            theDollMapping.Remove(data.BaseID);
+    //        }
+    //        theDollMapping.Add(dInfo.dollID, dInfo);
+    //    }
+
+    //}
+
+    public override void InitSystem()
     {
-        //string strAll = "";
+        base.InitSystem();
         foreach (DollInfo dInfo in DollInfos)
         {
             if (dInfo != null && dInfo.objRef)
@@ -138,7 +212,7 @@ public class DollData : MonoBehaviour
             //print("baseInfo icon: " + baseInfo.icon);
             if (data.Rank > 1 && highRankIcons[data.Rank - 2])
             {
-                dInfo.icon = OneUtility.BlendSprite(baseInfo.icon, highRankIcons[data.Rank-2], iconBlendMat);
+                dInfo.icon = OneUtility.BlendSprite(baseInfo.icon, highRankIcons[data.Rank - 2], iconBlendMat);
                 d.icon = dInfo.icon;
             }
             if (data.DollID == data.BaseID)
@@ -148,7 +222,6 @@ public class DollData : MonoBehaviour
             }
             theDollMapping.Add(dInfo.dollID, dInfo);
         }
-
     }
 
     public DollInfo[] GetAllDollInfo()

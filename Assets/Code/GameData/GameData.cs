@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameData : MonoBehaviour
+public class GameData : GlobalSystemBase
 {
     public GameObject[] GMDatas;
 
@@ -28,10 +28,18 @@ public class GameData : MonoBehaviour
             print("ERROR !! 超過一份 GameData 存在 ");
         instance = this;
 
+        //foreach (GameObject o in GMDatas)
+        //{
+        //    objMaps.Add(o.name, o);
+        //}
+    }
+
+    public override void InitSystem()
+    {
+        base.InitSystem();
         foreach (GameObject o in GMDatas)
         {
             objMaps.Add(o.name, o);
         }
     }
-
 }

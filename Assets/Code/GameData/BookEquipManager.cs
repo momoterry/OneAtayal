@@ -28,7 +28,7 @@ public class MagicBookEquipInfo
     public Sprite subIcon = null;
 }
 
-public class BookEquipManager : MonoBehaviour
+public class BookEquipManager : GlobalSystemBase
 {
     public const int MAX_BOOKEQUIP = 3;
     public MagicBookEquipInfo[] magicBookDef;
@@ -62,14 +62,64 @@ public class BookEquipManager : MonoBehaviour
             print("ERROR !! 禬筁 BookEquipManager  ... ");
         instance = this;
 
+        //for (int i = 0; i < magicBookDef.Length; i++)
+        //{
+        //    magicBookMap.Add(magicBookDef[i].ID, magicBookDef[i]);
+        //}
+    }
+
+    //private void Start()
+    //{
+    //    if (!oneTimeInit)
+    //    {
+    //        //print("BookEquipManager Init Skill Refs");
+    //        //DollInfo[] dInfos = GameSystem.GetDollData().DollInfos;
+    //        DollInfo[] dInfos = GameSystem.GetDollData().GetAllDollInfo();
+    //        foreach (DollInfo dInfo in dInfos)
+    //        {
+    //            //print("Try Create Skill Ref for : " + dInfo.dollID + " dInfo: " + dInfo.dollName);
+
+    //            GameObject o = new GameObject("SkillEX_" + dInfo.dollID);
+    //            o.SetActive(false);   //絋玂 SkillDollSummonEx 把计砞﹚Ч Awake
+    //            o.transform.SetParent(gameObject.transform);
+    //            SkillDollSummonEx sEx = o.AddComponent<SkillDollSummonEx>();
+    //            sEx.dollID = dInfo.dollID;
+    //            sEx.battlePointsCost = dInfo.summonCost;
+    //            //print(sEx.dollID + " cost: " + sEx.battlePointsCost);
+    //            sEx.coolDown = 0;
+
+    //            o.SetActive(true);   //絋玂 SkillDollSummonEx 把计砞﹚Ч Awake
+
+    //            skillMap.Add(dInfo.dollID, sEx);
+    //        }
+
+    //        //フ
+    //        GameObject baseEnhanceObj = new GameObject("BaseEnhance");
+    //        baseEnhanceObj.transform.parent = transform;
+    //        BookEquipEnhancerBase baseEnhancer = baseEnhanceObj.AddComponent<BookEquipEnhancerBase>();
+    //        foreach (DollInfo dInfo in dInfos)
+    //        {
+    //            MagicBookEquipInfo wInfo = new MagicBookEquipInfo();
+    //            wInfo.ID = WHITEBOOK_ID_PREFIX + dInfo.dollID;
+    //            wInfo.quality = ITEM_QUALITY.COMMON;
+    //            wInfo.skillList = new string[1];
+    //            wInfo.skillList[0] = dInfo.dollID;
+    //            wInfo.nameBeforeEnhance = dInfo.dollName + "";
+    //            wInfo.enhancer = baseEnhancer;
+    //            wInfo.subIcon = dInfo.icon;
+    //            magicBookMap.Add(wInfo.ID, wInfo);
+    //        }
+    //        oneTimeInit = true;
+    //    }
+    //}
+
+    public override void InitSystem()
+    {
+        base.InitSystem();
         for (int i = 0; i < magicBookDef.Length; i++)
         {
             magicBookMap.Add(magicBookDef[i].ID, magicBookDef[i]);
         }
-    }
-
-    private void Start()
-    {
         if (!oneTimeInit)
         {
             //print("BookEquipManager Init Skill Refs");

@@ -19,7 +19,7 @@ public class ItemInfo
     public Sprite Icon;
 }
 
-public class ItemDef : MonoBehaviour
+public class ItemDef : GlobalSystemBase
 {
     public ItemInfo[] itemInfos;
     protected Dictionary<string, ItemInfo> itemMap = new Dictionary<string, ItemInfo>();
@@ -34,6 +34,15 @@ public class ItemDef : MonoBehaviour
             print("ERROR !! 超過一份 ItemDef 存在 ");
         instance = this;
 
+        //for (int i = 0; i < itemInfos.Length; i++)
+        //{
+        //    itemMap.Add(itemInfos[i].ID, itemInfos[i]);
+        //}
+    }
+
+    public override void InitSystem()
+    {
+        base.InitSystem();
         for (int i = 0; i < itemInfos.Length; i++)
         {
             itemMap.Add(itemInfos[i].ID, itemInfos[i]);

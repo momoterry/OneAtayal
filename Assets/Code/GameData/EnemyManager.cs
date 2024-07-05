@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : GlobalSystemBase
 {
     [System.Serializable]
     public class EnemyData
@@ -69,7 +69,27 @@ public class EnemyManager : MonoBehaviour
         instance = this;
 
 
-        for (int i=0; i<baseRefs.Length; i++)
+        //for (int i=0; i<baseRefs.Length; i++)
+        //{
+        //    refMap.Add(baseRefs[i].refID, baseRefs[i].objRef);
+        //}
+
+
+        //EnemyData[] enemyDatas = CSVReader.FromCSV<EnemyData>(csvFile.text);
+        //for (int i = 0; i < enemyDatas.Length; i++)
+        //{
+        //    enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
+        //    //print("Enemy " + enemyDatas[i].objRef);
+        //    if (enemyDatas[i].LV > 1)
+        //        enemyDatas[i].EnemyID = enemyDatas[i].EnemyID + enemyDatas[i].LV;
+        //    enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
+        //}
+    }
+
+    public override void InitSystem()
+    {
+        base.InitSystem();
+        for (int i = 0; i < baseRefs.Length; i++)
         {
             refMap.Add(baseRefs[i].refID, baseRefs[i].objRef);
         }
@@ -85,4 +105,5 @@ public class EnemyManager : MonoBehaviour
             enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
         }
     }
+
 }

@@ -10,7 +10,7 @@ public class WorldMapSaveData
     public ZonePF[] zones;
 }
 
-public class WorldMap : MonoBehaviour
+public class WorldMap : GlobalSystemBase
 {
     protected const string forestScene = "FieldOpenForest";
     protected const string desertScene = "FieldOpenDesert";

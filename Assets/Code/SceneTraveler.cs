@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneTraveler : MonoBehaviour
+public class SceneTraveler : GlobalSystemBase
 {
     static string sceneToGo = "";
     static string entraceToGo = "";

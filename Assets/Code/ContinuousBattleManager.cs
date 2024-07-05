@@ -12,7 +12,7 @@ public class ContinuousBattleDataBase
     public string levelID;  //如果戰鬥是屬於 LevelManager 中的一個 level 時才會有值
 }
 
-public class ContinuousBattleManager : MonoBehaviour
+public class ContinuousBattleManager : GlobalSystemBase
 {
     static ContinuousBattleManager instance;
 

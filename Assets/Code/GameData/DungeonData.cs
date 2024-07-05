@@ -12,7 +12,7 @@ public class DungeonListJsonData
     public CMazeJsonData[] dungeons;
 }
 
-public class DungeonData : MonoBehaviour
+public class DungeonData : GlobalSystemBase
 {
     public TextAsset[] csvFiles;
     //public TextAsset[] csvGamefiles;
@@ -23,14 +23,56 @@ public class DungeonData : MonoBehaviour
     protected Dictionary<string, MODungeonData> allMoDungeons = new Dictionary<string, MODungeonData>();
     protected Dictionary<string, GameObject> objRefMap = new Dictionary<string, GameObject>();
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    for (int i = 0; i < objectRefs.Length; i++)
+    //    {
+    //        objRefMap.Add(objectRefs[i].name, objectRefs[i]);
+    //    }
+
+    //    for (int i=0; i<csvFiles.Length; i++)
+    //    {
+    //        MODungeonStageData[] moStages = CSVReader.FromCSV<MODungeonStageData>(csvFiles[i].text);
+    //        for (int t = 0; t < moStages.Length; t++)
+    //        {
+    //            //print(moStages[t].DungeonID + "_" + moStages[t].Level + "Diff End: " + moStages[i].DifficultEnd);
+    //            MODungeonData moDungeon;
+    //            if (!allMoDungeons.ContainsKey(moStages[t].DungeonID))
+    //            {
+    //                moDungeon = new MODungeonData();
+    //                moDungeon.DungeonID = moStages[t].DungeonID;
+    //                allMoDungeons.Add(moDungeon.DungeonID, moDungeon);
+    //            }
+    //            else
+    //                moDungeon = allMoDungeons[moStages[t].DungeonID];
+    //            moDungeon.stageList.Add(moStages[t]);
+    //            //print("reward: " + moStages[t].Reward1);
+    //        }
+    //    }
+
+    //    for (int i=0; i<jsonFiles.Length; i++)
+    //    {
+    //        //print("開始 Parse 一個 DungeonData Json");
+    //        DungeonListJsonData dgList = JsonUtility.FromJson<DungeonListJsonData>(jsonFiles[i].text);
+    //        //print("Parse 完成，找到的 Dungeon 數量: " + dgList.dungeons.Length);
+    //        for (int j=0; j<dgList.dungeons.Length; j++)
+    //        {
+    //            dgList.dungeons[j].Convert(objRefMap);
+    //            allDungeons.Add(dgList.dungeons[j].ID, dgList.dungeons[j]);
+    //            //print("加入了地城: " + dgList.dungeons[j].name);
+    //        }
+    //    }
+    //}
+
+    public override void InitSystem()
     {
+        base.InitSystem();
         for (int i = 0; i < objectRefs.Length; i++)
         {
             objRefMap.Add(objectRefs[i].name, objectRefs[i]);
         }
 
-        for (int i=0; i<csvFiles.Length; i++)
+        for (int i = 0; i < csvFiles.Length; i++)
         {
             MODungeonStageData[] moStages = CSVReader.FromCSV<MODungeonStageData>(csvFiles[i].text);
             for (int t = 0; t < moStages.Length; t++)
@@ -50,12 +92,12 @@ public class DungeonData : MonoBehaviour
             }
         }
 
-        for (int i=0; i<jsonFiles.Length; i++)
+        for (int i = 0; i < jsonFiles.Length; i++)
         {
             //print("開始 Parse 一個 DungeonData Json");
             DungeonListJsonData dgList = JsonUtility.FromJson<DungeonListJsonData>(jsonFiles[i].text);
             //print("Parse 完成，找到的 Dungeon 數量: " + dgList.dungeons.Length);
-            for (int j=0; j<dgList.dungeons.Length; j++)
+            for (int j = 0; j < dgList.dungeons.Length; j++)
             {
                 dgList.dungeons[j].Convert(objRefMap);
                 allDungeons.Add(dgList.dungeons[j].ID, dgList.dungeons[j]);

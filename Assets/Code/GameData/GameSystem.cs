@@ -13,6 +13,9 @@ public class GameSystem : MonoBehaviour
     //public const string urlRoot = "http://localhost/one/oaserver/";
     public const string urlRoot = "http://yeshouse.tplinkdns.com/one/oaserver/";
 
+    //public GlobalSystemBase[] globalSystems;
+    protected List<GlobalSystemBase> globalSystems = new List<GlobalSystemBase>();
+
     public PlayerData thePlayerData;
     public LevelManager theLevelManager;
     public DollData theDollData;
@@ -106,6 +109,15 @@ public class GameSystem : MonoBehaviour
         Application.targetFrameRate = 300;  //強迫 Android 開放 !!
 
         DontDestroyOnLoad(gameObject);
+
+        gameObject.GetComponentsInChildren(globalSystems);
+        //各系統初始化
+        globalSystems.Sort(GlobalSystemBase.Compare);
+        for (int i=0; i<globalSystems.Count; i++)
+        {
+            //print("Init...." + globalSystems[i]);
+            globalSystems[i].InitSystem();
+        }
     }
 
     static public GameSystem GetInstance()

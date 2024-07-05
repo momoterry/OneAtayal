@@ -46,7 +46,7 @@ public class ForgeFormulaCSVData
     public int Num2;
 }
 
-public class ForgeManager : MonoBehaviour
+public class ForgeManager : GlobalSystemBase
 {
     public TextAsset[] formulaJsons;
     public TextAsset whiteBookFormulaCSV;
@@ -61,6 +61,55 @@ public class ForgeManager : MonoBehaviour
             print("ERROR !! 超過一份 ForgeManager 存在 ");
         instance = this;
 
+        //if (whiteBookFormulaCSV)
+        //{
+        //    ForgeFormulaCSVData[] wfData = CSVReader.FromCSV<ForgeFormulaCSVData>(whiteBookFormulaCSV.text);
+        //    foreach (ForgeFormulaCSVData cFormula in wfData)
+        //    {
+        //        ForgeFormula f = new ForgeFormula();
+        //        f.outputID = cFormula.ID;
+        //        f.requireMoney = cFormula.Money;
+        //        f.outputType = ITEM_TYPE.BOOKEQUIP;
+        //        int iNum = 1;
+        //        if (cFormula.Mat2 != null && cFormula.Mat2 != "")
+        //            iNum++;
+        //        f.inputs = new ForgeMaterialInfo[iNum];
+        //        f.inputs[0] = new ForgeMaterialInfo();
+        //        f.inputs[0].matID = cFormula.Mat1;
+        //        f.inputs[0].num = cFormula.Num1;
+        //        if (iNum > 1)
+        //        {
+        //            f.inputs[1] = new ForgeMaterialInfo();
+        //            f.inputs[1].matID = cFormula.Mat2;
+        //            f.inputs[1].num = cFormula.Num2;
+        //        }
+        //        formulaList.Add(f);
+        //        //print("Formula: " + f.outputID + " total = " + formulaList.Count);
+        //    }
+        //}
+
+        //for (int i = 0; i < formulaJsons.Length; i++)
+        //{
+        //    //print("開始 Parse 一個 ForgeFormula Json");
+        //    ForgeFormulaJsonData jFormulas = JsonUtility.FromJson<ForgeFormulaJsonData>(formulaJsons[i].text);
+        //    //print("Parse 完成，找到的 Formula 數量: " + jFormulas.formulas.Length);
+
+        //    for (int j = 0; j < jFormulas.formulas.Length; j++)
+        //    {
+        //        //print("Output:" + jFormulas.formulas[j].outputID + "Input:" + jFormulas.formulas[j].inputs);
+        //        formulaList.Add(jFormulas.formulas[j]);
+        //        //for (int k=0; k< jFormulas.formulas[j].inputs.Length; k++)
+        //        //{
+        //        //    print("Input: " + jFormulas.formulas[j].inputs[k].matID);
+        //        //}
+        //    }
+        //}
+
+    }
+
+    public override void InitSystem()
+    {
+        base.InitSystem();
         if (whiteBookFormulaCSV)
         {
             ForgeFormulaCSVData[] wfData = CSVReader.FromCSV<ForgeFormulaCSVData>(whiteBookFormulaCSV.text);
@@ -104,7 +153,6 @@ public class ForgeManager : MonoBehaviour
                 //}
             }
         }
-
     }
 
     public List<ForgeFormula> GetValidFormulas()
