@@ -16,7 +16,7 @@ public class CharacterData : MonoBehaviour
 {
     // 預設設定如下，如果數值不同就是在測試
     //      INIT_MAX_DOLL_NUM = 4;
-    public const int INIT_MAX_DOLL_NUM = 4;
+    public const int INIT_MAX_DOLL_NUM = 40;
     const int expDefaultMax = 300;
     const float expRatioPerLevel = 1.25f;
 

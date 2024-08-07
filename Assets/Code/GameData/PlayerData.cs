@@ -86,7 +86,7 @@ public class PlayerData : MonoBehaviour
     //  INIT_MONEY = 500;
     //  INIT_LV = 1;
 
-    const int INIT_MONEY = 500;
+    const int INIT_MONEY = 50000;
     const int INIT_LV = 1;
 
     protected bool isReady = false; //是否已經載入資料或完成初始化
