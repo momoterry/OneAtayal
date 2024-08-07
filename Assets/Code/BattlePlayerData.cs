@@ -18,14 +18,21 @@ public class BattleSaveBase { }
 
 public class BattlePlayerData : MonoBehaviour
 {
+    //一些重要的預設值，目前設定值應如下，如果值不同就是在測試
+    //  MAX_BATTLE_LEVEL = 20;
+    //  INIT_EXP_MAX = 50;
+    //  INIT_BATTLE_POINT = 4;
+    //  EXP_MAX_STEP = 1.5f;
+
     const int MAX_BATTLE_LEVEL = 20;
     const int INIT_EXP_MAX = 50;
-    public float EXP_MAX_STEP = 1.5f;
+    const int INIT_BATTLE_POINT = 4;
+    const float EXP_MAX_STEP = 1.5f;
 
     protected int currExp = 0;
     protected int currExpMax = INIT_EXP_MAX;
     protected int currBattleLV = 1;
-    protected int battleLVPoint = 4;
+    protected int battleLVPoint = INIT_BATTLE_POINT;
     //protected BattlePlayerCrossSceneData data;
     protected Dictionary<string, BattleSaveBase> customSaves = new Dictionary<string, BattleSaveBase>();
 

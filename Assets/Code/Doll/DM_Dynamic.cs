@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DM_Dynamic : DollManager
 {
-    public int MaxSlot = 40;
+    const int MaxSlot = 60;
 
     public int FrontWidth = 4;
     public int MiddleDepth = 3;

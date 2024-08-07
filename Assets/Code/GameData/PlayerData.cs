@@ -82,6 +82,13 @@ public class SaveData{
 
 public class PlayerData : MonoBehaviour
 {
+    //玩家資料初始值，目前數值如下，如果值不同就是在測試
+    //  INIT_MONEY = 500;
+    //  INIT_LV = 1;
+
+    const int INIT_MONEY = 500;
+    const int INIT_LV = 1;
+
     protected bool isReady = false; //是否已經載入資料或完成初始化
 
     //public DollData theDollData;
@@ -138,8 +145,8 @@ public class PlayerData : MonoBehaviour
     public void InitData()
     {
         One.LOG("==== GameSystem 的 PlayerData.InitData()");
-        Money = 500;
-        mainCharacterStat.LV = 1;
+        Money = INIT_MONEY;
+        mainCharacterStat.LV = INIT_LV;
         mainCharacterStat.Exp = 0;
         usingDIs.Clear();
         //usingDollList.Clear();
