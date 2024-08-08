@@ -16,6 +16,12 @@ public class DollBeta : Doll
         SLOT,
     }
     public SEARCH_CENTER_TYPE searchCenter = SEARCH_CENTER_TYPE.PLAYER;
+    public enum RANGE_CENTER_TYPE
+    {
+        SEARCH_CENTER,
+        PLAYER,
+    }
+    public RANGE_CENTER_TYPE rangeCenter = RANGE_CENTER_TYPE.SEARCH_CENTER;
 
     public float AttackRangeIn = 3.0f;
     public float AttackRangeOut = 4.0f;
@@ -309,18 +315,26 @@ public class DollBeta : Doll
         GameObject foundEnemy = null;
         //float minDistance = Mathf.Infinity;
 
-        Vector3 vCenter = transform.position;
+        Vector3 vSearchCenter = transform.position;
         switch (searchCenter)
         {
             case SEARCH_CENTER_TYPE.PLAYER:
-                vCenter = thePC.transform.position;
+                vSearchCenter = thePC.transform.position;
                 break;
             case SEARCH_CENTER_TYPE.SLOT:
-                vCenter = mySlot.position;
+                vSearchCenter = mySlot.position;
+                break;
+        }
+        Vector3 vRangeCenter = vSearchCenter;
+        switch (rangeCenter)
+        { 
+            case RANGE_CENTER_TYPE.PLAYER:
+                vRangeCenter = thePC.transform.position;
                 break;
         }
 
-        foundEnemy = BattleUtility.SearchClosestTargetForPlayer(vCenter, SearchRange);
+        //foundEnemy = BattleUtility.SearchClosestTargetForPlayer(vCenter, SearchRange);
+        foundEnemy = BattleUtility.SearchBestTargetForPlayer(vSearchCenter, vRangeCenter, SearchRange);
         if (!foundEnemy)
             foundEnemy = BattleSystem.GetPC().GetHittableTarget();
 

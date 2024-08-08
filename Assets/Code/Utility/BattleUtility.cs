@@ -37,6 +37,38 @@ public class BattleUtility : MonoBehaviour
         return bestObj;
     }
 
+
+    static public GameObject SearchBestTargetForPlayer(Vector3 searchCenter, Vector3 rangeCenter, float distance, string sTag = "Enemy")
+    {
+        Collider[] cols = Physics.OverlapSphere(rangeCenter, distance, LayerMask.GetMask("Character"));
+        if (cols.Length == 0)
+            return null;
+
+        GameObject bestObj = null;
+        float bestSDis = Mathf.Infinity;
+        foreach (Collider col in cols)
+        {
+            if (col.gameObject.CompareTag(sTag))
+            {
+                Vector3 vDis = col.transform.position - searchCenter;
+                float sDis = vDis.magnitude;
+                if (sDis < bestSDis)
+                {
+                    //HitBody hBody = col.gameObject.GetComponent<HitBody>();
+                    //if (hBody && hBody.GetRangeLimint() < sDis)
+                    //{
+                    //    continue;
+                    //}
+                    bestObj = col.gameObject;
+                    bestSDis = sDis;
+                }
+            }
+        }
+
+        return bestObj;
+    }
+
+
     static public List<GameObject> SearchAllTargets(Vector3 myCenter, float distance, string sTag = "Enemy")
     {
         List<GameObject> targets = new List<GameObject>();
