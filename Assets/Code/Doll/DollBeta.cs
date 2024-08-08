@@ -333,8 +333,9 @@ public class DollBeta : Doll
                 break;
         }
 
-        //foundEnemy = BattleUtility.SearchClosestTargetForPlayer(vCenter, SearchRange);
-        foundEnemy = BattleUtility.SearchBestTargetForPlayer(vSearchCenter, vRangeCenter, SearchRange);
+        //foundEnemy = BattleUtility.SearchClosestTargetForPlayer(vCenter, SearchRange);        
+        //foundEnemy = BattleUtility.SearchBestTargetForPlayer(vSearchCenter, vRangeCenter, SearchRange);       //把射程判斷和最近判斷分開
+        foundEnemy = BattleUtility.SearchBestTargetsForPlayer(vSearchCenter, vRangeCenter, SearchRange, 3);     //從多個目標中隨機找一個
         if (!foundEnemy)
             foundEnemy = BattleSystem.GetPC().GetHittableTarget();
 

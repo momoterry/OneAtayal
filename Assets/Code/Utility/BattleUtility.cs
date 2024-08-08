@@ -68,6 +68,37 @@ public class BattleUtility : MonoBehaviour
         return bestObj;
     }
 
+    static Vector3 compareCenter;
+    static int ComparerDistance(GameObject A, GameObject B)
+    {
+        if (Vector3.Distance(A.transform.position, compareCenter) < Vector3.Distance(B.transform.position, compareCenter))
+            return -1;
+        else
+            return 1;
+    }
+
+    static List<GameObject> sortList = new List<GameObject>();
+    static public GameObject SearchBestTargetsForPlayer(Vector3 searchCenter, Vector3 rangeCenter, float distance, int randomBestNum, string sTag = "Enemy")
+    {
+        Collider[] cols = Physics.OverlapSphere(rangeCenter, distance, LayerMask.GetMask("Character"));
+        if (cols.Length == 0)
+            return null;
+
+        foreach (Collider c in cols)
+        {
+            if (c.gameObject.CompareTag(sTag))
+                sortList.Add(c.gameObject);
+        }
+        compareCenter = searchCenter;
+
+        sortList.Sort(ComparerDistance);
+
+        int iChoose = Random.Range(0, randomBestNum <= sortList.Count ? randomBestNum : sortList.Count );
+        GameObject bestObj = sortList[iChoose];
+        sortList.Clear();
+        return bestObj;
+    }
+
 
     static public List<GameObject> SearchAllTargets(Vector3 myCenter, float distance, string sTag = "Enemy")
     {
