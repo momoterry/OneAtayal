@@ -308,6 +308,18 @@ MonoBehaviour:
   - {fileID: 8425078966826279353, guid: 1243c4693ce5eea4789e9dc5bf649601, type: 3}
   - {fileID: 8425078966826279353, guid: 5f99a7d25e8c7f741bb5820abcd64dd1, type: 3}
   - {fileID: 8425078966826279353, guid: 57d3862c91679fb4f8c1935ba0ca9b49, type: 3}
+  DataGroups:
+  - GroupName: EnemyRefs
+    ObjectRefs:
+    - {fileID: 7208015447484052683, guid: f9c8081511acb0743a4475e0960261ce, type: 3}
+    - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+    - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
+    - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+    - {fileID: 7208015447484052683, guid: c6757ec52300c574080406a81876e414, type: 3}
+    - {fileID: 7208015447484052683, guid: 3f97bdf46b3cd0f498ba4d26a525ee49, type: 3}
+    - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
+    - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
+    - {fileID: 7208015447484052683, guid: 634bfbdd3b7d1774c931b2d6d27a0697, type: 3}
 --- !u!114 &5958012817621368183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577581387a9a17e4f882dc8d8c483985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitOrder: 100
   csvFile: {fileID: 4900000, guid: 6de766e7f999da84eb61f7bc054cf98c, type: 3}
   baseRefs:
   - refID: EG_Stone
@@ -444,6 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5dd205378b2b74098c1a7e2f900ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitOrder: 100
   csvFiles:
   - {fileID: 4900000, guid: 06e16ddf9e2306140bfed067105bfff1, type: 3}
   jsonFiles:

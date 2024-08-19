@@ -98,8 +98,9 @@ public class EnemyManager : GlobalSystemBase
         EnemyData[] enemyDatas = CSVReader.FromCSV<EnemyData>(csvFile.text);
         for (int i = 0; i < enemyDatas.Length; i++)
         {
-            enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
-            //print("Enemy " + enemyDatas[i].objRef);
+            //print("Enemy " + enemyDatas[i].BaseRef);
+            //enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
+            enemyDatas[i].objRef = GameData.GetObjectRef(enemyDatas[i].BaseRef);
             if (enemyDatas[i].LV > 1)
                 enemyDatas[i].EnemyID = enemyDatas[i].EnemyID + enemyDatas[i].LV;
             enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);

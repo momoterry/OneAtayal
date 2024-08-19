@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class GameData : GlobalSystemBase
 {
+    [System.Serializable]
+    public class DataGroup{
+        public string GroupName;
+        public GameObject[] ObjectRefs;
+    }
     public GameObject[] GMDatas;
+    public DataGroup[] DataGroups;
 
     protected Dictionary<string, GameObject> objMaps = new Dictionary<string, GameObject>();
 
@@ -40,6 +46,14 @@ public class GameData : GlobalSystemBase
         foreach (GameObject o in GMDatas)
         {
             objMaps.Add(o.name, o);
+        }
+
+        foreach (DataGroup group in DataGroups)
+        {
+            foreach (GameObject o in group.ObjectRefs)
+            {
+                objMaps.Add(o.name, o);
+            }
         }
     }
 }

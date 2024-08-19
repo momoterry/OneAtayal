@@ -329,6 +329,66 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+--- !u!1 &356085342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 356085344}
+  - component: {fileID: 356085343}
+  m_Layer: 0
+  m_Name: EnemyHuge_Back
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &356085343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356085342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fc55feeb1aba340a164d02382d360c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyInfos:
+  - enemyRef: {fileID: 0}
+    enemyID: MiniFastStone
+    LV: 3
+    num: 30
+  isRandomEnemyTotal: 0
+  randomEnemyTotal: 0
+  width: 16
+  height: 8
+  spwanDistance: 40
+  alertDistance: 30
+  stopDistance: 40
+  speed: 4
+  closeDistance: 4
+  triggerTargetWhenAllKilled: []
+  difficulty: 1
+--- !u!4 &356085344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356085342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &535934313
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfos:
   - enemyRef: {fileID: 0}
-    enemyID: MiniStone
+    enemyID: MiniFastStone
     LV: 3
     num: 30
   isRandomEnemyTotal: 0
@@ -1292,8 +1352,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfos:
   - enemyRef: {fileID: 0}
-    enemyID: MiniStone
-    LV: 3
+    enemyID: MiniCatus
+    LV: 1
     num: 30
   isRandomEnemyTotal: 0
   randomEnemyTotal: 0
@@ -1352,7 +1412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfos:
   - enemyRef: {fileID: 0}
-    enemyID: MiniFire
+    enemyID: MiniFastStone
     LV: 3
     num: 30
   isRandomEnemyTotal: 0

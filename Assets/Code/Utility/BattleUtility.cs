@@ -91,6 +91,9 @@ public class BattleUtility : MonoBehaviour
         }
         compareCenter = searchCenter;
 
+        if (sortList.Count == 0)
+            return null;
+
         sortList.Sort(ComparerDistance);
 
         int iChoose = Random.Range(0, randomBestNum <= sortList.Count ? randomBestNum : sortList.Count );
