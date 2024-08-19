@@ -9,7 +9,7 @@ public class GameData : GlobalSystemBase
         public string GroupName;
         public GameObject[] ObjectRefs;
     }
-    public GameObject[] GMDatas;
+    //public GameObject[] GMDatas;
     public DataGroup[] DataGroups;
 
     protected Dictionary<string, GameObject> objMaps = new Dictionary<string, GameObject>();
@@ -43,10 +43,10 @@ public class GameData : GlobalSystemBase
     public override void InitSystem()
     {
         base.InitSystem();
-        foreach (GameObject o in GMDatas)
-        {
-            objMaps.Add(o.name, o);
-        }
+        //foreach (GameObject o in GMDatas)
+        //{
+        //    objMaps.Add(o.name, o);
+        //}
 
         foreach (DataGroup group in DataGroups)
         {
