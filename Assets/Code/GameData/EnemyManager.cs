@@ -18,14 +18,14 @@ public class EnemyManager : GlobalSystemBase
         public GameObject objRef;
     }
 
-    [System.Serializable]
-    public class BaseRefInfo
-    {
-        public string refID;
-        public GameObject objRef;
-    }
+    //[System.Serializable]
+    //public class BaseRefInfo
+    //{
+    //    public string refID;
+    //    public GameObject objRef;
+    //}
     public TextAsset csvFile;
-    public BaseRefInfo[] baseRefs;
+    //public BaseRefInfo[] baseRefs;
 
     protected Dictionary<string, EnemyData> enemyMap = new Dictionary<string, EnemyData>();
     protected Dictionary<string, GameObject> refMap = new Dictionary<string, GameObject>();
@@ -89,10 +89,10 @@ public class EnemyManager : GlobalSystemBase
     public override void InitSystem()
     {
         base.InitSystem();
-        for (int i = 0; i < baseRefs.Length; i++)
-        {
-            refMap.Add(baseRefs[i].refID, baseRefs[i].objRef);
-        }
+        //for (int i = 0; i < baseRefs.Length; i++)
+        //{
+        //    refMap.Add(baseRefs[i].refID, baseRefs[i].objRef);
+        //}
 
 
         EnemyData[] enemyDatas = CSVReader.FromCSV<EnemyData>(csvFile.text);
