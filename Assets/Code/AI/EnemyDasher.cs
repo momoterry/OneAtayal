@@ -58,7 +58,7 @@ public class EnemyDasher : Enemy
     {
         if (targetObj)
         {
-            targetObj.SendMessage("OnDamage", myDamage);
+            targetObj.SendMessage("OnDamage", myDamage, SendMessageOptions.DontRequireReceiver);
 
             if (hitFX)
             {
