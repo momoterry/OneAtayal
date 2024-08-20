@@ -21,6 +21,8 @@ public class EnemyGroup : MonoBehaviour
 
     public float difficulty = 1.0f;
 
+    protected bool finishWhenEngaged = false;
+
     [System.Serializable]
     public class EnemyInfo
     {
@@ -109,6 +111,7 @@ public class EnemyGroup : MonoBehaviour
                     break;
             }
         }
+
     }
 
     protected void SpawnEnemies()
@@ -329,7 +332,10 @@ public class EnemyGroup : MonoBehaviour
                 }
                 else
                 {
+                    //已經抓到目標
                     moveDirection = Vector3.zero;
+                    if (finishWhenEngaged)
+                        nexPhase = PHASE.FINISH;
                 }
             }
             else

@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     public float SlotOut = 12.0f;   //如果有指定 Slot 時
     //protected float BattleSlotRangeOut = 12.0f;   //如果有指定 Slot 時
-    protected float SlotRangeIn = 0.1f;
+    protected float SlotRangeIn = 0.5f;
 
     public Animator myAnimator;         //可以指直接外部指定
     public SPAnimator mySPAimator;
@@ -620,9 +620,15 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
         if (targetObj)
+        {
+            Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, targetObj.transform.position);
-
+        }
+        if (mySlot && currState == AI_STATE.TO_SLOT)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(transform.position, mySlot.transform.position);
+        }
     }
 }
