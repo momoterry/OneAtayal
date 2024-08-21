@@ -50,6 +50,18 @@ public class EnemyGroup : MonoBehaviour
     List<GameObject> enemies = new List<GameObject>();
     List<Transform> slots = new List<Transform>();
 
+    //計算用的中心點
+    protected Transform centerT;
+    protected float newWidth = 0;
+    protected float newHeight = 0;
+
+    void Awake()
+    {
+        centerT = transform;
+        newWidth = width;
+        newHeight = height;
+    }
+
     void Start()
     {
         if (isRandomEnemyTotal)
@@ -74,7 +86,6 @@ public class EnemyGroup : MonoBehaviour
             //    print("RandomEnemyNum: " + enemyInfos[i].num + "  << " + randomEnemyTotal);
             //}
         }
-
 
         nexPhase = PHASE.SLEEP;
     }
@@ -119,6 +130,7 @@ public class EnemyGroup : MonoBehaviour
         int[,] oGrid = new int[width+1, height+1];
         float xShift = -(float)width * 0.5f * gridWidth;
         float yShift = -(float)height * 0.5f * gridHeight;
+
         foreach (EnemyInfo enemyInfo in enemyInfos)
         {
             List<Vector2Int> iSlots = GetConnectedCells(enemyInfo.num, width + 1, height + 1, oGrid);
@@ -154,6 +166,30 @@ public class EnemyGroup : MonoBehaviour
             }
 
         }
+
+        //重新尋找中心點
+        float xMin = Mathf.Infinity;
+        float xMax = -Mathf.Infinity;
+        float yMin = Mathf.Infinity;
+        float yMax = -Mathf.Infinity;
+
+        foreach (Transform t in slots)
+        {
+            float x = t.position.x;
+            float y = t.position.z;
+
+            if (x < xMin) xMin = x;
+            if (x > xMax) xMax = x;
+            if (y < yMin) yMin = y;
+            if (y > yMax) yMax = y;
+        }
+
+        GameObject centerObj = new("GroupCenter");
+        centerObj.transform.position = new Vector3((xMin + xMax) * 0.5f, 0, (yMin + yMax) * 0.5f);
+        centerObj.transform.parent = transform;
+        centerT = centerObj.transform;
+        newWidth = xMax - xMin + 1.0f;
+        newHeight = yMax - yMin + 1.0f;
     }
 
     private List<Vector2Int> GetConnectedCells(int numberOfCells, int width, int height, int[,] oGrid)
@@ -309,7 +345,7 @@ public class EnemyGroup : MonoBehaviour
                 return;
             Vector3 playerPos = BattleSystem.GetPC().transform.position;
             NavMeshPath path = new NavMeshPath();
-            if (NavMesh.CalculatePath(transform.position, playerPos, NavMesh.AllAreas, path))
+            if (NavMesh.CalculatePath(centerT.position, playerPos, NavMesh.AllAreas, path))
             {
                 float pathLength = 0f;
                 Vector3 movdD = Vector3.zero;
@@ -351,7 +387,7 @@ public class EnemyGroup : MonoBehaviour
             return Mathf.Infinity;
         Vector3 playerPos = BattleSystem.GetPC().transform.position;
         NavMeshPath path = new NavMeshPath();
-        if (NavMesh.CalculatePath(transform.position, playerPos, NavMesh.AllAreas, path))
+        if (NavMesh.CalculatePath(centerT.position, playerPos, NavMesh.AllAreas, path))
         {
             float pathLength = 0f;
             for (int i = 1; i < path.corners.Length; i++)
@@ -366,7 +402,10 @@ public class EnemyGroup : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(transform.position, new Vector3(width * gridWidth, 2.0f, height * gridHeight));
+        if (centerT)
+            Gizmos.DrawWireCube(centerT.position, new Vector3(newWidth * gridWidth, 2.0f, newHeight * gridHeight));
+        else
+            Gizmos.DrawWireCube(transform.position, new Vector3(width * gridWidth, 2.0f, height * gridHeight));
     }
 
     //private void OnGUI()
