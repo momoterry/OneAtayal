@@ -19,7 +19,7 @@ public class LevelMenuTrigger : MonoBehaviour
             LevelInfo info = GameSystem.GetLevelManager().GetLevelInfo(levelIDs[i]);
             if (info == null)
             {
-                print("ERROR!! LevelMenuTrigger has invalid ID: " + levelIDs[i]);
+                One.LOG("ERROR!! LevelMenuTrigger has invalid ID: " + levelIDs[i]);
                 continue;
             }
             itemInfos[i] = new LevelItemInfo();

@@ -30,7 +30,7 @@ public class DIGenerator : MonoBehaviour
         GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (!dollRef)
         {
-            print("ERROR!! GenerateOne : ¿ù»~ªº Doll ID: " + dollID);
+            One.LOG("ERROR!! GenerateOne : ¿ù»~ªº Doll ID: " + dollID);
             return null;
         }
         GameObject o = BattleSystem.SpawnGameObj(dollRef, transform.position + Vector3.forward * 2);

@@ -30,7 +30,7 @@ public class FadeBlocker : MonoBehaviour
     {
         if (currPhase != FADE_PHASE.NONE)
         {
-            print("ERROR!!! 不能 Fade Out 在這狀態: " + currPhase);
+            One.LOG("ERROR!!! 不能 Fade Out 在這狀態: " + currPhase);
             return;
         }
         finishCB = cb;
@@ -43,7 +43,7 @@ public class FadeBlocker : MonoBehaviour
     {
         if (currPhase != FADE_PHASE.NONE)
         {
-            print("ERROR!!! 不能 Fade In 在這狀態: " + currPhase);
+            One.LOG("ERROR!!! 不能 Fade In 在這狀態: " + currPhase);
             return;
         }
         finishCB = cb;

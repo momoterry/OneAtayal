@@ -18,12 +18,13 @@ public class BookInventoryItem : MonoBehaviour
 
     public void InitValue(int _index, BookEquipSave equip, ItemClickedCB _CB = null, bool hideValue = false)
     {
+        One.LOG("InitValue " + _index + ": " + equip.bookName);
         myIndex = _index;
         myEquip = equip;
         myCB = _CB;
         //atkText.text = "§ð " + equip.ATK_Percent + "%";
         SkillDollSummonEx skillRef = BookEquipManager.GetInstance().GetSkillByID(equip.skillID);
-
+        One.LOG("SkillDollSummonEx " + equip.skillID + ": " + skillRef);
         if (skillRef)
         {
             skillIcon.sprite = skillRef.icon;

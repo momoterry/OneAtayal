@@ -28,7 +28,7 @@ public class SkillSet : MonoBehaviour
         PC_One thePC = BattleSystem.GetInstance().GetPlayer().GetComponent<PC_One>();
         if (thePC==null)
         {
-            print("ERROR!! SkillSet only supoort PC_One!!!!");
+            One.LOG("ERROR!! SkillSet only supoort PC_One!!!!");
             return;
         }
 

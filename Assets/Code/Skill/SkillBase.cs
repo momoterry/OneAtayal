@@ -140,7 +140,7 @@ public class SkillBase : MonoBehaviour
             }
             else
             {
-                print("ERROR!! No Battle Point OnSkillSucess !!!! ");
+                One.LOG("ERROR!! No Battle Point OnSkillSucess !!!! ");
             }
         }
         else
@@ -166,7 +166,7 @@ public class SkillBase : MonoBehaviour
         //}
         if (currPhase != SKILL_PHASE.NONE)
         {
-            print("ERROR!!!! Skill 尚未完成.." + name);
+            One.LOG("ERROR!!!! Skill 尚未完成.." + name);
             result = SKILL_RESULT.COOL_DOWN;
             return false;
         }

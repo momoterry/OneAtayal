@@ -23,7 +23,7 @@ public class ForgeMenuItem : MonoBehaviour
         DollInfo dInfo = GameSystem.GetInstance().theDollData.GetDollInfoByID(dollID);
         if (dInfo == null)
         {
-            print("ERROR!! No such DollRef for ID:" + dollID);
+            One.LOG("ERROR!! No such DollRef for ID:" + dollID);
             return;
         }
         //Doll doll = dInfo.objRef.GetComponent<Doll>();
@@ -58,7 +58,7 @@ public class ForgeMenuItem : MonoBehaviour
         //DollInfo dInfo = GameSystem.GetInstance().theDollData.GetDollInfoByID(dollID);
         //if (dInfo == null)
         //{
-        //    print("ERROR!! No such DollRef for ID:" + dollID);
+        //    One.LOG("ERROR!! No such DollRef for ID:" + dollID);
         //    return;
         //}
         //Doll doll = dInfo.objRef.GetComponent<Doll>();

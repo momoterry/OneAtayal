@@ -86,13 +86,13 @@ public class AcountMenu : MonoBehaviour
     //        }
     //        else
     //        {
-    //            print("ERROR!! Set Nick Name Fail !!" + nickName);
+    //            One.LOG("ERROR!! Set Nick Name Fail !!" + nickName);
     //            SystemUI.ShowMessageBox(OnMessageBoxEmptyCB, "無法設定這個暱稱 !!");
     //        }
     //    }
     //    else
     //    {
-    //        print("ERROR!! Wrong ID to set nick name !!");
+    //        One.LOG("ERROR!! Wrong ID to set nick name !!");
     //    }
     //    //nickNameMenu.SetActive(false);
     //    Init();

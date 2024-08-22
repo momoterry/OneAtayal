@@ -78,7 +78,7 @@ public class ActionTG_Condition : ActionTG
             }
             else
             {
-                print("ERROR!! 不應該跑到這裡 !! ActionTG_Condition::OnAction");
+                One.LOG("ERROR!! 不應該跑到這裡 !! ActionTG_Condition::OnAction");
             }
         }
     }

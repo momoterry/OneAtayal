@@ -312,7 +312,7 @@ public class MG_PerlinField : MG_PerlinNoise
         foreach (KeyValuePair<string, Vector3> p in cavPoints)
         {
             if (p.Key != dungeons[i].dungeonID)
-                print("ERROR!! DungeonID 對不上 !!!!");
+                One.LOG("ERROR!! DungeonID 對不上 !!!!");
             GameObject oCavP = BattleSystem.SpawnGameObj(dungeons[i].entranceRef, p.Value);
             oCavP.name = p.Key;
             SceneEntrance se = oCavP.GetComponentInChildren<SceneEntrance>();

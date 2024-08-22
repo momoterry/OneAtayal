@@ -137,7 +137,7 @@ public class PC_Old : PlayerControllerBase
             myDollManager = dm.GetComponent<DollManager>();
             if (myDollManager == null)
             {
-                print("ERROR!! No DollManager Found !!!!!! ");
+                One.LOG("ERROR!! No DollManager Found !!!!!! ");
                 Destroy(dm);
             }
         }

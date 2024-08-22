@@ -99,7 +99,7 @@ public class LevelManager : GlobalSystemBase
 
         if (!levelMap.ContainsKey(levelID))
         {
-            print("ERROR!! Not level ID : " + levelID);
+            One.LOG("ERROR!! Not level ID : " + levelID);
             return;
         }
         int i = levelMap[levelID];

@@ -25,7 +25,7 @@ public class DollLayoutUIBase : MonoBehaviour
     {
         if (currDragItem!= null)
         {
-            print("ERROR!! RegisterDragItem but currDragItem not NULL !! " + currDragItem.name);
+            One.LOG("ERROR!! RegisterDragItem but currDragItem not NULL !! " + currDragItem.name);
         }
         currDragItem = dragItem;
         foreach (DollLayoutSlot slot in gameObject.GetComponentsInChildren<DollLayoutSlot>(true))
@@ -62,7 +62,7 @@ public class DollLayoutUIBase : MonoBehaviour
         }
         else
         {
-            print("ERROR!! UnRegisterDragItem not registered !! " + currDragItem.name);
+            One.LOG("ERROR!! UnRegisterDragItem not registered !! " + currDragItem.name);
         }
 
         if (moveItem && toSlot)     //把移動行為放到最後以確保原 Item 跟 Slot 都回復

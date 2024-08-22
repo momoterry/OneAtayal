@@ -635,7 +635,7 @@ public class PlayerData : MonoBehaviour
         else
         {
             //dollBackpack.Add(dollID, 1);
-            print("ERROR!!! The Doll in not in Backpack !!!! : " + dollID);
+            One.LOG("ERROR!!! The Doll in not in Backpack !!!! : " + dollID);
         }
 
     //    print("========= Doll BackPack =========");

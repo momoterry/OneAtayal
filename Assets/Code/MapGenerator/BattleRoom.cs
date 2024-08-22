@@ -31,7 +31,7 @@ public class BattleRoom : MonoBehaviour
     {
         if (theRoomController == null)
         {
-            //print("ERROR!! BattleRoom did not get room controller!!");
+            //One.LOG("ERROR!! BattleRoom did not get room controller!!");
             return;
         }
 

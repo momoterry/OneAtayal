@@ -68,7 +68,7 @@ public class ButtonDollBackpack : MonoBehaviour
         GameObject dollRef = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (!dollRef)
         {
-            print("ERROR!! Wrong ID: " + dollID);
+            One.LOG("ERROR!! Wrong ID: " + dollID);
             return;
         }
 
@@ -77,12 +77,12 @@ public class ButtonDollBackpack : MonoBehaviour
         Doll d = dObj.GetComponent<Doll>();
         if (!d)
         {
-            print("ERROR!! No Doll: " + dollID);
+            One.LOG("ERROR!! No Doll: " + dollID);
             return;
         }
         if (!d.TryJoinThePlayer(DOLL_JOIN_SAVE_TYPE.FOREVER))
         {
-            print("ERROR!! Can not Join Player !!!!");
+            One.LOG("ERROR!! Can not Join Player !!!!");
         }
 
         //TODO: Spawn ¯S®Ä

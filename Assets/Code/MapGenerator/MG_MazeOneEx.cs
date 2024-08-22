@@ -23,7 +23,7 @@ public class MG_MazeOneEx : MG_MazeOne
     {
         if (mazeDir == MAZE_DIR.INSIDE_OUT)
         {
-            print("ERROR!!! MG_MazeOneEx 不支援的方向類型 INSIDE_OUT");
+            One.LOG("ERROR!!! MG_MazeOneEx 不支援的方向類型 INSIDE_OUT");
             mazeDir = MAZE_DIR.DONW_TO_TOP;
         }
         if (extendTerminal &&　loadedMapData == null)

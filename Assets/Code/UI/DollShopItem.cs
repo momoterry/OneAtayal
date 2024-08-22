@@ -32,7 +32,7 @@ public class DollShopItem : MonoBehaviour
         DollInfo dInfo = GameSystem.GetInstance().theDollData.GetDollInfoByID(info.ID);
         if (dInfo == null)
         {
-            print("ERROR!! DollShopItem got wrong doll ID: " + info.ID);
+            One.LOG("ERROR!! DollShopItem got wrong doll ID: " + info.ID);
             return;
         }
 
@@ -54,7 +54,7 @@ public class DollShopItem : MonoBehaviour
         GameObject dObj = GameSystem.GetDollData().GetDollRefByID(dollID);
         if (!dObj)
         {
-            print("ERROR!! Wrong Doll ID in Shop !! : " + dollID);
+            One.LOG("ERROR!! Wrong Doll ID in Shop !! : " + dollID);
         }
         Doll d = dObj.GetComponent<Doll>();
         if (icon)

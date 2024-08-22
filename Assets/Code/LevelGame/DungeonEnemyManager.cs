@@ -107,7 +107,7 @@ public class DungeonEnemyManager : DungeonEnemyManagerBase
     {
         if (data.area.x + data.area.y < 8)
         {
-            print("ERROR!! SpawnSurroundObject 區域太小: " + data.area.x + data.area.y);
+            One.LOG("ERROR!! SpawnSurroundObject 區域太小: " + data.area.x + data.area.y);
             return;
         }
         GameObject o = new GameObject("SurroundObject " + index);

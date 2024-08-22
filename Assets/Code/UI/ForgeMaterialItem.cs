@@ -17,7 +17,7 @@ public class ForgeMaterialItem : MonoBehaviour
         ItemInfo matInfo = ItemDef.GetInstance().GetItemInfo(info.matID);
         if (matInfo == null)
         {
-            print("ERROR!! ¿ù»~ªº matID: " + info.matID);
+            One.LOG("ERROR!! ¿ù»~ªº matID: " + info.matID);
             return;
         }
         matIcon.sprite = matInfo.Icon;

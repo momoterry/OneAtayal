@@ -20,7 +20,7 @@ public class BoxBlender : MonoBehaviour
         areaBox = GetComponent<BoxCollider>();
         if (!areaBox)
         {
-            print("ERROR!! BoxBlender need a BoxCollider !!!!!");
+            One.LOG("ERROR!! BoxBlender need a BoxCollider !!!!!");
             return;
         }
 

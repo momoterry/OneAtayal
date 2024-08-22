@@ -111,11 +111,12 @@ public class GameSystem : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         gameObject.GetComponentsInChildren(globalSystems);
+        One.LOG("抓到的 globalSystems: " + globalSystems.Count);
         //各系統初始化
         globalSystems.Sort(GlobalSystemBase.Compare);
         for (int i=0; i<globalSystems.Count; i++)
         {
-            //print("Init...." + globalSystems[i]);
+            One.LOG("Init...." + globalSystems[i] + "[" + globalSystems[i].InitOrder + "]");
             globalSystems[i].InitSystem();
         }
     }
@@ -544,7 +545,7 @@ public class GameSystem : MonoBehaviour
 #else
     protected void DeleteDataLocal()
     {
-        //print("ERROR!! TODO.... DeleteData");
+        //One.LOG("ERROR!! TODO.... DeleteData");
         string filePath = Application.persistentDataPath + "/" + strSaveFile;
         if (File.Exists(filePath))
         {

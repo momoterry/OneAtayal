@@ -22,7 +22,7 @@ public class DMDirBlender : BoxBlender
     //    areaBox = GetComponent<BoxCollider>();
     //    if (!areaBox)
     //    {
-    //        print("ERROR!! DMDirBlender need a BoxCollider !!!!!");
+    //        One.LOG("ERROR!! DMDirBlender need a BoxCollider !!!!!");
     //        return;
     //    }
 

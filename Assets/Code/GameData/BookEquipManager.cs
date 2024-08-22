@@ -122,9 +122,10 @@ public class BookEquipManager : GlobalSystemBase
         }
         if (!oneTimeInit)
         {
-            //print("BookEquipManager Init Skill Refs");
+            One.LOG("BookEquipManager Init Skill Refs");
             //DollInfo[] dInfos = GameSystem.GetDollData().DollInfos;
             DollInfo[] dInfos = GameSystem.GetDollData().GetAllDollInfo();
+            One.LOG("BookEquipManager dInfos Size: " + dInfos.Length);
             foreach (DollInfo dInfo in dInfos)
             {
                 //print("Try Create Skill Ref for : " + dInfo.dollID + " dInfo: " + dInfo.dollName);
@@ -165,6 +166,7 @@ public class BookEquipManager : GlobalSystemBase
 
     public void InitSave()
     {
+        One.LOG("BookEquipManager InitSave....");
         string[] initEquips = { "DollStone", "DollWood", "DollFire" };
         string[] initEquipNames = { "•€∆FÆ—", "§Ï∆FÆ—", "§ı∆FÆ—" };
         inventory.Clear();
@@ -181,6 +183,7 @@ public class BookEquipManager : GlobalSystemBase
                 equipped[i] = GenerateEmptyOne();
                 equipped[i].skillID = initEquips[i];
                 equipped[i].bookName = initEquipNames[i];
+                One.LOG("initEquips " + i + ": " + initEquipNames[i]);
             }
         }
     }
@@ -346,7 +349,7 @@ public class BookEquipManager : GlobalSystemBase
         PC_One thePC = BattleSystem.GetInstance().GetPlayer().GetComponent<PC_One>();
         if (thePC == null)
         {
-            print("ERROR!! BookEquipManagger only supoort PC_One!!!!");
+           One.LOG("ERROR!! BookEquipManagger only supoort PC_One!!!!");
             return;
         }
         thePC.SetActiveSkill(skill, slotIndex + 1);

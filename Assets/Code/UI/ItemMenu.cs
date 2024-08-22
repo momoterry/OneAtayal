@@ -48,7 +48,7 @@ public class ItemMenu : MonoBehaviour
             ItemInfo iInfo = ItemDef.GetInstance().GetItemInfo(p.Key);
             if (iInfo == null)
             {
-                print("ERROR!! No suck Item ID: " + p.Key);
+                One.LOG("ERROR!! No suck Item ID: " + p.Key);
                 continue;
             }
             GameObject itemObj = Instantiate(ItemRef, MenuRoot);

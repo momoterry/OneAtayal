@@ -55,13 +55,13 @@ public class DollData : GlobalSystemBase
     {
         //if (!theMapping.ContainsKey(dollID))
         //{
-        //    print("ERROR!!! Invalid dollID: " + dollID);
+        //    One.LOG("ERROR!!! Invalid dollID: " + dollID);
         //    return null;
         //}
         //return theMapping[dollID];
         if (!theDollMapping.ContainsKey(dollID))
         {
-            print("ERROR!!! Invalid dollID: " + dollID);
+            One.LOG("ERROR!!! Invalid dollID: " + dollID);
             return null;
         }
         return theDollMapping[dollID].objRef;
@@ -71,7 +71,7 @@ public class DollData : GlobalSystemBase
     {
         if (!theDollMapping.ContainsKey(dollID))
         {
-            print("ERROR!!! Invalid dollID: " + dollID);
+            One.LOG("ERROR!!! Invalid dollID: " + dollID);
             return null;
         }
         return theDollMapping[dollID];
@@ -154,6 +154,7 @@ public class DollData : GlobalSystemBase
     public override void InitSystem()
     {
         base.InitSystem();
+        One.LOG("DollData  InitSystem");
         foreach (DollInfo dInfo in DollInfos)
         {
             if (dInfo != null && dInfo.objRef)

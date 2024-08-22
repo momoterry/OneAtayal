@@ -112,6 +112,7 @@ public class BookInventoryMenu : MonoBehaviour
         for (int i=0; i<BookEquipManager.MAX_BOOKEQUIP; i++)
         {
             BookEquipSave equip = BookEquipManager.GetInstance().GetCurrEquip(i);
+            One.LOG("EQUIP" + i + ": " + equip.bookName);
             if (equip == null)
                 continue;
             GameObject o = Instantiate(EquippedRef.gameObject, EquippedRef.transform.parent);
@@ -194,7 +195,7 @@ public class BookInventoryMenu : MonoBehaviour
             else
             {
                 //不應該會走到這了
-                print("ERROR!! 不應該走到這裡................");
+                One.LOG("ERROR!! 不應該走到這裡................");
             }
         }
         else

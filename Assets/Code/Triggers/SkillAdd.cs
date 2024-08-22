@@ -14,7 +14,7 @@ public class SkillAdd : MonoBehaviour
         PC_One thePC = BattleSystem.GetInstance().GetPlayer().GetComponent<PC_One>();
         if (thePC == null)
         {
-            print("ERROR!! SkillAdd only supoort PC_One!!!!");
+            One.LOG("ERROR!! SkillAdd only supoort PC_One!!!!");
             return;
         }
 

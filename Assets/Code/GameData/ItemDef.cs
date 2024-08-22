@@ -53,7 +53,7 @@ public class ItemDef : GlobalSystemBase
     {
         if (!itemMap.ContainsKey(ID))
         {
-            print("ERROR!! no such Item ID: " + ID);
+            One.LOG("ERROR!! no such Item ID: " + ID);
             return null;
         }
         return itemMap[ID];

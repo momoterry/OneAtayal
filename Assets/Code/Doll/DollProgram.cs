@@ -153,7 +153,7 @@ public class DollProgram : DollBeta
             currAction = actions[currCondition.actionDescs[currActionIndex]];
             if (currAction == null)
             {
-                print("ERROR!!!! 無效的 Action");
+                One.LOG("ERROR!!!! 無效的 Action");
                 currActionIndex++;
             }
             else

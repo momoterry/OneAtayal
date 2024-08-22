@@ -337,7 +337,7 @@ public class MG_MazeDungeon : MapGeneratorBase
             }
             else
             {
-                print("ERROR!! ContinuousBattle 錯誤，下個關卡資料不是 ContinuousMazeData !!");
+                One.LOG("ERROR!! ContinuousBattle 錯誤，下個關卡資料不是 ContinuousMazeData !!");
             }
         }
     }
