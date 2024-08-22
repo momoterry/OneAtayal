@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ScenePortal : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class ScenePortal : MonoBehaviour
 
     public bool messageHint = false;
     public string hintLevelName = "";
+    public TextMesh hintTextMesh;
     public bool isClearLevel = false;
     public bool showWinUI = false;
 
@@ -45,6 +45,8 @@ public class ScenePortal : MonoBehaviour
         }
         else
             nextPhase = PHASE.NORMAL;
+        if (hintTextMesh)
+            hintTextMesh.text = hintLevelName;
     }
 
     //void Start()
