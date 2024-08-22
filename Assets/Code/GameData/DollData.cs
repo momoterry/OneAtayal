@@ -154,7 +154,7 @@ public class DollData : GlobalSystemBase
     public override void InitSystem()
     {
         base.InitSystem();
-        One.LOG("DollData  InitSystem");
+        //One.LOG("DollData  InitSystem");
         foreach (DollInfo dInfo in DollInfos)
         {
             if (dInfo != null && dInfo.objRef)

@@ -89,22 +89,18 @@ public class EnemyManager : GlobalSystemBase
     public override void InitSystem()
     {
         base.InitSystem();
-        //for (int i = 0; i < baseRefs.Length; i++)
+
+
+        //EnemyData[] enemyDatas = CSVReader.FromCSV<EnemyData>(csvFile.text);
+        //for (int i = 0; i < enemyDatas.Length; i++)
         //{
-        //    refMap.Add(baseRefs[i].refID, baseRefs[i].objRef);
+        //    //print("Enemy " + enemyDatas[i].BaseRef);
+        //    //enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
+        //    enemyDatas[i].objRef = GameData.GetObjectRef(enemyDatas[i].BaseRef);
+        //    if (enemyDatas[i].LV > 1)
+        //        enemyDatas[i].EnemyID = enemyDatas[i].EnemyID + enemyDatas[i].LV;
+        //    enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
         //}
-
-
-        EnemyData[] enemyDatas = CSVReader.FromCSV<EnemyData>(csvFile.text);
-        for (int i = 0; i < enemyDatas.Length; i++)
-        {
-            //print("Enemy " + enemyDatas[i].BaseRef);
-            //enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
-            enemyDatas[i].objRef = GameData.GetObjectRef(enemyDatas[i].BaseRef);
-            if (enemyDatas[i].LV > 1)
-                enemyDatas[i].EnemyID = enemyDatas[i].EnemyID + enemyDatas[i].LV;
-            enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
-        }
     }
 
 }

@@ -111,12 +111,12 @@ public class GameSystem : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         gameObject.GetComponentsInChildren(globalSystems);
-        One.LOG("抓到的 globalSystems: " + globalSystems.Count);
+        //One.LOG("抓到的 globalSystems: " + globalSystems.Count);
         //各系統初始化
         globalSystems.Sort(GlobalSystemBase.Compare);
         for (int i=0; i<globalSystems.Count; i++)
         {
-            One.LOG("Init...." + globalSystems[i] + "[" + globalSystems[i].InitOrder + "]");
+            //One.LOG("Init...." + globalSystems[i] + "[" + globalSystems[i].InitOrder + "]");
             globalSystems[i].InitSystem();
         }
     }

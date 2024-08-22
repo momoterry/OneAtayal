@@ -122,10 +122,10 @@ public class BookEquipManager : GlobalSystemBase
         }
         if (!oneTimeInit)
         {
-            One.LOG("BookEquipManager Init Skill Refs");
+            //One.LOG("BookEquipManager Init Skill Refs");
             //DollInfo[] dInfos = GameSystem.GetDollData().DollInfos;
             DollInfo[] dInfos = GameSystem.GetDollData().GetAllDollInfo();
-            One.LOG("BookEquipManager dInfos Size: " + dInfos.Length);
+            //One.LOG("BookEquipManager dInfos Size: " + dInfos.Length);
             foreach (DollInfo dInfo in dInfos)
             {
                 //print("Try Create Skill Ref for : " + dInfo.dollID + " dInfo: " + dInfo.dollName);
@@ -166,7 +166,7 @@ public class BookEquipManager : GlobalSystemBase
 
     public void InitSave()
     {
-        One.LOG("BookEquipManager InitSave....");
+        //One.LOG("BookEquipManager InitSave....");
         string[] initEquips = { "DollStone", "DollWood", "DollFire" };
         string[] initEquipNames = { "•€∆FÆ—", "§Ï∆FÆ—", "§ı∆FÆ—" };
         inventory.Clear();
@@ -183,7 +183,7 @@ public class BookEquipManager : GlobalSystemBase
                 equipped[i] = GenerateEmptyOne();
                 equipped[i].skillID = initEquips[i];
                 equipped[i].bookName = initEquipNames[i];
-                One.LOG("initEquips " + i + ": " + initEquipNames[i]);
+                //One.LOG("initEquips " + i + ": " + initEquipNames[i]);
             }
         }
     }
