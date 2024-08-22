@@ -22,6 +22,7 @@ public class GameData : GlobalSystemBase
 
     static public GameObject GetObjectRef(string _name)
     {
+        One.LOG("GameData.instance = " + instance);
         if (instance.objMaps.ContainsKey(_name))
             return instance.objMaps[_name];
         One.ERROR("GameObject not exist " + _name);
@@ -55,5 +56,11 @@ public class GameData : GlobalSystemBase
                 objMaps.Add(o.name, o);
             }
         }
+
+        //One.LOG("objMaps:");
+        //foreach (KeyValuePair<string, GameObject> k in objMaps)
+        //{
+        //    One.LOG(k.Key + " => " + k.Value);
+        //}
     }
 }

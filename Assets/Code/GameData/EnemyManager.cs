@@ -67,23 +67,6 @@ public class EnemyManager : GlobalSystemBase
         if (instance != null)
             print("ERROR !! 超過一份 EnemyManager 存在 ... ");
         instance = this;
-
-
-        //for (int i=0; i<baseRefs.Length; i++)
-        //{
-        //    refMap.Add(baseRefs[i].refID, baseRefs[i].objRef);
-        //}
-
-
-        //EnemyData[] enemyDatas = CSVReader.FromCSV<EnemyData>(csvFile.text);
-        //for (int i = 0; i < enemyDatas.Length; i++)
-        //{
-        //    enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
-        //    //print("Enemy " + enemyDatas[i].objRef);
-        //    if (enemyDatas[i].LV > 1)
-        //        enemyDatas[i].EnemyID = enemyDatas[i].EnemyID + enemyDatas[i].LV;
-        //    enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
-        //}
     }
 
     public override void InitSystem()
@@ -91,16 +74,18 @@ public class EnemyManager : GlobalSystemBase
         base.InitSystem();
 
 
-        //EnemyData[] enemyDatas = CSVReader.FromCSV<EnemyData>(csvFile.text);
-        //for (int i = 0; i < enemyDatas.Length; i++)
-        //{
-        //    //print("Enemy " + enemyDatas[i].BaseRef);
-        //    //enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
-        //    enemyDatas[i].objRef = GameData.GetObjectRef(enemyDatas[i].BaseRef);
-        //    if (enemyDatas[i].LV > 1)
-        //        enemyDatas[i].EnemyID = enemyDatas[i].EnemyID + enemyDatas[i].LV;
-        //    enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
-        //}
+        EnemyData[] enemyDatas = CSVReader.FromCSV<EnemyData>(csvFile.text);
+        One.LOG("enemyDatas" + enemyDatas.Length);
+        for (int i = 0; i < enemyDatas.Length; i++)
+        {
+            One.LOG("Check " + enemyDatas[i].EnemyID + "base  = " + enemyDatas[i].BaseRef);
+            //enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
+            enemyDatas[i].objRef = GameData.GetObjectRef(enemyDatas[i].BaseRef);
+            if (enemyDatas[i].LV > 1)
+                enemyDatas[i].EnemyID = enemyDatas[i].EnemyID + enemyDatas[i].LV;
+            enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
+            One.LOG("Enemy " + enemyDatas[i].EnemyID + " => " + enemyDatas[i].BaseRef);
+        }
     }
 
 }
