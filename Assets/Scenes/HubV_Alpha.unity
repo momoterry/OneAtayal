@@ -15659,9 +15659,9 @@ MonoBehaviour:
     pathHeight: 5
     mazeDir: 0
     finishAtDeepest: 0
-    gameManagerRef: {fileID: 5053008012228601930, guid: 1243c4693ce5eea4789e9dc5bf649601, type: 3}
+    gameManagerRef: {fileID: 5053008012228601930, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
     gameManagerData:
-      difficultRateMin: 1
+      difficultRateMin: 0.8
       difficultRateMax: 2
       enmeyLV: 1
       specialReward: 
@@ -15670,19 +15670,39 @@ MonoBehaviour:
   - scene: MO_Cave
     name: "\u65B0\u5730\u6D1E\u4E8C"
     levelID: 
-    puzzleWidth: 5
+    puzzleWidth: 4
     puzzleHeight: 5
     pathRate: 0.4
-    roomWidth: 15
-    roomHeight: 20
-    pathWidth: 5
-    pathHeight: 5
-    mazeDir: 2
+    roomWidth: 18
+    roomHeight: 24
+    pathWidth: 6
+    pathHeight: 6
+    mazeDir: 0
     finishAtDeepest: 0
-    gameManagerRef: {fileID: 5053008012228601930, guid: 1243c4693ce5eea4789e9dc5bf649601, type: 3}
+    gameManagerRef: {fileID: 5053008012228601930, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
     gameManagerData:
-      difficultRateMin: 1
-      difficultRateMax: 2
+      difficultRateMin: 2.5
+      difficultRateMax: 4
+      enmeyLV: 2
+      specialReward: 
+      specialRewardNum: 0
+    initGameplayRef: {fileID: 0}
+  - scene: MO_Cave
+    name: "\u65B0\u5730\u6D1E\u4E09"
+    levelID: 
+    puzzleWidth: 4
+    puzzleHeight: 6
+    pathRate: 0.4
+    roomWidth: 24
+    roomHeight: 32
+    pathWidth: 7
+    pathHeight: 7
+    mazeDir: 0
+    finishAtDeepest: 0
+    gameManagerRef: {fileID: 5053008012228601930, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
+    gameManagerData:
+      difficultRateMin: 4.5
+      difficultRateMax: 7
       enmeyLV: 2
       specialReward: 
       specialRewardNum: 0
@@ -15791,7 +15811,7 @@ Transform:
   - {fileID: 144795919}
   - {fileID: 1396000951}
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &251749493
 GameObject:
@@ -55618,7 +55638,7 @@ Transform:
   - {fileID: 1866375730}
   - {fileID: 377083757}
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1499062850
 GameObject:
@@ -60699,7 +60719,7 @@ Transform:
   - {fileID: 1264199983}
   - {fileID: 574993321}
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1001 &1950891636
 PrefabInstance:
@@ -65673,7 +65693,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &5644898721993421305
 SpriteRenderer:
   m_ObjectHideFlags: 0
