@@ -28,20 +28,24 @@ public class ItemDef : GlobalSystemBase
 
     public static ItemDef GetInstance() { return instance; }
     public static string GetDollMaterialID(string dollID) { return "Mat_" + dollID; }
-    protected void Awake()
+    //protected void Awake()
+    //{
+    //    if (instance != null)
+    //        print("ERROR !! 超過一份 ItemDef 存在 ");
+    //    instance = this;
+
+    //    //for (int i = 0; i < itemInfos.Length; i++)
+    //    //{
+    //    //    itemMap.Add(itemInfos[i].ID, itemInfos[i]);
+    //    //}
+    //}
+
+    public override void InitSystem()
     {
         if (instance != null)
             print("ERROR !! 超過一份 ItemDef 存在 ");
         instance = this;
 
-        //for (int i = 0; i < itemInfos.Length; i++)
-        //{
-        //    itemMap.Add(itemInfos[i].ID, itemInfos[i]);
-        //}
-    }
-
-    public override void InitSystem()
-    {
         base.InitSystem();
         for (int i = 0; i < itemInfos.Length; i++)
         {

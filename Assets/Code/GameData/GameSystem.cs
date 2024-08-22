@@ -116,7 +116,7 @@ public class GameSystem : MonoBehaviour
         globalSystems.Sort(GlobalSystemBase.Compare);
         for (int i=0; i<globalSystems.Count; i++)
         {
-            One.LOG("Init...." + globalSystems[i] + "[" + globalSystems[i].InitOrder + "]");
+            //One.LOG("Init...." + globalSystems[i] + "[" + globalSystems[i].InitOrder + "]");
             globalSystems[i].InitSystem();
         }
     }

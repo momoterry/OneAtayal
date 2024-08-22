@@ -55,18 +55,18 @@ public class BookEquipManager : GlobalSystemBase
 
     //public DollData theDollData;
     protected bool oneTimeInit = false;
-    protected void Awake()
-    {
-        //print("BookEquipManager ..... Awake");
-        if (instance != null)
-            print("ERROR !! 超過一份 BookEquipManager 存在 ... ");
-        instance = this;
+    //protected void Awake()
+    //{
+    //    //print("BookEquipManager ..... Awake");
+    //    if (instance != null)
+    //        print("ERROR !! 超過一份 BookEquipManager 存在 ... ");
+    //    instance = this;
 
-        //for (int i = 0; i < magicBookDef.Length; i++)
-        //{
-        //    magicBookMap.Add(magicBookDef[i].ID, magicBookDef[i]);
-        //}
-    }
+    //    //for (int i = 0; i < magicBookDef.Length; i++)
+    //    //{
+    //    //    magicBookMap.Add(magicBookDef[i].ID, magicBookDef[i]);
+    //    //}
+    //}
 
     //private void Start()
     //{
@@ -115,6 +115,9 @@ public class BookEquipManager : GlobalSystemBase
 
     public override void InitSystem()
     {
+        if (instance != null)
+            print("ERROR !! 超過一份 BookEquipManager 存在 ... ");
+        instance = this;
         base.InitSystem();
         for (int i = 0; i < magicBookDef.Length; i++)
         {

@@ -62,29 +62,31 @@ public class EnemyManager : GlobalSystemBase
         return o;
     }
 
-    void Awake()
+    //void Awake()
+    //{
+    //    if (instance != null)
+    //        print("ERROR !! 超過一份 EnemyManager 存在 ... ");
+    //    instance = this;
+    //}
+
+    public override void InitSystem()
     {
         if (instance != null)
             print("ERROR !! 超過一份 EnemyManager 存在 ... ");
         instance = this;
-    }
-
-    public override void InitSystem()
-    {
         base.InitSystem();
 
 
         EnemyData[] enemyDatas = CSVReader.FromCSV<EnemyData>(csvFile.text);
-        One.LOG("enemyDatas" + enemyDatas.Length);
+        //One.LOG("enemyDatas" + enemyDatas.Length);
         for (int i = 0; i < enemyDatas.Length; i++)
         {
-            One.LOG("Check " + enemyDatas[i].EnemyID + "base  = " + enemyDatas[i].BaseRef);
-            //enemyDatas[i].objRef = refMap[enemyDatas[i].BaseRef];
+            //One.LOG("Check " + enemyDatas[i].EnemyID + "base  = " + enemyDatas[i].BaseRef);
             enemyDatas[i].objRef = GameData.GetObjectRef(enemyDatas[i].BaseRef);
             if (enemyDatas[i].LV > 1)
                 enemyDatas[i].EnemyID = enemyDatas[i].EnemyID + enemyDatas[i].LV;
             enemyMap.Add(enemyDatas[i].EnemyID, enemyDatas[i]);
-            One.LOG("Enemy " + enemyDatas[i].EnemyID + " => " + enemyDatas[i].BaseRef);
+            //One.LOG("Enemy " + enemyDatas[i].EnemyID + " => " + enemyDatas[i].BaseRef);
         }
     }
 

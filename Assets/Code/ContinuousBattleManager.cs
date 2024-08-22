@@ -29,11 +29,19 @@ public class ContinuousBattleManager : GlobalSystemBase
         return instance.battlePlayerData;
     }
 
-    protected void Awake()
+    //protected void Awake()
+    //{
+    //    if (instance != null)
+    //        print("ERROR !! 超過一份 ContinuousBattleManager 存在: ");
+    //    instance = this;
+    //}
+
+    public override void InitSystem()
     {
         if (instance != null)
             print("ERROR !! 超過一份 ContinuousBattleManager 存在: ");
         instance = this;
+        base.InitSystem();
     }
 
     static public void StartNewBattle(ContinuousBattleDataBase[] battleArray)
