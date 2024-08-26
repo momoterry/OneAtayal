@@ -9,6 +9,8 @@ public class RoomEnemyGroupX : RoomGameplayBase
 
     public override void Build(MazeGameManager.RoomInfo room)
     {
+        base.Build(room);
+
         int width = Mathf.FloorToInt(room.width * 0.5f);
         int height = Mathf.FloorToInt(room.height * 0.5f);
         float qWidth = room.width * 0.25f;

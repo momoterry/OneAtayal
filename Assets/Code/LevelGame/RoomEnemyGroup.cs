@@ -11,6 +11,8 @@ public class RoomEnemyGroup : RoomGameplayBase
 
     public override void Build(MazeGameManager.RoomInfo room)
     {
+        base.Build(room);
+
         int width, height;
         //int num = Mathf.RoundToInt((eInfo.totalNumMax - eInfo.totalNumMin) * room.mainRatio + eInfo.totalNumMin);
         if (room.cell.isPath)

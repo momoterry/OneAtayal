@@ -15,7 +15,8 @@ public class RoomGameplayBase : MonoBehaviour
         public float totalNumMax = 3;
     }
 
-    public virtual void Build( MazeGameManager.RoomInfo room ) { }
+    public virtual void Build( MazeGameManagerBase.RoomInfo room ) 
+    {}
 
     static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, int width=4, int height=4, float diffAddRate=0, int enemyLV = 1)
     {
@@ -86,6 +87,7 @@ public class RoomGameplay : RoomGameplayBase
     }
     public override void Build( MazeGameManagerBase.RoomInfo room ) 
     {
+        base.Build(room);
         if (!centerGame)
             return;
         //print(".... To Spawn Game Object !! " + centerGame.gameObject.name);
