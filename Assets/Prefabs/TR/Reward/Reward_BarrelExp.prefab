@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4953369282983114465}
   - component: {fileID: 8979740900635064029}
   m_Layer: 0
-  m_Name: Reward_MinionBeta
+  m_Name: Reward_BarrelExp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemInfos:
-  - RandomPercent: 75
-    SpawnRefs:
-    - {fileID: 8143502755978418841, guid: 7dbe066d7b176d8448a9f7a4fe8d2887, type: 3}
   - RandomPercent: 25
+    SpawnRefs:
+    - {fileID: 8143502755978418841, guid: be548e494dd911c4d9f48d8fd5c7bcfe, type: 3}
+  - RandomPercent: 10
     SpawnRefs:
     - {fileID: 8143502755978418841, guid: 67ab84094d2daa24cb6914bdde34adfe, type: 3}
   deleteSpawnedObjectOnDestory: 0
