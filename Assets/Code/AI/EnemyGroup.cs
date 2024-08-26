@@ -148,7 +148,8 @@ public class EnemyGroup : MonoBehaviour
                 }
                 else
                 {
-                    eo = BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
+                    //eo = BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
+                    eo = EnemyManager.GetInstance().SpawnEnemyByRef(enemyInfo.enemyRef, transform.position + localPos, enemyInfo.LV);
                 }
                 enemies.Add(eo);
                 GameObject o = new GameObject("Slot" + slots.Count);

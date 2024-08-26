@@ -62,6 +62,37 @@ public class EnemyManager : GlobalSystemBase
         return o;
     }
 
+    float[] defaultUpgrate = { 1.0f, 1.0f, 1.5f, 2.25f, 3.375f, 5.0625f, 7.59375f, 11.390625f};
+
+    public GameObject SpawnEnemyByRef(GameObject objRef, Vector3 _pos, int _LV = 1)
+    {
+        //if (_LV > 1)
+        //{
+        //    _ID = _ID + _LV;
+        //    //print("高級 Enemy: " + _ID);
+        //}
+        //if (!enemyMap.ContainsKey(_ID))
+        //{
+        //    One.ERROR("No Enemy ID: " + _ID);
+        //    return null;
+        //}
+
+        //EnemyData data = enemyMap[_ID];
+        GameObject o = BattleSystem.SpawnGameObj(objRef, _pos);
+
+        Enemy e = o.GetComponent<Enemy>();
+
+        if (_LV > 1)
+        {
+            //print("產生敵人等級: " + _LV);
+            float lvUpRate = defaultUpgrate[_LV];
+            e.Attack *= lvUpRate;
+            e.MaxHP *= lvUpRate;
+        }
+
+        return o;
+    }
+
     //void Awake()
     //{
     //    if (instance != null)
