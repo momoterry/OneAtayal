@@ -733,6 +733,7 @@ public class MG_MazeOneBase : MapGeneratorBase
 
         if (gameManager)
         {
+            gameManager.SetDefaultRoomLayout(roomWidth, roomHeight, pathWidth, pathHeight, wallWidth, wallHeight);
             for (int x = 0; x < puzzleWidth; x++)
             {
                 for (int y = 0; y < puzzleHeight; y++)
@@ -741,11 +742,9 @@ public class MG_MazeOneBase : MapGeneratorBase
                     if (cell.value == CELL.NORMAL)
                     {
                         float mainRatio = (float)cell.mainDeep / (float)maxMainDeep;
-                        //if (cell.isPath)
-                        //    gameManager.AddPath(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
-                        //else
-                        //    gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
-                        gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
+
+                        //gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
+                        gameManager.AddRoom(GetCellCenterPos(x, y), cell, mainRatio);
                     }
                 }
             }

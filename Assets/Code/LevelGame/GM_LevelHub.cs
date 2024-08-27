@@ -42,6 +42,32 @@ public class GM_LevelHub : MazeGameManagerBase
         return roomInfo;
     }
 
+    public override RoomInfo AddRoom(Vector3 vCenter, MG_MazeOneBase.CELL cell, float mainRatio)
+    {
+        if (cell.isPath)
+            return null;
+        RoomInfo roomInfo = base.AddRoom(vCenter, cell, mainRatio);
+
+        if (cell.isMain)
+            mainList.Add(roomInfo);
+        else
+        {
+            int doorCount = 0;
+            doorCount += roomInfo.cell.U ? 1 : 0;
+            doorCount += roomInfo.cell.D ? 1 : 0;
+            doorCount += roomInfo.cell.L ? 1 : 0;
+            doorCount += roomInfo.cell.R ? 1 : 0;
+            if (doorCount == 1)
+            {
+                branchList.Add(roomInfo);
+            }
+        }
+
+        allList.Add(roomInfo);
+
+        return roomInfo;
+    }
+
     int CompareRoom(RoomInfo A, RoomInfo B)
     {
         return (int)(100.0f * (A.mainRatio - B.mainRatio));
