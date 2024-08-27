@@ -201,6 +201,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78990857d53ffd04fbd4b83f13742f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &243422802 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6889865648627755063, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
+  m_PrefabInstance: {fileID: 506339054}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26347709075914a847aa65c517fec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &293426781 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5764251898308864651, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
+  m_PrefabInstance: {fileID: 506339054}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2537a185ce97a45a42c54fd4c918ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &314766403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -353,7 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objRef: {fileID: 1427553042280373961, guid: 5d766c76be09af54ebd2ed4b61870a53, type: 3}
-  placePercent: 3
+  placePercent: 10
 --- !u!1 &499701045
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,11 +558,11 @@ PrefabInstance:
     - target: {fileID: 5053008012228601930, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
       propertyPath: defaultMainGames.Array.data[0].game
       value: 
-      objectReference: {fileID: 404891978}
+      objectReference: {fileID: 293426781}
     - target: {fileID: 5053008012228601930, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
       propertyPath: defaultBranchGames.Array.data[0].game
       value: 
-      objectReference: {fileID: 404891978}
+      objectReference: {fileID: 243422802}
     - target: {fileID: 8425078966826279353, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
       propertyPath: m_Name
       value: GM_CaveHuge
@@ -964,10 +986,10 @@ MonoBehaviour:
   mapName: 
   theSurface2D: {fileID: 1252285827}
   entraceList: []
-  puzzleWidth: 3
-  puzzleHeight: 3
-  roomWidth: 12
-  roomHeight: 18
+  puzzleWidth: 4
+  puzzleHeight: 4
+  roomWidth: 24
+  roomHeight: 36
   wallWidth: 2
   wallHeight: 2
   pathWidth: 7
