@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class RoomObjectPlacement : RoomGameplayBase
 {
-    public GameObject objRef;
-    public float placePercent = 10.0f;
+    [System.Serializable]
+    public class ObjectInfo
+    {
+        public GameObject objRef;
+        public float placePercent = 10.0f;
+    }
+    public ObjectInfo[] objs;
 
     //public override void Build(MazeGameManagerBase.RoomInfo room)
     //{
@@ -129,13 +134,28 @@ public class RoomObjectPlacement : RoomGameplayBase
         {
             for (int j = 0; j < (int)height; j++)
             {
-                if (Random.Range(0.0f, 100.0f) < placePercent)
+                //if (Random.Range(0.0f, 100.0f) < placePercent)
+                GameObject objRef = GetRandomGameObject();
+                if (objRef)
                 {
                     Vector3 vGridCenter = new Vector3(-width / 2 + 0.5f + (i * 1.0f), 0, -height / 2 + 0.5f + (j * 1.0f));
                     BattleSystem.SpawnGameObj(objRef, vGridCenter + vCenter);
                 }
             }
         }
+    }
+
+    protected GameObject GetRandomGameObject()
+    {
+        float rd = Random.Range(0, 100.0f);
+        float sum = 0;
+        for (int i=0; i<objs.Length; i++)
+        {
+            sum += objs[i].placePercent;
+            if (rd < sum)
+                return objs[i].objRef;
+        }
+        return null;
     }
 
 }
