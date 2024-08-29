@@ -68,12 +68,12 @@ public class RoomObjectPlacement : RoomGameplayBase
         //float yShift = (cHeight + pathLengthY) / 2;
 
         if (room.cell.R)
-        { 
-            //if (room.cell.isPath)
-            {
-                PlaceHoriEdge(room.vCenter, room.doorHeight / 2, cWidth / 2, cWidth / 2 + pathLengthX, false);
-                PlaceHoriEdge(room.vCenter, -room.doorHeight / 2, cWidth / 2, cWidth / 2 + pathLengthX, true);
-            }
+        {
+            PlaceHoriEdge(room.vCenter, room.doorHeight / 2, cWidth / 2, cWidth / 2 + pathLengthX, false);
+            PlaceHoriEdge(room.vCenter, -room.doorHeight / 2, cWidth / 2, cWidth / 2 + pathLengthX, true);
+
+            PlaceVertiEdge(room.vCenter, cWidth / 2, -cHeight / 2, - room.doorHeight / 2 / 2, false);
+            PlaceVertiEdge(room.vCenter, cWidth / 2, cHeight / 2, room.doorHeight / 2 / 2, false);
         }
         else
         {
@@ -81,11 +81,11 @@ public class RoomObjectPlacement : RoomGameplayBase
         }
         if (room.cell.L)
         {
-            //if (room.cell.isPath)
-            {
-                PlaceHoriEdge(room.vCenter, room.doorHeight / 2, -cWidth / 2 - pathLengthX, -cWidth / 2, false);
-                PlaceHoriEdge(room.vCenter, -room.doorHeight / 2, -cWidth / 2 - pathLengthX, -cWidth / 2, true);
-            }
+            PlaceHoriEdge(room.vCenter, room.doorHeight / 2, -cWidth / 2 - pathLengthX, -cWidth / 2, false);
+            PlaceHoriEdge(room.vCenter, -room.doorHeight / 2, -cWidth / 2 - pathLengthX, -cWidth / 2, true);
+
+            PlaceVertiEdge(room.vCenter, -cWidth / 2, -cHeight / 2, -room.doorHeight / 2 / 2, true);
+            PlaceVertiEdge(room.vCenter, -cWidth / 2, cHeight / 2, room.doorHeight / 2 / 2, true);
         }
         else
         {
@@ -93,11 +93,11 @@ public class RoomObjectPlacement : RoomGameplayBase
         }
         if (room.cell.U)
         {
-            //if (room.cell.isPath)
-            {
-                PlaceVertiEdge(room.vCenter, room.doorWidth / 2, cHeight / 2, cHeight / 2 + pathLengthY, false);
-                PlaceVertiEdge(room.vCenter, -room.doorWidth / 2, cHeight / 2, cHeight / 2 + pathLengthY, true);
-            }
+            PlaceVertiEdge(room.vCenter, room.doorWidth / 2, cHeight / 2, cHeight / 2 + pathLengthY, false);
+            PlaceVertiEdge(room.vCenter, -room.doorWidth / 2, cHeight / 2, cHeight / 2 + pathLengthY, true);
+
+            PlaceHoriEdge(room.vCenter, cHeight / 2, -cWidth / 2, -room.doorWidth / 2, false);
+            PlaceHoriEdge(room.vCenter, cHeight / 2, cWidth / 2, room.doorWidth / 2, false);
         }
         else
         {
@@ -105,11 +105,11 @@ public class RoomObjectPlacement : RoomGameplayBase
         }
         if (room.cell.D)
         {
-            //if (room.cell.isPath)
-            {
-                PlaceVertiEdge(room.vCenter, room.doorWidth / 2, -cHeight / 2 - pathLengthY, -cHeight / 2, false);
-                PlaceVertiEdge(room.vCenter, -room.doorWidth / 2, -cHeight / 2 - pathLengthY, -cHeight / 2, true);
-            }
+            PlaceVertiEdge(room.vCenter, room.doorWidth / 2, -cHeight / 2 - pathLengthY, -cHeight / 2, false);
+            PlaceVertiEdge(room.vCenter, -room.doorWidth / 2, -cHeight / 2 - pathLengthY, -cHeight / 2, true);
+
+            PlaceHoriEdge(room.vCenter, -cHeight / 2, -cWidth / 2, -room.doorWidth / 2, true);
+            PlaceHoriEdge(room.vCenter, -cHeight / 2, cWidth / 2, room.doorWidth / 2, true);
         }
         else
         {
@@ -118,15 +118,15 @@ public class RoomObjectPlacement : RoomGameplayBase
 
     }
 
-    protected void PlaceVertiEdge(Vector3 vCenter, float x, float yMin, float yMax, bool leftEdge, float width = 2)
+    protected void PlaceVertiEdge(Vector3 vCenter, float x, float y1, float y2, bool leftEdge, float width = 2)
     {
         float xShift = leftEdge ? width / 2 : -width / 2;
-        PlaceArea(vCenter + new Vector3(x + xShift, 0, (yMax + yMin)/2), width, yMax - yMin);
+        PlaceArea(vCenter + new Vector3(x + xShift, 0, (y1 + y2)/2), width, Mathf.Abs(y2 - y1));
     }
-    protected void PlaceHoriEdge(Vector3 vCenter, float y, float xMin, float xMax, bool donwEdge, float width = 2)
+    protected void PlaceHoriEdge(Vector3 vCenter, float y, float x1, float x2, bool donwEdge, float width = 2)
     {
         float yShift = donwEdge ? width / 2 : -width / 2;
-        PlaceArea(vCenter + new Vector3((xMax + xMin) / 2, 0, y + yShift), xMax - xMin, width);
+        PlaceArea(vCenter + new Vector3((x2 + x1) / 2, 0, y + yShift), Mathf.Abs(x2 - x1), width);
     }
     protected void PlaceArea(Vector3 vCenter, float width, float height)
     {
