@@ -18,6 +18,7 @@ public class MapGeneratorBase : MonoBehaviour
 
     public NavMeshSurface theSurface2D;
     public MapEntraceData[] entraceList;
+    public float mapCameraAdjust = 0;       //調整該地圖的預設 Camera 遠近， > 0 表示拉遠
 
     protected MapSaveDataBase mapDataBase;      //如果有的話，表示有地圖存檔，目前作為基底主要記錄探索地的結果
 
@@ -27,6 +28,8 @@ public class MapGeneratorBase : MonoBehaviour
 
     public virtual void PostBuildAll()     //處理載入探索地圖等
     {
+        BattleCamera battleCamera = Camera.main.GetComponent<BattleCamera>();
+        battleCamera.SetSizeAdjustByMap(mapCameraAdjust);
         if (mapName != null && mapName != "")
         {
             LoadExploreMap();

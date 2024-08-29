@@ -4,11 +4,35 @@ using UnityEngine;
 
 public class BattleCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Vector3 targetOffset;
-    void Start()
+
+    protected float SizeAdjustRatioByScreen = 1.0f;   //因為螢幕解析度而調整   CameraSize
+    protected float SizeAdjustByMap = 0f;         //因為關卡需要而調整     CameraSize
+    protected float DefaultCameraSize = 10.0f;
+    protected Camera theCamera;
+
+    public void SetSizeAdjustRatioByScreen(float ratio)
     {
-        
+        SizeAdjustRatioByScreen = ratio;
+        SetCameraSize();
+    }
+
+    public void SetSizeAdjustByMap(float adjust)
+    {
+        SizeAdjustByMap = adjust;
+        SetCameraSize();
+    }
+
+    void Awake()
+    {
+        theCamera = GetComponent<Camera>();
+        DefaultCameraSize = theCamera.orthographicSize;
+        SetCameraSize();
+    }
+
+    protected void SetCameraSize()
+    {
+        theCamera.orthographicSize = (DefaultCameraSize + SizeAdjustByMap) * SizeAdjustRatioByScreen;
     }
 
     // Update is called once per frame

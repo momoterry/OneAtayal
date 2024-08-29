@@ -74,7 +74,8 @@ public class Battle_HUD : MonoBehaviour
 
     protected float targetRatio = 0.5f;
     protected float ratioMax = 1.0f;    //螢幕太寬就進行 Camera + UI 縮放
-    protected float cameraDefaultSize = 10.0f;
+    //protected float cameraDefaultSize = 10.0f;
+    protected BattleCamera battleCamera;
     protected CanvasScaler theScaler;
 
     //勝敗頁面相關
@@ -82,10 +83,10 @@ public class Battle_HUD : MonoBehaviour
 
 
 
-
     private void Awake()
     {
-        cameraDefaultSize = Camera.main.orthographicSize;
+        //cameraDefaultSize = Camera.main.orthographicSize;
+        battleCamera = Camera.main.GetComponent<BattleCamera>();
         //print("Main Camera Default Size = " + cameraDefaultSize);
         theScaler = GetComponent<CanvasScaler>();
         if (theScaler != null)
@@ -110,7 +111,8 @@ public class Battle_HUD : MonoBehaviour
                 if (currRatio < targetRatio)
                 {
                     theScaler.matchWidthOrHeight = 0;
-                    Camera.main.orthographicSize = cameraDefaultSize * targetRatio / currRatio; //太細的螢幕得調整主 Camera
+                    //Camera.main.orthographicSize = cameraDefaultSize * targetRatio / currRatio; //太細的螢幕得調整主 Camera
+                    battleCamera.SetSizeAdjustRatioByScreen(targetRatio / currRatio);
                 }
                 else if (currRatio > ratioMax)
                 {
@@ -131,7 +133,8 @@ public class Battle_HUD : MonoBehaviour
                 else
                 {
                     theScaler.matchWidthOrHeight = 1.0f;
-                    Camera.main.orthographicSize = cameraDefaultSize;
+                    //Camera.main.orthographicSize = cameraDefaultSize;
+                    battleCamera.SetSizeAdjustRatioByScreen(1.0f);
                 }
             }
 
