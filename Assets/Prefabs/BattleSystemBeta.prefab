@@ -79,16 +79,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropMappingArray:
-  - ID: 500
+  - ID: 900500
     dropRatio: 15
     objRef: {fileID: 2549458001448485838, guid: e92fb98260c2b3c478ac8461653386a5, type: 3}
     exp: 0
     Desc: "\u7834\u58DE\u7269\u4EF6"
-  - ID: 1000
+  - ID: 901000
     dropRatio: 0
     objRef: {fileID: 2549458001448485838, guid: b6c374b30a12baa468d1075e5b997bc8, type: 3}
     exp: 0
     Desc: "\u96DC\u9B5A(Minion)"
+  dropMapInfos:
+  - ID: 500
+    drops:
+    - dropPercent: 3.5
+      objRef: {fileID: 8143502755978418841, guid: 67ab84094d2daa24cb6914bdde34adfe, type: 3}
+    - dropPercent: 3
+      objRef: {fileID: 8143502755978418841, guid: be548e494dd911c4d9f48d8fd5c7bcfe, type: 3}
+    - dropPercent: 30
+      objRef: {fileID: 8143502755978418841, guid: 5be411f3bee8395498943c1bb6b46ffb, type: 3}
+    exp: 0
+    Desc: "\u7834\u58DE\u7269\u4EF6"
+  - ID: 1000
+    drops:
+    - dropPercent: 2.5
+      objRef: {fileID: 8143502755978418841, guid: 67ab84094d2daa24cb6914bdde34adfe, type: 3}
+    exp: 0
+    Desc: "\u96DC\u9B5A"
 --- !u!114 &1319158108469358026
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static DropMapInfo;
 
 [System.Serializable]
 public class DropMapping
@@ -12,14 +13,31 @@ public class DropMapping
     public string Desc;     //只是方便表格編輯
 }
 
+[System.Serializable]
+public class DropMapInfo
+{
+    public int ID;
+    [System.Serializable]
+    public class DropData
+    {
+        public float dropPercent;
+        public GameObject objRef;
+    }
+    public DropData[] drops;
+    public int exp = 0;
+    public string Desc;     //只是方便表格編輯
+}
+
 public class DropManager : MonoBehaviour
 {
     public DropMapping[] dropMappingArray;
+    public DropMapInfo[] dropMapInfos;
 
     protected static DropManager instance = null;
     public static DropManager GetInstance() { return instance; }
 
     protected Dictionary<int, DropMapping> dropMap = new Dictionary<int, DropMapping>();
+    protected Dictionary<int, DropMapInfo> dropInfoMap = new Dictionary<int, DropMapInfo>();
 
     //public DropManager() : base()
     //{
@@ -38,6 +56,10 @@ public class DropManager : MonoBehaviour
         {
             dropMap.Add(dm.ID, dm);
         }
+        foreach (DropMapInfo info in dropMapInfos)
+        {
+            dropInfoMap.Add(info.ID, info);
+        }
     }
 
     public int GetExpByID(int ID)
@@ -45,6 +67,10 @@ public class DropManager : MonoBehaviour
         if (dropMap.ContainsKey(ID))
         {
             return dropMap[ID].exp;
+        }
+        else if (dropInfoMap.ContainsKey(ID))
+        {
+            return dropInfoMap[ID].exp;
         }
         return 0;
     }
@@ -65,6 +91,31 @@ public class DropManager : MonoBehaviour
                 }
             }        
         }
+        else if (dropInfoMap.ContainsKey(ID))
+        {
+            //print("Try Drop by dropInfoMap: " + ID);
+            DropMapInfo info = dropInfoMap[ID];
+            GameObject objRef = GetRandomObjRef(info.drops);
+            if (objRef != null)
+            {
+                BattleSystem.GetInstance().SpawnGameplayObject(objRef, pos);
+            }
+        }
+    }
+
+    protected GameObject GetRandomObjRef(DropData[] data)
+    {
+        float rd = Random.Range(0, 100);
+        float sum = 0;
+        for ( int i = 0; i < data.Length; i++)
+        {
+            sum += data[i].dropPercent;
+            if (rd < sum)
+            {
+                return data[i].objRef;
+            }
+        }
+        return null;
     }
 
 }
