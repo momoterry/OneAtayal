@@ -1106,6 +1106,7 @@ MonoBehaviour:
   - name: Exit_SuperDungeon_Portal
     pos: {fileID: 1147238583}
     faceAngle: 180
+  mapCameraAdjust: 0
   useMiniMap: 0
 --- !u!4 &103007907
 Transform:
@@ -15650,6 +15651,7 @@ MonoBehaviour:
   - scene: CaveBeta
     name: "\u65B0\u5730\u6D1E\u4E00"
     levelID: 
+    cameraAdjust: 0
     puzzleWidth: 3
     puzzleHeight: 4
     pathRate: 0.6
@@ -15670,6 +15672,7 @@ MonoBehaviour:
   - scene: CaveBeta
     name: "\u65B0\u5730\u6D1E\u4E8C"
     levelID: 
+    cameraAdjust: 1
     puzzleWidth: 3
     puzzleHeight: 5
     pathRate: 0.4
@@ -15690,6 +15693,7 @@ MonoBehaviour:
   - scene: CaveBeta
     name: "\u65B0\u5730\u6D1E\u4E09"
     levelID: 
+    cameraAdjust: 2
     puzzleWidth: 4
     puzzleHeight: 5
     pathRate: 0.4
@@ -60578,6 +60582,7 @@ MonoBehaviour:
   - scene: MO_Cave
     name: "\u65B0\u5730\u6D1E\u4E00"
     levelID: 
+    cameraAdjust: 0
     puzzleWidth: 4
     puzzleHeight: 4
     pathRate: 0.6
@@ -60598,6 +60603,7 @@ MonoBehaviour:
   - scene: MO_Cave
     name: "\u65B0\u5730\u6D1E\u4E8C"
     levelID: 
+    cameraAdjust: 0
     puzzleWidth: 5
     puzzleHeight: 5
     pathRate: 0.4

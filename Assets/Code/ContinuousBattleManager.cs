@@ -10,6 +10,7 @@ public class ContinuousBattleDataBase
     public string scene;
     public string name;
     public string levelID;  //如果戰鬥是屬於 LevelManager 中的一個 level 時才會有值
+    public float cameraAdjust;  // > 0 的話拉遠
 }
 
 public class ContinuousBattleManager : GlobalSystemBase

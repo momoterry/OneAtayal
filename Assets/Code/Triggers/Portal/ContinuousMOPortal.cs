@@ -17,19 +17,7 @@ public class ContinuousMOData : ContinuousBattleDataBase
 
     public MazeGameManagerBase gameManagerRef;
     public GameManagerDataBase gameManagerData;
-    //public float gameDiffcultRateMin = 1.0f;
-    //public float gameDiffcultRateMax = 2.0f;
-    //public int gameEnemyLV = 1;
-
-    //public DungeonEnemyManagerBase dungeonEnemyManager;     //如果有指定，下面的 normalEnemy 資訊無用
-    //public int normalEnemyNum;
-    //public float normalEnemyRate;
-    //public int bigRoomNum;
-    //public int maxExploreReward;
-    //public MG_MazeDungeon.BigRoomInfo[] bigRooms;           //如果使用，則 bigRoomNum 無視
-    //public GameObject[] exploreRewards;
     public GameObject initGameplayRef;
-    //public bool portalAfterFirstRoomGamplay;
 }
 
 //放到 ContinuousMOData 中的 Gameplay 參數定義基底，可以被用來擴充以支援不同的 Gameplay 類型

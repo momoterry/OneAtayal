@@ -28,6 +28,11 @@ public class MapGeneratorBase : MonoBehaviour
 
     public virtual void PostBuildAll()     //處理載入探索地圖等
     {
+        ContinuousBattleDataBase cBase = ContinuousBattleManager.GetCurrBattleData();
+        if (cBase != null)
+        {
+            mapCameraAdjust = cBase.cameraAdjust;
+        }
         BattleCamera battleCamera = Camera.main.GetComponent<BattleCamera>();
         battleCamera.SetSizeAdjustByMap(mapCameraAdjust);
         if (mapName != null && mapName != "")
