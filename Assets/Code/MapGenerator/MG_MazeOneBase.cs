@@ -833,6 +833,8 @@ public class MG_MazeOneBase : MapGeneratorBase
         {
             for (int j = 0; j < puzzleHeight; j++)
             {
+                if (puzzleMap[i][j].value == CELL.ROOM)
+                    continue;
                 int x1 = puzzleX1 + i * cellWidth;
                 int y1 = puzzleY1 + j * cellHeight;
                 FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
