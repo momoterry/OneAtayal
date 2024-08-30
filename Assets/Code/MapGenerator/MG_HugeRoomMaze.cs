@@ -13,8 +13,8 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
             MAZE,
         }
         public BLOCK_TYPE type;
-        //public int width;  //如果是大 Room 時候，-1 表示用全大小
-        public int blockHeight;
+        public int width;
+        public int height;
     }
     public BlockInfo[] blocks;
 
@@ -25,7 +25,9 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
         int totalHeight = 0;
         for (int i = 0; i < blocks.Length; i++)
         {
-            totalHeight += blocks[i].blockHeight;
+            totalHeight += blocks[i].height;
+            if (puzzleWidth < blocks[i].width)
+                puzzleWidth = blocks[i].width;
         }
 
         puzzleHeight = totalHeight;
@@ -57,6 +59,8 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
             puzzleMap[puzzleStart.x][puzzleStart.y].value = CELL.NORMAL;
             puzzleMap[puzzleEnd.x][puzzleEnd.y].value = CELL.NORMAL;
         }
+
+        //print("InitPuzzleMap: " + puzzleWidth + " -- " + puzzleHeight);
     }
 
     protected override void CreatMazeMap()
@@ -85,7 +89,7 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
             if (currStart > 0)
                 ConnectCells(puzzleMap[blockStart.x][blockStart.y - 1], puzzleMap[blockStart.x][blockStart.y], DIRECTION.U);
 
-            currStart += blocks[i].blockHeight;
+            currStart += blocks[i].height;
         }
 
         //最後段尾相接
@@ -100,7 +104,7 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
     {
         for (int i=0; i<puzzleWidth; i++)
         {
-            for (int j=currStart.y; j<currStart.y+block.blockHeight; j++)
+            for (int j=currStart.y; j<currStart.y+block.height; j++)
             {
                 puzzleMap[i][j].value = CELL.ROOM;
             }
@@ -112,10 +116,10 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
             colliderRoot.transform.parent = transform;
         }
 
-        int blockWidth = puzzleWidth;   //TODO
+        int blockWidth = block.width;
 
         int width = blockWidth * cellWidth;
-        int height = block.blockHeight * cellHeight;
+        int height = block.height * cellHeight;
         int x1 = puzzleX1 + (currStart.x - blockWidth/2) * cellWidth;
         int x2 = x1 + width;
         int y1 = puzzleY1 + currStart.y * cellHeight;
@@ -151,10 +155,11 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
         CELL bigCell = new CELL();
         bigCell.value = CELL.NORMAL;
         bigCell.isMain = true;
+        Vector3 vCenter = new Vector3((x1 + x2) * 0.5f, 0, (y1 + y2) * 0.5f );
 
         if (gameManager)
         {
-            gameManager.AddRoom(GetCellCenterPos(currStart.x, currStart.y + block.blockHeight/2), width, height, bigCell, mainRatio, pathWidth, pathHeight);
+            gameManager.AddRoom(vCenter, width - wallWidth - wallWidth, height - wallHeight - wallHeight, bigCell, mainRatio, pathWidth, pathHeight);
         }
     }
 
@@ -163,12 +168,12 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
         //print("CreateMaze at: " + currStart);
         MazeCreator_BackTrace mc = new MazeCreator_BackTrace();
         Vector2Int blockStart = new Vector2Int(puzzleStart.x, 0);
-        Vector2Int blockEnd = new Vector2Int(puzzleStart.x, block.blockHeight-1);
-        MazeCreator_BackTrace.MyCell[][] maze = mc.CreateMaze(puzzleWidth, block.blockHeight, blockStart, blockEnd);
+        Vector2Int blockEnd = new Vector2Int(puzzleStart.x, block.height-1);
+        MazeCreator_BackTrace.MyCell[][] maze = mc.CreateMaze(puzzleWidth, block.height, blockStart, blockEnd);
 
         for (int i = 0; i < puzzleWidth; i++) 
         {
-            for (int j=0; j<block.blockHeight; j++)
+            for (int j=0; j<block.height; j++)
             {
                 CELL c = puzzleMap[i][j+ currStart.y];
                 MazeCreator_BackTrace.MyCell cm = maze[i][j];

@@ -403,7 +403,7 @@ public class EnemyGroup : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        if (centerT)
+        if (centerT && currPhase != PHASE.SLEEP)
             Gizmos.DrawWireCube(centerT.position, new Vector3(newWidth * gridWidth, 2.0f, newHeight * gridHeight));
         else
             Gizmos.DrawWireCube(transform.position, new Vector3(width * gridWidth, 2.0f, height * gridHeight));
