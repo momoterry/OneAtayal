@@ -26,10 +26,10 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
         for (int i = 0; i < blocks.Length; i++)
         {
             totalHeight += blocks[i].height;
-            if (puzzleWidth < blocks[i].width)
-                puzzleWidth = blocks[i].width;
+            int needWidth = blocks[i].type == BlockInfo.BLOCK_TYPE.BIG_ROOM ? blocks[i].width / 2 * 2 + 1 : blocks[i].width;
+            puzzleWidth = Mathf.Max(puzzleWidth, needWidth);
         }
-
+        //puzzleWidth++;  //留給 Big Room 的緩衝空間
         puzzleHeight = totalHeight;
         mazeDir = MAZE_DIR.DONW_TO_TOP;
         if (extendTerminal && loadedMapData == null)
@@ -116,17 +116,19 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
             colliderRoot.transform.parent = transform;
         }
 
-        int blockWidth = block.width;
+        //int blockWidth = block.width;
 
-        int width = blockWidth * cellWidth;
+        int width = block.width * cellWidth;
         int height = block.height * cellHeight;
-        int x1 = puzzleX1 + (currStart.x - blockWidth/2) * cellWidth;
+        int xCenter = puzzleX1 + (currStart.x * cellWidth) + (cellWidth / 2);
+        //int x1 = puzzleX1 + (currStart.x - block.width / 2) * cellWidth;
+        int x1 = xCenter - ( width / 2);
         int x2 = x1 + width;
         int y1 = puzzleY1 + currStart.y * cellHeight;
         int y2 = y1 + height;
 
         //門的位置
-        int dx1 = puzzleX1 + currStart.x * cellWidth + (cellWidth-pathWidth)/2;
+        int dx1 = xCenter - (pathWidth/2);
         int dx2 = dx1 + pathWidth;
 
         //print(x1 + " ---- " + y1);
