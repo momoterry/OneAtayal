@@ -165,28 +165,33 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
 
     protected void CreateMaze(BlockInfo block, Vector2Int currStart, float mainRatio = 0)
     {
+        for (int i = 0; i < puzzleWidth; i++)
+        {
+            for (int j = currStart.y; j < currStart.y + block.height; j++)
+            {
+                puzzleMap[i][j].value = CELL.INVALID;
+            }
+        }
         //print("CreateMaze at: " + currStart);
+        int xShift = currStart.x - block.width / 2;
         MazeCreator_BackTrace mc = new MazeCreator_BackTrace();
-        Vector2Int blockStart = new Vector2Int(puzzleStart.x, 0);
-        Vector2Int blockEnd = new Vector2Int(puzzleStart.x, block.height-1);
-        MazeCreator_BackTrace.MyCell[][] maze = mc.CreateMaze(puzzleWidth, block.height, blockStart, blockEnd);
+        Vector2Int blockStart = new Vector2Int(puzzleStart.x - xShift, 0);
+        Vector2Int blockEnd = new Vector2Int(puzzleStart.x - xShift, block.height-1);
+        MazeCreator_BackTrace.MyCell[][] maze = mc.CreateMaze(block.width, block.height, blockStart, blockEnd);
 
-        for (int i = 0; i < puzzleWidth; i++) 
+        for (int i = 0; i < block.width; i++) 
         {
             for (int j=0; j<block.height; j++)
             {
-                CELL c = puzzleMap[i][j+ currStart.y];
+                CELL c = puzzleMap[i+ xShift][j+ currStart.y];
                 MazeCreator_BackTrace.MyCell cm = maze[i][j];
                 c.D = cm.D;
                 c.U = cm.U;
                 c.R = cm.R;
                 c.L = cm.L;
-                if (cm.value == MazeCreator_BackTrace.MyCell.CELL_VALUE.INVALID)
+                if (cm.value != MazeCreator_BackTrace.MyCell.CELL_VALUE.INVALID)
                 {
-                    c.value = CELL.INVALID;
-                }
-                else
-                {
+                    c.value = CELL.NORMAL;
                     c.isPath = true;
                 }
                 if (gameManager)
