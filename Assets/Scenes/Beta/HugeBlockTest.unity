@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapName: 
-  theSurface2D: {fileID: 0}
+  theSurface2D: {fileID: 1252285827}
   entraceList: []
   mapCameraAdjust: 0
   puzzleWidth: 6
@@ -555,7 +555,7 @@ MonoBehaviour:
   groundTM: {fileID: 1946328705}
   blockTM: {fileID: 694266825}
   dungeonEnemyManager: {fileID: 0}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 5053008012734150308}
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
   blocks:
@@ -1605,6 +1605,14 @@ PrefabInstance:
       propertyPath: objs.Array.data[1].placePercent
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1452738047708354153, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
+      propertyPath: eInfo.totalNumMax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452738047708354153, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
+      propertyPath: eInfo.totalNumMin
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8425078966826279353, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
       propertyPath: m_Name
       value: GM_CaveHuge
@@ -1710,6 +1718,17 @@ MonoBehaviour:
     - {fileID: -6997211928402883760, guid: de7818e737f22e14db8d7bcadeb7461e, type: 3}
     - {fileID: -8640992318947151407, guid: de7818e737f22e14db8d7bcadeb7461e, type: 3}
     FPS: 12
+--- !u!114 &5053008012734150308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5053008012228601930, guid: a9f4a3902743f84409d855ba71c11b22, type: 3}
+  m_PrefabInstance: {fileID: 938200964653749635}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b90d734165236049b0c2c26c8a3b28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5660687305450736555 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3265715631666050365, guid: 977785b99ca43d940a4a37ddce8628e2, type: 3}

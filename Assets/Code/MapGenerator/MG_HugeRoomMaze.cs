@@ -170,6 +170,10 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
                 {
                     c.value = CELL.INVALID;
                 }
+                else
+                {
+                    c.isPath = true;
+                }
             }
         }
     }
