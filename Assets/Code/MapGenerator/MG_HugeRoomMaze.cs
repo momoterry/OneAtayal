@@ -76,11 +76,11 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
 
             if (blocks[i].type == BlockInfo.BLOCK_TYPE.BIG_ROOM)
             {
-                CreateBigRoom(blocks[i], blockStart);
+                CreateBigRoom(blocks[i], blockStart, (i + 1)/blocks.Length);
             }
             else if (blocks[i].type == BlockInfo.BLOCK_TYPE.MAZE)
             {
-                CreateMaze(blocks[i], blockStart);
+                CreateMaze(blocks[i], blockStart, (i + 1) / blocks.Length);
             }
             if (currStart > 0)
                 ConnectCells(puzzleMap[blockStart.x][blockStart.y - 1], puzzleMap[blockStart.x][blockStart.y], DIRECTION.U);
@@ -96,7 +96,7 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
         }
     }
 
-    protected void CreateBigRoom(BlockInfo block, Vector2Int currStart)
+    protected void CreateBigRoom(BlockInfo block, Vector2Int currStart, float mainRatio = 0)
     {
         for (int i=0; i<puzzleWidth; i++)
         {
@@ -146,9 +146,19 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
             FillBlock(x1, y1, wallWidth, height);
             FillBlock(x2 - wallWidth, y1, wallWidth, height);
         }
+
+        //³]¥ß Cell
+        CELL bigCell = new CELL();
+        bigCell.value = CELL.NORMAL;
+        bigCell.isMain = true;
+
+        if (gameManager)
+        {
+            gameManager.AddRoom(GetCellCenterPos(currStart.x, currStart.y + block.blockHeight/2), width, height, bigCell, mainRatio, pathWidth, pathHeight);
+        }
     }
 
-    protected void CreateMaze(BlockInfo block, Vector2Int currStart)
+    protected void CreateMaze(BlockInfo block, Vector2Int currStart, float mainRatio = 0)
     {
         //print("CreateMaze at: " + currStart);
         MazeCreator_BackTrace mc = new MazeCreator_BackTrace();
@@ -174,8 +184,17 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
                 {
                     c.isPath = true;
                 }
+                if (gameManager)
+                {
+                    gameManager.AddRoom(GetCellCenterPos(c.x, c.y), c, mainRatio);
+                }
             }
         }
+    }
+
+    protected override void PreCalculateGameplayInfo()
+    {
+
     }
 
     //===========================================================================================

@@ -381,6 +381,8 @@ public class MG_MazeOneBase : MapGeneratorBase
         puzzleX1 = mapCenter.x - (puzzleWidth * cellWidth / 2);
         puzzleY1 = mapCenter.y - (puzzleHeight * cellHeight / 2);
 
+        if (gameManager)
+            gameManager.SetDefaultRoomLayout(roomWidth, roomHeight, pathWidth, pathHeight, wallWidth, wallHeight);
     }
 
     virtual protected void InitPuzzleMap()
@@ -702,7 +704,7 @@ public class MG_MazeOneBase : MapGeneratorBase
 
         if (gameManager)
         {
-            gameManager.SetDefaultRoomLayout(roomWidth, roomHeight, pathWidth, pathHeight, wallWidth, wallHeight);
+            //gameManager.SetDefaultRoomLayout(roomWidth, roomHeight, pathWidth, pathHeight, wallWidth, wallHeight);
             for (int x = 0; x < puzzleWidth; x++)
             {
                 for (int y = 0; y < puzzleHeight; y++)
