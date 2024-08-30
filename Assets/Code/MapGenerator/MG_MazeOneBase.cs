@@ -696,39 +696,8 @@ public class MG_MazeOneBase : MapGeneratorBase
 
     virtual protected void PreCalculateGameplayInfo()
     {
-        //puzzleMap[puzzleStart.x][puzzleStart.y].value = CELL.TERNIMAL;
-        //puzzleMap[puzzleEnd.x][puzzleEnd.y].value = CELL.TERNIMAL;
-        //if (startAsPath)
-        //{
-        //    puzzleMap[puzzleStart.x][puzzleStart.y].isPath = true;
-        //}
-        //if (finishAsPath)
-        //{
-        //    puzzleMap[puzzleEnd.x][puzzleEnd.y].isPath = true;
-        //}
 
-        //if (pathRate > 0)
-        //{
-        //    List<CELL> allCells = new List<CELL>();
-        //    for (int x = 0; x < puzzleWidth; x++)
-        //    {
-        //        for (int y = 0; y < puzzleHeight; y++)
-        //        {
-        //            if (puzzleMap[x][y].value == CELL.NORMAL)
-        //            {
-        //                allCells.Add(puzzleMap[x][y]);
-        //            }
-        //        }
-        //    }
-        //    OneUtility.Shuffle<CELL>(allCells);
-        //    int pathNum = Mathf.RoundToInt(pathRate * allCells.Count);
-        //    for (int i = 0; i < pathNum; i++)
-        //    {
-        //        allCells[i].isPath = true;
-        //    }
-        //}
-
-        int maxMainDeep = puzzleMap[puzzleEnd.x][puzzleEnd.y].deep;
+        int maxMainDeep = Mathf.Max(puzzleMap[puzzleEnd.x][puzzleEnd.y].deep, 1);
         CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.NONE, true, maxMainDeep);
 
         if (gameManager)
@@ -983,6 +952,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         //startPos = loadedMapData.startPos;
         //endPos = loadedMapData.endPos;
     }
+
     protected void LoadMazeMap()
     {
         print("¸ü¤J PuzzleMap ¸ê®Æ!!" + loadedMapData.puzzleMapData);
