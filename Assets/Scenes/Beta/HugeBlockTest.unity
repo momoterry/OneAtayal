@@ -501,6 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 985219692}
   - component: {fileID: 985219693}
+  - component: {fileID: 985219694}
   m_Layer: 0
   m_Name: Games
   m_TagString: Untagged
@@ -539,14 +540,31 @@ MonoBehaviour:
     enemys:
     - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
     enemyIDs: []
-    totalNumMin: 6
-    totalNumMax: 8
+    totalNumMin: 8
+    totalNumMax: 9
   eInfos2:
     enemys:
     - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
     enemyIDs: []
-    totalNumMin: 8
-    totalNumMax: 9
+    totalNumMin: 10
+    totalNumMax: 11
+--- !u!114 &985219694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985219691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b988a98151d37f47aa074d93bf9bded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objs:
+  - objRef: {fileID: 1427553042280373961, guid: 2dfa94ab6a693f34a8794dca301c7b50, type: 3}
+    placePercent: 2
+  - objRef: {fileID: 1427553042280373961, guid: 2ca85a981280063438e1a311beede797, type: 3}
+    placePercent: 2
 --- !u!1 &1103988002
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,14 +637,14 @@ MonoBehaviour:
     width: 3
     height: 3
   - type: 0
-    width: 3
-    height: 3
+    width: 2
+    height: 2
   - type: 1
     width: 3
     height: 4
   - type: 0
-    width: 4
-    height: 4
+    width: 3
+    height: 3
 --- !u!4 &1103988004
 Transform:
   m_ObjectHideFlags: 0

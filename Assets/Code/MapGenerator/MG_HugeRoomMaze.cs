@@ -157,6 +157,7 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
         CELL bigCell = new CELL();
         bigCell.value = CELL.NORMAL;
         bigCell.isMain = true;
+        bigCell.U = bigCell.D = true;
         Vector3 vCenter = new Vector3((x1 + x2) * 0.5f, 0, (y1 + y2) * 0.5f );
 
         if (gameManager)
