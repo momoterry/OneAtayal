@@ -20,6 +20,26 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
 
     protected bool extendTerminal = true;
 
+    override protected void PresetByContinuousBattle()
+    {
+        ContinuousBattleDataBase cBase = ContinuousBattleManager.GetCurrBattleData();
+        if (cBase != null)
+        {
+            if (cBase is ContinuousHugeRoomMazeData)
+            {
+                ContinuousHugeRoomMazeData cData = (ContinuousHugeRoomMazeData)cBase;
+                pathWidth = cData.pathWidth;
+                pathHeight = cData.pathHeight;
+                print("根據資料修正了迷宮路寬: " + pathWidth + " - " + pathHeight);
+                blocks = cData.blocks;
+            }
+            else
+            {
+                One.LOG("ERROR!! ContinuousBattle 錯誤，下個關卡資料不是 ContinuousHugeRoomMazeData !!");
+            }
+        }
+    }
+
     protected override void PresetMapInfo()
     {
         int totalHeight = 0;
