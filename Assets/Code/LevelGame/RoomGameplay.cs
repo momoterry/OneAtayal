@@ -31,6 +31,8 @@ public class RoomGameplayBase : MonoBehaviour
 
         enemyGroup.width = width;
         enemyGroup.height = height;
+        enemyGroup.spwanDistance = Mathf.Max(enemyGroup.spwanDistance, (width + height) * 0.75f);
+        enemyGroup.alertDistance = Mathf.Max(enemyGroup.alertDistance, (width + height) * 0.5f);
         enemyGroup.isRandomEnemyTotal = true;
         enemyGroup.randomEnemyTotal = num;
         //int eNum = Mathf.Max(info.enemys.Length, info.enemyIDs.Length);
