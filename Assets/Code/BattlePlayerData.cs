@@ -50,7 +50,9 @@ public class BattlePlayerData : MonoBehaviour
         maxExpArray[1] = INIT_EXP_MAX;
         for (int i=2; i<MAX_BATTLE_LEVEL; i++)
         {
-            maxExpArray[i] = (int)(maxExpArray[i - 1] * EXP_MAX_STEP);
+            //maxExpArray[i] = (int)(maxExpArray[i - 1] * EXP_MAX_STEP);
+            maxExpArray[i] = (int)(maxExpArray[i - 1] + (INIT_EXP_MAX * (EXP_MAX_STEP - 1.0f)));
+            //print(i + " => " + maxExpArray[i]);
         }
 
         if (ContinuousBattleManager.GetInstance() != null)
