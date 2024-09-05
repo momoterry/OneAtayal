@@ -132,7 +132,8 @@ public class MazeGameManager : MazeGameManagerBase
         base.Init(data);
 
         //有關寶箱配置
-        if (data.specialReward != null && data.specialReward != "" && treasureBoxRef)
+        //if (data.specialReward != null && data.specialReward != "" && treasureBoxRef)
+        if (data.specialRewardNum > 0 && treasureBoxRef)
         {
             GameObject rgObj = new GameObject("RewardRoomGameplay");
             rgObj.transform.parent = this.transform;
@@ -141,12 +142,12 @@ public class MazeGameManager : MazeGameManagerBase
             tObjRef.SetActive(false);
             tObjRef.transform.parent = rgObj.transform;
             TreasureBox tBox = tObjRef.GetComponent<TreasureBox>();
-            if (tBox != null)
+            if (tBox != null && data.specialReward != null && data.specialReward != "")
             {
                 //tBox.AddSpecialRewardItem(data.specialReward);
-                //print("加入了寶物: " + data.specialReward);
 
                 //TODO: 這裡的做法太暴力
+                print("暴力法加入了寶物: " + data.specialReward);
                 tBox.fixSpecialRewards = new string[1];
                 tBox.fixSpecialRewards[0] = data.specialReward;
                 //print("Add Treasure....");
