@@ -124,6 +124,10 @@ public class ScenePortal : MonoBehaviour
         stateTimeLeft = fadeTime;
         if (fadeBlocker)
             fadeBlocker.gameObject.SetActive(true);
+        else
+        {
+            BattleSystem.GetInstance().StartFadeOut(fadeTime);
+        }
         BattleSystem.GetInstance().GetPlayerController().ForceStop(true);
 
         if (isClearLevel)
