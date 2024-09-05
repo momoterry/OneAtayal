@@ -32,6 +32,18 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
                 pathHeight = cData.pathHeight;
                 print("根據資料修正了迷宮路寬: " + pathWidth + " - " + pathHeight);
                 blocks = cData.blocks;
+
+                if (cData.gameManagerRef)
+                {
+                    GameObject o = Instantiate(cData.gameManagerRef.gameObject);
+                    gameManager = o.GetComponent<MazeGameManagerBase>();
+                }
+
+                if (gameManager && cData.gameManagerData != null)
+                {
+                    gameManager.Init(cData.gameManagerData);
+                }
+
             }
             else
             {

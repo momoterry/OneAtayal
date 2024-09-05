@@ -47,9 +47,9 @@ public class MazeGameManagerBase:MonoBehaviour
 
     virtual public void Init(GameManagerDataBase data)
     {
-        difficultRateMin = data.difficultRateMin;
-        difficultRateMax = data.difficultRateMax;
-        enmeyLV = data.enmeyLV;
+        difficultRateMin = data.difficultRateMin <= 0 ? 1.0f : data.difficultRateMin;
+        difficultRateMax = data.difficultRateMax <= difficultRateMin ? difficultRateMin : data.difficultRateMax;
+        enmeyLV = data.enmeyLV <= 0 ? 1 : data.enmeyLV;
     }
 
     virtual public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 
