@@ -169,6 +169,13 @@ public class EnemyGroup : MonoBehaviour
         }
 
         //重新尋找中心點
+        if (slots.Count == 0)
+        {
+            centerT = transform;
+            newWidth = 0.5f;
+            newHeight = 0.5f;
+            return;
+        }
         float xMin = Mathf.Infinity;
         float xMax = -Mathf.Infinity;
         float yMin = Mathf.Infinity;
@@ -323,12 +330,16 @@ public class EnemyGroup : MonoBehaviour
                 if (enemies[i] == null)
                 {
                     enemies.RemoveAt(i);
-                    if (enemies.Count == 0)
-                    {
-                        nexPhase = PHASE.FINISH;
-                    }
+                    //if (enemies.Count == 0)
+                    //{
+                    //    nexPhase = PHASE.FINISH;
+                    //}
                     break;  //避免連續刪除
                 }
+            }
+            if (enemies.Count == 0)     //放到這邊確保一開始就沒產生敵人時可以自然結束
+            {
+                nexPhase = PHASE.FINISH;
             }
         }
     }
