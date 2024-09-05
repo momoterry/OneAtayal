@@ -54,16 +54,17 @@ public class MazeGameManagerBase:MonoBehaviour
 
     virtual public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 
     {
-        RoomInfo roomInfo = new RoomInfo();
-        roomInfo.vCenter = vCenter;
+        RoomInfo roomInfo = AddRoom(vCenter, cell, mainRatio);
+        //RoomInfo roomInfo = new RoomInfo();
+        //roomInfo.vCenter = vCenter;
         roomInfo.width = width;
         roomInfo.height = height;
         roomInfo.doorWidth = doorWidth;
         roomInfo.doorHeight = doorHeight;
-        roomInfo.mainRatio = mainRatio;
-        roomInfo.cell = cell;
-        roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
-        roomInfo.enemyLV = enmeyLV;
+        //roomInfo.mainRatio = mainRatio;
+        //roomInfo.cell = cell;
+        //roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
+        //roomInfo.enemyLV = enmeyLV;
         return roomInfo;
     }
 
@@ -123,7 +124,9 @@ public class MazeGameManager : MazeGameManagerBase
     protected List<RoomInfo> mainRoomList = new List<RoomInfo>();
     protected List<RoomInfo> normalRoomList = new List<RoomInfo>();
     protected List<RoomInfo> branchEndRoomList = new List<RoomInfo>();
+
     protected List<RoomInfo> pathList = new List<RoomInfo>();
+    protected List<RoomInfo> branchEndPathList = new List<RoomInfo>();
 
     protected List<RoomGameplayBase> allBranchGames = new List<RoomGameplayBase>();
 
@@ -160,43 +163,76 @@ public class MazeGameManager : MazeGameManagerBase
         }
     }
 
-    override public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 
-    {
-        RoomInfo roomInfo = base.AddRoom(vCenter, width, height, cell, mainRatio, doorWidth, doorHeight);
+    //override public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 
+    //{
+    //    RoomInfo roomInfo = base.AddRoom(vCenter, width, height, cell, mainRatio, doorWidth, doorHeight);
 
-        if (cell.isPath)
-        {
-            pathList.Add(roomInfo);
-            return roomInfo;
-        }
+    //    int doorCount = 0;
+    //    doorCount += roomInfo.cell.U ? 1 : 0;
+    //    doorCount += roomInfo.cell.D ? 1 : 0;
+    //    doorCount += roomInfo.cell.L ? 1 : 0;
+    //    doorCount += roomInfo.cell.R ? 1 : 0;
+    //    bool isTerminal = doorCount == 1;
+    //    print("Door Count: " + doorCount);
 
-        if (cell.isMain)
-            mainRoomList.Add(roomInfo);
-        else
-        {
-            int doorCount = 0;
-            doorCount += roomInfo.cell.U ? 1 : 0;
-            doorCount += roomInfo.cell.D ? 1 : 0;
-            doorCount += roomInfo.cell.L ? 1 : 0;
-            doorCount += roomInfo.cell.R ? 1 : 0;
-            if (doorCount == 1)
-            {
-                branchEndRoomList.Add(roomInfo);
-            }
-            else
-            {
-                normalRoomList.Add(roomInfo);
-            }
-        }
-        return roomInfo;
-    }
+
+    //    if (cell.isPath)
+    //    {
+    //        if (isTerminal)
+    //        {
+    //            branchEndPathList.Add(roomInfo);
+    //        }
+    //        else
+    //        {
+    //            pathList.Add(roomInfo);
+    //        }
+    //        return roomInfo;
+    //    }
+
+    //    if (cell.isMain)
+    //        mainRoomList.Add(roomInfo);
+    //    else
+    //    {
+    //        //int doorCount = 0;
+    //        //doorCount += roomInfo.cell.U ? 1 : 0;
+    //        //doorCount += roomInfo.cell.D ? 1 : 0;
+    //        //doorCount += roomInfo.cell.L ? 1 : 0;
+    //        //doorCount += roomInfo.cell.R ? 1 : 0;
+    //        //if (doorCount == 1)
+    //        if (isTerminal)
+    //        {
+    //            branchEndRoomList.Add(roomInfo);
+    //        }
+    //        else
+    //        {
+    //            normalRoomList.Add(roomInfo);
+    //        }
+    //    }
+    //    return roomInfo;
+    //}
 
     public override RoomInfo AddRoom(Vector3 vCenter, MG_MazeOneBase.CELL cell, float mainRatio)
     {
         RoomInfo roomInfo = base.AddRoom(vCenter, cell, mainRatio);
+
+        int doorCount = 0;
+        doorCount += roomInfo.cell.U ? 1 : 0;
+        doorCount += roomInfo.cell.D ? 1 : 0;
+        doorCount += roomInfo.cell.L ? 1 : 0;
+        doorCount += roomInfo.cell.R ? 1 : 0;
+        bool isTerminal = doorCount == 1;
+        //print("Door Count: " + doorCount);
+
         if (cell.isPath)
         {
-            pathList.Add(roomInfo);
+            if (isTerminal)
+            {
+                branchEndPathList.Add(roomInfo);
+            }
+            else
+            {
+                pathList.Add(roomInfo);
+            }
             return roomInfo;
         }
 
@@ -204,12 +240,13 @@ public class MazeGameManager : MazeGameManagerBase
             mainRoomList.Add(roomInfo);
         else
         {
-            int doorCount = 0;
-            doorCount += roomInfo.cell.U ? 1 : 0;
-            doorCount += roomInfo.cell.D ? 1 : 0;
-            doorCount += roomInfo.cell.L ? 1 : 0;
-            doorCount += roomInfo.cell.R ? 1 : 0;
-            if (doorCount == 1)
+            //int doorCount = 0;
+            //doorCount += roomInfo.cell.U ? 1 : 0;
+            //doorCount += roomInfo.cell.D ? 1 : 0;
+            //doorCount += roomInfo.cell.L ? 1 : 0;
+            //doorCount += roomInfo.cell.R ? 1 : 0;
+            //if (doorCount == 1)
+            if (isTerminal)
             {
                 branchEndRoomList.Add(roomInfo);
             }
@@ -276,7 +313,19 @@ public class MazeGameManager : MazeGameManagerBase
         if (allBranchGames.Count > branchEndRoomList.Count)
         {
             int iBranchToAdd = allBranchGames.Count - branchEndRoomList.Count;
-            print("branchEndRoomList だや狠翴计秖ぃì!! 惠璶干ì: " + iBranchToAdd);
+            //print("branchEndRoomList だや狠翴计秖ぃì!! 惠璶干ì: " + iBranchToAdd);
+            while (iBranchToAdd > 0)
+            {
+                if (branchEndPathList.Count <= 0)
+                    break;
+                int iRd = Random.Range(0, branchEndPathList.Count);
+                branchEndRoomList.Add(branchEndPathList[iRd]);
+                branchEndPathList.RemoveAt(iRd);
+                iBranchToAdd--;
+                //print("ノ branchEndPathList 干");
+            }
+            if (iBranchToAdd > 0)
+                print("branchEnd だや狠翴计秖ぃì!! 惠璶干ì: " + iBranchToAdd);
             while (iBranchToAdd > 0)
             {
                 if (normalRoomList.Count <= 0)
