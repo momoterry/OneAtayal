@@ -7,7 +7,7 @@ public class ScenePortal : MonoBehaviour
     // Start is called before the first frame update
     public string sceneName;
     public string entraceName;              //跳到下個場景的指定入口
-    public SpriteRenderer fadeBlocker;
+    //public SpriteRenderer fadeBlocker;
     public float fadeTime = 0.5f;
     public float showupTime = -1.0f;
     public SpriteRenderer[] showupSprites;  // Portal 出現時淡入效果的目標 SpriteRenders 
@@ -35,8 +35,8 @@ public class ScenePortal : MonoBehaviour
 
     protected virtual void Awake()
     {
-        if (fadeBlocker)
-            fadeBlocker.gameObject.SetActive(false);
+        //if (fadeBlocker)
+        //    fadeBlocker.gameObject.SetActive(false);
         if (showupTime > 0)
         {
             nextPhase = PHASE.SHOWUP;
@@ -95,10 +95,10 @@ public class ScenePortal : MonoBehaviour
                     stateTimeLeft = 0;
                     DoLoadScene();
                 }
-                else if (fadeBlocker)
-                {
-                    fadeBlocker.color = new Color(0, 0, 0, 1.0f - (stateTimeLeft / fadeTime));
-                }
+                //else if (fadeBlocker)
+                //{
+                //    fadeBlocker.color = new Color(0, 0, 0, 1.0f - (stateTimeLeft / fadeTime));
+                //}
                 break;
         }
 
@@ -122,9 +122,9 @@ public class ScenePortal : MonoBehaviour
     {
         nextPhase = PHASE.FADEOUT;
         stateTimeLeft = fadeTime;
-        if (fadeBlocker)
-            fadeBlocker.gameObject.SetActive(true);
-        else
+        //if (fadeBlocker)
+        //    fadeBlocker.gameObject.SetActive(true);
+        //else
         {
             BattleSystem.GetInstance().StartFadeOut(fadeTime);
         }
