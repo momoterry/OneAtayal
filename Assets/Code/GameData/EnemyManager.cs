@@ -85,6 +85,11 @@ public class EnemyManager : GlobalSystemBase
         if (_LV > 1)
         {
             //print("產生敵人等級: " + _LV);
+            if (_LV >= defaultUpgrate.Length)
+            {
+                One.LOG("ERROR!!!! 敵人等級超過上限!! " + _LV);
+                _LV = defaultUpgrate.Length - 1;
+            }
             float lvUpRate = defaultUpgrate[_LV];
             e.Attack *= lvUpRate;
             e.MaxHP *= lvUpRate;

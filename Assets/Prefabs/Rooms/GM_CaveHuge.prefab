@@ -1,61 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &328428242951290374
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6011548919158660896}
-  - component: {fileID: 5067707514650340064}
-  m_Layer: 0
-  m_Name: EnemyC
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6011548919158660896
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328428242951290374}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1902258041592866148}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5067707514650340064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328428242951290374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efc471c04cedee74dbd579f020b22edf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shiftType: 1
-  rotateWithShiftType: 0
-  eInfo:
-    enemys:
-    - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
-    enemyIDs: []
-    totalNumMin: 10
-    totalNumMax: 12
-  width: 3
-  height: 3
-  spawnOnStart: 0
-  forceAlert: 1
 --- !u!1 &759876579180746226
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,12 +50,70 @@ MonoBehaviour:
     enemys:
     - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
     enemyIDs: []
-    totalNumMin: 9
-    totalNumMax: 10
+    totalNumMin: 6
+    totalNumMax: 7
   width: 4
   height: 2
   spawnOnStart: 0
   forceAlert: 1
+  diffToLV: 0
+--- !u!1 &873753421503309380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4367888996367156647}
+  - component: {fileID: 7165247412600985123}
+  m_Layer: 0
+  m_Name: EnemyBoss
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4367888996367156647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873753421503309380}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1902258041592866148}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7165247412600985123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873753421503309380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc471c04cedee74dbd579f020b22edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shiftType: 1
+  rotateWithShiftType: 0
+  eInfo:
+    enemys:
+    - {fileID: 2978935288830301964, guid: bc2bfd44570e3f84d8f3f3a8fa7c2e62, type: 3}
+    enemyIDs: []
+    totalNumMin: 1
+    totalNumMax: 1
+  width: 1
+  height: 1
+  spawnOnStart: 0
+  forceAlert: 1
+  diffToLV: 1
 --- !u!1 &1336063428369824995
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,12 +164,13 @@ MonoBehaviour:
     enemys:
     - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
     enemyIDs: []
-    totalNumMin: 9
-    totalNumMax: 10
+    totalNumMin: 6
+    totalNumMax: 7
   width: 2
   height: 4
   spawnOnStart: 0
   forceAlert: 1
+  diffToLV: 0
 --- !u!1 &1543302210731521479
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +262,7 @@ MonoBehaviour:
   height: 4
   spawnOnStart: 0
   forceAlert: 1
+  diffToLV: 0
 --- !u!1 &2539294991779247786
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,12 +313,13 @@ MonoBehaviour:
     enemys:
     - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
     enemyIDs: []
-    totalNumMin: 9
-    totalNumMax: 10
+    totalNumMin: 6
+    totalNumMax: 7
   width: 2
   height: 4
   spawnOnStart: 0
   forceAlert: 1
+  diffToLV: 0
 --- !u!1 &3001091613163534595
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +503,7 @@ MonoBehaviour:
   height: 4
   spawnOnStart: 0
   forceAlert: 1
+  diffToLV: 0
 --- !u!1 &5516038072370992602
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,7 +599,7 @@ MonoBehaviour:
   - {fileID: 1336063428369824995}
   - {fileID: 2539294991779247786}
   - {fileID: 759876579180746226}
-  - {fileID: 328428242951290374}
+  - {fileID: 873753421503309380}
   Width: 10
   Height: 8
   triggerOnce: 1
@@ -762,6 +768,7 @@ MonoBehaviour:
   height: 2
   spawnOnStart: 0
   forceAlert: 1
+  diffToLV: 0
 --- !u!1 &7721416677214074366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,7 +1140,7 @@ Transform:
   - {fileID: 6268557790982686055}
   - {fileID: 3029571355142137890}
   - {fileID: 4443775627512086945}
-  - {fileID: 6011548919158660896}
+  - {fileID: 4367888996367156647}
   - {fileID: 6717530292828420433}
   m_Father: {fileID: 4546772831810434304}
   m_RootOrder: -1
