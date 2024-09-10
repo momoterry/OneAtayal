@@ -5,7 +5,8 @@ using UnityEngine;
 public class DestructObj : MonoBehaviour
 {
     public GameObject debrisRef;
-    public int DropID = -1; 
+    public int DropID = -1;
+    public GameObject[] destructTrigger;
     public void OnDeath()
     {
         if (debrisRef)
@@ -16,6 +17,18 @@ public class DestructObj : MonoBehaviour
         {
             DropManager.GetInstance().DoDropByID(DropID, transform.position);
         }
+
+        if (destructTrigger != null && destructTrigger.Length > 0) 
+        {
+            foreach (GameObject obj in destructTrigger) 
+            {
+                if (obj != null)
+                {
+                    obj.SendMessage("OnTG", gameObject);
+                }
+            }
+        }
+
         Destroy(gameObject);
     }
 }
