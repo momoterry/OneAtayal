@@ -18,7 +18,7 @@ public class RoomGameplayBase : MonoBehaviour
     public virtual void Build( MazeGameManagerBase.RoomInfo room ) 
     {}
 
-    static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, int width=4, int height=4, float diffAddRate=0, int enemyLV = 1)
+    static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, int width=4, int height=4, float diffAddRate=0, int enemyLV = 1, float forceAlertDistance = -1.0f)
     {
         //float numF = ((info.totalNumMax - info.totalNumMin) * diffAddRate + info.totalNumMin);
         float numF = Random.Range(info.totalNumMin, info.totalNumMax) * ( 1 + diffAddRate );
@@ -31,9 +31,18 @@ public class RoomGameplayBase : MonoBehaviour
 
         enemyGroup.width = width;
         enemyGroup.height = height;
-        enemyGroup.spwanDistance = Mathf.Max(enemyGroup.spwanDistance, (width + height) * 0.75f);
-        enemyGroup.alertDistance = Mathf.Max(enemyGroup.alertDistance, (width + height) * 0.5f);
-        enemyGroup.stopDistance = Mathf.Max(enemyGroup.stopDistance, (width + height) * 1.0f);
+        if (forceAlertDistance > 0)
+        {
+            enemyGroup.spwanDistance = Mathf.Max(enemyGroup.spwanDistance, forceAlertDistance);
+            enemyGroup.alertDistance = Mathf.Max(enemyGroup.alertDistance, forceAlertDistance);
+            enemyGroup.stopDistance = Mathf.Max(enemyGroup.stopDistance, forceAlertDistance);
+        }
+        else
+        {
+            enemyGroup.spwanDistance = Mathf.Max(enemyGroup.spwanDistance, (width + height) * 0.75f);
+            enemyGroup.alertDistance = Mathf.Max(enemyGroup.alertDistance, (width + height) * 0.5f);
+            enemyGroup.stopDistance = Mathf.Max(enemyGroup.stopDistance, (width + height) * 1.0f);
+        }
         enemyGroup.isRandomEnemyTotal = true;
         enemyGroup.randomEnemyTotal = num;
         //int eNum = Mathf.Max(info.enemys.Length, info.enemyIDs.Length);

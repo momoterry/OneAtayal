@@ -9,6 +9,8 @@ public class MR_EnemyGroup : MR_Node
     public EnemyGroupInfo eInfo;
     public int width;
     public int height;
+    public bool spawnOnStart = false;
+    public bool forceAlert = false;
 
     protected MazeGameManagerBase.RoomInfo theRoom;
     protected float diffRatio = 1.0f;
@@ -16,11 +18,20 @@ public class MR_EnemyGroup : MR_Node
 
     void Start()
     {
-        CreateEnemyGroup();
+        if (spawnOnStart)
+            CreateEnemyGroup();
     }
+
+    public void OnTG(GameObject whoTG)
+    {
+        if (!spawnOnStart)
+            CreateEnemyGroup();
+    }
+
     protected void CreateEnemyGroup()
     {
-        GameObject o = SpawnEnemyGroupObject(eInfo, transform.position, width, height, diffRatio, enemyLV);
+        float forceAlertDistance = forceAlert? 999.0f : - 1.0f;
+        GameObject o = SpawnEnemyGroupObject(eInfo, transform.position, width, height, diffRatio, enemyLV, forceAlertDistance);
         //o.transform.position = room.vCenter;
         o.name = "MR_EnemyGroup_" + name + "_" + (int)(diffRatio * 100.0f);
     }
