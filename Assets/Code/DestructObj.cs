@@ -7,8 +7,13 @@ public class DestructObj : MonoBehaviour
     public GameObject debrisRef;
     public int DropID = -1;
     public GameObject[] destructTrigger;
+    protected bool isDead = false;
     public void OnDeath()
     {
+        if (isDead) 
+            return;
+        isDead = true;
+        print("OnDeath!!");
         if (debrisRef)
         {
             BattleSystem.SpawnGameObj(debrisRef, transform.position);
