@@ -60,7 +60,8 @@ public class DM_DynamicBeta : DM_Dynamic
         for (int l = 0; l < nLine; l++)
         {
             int num = frontLineNums[nLine - l - 1];     //­ËµÛ¨Ó
-            if (l < nLineReduceOne)
+            //if (l < nLineReduceOne)
+            if ((nLine - l - 1) <= nLineReduceOne && l != nLine - 1)
                 num--;
             if (leftCount < num)
                 num = leftCount;
