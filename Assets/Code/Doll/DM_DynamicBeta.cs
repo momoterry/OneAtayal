@@ -19,10 +19,10 @@ public class DM_DynamicBeta : DM_Dynamic
         for (int i=0; i<frontLineNums.Length; i++)
         {
             //sum += frontLineNums[i];
-            if (nLeft < frontLineNums[i])
+            if (nLeft <= frontLineNums[i])
             {
                 nLine = i + 1;
-                nLastCount = nLeft;
+                nLastCount = (nLeft == frontLineNums[i]) ? 0:nLeft;
                 return;
             }
             nLeft -= frontLineNums[i];
@@ -33,33 +33,38 @@ public class DM_DynamicBeta : DM_Dynamic
 
     protected override void BuildFrontSlots()
     {
-        //FrontWidth = 5;
         int frontNum = frontList.Count;
 
         if (frontNum <= 0)
             return;
 
-        //int nLine = ((frontNum - 1) / FrontWidth) + 1;
-        //int lastLineCount = (frontNum - 1) % FrontWidth + 1;
+
         int nLine, nLastCount;
         GetFrontLines(frontNum, out nLine, out nLastCount);
-        print("前排需要行數: " + nLine);
+        print("前排需要行數: " + nLine + "最後一排數: " + nLastCount);
         int leftCount = frontNum;
         int currIndex = 0;
+
+        int nLineReduceOne = 0; //需要減少一個的行數
+        if (nLastCount > 0 && nLastCount < nLine)
+        {
+            nLineReduceOne = Mathf.Min(nLastCount + 1, nLine-1);
+        }
 
         float fPos = Mathf.Max(1.5f, 2.0f - (float)(nLine - 1) * 0.5f) + allShift;  //前方起始
         float slotDepth = 1.0f;
         fPos += slotDepth * (float)(nLine - 1);
 
+        //if ( nL)
+
         for (int l = 0; l < nLine; l++)
         {
-            //int num = FrontWidth;
-            //if (l == nLine - 1)
-            //    num = lastLineCount;
             int num = frontLineNums[nLine - l - 1];     //倒著來
+            if (l < nLineReduceOne)
+                num--;
             if (leftCount < num)
                 num = leftCount;
-            print("Line: " + l + " Count: " + num);
+            print("Line: " + l + " Count: " + num + " nLineReduceOne: " + nLineReduceOne);
 
             float slotWidth = Mathf.Max(1.0f, 1.5f - ((float)(num - 1) * 0.25f));
             float width = (float)(num - 1) * slotWidth;
