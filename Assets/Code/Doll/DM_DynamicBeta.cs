@@ -41,14 +41,14 @@ public class DM_DynamicBeta : DM_Dynamic
 
         int nLine, nLastCount;
         GetFrontLines(frontNum, out nLine, out nLastCount);
-        print("前排需要行數: " + nLine + "最後一排數: " + nLastCount);
+        //print("前排需要行數: " + nLine + "最後一排數: " + nLastCount);
         int leftCount = frontNum;
         int currIndex = 0;
 
         int nLineReduceOne = 0; //需要減少一個的行數
         if (nLastCount > 0 && nLastCount < nLine)
         {
-            nLineReduceOne = Mathf.Min(nLastCount + 1, nLine-1);
+            nLineReduceOne = nLine - nLastCount;
         }
 
         float fPos = Mathf.Max(1.5f, 2.0f - (float)(nLine - 1) * 0.5f) + allShift;  //前方起始
@@ -64,7 +64,7 @@ public class DM_DynamicBeta : DM_Dynamic
                 num--;
             if (leftCount < num)
                 num = leftCount;
-            print("Line: " + l + " Count: " + num + " nLineReduceOne: " + nLineReduceOne);
+            //print("Line: " + l + " Count: " + num + " nLineReduceOne: " + nLineReduceOne);
 
             float slotWidth = Mathf.Max(1.0f, 1.5f - ((float)(num - 1) * 0.25f));
             float width = (float)(num - 1) * slotWidth;
@@ -79,6 +79,6 @@ public class DM_DynamicBeta : DM_Dynamic
             leftCount -= num;
             currIndex += num;
         }
-        print("算完 Front, leftCount = " + leftCount);
+        //print("算完 Front, leftCount = " + leftCount);
     }
 }
