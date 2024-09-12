@@ -26,7 +26,7 @@ public class BattlePlayerData : MonoBehaviour
 
     const int MAX_BATTLE_LEVEL = 50;
     const int INIT_EXP_MAX = 80;
-    const int INIT_BATTLE_POINT = 6;
+    const int INIT_BATTLE_POINT = 66;
     const float EXP_MAX_STEP = 1.05f;
 
     protected int currExp = 0;
