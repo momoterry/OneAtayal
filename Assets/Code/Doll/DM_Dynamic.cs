@@ -44,7 +44,7 @@ public class DM_Dynamic : DollManager
     }
 
 
-    protected void BuildFrontSlots()
+    virtual protected void BuildFrontSlots()
     {
         int frontNum = frontList.Count;
 
