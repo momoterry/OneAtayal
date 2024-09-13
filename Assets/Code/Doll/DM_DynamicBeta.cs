@@ -6,8 +6,9 @@ using UnityEngine;
 public class DM_DynamicBeta : DM_Dynamic
 {
     protected int[] frontLineNums = new int[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+    protected int[] backLineNums = new int[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 
-    protected void GetFrontLines( int _num, out int nLine, out int nLastCount)
+    protected void GetLinesByNumArray(int[] _array, int _num, out int nLine, out int nLastCount)
     {
         nLine = 0;
         nLastCount = 0;
@@ -16,20 +17,44 @@ public class DM_DynamicBeta : DM_Dynamic
 
         //int sum = 0;
         int nLeft = _num;
-        for (int i=0; i<frontLineNums.Length; i++)
+        for (int i = 0; i < _array.Length; i++)
         {
             //sum += frontLineNums[i];
-            if (nLeft <= frontLineNums[i])
+            if (nLeft <= _array[i])
             {
                 nLine = i + 1;
-                nLastCount = (nLeft == frontLineNums[i]) ? 0:nLeft;
+                nLastCount = (nLeft == _array[i]) ? 0 : nLeft;
                 return;
             }
-            nLeft -= frontLineNums[i];
+            nLeft -= _array[i];
         }
-        One.LOG("禬筁 Front 计秖 !!!!");
+        One.LOG("GetLinesByNumArray 禬筁 _array 计秖 !!!!");
         return;
     }
+
+    //protected void GetFrontLines( int _num, out int nLine, out int nLastCount)
+    //{
+    //    nLine = 0;
+    //    nLastCount = 0;
+    //    if (_num <= 0)
+    //        return;
+
+    //    //int sum = 0;
+    //    int nLeft = _num;
+    //    for (int i=0; i<frontLineNums.Length; i++)
+    //    {
+    //        //sum += frontLineNums[i];
+    //        if (nLeft <= frontLineNums[i])
+    //        {
+    //            nLine = i + 1;
+    //            nLastCount = (nLeft == frontLineNums[i]) ? 0:nLeft;
+    //            return;
+    //        }
+    //        nLeft -= frontLineNums[i];
+    //    }
+    //    One.LOG("禬筁 Front 计秖 !!!!");
+    //    return;
+    //}
 
     protected override void BuildFrontSlots()
     {
@@ -40,7 +65,8 @@ public class DM_DynamicBeta : DM_Dynamic
 
 
         int nLine, nLastCount;
-        GetFrontLines(frontNum, out nLine, out nLastCount);
+        //GetFrontLines(frontNum, out nLine, out nLastCount);
+        GetLinesByNumArray(frontLineNums, frontNum, out nLine, out nLastCount);
         //print("玡逼惠璶︽计: " + nLine + "程逼计: " + nLastCount);
         int leftCount = frontNum;
         int currIndex = 0;
@@ -82,5 +108,51 @@ public class DM_DynamicBeta : DM_Dynamic
             currIndex += num;
         }
         //print("衡Ч Front, leftCount = " + leftCount);
+    }
+
+    protected override void BuildBackSlots()
+    {
+        int backNum = backList.Count;
+
+        if (backNum <= 0)
+            return;
+
+        int nLine, nLastCount;
+        GetLinesByNumArray(backLineNums, backNum, out nLine, out nLastCount);
+        //print("逼惠璶︽计: " + nLine + "程逼计: " + nLastCount);
+        int leftCount = backNum;
+        int currIndex = 0;
+
+        int nLineReduceOne = 0; //惠璶搭ぶ︽计
+        if (nLastCount > 0 && nLastCount < nLine)
+        {
+            nLineReduceOne = nLine - nLastCount;
+        }
+
+        float bkPos = Mathf.Max(1.0f, 2.0f - (float)(nLine - 1) * 0.5f) - allShift;  //よ癬﹍
+        float slotDepth = 1.0f;
+        bkPos += slotDepth * (float)(nLine - 1);
+
+        for (int l = 0; l < nLine; l++)
+        {
+            int num = backLineNums[nLine - l - 1];     //帝ㄓ
+            if ((nLine - l - 1) <= nLineReduceOne && l != nLine - 1)
+                num--;
+            if (leftCount < num)
+                num = leftCount;
+            //print("Line: " + l + " Count: " + num + " nLineReduceOne: " + nLineReduceOne);
+
+            float slotWidth = Mathf.Max(1.0f, 1.5f - ((float)(num - 1) * 0.25f));
+            float width = (float)(num - 1) * slotWidth;
+            float lPos = width * -0.5f;
+            for (int i = currIndex; i < currIndex + num; i++)
+            {
+                backList[backNum - i - 1].GetSlot().localPosition = new Vector3(lPos, 0, -bkPos);
+                lPos += slotWidth;
+            }
+            bkPos -= slotDepth;
+            leftCount -= num;
+            currIndex += num;
+        }
     }
 }

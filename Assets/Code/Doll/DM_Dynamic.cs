@@ -123,7 +123,7 @@ public class DM_Dynamic : DollManager
 
     //}
 
-    protected void BuildLRSlots( bool isLeft)
+    protected virtual void BuildLRSlots( bool isLeft)
     {
         List<Doll> currList = isLeft ? leftList : rightList;
         int totalNum = currList.Count;
@@ -170,7 +170,7 @@ public class DM_Dynamic : DollManager
         }
     }
 
-    protected void BuildBackSlots()
+    protected virtual void BuildBackSlots()
     {
         int backNum = backList.Count;
 
