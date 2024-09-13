@@ -73,7 +73,8 @@ public class DM_DynamicBeta : DM_Dynamic
             for (int i = currIndex; i < currIndex + num; i++)
             {
                 //print("Prepare ..." + i);
-                frontList[i].GetSlot().localPosition = new Vector3(lPos, 0, fPos);
+                //frontList[i].GetSlot().localPosition = new Vector3(lPos, 0, fPos);
+                frontList[frontNum - i -1].GetSlot().localPosition = new Vector3(lPos, 0, fPos);          //新的往前放坦傷
                 lPos += slotWidth;
             }
             fPos -= slotDepth;
