@@ -87,7 +87,7 @@ public class DM_DynamicBeta : DM_Dynamic
         {
             int num = frontLineNums[nLine - l - 1];     //倒著來
             //if (l < nLineReduceOne)
-            if ((nLine - l - 1) <= nLineReduceOne && l != nLine - 1)
+            if ((nLine - l - 1) <= nLineReduceOne && (nLine - l - 1) > 0)
                 num--;
             if (leftCount < num)
                 num = leftCount;
@@ -136,7 +136,7 @@ public class DM_DynamicBeta : DM_Dynamic
         for (int l = 0; l < nLine; l++)
         {
             int num = backLineNums[nLine - l - 1];     //倒著來
-            if ((nLine - l - 1) <= nLineReduceOne && l != nLine - 1)
+            if ((nLine - l - 1) <= nLineReduceOne && (nLine - l - 1) > 0)
                 num--;
             if (leftCount < num)
                 num = leftCount;
