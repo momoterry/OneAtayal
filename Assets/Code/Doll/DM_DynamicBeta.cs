@@ -7,6 +7,7 @@ public class DM_DynamicBeta : DM_Dynamic
 {
     protected int[] frontLineNums = new int[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
     protected int[] backLineNums = new int[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+    protected int[] midLineNums = new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 
     protected void GetLinesByNumArray(int[] _array, int _num, out int nLine, out int nLastCount)
     {
@@ -32,29 +33,6 @@ public class DM_DynamicBeta : DM_Dynamic
         return;
     }
 
-    //protected void GetFrontLines( int _num, out int nLine, out int nLastCount)
-    //{
-    //    nLine = 0;
-    //    nLastCount = 0;
-    //    if (_num <= 0)
-    //        return;
-
-    //    //int sum = 0;
-    //    int nLeft = _num;
-    //    for (int i=0; i<frontLineNums.Length; i++)
-    //    {
-    //        //sum += frontLineNums[i];
-    //        if (nLeft <= frontLineNums[i])
-    //        {
-    //            nLine = i + 1;
-    //            nLastCount = (nLeft == frontLineNums[i]) ? 0:nLeft;
-    //            return;
-    //        }
-    //        nLeft -= frontLineNums[i];
-    //    }
-    //    One.LOG("禬筁 Front 计秖 !!!!");
-    //    return;
-    //}
 
     protected override void BuildFrontSlots()
     {
@@ -155,4 +133,46 @@ public class DM_DynamicBeta : DM_Dynamic
             currIndex += num;
         }
     }
+
+
+    protected override void BuildLRSlots(bool isLeft)
+    {
+        List<Doll> currList = isLeft ? leftList : rightList;
+        int totalNum = currList.Count;
+
+        if (totalNum <= 0)
+            return;
+
+        //int nCols = ((totalNum - 1) / MiddleDepth) + 1;
+        //int lastColCount = (totalNum - 1) % MiddleDepth + 1;
+        int nCols, lastColCount;
+        GetLinesByNumArray(midLineNums, totalNum, out nCols, out lastColCount);
+        //print("い逼惠璶︽计: " + nCols + "程逼计: " + lastColCount + (isLeft ? " オ":" "));
+
+        float slotWidth = 1.0f;
+        float innerWidth = 1.0f;    //程ず伴禯瞒
+
+        float width = innerWidth;
+        int i = 0;
+        for (int c = 0; c < nCols; c++)
+        {
+            //int nLine = MiddleDepth;
+            int nLine = midLineNums[c];
+            if (c == nCols - 1 && lastColCount != 0)
+                nLine = lastColCount;
+            float slotDepth = Mathf.Max(1.0f, 1.5f - (nLine - 1) * 0.25f);
+            float totalDepth = (float)(nLine - 1) * slotDepth;
+            float fPos = totalDepth * 0.5f + allShift;
+
+            for (int l = 0; l < nLine; l++)
+            {
+                currList[i].GetSlot().localPosition = new Vector3(isLeft ? -width : width, 0, fPos);
+
+                i++;
+                fPos -= slotDepth;
+            }
+            width += slotWidth;
+        }
+    }
+
 }
