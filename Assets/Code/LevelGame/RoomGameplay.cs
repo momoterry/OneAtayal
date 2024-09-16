@@ -13,6 +13,7 @@ public class RoomGameplayBase : MonoBehaviour
         public string[] enemyIDs;       //如果有指定 ID 的時候，會無視 GameObject 的指定
         public float totalNumMin = 2;
         public float totalNumMax = 3;
+        public bool finishWhenEngaged = false;
     }
 
     public virtual void Build( MazeGameManagerBase.RoomInfo room ) 
@@ -72,6 +73,9 @@ public class RoomGameplayBase : MonoBehaviour
         {
             enemyGroup.enemyInfos[i].LV = enemyLV;
         }
+
+        enemyGroup.SetFinishWhenEngaged(info.finishWhenEngaged);
+
         return o;
     }
 }

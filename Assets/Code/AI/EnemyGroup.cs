@@ -55,6 +55,12 @@ public class EnemyGroup : MonoBehaviour
     protected float newWidth = 0;
     protected float newHeight = 0;
 
+
+    public void SetFinishWhenEngaged(bool _finishWhenEngaged)
+    {
+        finishWhenEngaged = _finishWhenEngaged;
+    }
+
     void Awake()
     {
         centerT = transform;
