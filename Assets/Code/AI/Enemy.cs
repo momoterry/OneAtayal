@@ -55,6 +55,12 @@ public class Enemy : MonoBehaviour
     protected float AttackWaitOriginal;
     protected float moveSpeedOriginal;
 
+    //因應關卡難度提升時的數值加成
+    public void SetDiffcult(float diffRatio)
+    {
+        MaxHP *= diffRatio;
+    }
+
     protected enum AI_STATE
     {
         NONE,
