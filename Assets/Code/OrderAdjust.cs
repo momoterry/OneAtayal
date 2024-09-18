@@ -48,7 +48,8 @@ public class OrderAdjust : MonoBehaviour
 #endif
         foreach (Renderer sr in allSprite)
         {
-            sr.sortingOrder = order;
+            if (sr)
+                sr.sortingOrder = order;
 //#if XZ_PLAN
 //            sr.sortingOrder = -(int)((sr.transform.position.z - bias) * 10.0f);
 //#else
