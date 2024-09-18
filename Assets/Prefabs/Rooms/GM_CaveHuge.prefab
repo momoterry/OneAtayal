@@ -102,7 +102,7 @@ MonoBehaviour:
   height: 2
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &873753421503309380
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,12 +155,12 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 1
     totalNumMax: 1
-    finishWhenEngaged: 0
+    finishWhenEngaged: 1
   width: 1
   height: 1
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 1
+  diffToSingle: 1
 --- !u!1 &1336063428369824995
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   height: 4
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &1413426835511316350
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   height: 2
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &1485473956813357283
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   height: 4
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &1512112283370554163
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +460,7 @@ MonoBehaviour:
   height: 4
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &2539294991779247786
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +518,7 @@ MonoBehaviour:
   height: 4
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &2569193926024425365
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +751,7 @@ MonoBehaviour:
   height: 2
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &3970223101537982310
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +845,7 @@ MonoBehaviour:
   height: 4
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &5516038072370992602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,7 +1114,7 @@ MonoBehaviour:
   height: 4
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &7964079909582228214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,7 +1172,7 @@ MonoBehaviour:
   height: 2
   spawnOnStart: 0
   forceAlert: 1
-  diffToLV: 0
+  diffToSingle: 0
 --- !u!1 &8056863180680347370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,7 +1416,7 @@ Transform:
   - {fileID: 720183166690991395}
   - {fileID: 3930396744130225225}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5053008012228601930
 MonoBehaviour:
@@ -1439,7 +1439,7 @@ MonoBehaviour:
   fixStartGames: []
   fixEndGames:
   - relativeIndex: 1
-    game: {fileID: 3020929494433874501}
+    game: {fileID: 141710940918995577}
   defautPathGames:
   - game: {fileID: 3139612381780653249}
     ratioPercent: 50
