@@ -59,6 +59,7 @@ public class Enemy : MonoBehaviour
     public void SetDiffcult(float diffRatio)
     {
         MaxHP *= diffRatio;
+        Attack += (diffRatio - 1.0f) * Attack * 0.75f;   //§ðÀ»¼W¥[²v²¤­°
     }
 
     protected enum AI_STATE

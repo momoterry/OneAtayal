@@ -13,7 +13,7 @@ public class DestructObj : MonoBehaviour
         if (isDead) 
             return;
         isDead = true;
-        print("OnDeath!!");
+        //print("OnDeath!!");
         if (debrisRef)
         {
             BattleSystem.SpawnGameObj(debrisRef, transform.position);

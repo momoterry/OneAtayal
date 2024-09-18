@@ -19,10 +19,11 @@ public class RoomGameplayBase : MonoBehaviour
     public virtual void Build( MazeGameManagerBase.RoomInfo room ) 
     {}
 
-    static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, int width=4, int height=4, float diffAddRate=0, int enemyLV = 1, float forceAlertDistance = -1.0f)
+    static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, int width=4, int height=4, float diffAddRate=0, int enemyLV = 1, float forceAlertDistance = -1.0f, bool diffToSingle = false)
     {
-        //float numF = ((info.totalNumMax - info.totalNumMin) * diffAddRate + info.totalNumMin);
-        float numF = Random.Range(info.totalNumMin, info.totalNumMax) * ( 1 + diffAddRate );
+        float numF = Random.Range(info.totalNumMin, info.totalNumMax);
+        if (!diffToSingle)
+            numF *= ( 1 + diffAddRate );
         int num = OneUtility.FloatToRandomInt(numF);
         //print("EG: float: " + numF + " int: "+ num + " diffAddRate: " + diffAddRate);
         //print("EG LV: " + enemyLV);
@@ -46,7 +47,8 @@ public class RoomGameplayBase : MonoBehaviour
         }
         enemyGroup.isRandomEnemyTotal = true;
         enemyGroup.randomEnemyTotal = num;
-        //int eNum = Mathf.Max(info.enemys.Length, info.enemyIDs.Length);
+        if (diffToSingle)
+            enemyGroup.difficulty = 1.0f + diffAddRate;
         int eNum = info.enemys == null ? 0 : info.enemys.Length;
         if (info.enemyIDs != null)
             eNum = Mathf.Max(eNum, info.enemyIDs.Length);

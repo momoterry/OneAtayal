@@ -11,7 +11,8 @@ public class MR_EnemyGroup : MR_Node
     public int height;
     public bool spawnOnStart = false;
     public bool forceAlert = false;
-    public bool diffToLV = false;   //如果是 true 的話，難度會反映在等級而不是數量
+    //public bool diffToLV = false;   //如果是 true 的話，難度會反映在等級而不是數量
+    public bool diffToSingle = false;   //如果是 true 的話，難度會反映在單體強度而不是數量
 
     protected MazeGameManagerBase.RoomInfo theRoom;
     protected float diffAddRatio = 1.0f;
@@ -32,9 +33,9 @@ public class MR_EnemyGroup : MR_Node
     protected void CreateEnemyGroup()
     {
         float forceAlertDistance = forceAlert? 999.0f : - 1.0f;
-        float _diffAdd = diffToLV ? 0: diffAddRatio;
-        int _LV = diffToLV ? enemyLV + Mathf.RoundToInt(diffAddRatio) : enemyLV;
-        GameObject o = SpawnEnemyGroupObject(eInfo, transform.position, width, height, _diffAdd, _LV, forceAlertDistance);
+        //float _diffAdd = diffToLV ? 0: diffAddRatio;
+        //int _LV = diffToLV ? enemyLV + Mathf.RoundToInt(diffAddRatio) : enemyLV;
+        GameObject o = SpawnEnemyGroupObject(eInfo, transform.position, width, height, diffAddRatio, enemyLV, forceAlertDistance, diffToSingle);
         //o.transform.position = room.vCenter;
         o.name = "MR_EnemyGroup_" + name + "_" + (int)(diffAddRatio * 100.0f + 100.0f);
     }

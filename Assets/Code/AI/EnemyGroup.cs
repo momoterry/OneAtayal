@@ -19,7 +19,7 @@ public class EnemyGroup : MonoBehaviour
 
     public GameObject[] triggerTargetWhenAllKilled;
 
-    public float difficulty = 1.0f;
+    public float difficulty = 1.0f;     //1.0f ¬°¥¿±`­È
 
     protected bool finishWhenEngaged = false;
 
@@ -167,8 +167,9 @@ public class EnemyGroup : MonoBehaviour
                 if (e)
                 {
                     e.SetSlot(o.transform);
-                    e.Attack = e.Attack * difficulty;
-                    e.MaxHP = e.MaxHP * difficulty;
+                    //e.Attack = e.Attack * difficulty;
+                    //e.MaxHP = e.MaxHP * difficulty;
+                    e.SetDiffcult(difficulty);
                 }
             }
 
