@@ -119,6 +119,9 @@ public class MazeGameManager : MazeGameManagerBase
     public NormalGameInfo[] defaultBranchGames;
     public FixBranchEndGameInfo[] fixBranchEndGames;
 
+
+    public ObjectPlacementManager theOPM;
+
     public GameObject treasureBoxRef;
 
     protected List<RoomInfo> mainRoomList = new List<RoomInfo>();
@@ -393,6 +396,19 @@ public class MazeGameManager : MazeGameManagerBase
             RoomGameplayBase game = GetRandomGameplay(defautPathGames);
             if (game != null)
                 game.Build(room);
+        }
+
+        //可破壞物件包含 Doll 等等的擺放
+        if (theOPM)
+        {
+            theOPM.AddRooms(mainRoomList);
+            theOPM.AddRooms(normalRoomList);
+            theOPM.AddRooms(branchEndRoomList);
+
+            theOPM.AddRooms(pathList);
+            theOPM.AddRooms(branchEndPathList);
+
+            theOPM.BuildAll();
         }
     }
 

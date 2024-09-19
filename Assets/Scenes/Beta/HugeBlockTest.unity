@@ -559,6 +559,9 @@ MonoBehaviour:
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 0}
   blocks:
+  - type: 1
+    width: 2
+    height: 2
   - type: 0
     width: 2
     height: 2
@@ -3035,6 +3038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3248357629287736752}
   - component: {fileID: 7703390549925057822}
+  - component: {fileID: 7703390549925057823}
   m_Layer: 0
   m_Name: GM_CaveHuge
   m_TagString: Untagged
@@ -3457,7 +3461,20 @@ MonoBehaviour:
   - game: {fileID: 6897304343072095134}
     ratioPercent: 100
   fixBranchEndGames: []
+  theOPM: {fileID: 7703390549925057823}
   treasureBoxRef: {fileID: 7337370386353562539, guid: a7c44f4e53b126d4a822ed02d88b7cc0, type: 3}
+--- !u!114 &7703390549925057823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346680497296334061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540531671b5437c40860e7da6be58377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7804028579092592306
 Transform:
   m_ObjectHideFlags: 0
