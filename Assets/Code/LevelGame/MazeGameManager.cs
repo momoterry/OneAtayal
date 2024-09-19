@@ -397,6 +397,13 @@ public class MazeGameManager : MazeGameManagerBase
             if (game != null)
                 game.Build(room);
         }
+        //剩下的通道支點
+        foreach (RoomInfo room in branchEndPathList)
+        {
+            RoomGameplayBase game = GetRandomGameplay(defautPathGames);
+            if (game != null)
+                game.Build(room);
+        }
 
         //可破壞物件包含 Doll 等等的擺放
         if (theOPM)
