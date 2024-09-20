@@ -63,7 +63,7 @@ public class SkillDollSummonEx : SkillBase
         if (summonFX)
             BattleSystem.GetInstance().SpawnGameplayObject(summonFX, pos, false);
 
-        GameObject dollObj = GameSystem.GetDollData().AddBattleDollByID(dollID, pos);
+        GameObject dollObj = GameSystem.GetDollData().SpawnBattleDollByID(dollID, pos);
         //GameObject dollObj = BattleSystem.GetInstance().SpawnGameplayObject(dollRef, pos, false);
         Doll theDoll = dollObj.GetComponent<Doll>();
         if (theDoll == null)

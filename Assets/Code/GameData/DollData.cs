@@ -45,6 +45,8 @@ public class DollData : GlobalSystemBase
     public TextAsset csvDollData;
     public Sprite[] highRankIcons;
     public Material iconBlendMat;
+    public GameObject hpBarWildRef;
+    public GameObject hpBarWildManaRef;
 
     protected Dictionary<string, GameObject> theMapping = new Dictionary<string, GameObject>();
 
@@ -265,6 +267,16 @@ public class DollData : GlobalSystemBase
             dAgent.enabled = false;
         }
 
+        //¦å±ø®Õ¥¿
+        if (join_type == DOLL_JOIN_SAVE_TYPE.BATTLE)
+        {
+            Hp_BarHandler hh = dollObj.GetComponent<Hp_BarHandler>();
+            if (hh)
+            {
+                hh.barRef = (theDoll is DollBeta && ((DollBeta)theDoll).isUsingMana) ? hpBarWildManaRef : hpBarWildRef;
+            }
+        }
+
         if (!theDoll.TryJoinThePlayer(join_type))
         {
             print("Woooooooooops.......");
@@ -323,7 +335,7 @@ public class DollData : GlobalSystemBase
         return dollObj != null ? true : false;
     }
 
-    public GameObject AddBattleDollByID(string ID, Vector3 pos)
+    public GameObject SpawnBattleDollByID(string ID, Vector3 pos)
     {
         return SpawnDollByID(ID, pos, DOLL_JOIN_SAVE_TYPE.BATTLE);
     }

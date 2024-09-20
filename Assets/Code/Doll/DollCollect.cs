@@ -22,9 +22,9 @@ public class DollCollect : MonoBehaviour
                 print("ERROR !!!! There is no Doll as child of DollCollct !!");
             }
 
-            if (!collectForever)
+            if (!collectForever && isDollMaterial)
             {
-                //野生 Doll 的處理
+                //野生 Doll 可轉化成 Material 時的處理
                 DollMaterial m = theDoll.gameObject.AddComponent<DollMaterial>();
             }
         }
@@ -43,8 +43,8 @@ public class DollCollect : MonoBehaviour
         //print("DollCollect OnTG");
         if (spawnNewDoll)
         {
-            print("Spawn Battle Doll!! ");
-            GameObject o = GameSystem.GetDollData().AddBattleDollByID(spawnDollID, transform.position);
+            //print("Spawn Battle Doll!! ");
+            GameObject o = GameSystem.GetDollData().SpawnBattleDollByID(spawnDollID, transform.position);
             if (!collectForever)
             {
                 o.AddComponent<DollMaterial>();
