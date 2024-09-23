@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Talk : MonoBehaviour
 {
-
+    public int MaxSentences = 4;
     public TextMesh theTextMesh;
 
     //==== Protected Members 
@@ -24,6 +24,10 @@ public class Talk : MonoBehaviour
         newSentenceObj.text = sentence;
         newSentenceObj.timeLeft = 2.0f;
         sentenceList.Add(newSentenceObj);
+        if (sentenceList.Count > MaxSentences) 
+        {
+            sentenceList.RemoveRange(MaxSentences, sentenceList.Count - MaxSentences);
+        }
 
         MakeText();
     }

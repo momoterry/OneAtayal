@@ -19,6 +19,8 @@ public class DollTalk : MonoBehaviour
 
     public void OnJoinPlayer()
     {
-        strToTalk = "啊哈哈，我加入了喲 !!";
+        //strToTalk = "啊哈哈，我加入了喲 !!";
+        string[] joinTalks = {"我來了","是日靈喔","呼....好累","我幫得上忙!!" };
+        BattleSystem.GetPC().SaySomthing(joinTalks[Random.Range(0,joinTalks.Length)]);
     }
 }
