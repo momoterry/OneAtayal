@@ -68,9 +68,12 @@ public class Talk : MonoBehaviour
     void MakeText()
     {
         string allText = "";
-        foreach (SentenceObject o in sentenceList)
+        //foreach (SentenceObject o in sentenceList)
+        for (int i=0; i<sentenceList.Count; i++)
         {
-            allText += ( o.text + "\n");
+            if (i != 0)
+                allText += "\n";
+            allText += (sentenceList[i].text);
         }
 
         if (theTextMesh)
