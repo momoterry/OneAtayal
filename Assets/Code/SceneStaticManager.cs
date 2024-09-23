@@ -44,10 +44,9 @@ public class SceneStaticManager : MonoBehaviour
         foreach (SpriteRenderer sr in allSprite)
         {
 #if XZ_PLAN
-            //sr.sortingOrder = -(int)((sr.transform.position.z - sr.size.y * 0.5f) * 10.0f);
-            sr.sortingOrder = -(int)(sr.transform.position.z * 10.0f);
+            sr.sortingOrder = -(int)(sr.transform.position.z * OrderAdjust.ORDER_ADJUST_RATIO);
 #else
-            sr.sortingOrder = -(int)(sr.transform.position.y * 10.0f);
+            sr.sortingOrder = -(int)(sr.transform.position.y * OrderAdjust.ORDER_ADJUST_RATI);
 #endif
             if (sortingByLowerBound)
                 sr.sortingOrder += (int)(sr.size.y * 5.0f);

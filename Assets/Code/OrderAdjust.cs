@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OrderAdjust : MonoBehaviour
 {
+    public const float ORDER_ADJUST_RATIO = 16.0f;
     public float bias = 0.0f;       //數值越大越容易被看到
     public bool onlyAdjustOnStart = false;
 
@@ -42,7 +43,7 @@ public class OrderAdjust : MonoBehaviour
     private void SetupOrder()
     {
 #if XZ_PLAN
-        int order = -(int)((transform.position.z - bias) * 16.0f);
+        int order = -(int)((transform.position.z - bias) * ORDER_ADJUST_RATIO);
 #else
         int order = -(int)(transform.position.y * 16.0f);
 #endif
