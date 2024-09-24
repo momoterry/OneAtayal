@@ -7,6 +7,7 @@ public class Talk : MonoBehaviour
     public int MaxSentences = 4;
     public float TimePerSentence = 2.0f;
     public TextMesh theTextMesh;
+    public GameObject bgObj;
 
     //==== Protected Members 
     protected class SentenceObject
@@ -81,6 +82,8 @@ public class Talk : MonoBehaviour
             theTextMesh.text = allText;
 
         //print("MakeText\n" + allText);
+        if (bgObj)
+            bgObj.SetActive(allText != "");
     }
 
 }
