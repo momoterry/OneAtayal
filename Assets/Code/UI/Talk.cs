@@ -102,6 +102,8 @@ public class Talk : MonoBehaviour
                     y = Mathf.Round(y * 16.0f) / 16.0f;
                     //print("x y: " + x + " , " + y);
                     hs.SetSize(x, y);
+                    Vector3 oriVec = transform.localPosition;
+                    transform.localPosition = new Vector3(x*0.5f, oriVec.y, oriVec.z);
                 }
             }
         }
