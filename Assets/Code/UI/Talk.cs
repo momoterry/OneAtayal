@@ -8,6 +8,8 @@ public class Talk : MonoBehaviour
     public float TimePerSentence = 2.0f;
     public TextMesh theTextMesh;
     public GameObject bgObj;
+    protected float bgVertiBound = 0.2f;
+    protected float bgHoriBound = 0.4f;
 
     //==== Protected Members 
     protected class SentenceObject
@@ -83,7 +85,26 @@ public class Talk : MonoBehaviour
 
         //print("MakeText\n" + allText);
         if (bgObj)
-            bgObj.SetActive(allText != "");
+        {
+            if (allText == "")
+                bgObj.SetActive(false);
+            else
+            {
+                bgObj.SetActive(true);
+                GroundHintSquare hs = bgObj.GetComponent<GroundHintSquare>();
+                if (hs)
+                {
+                    MeshRenderer mr = theTextMesh.GetComponent<MeshRenderer>();
+                    //print("MR: " + allText + " -- " + mr.bounds);
+                    float x = (mr.bounds.extents.x + bgHoriBound) * 2.0f;
+                    float y = (mr.bounds.extents.z + bgVertiBound) * 2.0f;
+                    x = Mathf.Round(x * 16.0f) / 16.0f;
+                    y = Mathf.Round(y * 16.0f) / 16.0f;
+                    //print("x y: " + x + " , " + y);
+                    hs.SetSize(x, y);
+                }
+            }
+        }
     }
 
 }
