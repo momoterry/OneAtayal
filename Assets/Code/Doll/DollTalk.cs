@@ -22,8 +22,7 @@ public class DollTalk : MonoBehaviour
         string[] joinTalks = {"我來了","是日靈喔","呼....好累","我幫得上忙!!" };
         string joinTalk = joinTalks[Random.Range(0, joinTalks.Length)];
 
-        strToTalk = joinTalk;
+        //strToTalk = joinTalk;
         ComicTalk.StartTalk(joinTalk, gameObject, 2.0f);
-        //BattleSystem.GetPC().SaySomthing(joinTalks[Random.Range(0,joinTalks.Length)]);
     }
 }

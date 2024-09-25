@@ -40,7 +40,7 @@ public class ComicTalk : MonoBehaviour
         //float minWidth = Mathf.Ceil(talkUI.textUI.preferredWidth) + 8.0f;
         //float minHeight = Mathf.Ceil(talkUI.textUI.preferredHeight) + 8.0f;
         //talkUI.bg.rectTransform.sizeDelta = new Vector2(minWidth, minHeight);
-        theItem.StartTalk(str, talker, timeDuration);
+        theItem.StartTalk(str, talker, new Vector3(1.0f, 0.0f, 0.5f), timeDuration);
     }
 
     // Start is called before the first frame update
