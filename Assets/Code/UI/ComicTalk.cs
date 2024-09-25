@@ -56,7 +56,7 @@ public class ComicTalk : MonoBehaviour
         //talkUI.bg.rectTransform.sizeDelta = new Vector2(minWidth, minHeight);
 
         ComicTalkItem item = GetOneItem();
-        item.StartTalk(str, talker, new Vector3(1.0f, 0.0f, 0.5f), timeDuration);
+        item.StartTalk(str, talker, new Vector3(0.5f, 0.5f, 0.0f), timeDuration);
     }
 
 }

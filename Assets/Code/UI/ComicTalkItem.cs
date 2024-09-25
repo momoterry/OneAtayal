@@ -17,6 +17,8 @@ public class ComicTalkItem : MonoBehaviour
     protected RectTransform myParentRT;
     protected Canvas myCanvas;
 
+    protected Vector2 screenShift = new();
+
     private void Awake()
     {
         //myRT = GetComponent<RectTransform>();
@@ -32,6 +34,7 @@ public class ComicTalkItem : MonoBehaviour
         myCanvas = GetComponentInParent<Canvas>();
     }
 
+
     public void StartTalk(string msg, GameObject talker, Vector3 posShift, float timeDuration = 2.0f)
     {
         textUI.text = msg;
@@ -42,6 +45,9 @@ public class ComicTalkItem : MonoBehaviour
 
         theTaker = talker;
         theShift = posShift;
+
+        screenShift.x = minWidth / 2;
+        screenShift.y = minHeight / 2;
 
         timeLeft = timeDuration;
         UpdatePos();
@@ -60,6 +66,7 @@ public class ComicTalkItem : MonoBehaviour
         //print("screenPos: " + screenPos);
         Vector2 localPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(myParentRT, screenPos, myCanvas.worldCamera, out localPos);
+        localPos += screenShift;
         //print("localPos: " + localPos);
         myRT.localPosition = localPos;
     }
