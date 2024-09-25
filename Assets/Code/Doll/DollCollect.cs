@@ -51,7 +51,7 @@ public class DollCollect : MonoBehaviour
             }
 
             //先測試性放入
-            string[] joinTalks = { "我來了", "是日靈喔", "呼....好累", "我幫得上忙!!" };
+            string[] joinTalks = { "我來了", "是野巫靈喔", "呼....好累", "我幫得上忙!!" };
             string joinTalk = joinTalks[Random.Range(0, joinTalks.Length)];
             ComicTalk.StartTalk(joinTalk, o, 2.0f);
 
