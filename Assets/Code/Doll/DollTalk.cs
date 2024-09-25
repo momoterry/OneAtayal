@@ -32,12 +32,22 @@ public class DollTalk : MonoBehaviour
 
     public void OnTalkCondition(TALK_CONDITION tCondition)
     {
-        print("OnTalkCondition!! ¦¬¨ì");
         switch (tCondition) 
         {
             case TALK_CONDITION.COLLECTED:
                 string msg = collectTalks[Random.Range(0, collectTalks.Length)];
-                ComicTalk.StartTalk(msg, gameObject, 2.0f);
+                Doll doll = gameObject.GetComponent<Doll>();
+                bool isLeft = false;
+                if (doll)
+                {
+                    Transform st = doll.GetSlot();
+                    if (st && st.localPosition.x < 0)
+                    {
+                        isLeft = true;
+                    }
+                }
+                ComicTalk.StartTalk(msg, gameObject, 2.0f, isLeft);
+                //ComicTalk.StartTalk(msg, gameObject, 2.0f);
                 break;
         }
     }

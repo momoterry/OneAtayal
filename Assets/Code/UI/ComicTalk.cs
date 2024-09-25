@@ -33,9 +33,9 @@ public class ComicTalk : MonoBehaviour
     }
 
 
-    public static void StartTalk(string str, GameObject talker, float timeDuration)
+    public static void StartTalk(string str, GameObject talker, float timeDuration, bool leftSide = false)
     {
-        instance._StartTalk(str, talker, timeDuration);
+        instance._StartTalk(str, talker, timeDuration, leftSide);
     }
 
     protected ComicTalkItem GetOneItem()
@@ -47,7 +47,7 @@ public class ComicTalk : MonoBehaviour
         return item;
     }
 
-    protected void _StartTalk(string str, GameObject talker, float timeDuration)
+    protected void _StartTalk(string str, GameObject talker, float timeDuration, bool leftSide)
     {
         //talkUI.obj.SetActive(true);
         //talkUI.textUI.text = str;
@@ -56,7 +56,10 @@ public class ComicTalk : MonoBehaviour
         //talkUI.bg.rectTransform.sizeDelta = new Vector2(minWidth, minHeight);
 
         ComicTalkItem item = GetOneItem();
-        item.StartTalk(str, talker, new Vector3(0.5f, 0.5f, 0.0f), timeDuration);
+        if (leftSide)
+            item.StartTalk(str, talker, new Vector3(-0.5f, 0.5f, 0.0f), timeDuration);
+        else
+            item.StartTalk(str, talker, new Vector3(0.5f, 0.5f, 0.0f), timeDuration);
     }
 
 }

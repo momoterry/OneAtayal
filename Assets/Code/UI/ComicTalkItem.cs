@@ -37,9 +37,11 @@ public class ComicTalkItem : MonoBehaviour
 
     public void StartTalk(string msg, GameObject talker, Vector3 posShift, float timeDuration = 2.0f)
     {
+        float horiBorder = 4.0f;
+        float vertiBorder = 2.0f;
         textUI.text = msg;
-        float minWidth = Mathf.Ceil(textUI.preferredWidth) + 8.0f;
-        float minHeight = Mathf.Ceil(textUI.preferredHeight) + 8.0f;
+        float minWidth = Mathf.Ceil(textUI.preferredWidth) + horiBorder + horiBorder;
+        float minHeight = Mathf.Ceil(textUI.preferredHeight) + vertiBorder + vertiBorder;
         bg.rectTransform.sizeDelta = new Vector2(minWidth, minHeight);
         gameObject.SetActive(true);
 
@@ -48,6 +50,11 @@ public class ComicTalkItem : MonoBehaviour
 
         screenShift.x = minWidth / 2;
         screenShift.y = minHeight / 2;
+
+        if (theShift.x < 0)
+        {
+            screenShift.x = -screenShift.x;
+        }
 
         timeLeft = timeDuration;
         UpdatePos();
