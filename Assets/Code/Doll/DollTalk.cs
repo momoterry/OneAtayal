@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TALK_CONDITION
+{
+    COLLECTED,
+}
+
 public class DollTalk : MonoBehaviour
 {
-    //public Talk theTalk;
 
-    //protected string strToTalk = "";
+    public string[] collectTalks;
 
     private void Update()
     {
@@ -25,4 +29,17 @@ public class DollTalk : MonoBehaviour
         //strToTalk = joinTalk;
         //ComicTalk.StartTalk(joinTalk, gameObject, 2.0f);
     }
+
+    public void OnTalkCondition(TALK_CONDITION tCondition)
+    {
+        print("OnTalkCondition!! ¦¬¨ì");
+        switch (tCondition) 
+        {
+            case TALK_CONDITION.COLLECTED:
+                string msg = collectTalks[Random.Range(0, collectTalks.Length)];
+                ComicTalk.StartTalk(msg, gameObject, 2.0f);
+                break;
+        }
+    }
+
 }
