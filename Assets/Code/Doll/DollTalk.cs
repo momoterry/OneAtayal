@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class DollTalk : MonoBehaviour
 {
-    public Talk theTalk;
+    //public Talk theTalk;
 
-    protected string strToTalk = "";
+    //protected string strToTalk = "";
 
     private void Update()
     {
-        if (strToTalk != "")
-        {
-            theTalk.AddSentence(strToTalk);
-            strToTalk = "";
-        }
+        //if (strToTalk != "")
+        //{
+        //    theTalk.AddSentence(strToTalk);
+        //    strToTalk = "";
+        //}
     }
 
     public void OnJoinPlayer()
@@ -23,6 +23,6 @@ public class DollTalk : MonoBehaviour
         string joinTalk = joinTalks[Random.Range(0, joinTalks.Length)];
 
         //strToTalk = joinTalk;
-        ComicTalk.StartTalk(joinTalk, gameObject, 2.0f);
+        //ComicTalk.StartTalk(joinTalk, gameObject, 2.0f);
     }
 }
