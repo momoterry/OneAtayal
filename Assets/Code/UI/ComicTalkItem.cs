@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 public class ComicTalkItem : MonoBehaviour
 {
@@ -19,6 +18,14 @@ public class ComicTalkItem : MonoBehaviour
     protected Canvas myCanvas;
 
     private void Awake()
+    {
+        //myRT = GetComponent<RectTransform>();
+        //myParentRT = transform.parent.GetComponent<RectTransform>();
+        //myCanvas = GetComponentInParent<Canvas>();
+        Init();
+    }
+
+    public void Init()
     {
         myRT = GetComponent<RectTransform>();
         myParentRT = transform.parent.GetComponent<RectTransform>();
