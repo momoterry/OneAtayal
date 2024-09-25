@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8918923337571958516}
   - component: {fileID: 3948152558790862856}
   - component: {fileID: 7186088793877896092}
+  - component: {fileID: 7680457238092660832}
   m_Layer: 10
   m_Name: Doll_FireMana
   m_TagString: Doll
@@ -186,6 +187,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7680457238092660832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876928013832779465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790c667040e9bd44d813f9e95b76ba69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectTalks:
+  - "\u563B\u563B"
+  - "\u592A\u597D\u4E86"
+  - "\u547C\u547C\u547C"
+  - "\u6211\u4F86\u4E86"
+  - "\u662F\u706B\u9748\u5594"
+  - "\u9700\u8981Mana"
+  - "\u611F\u6069"
 --- !u!1 &2876928014367259073
 GameObject:
   m_ObjectHideFlags: 0
