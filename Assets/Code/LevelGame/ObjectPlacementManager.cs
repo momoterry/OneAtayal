@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ObjectPlacementManager : MonoBehaviour
 {
-    public RoomObjectPlacement.ObjectInfo[] finxObjects;
+    public RoomObjectPlacement.ObjectInfo[] fixObjects;
 
     public RoomObjectPlacement.ObjectInfo[] randomObjects;
     public int randomSelectNum = 3;
@@ -25,10 +25,10 @@ public class ObjectPlacementManager : MonoBehaviour
 
         int randomCount = randomSelectNum > randomObjects.Length ? randomObjects.Length : randomSelectNum;
 
-        RoomObjectPlacement.ObjectInfo[] allObject = new RoomObjectPlacement.ObjectInfo[finxObjects.Length + randomCount];
-        for (int i = 0; i < finxObjects.Length; i++)
+        RoomObjectPlacement.ObjectInfo[] allObject = new RoomObjectPlacement.ObjectInfo[fixObjects.Length + randomCount];
+        for (int i = 0; i < fixObjects.Length; i++)
         {
-            allObject[i] = finxObjects[i];
+            allObject[i] = fixObjects[i];
         }
 
         if (randomCount > 0)
@@ -36,7 +36,7 @@ public class ObjectPlacementManager : MonoBehaviour
             OneUtility.Shuffle(randomObjects);
             for (int i = 0; i< randomCount; i++)
             {
-                allObject[finxObjects.Length + i] = randomObjects[i];
+                allObject[fixObjects.Length + i] = randomObjects[i];
             }
         }
 
