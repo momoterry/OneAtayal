@@ -37,7 +37,7 @@ Transform:
   - {fileID: 5811311808759635448}
   - {fileID: 5338211700569239832}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1030251389730005932
 MonoBehaviour:
@@ -60,7 +60,7 @@ MonoBehaviour:
   initPlayerDirAngle: 0
   playerRef: {fileID: 6214839875520186894, guid: 1d464cc18043c634e95ebb5461db4dd6, type: 3}
   ForceUsePlayerRef: 0
-  IsBattleLevelUp: 1
+  IsBattleLevelUp: 0
   MaxLevel: 20
   initPotion: 3
   maxPotion: 5
@@ -92,10 +92,10 @@ MonoBehaviour:
   dropMapInfos:
   - ID: 500
     drops:
-    - dropPercent: 5
+    - dropPercent: 7.5
       objRef: {fileID: 8143502755978418841, guid: 67ab84094d2daa24cb6914bdde34adfe, type: 3}
-    - dropPercent: 25
-      objRef: {fileID: 8143502755978418841, guid: be548e494dd911c4d9f48d8fd5c7bcfe, type: 3}
+    - dropPercent: 15
+      objRef: {fileID: 8143502755978418841, guid: 4c7c16cd36f11f34f8281b286f963f2e, type: 3}
     exp: 0
     Desc: "\u7834\u58DE\u7269\u4EF6"
   - ID: 1000
