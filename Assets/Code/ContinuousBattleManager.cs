@@ -163,7 +163,7 @@ public class ContinuousBattleManager : GlobalSystemBase
     //public static void ResetCollectedDolls() { instance._ResetCollectedDolls(); }
     //protected void _ResetCollectedDolls() { }
 
-    //========== 連同位置一起記錄的新版本 ===============
+    //========== 連同位置一起記錄的新版本 ===============  TODO: 應該整合到 BattlePlayerData 中
     protected List<FormationDollInfo> formationDollList = new List<FormationDollInfo>();
     public static void AddCollectedDoll(string dollID, int group, int index) { instance._AddCollectedDoll(dollID, group, index); }
     protected void _AddCollectedDoll(string dollID, int group, int index)
