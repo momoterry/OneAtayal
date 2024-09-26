@@ -8,6 +8,11 @@ public class ComicTalkItem : MonoBehaviour
     public Text textUI;
     public Image bg;
 
+    public float uBorder = 2.0f;
+    public float dBorder = 2.0f;
+    public float lBorder = 4.0f;
+    public float rBorder = 4.0f;
+
     protected GameObject theTaker = null;
     protected Vector3 theShift;
 
@@ -37,23 +42,25 @@ public class ComicTalkItem : MonoBehaviour
 
     public void StartTalk(string msg, GameObject talker, Vector3 posShift, float timeDuration = 2.0f)
     {
-        float horiBorder = 4.0f;
-        float vertiBorder = 2.0f;
         textUI.text = msg;
-        float minWidth = Mathf.Ceil(textUI.preferredWidth) + horiBorder + horiBorder;
-        float minHeight = Mathf.Ceil(textUI.preferredHeight) + vertiBorder + vertiBorder;
-        bg.rectTransform.sizeDelta = new Vector2(minWidth, minHeight);
+        float minWidth = Mathf.Ceil(textUI.preferredWidth);
+        float minHeight = Mathf.Ceil(textUI.preferredHeight);
+        bg.rectTransform.sizeDelta = new Vector2(minWidth + lBorder + rBorder, minHeight + uBorder + dBorder);
         gameObject.SetActive(true);
 
         theTaker = talker;
         theShift = posShift;
 
-        screenShift.x = minWidth / 2;
-        screenShift.y = minHeight / 2;
+        screenShift.y = minHeight / 2 + dBorder;
 
         if (theShift.x < 0)
         {
-            screenShift.x = -screenShift.x;
+            screenShift.x = -minWidth / 2 - lBorder;
+            bg.rectTransform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+        }
+        else
+        {
+            screenShift.x = minWidth / 2 + lBorder;
         }
 
         timeLeft = timeDuration;
