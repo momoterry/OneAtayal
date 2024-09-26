@@ -137,34 +137,17 @@ public class ContinuousBattleManager : GlobalSystemBase
         isGoingContinuousBattle = false;
     }
 
-    //有關半路撿到的 Doll 的記錄  TODO: 應該整合到 BattlePlayerData 中
-    //protected List<string> collectedDolls = new List<string>();
-    //public static void AddCollectedDoll(string dollID) { instance._AddCollectedDoll(dollID); }
-    //protected void _AddCollectedDoll(string dollID) 
-    //{
-    //    collectedDolls.Add(dollID);
-    //}
-
-    //public static string[] GetAllCollectedDolls() { return instance._GetAllCollectedDolls(); }
-    //protected string[] _GetAllCollectedDolls() 
-    //{ 
-    //    if (collectedDolls.Count > 0)
-    //    {
-    //        string[] temp = new string[collectedDolls.Count];
-    //        for (int i=0; i<collectedDolls.Count; i++)
-    //        {
-    //            temp[i] = collectedDolls[i];
-    //        }
-    //        return temp;
-    //    }
-    //    return null;
-    //}
-
-    //public static void ResetCollectedDolls() { instance._ResetCollectedDolls(); }
-    //protected void _ResetCollectedDolls() { }
-
     //========== 連同位置一起記錄的新版本 ===============  TODO: 應該整合到 BattlePlayerData 中
     protected List<FormationDollInfo> formationDollList = new List<FormationDollInfo>();
+
+    public static int GetCollectedDollNum() {
+        if (instance == null)
+            return 0;
+        return instance._GetCollectedDollNum();
+    }
+
+    public int _GetCollectedDollNum() { return formationDollList.Count; }
+
     public static void AddCollectedDoll(string dollID, int group, int index) { instance._AddCollectedDoll(dollID, group, index); }
     protected void _AddCollectedDoll(string dollID, int group, int index)
     {

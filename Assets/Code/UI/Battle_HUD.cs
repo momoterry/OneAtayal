@@ -24,6 +24,7 @@ public class Battle_HUD : MonoBehaviour
     // Doll 資訊
     public Text DollNumText;
     public Text DollMaxText;
+    public Text DollCollectedText;
 
     //關卡資訊
     public GameObject levelRoot;    //關卡名稱的 Root，用來開關
@@ -257,6 +258,11 @@ public class Battle_HUD : MonoBehaviour
                         DollMaxText.text = num.ToString();
                         currDollMax = num;
                     }
+                }
+                if (DollCollectedText)
+                {
+                    int num = ContinuousBattleManager.GetCollectedDollNum();
+                    DollCollectedText.text = num == 0 ? "" : "+" + num;
                 }
             }
 
