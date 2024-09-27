@@ -42,6 +42,10 @@ public class SkillBase : MonoBehaviour
     protected Animator theAnimator;
     protected float casterAttack;
 
+    protected Vector3 skillDir = Vector3.back;
+    protected Vector3 skillCenter;
+    protected GameObject skillTarget = null;
+
     //protected float cdLeft = 0;
     protected float cdSpeedRate = 1.0f;     //給 CD 加快的 Buff 使用
     protected SkillButton theButton;
@@ -123,6 +127,72 @@ public class SkillBase : MonoBehaviour
 
         casterAttack = _casterAttack;
     }
+
+    public virtual bool Play()
+    {
+        SKILL_RESULT theResult = SKILL_RESULT.SUCCESS;
+        return Play(ref theResult);
+    }
+
+    public virtual bool Play(ref SKILL_RESULT result)
+    {
+        if (currPhase != SKILL_PHASE.NONE)
+        {
+            One.LOG("ERROR!!!! Skill 尚未完成.." + name);
+            result = SKILL_RESULT.COOL_DOWN;
+            return false;
+        }
+        if (battlePointsCost > 0)
+        {
+            if (BattlePlayerData.GetInstance().GetBattleLVPoints() < battlePointsCost)
+            {
+                result = SKILL_RESULT.NO_BATTLE_POINT;
+                return false;
+            }
+        }
+        else
+        {
+
+            if (thePC && thePC.GetMP() < manaCost)
+            {
+                result = SKILL_RESULT.NO_MANA;
+                return false;
+            }
+        }
+
+
+        if (!DoPrepare(ref result))
+            return false;
+        
+        bool retrunValue = true;
+        if (prepareTime == 0)
+        {
+            retrunValue = DoStart(ref result);
+            if (retrunValue)
+            {
+                currPhase = SKILL_PHASE.JUST_START;
+                nextPhase = SKILL_PHASE.PLAY;
+            }
+        }
+        else
+        {
+            currPhase = SKILL_PHASE.JUST_START;
+            nextPhase = SKILL_PHASE.PREPARE;
+        }
+
+        return retrunValue;
+    }
+
+    protected virtual bool DoPrepare(ref SKILL_RESULT result)
+    {
+        skillCenter = transform.position;
+        skillDir = Vector3.back;
+        skillTarget = null;
+        result = SKILL_RESULT.SUCCESS;
+        return true;
+    }
+
+
     public virtual bool DoStart() {
         SKILL_RESULT theResult = SKILL_RESULT.SUCCESS;
         return DoStart(ref theResult);
@@ -160,38 +230,38 @@ public class SkillBase : MonoBehaviour
             //cdLeft = coolDown;
         }
 
-        currPhase = SKILL_PHASE.JUST_START; //確保  IsReady() 為 false
-        if (prepareTime > 0)
-            nextPhase = SKILL_PHASE.PREPARE;
-        else
-            nextPhase = SKILL_PHASE.PLAY;
+        //currPhase = SKILL_PHASE.JUST_START; //確保  IsReady() 為 false
+        //if (prepareTime > 0)
+        //    nextPhase = SKILL_PHASE.PREPARE;
+        //else
+        //    nextPhase = SKILL_PHASE.PLAY;
     }
 
     public virtual bool DoStart(ref SKILL_RESULT result)
     {
-        if (currPhase != SKILL_PHASE.NONE)
-        {
-            One.LOG("ERROR!!!! Skill 尚未完成.." + name);
-            result = SKILL_RESULT.COOL_DOWN;
-            return false;
-        }
-        if (battlePointsCost > 0)
-        {
-            if (BattlePlayerData.GetInstance().GetBattleLVPoints() < battlePointsCost)
-            {
-                result = SKILL_RESULT.NO_BATTLE_POINT;
-                return false;
-            }
-        }
-        else
-        {
+        //if (currPhase != SKILL_PHASE.NONE)
+        //{
+        //    One.LOG("ERROR!!!! Skill 尚未完成.." + name);
+        //    result = SKILL_RESULT.COOL_DOWN;
+        //    return false;
+        //}
+        //if (battlePointsCost > 0)
+        //{
+        //    if (BattlePlayerData.GetInstance().GetBattleLVPoints() < battlePointsCost)
+        //    {
+        //        result = SKILL_RESULT.NO_BATTLE_POINT;
+        //        return false;
+        //    }
+        //}
+        //else
+        //{
 
-            if (thePC && thePC.GetMP() < manaCost)
-            {
-                result = SKILL_RESULT.NO_MANA;
-                return false;
-            }
-        }
+        //    if (thePC && thePC.GetMP() < manaCost)
+        //    {
+        //        result = SKILL_RESULT.NO_MANA;
+        //        return false;
+        //    }
+        //}
 
         if (faction == FACTION_GROUP.PLAYER)
         {
@@ -216,12 +286,13 @@ public class SkillBase : MonoBehaviour
             {
                 case SKILL_PHASE.PREPARE:
                     stateTimeLeft = prepareTime;
+                    //print("Skill Direction: " + skillDir);
                     foreach (SkillGroundHint groundHint in groundHints)
                     {
                         float hintLength = groundHint.size.y;
                         float hintWidth = groundHint.size.x;
-                        Vector3 hintDirection = Quaternion.Euler(0, groundHint.angleShift, 0) * Vector3.forward;   //TODO: 技能方向
-                        Vector3 hintCenter = transform.position + hintDirection * hintLength * 0.5f;
+                        Vector3 hintDirection = Quaternion.Euler(0, groundHint.angleShift, 0) * skillDir;
+                        Vector3 hintCenter = skillCenter + hintDirection * hintLength * 0.5f + hintDirection;
                         Vector3 hintShift = Quaternion.Euler(0, Vector3.SignedAngle(Vector3.forward, hintDirection, Vector3.up), 0) * groundHint.posShift;
                         GroundHintManager.GetInstance().ShowSquareHint(hintCenter + hintShift, hintDirection, new Vector2(hintWidth, hintLength), prepareTime);
                     }
@@ -278,7 +349,10 @@ public class SkillBase : MonoBehaviour
     {
         if (stateTimeLeft <= 0)
         {
-            nextPhase = SKILL_PHASE.PLAY;
+            if (DoStart())
+                nextPhase = SKILL_PHASE.PLAY;
+            else
+                nextPhase = SKILL_PHASE.DONE;
         }
     }
 

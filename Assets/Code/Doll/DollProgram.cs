@@ -129,7 +129,7 @@ public class DollProgram : DollBeta
     protected float actionTimeLeft = 0;
     protected void StartAction(Action a)
     {
-        a.skill.DoStart();
+        a.skill.Play();
         actionTimeLeft = 1.0f;
     }
 

@@ -929,7 +929,7 @@ public class PC_One : PlayerControllerBase
     // 以下兩種方式二擇一
     protected virtual bool DoAutoSkill( SkillBase theSkill)
     {
-        if (theSkill.DoStart())
+        if (theSkill.Play())
         {
             if (theSkill.duration > 0)
             {
@@ -961,7 +961,7 @@ public class PC_One : PlayerControllerBase
         //theTalk.AddSentence(skillTalk);
 
         SKILL_RESULT skillResult = SKILL_RESULT.SUCCESS;
-        if (theSkill.DoStart(ref skillResult))
+        if (theSkill.Play(ref skillResult))
         {
             nextState = PC_STATE.SKILL;
             skillTime = theSkill.duration;

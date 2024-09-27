@@ -43,13 +43,13 @@ public class SkillShoot : SkillBase
         return bestTarget;
     }
 
-    public override bool DoStart(ref SKILL_RESULT result)
+
+    protected override bool DoPrepare(ref SKILL_RESULT result)
     {
-        //基本檢查
-        if (!base.DoStart(ref result))
+        if (!base.DoPrepare(ref result))
             return false;
 
-        //print("SkillShoot!!!!!! ");
+
         GameObject target = FindBestShootTarget(searchRange);
         if (target == null && !shootEvenNoEnemy)
         {
@@ -68,19 +68,59 @@ public class SkillShoot : SkillBase
                 td = Vector3.back;  //TODO: 如果是敵人的話，抓預設面向?
         }
 
-#if XZ_PLAN
         td.y = 0;
-#else
-        td.z = 0;
-#endif
 
         td.Normalize();
+
         if (faceTarget && thePC)
             thePC.SetupFaceDir(td);
 
-        Vector3 shootPos = theCaster.transform.position + td * bulletInitDis;
+        skillDir = td;
+        skillCenter = theCaster.transform.position + skillDir * bulletInitDis;
+        skillTarget = target;
+        return true;
+    }
 
-        GameObject newObj = BattleSystem.GetInstance().SpawnGameplayObject(bulletRef, shootPos, false);
+    public override bool DoStart(ref SKILL_RESULT result)
+    {
+        //基本檢查
+        if (!base.DoStart(ref result))
+            return false;
+
+        //print("SkillShoot!!!!!! ");
+//        GameObject target = FindBestShootTarget(searchRange);
+//        if (target == null && !shootEvenNoEnemy)
+//        {
+//            result = SKILL_RESULT.NO_TARGET;
+//            return false;
+//        }
+
+//        Vector3 td;
+//        if (target != null && autoAim)
+//            td = target.transform.position - theCaster.transform.position;
+//        else
+//        {
+//            if (thePC)
+//                td = thePC.GetFaceDir();
+//            else
+//                td = Vector3.back;  //TODO: 如果是敵人的話，抓預設面向?
+//        }
+
+//#if XZ_PLAN
+//        td.y = 0;
+//#else
+//        td.z = 0;
+//#endif
+
+//        td.Normalize();
+//        skillDir = td;
+
+//        if (faceTarget && thePC)
+//            thePC.SetupFaceDir(td);
+
+//        Vector3 shootPos = theCaster.transform.position + td * bulletInitDis;
+
+        GameObject newObj = BattleSystem.GetInstance().SpawnGameplayObject(bulletRef, skillCenter, false);
         if (newObj)
         {
             bullet_base newBullet = newObj.GetComponent<bullet_base>();
@@ -91,7 +131,7 @@ public class SkillShoot : SkillBase
                 //    myDamage.damage = thePC.GetATTACK() * damageRatio;  // 為了支援 PC 的 Buff 狀態，先不直接使用 casterAttack TODO: 需要修正
                 //else
                 //    myDamage.damage = casterAttack * damageRatio;
-                newBullet.InitValue(faction, myDamage, td, target);
+                newBullet.InitValue(faction, myDamage, skillDir, skillTarget);
             }
         }
 
@@ -103,12 +143,8 @@ public class SkillShoot : SkillBase
 
         if (theAnimator)
         {
-            theAnimator.SetFloat("CastX", td.x);
-#if XZ_PLAN
-            theAnimator.SetFloat("CastY", td.z);
-#else
-            theAnimator.SetFloat("CastY", td.y);
-#endif
+            theAnimator.SetFloat("CastX", skillDir.x);
+            theAnimator.SetFloat("CastY", skillDir.z);
             theAnimator.SetTrigger("Cast");
         }
 

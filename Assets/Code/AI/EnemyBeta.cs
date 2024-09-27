@@ -69,14 +69,10 @@ public class EnemyBeta : Enemy
 
         if (currSkill)
         {
-            //print("----normalSkill.DoStart()");
-            if (currSkill.DoStart())
+            //print("----normalSkill.Play()");
+            if (currSkill.Play())
             {
                 runningSkill = currSkill;
-                //skillIndex++;
-                //if (skillIndex >= skillPattern.Length)
-                //    skillIndex = 0;
-                //currSkillCDLeft = currSkill.coolDown;
             }
         }
     }
