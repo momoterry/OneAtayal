@@ -58,8 +58,8 @@ public class Enemy : MonoBehaviour
     //因應關卡難度提升時的數值加成
     public void SetDiffcult(float diffRatio)
     {
-        MaxHP *= diffRatio;
-        Attack += (diffRatio - 1.0f) * Attack * 0.75f;   //攻擊增加率略降
+        MaxHP += (diffRatio - 1.0f) * MaxHP * 1.2f;     //HP 增加率略快
+        Attack += (diffRatio - 1.0f) * Attack * 0.5f;   //攻擊增加率一半
     }
 
     protected enum AI_STATE
