@@ -29,6 +29,8 @@ public class SkillBase : MonoBehaviour
     public float manaCost = 0;
     public float coolDown = 1.0f;
 
+    public SkillGroundHint[] groundHints;   //地面提示
+
     //public bool isBattleLevelUpSkill = false;
     public int battlePointsCost = 0;
     public int quality = 0;     //如果有裝備，會等同裝備 ITEM_QUALITY
@@ -214,6 +216,15 @@ public class SkillBase : MonoBehaviour
             {
                 case SKILL_PHASE.PREPARE:
                     stateTimeLeft = prepareTime;
+                    foreach (SkillGroundHint groundHint in groundHints)
+                    {
+                        float hintLength = groundHint.size.y;
+                        float hintWidth = groundHint.size.x;
+                        Vector3 hintDirection = Quaternion.Euler(0, groundHint.angleShift, 0) * Vector3.forward;   //TODO: 技能方向
+                        Vector3 hintCenter = transform.position + hintDirection * hintLength * 0.5f;
+                        Vector3 hintShift = Quaternion.Euler(0, Vector3.SignedAngle(Vector3.forward, hintDirection, Vector3.up), 0) * groundHint.posShift;
+                        GroundHintManager.GetInstance().ShowSquareHint(hintCenter + hintShift, hintDirection, new Vector2(hintWidth, hintLength), prepareTime);
+                    }
                     break;
                 case SKILL_PHASE.PLAY:
                     stateTimeLeft = duration;
