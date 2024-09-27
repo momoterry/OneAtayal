@@ -24,6 +24,7 @@ public class SkillBase : MonoBehaviour
 {
     public FACTION_GROUP faction = FACTION_GROUP.PLAYER;
     public float damageRatio = 1.0f;
+    public float prepareTime = 0.0f;    //技能準備時間，包含地面提示等
     public float duration = 0.2f;   //技能施放期間 (無法操作 )
     public float manaCost = 0;
     public float coolDown = 1.0f;
@@ -158,7 +159,10 @@ public class SkillBase : MonoBehaviour
         }
 
         currPhase = SKILL_PHASE.JUST_START; //確保  IsReady() 為 false
-        nextPhase = SKILL_PHASE.PLAY;
+        if (prepareTime > 0)
+            nextPhase = SKILL_PHASE.PREPARE;
+        else
+            nextPhase = SKILL_PHASE.PLAY;
     }
 
     public virtual bool DoStart(ref SKILL_RESULT result)
@@ -208,6 +212,9 @@ public class SkillBase : MonoBehaviour
         {
             switch (nextPhase)
             {
+                case SKILL_PHASE.PREPARE:
+                    stateTimeLeft = prepareTime;
+                    break;
                 case SKILL_PHASE.PLAY:
                     stateTimeLeft = duration;
                     break;
@@ -225,6 +232,9 @@ public class SkillBase : MonoBehaviour
 
         switch (currPhase)
         {
+            case SKILL_PHASE.PREPARE:
+                UpdatePrepare();
+                break;
             case SKILL_PHASE.PLAY:
                 UpdatePlay();
                 break;
@@ -250,6 +260,14 @@ public class SkillBase : MonoBehaviour
                 nextPhase = SKILL_PHASE.COOL_DOWN;
             else
                 nextPhase = SKILL_PHASE.DONE;
+        }
+    }
+
+    protected virtual void UpdatePrepare()
+    {
+        if (stateTimeLeft <= 0)
+        {
+            nextPhase = SKILL_PHASE.PLAY;
         }
     }
 
