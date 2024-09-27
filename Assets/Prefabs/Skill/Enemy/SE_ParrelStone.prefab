@@ -45,10 +45,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 2
-  damageRatio: 0.4
+  damageRatio: 0.8
+  prepareTime: 0.25
   duration: 1.5
   manaCost: 0
   coolDown: 0.5
+  groundHints:
+  - size: {x: 1.5, y: 10}
+    posShift: {x: 0, y: 0, z: 0}
+    angleShift: 0
+  - size: {x: 1.5, y: 10}
+    posShift: {x: -2.5, y: 0, z: 0}
+    angleShift: 0
+  - size: {x: 1.5, y: 10}
+    posShift: {x: 2.5, y: 0, z: 0}
+    angleShift: 0
   battlePointsCost: 0
   quality: 0
   icon: {fileID: -2196896734544574612, guid: 7092e098a702a17418509aa96a39b688, type: 3}
