@@ -17,9 +17,8 @@ public class SkillLaser : SkillBase
     bool isLaser = false;
 
     // Start is called before the first frame update
-    protected override void Start()
+    void Start()
     {
-        base.Start();
         if (myLaser == null)
         {
             GameObject o = BattleSystem.SpawnGameObj(theLaserRef, transform.position);
@@ -56,30 +55,6 @@ public class SkillLaser : SkillBase
         return true; ;
     }
 
-    //protected override void Update()
-    //{
-    //    base.Update();
-    //    if (isLaser)
-    //    {
-    //        if (myTarget == null || !myTarget.activeInHierarchy)
-    //        {
-    //            StopLaser();
-    //        }
-    //        else
-    //        {
-    //            laserTime += Time.deltaTime;
-    //            //myLaser.UpdateLaser(myTarget, transform.position);
-    //            if (Vector3.Distance(myTarget.transform.position, transform.position) > maxRange || laserTime > laserDuration)
-    //            {
-    //                StopLaser();
-    //            }
-    //            else
-    //            {
-    //                myLaser.UpdateLaser(myTarget, transform.position);
-    //            }
-    //        }
-    //    }
-    //}
 
     protected override void UpdatePlay()
     {
@@ -141,4 +116,14 @@ public class SkillLaser : SkillBase
         myLaser.gameObject.SetActive(false);
         nextPhase = SKILL_PHASE.COOL_DOWN;
     }
+
+    //void OnGUI()
+    //{
+    //    if (faction == FACTION_GROUP.ENEMY)
+    //    {
+    //        Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+    //        thePoint.y = Camera.main.pixelHeight - thePoint.y;
+    //        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "SkillLaser: " + currPhase.ToString());
+    //    }
+    //}
 }

@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//===================================================
+//
+// 物件化的 Skill 系統，可支援 Player ，也可支援 EnemyBeta
+// 也支援 DollProgram
+//
+//===================================================
+
 public enum SKILL_RESULT
 {
     SUCCESS,
@@ -149,21 +156,13 @@ public class SkillBase : MonoBehaviour
                 thePC.DoUseMP(manaCost);
             //cdLeft = coolDown;
         }
-        //if (theButton)
-        //{
-        //    theButton.OnSkillRelease(coolDown);
-        //}
+
         currPhase = SKILL_PHASE.JUST_START; //確保  IsReady() 為 false
         nextPhase = SKILL_PHASE.PLAY;
     }
 
     public virtual bool DoStart(ref SKILL_RESULT result)
     {
-        //if (faction == FACTION_GROUP.PLAYER && thePC == null)
-        //{
-        //    result = SKILL_RESULT.ERROR;
-        //    return false;
-        //}
         if (currPhase != SKILL_PHASE.NONE)
         {
             One.LOG("ERROR!!!! Skill 尚未完成.." + name);
@@ -180,12 +179,6 @@ public class SkillBase : MonoBehaviour
         }
         else
         {
-            //if (cdLeft > 0)
-            //{
-            //    result = SKILL_RESULT.COOL_DOWN;
-            //    //print("SKILL CD " + cdLeft);
-            //    return false;
-            //}
 
             if (thePC && thePC.GetMP() < manaCost)
             {
@@ -210,18 +203,6 @@ public class SkillBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        //if (cdLeft > 0)
-        //{
-        //    cdLeft -= Time.deltaTime * cdSpeedRate;
-        //    if (cdLeft <= 0)
-        //    {
-        //        cdLeft = 0;
-        //        if (theButton)
-        //        {
-        //            theButton.OnSkillCoolDownFinish();
-        //        }
-        //    }
-        //}
         
         if (nextPhase != currPhase)
         {
@@ -282,15 +263,6 @@ public class SkillBase : MonoBehaviour
             }
             nextPhase = SKILL_PHASE.DONE;
         }
-    }
-
-
-    protected virtual void Start()
-    {
-        //if (faction == FACTION_GROUP.PLAYER)
-        //    myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
-        //else if (faction == FACTION_GROUP.ENEMY)
-        //    myDamage.Init(0, Damage.OwnerType.ENEMY, gameObject.name, gameObject);
     }
 
     //private void OnGUI()
