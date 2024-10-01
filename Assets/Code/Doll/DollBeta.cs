@@ -26,8 +26,8 @@ public class DollBeta : Doll
     public float AttackRangeIn = 3.0f;
     public float AttackRangeOut = 4.0f;
 
-    //public float attackWait = 0.2f;
     public float attackCD = 0.5f;
+    public bool autoAttackObject = true;        //如果否的話，不會攻擊物件
 
     //Mana 系統相關
     public bool isUsingMana = false;
@@ -336,28 +336,8 @@ public class DollBeta : Doll
         //foundEnemy = BattleUtility.SearchClosestTargetForPlayer(vCenter, SearchRange);        
         //foundEnemy = BattleUtility.SearchBestTargetForPlayer(vSearchCenter, vRangeCenter, SearchRange);       //把射程判斷和最近判斷分開
         foundEnemy = BattleUtility.SearchBestTargetsForPlayer(vSearchCenter, vRangeCenter, SearchRange, 3);     //從多個目標中隨機找一個
-        if (!foundEnemy)
+        if (!foundEnemy && autoAttackObject)
             foundEnemy = BattleSystem.GetPC().GetHittableTarget();
-
-        //Collider[] cols = Physics.OverlapSphere(vCenter, SearchRange, LayerMask.GetMask("Character"));
-        //foreach (Collider col in cols)
-        //{
-        //    //print("I Found: "+ col.gameObject.name);
-        //    if (col.gameObject.CompareTag("Enemy"))
-        //    {
-        //        float dis = Vector3.Distance(col.gameObject.transform.position, vCenter);
-
-        //        if (dis < minDistance)
-        //        {
-        //            minDistance = dis;
-        //            foundEnemy = col.gameObject;
-        //        }
-        //    }
-        //}
-
-        //myTarget = foundEnemy;
-
-        //return (foundEnemy != null);
         return foundEnemy;
     }
 

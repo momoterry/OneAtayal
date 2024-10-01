@@ -51,7 +51,7 @@ public class SkillLaser : SkillBase
         StartLaser();
 
         result = SKILL_RESULT.SUCCESS;
-        base.OnSkillSucess();
+        //base.OnSkillSucess();
         return true; ;
     }
 

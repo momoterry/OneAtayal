@@ -87,7 +87,7 @@ public class SkillMelee : SkillBase
         //thePC.DoUseMP(manaCost);
         //cdLeft = coolDown;
         result = SKILL_RESULT.SUCCESS;
-        base.OnSkillSucess();
+        //base.OnSkillSucess();
         return true; ;
     }
 }

@@ -180,6 +180,9 @@ public class SkillBase : MonoBehaviour
             nextPhase = SKILL_PHASE.PREPARE;
         }
 
+        if (retrunValue)
+            OnSkillSucess();
+
         return retrunValue;
     }
 

@@ -98,7 +98,7 @@ public class SkillDollSummonEx : SkillBase
 
         //================================
         result = SKILL_RESULT.SUCCESS;
-        base.OnSkillSucess();
+        //base.OnSkillSucess();
         return true; ;
     }
 }
