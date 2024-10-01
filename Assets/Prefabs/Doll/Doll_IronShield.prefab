@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4032685806379418581}
-  - component: {fileID: 2185355296170249024}
+  - component: {fileID: 7726836622601069548}
   - component: {fileID: -1451147456640922642}
   - component: {fileID: 3818797673429300870}
   - component: {fileID: -894024693914061495}
@@ -127,7 +127,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &2185355296170249024
+--- !u!114 &7726836622601069548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,22 +136,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4032685806379418579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ade93545d092024f934bb1e69a9ffee, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d6aa1361c4d29746815306c79c4b027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: DollIronShield
-  icon: {fileID: -1038736340, guid: 398d9f6cdbc27cc47a648a9011645a8c, type: 3}
+  icon: {fileID: 0}
   positionType: 0
-  bulletRef: {fileID: 3710000809252070552, guid: cc38025dec94ad540a30b44c77129863, type: 3}
+  bulletRef: {fileID: 0}
   bulletInitDis: 0.25
   AttackInit: 10
-  SearchRange: 3
-  DamageRatio: 0.5
+  SearchRange: 0
+  DamageRatio: 1
   canRevie: 1
-  searchCenter: 2
-  AttackRangeIn: 2
-  AttackRangeOut: 3
-  attackCD: 2
+  searchCenter: 0
+  rangeCenter: 0
+  AttackRangeIn: 0
+  AttackRangeOut: 1
+  attackCD: 0.5
+  autoAttackObject: 0
   isUsingMana: 0
   attackManaCost: 0
   MP_Gen_Rate: 0
@@ -159,12 +161,6 @@ MonoBehaviour:
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
   mySpAnimator: {fileID: 1574345511545568187}
   useDefaultAgentSetting: 1
-  DashTime: 0.1
-  BackTime: 0.1
-  MinDashLength: 1
-  DashToTargetDistance: 0.5
-  hitFX: {fileID: 5887683565233948115, guid: f952f3c1c10889c4e99f2755d00fdbc0, type: 3}
-  myDashBody: {fileID: 3935568074143939794}
 --- !u!114 &-1451147456640922642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ceb01d0a9c1a2845ae1690b5683c197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP_Max: 200
+  HP_Max: 250
   DamageRatio: 0.3
   hittableObj: 0
 --- !u!114 &3818797673429300870
