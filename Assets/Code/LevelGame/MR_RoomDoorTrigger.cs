@@ -6,25 +6,48 @@ using UnityEngine.AI;
 public class MR_RoomDoorTrigger : MR_Node
 {
     public GameObject doorObj;
+    public float doorShiftBack = 2.0f;
+
+    protected List<GameObject>  doors = new List<GameObject>();
     override public void OnSetupByRoom(MazeGameManagerBase.RoomInfo room)
     {
-        print("MR_RoomDoorTrigger.OnSetupByRoom");
+        //print("MR_RoomDoorTrigger.OnSetupByRoom");
 
-        CreateDoor(room.vCenter + Vector3.back * room.height * 0.5f, room.doorWidth, DIRECTION.D);
-        CreateDoor(room.vCenter - Vector3.back * room.height * 0.5f, room.doorWidth, DIRECTION.U);
-        CreateDoor(room.vCenter + Vector3.left * room.width * 0.5f, room.doorHeight, DIRECTION.L);
-        CreateDoor(room.vCenter + Vector3.right * room.width * 0.5f, room.doorHeight, DIRECTION.R);
+        if (room.cell.D)
+        {
+            GameObject dDoor = CreateDoor(room.vCenter + Vector3.back * room.height * 0.5f, room.doorWidth, DIRECTION.D);
+            doors.Add(dDoor);
+        }
+        if (room.cell.U)
+        {
+            GameObject uDoor = CreateDoor(room.vCenter - Vector3.back * room.height * 0.5f, room.doorWidth, DIRECTION.U);
+            doors.Add(uDoor);
+        }
+        if (room.cell.L)
+        {
+            GameObject lDoor = CreateDoor(room.vCenter + Vector3.left * room.width * 0.5f, room.doorHeight, DIRECTION.L);
+            doors.Add(lDoor);
+        }
+        if (room.cell.R)
+        {
+            GameObject rDoor = CreateDoor(room.vCenter + Vector3.right * room.width * 0.5f, room.doorHeight, DIRECTION.R);
+            doors.Add(rDoor);
+        }
     }
 
     public void OnTG(GameObject whoTG)
     {
-        print("MR_RoomDoorTrigger.OnTG");
+        //print("MR_RoomDoorTrigger.OnTG");
+        for (int i = 0; i < doors.Count; i++) 
+        {
+            doors[i].SetActive(true);
+            doors[i].SendMessage("OnTG", gameObject, SendMessageOptions.DontRequireReceiver);
+        }
     }
 
 
-    protected void CreateDoor(Vector3 vCenter, float doorWidth, DIRECTION dir, float doorObjWidth = 1.0f)
+    protected GameObject CreateDoor(Vector3 vCenter, float doorWidth, DIRECTION dir, float doorObjWidth = 1.0f)
     {
-        float doorShiftBack = 1.0f;
         int objNum = Mathf.RoundToInt(doorWidth/ doorObjWidth);
         Vector3 objStep = Vector3.zero;
         Vector3 doorOutDir = Vector3.zero;
@@ -64,22 +87,37 @@ public class MR_RoomDoorTrigger : MR_Node
                 break;
         }
 
+        GameObject rootObj = new GameObject("Door_" + dir.ToString());
+        rootObj.transform.position = vCenter;
+        rootObj.transform.parent = transform;
+
         for (int i = 0; i < objNum; i++) 
         {
             Vector3 pos = vCenter + objStep * (((objNum-1.0f) * -0.5f) + i);
             if (doorObj != null)
             {
                 GameObject o = BattleSystem.SpawnGameObj(doorObj, pos);
-                o.transform.parent = transform;
+                o.transform.parent = rootObj.transform;
             }
         }
 
-        GameObject dObj = new GameObject("Door_Blocker");
-        float BlockerMoveDistance = 5.0f;
-        dObj.transform.position = vCenter + doorOutDir * BlockerMoveDistance;
-        NavMeshObstacle navO = dObj.AddComponent<NavMeshObstacle>();
+        const float BLOCK_OBJ_DISTANCE = 5.0F;
+
+        GameObject blockObj = new GameObject("Door_Blocker");
+        float BlockerMoveDistance = BLOCK_OBJ_DISTANCE;
+        blockObj.transform.position = vCenter + doorOutDir * BlockerMoveDistance;
+        NavMeshObstacle navO = blockObj.AddComponent<NavMeshObstacle>();
         navO.size = new Vector3(blockWidth, 2.0f, blockHeight);
-        dObj.transform.parent = transform;
+        blockObj.transform.parent = rootObj.transform;
+
+        MoveTrigger mt = rootObj.AddComponent<MoveTrigger>();
+        rootObj.AddComponent<OrderAdjust>();
+        mt.moveDuration = 1.0f;
+        mt.moveTarget = blockObj;
+        mt.moveVector = -doorOutDir * BLOCK_OBJ_DISTANCE;
+
+        rootObj.SetActive(false);
+        return rootObj;
     }
 
 }
