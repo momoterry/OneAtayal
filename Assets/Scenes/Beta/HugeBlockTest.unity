@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &109183603 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6833124243823745474, guid: 3d505d7582e68e54ab99943f25b104a6, type: 3}
-  m_PrefabInstance: {fileID: 5921305114268235216}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &109183604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7677554368114469930, guid: 3d505d7582e68e54ab99943f25b104a6, type: 3}
@@ -246,7 +241,7 @@ MonoBehaviour:
   TriggerTargets:
   - {fileID: 1105569450}
   - {fileID: 2099234346}
-  - {fileID: 109183603}
+  - {fileID: 1804500560}
   Width: 10
   Height: 8
   triggerOnce: 1
@@ -1365,6 +1360,52 @@ MonoBehaviour:
     baseTile: {fileID: 11400000, guid: 412c1cba045b4474cbdf80e794abc869, type: 2}
     decorateTiles: []
     decorateRate: 0
+--- !u!1 &1804500560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1804500561}
+  - component: {fileID: 1804500562}
+  m_Layer: 0
+  m_Name: RoomDoorTR
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1804500561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804500560}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2026482152}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1804500562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804500560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b333cf454298049966f6c7bd56fbad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shiftType: 1
+  rotateWithShiftType: 0
 --- !u!1001 &1807413653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1985,6 +2026,7 @@ Transform:
   - {fileID: 1105569452}
   - {fileID: 286459006}
   - {fileID: 109183604}
+  - {fileID: 1804500561}
   m_Father: {fileID: 1903196784}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
