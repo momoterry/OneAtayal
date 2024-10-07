@@ -28,10 +28,12 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
             if (cBase is ContinuousHugeRoomMazeData)
             {
                 ContinuousHugeRoomMazeData cData = (ContinuousHugeRoomMazeData)cBase;
-                roomWidth = cData.pathWidth;
-                roomHeight = cData.pathHeight;
                 pathWidth = cData.pathWidth;
                 pathHeight = cData.pathHeight;
+                roomWidth = cData.roomWidth > cData.pathWidth ? cData.roomWidth : pathWidth;
+                roomHeight = cData.roomHeight > cData.pathHeight ? cData.roomHeight : pathHeight;
+                //roomWidth = cData.pathWidth;
+                //roomHeight = cData.pathHeight;
                 print("根據資料修正了迷宮路寬: " + pathWidth + " - " + pathHeight);
                 blocks = cData.blocks;
 
