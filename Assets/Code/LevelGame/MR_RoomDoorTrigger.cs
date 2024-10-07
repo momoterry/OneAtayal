@@ -111,7 +111,7 @@ public class MR_RoomDoorTrigger : MR_Node
         blockObj.transform.parent = rootObj.transform;
 
         MoveTrigger mt = rootObj.AddComponent<MoveTrigger>();
-        rootObj.AddComponent<OrderAdjust>();
+        //rootObj.AddComponent<OrderAdjust>();
         mt.moveDuration = 1.0f;
         mt.moveTarget = blockObj;
         mt.moveVector = -doorOutDir * BLOCK_OBJ_DISTANCE;
