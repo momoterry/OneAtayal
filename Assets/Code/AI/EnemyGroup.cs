@@ -22,6 +22,7 @@ public class EnemyGroup : MonoBehaviour
     public float difficulty = 1.0f;     //1.0f 為正常值
 
     protected bool finishWhenEngaged = false;
+    protected bool finishFormation = false;
 
     [System.Serializable]
     public class EnemyInfo
@@ -38,16 +39,18 @@ public class EnemyGroup : MonoBehaviour
         SLEEP,
         WAIT,
         BATTLE,
+        TRACE_ONLY,
         FINISH,
     }
     protected PHASE currPhase = PHASE.NONE;
-    protected PHASE nexPhase = PHASE.NONE;
+    protected PHASE nextPhase = PHASE.NONE;
     protected float stateTime = 0;
 
     protected float gridWidth = 1.0f; protected float gridHeight = 1.0f;
 
     //陣型
-    List<GameObject> enemies = new List<GameObject>();
+    //List<GameObject> enemies = new List<GameObject>();
+    List<Enemy> enemyList = new List<Enemy>();
     List<Transform> slots = new List<Transform>();
 
     //計算用的中心點
@@ -93,21 +96,30 @@ public class EnemyGroup : MonoBehaviour
             //}
         }
 
-        nexPhase = PHASE.SLEEP;
+        nextPhase = PHASE.SLEEP;
     }
 
     void Update()
     {
-        if (nexPhase != currPhase)
+        if (nextPhase != currPhase)
         {
-            if (nexPhase == PHASE.FINISH && triggerTargetWhenAllKilled != null)
+            if (nextPhase == PHASE.TRACE_ONLY)
+            {
+                print("清除所有 Enemy 的 Slot 狀態 !!");
+                foreach (Enemy e in enemyList)
+                {
+                    e.SetSlot(null);
+                }
+            }
+            if (nextPhase == PHASE.FINISH && triggerTargetWhenAllKilled != null)
             {
                 foreach (GameObject o in triggerTargetWhenAllKilled)
                 {
                     o.SendMessage("OnTG", gameObject, SendMessageOptions.DontRequireReceiver);
                 }
             }
-            currPhase = nexPhase;
+            currPhase = nextPhase;
+            stateTime = 0;
         }
         else
         {
@@ -122,6 +134,9 @@ public class EnemyGroup : MonoBehaviour
                     break;
                 case PHASE.BATTLE:
                     UpdateBattle();
+                    break;
+                case PHASE.TRACE_ONLY:
+                    UpdateTraceEnemies();
                     break;
                 case PHASE.FINISH:
                     Destroy(gameObject);
@@ -157,7 +172,7 @@ public class EnemyGroup : MonoBehaviour
                     //eo = BattleSystem.SpawnGameObj(enemyInfo.enemyRef, transform.position + localPos);
                     eo = EnemyManager.GetInstance().SpawnEnemyByRef(enemyInfo.enemyRef, transform.position + localPos, enemyInfo.LV);
                 }
-                enemies.Add(eo);
+                //enemies.Add(eo);
                 GameObject o = new GameObject("Slot" + slots.Count);
                 o.transform.position = transform.position + localPos;
                 o.transform.parent = transform;
@@ -170,6 +185,11 @@ public class EnemyGroup : MonoBehaviour
                     //e.Attack = e.Attack * difficulty;
                     //e.MaxHP = e.MaxHP * difficulty;
                     e.SetDiffcult(difficulty);
+                    enemyList.Add(e);
+                }
+                else
+                {
+                    print("ERROR!!!! EnemyGroup 指定了沒有 Enemy 的物件!!");
                 }
             }
 
@@ -302,7 +322,7 @@ public class EnemyGroup : MonoBehaviour
             if (GetPlayerDistance() < spwanDistance)
             {
                 SpawnEnemies();
-                nexPhase = PHASE.WAIT;
+                nextPhase = PHASE.WAIT;
             }
         }
     }
@@ -313,7 +333,7 @@ public class EnemyGroup : MonoBehaviour
         {
             if (GetPlayerDistance() < alertDistance)
             {
-                nexPhase = PHASE.BATTLE;
+                nextPhase = PHASE.BATTLE;
             }
         }
     }
@@ -322,31 +342,53 @@ public class EnemyGroup : MonoBehaviour
     {
         if (!BattleSystem.GetPC())
         {
-            nexPhase = PHASE.FINISH;
+            nextPhase = PHASE.FINISH;
         }
         //if (Vector3.Distance(transform.position, BattleSystem.GetPC().transform.position) > closeDistance)
         //{
         //    transform.position = Vector3.MoveTowards(transform.position, BattleSystem.GetPC().transform.position, Time.deltaTime * speed);
         //}
         UpdateBattleMove(); //TODO: 不要每個 Frame 算方向
+        //if (stateTime > 0.2f)
+        //{
+        //    stateTime = 0;
+        //    for (int i=0; i<enemies.Count; i++)
+        //    {
+        //        if (enemies[i] == null)
+        //        {
+        //            enemies.RemoveAt(i);
+        //            //if (enemies.Count == 0)
+        //            //{
+        //            //    nextPhase = PHASE.FINISH;
+        //            //}
+        //            break;  //避免連續刪除
+        //        }
+        //    }
+        //    if (enemies.Count == 0)     //放到這邊確保一開始就沒產生敵人時可以自然結束
+        //    {
+        //        nextPhase = PHASE.FINISH;
+        //    }
+        //}
+        UpdateTraceEnemies();
+    }
+
+
+    protected void UpdateTraceEnemies()
+    {
         if (stateTime > 0.2f)
         {
             stateTime = 0;
-            for (int i=0; i<enemies.Count; i++)
+            for (int i = 0; i < enemyList.Count; i++)
             {
-                if (enemies[i] == null)
+                if (enemyList[i] == null)
                 {
-                    enemies.RemoveAt(i);
-                    //if (enemies.Count == 0)
-                    //{
-                    //    nexPhase = PHASE.FINISH;
-                    //}
+                    enemyList.RemoveAt(i);
                     break;  //避免連續刪除
                 }
             }
-            if (enemies.Count == 0)     //放到這邊確保一開始就沒產生敵人時可以自然結束
+            if (enemyList.Count == 0)     //放到這邊確保一開始就沒產生敵人時可以自然結束
             {
-                nexPhase = PHASE.FINISH;
+                nextPhase = PHASE.FINISH;
             }
         }
     }
@@ -380,7 +422,7 @@ public class EnemyGroup : MonoBehaviour
                 {
                     if (pathLength > stopDistance)  //Group 停止追擊 (TODO: 跑回去?)
                     {
-                        nexPhase = PHASE.WAIT;
+                        nextPhase = PHASE.WAIT;
                         return;
                     }
                     moveDirection = movdD;
@@ -390,7 +432,7 @@ public class EnemyGroup : MonoBehaviour
                     //已經抓到目標
                     moveDirection = Vector3.zero;
                     if (finishWhenEngaged)
-                        nexPhase = PHASE.FINISH;
+                        nextPhase = PHASE.TRACE_ONLY;
                 }
             }
             else
