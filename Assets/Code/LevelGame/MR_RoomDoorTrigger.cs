@@ -11,17 +11,52 @@ public class MR_RoomDoorTrigger : MR_Node
 {
     public GameObject doorObj;
     public float doorShiftBack = 2.0f;
+    public float fadeOutAnimationTime = 0;
 
     protected List<GameObject>  doors = new List<GameObject>();
+    protected List<GameObject>  doorObjList = new List<GameObject>();
 
     public enum DOOR_PHASE
     {
         NONE,
         WAIT,
         BLOCKED,
+        FADE_OUT,
         FINISH,
     }
-    protected DOOR_PHASE doorPhase = DOOR_PHASE.NONE;
+    protected DOOR_PHASE currPhase = DOOR_PHASE.NONE;
+    protected DOOR_PHASE nextPhase = DOOR_PHASE.NONE;
+    protected float stateTime = 0;
+
+    private void Update()
+    {
+        if (nextPhase != currPhase)
+        {
+            switch (nextPhase)
+            {
+                case DOOR_PHASE.FADE_OUT:
+                    PlayFadeOutAnimation();
+                    break;
+                case DOOR_PHASE.FINISH:
+                    gameObject.SetActive(false);
+                    break;
+            }
+            currPhase = nextPhase;
+            stateTime = 0;
+        }
+        stateTime += Time.deltaTime;
+
+        switch (currPhase) 
+        {
+            case DOOR_PHASE.FADE_OUT:
+                if (stateTime > fadeOutAnimationTime) 
+                {
+                    nextPhase = DOOR_PHASE.FINISH;
+                }
+                break;
+        }
+
+    }
 
     override public void OnSetupByRoom(MazeGameManagerBase.RoomInfo room)
     {
@@ -47,14 +82,14 @@ public class MR_RoomDoorTrigger : MR_Node
             GameObject rDoor = CreateDoor(room.vCenter + Vector3.right * room.width * 0.5f, room.doorHeight, DIRECTION.R);
             doors.Add(rDoor);
         }
-        doorPhase = DOOR_PHASE.WAIT;
+        nextPhase = DOOR_PHASE.WAIT;
     }
 
     public void OnTG(GameObject whoTG)
     {
-        print("MR_RoomDoorTrigger.OnTG: " + doorPhase);
+        //print("MR_RoomDoorTrigger.OnTG: " + currPhase);
 
-        if (doorPhase == DOOR_PHASE.WAIT)
+        if (currPhase == DOOR_PHASE.WAIT)
         {
 
             for (int i = 0; i < doors.Count; i++)
@@ -62,15 +97,18 @@ public class MR_RoomDoorTrigger : MR_Node
                 doors[i].SetActive(true);
                 doors[i].SendMessage("OnTG", gameObject, SendMessageOptions.DontRequireReceiver);
             }
-            doorPhase=DOOR_PHASE.BLOCKED;
+            nextPhase=DOOR_PHASE.BLOCKED;
         }
-        else if (doorPhase == DOOR_PHASE.BLOCKED)
+        else if (currPhase == DOOR_PHASE.BLOCKED)
         {
-            for (int i = 0; i < doors.Count; i++)
-            {
-                doors[i].SetActive(false);
-            }
-            doorPhase = DOOR_PHASE.FINISH;
+            //for (int i = 0; i < doors.Count; i++)
+            //{
+            //    doors[i].SetActive(false);
+            //}
+            if (fadeOutAnimationTime > 0)
+                nextPhase = DOOR_PHASE.FADE_OUT;
+            else
+                nextPhase = DOOR_PHASE.FINISH;
         }
     }
 
@@ -127,6 +165,7 @@ public class MR_RoomDoorTrigger : MR_Node
             {
                 GameObject o = BattleSystem.SpawnGameObj(doorObj, pos);
                 o.transform.parent = rootObj.transform;
+                doorObjList.Add(o);
             }
         }
 
@@ -147,6 +186,16 @@ public class MR_RoomDoorTrigger : MR_Node
 
         rootObj.SetActive(false);
         return rootObj;
+    }
+
+    protected void PlayFadeOutAnimation()
+    {
+        foreach (GameObject o in doorObjList)
+        {
+            SPAnimator anim = o.GetComponent<SPAnimator>();
+            if (anim != null)
+                anim.PlaySpecific("FADE_OUT");
+        }
     }
 
 }

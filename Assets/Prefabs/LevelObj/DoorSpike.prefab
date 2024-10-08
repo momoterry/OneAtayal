@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8575651736160878568}
+  - component: {fileID: 7358039987027311664}
   m_Layer: 0
   m_Name: DoorSpike
   m_TagString: Untagged
@@ -32,6 +33,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &7358039987027311664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385156248001605250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0e3212c740be346bed2df56ff1b77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1442481465626643497}
+  InitAnim:
+    sprites:
+    - {fileID: -880790890, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+    - {fileID: -1407522862, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+    - {fileID: -471291955, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+    FPS: 24
+  Idle:
+    sprites:
+    - {fileID: -471291955, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+    FPS: 4
+  specificClips:
+  - name: FADE_OUT
+    clip:
+      sprites:
+      - {fileID: -471291955, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+      - {fileID: -1407522862, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+      - {fileID: -880790890, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+      - {fileID: 1137218647, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+      - {fileID: 1137218647, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+      - {fileID: 1137218647, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+      - {fileID: 1137218647, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+      - {fileID: 1137218647, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
+      FPS: 12
+    loop: 0
 --- !u!1 &7973174593794239275
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +80,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8029614613407344691}
   - component: {fileID: 1442481465626643497}
-  - component: {fileID: 7167017592556458303}
   - component: {fileID: 1136077177160884226}
   m_Layer: 0
   m_Name: Spike
@@ -118,30 +155,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7167017592556458303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7973174593794239275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c068845190a0bd0408567d85da11b586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  InitAnim:
-    sprites:
-    - {fileID: 1137218647, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
-    - {fileID: -880790890, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
-    - {fileID: -1407522862, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
-    - {fileID: -471291955, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
-    FPS: 24
-  Idle:
-    sprites:
-    - {fileID: -471291955, guid: 7e4d2eb2465e30f4282ea4b1dbef2e70, type: 3}
-    FPS: 4
 --- !u!114 &1136077177160884226
 MonoBehaviour:
   m_ObjectHideFlags: 0
