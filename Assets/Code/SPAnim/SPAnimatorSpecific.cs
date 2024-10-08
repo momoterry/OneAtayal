@@ -20,6 +20,10 @@ public class SPAnimatorSpecific : SPAnimator
     public override void PlaySpecific(string specificName)
     {
         //print("PlaySpecific !!!! " + specificName);
+        if (currPhase != PHASE.LOOP) 
+        {
+            nextPhase = PHASE.LOOP;
+        }
         for (int i = 0; i < specificClips.Length; i++)
         {
             if (specificClips[i].name == specificName)
