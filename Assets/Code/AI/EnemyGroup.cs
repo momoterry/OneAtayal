@@ -22,7 +22,6 @@ public class EnemyGroup : MonoBehaviour
     public float difficulty = 1.0f;     //1.0f 為正常值
 
     protected bool finishWhenEngaged = false;
-    protected bool finishFormation = false;
 
     [System.Serializable]
     public class EnemyInfo
@@ -105,7 +104,7 @@ public class EnemyGroup : MonoBehaviour
         {
             if (nextPhase == PHASE.TRACE_ONLY)
             {
-                print("清除所有 Enemy 的 Slot 狀態 !!");
+                //print("清除所有 Enemy 的 Slot 狀態 !!");
                 foreach (Enemy e in enemyList)
                 {
                     e.SetSlot(null);
