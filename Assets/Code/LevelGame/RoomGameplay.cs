@@ -19,7 +19,8 @@ public class RoomGameplayBase : MonoBehaviour
     public virtual void Build( MazeGameManagerBase.RoomInfo room ) 
     {}
 
-    static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, int width=4, int height=4, float diffAddRate=0, int enemyLV = 1, float forceAlertDistance = -1.0f, bool diffToSingle = false)
+    static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, 
+        int width=4, int height=4, float diffAddRate=0, int enemyLV = 1, float forceAlertDistance = -1.0f, bool diffToSingle = false, GameObject[] triggerTargets = null)
     {
         float numF = Random.Range(info.totalNumMin, info.totalNumMax);
         if (!diffToSingle)
@@ -77,6 +78,7 @@ public class RoomGameplayBase : MonoBehaviour
         }
 
         enemyGroup.SetFinishWhenEngaged(info.finishWhenEngaged);
+        enemyGroup.triggerTargetWhenAllKilled = triggerTargets;
 
         return o;
     }

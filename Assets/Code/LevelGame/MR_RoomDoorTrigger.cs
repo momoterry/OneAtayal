@@ -3,12 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+//用來自動產生房間檔牆的元件
+// 第一次 被 OnTG 時會自動產生對應的門元件和移動真實檔牆的 NavmeshOstacle
+// 第二次被 OnTG 時則進行檔牆移除的動作
+
 public class MR_RoomDoorTrigger : MR_Node
 {
     public GameObject doorObj;
     public float doorShiftBack = 2.0f;
 
     protected List<GameObject>  doors = new List<GameObject>();
+
+    public enum DOOR_PHASE
+    {
+        NONE,
+        WAIT,
+        BLOCKED,
+        FINISH,
+    }
+    protected DOOR_PHASE doorPhase = DOOR_PHASE.NONE;
+
     override public void OnSetupByRoom(MazeGameManagerBase.RoomInfo room)
     {
         //print("MR_RoomDoorTrigger.OnSetupByRoom");
@@ -33,15 +47,30 @@ public class MR_RoomDoorTrigger : MR_Node
             GameObject rDoor = CreateDoor(room.vCenter + Vector3.right * room.width * 0.5f, room.doorHeight, DIRECTION.R);
             doors.Add(rDoor);
         }
+        doorPhase = DOOR_PHASE.WAIT;
     }
 
     public void OnTG(GameObject whoTG)
     {
-        //print("MR_RoomDoorTrigger.OnTG");
-        for (int i = 0; i < doors.Count; i++) 
+        print("MR_RoomDoorTrigger.OnTG: " + doorPhase);
+
+        if (doorPhase == DOOR_PHASE.WAIT)
         {
-            doors[i].SetActive(true);
-            doors[i].SendMessage("OnTG", gameObject, SendMessageOptions.DontRequireReceiver);
+
+            for (int i = 0; i < doors.Count; i++)
+            {
+                doors[i].SetActive(true);
+                doors[i].SendMessage("OnTG", gameObject, SendMessageOptions.DontRequireReceiver);
+            }
+            doorPhase=DOOR_PHASE.BLOCKED;
+        }
+        else if (doorPhase == DOOR_PHASE.BLOCKED)
+        {
+            for (int i = 0; i < doors.Count; i++)
+            {
+                doors[i].SetActive(false);
+            }
+            doorPhase = DOOR_PHASE.FINISH;
         }
     }
 
