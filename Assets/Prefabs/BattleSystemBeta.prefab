@@ -37,7 +37,7 @@ Transform:
   - {fileID: 5811311808759635448}
   - {fileID: 5338211700569239832}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1030251389730005932
 MonoBehaviour:
@@ -106,6 +106,12 @@ MonoBehaviour:
       objRef: {fileID: 8143502755978418841, guid: 4c7c16cd36f11f34f8281b286f963f2e, type: 3}
     exp: 0
     Desc: "\u96DC\u9B5A"
+  - ID: 5000
+    drops:
+    - dropPercent: 100
+      objRef: {fileID: 2549458001448485838, guid: 43cc48dd97b979f4b92197ceabf12577, type: 3}
+    exp: 0
+    Desc: "\u4E2D Boss"
 --- !u!114 &1319158108469358026
 MonoBehaviour:
   m_ObjectHideFlags: 0
