@@ -12,42 +12,6 @@ public class RoomObjectPlacement : RoomGameplayBase
     }
     public ObjectInfo[] objs;
 
-    //public override void Build(MazeGameManagerBase.RoomInfo room)
-    //{
-    //    base.Build(room);
-
-    //    float cWidth = room.width;
-    //    float cHeight = room.height;
-    //    float pathLengthX = room.wallWidth;
-    //    float pathLengthY = room.wallHeight;
-    //    if (room.cell.isPath)
-    //    {
-    //        cWidth = room.doorWidth;
-    //        cHeight = room.doorHeight;
-    //        pathLengthX += (room.width - room.doorWidth) / 2;
-    //        pathLengthY += (room.height - room.doorHeight) / 2;
-    //    }
-    //    float xShift = (cWidth + pathLengthX) / 2;
-    //    float yShift = (cHeight + pathLengthY) / 2;
-
-    //    PlaceArea(room.vCenter, cWidth, cHeight);
-    //    if (room.cell.R)
-    //    {
-    //        PlaceArea(room.vCenter + new Vector3(xShift, 0, 0), pathLengthX, room.doorHeight);
-    //    }
-    //    if (room.cell.L)
-    //    {
-    //        PlaceArea(room.vCenter + new Vector3(-xShift, 0, 0), pathLengthX, room.doorHeight);
-    //    }
-    //    if (room.cell.U)
-    //    {
-    //        PlaceArea(room.vCenter + new Vector3(0, 0, yShift), room.doorWidth, pathLengthY);
-    //    }
-    //    if (room.cell.D)
-    //    {
-    //        PlaceArea(room.vCenter + new Vector3(0, 0, -yShift), room.doorWidth, pathLengthY);
-    //    }
-    //}
 
     public override void Build(MazeGameManagerBase.RoomInfo room)
     {
@@ -135,6 +99,7 @@ public class RoomObjectPlacement : RoomGameplayBase
             for (int j = 0; j < (int)height; j++)
             {
                 //if (Random.Range(0.0f, 100.0f) < placePercent)
+                theCounter.Add();
                 GameObject objRef = GetRandomGameObject();
                 if (objRef)
                 {
@@ -144,6 +109,33 @@ public class RoomObjectPlacement : RoomGameplayBase
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        theCounter.Reset();
+    }
+
+    private void Update()
+    {
+        theCounter.Show();
+    }
+
+    class MyCounter
+    {
+        public int count = 0;
+        bool show = false;
+        public void Add() { count++; }
+        public void Reset() { count = 0; show = false; }
+        public void Show()
+        {
+            if (!show)
+            {
+                print("RoomObjectPlacement Block Count: " + count);
+                show = true;
+            }
+        }
+    }
+    static MyCounter theCounter = new MyCounter();
 
     protected GameObject GetRandomGameObject()
     {

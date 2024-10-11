@@ -662,57 +662,6 @@ MonoBehaviour:
   count: 4
   TriggerTargets:
   - {fileID: 2583795414355744364}
-  - {fileID: 4432099359140290548}
---- !u!1 &4432099359140290548
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7622489484304899390}
-  - component: {fileID: 5926874763533937713}
-  m_Layer: 0
-  m_Name: RoomRewardTest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7622489484304899390
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4432099359140290548}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8015385037139016445}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5926874763533937713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4432099359140290548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3115885c8d5874b9bf8cb264b07be4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MinNum: 14
-  MaxNum: 20
-  objRef: {fileID: 8143502755978418841, guid: 4c7c16cd36f11f34f8281b286f963f2e, type: 3}
-  AreaWidth: 4
-  AreaHeight: 4
-  spawnOnStart: 0
 --- !u!1 &4836448053791082766
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,10 +713,12 @@ MonoBehaviour:
     placePercent: 2.5
   randomObjects:
   - objRef: {fileID: 1427553042280373961, guid: e9febf42f72ca9844963a327fa26aa95, type: 3}
-    placePercent: 0.6
+    placePercent: 0.4
   - objRef: {fileID: 1427553042280373961, guid: 4de8757a346ab0b43967bc77f2e936be, type: 3}
-    placePercent: 0.8
-  randomSelectNum: 2
+    placePercent: 0.7
+  - objRef: {fileID: 1427553042280373961, guid: 78e8e918c5ad3004d850f8fd530c1086, type: 3}
+    placePercent: 0.3
+  randomSelectNum: 3
 --- !u!1 &5516038072370992602
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,7 +799,6 @@ Transform:
   - {fileID: 1972960598656361239}
   - {fileID: 2773875950048573755}
   - {fileID: 6057026887596424117}
-  - {fileID: 7622489484304899390}
   m_Father: {fileID: 5910038099655173211}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -1255,7 +1205,7 @@ Transform:
   - {fileID: 3930396744130225225}
   - {fileID: 5032753802371841671}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5053008012228601930
 MonoBehaviour:
