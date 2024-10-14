@@ -15,8 +15,9 @@ public class ContinuousMOData : ContinuousBattleDataBase
     public MG_MazeOne.MAZE_DIR mazeDir;
     public bool finishAtDeepest;
 
-    public MazeGameManagerBase gameManagerRef;
-    public GameManagerDataBase gameManagerData;
+    public MazeGameManagerBase gameManagerRef;      //指定 Gameplay 細節的 Ref 檔
+    public GameManagerDataBase gameManagerData;     //難度和獎勵等基本參數設定，參數會蓋掉 MazeGameManagerBase 內的值
+    //public RoomObjectPlacement
     public GameObject initGameplayRef;
 }
 
