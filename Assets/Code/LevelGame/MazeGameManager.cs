@@ -164,6 +164,12 @@ public class MazeGameManager : MazeGameManagerBase
                 allBranchGames.Add(rg);
             //print("加入了寶箱數: " + count);
         }
+
+        //有關隨機巫靈
+        if (theOPM && data.forceRandomObjectNum > 0)
+        {
+            theOPM.forceRandomNum = data.forceRandomObjectNum;
+        }
     }
 
     //override public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 

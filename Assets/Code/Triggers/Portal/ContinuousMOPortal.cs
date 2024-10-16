@@ -30,6 +30,7 @@ public class GameManagerDataBase
     public int enmeyLV = 1;
     public string specialReward;
     public float specialRewardNum;
+    public float forceRandomObjectNum = -1.0f;      //指定隨機石化巫靈的數量，> 0 才作用否則用預設值
 }
 
 public class ContinuousMOPortal : ScenePortal
