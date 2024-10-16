@@ -11,7 +11,9 @@ public class ObjectPlacementManager : MonoBehaviour
 
     public RoomObjectPlacement.ObjectInfo[] randomObjects;
     public int randomSelectNum = 3;
+    public bool randomObjectInPathOnly = false;
     public float forceRandomNum = 0;     //如果有指定 > 0 的值，會以量的方式反算回隨機物件的機率
+
 
     protected List<MazeGameManagerBase.RoomInfo> roomList = new List<MazeGameManagerBase.RoomInfo>();
 
@@ -46,12 +48,22 @@ public class ObjectPlacementManager : MonoBehaviour
         RoomObjectPlacement rop = o.AddComponent<RoomObjectPlacement>();
         rop.objs = allObject;
 
+        RoomObjectPlacement noRandomRop = null;
+        if (randomObjectInPathOnly)
+        {
+            GameObject fo = new GameObject("Fix_ROP_Obj");
+            fo.transform.SetParent(transform, false);
+            noRandomRop = o.AddComponent<RoomObjectPlacement>();
+            noRandomRop.objs = fixObjects;
+        }
+
         if (forceRandomNum > 0)
         {
             int allBlockNum = 0;
             foreach (MazeGameManagerBase.RoomInfo ri in roomList)
             {
-                allBlockNum += rop.GetRoomBlockNums(ri);
+                if (!(randomObjectInPathOnly && !ri.cell.isPath))
+                    allBlockNum += rop.GetRoomBlockNums(ri);
             }
             print("allBlockNum: " + allBlockNum);
             float allRondomPercent = 0;
@@ -71,7 +83,15 @@ public class ObjectPlacementManager : MonoBehaviour
 
         foreach (MazeGameManagerBase.RoomInfo ri in roomList)
         {
-            rop.Build(ri);
+            if (randomObjectInPathOnly && ri.cell.isPath == false)
+            {
+                print("不是 Path，不產生石化巫靈");
+                noRandomRop.Build(ri);
+            }
+            else
+            {
+                rop.Build(ri);
+            }
         }
 
     }
