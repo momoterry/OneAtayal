@@ -16,11 +16,19 @@ public class RoomObjectPlacement : RoomGameplayBase
 
     protected int blockNum = 0;
 
+
+    public int GetRoomBlockNums(MazeGameManagerBase.RoomInfo room)
+    {
+        Calculate(room, true);
+        print("room blockNum = " + blockNum);
+        return blockNum;
+    }
+
     public override void Build(MazeGameManagerBase.RoomInfo room)
     {
         base.Build(room);
-        Calculate(room, true);
-        print("room blockNum = " + blockNum);
+        //Calculate(room, true);
+        //print("room blockNum = " + blockNum);
         Calculate(room, false);
     }
 

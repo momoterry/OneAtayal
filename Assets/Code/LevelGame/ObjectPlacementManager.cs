@@ -11,6 +11,7 @@ public class ObjectPlacementManager : MonoBehaviour
 
     public RoomObjectPlacement.ObjectInfo[] randomObjects;
     public int randomSelectNum = 3;
+    public float forceRandomNum = 0;     //如果有指定 > 0 的值，會以量的方式反算回隨機物件的機率
 
     protected List<MazeGameManagerBase.RoomInfo> roomList = new List<MazeGameManagerBase.RoomInfo>();
 
@@ -44,6 +45,29 @@ public class ObjectPlacementManager : MonoBehaviour
         o.transform.SetParent(transform, false);
         RoomObjectPlacement rop = o.AddComponent<RoomObjectPlacement>();
         rop.objs = allObject;
+
+        if (forceRandomNum > 0)
+        {
+            int allBlockNum = 0;
+            foreach (MazeGameManagerBase.RoomInfo ri in roomList)
+            {
+                allBlockNum += rop.GetRoomBlockNums(ri);
+            }
+            print("allBlockNum: " + allBlockNum);
+            float allRondomPercent = 0;
+            for (int i = 0; i < randomCount; i++)
+            {
+                allRondomPercent += randomObjects[i].placePercent;
+            }
+            float predictRandomNum = allRondomPercent * allBlockNum * 0.01f;
+            print("預計量: " +  predictRandomNum + "  需求量: " + forceRandomNum);
+            float forceFixRatio = forceRandomNum / predictRandomNum;
+            for (int i = 0; i < randomCount; i++)
+            {
+                randomObjects[i].placePercent *= forceFixRatio;
+                print(randomObjects[i].objRef.name + " 修正成: " + randomObjects[i].placePercent);
+            }
+        }
 
         foreach (MazeGameManagerBase.RoomInfo ri in roomList)
         {
