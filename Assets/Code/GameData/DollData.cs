@@ -240,6 +240,16 @@ public class DollData : GlobalSystemBase
     }
 
 
+    public void FixupBattleDollHPBar(GameObject dollObj, Doll theDoll)
+    {
+        Hp_BarHandler hh = dollObj.GetComponent<Hp_BarHandler>();
+        if (hh)
+        {
+            hh.barRef = (theDoll is DollBeta && ((DollBeta)theDoll).isUsingMana) ? hpBarWildManaRef : hpBarWildRef;
+        }
+    }
+
+
     protected GameObject SpawnDollByID(string ID, Vector3 pos, DOLL_JOIN_SAVE_TYPE join_type)
     {
         DollInfo dInfo = GameSystem.GetDollData().GetDollInfoByID(ID);
@@ -270,11 +280,12 @@ public class DollData : GlobalSystemBase
         //¦å±ø®Õ¥¿
         if (join_type == DOLL_JOIN_SAVE_TYPE.BATTLE)
         {
-            Hp_BarHandler hh = dollObj.GetComponent<Hp_BarHandler>();
-            if (hh)
-            {
-                hh.barRef = (theDoll is DollBeta && ((DollBeta)theDoll).isUsingMana) ? hpBarWildManaRef : hpBarWildRef;
-            }
+            FixupBattleDollHPBar(dollObj, theDoll);
+            //Hp_BarHandler hh = dollObj.GetComponent<Hp_BarHandler>();
+            //if (hh)
+            //{
+            //    hh.barRef = (theDoll is DollBeta && ((DollBeta)theDoll).isUsingMana) ? hpBarWildManaRef : hpBarWildRef;
+            //}
         }
 
         if (!theDoll.TryJoinThePlayer(join_type))

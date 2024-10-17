@@ -235,6 +235,11 @@ public class DollRecovery : MonoBehaviour
             return;
         }
         theDoll.joinSaveType = rc.saveType;
+        //¦å±ø®Õ¥¿
+        if (theDoll.joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
+        {
+            GameSystem.GetDollData().FixupBattleDollHPBar(dollObj, theDoll);
+        }
 
         currSpawn++;
         if (currSpawn == totalDollCount)
