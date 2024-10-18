@@ -61,6 +61,7 @@ public class Battle_HUD : MonoBehaviour
 
     //°}«¬½s¿è¬ÛÃö
     public DollLayoutUIBase[] dLayoutUIs;
+    public GameObject dollLayoutRoot;
     protected DollLayoutUIBase currDollLayout;
 
     protected int currMoney = -1;
@@ -455,6 +456,15 @@ public class Battle_HUD : MonoBehaviour
             }
         }
     }
+
+    public void OnOffDollLayoutAll(bool isOn)
+    {
+        if (dollLayoutRoot != null)
+        {
+            dollLayoutRoot.SetActive(isOn);
+        }
+    }
+
 
     public void OnButtonPotion()
     {
