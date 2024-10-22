@@ -31,7 +31,7 @@ public class ContinuousMazeJsonData : ContinuousMazeData
 }
 
 [System.Serializable]
-public class CMazeJsonData  //一整個地城的資料內容 (包含每一層的迷宮)
+public class CMazeJsonData  //在 Json 中描述一整個地城的資料內容 (包含每一層的迷宮), 必須轉成 CDungeonDataBase 後才能在遊戲中使用
 {
     public string ID;
     public string name;
@@ -46,6 +46,20 @@ public class CMazeJsonData  //一整個地城的資料內容 (包含每一層的迷宮)
             //Debug.Log("battle: " + i + " => " + battles[i]);
             battles[i].Convert(refMap);
         }
+    }
+
+    public CDungeonDataBase ToCDungeonData()
+    {
+        CDungeonDataBase newDungeon = new CDungeonDataBase();
+        newDungeon.ID = ID;
+        newDungeon.name = name;
+        newDungeon.levelID = levelID;       //TODO: 這邊還不會有?
+        newDungeon.battles = battles;
+        //foreach (ContinuousBattleDataBase mStage in newDungeon.battles)
+        //{
+        //    mStage.levelID = levelID;
+        //}
+        return newDungeon;
     }
 }
 
@@ -91,23 +105,23 @@ public class CMazeJsonPortal : ScenePortal
 
     protected override void DoLoadScene()
     {
-        //base.DoLoadScene();
-        DoLoadJsonMazeScene(mazeData, backScene, backEntrance);
+        //DoLoadJsonMazeScene(mazeData, backScene, backEntrance);
+        DungeonData.DoLoadCDungeonDataScene(mazeData.ToCDungeonData(), backScene, backEntrance);
     }
 
-    public static void DoLoadJsonMazeScene(CMazeJsonData data, string backScene = "", string backEntrance = "")
-    {
-        ContinuousBattleManager.StartNewBattle(data.battles);
+    //public static void DoLoadJsonMazeScene(CMazeJsonData data, string backScene = "", string backEntrance = "")
+    //{
+    //    ContinuousBattleManager.StartNewBattle(data.battles);
 
-        string sceneName = data.battles[0].scene;
-        if (backScene != "")
-        {
-            BattleSystem.GetInstance().OnGotoSceneWithBack(sceneName, "", backScene, backEntrance);
-            //BattleSystem.GetInstance().OnGotoScene(sceneName, backEntrance);
-        }
-        else
-        {
-            BattleSystem.GetInstance().OnGotoScene(sceneName, "");
-        }
-    }
+    //    string sceneName = data.battles[0].scene;
+    //    if (backScene != "")
+    //    {
+    //        BattleSystem.GetInstance().OnGotoSceneWithBack(sceneName, "", backScene, backEntrance);
+    //        //BattleSystem.GetInstance().OnGotoScene(sceneName, backEntrance);
+    //    }
+    //    else
+    //    {
+    //        BattleSystem.GetInstance().OnGotoScene(sceneName, "");
+    //    }
+    //}
 }

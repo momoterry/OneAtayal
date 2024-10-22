@@ -164,16 +164,28 @@ public class LevelManager : GlobalSystemBase
                 BattleSystem.GetInstance().OnGotoScene(info.sceneName);
                 break;
             case LevelInfo.LEVEL_TYPE.DUNGEON:
-                CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(info.sceneName);
+                //CMazeJsonData data = GameSystem.GetInstance().theDungeonData.GetMazeJsonData(info.sceneName);
+                //if (data != null)
+                //{
+                //    //print("Goto Level: (DUNGEON):" + info.sceneName);
+                //    data.levelID = levelID;
+                //    foreach (ContinuousMazeData mData in data.battles)
+                //    {
+                //        mData.levelID = levelID;
+                //    }
+                //    CMazeJsonPortal.DoLoadJsonMazeScene(data, backScene, backEntrance);
+                //}
+                CDungeonDataBase data = GameSystem.GetInstance().theDungeonData.GetCDungeonData(info.sceneName);
                 if (data != null)
                 {
-                    //print("Goto Level: (DUNGEON):" + info.sceneName);
+                    print("Goto Level: (CDungeonDataBase DUNGEON):" + info.sceneName);
                     data.levelID = levelID;
                     foreach (ContinuousMazeData mData in data.battles)
                     {
                         mData.levelID = levelID;
                     }
-                    CMazeJsonPortal.DoLoadJsonMazeScene(data, backScene, backEntrance);
+                    //CMazeJsonPortal.DoLoadJsonMazeScene(data, backScene, backEntrance);
+                    DungeonData.DoLoadCDungeonDataScene(data, backScene, backEntrance);
                 }
                 break;
         }
