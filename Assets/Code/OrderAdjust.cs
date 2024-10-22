@@ -8,7 +8,7 @@ public class OrderAdjust : MonoBehaviour
     public float bias = 0.0f;       //數值越大越容易被看到
     public bool onlyAdjustOnStart = false;
 
-    protected float updatePeriod = 0.2f;
+    protected float updatePeriod = 0.1f;
     protected float currTime = 0;
 
     //2022/0620: 使用 Renderer 而不是 SpriteRenderer, 以支援 TextMesh
