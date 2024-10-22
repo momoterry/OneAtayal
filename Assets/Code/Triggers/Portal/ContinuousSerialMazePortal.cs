@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static RandomSpawner;
+
+// ContinuousMazePortal 的變化形
+// 透過自動產生的方式批量產生多個 Battles
 
 public class ContinuousSerialMazePortal : ScenePortal
 {
