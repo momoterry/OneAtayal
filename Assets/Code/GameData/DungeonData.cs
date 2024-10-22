@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +28,8 @@ public class DungeonData : GlobalSystemBase
     //public TextAsset[] csvGamefiles;
     public TextAsset[] jsonFiles;
     public GameObject[] objectRefs;
+
+    public CDungueonDataContainterBase[] dungeionContainters;
 
     protected Dictionary<string , CMazeJsonData> allMazeJsonDungeons = new Dictionary<string, CMazeJsonData>();
     protected Dictionary<string, MODungeonData> allMoDungeons = new Dictionary<string, MODungeonData>();
@@ -76,6 +77,15 @@ public class DungeonData : GlobalSystemBase
                 //print("加入了地城: " + dgList.dungeons[j].name);
 
                 allDungeons.Add(dgList.dungeons[j].ID, dgList.dungeons[j].ToCDungeonData());
+            }
+        }
+
+        for (int i = 0; i < dungeionContainters.Length; i++) 
+        {
+            CDungeonDataBase[] datas = dungeionContainters[i].GetDungeons();
+            foreach (CDungeonDataBase data in datas)
+            {
+                allDungeons.Add(data.ID, data);
             }
         }
     }

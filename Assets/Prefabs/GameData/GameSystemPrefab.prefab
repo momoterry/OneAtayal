@@ -172,6 +172,7 @@ Transform:
   m_Children:
   - {fileID: 221776533508812062}
   - {fileID: 4835282329771538895}
+  - {fileID: 1085650776866281303}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -472,6 +473,8 @@ MonoBehaviour:
   - {fileID: 8303291338163373934, guid: ac09a92a1d28d5248ad78ce07229dd57, type: 3}
   - {fileID: 8303291338163373934, guid: 2542975ac9760d5469ad7e448a17321e, type: 3}
   - {fileID: 8122666793927156542, guid: 0ee527d090431024f97a6226d6ed3a16, type: 3}
+  dungeionContainters:
+  - {fileID: 8042199841894077128}
 --- !u!114 &1884814784398112505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +489,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitOrder: 100
   mainLevels:
+  - ID: Beta_01
+    type: 1
+    sceneName: Beta_ForestStart
+    prefix: 
+    name: "\u8FF7\u5E7B\u68EE\u6797"
+    requireLevel: -1
   - ID: SD_CavArea
     type: 1
     sceneName: BigDungeon_A1_Cave
@@ -650,3 +659,97 @@ MonoBehaviour:
     enhancer: {fileID: 1512530637576879749}
     subIcon: {fileID: 0}
   WHITEBOOK_ID_PREFIX: WhiteBook_
+--- !u!1 &5018605614993793648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1085650776866281303}
+  - component: {fileID: 8042199841894077128}
+  m_Layer: 0
+  m_Name: CDungeionHugeRoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1085650776866281303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5018605614993793648}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4970109436873069519}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8042199841894077128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5018605614993793648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ddf5dc27350ba944a7226416766a29a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeons:
+  - ID: Beta_ForestStart
+    name: 
+    mazeLevelDatas:
+    - scene: Beta_Forest
+      name: "\u5DEB\u9748\u4E4B\u68EE"
+      levelID: 
+      cameraAdjust: 0
+      pathWidth: 5
+      pathHeight: 5
+      roomWidth: 0
+      roomHeight: 0
+      gameManagerRef: {fileID: 0}
+      gameManagerData:
+        difficultRateMin: 0.4
+        difficultRateMax: 1
+        enmeyLV: 1
+        specialReward: 
+        specialRewardNum: 0
+        forceRandomObjectNum: 0
+      blocks:
+      - type: 1
+        width: 1
+        height: 2
+      - type: 0
+        width: 2
+        height: 2
+    - scene: Beta_Forest
+      name: 
+      levelID: 
+      cameraAdjust: 0
+      pathWidth: 6
+      pathHeight: 6
+      roomWidth: 0
+      roomHeight: 0
+      gameManagerRef: {fileID: 0}
+      gameManagerData:
+        difficultRateMin: 1
+        difficultRateMax: 2
+        enmeyLV: 1
+        specialReward: 
+        specialRewardNum: 0
+        forceRandomObjectNum: 0
+      blocks:
+      - type: 1
+        width: 3
+        height: 3
+      - type: 0
+        width: 3
+        height: 3

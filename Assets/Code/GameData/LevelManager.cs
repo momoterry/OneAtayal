@@ -178,14 +178,18 @@ public class LevelManager : GlobalSystemBase
                 CDungeonDataBase data = GameSystem.GetInstance().theDungeonData.GetCDungeonData(info.sceneName);
                 if (data != null)
                 {
-                    print("Goto Level: (CDungeonDataBase DUNGEON):" + info.sceneName);
+                    //print("Goto Level: (CDungeonDataBase DUNGEON):" + info.sceneName);
                     data.levelID = levelID;
-                    foreach (ContinuousMazeData mData in data.battles)
+                    foreach (ContinuousBattleDataBase mData in data.battles)
                     {
                         mData.levelID = levelID;
                     }
                     //CMazeJsonPortal.DoLoadJsonMazeScene(data, backScene, backEntrance);
                     DungeonData.DoLoadCDungeonDataScene(data, backScene, backEntrance);
+                }
+                else
+                {
+                    One.ERROR("找不到指定的 Dungeon: " + info.sceneName);
                 }
                 break;
         }
