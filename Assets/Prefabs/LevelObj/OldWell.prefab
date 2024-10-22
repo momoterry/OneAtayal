@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4179972007806692575}
   - component: {fileID: 1473306978473178525}
+  - component: {fileID: 298039065850835702}
+  - component: {fileID: 2994066301576563387}
   m_Layer: 0
   m_Name: Well
   m_TagString: Untagged
@@ -72,8 +74,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2daa0c48991f3d64fb15d4a83b067c02, type: 3}
+  m_SortingOrder: -5
+  m_Sprite: {fileID: -637284093, guid: 2daa0c48991f3d64fb15d4a83b067c02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,6 +86,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &298039065850835702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536074283717243565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c068845190a0bd0408567d85da11b586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  InitAnim:
+    sprites: []
+    FPS: 4
+  Idle:
+    sprites:
+    - {fileID: -637284093, guid: 2daa0c48991f3d64fb15d4a83b067c02, type: 3}
+    - {fileID: 1650190281, guid: 2daa0c48991f3d64fb15d4a83b067c02, type: 3}
+    FPS: 2
+--- !u!114 &2994066301576563387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536074283717243565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bias: 0
+  onlyAdjustOnStart: 0
 --- !u!1 &9122827080933831342
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +130,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4131299965550484537}
-  - component: {fileID: 620673586261418449}
+  - component: {fileID: 4894845663418771156}
+  - component: {fileID: 198516083989624455}
   m_Layer: 0
   m_Name: OldWell
   m_TagString: Untagged
@@ -117,7 +155,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &620673586261418449
+--- !u!114 &4894845663418771156
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,8 +164,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 9122827080933831342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 4deeb03f9eadca744b5c677c9d3d6c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bias: 0
-  onlyAdjustOnStart: 0
+--- !u!135 &198516083989624455
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9122827080933831342}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
