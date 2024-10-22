@@ -12,11 +12,11 @@ public class LevelInfo
     public enum LEVEL_TYPE
     {
         SCENE,
-        DUNGEON,
+        DUNGEON,        //來自 DungeonData 定義
     }
     public string ID;
     public LEVEL_TYPE type;
-    public string sceneName;        //當關卡類型是 Scene 時使用
+    public string sceneName;        //當關卡類型是 Scene 時使用，如果是 Dungeon ，作為 Dungeon ID 使用
     public string prefix;
     public string name;
     public int requireLevel;    //-1 表示 ??
