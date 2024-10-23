@@ -314,7 +314,7 @@ public class MG_MazeOneBase : MapGeneratorBase
                 ContinuousMOData cData = (ContinuousMOData)cBase;
                 puzzleWidth = cData.puzzleWidth;
                 puzzleHeight = cData.puzzleHeight;
-                print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
+                //print("根據資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
                 pathRate = cData.pathRate;
                 roomWidth = cData.roomWidth;
                 roomHeight = cData.roomHeight;
@@ -347,7 +347,7 @@ public class MG_MazeOneBase : MapGeneratorBase
             }
             else
             {
-                One.LOG("ERROR!! ContinuousBattle 錯誤，下個關卡資料不是 ContinuousMazeData !!");
+                One.LOG("ERROR!! ContinuousBattle 錯誤，關卡資料不是 ContinuousMazeData !!");
             }
         }
     }

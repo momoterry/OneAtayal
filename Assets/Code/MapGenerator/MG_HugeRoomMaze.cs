@@ -48,6 +48,11 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
                     gameManager.Init(cData.gameManagerData);
                 }
 
+                if (cData.levelID != null)
+                {
+                    BattleSystem.GetInstance().levelID = cData.levelID;
+                }
+
             }
             else
             {

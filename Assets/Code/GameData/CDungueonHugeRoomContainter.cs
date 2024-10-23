@@ -13,7 +13,7 @@ public class CDungueonHugeRoomContainter : CDungueonDataContainterBase
     public class HugeRoomDungeon
     {
         public string ID;
-        public string name;
+        public string name;     //如果有指定名稱，會自動調整 Stage 中的名稱 (會顯示在 HUD 中的)
         public ContinuousHugeRoomMazeData[] mazeLevelDatas;
 
         public CDungeonDataBase ToDungeonData()
@@ -22,6 +22,13 @@ public class CDungueonHugeRoomContainter : CDungueonDataContainterBase
             data.ID = ID;
             data.name = name;
             data.battles = mazeLevelDatas;
+            if (name != null && name != "")
+            {
+                for (int i = 0; i < data.battles.Length; i++)
+                {
+                    data.battles[i].name = name + " " + (i + 1) + "/" + data.battles.Length;
+                }
+            }
             return data;
         }
     }
