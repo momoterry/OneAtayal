@@ -495,6 +495,12 @@ MonoBehaviour:
     prefix: 
     name: "\u521D\u898B\u5DEB\u9748\u4E4B\u68EE"
     requireLevel: -1
+  - ID: Beta_03
+    type: 1
+    sceneName: Beta_Cave40
+    prefix: 
+    name: "\u5730\u7A74\u88E1\u7684\u9ED1\u5F71"
+    requireLevel: -1
   - ID: SD_CavArea
     type: 1
     sceneName: BigDungeon_A1_Cave
@@ -750,6 +756,61 @@ MonoBehaviour:
       - type: 1
         width: 3
         height: 3
+      - type: 0
+        width: 3
+        height: 3
+  - ID: Beta_Cave40
+    name: "\u6697\u9ED1\u5730\u7A74"
+    mazeLevelDatas:
+    - scene: Beta_Cave
+      name: 
+      levelID: 
+      cameraAdjust: 0
+      pathWidth: 6
+      pathHeight: 6
+      roomWidth: 0
+      roomHeight: 0
+      gameManagerRef: {fileID: 0}
+      gameManagerData:
+        difficultRateMin: 1
+        difficultRateMax: 2
+        enmeyLV: 1
+        specialReward: 
+        specialRewardNum: 0
+        forceRandomObjectNum: 12
+      blocks:
+      - type: 1
+        width: 3
+        height: 3
+      - type: 0
+        width: 2
+        height: 2
+    - scene: Beta_Cave
+      name: 
+      levelID: 
+      cameraAdjust: 2
+      pathWidth: 8
+      pathHeight: 8
+      roomWidth: 0
+      roomHeight: 0
+      gameManagerRef: {fileID: 0}
+      gameManagerData:
+        difficultRateMin: 1
+        difficultRateMax: 2
+        enmeyLV: 1
+        specialReward: 
+        specialRewardNum: 0
+        forceRandomObjectNum: 20
+      blocks:
+      - type: 1
+        width: 2
+        height: 2
+      - type: 0
+        width: 3
+        height: 3
+      - type: 0
+        width: 2
+        height: 2
       - type: 0
         width: 3
         height: 3

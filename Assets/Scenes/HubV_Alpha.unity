@@ -16120,12 +16120,12 @@ GameObject:
   - component: {fileID: 250262716}
   - component: {fileID: 250262715}
   m_Layer: 0
-  m_Name: Portal_HugeBattle_Continue_Test
+  m_Name: Portal_HugeBattleMO_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &250262715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16151,7 +16151,7 @@ MonoBehaviour:
   backScene: 
   backEntrance: 
   mazeLevelDatas:
-  - scene: Beta_Cave
+  - scene: HugeCave
     name: "\u65B0\u5730\u6D1E\u4E00"
     levelID: 
     cameraAdjust: 0
@@ -16173,7 +16173,7 @@ MonoBehaviour:
       specialRewardNum: 0
       forceRandomObjectNum: 0
     initGameplayRef: {fileID: 0}
-  - scene: Beta_Cave
+  - scene: HugeCave
     name: "\u65B0\u5730\u6D1E\u4E8C"
     levelID: 
     cameraAdjust: 1
@@ -45979,7 +45979,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &927164468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46005,7 +46005,7 @@ MonoBehaviour:
   backScene: 
   backEntrance: 
   mazeLevelDatas:
-  - scene: HugeBlockBeta
+  - scene: Beta_Cave
     name: "\u77F3\u5316\u5DEB\u9748\u4E00"
     levelID: 
     cameraAdjust: 0
@@ -46028,7 +46028,7 @@ MonoBehaviour:
     - type: 0
       width: 3
       height: 3
-  - scene: HugeBlockBeta
+  - scene: Beta_Cave
     name: "\u77F3\u5316\u5DEB\u9748\u4E8C"
     levelID: 
     cameraAdjust: 2
@@ -57314,7 +57314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1496584540
 MonoBehaviour:
   m_ObjectHideFlags: 0
