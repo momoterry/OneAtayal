@@ -494,13 +494,25 @@ MonoBehaviour:
     sceneName: Beta_ForestStart
     prefix: 
     name: "\u521D\u898B\u5DEB\u9748\u4E4B\u68EE"
-    requireLevel: -1
-  - ID: Beta_03
+    requireLevel: 1
+  - ID: Beta_02
     type: 1
-    sceneName: Beta_Cave40
+    sceneName: Beta_Cave30
     prefix: 
     name: "\u5730\u7A74\u88E1\u7684\u9ED1\u5F71"
-    requireLevel: -1
+    requireLevel: 5
+  - ID: Beta_03
+    type: 1
+    sceneName: Beta_Desert40
+    prefix: 
+    name: "\u6C99\u6F20\u7684\u65B0\u670B\u53CB"
+    requireLevel: 10
+  - ID: Beta_04
+    type: 1
+    sceneName: Beta_RedDungeonBoss
+    prefix: 
+    name: "\u6FC0\u6230"
+    requireLevel: 20
   - ID: SD_CavArea
     type: 1
     sceneName: BigDungeon_A1_Cave
@@ -759,7 +771,7 @@ MonoBehaviour:
       - type: 0
         width: 3
         height: 3
-  - ID: Beta_Cave40
+  - ID: Beta_Cave30
     name: "\u6697\u9ED1\u5730\u7A74"
     mazeLevelDatas:
     - scene: Beta_Cave
@@ -772,12 +784,12 @@ MonoBehaviour:
       roomHeight: 0
       gameManagerRef: {fileID: 0}
       gameManagerData:
-        difficultRateMin: 1
-        difficultRateMax: 2
+        difficultRateMin: 0.6
+        difficultRateMax: 1.5
         enmeyLV: 1
         specialReward: 
         specialRewardNum: 0
-        forceRandomObjectNum: 12
+        forceRandomObjectNum: 8
       blocks:
       - type: 1
         width: 3
@@ -795,12 +807,12 @@ MonoBehaviour:
       roomHeight: 0
       gameManagerRef: {fileID: 0}
       gameManagerData:
-        difficultRateMin: 1
-        difficultRateMax: 2
+        difficultRateMin: 1.5
+        difficultRateMax: 3
         enmeyLV: 1
         specialReward: 
         specialRewardNum: 0
-        forceRandomObjectNum: 20
+        forceRandomObjectNum: 16
       blocks:
       - type: 1
         width: 2
@@ -811,6 +823,122 @@ MonoBehaviour:
       - type: 0
         width: 2
         height: 2
+      - type: 0
+        width: 3
+        height: 3
+  - ID: Beta_Desert40
+    name: "\u7206\u98A8\u6C99\u6F20"
+    mazeLevelDatas:
+    - scene: Beta_Desert
+      name: 
+      levelID: 
+      cameraAdjust: 0
+      pathWidth: 7
+      pathHeight: 7
+      roomWidth: 0
+      roomHeight: 0
+      gameManagerRef: {fileID: 0}
+      gameManagerData:
+        difficultRateMin: 1
+        difficultRateMax: 2
+        enmeyLV: 1
+        specialReward: 
+        specialRewardNum: 0
+        forceRandomObjectNum: 12
+      blocks:
+      - type: 1
+        width: 3
+        height: 3
+      - type: 0
+        width: 2
+        height: 2
+    - scene: Beta_Desert
+      name: 
+      levelID: 
+      cameraAdjust: 2
+      pathWidth: 8
+      pathHeight: 8
+      roomWidth: 0
+      roomHeight: 0
+      gameManagerRef: {fileID: 0}
+      gameManagerData:
+        difficultRateMin: 2
+        difficultRateMax: 4.5
+        enmeyLV: 2
+        specialReward: 
+        specialRewardNum: 0
+        forceRandomObjectNum: 20
+      blocks:
+      - type: 1
+        width: 2
+        height: 2
+      - type: 0
+        width: 3
+        height: 3
+      - type: 1
+        width: 2
+        height: 2
+      - type: 0
+        width: 3
+        height: 3
+  - ID: Beta_RedDungeonBoss
+    name: "\u5730\u57CE\u7149\u7344"
+    mazeLevelDatas:
+    - scene: Beta_RedDungeon
+      name: 
+      levelID: 
+      cameraAdjust: 0
+      pathWidth: 7
+      pathHeight: 7
+      roomWidth: 0
+      roomHeight: 0
+      gameManagerRef: {fileID: 0}
+      gameManagerData:
+        difficultRateMin: 3
+        difficultRateMax: 5
+        enmeyLV: 2
+        specialReward: 
+        specialRewardNum: 0
+        forceRandomObjectNum: 20
+      blocks:
+      - type: 1
+        width: 2
+        height: 2
+      - type: 0
+        width: 2
+        height: 2
+      - type: 1
+        width: 2
+        height: 2
+      - type: 0
+        width: 2
+        height: 2
+    - scene: Beta_RedDungeon
+      name: 
+      levelID: 
+      cameraAdjust: 2
+      pathWidth: 9
+      pathHeight: 9
+      roomWidth: 0
+      roomHeight: 0
+      gameManagerRef: {fileID: 0}
+      gameManagerData:
+        difficultRateMin: 5
+        difficultRateMax: 10
+        enmeyLV: 2
+        specialReward: 
+        specialRewardNum: 0
+        forceRandomObjectNum: 30
+      blocks:
+      - type: 1
+        width: 3
+        height: 3
+      - type: 0
+        width: 3
+        height: 3
+      - type: 1
+        width: 3
+        height: 3
       - type: 0
         width: 3
         height: 3
