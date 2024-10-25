@@ -9,7 +9,13 @@ public class ObjectPlacementManager : MonoBehaviour
 {
     public RoomObjectPlacement.ObjectInfo[] fixObjects;
 
-    public RoomObjectPlacement.ObjectInfo[] randomObjects;
+    [System.Serializable]
+    public class DollObjectInfo : RoomObjectPlacement.ObjectInfo
+    {
+        public float powerRatio = 1.0f; // 當數值 > 1.0f 時，出現的機率會校正，只用在 forceRandomNum 的場合
+    }
+
+    public DollObjectInfo[] randomObjects;
     public int randomSelectNum = 3;
     public bool randomObjectInPathOnly = false;
     public float forceRandomNum = 0;     //如果有指定 > 0 的值，會以量的方式反算回隨機物件的機率
@@ -77,6 +83,8 @@ public class ObjectPlacementManager : MonoBehaviour
             for (int i = 0; i < randomCount; i++)
             {
                 randomObjects[i].placePercent *= forceFixRatio;
+                if (randomObjects[i].powerRatio > 1.0f)
+                    randomObjects[i].placePercent /= randomObjects[i].powerRatio;       //power 較強的物件需要降低出現率
                 print(randomObjects[i].objRef.name + " 修正成: " + randomObjects[i].placePercent);
             }
         }
