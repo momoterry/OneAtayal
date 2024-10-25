@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5772227188186014706}
   - component: {fileID: 1515355117970813761}
   m_Layer: 10
-  m_Name: DollClay_One
+  m_Name: DollClay_Wood
   m_TagString: Hittable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2415259959785564643}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.125, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 6686782082919511984}
   - component: {fileID: 3073573437154611838}
   m_Layer: 0
-  m_Name: Doll_OneStone
+  m_Name: Doll_WoodStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,7 +278,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6611336990635542847, guid: 73bb4619df0bbe74488ee66ef99a36b8, type: 3}
+  m_Sprite: {fileID: 1522365773, guid: cfa5782bcc0e8bd48b2de1289245054a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -334,6 +334,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnNewDoll: 1
-  spawnDollID: DollOne
+  spawnDollID: DollWood
   collectForever: 0
   isDollMaterial: 0

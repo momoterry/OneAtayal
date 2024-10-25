@@ -729,48 +729,31 @@ MonoBehaviour:
       name: 
       levelID: 
       cameraAdjust: 0
-      pathWidth: 5
-      pathHeight: 5
+      pathWidth: 7
+      pathHeight: 7
       roomWidth: 0
       roomHeight: 0
       gameManagerRef: {fileID: 0}
       gameManagerData:
-        difficultRateMin: 0.4
-        difficultRateMax: 1
-        enmeyLV: 1
-        specialReward: 
-        specialRewardNum: 0
-        forceRandomObjectNum: 0
-      blocks:
-      - type: 1
-        width: 1
-        height: 2
-      - type: 0
-        width: 2
-        height: 2
-    - scene: Beta_Forest
-      name: 
-      levelID: 
-      cameraAdjust: 0
-      pathWidth: 6
-      pathHeight: 6
-      roomWidth: 0
-      roomHeight: 0
-      gameManagerRef: {fileID: 0}
-      gameManagerData:
-        difficultRateMin: 1
+        difficultRateMin: 0.8
         difficultRateMax: 2
         enmeyLV: 1
         specialReward: 
         specialRewardNum: 0
-        forceRandomObjectNum: 0
+        forceRandomObjectNum: 20
       blocks:
       - type: 1
-        width: 3
-        height: 3
+        width: 2
+        height: 2
       - type: 0
-        width: 3
-        height: 3
+        width: 2
+        height: 2
+      - type: 1
+        width: 2
+        height: 2
+      - type: 0
+        width: 2
+        height: 2
   - ID: Beta_Cave30
     name: "\u6697\u9ED1\u5730\u7A74"
     mazeLevelDatas:
