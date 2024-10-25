@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
+    public string DefaultStartScene = "HubV_Alpha";
+
     public GameObject OptionMenu;
     public GameObject AccountMenu;
     public GameObject ResetButton;
@@ -75,7 +77,7 @@ public class StartMenu : MonoBehaviour
 
     protected void DoGameStart()
     {
-        SceneManager.LoadScene("HubV_Alpha");
+        SceneManager.LoadScene(DefaultStartScene);
 
     }
 
