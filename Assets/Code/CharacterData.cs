@@ -9,14 +9,14 @@ public class CharacterStat
     public int LV = 1;
     public int Exp = 0;
     public int ExpMax = 1000;
-    public int DollMax = CharacterData.INIT_MAX_DOLL_NUM;
+    public int DollMax = PlayerData.INIT_MAX_DOLL_NUM;
 }
 
 public class CharacterData : MonoBehaviour
 {
     // 預設設定如下，如果數值不同就是在測試
     //      INIT_MAX_DOLL_NUM = 4;
-    public const int INIT_MAX_DOLL_NUM = 40;
+    //public const int INIT_MAX_DOLL_NUM = 40;
     const int expDefaultMax = 300;
     const float expRatioPerLevel = 1.25f;
 
@@ -98,7 +98,7 @@ public class CharacterData : MonoBehaviour
 
     protected void CalcMaxDoll()
     {
-        myStat.DollMax = myStat.LV + INIT_MAX_DOLL_NUM - 1;
+        myStat.DollMax = myStat.LV + PlayerData.INIT_MAX_DOLL_NUM - 1;
     }
 
 }
