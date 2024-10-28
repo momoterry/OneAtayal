@@ -135,18 +135,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: 
   entraceName: 
-  fadeBlocker: {fileID: 3333640790907423767}
   fadeTime: 0.25
   showupTime: 1
   showupSprites:
   - {fileID: 639723611355847225}
   messageHint: 0
   hintLevelName: 
+  hintTextMesh: {fileID: 0}
   isClearLevel: 0
   showWinUI: 1
   backScene: 
   backEntrance: 
-  gotoNextLevelOnFinish: 1
+  gotoNextLevelOnFinish: 0
 --- !u!212 &639723611355847225
 SpriteRenderer:
   m_ObjectHideFlags: 0
