@@ -4961,90 +4961,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5992393861852875048, guid: e7dfc5d224fdcf844872b104cb8f3c4a, type: 3}
   m_PrefabInstance: {fileID: 1035038039}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &439887768
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 439887769}
-  - component: {fileID: 439887770}
-  m_Layer: 0
-  m_Name: BigShadow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &439887769
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439887768}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.6875, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1012214665}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &439887770
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439887768}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -949421431
-  m_SortingLayer: -2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2230dbe622a009547a59ffec92cc4c29, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 2, y: 2}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &446464631
 GameObject:
   m_ObjectHideFlags: 0
@@ -35675,106 +35591,6 @@ Transform:
   m_Father: {fileID: 446464634}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1012214664
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1012214665}
-  - component: {fileID: 1012214667}
-  - component: {fileID: 1012214666}
-  m_Layer: 0
-  m_Name: Totem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1012214665
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1012214664}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 439887769}
-  m_Father: {fileID: 1398861681}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1012214666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1012214664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd089724eb83985408e2ccc3601896e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bias: 0
-  onlyAdjustOnStart: 0
---- !u!212 &1012214667
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1012214664}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 48721b0863777284e9efc18ac29795dd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1001 &1020685295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36278,10 +36094,9 @@ MonoBehaviour:
   speakerName: "\u767D\u9AEE\u7CBE\u9748"
   speakerImage: {fileID: 0}
   dialogueContents:
-  - "\u662F\u82F1\u96C4\u5462 ......"
-  - "\u6211 \u2026\u2026 \n\u53EF\u4EE5\u53EC\u559A\u7279\u5225\u7684\u5DEB\u9748
-    \u2026\u2026"
-  - "\u4E0D\u904E \u2026\u2026 \u5F88\u8CB4\u5462 \u2026\u2026"
+  - "\u4F60\u597D !!\n\u662F\u50B3\u8AAA\u4E2D\u80FD\u4F7F\u7528\u5DEB\u9748\u4E4B\u529B\u7684\u82F1\u96C4\u55CE?"
+  - "\u6211\u53EF\u4EE5\u5E6B\u5FD9\u53EC\u559A\u5DEB\u9748\uFF0C\n\u4E0D\u904E\uFF0C\u9700\u8981\u4EE5\u6C34\u6676\u70BA\u4EE3\u50F9"
+  - "\u5728\u95DC\u5361\u4E2D\u53EF\u4EE5\u53D6\u5F97\u6C34\u6676\uFF0C\n\u795D\u4F60\u597D\u904B"
 --- !u!1001 &1382451366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36421,7 +36236,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2103701715}
-  - {fileID: 1012214665}
   - {fileID: 2936971}
   - {fileID: 1638656699}
   m_Father: {fileID: 0}
@@ -37579,12 +37393,14 @@ MonoBehaviour:
   shopItemInfo:
   - ID: DollWood
     cost: 300
-  - ID: DollWoodII
-    cost: 2000
-  - ID: DollWoodIII
-    cost: 15000
+  - ID: DollStone
+    cost: 300
   - ID: DollLeaf
-    cost: 800
+    cost: 1000
+  - ID: DollCrystal
+    cost: 4000
+  - ID: DollWhiteFire
+    cost: 5000
 --- !u!4 &1615385102
 Transform:
   m_ObjectHideFlags: 0
@@ -37647,14 +37463,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndTriggers:
   - {fileID: 1398861677}
-  speakerName: "\u795E\u9748\u7684\u8072\u97F3"
+  speakerName: "\u5DEB\u9748\u7BA1\u7406\u8005"
   speakerImage: {fileID: 0}
   dialogueContents:
-  - "\u82F1\u96C4 \u2026\u2026 \r\n\u9019\u88E1 \u2026\u2026 \u5DEB\u9748\u7684\u5BB6
-    \u2026\u2026 \u4F11\u606F \u2026\u2026\r"
-  - "\u5DEB\u9748 \u2026\u2026 \u6578\u91CF \u2026\u2026 \u4E0A\u9650 \u2026\u2026\r\n\u7B49\u7D1A
-    \u2026\u2026 \u63D0\u5347 \u2026\u2026\r"
-  - "\u8ABF\u6574 \u2026\u2026 \u51FA\u6230 \u2026\u2026 \u5DEB\u9748 \u2026\u2026"
+  - "\u82F1\u96C4\uFF0C\u6211\u53EF\u4EE5\u5E6B\u5FD9\u4FDD\u7BA1\u5DEB\u9748\uFF0C\n\u6BCF\u6B21\u51FA\u6230\u6700\u591A\u53EA\u80FD\u5E36
+    10 \u500B\u5DEB\u9748\r"
+  - "\u51FA\u6230\u524D\u8ACB\u5728\u9019\u908A\u6E96\u5099\u597D\u8981\u51FA\u6230\u7684\u5DEB\u9748"
+  - "\u95DC\u5361\u4E2D\u6703\u9047\u5230\u88AB\u77F3\u5316\u7684\u91CE\u5DEB\u9748\uFF0C\n\u91CB\u653E\u4ED6\u5011\uFF0C\u6703\u5F97\u5230\u5E6B\u52A9\r"
+  - "\u91CE\u5DEB\u9748\u6230\u9B25\u5F8C\u6703\u96E2\u958B\uFF0C\n\u4E0D\u540C\u7684\u95DC\u5361\u6703\u9047\u5230\u4E0D\u540C\u7684\u91CE\u5DEB\u9748\uFF0C\n\u8ACB\u5584\u7528\u4ED6\u5011\u7684\u529B\u91CF\r"
 --- !u!1001 &1714313510
 PrefabInstance:
   m_ObjectHideFlags: 0
