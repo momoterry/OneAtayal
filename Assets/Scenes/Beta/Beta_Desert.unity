@@ -876,7 +876,13 @@ MonoBehaviour:
   blocks:
   - type: 1
     width: 1
-    height: 4
+    height: 2
+  - type: 0
+    width: 2
+    height: 2
+  - type: 1
+    width: 2
+    height: 2
   - type: 0
     width: 2
     height: 2
@@ -1772,21 +1778,6 @@ Transform:
   m_Father: {fileID: 696851228752182682}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &105592743573821538
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3172018918662968821}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2677683009669484241}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &150952270734869111
 Transform:
   m_ObjectHideFlags: 0
@@ -1824,12 +1815,15 @@ MonoBehaviour:
     placePercent: 0.3
     powerRatio: 1
   - objRef: {fileID: 1427553042280373961, guid: 79d92e2dec7499344a69c748410e6648, type: 3}
-    placePercent: 0.6
+    placePercent: 0.3
     powerRatio: 1.5
+  - objRef: {fileID: 1427553042280373961, guid: 7ea4a10ace046c14d95f95359ec0c471, type: 3}
+    placePercent: 0.3
+    powerRatio: 1
   - objRef: {fileID: 1427553042280373961, guid: d0587480d814fa245b3b88dc1c20d2e2, type: 3}
     placePercent: 0.4
     powerRatio: 1.5
-  randomSelectNum: 3
+  randomSelectNum: 4
   randomObjectInPathOnly: 1
   forceRandomNum: 12
 --- !u!4 &696851228752182682
@@ -1910,10 +1904,10 @@ MonoBehaviour:
   rotateWithShiftType: 0
   eInfo:
     enemys:
-    - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
+    - {fileID: 7208015447484052683, guid: 3f97bdf46b3cd0f498ba4d26a525ee49, type: 3}
     enemyIDs: []
-    totalNumMin: 6
-    totalNumMax: 7
+    totalNumMin: 10
+    totalNumMax: 12
     finishWhenEngaged: 1
   width: 4
   height: 2
@@ -2079,8 +2073,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7036081503743663465}
-  - {fileID: 105592743573821538}
   - {fileID: 7898008971827417315}
   - {fileID: 3573411376500796152}
   - {fileID: 5760418128810875636}
@@ -2207,26 +2199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f063dd41913b8d42b7876afa88f5b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 4
+  count: 2
   TriggerTargets:
   - {fileID: 5841678388038237808}
---- !u!1 &3172018918662968821
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 105592743573821538}
-  - component: {fileID: 7769661976964889713}
-  m_Layer: 0
-  m_Name: EnemyR
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &3217322331968717306
 Transform:
   m_ObjectHideFlags: 0
@@ -2774,23 +2749,6 @@ MonoBehaviour:
   diffToSingle: 0
   triggerTargetWhenAllKilled:
   - {fileID: 8761545999631188903}
---- !u!1 &6387537015099468702
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7036081503743663465}
-  - component: {fileID: 7977849738093616334}
-  m_Layer: 0
-  m_Name: EnemyL
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &6402315587845765967
 GameObject:
   m_ObjectHideFlags: 0
@@ -2888,21 +2846,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7036081503743663465
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6387537015099468702}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2677683009669484241}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7071014687742132763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2919,8 +2862,6 @@ MonoBehaviour:
   rotateWithShiftType: 0
   TriggerTargets:
   - {fileID: 3626331400414097579}
-  - {fileID: 6387537015099468702}
-  - {fileID: 3172018918662968821}
   - {fileID: 2738457900492273526}
   - {fileID: 5841678388038237808}
   Width: 10
@@ -3091,34 +3032,6 @@ Transform:
   m_Father: {fileID: 5037801434145588318}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7769661976964889713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3172018918662968821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efc471c04cedee74dbd579f020b22edf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shiftType: 1
-  rotateWithShiftType: 0
-  eInfo:
-    enemys:
-    - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
-    enemyIDs: []
-    totalNumMin: 6
-    totalNumMax: 7
-    finishWhenEngaged: 1
-  width: 2
-  height: 4
-  spawnOnStart: 0
-  forceAlert: 1
-  diffToSingle: 0
-  triggerTargetWhenAllKilled:
-  - {fileID: 8435523579772891671}
 --- !u!4 &7898008971827417315
 Transform:
   m_ObjectHideFlags: 0
@@ -3134,34 +3047,6 @@ Transform:
   m_Father: {fileID: 2677683009669484241}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7977849738093616334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6387537015099468702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efc471c04cedee74dbd579f020b22edf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shiftType: 1
-  rotateWithShiftType: 0
-  eInfo:
-    enemys:
-    - {fileID: 7208015447484052683, guid: c6757ec52300c574080406a81876e414, type: 3}
-    enemyIDs: []
-    totalNumMin: 6
-    totalNumMax: 7
-    finishWhenEngaged: 1
-  width: 2
-  height: 4
-  spawnOnStart: 0
-  forceAlert: 1
-  diffToSingle: 0
-  triggerTargetWhenAllKilled:
-  - {fileID: 8435523579772891671}
 --- !u!212 &8016007152668601478
 SpriteRenderer:
   m_ObjectHideFlags: 0
