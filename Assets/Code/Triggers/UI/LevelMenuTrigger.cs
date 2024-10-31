@@ -8,6 +8,8 @@ public class LevelMenuTrigger : MonoBehaviour
     protected LevelItemInfo[] itemInfos;
     public string[] levelIDs;
 
+    public string requireLV_prefix = "建議 LV : ";
+
     public string backScene = "";
     public string backEntrance = "";
 
@@ -28,7 +30,7 @@ public class LevelMenuTrigger : MonoBehaviour
             itemInfos[i].scene = info.sceneName;
             itemInfos[i].name = info.prefix + " " + info.name;
             string requireStr = info.requireLevel >= 0 ? info.requireLevel.ToString() : "??";
-            itemInfos[i].desc = "建議 LV : " + requireStr;
+            itemInfos[i].desc = requireLV_prefix + requireStr;
         }
     }
 
