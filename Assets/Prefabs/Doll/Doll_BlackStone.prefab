@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 6281883458664637640}
   - component: {fileID: 777587054851986799}
   - component: {fileID: 6897879881902958331}
+  - component: {fileID: 4826976748835505864}
   m_Layer: 10
   m_Name: Doll_BlackStone
   m_TagString: Doll
@@ -145,9 +146,14 @@ MonoBehaviour:
   DamageRatio: 0.5
   canRevie: 1
   searchCenter: 2
+  rangeCenter: 0
   AttackRangeIn: 2
   AttackRangeOut: 3
   attackCD: 0.5
+  autoAttackObject: 1
+  isUsingMana: 0
+  attackManaCost: 0
+  MP_Gen_Rate: 0
   attackWhenFollow: 0
   deathFX: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
   mySpAnimator: {fileID: 748296375762661269}
@@ -271,6 +277,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4826976748835505864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012205590544976814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790c667040e9bd44d813f9e95b76ba69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectTalks:
+  - "\u9ED1\u77F3\u9748\u8D85\u786C"
+  - "\u6211\u5F88\u53B2\u5BB3"
+  - "\u9019\u5F88\u68D2"
+  - "\u592A\u611F\u8B1D\u4E86"
+  - "\u9ED1\u77F3\u9748\u91CD\u5766"
+  - "\u524D\u6392\u9ED1\u77F3\u9748"
+  - "\u6211\u662F\u9ED1\u77F3\u9748"
 --- !u!1 &4369077747153714608
 GameObject:
   m_ObjectHideFlags: 0

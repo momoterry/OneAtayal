@@ -809,6 +809,12 @@ MonoBehaviour:
       - type: 0
         width: 2
         height: 2
+      - type: 1
+        width: 2
+        height: 2
+      - type: 0
+        width: 2
+        height: 2
     - scene: Beta_Cave
       name: 
       levelID: 
@@ -851,13 +857,19 @@ MonoBehaviour:
       roomHeight: 0
       gameManagerRef: {fileID: 0}
       gameManagerData:
-        difficultRateMin: 1
-        difficultRateMax: 2
-        enmeyLV: 1
+        difficultRateMin: 2
+        difficultRateMax: 3.5
+        enmeyLV: 2
         specialReward: 
         specialRewardNum: 0
-        forceRandomObjectNum: 15
+        forceRandomObjectNum: 20
       blocks:
+      - type: 1
+        width: 3
+        height: 3
+      - type: 0
+        width: 2
+        height: 2
       - type: 1
         width: 3
         height: 3
@@ -874,25 +886,25 @@ MonoBehaviour:
       roomHeight: 0
       gameManagerRef: {fileID: 0}
       gameManagerData:
-        difficultRateMin: 2
-        difficultRateMax: 4.5
+        difficultRateMin: 3.5
+        difficultRateMax: 5
         enmeyLV: 2
         specialReward: 
         specialRewardNum: 0
-        forceRandomObjectNum: 20
+        forceRandomObjectNum: 25
       blocks:
       - type: 1
-        width: 2
-        height: 2
-      - type: 0
         width: 3
         height: 3
+      - type: 0
+        width: 2
+        height: 2
       - type: 1
-        width: 2
-        height: 2
-      - type: 0
         width: 3
         height: 3
+      - type: 0
+        width: 2
+        height: 2
   - ID: Beta_RedDungeonBoss
     name: "\u5730\u57CE\u7149\u7344"
     mazeLevelDatas:
@@ -911,17 +923,17 @@ MonoBehaviour:
         enmeyLV: 2
         specialReward: 
         specialRewardNum: 0
-        forceRandomObjectNum: 20
+        forceRandomObjectNum: 25
       blocks:
       - type: 1
-        width: 2
-        height: 2
+        width: 3
+        height: 3
       - type: 0
         width: 2
         height: 2
       - type: 1
-        width: 2
-        height: 2
+        width: 3
+        height: 3
       - type: 0
         width: 2
         height: 2
@@ -946,11 +958,11 @@ MonoBehaviour:
         width: 3
         height: 3
       - type: 0
-        width: 3
-        height: 3
+        width: 2
+        height: 2
       - type: 1
         width: 3
         height: 3
       - type: 0
-        width: 3
-        height: 3
+        width: 2
+        height: 2
