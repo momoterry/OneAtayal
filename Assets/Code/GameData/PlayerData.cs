@@ -86,7 +86,7 @@ public class PlayerData : MonoBehaviour
     //  INIT_MAX_DOLL_NUM = 4;
 
     //以下為 Beta 版數值
-    public const int INIT_MONEY = 1200;
+    public const int INIT_MONEY = 2000;
     public const int INIT_LV = 1;
     public const int INIT_MAX_DOLL_NUM = 10;
 
