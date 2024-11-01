@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.AI;
 
 public class DollSkillOne : DollSkillBase
 {
@@ -16,6 +16,10 @@ public class DollSkillOne : DollSkillBase
 
     protected float timeToShoot;
 
+    protected NavMeshAgent dollNav;
+    protected int originalPriority;
+    protected Vector3 myPosition = new();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +29,10 @@ public class DollSkillOne : DollSkillBase
         attackRange = doll.SearchRange + AttackRangeAdd;
         //attackCD = doll.attackCD / AttackSpeedRate;
         attackCD = doll.GetAttackCD() / AttackSpeedRate;
+
+        dollNav = doll.GetComponent<NavMeshAgent>();
+        if (dollNav)
+            originalPriority = dollNav.avoidancePriority;
     }
 
     // Update is called once per frame
@@ -76,6 +84,12 @@ public class DollSkillOne : DollSkillBase
                 DoOneAttack(target);
             }
         }
+        transform.position = myPosition;
+        //if (dollNav)
+        //{
+        //    print("SetDestination " + myPosition);
+        //    dollNav.SetDestination(myPosition);
+        //}
     }
 
     protected void StartHoldShoot()
@@ -83,12 +97,23 @@ public class DollSkillOne : DollSkillBase
         //doll.StartHoldPosition(doll.transform.position);
         doll.StartDollSkill();
         timeToShoot = 0;
+
+        myPosition = transform.position;
+        if (dollNav)
+        {
+            dollNav.avoidancePriority = 20; //避免被輕易推動
+            //dollNav.isStopped = false;
+        }
     }
 
     protected void StopHoldShoot()
     {
         //doll.StopHoldPosition();
         doll.StopDollSkill();
+        if (dollNav)
+        {
+            dollNav.avoidancePriority = originalPriority;
+        }
     }
 
     public override void OnStartSkill(bool active = true)
