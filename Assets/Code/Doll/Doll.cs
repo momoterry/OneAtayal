@@ -68,6 +68,12 @@ public class Doll : MonoBehaviour
         myDamage.Init(damage, Damage.OwnerType.DOLL, ID, gameObject);
     }
 
+    //Doll 主動技 相關
+    virtual public void StartDollSkill() { }
+    virtual public void StopDollSkill() { }
+    virtual public void SetFace(Vector3 face) { }
+    virtual public float GetAttackCD() { return 0; }
+
     protected virtual void Awake()
     {
         gameObject.AddComponent<BuffApplierDoll>();

@@ -67,6 +67,7 @@ public class DollBeta : Doll
         NONE,
         FOLLOW,
         ATTACK,
+        SKILL,      //針對 Doll 主動技
     }
     protected PHASE currPhase = PHASE.NONE;
     protected PHASE nextPhase = PHASE.FOLLOW;
@@ -140,7 +141,6 @@ public class DollBeta : Doll
         attackCDInit = attackCD;
         maxHPOriginal = myBody.HP_Max;
     }
-
 
     protected override void OnStateEnterBattle()
     {
@@ -225,23 +225,6 @@ public class DollBeta : Doll
     protected virtual void UpdateFollow()
     {
         FollowSlot();
-        //if (myAgent && mySlot)
-        //{
-        //    float slotDis = Vector3.Distance(mySlot.transform.position, transform.position);
-        //    if (slotDis < 0.5f)
-        //    {
-        //        //myAgent.SetDestination(mySlot.position + thePC.GetVelocity() * Time.deltaTime);
-        //        // 很靠近 Slot 時，停止依賴 myAgent 的作動
-        //        myAgent.isStopped = true;
-        //        transform.position = Vector3.MoveTowards(transform.position, mySlot.transform.position, RunSpeed * Time.deltaTime);
-        //    }
-        //    else
-        //    {
-        //        myAgent.isStopped = false;
-        //        myAgent.SetDestination(mySlot.transform.position);
-        //    }
-
-        //}
 
         if (attackWhenFollow)
             UpdateSearchAndShoot();
@@ -254,11 +237,7 @@ public class DollBeta : Doll
     protected virtual void UpdateAttack()
     {
         FollowSlot();
-        //if (myAgent && mySlot)
-        //{
-        //    myAgent.isStopped = false;
-        //    myAgent.SetDestination(mySlot.transform.position);
-        //}
+
         if (thePC.IsMoving())
         {
             nextPhase = PHASE.FOLLOW;
@@ -302,6 +281,30 @@ public class DollBeta : Doll
             }
         }
     }
+
+    // ====== Doll Skill 相關
+    public override void StartDollSkill()
+    {
+        //base.StartDollSkill();
+        nextPhase = PHASE.SKILL;
+    }
+
+    public override void StopDollSkill()
+    {
+        //base.StopDollSkill();
+        if (currPhase == PHASE.SKILL)
+        {
+            nextPhase = PHASE.FOLLOW;
+        }
+    }
+
+    public override void SetFace(Vector3 face)
+    {
+        myFace = face;
+    }
+
+    public override float GetAttackCD() { return attackCD; }
+
 
     //保留給舊的運作方式
     protected virtual bool SearchTarget()

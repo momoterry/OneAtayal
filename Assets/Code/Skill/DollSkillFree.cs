@@ -31,26 +31,28 @@ public class DollSkillFree : DollSkillBase
     {
         base.OnStartSkill(active);
 
-        if (active)
-        {
-            oldSearchRange = doll.SearchRange;
-            oldPositionRangeIn = doll.PositionRangeIn;
-            oldPositionRangeOut = doll.PositionRangeOut;
-            oldRunSpeed = doll.RunSpeed;
+        //TODO: DollSkill 不再針對 DollAuto 支援，以下的實作需要重新實現
+        
+        //if (active)
+        //{
+        //    oldSearchRange = doll.SearchRange;
+        //    oldPositionRangeIn = doll.PositionRangeIn;
+        //    oldPositionRangeOut = doll.PositionRangeOut;
+        //    oldRunSpeed = doll.RunSpeed;
 
-            doll.SearchRange = NewSearchRange;
-            doll.PositionRangeIn = 1000.0f;
-            doll.PositionRangeOut = 1001.0f;
-            doll.RunSpeed = RunSpeed;
-            myAgent.speed = RunSpeed;
-        }
-        else
-        {
-            doll.SearchRange = oldSearchRange;
-            doll.PositionRangeIn = oldPositionRangeIn;
-            doll.PositionRangeOut = oldPositionRangeOut;
-            doll.RunSpeed = oldRunSpeed;
-            myAgent.speed = oldRunSpeed;
-        }
+        //    doll.SearchRange = NewSearchRange;
+        //    doll.PositionRangeIn = 1000.0f;
+        //    doll.PositionRangeOut = 1001.0f;
+        //    doll.RunSpeed = RunSpeed;
+        //    myAgent.speed = RunSpeed;
+        //}
+        //else
+        //{
+        //    doll.SearchRange = oldSearchRange;
+        //    doll.PositionRangeIn = oldPositionRangeIn;
+        //    doll.PositionRangeOut = oldPositionRangeOut;
+        //    doll.RunSpeed = oldRunSpeed;
+        //    myAgent.speed = oldRunSpeed;
+        //}
     }
 }

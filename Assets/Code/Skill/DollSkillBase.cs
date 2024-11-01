@@ -9,30 +9,32 @@ public class DollSkillBase : MonoBehaviour
     public Sprite icon;
     public GameObject activeHint;
 
-    protected DollAuto doll;
+    //protected DollAuto doll;
+    protected Doll doll;
     protected Damage myDamage;
     protected bool isActive = false;
 
 
     private void Awake()
     {
-        doll = GetComponent<DollAuto>();
+        //print("DollSkillBase.Awake");
+        doll = GetComponent<Doll>();
         myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
         if (activeHint)
             activeHint.SetActive(false);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    //// Start is called before the first frame update
+    //void Start()
+    //{
         
-    }
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
+    //// Update is called once per frame
+    //void Update()
+    //{
         
-    }
+    //}
 
     public void OnJoinPlayer()
     {

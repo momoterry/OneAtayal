@@ -19,10 +19,12 @@ public class DollSkillOne : DollSkillBase
     // Start is called before the first frame update
     void Start()
     {
+        //print("DollSkillOne.Start");
         if (!bulletRef)
             bulletRef = doll.bulletRef;
         attackRange = doll.SearchRange + AttackRangeAdd;
-        attackCD = doll.attackCD / AttackSpeedRate;
+        //attackCD = doll.attackCD / AttackSpeedRate;
+        attackCD = doll.GetAttackCD() / AttackSpeedRate;
     }
 
     // Update is called once per frame
@@ -41,23 +43,6 @@ public class DollSkillOne : DollSkillBase
         foundEnemy = BattleUtility.SearchClosestTargetForPlayer(transform.position, attackRange);
         if (!foundEnemy)
             foundEnemy = BattleSystem.GetPC().GetHittableTarget();
-
-        //float minDistance = Mathf.Infinity;
-
-        //Collider[] cols = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Character"));
-        //foreach (Collider col in cols)
-        //{
-        //    if (col.gameObject.CompareTag("Enemy"))
-        //    {
-        //        float dis = Vector3.Distance(col.gameObject.transform.position, transform.position);
-
-        //        if (dis < minDistance)
-        //        {
-        //            minDistance = dis;
-        //            foundEnemy = col.gameObject;
-        //        }
-        //    }
-        //}
 
         return foundEnemy;
     }
@@ -95,13 +80,15 @@ public class DollSkillOne : DollSkillBase
 
     protected void StartHoldShoot()
     {
-        doll.StartHoldPosition(doll.transform.position);
+        //doll.StartHoldPosition(doll.transform.position);
+        doll.StartDollSkill();
         timeToShoot = 0;
     }
 
     protected void StopHoldShoot()
     {
-        doll.StopHoldPosition();
+        //doll.StopHoldPosition();
+        doll.StopDollSkill();
     }
 
     public override void OnStartSkill(bool active = true)

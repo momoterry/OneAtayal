@@ -71,10 +71,12 @@ public class DollAuto : Doll
     protected float RunSpeedOriginal;
 
 
-    public void SetFace( Vector3 face)
+    public override void SetFace( Vector3 face)
     {
         myFace = face;
     }
+
+    public override float GetAttackCD() { return attackCD; }
 
     public override void SetAttackSpeedRate(float ratio)
     {
