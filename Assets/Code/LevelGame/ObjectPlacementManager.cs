@@ -28,6 +28,11 @@ public class ObjectPlacementManager : MonoBehaviour
         roomList.AddRange(_list);
     }
 
+    public void AddRoom(MazeGameManagerBase.RoomInfo room)
+    {
+        roomList.Add(room);
+    }
+
     public void BuildAll()
     {
         //print("ObjectPlacementManager BuildAll Á`¦@ Room ¼Æ: " + roomList.Count);

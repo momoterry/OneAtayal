@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Recorder.OutputPath;
 
 
 public class MazeGameManagerBase:MonoBehaviour
@@ -273,7 +274,7 @@ public class MazeGameManager : MazeGameManagerBase
         return Mathf.RoundToInt(1000.0f * (roomA.mainRatio - roomB.mainRatio));
     }
 
-
+    protected Dictionary<RoomInfo, RoomGameplayBase> allRoomGames = new();
     override public void BuildAll()
     {
         RoomGameplayBase[] mainGames = new RoomGameplayBase[mainRoomList.Count];
@@ -380,21 +381,21 @@ public class MazeGameManager : MazeGameManagerBase
         {
             RoomGameplayBase game = GetRandomGameplay(defaultMainGames);
             if (game != null)
-                game.Build(room);
+                allRoomGames.Add(room, game);
         }
         //剩下的支線端點
         for (int i = iCount; i < branchEndRoomList.Count; i++)
         {
             RoomGameplayBase game = GetRandomGameplay(defaultBranchGames);
             if (game != null)
-                game.Build(branchEndRoomList[i]);
+                allRoomGames.Add(branchEndRoomList[i], game);
         }
         //剩下的支線
         foreach (RoomInfo room in normalRoomList)
         {
             RoomGameplayBase game = GetRandomGameplay(defaultBranchGames);
             if (game != null)
-                game.Build(room);
+                allRoomGames.Add(room, game);
         }
         //所有的「通道」
         foreach (RoomInfo room in pathList)
@@ -408,19 +409,29 @@ public class MazeGameManager : MazeGameManagerBase
         {
             RoomGameplayBase game = GetRandomGameplay(defautPathGames);
             if (game != null)
-                game.Build(room);
+                allRoomGames.Add(room, game);
+        }
+
+        //Build 所有 Gameplay
+        foreach (KeyValuePair<RoomInfo, RoomGameplayBase> kv in allRoomGames)
+        {
+            kv.Value.Build(kv.Key);
         }
 
         //可破壞物件包含 Doll 等等的擺放
         if (theOPM)
         {
-            theOPM.AddRooms(mainRoomList);
-            theOPM.AddRooms(normalRoomList);
-            theOPM.AddRooms(branchEndRoomList);
+            //theOPM.AddRooms(mainRoomList);
+            //theOPM.AddRooms(normalRoomList);
+            //theOPM.AddRooms(branchEndRoomList);
 
-            theOPM.AddRooms(pathList);
-            theOPM.AddRooms(branchEndPathList);
+            //theOPM.AddRooms(pathList);
+            //theOPM.AddRooms(branchEndPathList);
 
+            foreach (KeyValuePair<RoomInfo, RoomGameplayBase> kv in allRoomGames)
+            {
+                theOPM.AddRoom(kv.Key);
+            }
             theOPM.BuildAll();
         }
     }
