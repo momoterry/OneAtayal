@@ -61,7 +61,9 @@ public class DamageByAnimation : bullet_base
                 col.gameObject.SendMessage("OnDamage", myDamage);
                 hit = true;
             }
-            else if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
+
+            //打中牆的情況，可以跟擊中對手並存
+            if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
             {
                 //print("Trigger:  HitWall !!");
                 if (bulletResultCB != null)
