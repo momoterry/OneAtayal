@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Recorder.OutputPath;
 
+//  管理迷宮 Gameplay 的機制
+//  只支援 MG_MazeOneBase 為基底的 MapGenerator 
 
 public class MazeGameManagerBase:MonoBehaviour
 {
@@ -30,23 +31,37 @@ public class MazeGameManagerBase:MonoBehaviour
         public int enemyLV; //敵人等級，目前只支援使用 EnemyGroup 時
     }
 
+    protected MG_MazeOneBase theMO;
+
     protected RoomLayout roomLayout = new RoomLayout();
 
     public float difficultRateMin = 1.0f;   //最小難度率，用來調整敵人數量
     public float difficultRateMax = 2.0f;   //最大難度率，用來調整敵人數量
     public int enmeyLV = 1;                 //敵人等級，目前只有針對 RoomEnemyGroup 中指定了 enemyID 的才有作用
 
-    virtual public void SetDefaultRoomLayout(float width, float height, float doorWidth, float doorHeight, float wallWidth, float wallHeight)
+
+    virtual public void Init(MG_MazeOneBase _mo)
     {
-        roomLayout.wallWidth = wallWidth;
-        roomLayout.wallHeight = wallHeight;
-        roomLayout.width = width;
-        roomLayout.height = height;
-        roomLayout.doorHeight = doorHeight;
-        roomLayout.doorWidth = doorWidth;
+        theMO = _mo;
+        roomLayout.wallWidth = _mo.wallWidth;
+        roomLayout.wallHeight = _mo.wallHeight;
+        roomLayout.width = _mo.roomWidth;
+        roomLayout.height = _mo.roomHeight;
+        roomLayout.doorHeight = _mo.pathHeight;
+        roomLayout.doorWidth = _mo.pathWidth;
     }
 
-    virtual public void Init(GameManagerDataBase data)
+    //virtual public void SetDefaultRoomLayout(float width, float height, float doorWidth, float doorHeight, float wallWidth, float wallHeight)
+    //{
+    //    roomLayout.wallWidth = wallWidth;
+    //    roomLayout.wallHeight = wallHeight;
+    //    roomLayout.width = width;
+    //    roomLayout.height = height;
+    //    roomLayout.doorHeight = doorHeight;
+    //    roomLayout.doorWidth = doorWidth;
+    //}
+
+    virtual public void SetupData(GameManagerDataBase data)
     {
         difficultRateMin = data.difficultRateMin <= 0 ? 1.0f : data.difficultRateMin;
         difficultRateMax = data.difficultRateMax <= difficultRateMin ? difficultRateMin : data.difficultRateMax;
@@ -87,6 +102,8 @@ public class MazeGameManagerBase:MonoBehaviour
     }
 
     virtual public void BuildAll() {}
+
+    virtual public void BuildLayout() {}    //處理房間中會影響 NavMesh 的部份
 }
 
 public class MazeGameManager : MazeGameManagerBase
@@ -134,9 +151,9 @@ public class MazeGameManager : MazeGameManagerBase
 
     protected List<RoomGameplayBase> allBranchGames = new List<RoomGameplayBase>();
 
-    public override void Init(GameManagerDataBase data)
+    public override void SetupData(GameManagerDataBase data)
     {
-        base.Init(data);
+        base.SetupData(data);
 
         //有關寶箱配置
         //if (data.specialReward != null && data.specialReward != "" && treasureBoxRef)
@@ -173,53 +190,6 @@ public class MazeGameManager : MazeGameManagerBase
         }
     }
 
-    //override public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 
-    //{
-    //    RoomInfo roomInfo = base.AddRoom(vCenter, width, height, cell, mainRatio, doorWidth, doorHeight);
-
-    //    int doorCount = 0;
-    //    doorCount += roomInfo.cell.U ? 1 : 0;
-    //    doorCount += roomInfo.cell.D ? 1 : 0;
-    //    doorCount += roomInfo.cell.L ? 1 : 0;
-    //    doorCount += roomInfo.cell.R ? 1 : 0;
-    //    bool isTerminal = doorCount == 1;
-    //    print("Door Count: " + doorCount);
-
-
-    //    if (cell.isPath)
-    //    {
-    //        if (isTerminal)
-    //        {
-    //            branchEndPathList.Add(roomInfo);
-    //        }
-    //        else
-    //        {
-    //            pathList.Add(roomInfo);
-    //        }
-    //        return roomInfo;
-    //    }
-
-    //    if (cell.isMain)
-    //        mainRoomList.Add(roomInfo);
-    //    else
-    //    {
-    //        //int doorCount = 0;
-    //        //doorCount += roomInfo.cell.U ? 1 : 0;
-    //        //doorCount += roomInfo.cell.D ? 1 : 0;
-    //        //doorCount += roomInfo.cell.L ? 1 : 0;
-    //        //doorCount += roomInfo.cell.R ? 1 : 0;
-    //        //if (doorCount == 1)
-    //        if (isTerminal)
-    //        {
-    //            branchEndRoomList.Add(roomInfo);
-    //        }
-    //        else
-    //        {
-    //            normalRoomList.Add(roomInfo);
-    //        }
-    //    }
-    //    return roomInfo;
-    //}
 
     public override RoomInfo AddRoom(Vector3 vCenter, MG_MazeOneBase.CELL cell, float mainRatio)
     {
@@ -275,7 +245,8 @@ public class MazeGameManager : MazeGameManagerBase
     }
 
     protected Dictionary<RoomInfo, RoomGameplayBase> allRoomGames = new();
-    override public void BuildAll()
+
+    protected void CollectAllRooms()
     {
         RoomGameplayBase[] mainGames = new RoomGameplayBase[mainRoomList.Count];
         foreach (FixGameInfo fg in fixStartGames)
@@ -315,7 +286,7 @@ public class MazeGameManager : MazeGameManagerBase
             mIndex++;
         }
 
-        for (int i=0; i<fixBranchEndGames.Length; i++)
+        for (int i = 0; i < fixBranchEndGames.Length; i++)
         {
             allBranchGames.Add(fixBranchEndGames[i].game);
         }
@@ -411,6 +382,145 @@ public class MazeGameManager : MazeGameManagerBase
             if (game != null)
                 allRoomGames.Add(room, game);
         }
+    }
+
+    override public void BuildAll()
+    {
+        //CollectAllRooms();
+        //RoomGameplayBase[] mainGames = new RoomGameplayBase[mainRoomList.Count];
+        //foreach (FixGameInfo fg in fixStartGames)
+        //{
+        //    if (fg.relativeIndex > 0 && fg.relativeIndex <= mainRoomList.Count)
+        //        mainGames[fg.relativeIndex - 1] = fg.game;
+        //    else
+        //        print("Invalid index in fixStartGames: " + fg.relativeIndex);
+        //}
+        //foreach (FixGameInfo fg in fixEndGames)
+        //{
+        //    if (fg.relativeIndex > 0 && fg.relativeIndex <= mainRoomList.Count)
+        //    {
+        //        if (mainGames[mainGames.Length - fg.relativeIndex] != null)
+        //            One.ERROR("fixEndGames 跟 fixStartGames 重疊!!!! " + (mainGames.Length - fg.relativeIndex));
+        //        mainGames[mainGames.Length - fg.relativeIndex] = fg.game;
+        //    }
+        //    else
+        //        print("Invalid index in fixEndGames: " + fg.relativeIndex);
+        //}
+
+        ////print("mainRoomList Count: " + mainRoomList.Count);
+        //mainRoomList.Sort(CompareMainRoom);
+
+        //List<RoomInfo> normalMainRoomList = new List<RoomInfo>();
+        //int mIndex = 0;
+        //foreach (RoomInfo room in mainRoomList)
+        //{
+        //    //int mIndex = Mathf.RoundToInt(room.mainRatio * (mainRoomList.Count + 1.0f)) - 1;
+        //    //print("Build One Main Room!! " + mIndex + " main Ratio: " + room.mainRatio);
+        //    if (mainGames[mIndex])
+        //        mainGames[mIndex].Build(room);
+        //    else
+        //        normalMainRoomList.Add(room);
+        //    //else if (defaultMainGame)
+        //    //    defaultMainGame.Build(room);
+        //    mIndex++;
+        //}
+
+        //for (int i=0; i<fixBranchEndGames.Length; i++)
+        //{
+        //    allBranchGames.Add(fixBranchEndGames[i].game);
+        //}
+
+        //if (allBranchGames.Count > branchEndRoomList.Count)
+        //{
+        //    int iBranchToAdd = allBranchGames.Count - branchEndRoomList.Count;
+        //    //print("branchEndRoomList 分支端點數量不足!! 需要補足: " + iBranchToAdd);
+        //    while (iBranchToAdd > 0)
+        //    {
+        //        if (branchEndPathList.Count <= 0)
+        //            break;
+        //        int iRd = Random.Range(0, branchEndPathList.Count);
+        //        branchEndRoomList.Add(branchEndPathList[iRd]);
+        //        branchEndPathList.RemoveAt(iRd);
+        //        iBranchToAdd--;
+        //        //print("用 branchEndPathList 補了一個");
+        //    }
+        //    if (iBranchToAdd > 0)
+        //        print("branchEnd 分支端點數量不足!! 需要補足: " + iBranchToAdd);
+        //    while (iBranchToAdd > 0)
+        //    {
+        //        if (normalRoomList.Count <= 0)
+        //            break;
+        //        int iRd = Random.Range(0, normalRoomList.Count);
+        //        branchEndRoomList.Add(normalRoomList[iRd]);
+        //        normalRoomList.RemoveAt(iRd);
+        //        iBranchToAdd--;
+        //    }
+        //    while (iBranchToAdd > 0)
+        //    {
+        //        if (normalMainRoomList.Count <= 0)
+        //            break;
+        //        int iRd = Random.Range(0, normalMainRoomList.Count);
+        //        branchEndRoomList.Add(normalMainRoomList[iRd]);
+        //        normalMainRoomList.RemoveAt(iRd);
+        //        iBranchToAdd--;
+        //    }
+        //    if (iBranchToAdd != 0)
+        //    {
+        //        One.ERROR("補完所有房間還是無法滿足 ......... ");
+        //    }
+        //}
+
+        //OneUtility.Shuffle<RoomInfo>(branchEndRoomList);
+        //int iCount = 0;
+        //foreach (RoomGameplayBase g in allBranchGames)
+        //{
+        //    if (iCount >= branchEndRoomList.Count)
+        //    {
+        //        print("ERROR: branchEndRoomList 分支端點數量不足!! 需要 " + allBranchGames.Count);
+        //        break;
+        //    }
+        //    if (g)
+        //    {
+        //        g.Build(branchEndRoomList[iCount]);
+        //    }
+        //    iCount++;
+        //}
+
+        ////剩下的主線
+        //foreach (RoomInfo room in normalMainRoomList)
+        //{
+        //    RoomGameplayBase game = GetRandomGameplay(defaultMainGames);
+        //    if (game != null)
+        //        allRoomGames.Add(room, game);
+        //}
+        ////剩下的支線端點
+        //for (int i = iCount; i < branchEndRoomList.Count; i++)
+        //{
+        //    RoomGameplayBase game = GetRandomGameplay(defaultBranchGames);
+        //    if (game != null)
+        //        allRoomGames.Add(branchEndRoomList[i], game);
+        //}
+        ////剩下的支線
+        //foreach (RoomInfo room in normalRoomList)
+        //{
+        //    RoomGameplayBase game = GetRandomGameplay(defaultBranchGames);
+        //    if (game != null)
+        //        allRoomGames.Add(room, game);
+        //}
+        ////所有的「通道」
+        //foreach (RoomInfo room in pathList)
+        //{
+        //    RoomGameplayBase game = GetRandomGameplay(defautPathGames);
+        //    if (game != null)
+        //        game.Build(room);
+        //}
+        ////剩下的通道支點
+        //foreach (RoomInfo room in branchEndPathList)
+        //{
+        //    RoomGameplayBase game = GetRandomGameplay(defautPathGames);
+        //    if (game != null)
+        //        allRoomGames.Add(room, game);
+        //}
 
         //Build 所有 Gameplay
         foreach (KeyValuePair<RoomInfo, RoomGameplayBase> kv in allRoomGames)
@@ -435,6 +545,24 @@ public class MazeGameManager : MazeGameManagerBase
             theOPM.BuildAll();
         }
     }
+
+    public override void BuildLayout()
+    {
+        base.BuildLayout();
+
+        CollectAllRooms();
+
+        print("=======要來處理房間中的布局了=======");
+        foreach (KeyValuePair<RoomInfo, RoomGameplayBase> kv in allRoomGames)
+        {
+            OneMap oMap;
+            RectInt roomRect;
+            theMO.GetRoomMapData(kv.Key, out oMap, out roomRect);
+
+            kv.Value.BuildLayout(kv.Key, oMap, roomRect);
+        }
+    }
+
 
     RoomGameplayBase GetRandomGameplay(NormalGameInfo[] games)
     {

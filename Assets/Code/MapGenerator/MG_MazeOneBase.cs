@@ -238,6 +238,12 @@ public class MG_MazeOneBase : MapGeneratorBase
     protected int GetCellX(int id) { return id % puzzleWidth; }
     protected int GetCellY(int id) { return id / puzzleWidth; }
 
+    public void GetRoomMapData(MazeGameManagerBase.RoomInfo roomInfo, out OneMap oMap, out RectInt roomRect)
+    {
+        oMap = theMap;
+
+        roomRect = new RectInt(puzzleX1 + roomInfo.cell.x * roomWidth, puzzleY1 + roomInfo.cell.y * roomHeight, (int)roomInfo.width, (int)roomInfo.height);
+    }
 
     public override void BuildAll(int buildLevel = 1)
     {
@@ -273,6 +279,9 @@ public class MG_MazeOneBase : MapGeneratorBase
         ProcessNormalCells();
 
         //BattleSystem.GetInstance().SetInitPosition(startPos);
+
+        //=========================== 處理房間中的 Layout，是 Gameplay 會影響 OneMap 的部份
+        BuildGameplayLayout();
 
         //============================= 以下開始舖設 Tiles ===========================================
         FillAllTiles();
@@ -332,7 +341,7 @@ public class MG_MazeOneBase : MapGeneratorBase
                 
                 if (gameManager && cData.gameManagerData!=null)
                 {
-                    gameManager.Init(cData.gameManagerData);
+                    gameManager.SetupData(cData.gameManagerData);
                 }
 
                 if (cData.initGameplayRef)
@@ -382,7 +391,10 @@ public class MG_MazeOneBase : MapGeneratorBase
         puzzleY1 = mapCenter.y - (puzzleHeight * cellHeight / 2);
 
         if (gameManager)
-            gameManager.SetDefaultRoomLayout(roomWidth, roomHeight, pathWidth, pathHeight, wallWidth, wallHeight);
+        {
+            gameManager.Init(this);
+            //gameManager.SetDefaultRoomLayout(roomWidth, roomHeight, pathWidth, pathHeight, wallWidth, wallHeight);
+        }
     }
 
     virtual protected void InitPuzzleMap()
@@ -810,6 +822,15 @@ public class MG_MazeOneBase : MapGeneratorBase
                 int y1 = puzzleY1 + j * cellHeight;
                 FillCell(puzzleMap[i][j], x1, y1, cellWidth, cellHeight);
             }
+        }
+    }
+
+
+    virtual protected void BuildGameplayLayout()
+    {
+        if (gameManager)
+        {
+            gameManager.BuildLayout();
         }
     }
 

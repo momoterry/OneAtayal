@@ -45,7 +45,7 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
 
                 if (gameManager && cData.gameManagerData != null)
                 {
-                    gameManager.Init(cData.gameManagerData);
+                    gameManager.SetupData(cData.gameManagerData);
                 }
 
                 if (cData.levelID != null)
