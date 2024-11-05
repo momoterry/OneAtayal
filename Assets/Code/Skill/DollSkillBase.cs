@@ -24,17 +24,6 @@ public class DollSkillBase : MonoBehaviour
             activeHint.SetActive(false);
     }
 
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-        
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
 
     public void OnJoinPlayer()
     {
@@ -60,6 +49,15 @@ public class DollSkillBase : MonoBehaviour
         isActive = active;
         if (activeHint)
             activeHint.SetActive(active);
+
+        if (active)
+        {
+            doll.StartDollSkill();
+        }
+        else
+        {
+            doll.StopDollSkill();
+        }
     }
 
 }

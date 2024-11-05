@@ -94,8 +94,7 @@ public class DollSkillOne : DollSkillBase
 
     protected void StartHoldShoot()
     {
-        //doll.StartHoldPosition(doll.transform.position);
-        doll.StartDollSkill();
+        //doll.StartDollSkill();
         timeToShoot = 0;
 
         myPosition = transform.position;
@@ -108,8 +107,7 @@ public class DollSkillOne : DollSkillBase
 
     protected void StopHoldShoot()
     {
-        //doll.StopHoldPosition();
-        doll.StopDollSkill();
+        //doll.StopDollSkill();
         if (dollNav)
         {
             dollNav.avoidancePriority = originalPriority;

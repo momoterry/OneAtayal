@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4032685806379418581}
   - component: {fileID: 7726836622601069548}
   - component: {fileID: -1451147456640922642}
-  - component: {fileID: 3818797673429300870}
+  - component: {fileID: 5409782521843511387}
   - component: {fileID: -894024693914061495}
   - component: {fileID: 8817159822340256188}
   - component: {fileID: 8878718796423490741}
@@ -176,21 +176,21 @@ MonoBehaviour:
   HP_Max: 250
   DamageRatio: 0.4
   hittableObj: 0
---- !u!114 &3818797673429300870
+--- !u!114 &5409782521843511387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4032685806379418579}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e645acf385543d498fc5a95ef2dd3b9, type: 3}
+  m_Script: {fileID: 11500000, guid: b8494e4d48c8a374da2ccf4ba286ec00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: DollSklill_Stone
-  order: 1001
-  icon: {fileID: -1976940904, guid: 0912fa18d6688a54f8734e039c2fd137, type: 3}
+  ID: DollSklill_Shield
+  order: 1002
+  icon: {fileID: 2099318139, guid: 398d9f6cdbc27cc47a648a9011645a8c, type: 3}
   activeHint: {fileID: 7272773709867519907}
 --- !u!114 &-894024693914061495
 MonoBehaviour:
