@@ -6,10 +6,13 @@ using UnityEngine.AI;
 public class DollSkillShield : DollSkillBase
 {
     public GameObject wall;
+    public float defAdd = 20.0f;
 
     protected NavMeshAgent dollNav;
     protected int originalPriority;
     protected Vector3 myPosition = new();
+    protected HitBody dollHitBody;
+    protected float originalDamageRatio;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +20,9 @@ public class DollSkillShield : DollSkillBase
         dollNav = doll.GetComponent<NavMeshAgent>();
         if (dollNav)
             originalPriority = dollNav.avoidancePriority;
+        dollHitBody = GetComponent<HitBody>();
+        if (dollHitBody)
+            originalDamageRatio = dollHitBody.DamageRatio;
     }
 
     // Update is called once per frame
@@ -35,11 +41,17 @@ public class DollSkillShield : DollSkillBase
         if (active)
         {
             myPosition = transform.position;
-            dollNav.avoidancePriority = 10;
+            if (dollNav)
+                dollNav.avoidancePriority = 10;
+            if (dollHitBody)
+                dollHitBody.DamageRatio = originalDamageRatio - (defAdd * 0.01f);
         }
         else
         {
-            dollNav.avoidancePriority = originalPriority;
+            if (dollNav)
+                dollNav.avoidancePriority = originalPriority;
+            if (dollHitBody)
+                dollHitBody.DamageRatio = originalDamageRatio;
         }
 
         if (wall)
