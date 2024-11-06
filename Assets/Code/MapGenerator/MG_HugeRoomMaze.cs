@@ -203,7 +203,8 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
 
         if (gameManager)
         {
-            gameManager.AddRoom(vCenter, width - wallWidth - wallWidth, height - wallHeight - wallHeight, bigCell, mainRatio, pathWidth, pathHeight);
+            RectInt mapRect = new RectInt(x1, y1, width, height);
+            gameManager.AddRoom(vCenter, width - wallWidth - wallWidth, height - wallHeight - wallHeight, bigCell, mainRatio, pathWidth, pathHeight, mapRect);
         }
     }
 
@@ -240,7 +241,9 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
                 }
                 if (gameManager)
                 {
-                    gameManager.AddRoom(GetCellCenterPos(c.x, c.y), c, mainRatio);
+                    int cellX1 = puzzleX1 + (c.x * cellWidth);
+                    int celllY1 = puzzleY1 + (c.y * cellHeight);
+                    gameManager.AddRoom(GetCellCenterPos(c.x, c.y), c, mainRatio, new RectInt(cellX1, celllY1, cellWidth, cellHeight));
                 }
             }
         }

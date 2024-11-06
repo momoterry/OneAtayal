@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class RoomTerrain : RoomGameplayBase
 {
-    public override void BuildLayout(MazeGameManagerBase.RoomInfo room, OneMap oMap, RectInt roomRect)
+    public override void BuildLayout(MazeGameManagerBase.RoomInfo room, OneMap oMap)
     {
-        base.BuildLayout(room, oMap, roomRect);
+        base.BuildLayout(room, oMap);
 
-        print("Room: " + room.cell.x + ", " + room.cell.y);
-        print("Rect: " + roomRect);
+        print("Room: " + room.width + ", " + room.height);
+        print("Rect: " + room.mapRect);
+
+        oMap.FillValue(room.mapRect.x, room.mapRect.y, room.mapRect.width, room.mapRect.height, (int)MG_MazeOneBase.MAP_TYPE.GROUND);
     }
 }

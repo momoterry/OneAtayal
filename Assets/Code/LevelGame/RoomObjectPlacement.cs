@@ -20,7 +20,7 @@ public class RoomObjectPlacement : RoomGameplayBase
     public int GetRoomBlockNums(MazeGameManagerBase.RoomInfo room)
     {
         Calculate(room, true);
-        print("room blockNum = " + blockNum);
+        //print("room blockNum = " + blockNum);
         return blockNum;
     }
 

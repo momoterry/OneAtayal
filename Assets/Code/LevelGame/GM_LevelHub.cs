@@ -15,12 +15,12 @@ public class GM_LevelHub : MazeGameManagerBase
 
     protected List<RoomInfo> allList = new List<RoomInfo>();
 
-    public override RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight)
+    public override RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight, RectInt mapRect)
     {
         if (cell.isPath)
             return null;
 
-        RoomInfo roomInfo =  base.AddRoom(vCenter, width, height, cell, mainRatio, doorWidth, doorHeight);
+        RoomInfo roomInfo =  base.AddRoom(vCenter, width, height, cell, mainRatio, doorWidth, doorHeight, mapRect);
 
         if (cell.isMain)
             mainList.Add(roomInfo);
@@ -42,11 +42,11 @@ public class GM_LevelHub : MazeGameManagerBase
         return roomInfo;
     }
 
-    public override RoomInfo AddRoom(Vector3 vCenter, MG_MazeOneBase.CELL cell, float mainRatio)
+    public override RoomInfo AddRoom(Vector3 vCenter, MG_MazeOneBase.CELL cell, float mainRatio, RectInt mapRect)
     {
         if (cell.isPath)
             return null;
-        RoomInfo roomInfo = base.AddRoom(vCenter, cell, mainRatio);
+        RoomInfo roomInfo = base.AddRoom(vCenter, cell, mainRatio, mapRect);
 
         if (cell.isMain)
             mainList.Add(roomInfo);

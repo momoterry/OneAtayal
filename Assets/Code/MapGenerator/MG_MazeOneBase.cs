@@ -38,11 +38,6 @@ public class CELL_BASE
     public bool U, D, L, R;
     public DIRECTION from;  //離起點最近的方向
     public DIRECTION to;    //往終點的方向，如果是分支，預設為起點的相對方向
-
-    //public int deep;    //距離出發點的深度，最小值為 1，0 表示未處理
-    //public bool isMain; //是否主幹道
-    //public int mainDeep; //主幹道上的深度
-    //public bool isPath;
 }
 
 
@@ -238,13 +233,6 @@ public class MG_MazeOneBase : MapGeneratorBase
     protected int GetCellX(int id) { return id % puzzleWidth; }
     protected int GetCellY(int id) { return id / puzzleWidth; }
 
-    public void GetRoomMapData(MazeGameManagerBase.RoomInfo roomInfo, out OneMap oMap, out RectInt roomRect)
-    {
-        oMap = theMap;
-
-        roomRect = new RectInt(puzzleX1 + roomInfo.cell.x * roomWidth, puzzleY1 + roomInfo.cell.y * roomHeight, (int)roomInfo.width, (int)roomInfo.height);
-    }
-
     public override void BuildAll(int buildLevel = 1)
     {
 
@@ -392,7 +380,7 @@ public class MG_MazeOneBase : MapGeneratorBase
 
         if (gameManager)
         {
-            gameManager.Init(this);
+            gameManager.Init(this, theMap);
             //gameManager.SetDefaultRoomLayout(roomWidth, roomHeight, pathWidth, pathHeight, wallWidth, wallHeight);
         }
     }
@@ -727,7 +715,9 @@ public class MG_MazeOneBase : MapGeneratorBase
                         float mainRatio = (float)cell.mainDeep / (float)maxMainDeep;
 
                         //gameManager.AddRoom(GetCellCenterPos(x, y), roomWidth, roomHeight, cell, mainRatio, pathWidth, pathHeight);
-                        gameManager.AddRoom(GetCellCenterPos(x, y), cell, mainRatio);
+                        int cellX1 = puzzleX1 + x * cellWidth;
+                        int cellY1 = puzzleY1 + y * cellHeight;
+                        gameManager.AddRoom(GetCellCenterPos(x, y), cell, mainRatio, new RectInt(cellX1, cellY1, cellWidth, cellHeight));
                     }
                 }
             }

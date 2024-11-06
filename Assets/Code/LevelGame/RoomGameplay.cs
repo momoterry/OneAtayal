@@ -16,7 +16,7 @@ public class RoomGameplayBase : MonoBehaviour
         public bool finishWhenEngaged = false;
     }
 
-    public virtual void BuildLayout( MazeGameManagerBase.RoomInfo room, OneMap oMap, RectInt roomRect)
+    public virtual void BuildLayout( MazeGameManagerBase.RoomInfo room, OneMap oMap)
     {}
 
     public virtual void Build( MazeGameManagerBase.RoomInfo room ) 

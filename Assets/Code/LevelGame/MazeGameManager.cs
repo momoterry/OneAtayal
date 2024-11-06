@@ -29,9 +29,12 @@ public class MazeGameManagerBase:MonoBehaviour
         public float wallHeight;
         public float diffAddRatio;  //難度增加量 預設 = 0，1.0f = > 兩倍敵人數量
         public int enemyLV; //敵人等級，目前只支援使用 EnemyGroup 時
+
+        public RectInt mapRect;
     }
 
     protected MG_MazeOneBase theMO;
+    protected OneMap theMap;
 
     protected RoomLayout roomLayout = new RoomLayout();
 
@@ -40,9 +43,10 @@ public class MazeGameManagerBase:MonoBehaviour
     public int enmeyLV = 1;                 //敵人等級，目前只有針對 RoomEnemyGroup 中指定了 enemyID 的才有作用
 
 
-    virtual public void Init(MG_MazeOneBase _mo)
+    virtual public void Init(MG_MazeOneBase _mo, OneMap _map)
     {
         theMO = _mo;
+        theMap = _map;
         roomLayout.wallWidth = _mo.wallWidth;
         roomLayout.wallHeight = _mo.wallHeight;
         roomLayout.width = _mo.roomWidth;
@@ -68,9 +72,10 @@ public class MazeGameManagerBase:MonoBehaviour
         enmeyLV = data.enmeyLV <= 0 ? 1 : data.enmeyLV;
     }
 
-    virtual public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight) 
+    //特殊房間的加入，因此要指定清楚 RoomLayout
+    virtual public RoomInfo AddRoom(Vector3 vCenter, float width, float height, MG_MazeOneBase.CELL cell, float mainRatio, float doorWidth, float doorHeight, RectInt mapRect) 
     {
-        RoomInfo roomInfo = AddRoom(vCenter, cell, mainRatio);
+        RoomInfo roomInfo = AddRoom(vCenter, cell, mainRatio, mapRect);
         //RoomInfo roomInfo = new RoomInfo();
         //roomInfo.vCenter = vCenter;
         roomInfo.width = width;
@@ -84,7 +89,8 @@ public class MazeGameManagerBase:MonoBehaviour
         return roomInfo;
     }
 
-    virtual public RoomInfo AddRoom(Vector3 vCenter, MG_MazeOneBase.CELL cell, float mainRatio)
+    //一般房間的加入，因此套用預設的 RoomLayout
+    virtual public RoomInfo AddRoom(Vector3 vCenter, MG_MazeOneBase.CELL cell, float mainRatio, RectInt mapRect)
     {
         RoomInfo roomInfo = new RoomInfo();
         roomInfo.vCenter = vCenter;
@@ -98,6 +104,7 @@ public class MazeGameManagerBase:MonoBehaviour
         roomInfo.cell = cell;
         roomInfo.diffAddRatio = ((difficultRateMax - difficultRateMin) * mainRatio + difficultRateMin) - 1.0f;
         roomInfo.enemyLV = enmeyLV;
+        roomInfo.mapRect = mapRect;
         return roomInfo;
     }
 
@@ -191,9 +198,9 @@ public class MazeGameManager : MazeGameManagerBase
     }
 
 
-    public override RoomInfo AddRoom(Vector3 vCenter, MG_MazeOneBase.CELL cell, float mainRatio)
+    public override RoomInfo AddRoom(Vector3 vCenter, MG_MazeOneBase.CELL cell, float mainRatio, RectInt mapRect)
     {
-        RoomInfo roomInfo = base.AddRoom(vCenter, cell, mainRatio);
+        RoomInfo roomInfo = base.AddRoom(vCenter, cell, mainRatio, mapRect);
 
         int doorCount = 0;
         doorCount += roomInfo.cell.U ? 1 : 0;
@@ -555,11 +562,7 @@ public class MazeGameManager : MazeGameManagerBase
         print("=======要來處理房間中的布局了=======");
         foreach (KeyValuePair<RoomInfo, RoomGameplayBase> kv in allRoomGames)
         {
-            OneMap oMap;
-            RectInt roomRect;
-            theMO.GetRoomMapData(kv.Key, out oMap, out roomRect);
-
-            kv.Value.BuildLayout(kv.Key, oMap, roomRect);
+            kv.Value.BuildLayout(kv.Key, theMap);
         }
     }
 

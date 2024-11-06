@@ -76,21 +76,21 @@ public class ObjectPlacementManager : MonoBehaviour
                 if (!(randomObjectInPathOnly && !ri.cell.isPath))
                     allBlockNum += rop.GetRoomBlockNums(ri);
             }
-            print("allBlockNum: " + allBlockNum);
+            //print("allBlockNum: " + allBlockNum);
             float allRondomPercent = 0;
             for (int i = 0; i < randomCount; i++)
             {
                 allRondomPercent += randomObjects[i].placePercent;
             }
             float predictRandomNum = allRondomPercent * allBlockNum * 0.01f;
-            print("預計量: " +  predictRandomNum + "  需求量: " + forceRandomNum);
+            //print("預計量: " +  predictRandomNum + "  需求量: " + forceRandomNum);
             float forceFixRatio = forceRandomNum / predictRandomNum;
             for (int i = 0; i < randomCount; i++)
             {
                 randomObjects[i].placePercent *= forceFixRatio;
                 if (randomObjects[i].powerRatio > 1.0f)
                     randomObjects[i].placePercent /= randomObjects[i].powerRatio;       //power 較強的物件需要降低出現率
-                print(randomObjects[i].objRef.name + " 修正成: " + randomObjects[i].placePercent);
+                //print(randomObjects[i].objRef.name + " 修正成: " + randomObjects[i].placePercent);
             }
         }
 
@@ -98,7 +98,7 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             if (randomObjectInPathOnly && ri.cell.isPath == false)
             {
-                print("不是 Path，不產生石化巫靈");
+                //print("不是 Path，不產生石化巫靈");
                 noRandomRop.Build(ri);
             }
             else
