@@ -5,6 +5,9 @@ using UnityEngine;
 public class RoomTerrain : RoomGameplayBase
 {
     public Rect[] blockRects;
+
+    public float blockBufferWidth = 0.25f;
+
     public override void BuildLayout(MazeGameManagerBase.RoomInfo room, OneMap oMap)
     {
         base.BuildLayout(room, oMap);
@@ -25,6 +28,13 @@ public class RoomTerrain : RoomGameplayBase
             int h = Mathf.RoundToInt(blockRects[i].height * 0.1f * room.height);
             //print("To Block :" + new RectInt(x, y, w, h));
             oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.BLOCK);
+
+            GameObject newObject = new GameObject("RoomTerrainBox");
+            newObject.transform.position = new Vector3(x + w * 0.5f, 0, y + h * 0.5f);
+            BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
+            boxCollider.size = new Vector3(w - blockBufferWidth * 2, 2.0f, h - blockBufferWidth * 2);
+            newObject.layer = LayerMask.NameToLayer("Wall");
+            //newObject.transform.parent = transform;
         }
 
         //oMap.FillValue(room.mapRect.x, room.mapRect.y, room.mapRect.width, room.mapRect.height, (int)MG_MazeOneBase.MAP_TYPE.GROUND);
