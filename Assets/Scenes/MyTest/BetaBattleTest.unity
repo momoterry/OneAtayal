@@ -874,8 +874,8 @@ MonoBehaviour:
   initGampleyRef: {fileID: 0}
   decadeGenerator: {fileID: 662748950}
   blocks:
-  - type: 0
-    width: 3
+  - type: 1
+    width: 1
     height: 2
   - type: 0
     width: 2
@@ -1342,8 +1342,13 @@ MonoBehaviour:
   blockRects:
   - serializedVersion: 2
     x: -2.5
-    y: -2.5
-    width: 5
+    y: -1
+    width: 4.5
+    height: 2
+  - serializedVersion: 2
+    x: 2
+    y: -3
+    width: 1
     height: 5
   blockBufferWidth: 0.25
 --- !u!1 &1946328702
@@ -1751,12 +1756,15 @@ MonoBehaviour:
   - objRef: {fileID: 1427553042280373961, guid: 2ca85a981280063438e1a311beede797, type: 3}
     placePercent: 2.5
   randomObjects:
-  - objRef: {fileID: 1427553042280373961, guid: b182cad21c6eb424687fd05fef55f114, type: 3}
+  - objRef: {fileID: 1427553042280373961, guid: 78e8e918c5ad3004d850f8fd530c1086, type: 3}
     placePercent: 0.3
     powerRatio: 1
-  randomSelectNum: 1
+  - objRef: {fileID: 1427553042280373961, guid: 4de8757a346ab0b43967bc77f2e936be, type: 3}
+    placePercent: 0.3
+    powerRatio: 1
+  randomSelectNum: 2
   randomObjectInPathOnly: 1
-  forceRandomNum: 12
+  forceRandomNum: 16
 --- !u!4 &696851228752182682
 Transform:
   m_ObjectHideFlags: 0
