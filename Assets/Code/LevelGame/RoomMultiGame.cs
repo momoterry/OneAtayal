@@ -19,4 +19,19 @@ public class RoomMultiGame : RoomGameplayBase
             ro.Build(room);
         }
     }
+
+    public override void BuildLayout(MazeGameManagerBase.RoomInfo room, OneMap oMap)
+    {
+        base.BuildLayout(room, oMap);
+
+        RoomGameplayBase[] rooms = GetComponentsInChildren<RoomGameplayBase>();
+        foreach (RoomGameplayBase ro in rooms)
+        {
+            if (ro == this)
+            {
+                continue;
+            }
+            ro.BuildLayout(room, oMap);
+        }
+    }
 }

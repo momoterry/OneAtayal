@@ -1324,7 +1324,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 696851228752182682}
+  m_Father: {fileID: 5522410419289886084}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1837486168
@@ -1770,7 +1770,6 @@ Transform:
   m_Children:
   - {fileID: 22283290682334455}
   - {fileID: 2853232539863656010}
-  - {fileID: 1837486167}
   - {fileID: 5522410419289886084}
   - {fileID: 5037801434145588318}
   - {fileID: 4268371435102459354}
@@ -1879,12 +1878,12 @@ MonoBehaviour:
   difficultRateMax: 2
   enmeyLV: 1
   defaultMainGames:
-  - game: {fileID: 1837486168}
+  - game: {fileID: 4110781875283979893}
     ratioPercent: 100
   fixStartGames: []
   fixEndGames: []
   defautPathGames:
-  - game: {fileID: 1837486168}
+  - game: {fileID: 5955349987037430675}
     ratioPercent: 100
   defaultBranchGames:
   - game: {fileID: 5955349987037430675}
@@ -2354,6 +2353,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1837486167}
   - {fileID: 1570041473054064903}
   m_Father: {fileID: 696851228752182682}
   m_RootOrder: -1
