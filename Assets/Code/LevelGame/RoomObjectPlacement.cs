@@ -129,8 +129,7 @@ public class RoomObjectPlacement : RoomGameplayBase
         {
             for (int j = 0; j < (int)height; j++)
             {
-                //if (Random.Range(0.0f, 100.0f) < placePercent)
-                theCounter.Add();
+                //theCounter.Add();
                 GameObject objRef = GetRandomGameObject();
                 if (objRef)
                 {
@@ -141,32 +140,32 @@ public class RoomObjectPlacement : RoomGameplayBase
         }
     }
 
-    private void OnDestroy()
-    {
-        theCounter.Reset();
-    }
+    //private void OnDestroy()
+    //{
+    //    theCounter.Reset();
+    //}
 
-    private void Update()
-    {
-        theCounter.Show();
-    }
+    //private void Update()
+    //{
+    //    theCounter.Show();
+    //}
 
-    class MyCounter
-    {
-        public int count = 0;
-        bool show = false;
-        public void Add() { count++; }
-        public void Reset() { count = 0; show = false; }
-        public void Show()
-        {
-            if (!show)
-            {
-                print("RoomObjectPlacement Block Count: " + count);
-                show = true;
-            }
-        }
-    }
-    static MyCounter theCounter = new MyCounter();
+    //class MyCounter
+    //{
+    //    public int count = 0;
+    //    bool show = false;
+    //    public void Add() { count++; }
+    //    public void Reset() { count = 0; show = false; }
+    //    public void Show()
+    //    {
+    //        if (!show)
+    //        {
+    //            print("RoomObjectPlacement Block Count: " + count);
+    //            show = true;
+    //        }
+    //    }
+    //}
+    //static MyCounter theCounter = new MyCounter();
 
     protected GameObject GetRandomGameObject()
     {
