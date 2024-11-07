@@ -22,7 +22,7 @@ public class DM_Hex : DollManager
 
     protected override void Start()
     {
-        slotNum = MaxSlot;   //TEST
+        slotNum = MaxSlot;
         DollSlots = new Transform[slotNum];
         for (int i = 0; i < slotNum; i++)
         {
@@ -105,8 +105,8 @@ public class DM_Hex : DollManager
             {
                 if (nodeLayers[n][i].doll == null)
                 {
-                    dolls[i] = doll;
                     nodeLayers[n][i].doll = doll;
+                    dolls[nodeLayers[n][i].slotIndex] = doll;
                     doll.SetSlot(nodeLayers[n][i].slot);
                     return true;
                 }
@@ -114,6 +114,12 @@ public class DM_Hex : DollManager
         }
 
         return false;
+    }
+
+    public override void OnDollDestroy(Doll doll)
+    {
+        //print("DM_Hex OnDollDestroy: " + doll.name);
+        base.OnDollDestroy(doll);
     }
 
     // ==================================== 以下為 UI 編輯使用的介面
@@ -138,6 +144,8 @@ public class DM_Hex : DollManager
         doll.SetSlot(nTo.slot);
         dolls[toIndex] = doll;
         dolls[fromIndex] = null;
+
+        //TODO: SaveAllToPlayerData
 
         return true;
     }
