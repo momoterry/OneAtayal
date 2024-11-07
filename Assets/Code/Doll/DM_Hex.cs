@@ -136,6 +136,8 @@ public class DM_Hex : DollManager
         nTo.doll = doll;
         nFrom.doll = null;
         doll.SetSlot(nTo.slot);
+        dolls[toIndex] = doll;
+        dolls[fromIndex] = null;
 
         return true;
     }
