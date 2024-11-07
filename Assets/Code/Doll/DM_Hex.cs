@@ -50,12 +50,12 @@ public class DM_Hex : DollManager
 
         int currIndex = 0;
         float y = N;
-        for (int i = -N; i<=N; i++)
+        for (int i = -N; i <= N; i++)
         {
             int iAbs = Mathf.Abs(i);
             int lNum = N * 2 + 1 - iAbs;    //每一行的 Node 數
-            float x = (lNum-1) * -0.5f;
-            for (int j = 0; j<lNum; j++)
+            float x = (lNum - 1) * -0.5f;
+            for (int j = 0; j < lNum; j++)
             {
                 if (i != 0 || j != lNum / 2)            //正中間位留給 Player
                 {
@@ -82,7 +82,7 @@ public class DM_Hex : DollManager
                     //tm.text = L.ToString();
                     // ------
 
-                    nodeLayers[L-1].Add(node);
+                    nodeLayers[L - 1].Add(node);
                     allNodes.Add(node);
 
                     currIndex++;
@@ -99,9 +99,9 @@ public class DM_Hex : DollManager
     {
         //return base.AddOneDoll(doll);
 
-        for (int n=0; n<N; n++)
+        for (int n = 0; n < N; n++)
         {
-            for (int i=0; i < nodeLayers[n].Count; i++)
+            for (int i = 0; i < nodeLayers[n].Count; i++)
             {
                 if (nodeLayers[n][i].doll == null)
                 {
@@ -118,10 +118,25 @@ public class DM_Hex : DollManager
 
     // ==================================== 以下為 UI 編輯使用的介面
 
-    public List<Node> GetValidNodes() 
+    public List<Node> GetValidNodes()
     {
-        //TODO: 根據大小給適當的層數
-        return allNodes; 
+        return allNodes;
     }
 
+    public bool ChangeDollPosition(Doll doll, int fromIndex, int toIndex)
+    {
+        Node nFrom = allNodes[fromIndex];
+        Node nTo = allNodes[toIndex];
+        if (doll != nFrom.doll || nTo.doll != null)
+        {
+            One.ERROR("DM_Hex 移動錯誤 !!");
+            return false;
+        }
+
+        nTo.doll = doll;
+        nFrom.doll = null;
+        doll.SetSlot(nTo.slot);
+
+        return true;
+    }
 }

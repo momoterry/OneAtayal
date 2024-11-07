@@ -24,14 +24,6 @@ public class DollLayoutHex : DollLayoutUIBase
         base.OpenMenu();    //必須先呼叫 Base 以確保創建 Item/Slot 時能走完 Awake
 
         CreateAll();
-        foreach (DollLayoutSlot slot in slotList)
-        {
-            slot.transform.SetParent(topRoot);
-            slot.gameObject.SetActive(false);
-            //測試
-            //slot.gameObject.SetActive(true);
-            //slot.ShowOutline(true);
-        }
     }
 
     public override void CloseMenu()
@@ -39,6 +31,29 @@ public class DollLayoutHex : DollLayoutUIBase
         ClearAll();
         base.CloseMenu();
     }
+
+
+    protected override bool MoveItemToSlot(DollLayoutItem item, DollLayoutSlot slot)
+    {
+        bool result = dmH.ChangeDollPosition(item.myDoll, item.myIndex, slot.myIndex);
+        if (result) 
+        {
+            //print("移動成功 !!");
+            //RectTransform rItem = item.GetComponent<RectTransform>();
+            //RectTransform rSlot = slot.GetComponent<RectTransform>();
+            //Vector3 tv = rItem.localPosition;
+            //rItem.localPosition = rSlot.localPosition;
+            //rSlot.localPosition = tv;
+
+            //int tempIndex = item.myIndex;
+            //item.myIndex = slot.myIndex;
+            //slot.myIndex = tempIndex;
+            ClearAll();
+            CreateAll();
+        }
+        return result;
+    }
+
 
     protected void CreateAll()
     {
@@ -57,6 +72,12 @@ public class DollLayoutHex : DollLayoutUIBase
                 DollLayoutSlot ds = CreateOneSlot(slotRef, root, rPos, 0, nodes[i].slotIndex);
                 slotList.Add(ds);
             }
+        }
+
+        foreach (DollLayoutSlot slot in slotList)
+        {
+            slot.transform.SetParent(topRoot);
+            slot.gameObject.SetActive(false);
         }
     }
 

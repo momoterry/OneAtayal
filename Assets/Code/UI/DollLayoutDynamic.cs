@@ -310,34 +310,6 @@ public class DollLayoutDynamic : DollLayoutUIBase
                 RebuildGroup(slot.myGroup);
             }
 
-            //List<DollLayoutSlot> newSlots = new List<DollLayoutSlot>();
-            //if (item.myGroup == (int)DM_Dynamic.GROUP_TYPE.FRONT || slot.myGroup == (int)DM_Dynamic.GROUP_TYPE.FRONT)
-            //{
-            //    CreateFrontItems(dmD.GetFrontList());
-            //    newSlots.AddRange(slotsFront);
-            //}
-            //if (item.myGroup == (int)DM_Dynamic.GROUP_TYPE.BACK || slot.myGroup == (int)DM_Dynamic.GROUP_TYPE.BACK)
-            //{
-            //    CreateBackItems(dmD.GetBackList());
-            //    newSlots.AddRange(slotsBack);
-            //}
-            //if (item.myGroup == (int)DM_Dynamic.GROUP_TYPE.LEFT || slot.myGroup == (int)DM_Dynamic.GROUP_TYPE.LEFT)
-            //{
-            //    CreateLRItems(dmD.GetLeftList(), true);
-            //    newSlots.AddRange(slotsLeft);
-            //}
-            //if (item.myGroup == (int)DM_Dynamic.GROUP_TYPE.RIGHT || slot.myGroup == (int)DM_Dynamic.GROUP_TYPE.RIGHT)
-            //{
-            //    CreateLRItems(dmD.GetRightList(), true);
-            //    newSlots.AddRange(slotsRight);
-            //}
-
-            //foreach (DollLayoutSlot s in newSlots)
-            //{
-            //    s.transform.SetParent(topRoot);
-            //    s.gameObject.SetActive(false);
-            //}
-
         }
 
         return bResult;
@@ -447,49 +419,6 @@ public class DollLayoutDynamic : DollLayoutUIBase
 
     }
 
-    //protected void CreateMiddleItems( List<Doll> dList )
-    //{
-    //    if (!dollLayoutItemRef || dList.Count == 0)
-    //        return;
-
-    //    int middleNum = dList.Count;
-
-    //    int circleNum = dmD.MiddleDepth + dmD.MiddleDepth;
-    //    int nCircle = (middleNum - 1) / circleNum + 1;
-    //    int lastCircleCount = (middleNum - 1) % circleNum + 1;
-
-    //    float slotWidth = 16.0f;
-    //    float slotHeight = 16.0f;
-
-    //    int _index = 0;
-    //    float x = (nCircle-1) * 0.5f * slotWidth;
-    //    for (int c = 0; c < nCircle; c++)
-    //    {
-    //        int num = circleNum;
-    //        if (c == nCircle - 1)
-    //            num = lastCircleCount;
-    //        int nLine = (num - 1) / 2 + 1;
-    //        float y = (nLine-1) * 0.5f * slotHeight;
-
-    //        for (int l = 0; l < nLine; l++)
-    //        {
-    //            int i = c * circleNum + l * 2;
-    //            DollLayoutItem di = CreateOneItem(dollLayoutItemRef, dList[i], leftRoot, new Vector2(x, y), (int)GROUP_TYPE.LEFT, _index);
-    //            listLeft.Add(di);
-
-    //            i++;
-    //            if (i < middleNum)
-    //            {
-    //                DollLayoutItem di2 = CreateOneItem(dollLayoutItemRef, dList[i], rightRoot, new Vector2(-x, y), (int)GROUP_TYPE.RIGHT, _index);
-    //                listRight.Add(di2);
-    //            }
-
-    //            y -= slotHeight;
-    //            _index++;
-    //        }
-    //        x -= slotWidth;
-    //    }
-    //}
 
     protected void CreateLRItems(List<Doll> dList, bool isLeft)
     {
