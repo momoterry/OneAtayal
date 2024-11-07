@@ -46,17 +46,6 @@ public class DollLayoutHex : DollLayoutUIBase
         Transform root = transform;
         for (int i = 0; i < nodes.Count; i++)
         {
-            //GameObject o = Instantiate(slotRef.gameObject, root.position, root.rotation, root);
-            //o.SetActive(true);
-            //RectTransform rt = o.GetComponent<RectTransform>();
-            //rt.localPosition = new Vector3(nodes[i].x * 16.0f, nodes[i].y * 16.0f);
-            //DollLayoutSlot ds = o.GetComponent<DollLayoutSlot>();
-            //DollLayoutSlot.InitData _data = new DollLayoutSlot.InitData();
-            //_data.menuDL = this;
-            //_data.group = 0;
-            //_data.index = nodes[i].slotIndex;
-            //ds.Init(_data);
-
             Vector3 rPos = new Vector3(nodes[i].x * 16.0f, nodes[i].y * 16.0f);
             if (nodes[i].doll != null)
             {
@@ -65,9 +54,9 @@ public class DollLayoutHex : DollLayoutUIBase
             }
             else
             {
-                DollLayoutSlot ds = CreateOneSlotAndLink(slotList, slotRef, root, rPos, 0, nodes[i].slotIndex);
+                DollLayoutSlot ds = CreateOneSlot(slotRef, root, rPos, 0, nodes[i].slotIndex);
+                slotList.Add(ds);
             }
-            //slotList.Add(ds);
         }
     }
 
