@@ -437,7 +437,19 @@ public class Battle_HUD : MonoBehaviour
     public void RegisterDollLayoutUI( DollManager dm )
     {
         //TODO: 根據 ID 來找出對應的 Menu
-        currDollLayout = dLayoutUIs[0];
+        if (dm is DM_Dynamic)
+        {
+            currDollLayout = dLayoutUIs[0];
+        }
+        else if (dm is DM_Hex)
+        {
+            currDollLayout = dLayoutUIs[1];
+        }
+        else
+        {
+            One.ERROR(" RegisterDollLayoutUI 不支編輯的陣型: " + dm.GetType());
+            return;
+        }
         currDollLayout.SetupDollManager(dm);
     }
 

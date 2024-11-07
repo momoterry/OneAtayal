@@ -31,7 +31,7 @@ public class DM_Hex : DollManager
 
         BuildHex();
 
-        //BattleSystem.GetHUD().RegisterDollLayoutUI(this);
+        BattleSystem.GetHUD().RegisterDollLayoutUI(this);
     }
 
     protected void BuildHex()
