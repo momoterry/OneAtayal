@@ -122,6 +122,39 @@ public class DollLayoutUIBase : MonoBehaviour
         }
     }
 
+    protected DollLayoutItem CreateOneItem(DollLayoutItem iRef, Doll d, Transform root, Vector2 lPos, int group, int index)
+    {
+        GameObject o = Instantiate(iRef.gameObject, root.position, root.rotation, root);
+        o.SetActive(true);
+        RectTransform rt = o.GetComponent<RectTransform>();
+        rt.localPosition = lPos;
+        DollLayoutItem di = o.GetComponent<DollLayoutItem>();
+        DollLayoutItem.InitData _data = new DollLayoutItem.InitData();
+        _data.doll = d;
+        _data.menuDL = this;
+        _data.group = group;
+        _data.index = index;
+        di.Init(_data);
+
+        return di;
+    }
+
+    protected DollLayoutSlot CreateOneSlotAndLink(List<DollLayoutSlot> _list, DollLayoutSlot sRef, Transform root, Vector2 lPos, int group, int index)
+    {
+        GameObject o = Instantiate(sRef.gameObject, root.position, root.rotation, root);
+        o.SetActive(true);
+        RectTransform rt = o.GetComponent<RectTransform>();
+        rt.localPosition = lPos;
+        DollLayoutSlot ds = o.GetComponent<DollLayoutSlot>();
+        DollLayoutSlot.InitData _data = new DollLayoutSlot.InitData();
+        _data.menuDL = this;
+        _data.group = group;
+        _data.index = index;
+        ds.Init(_data);
+        _list.Add(ds);
+        return ds;
+    }
+
 }
 
 public class DollLayoutDynamic : DollLayoutUIBase
@@ -506,37 +539,37 @@ public class DollLayoutDynamic : DollLayoutUIBase
         }
     }
 
-    protected DollLayoutItem CreateOneItem(DollLayoutItem iRef, Doll d, Transform root, Vector2 lPos, int group, int index)
-    {
-        GameObject o = Instantiate(iRef.gameObject, root.position, root.rotation, root);
-        o.SetActive(true);
-        RectTransform rt = o.GetComponent<RectTransform>();
-        rt.localPosition = lPos;
-        DollLayoutItem di = o.GetComponent<DollLayoutItem>();
-        DollLayoutItem.InitData _data = new DollLayoutItem.InitData();
-        _data.doll = d;
-        _data.menuDL = this;
-        _data.group = group;
-        _data.index = index;
-        di.Init(_data);
+    //protected DollLayoutItem CreateOneItem(DollLayoutItem iRef, Doll d, Transform root, Vector2 lPos, int group, int index)
+    //{
+    //    GameObject o = Instantiate(iRef.gameObject, root.position, root.rotation, root);
+    //    o.SetActive(true);
+    //    RectTransform rt = o.GetComponent<RectTransform>();
+    //    rt.localPosition = lPos;
+    //    DollLayoutItem di = o.GetComponent<DollLayoutItem>();
+    //    DollLayoutItem.InitData _data = new DollLayoutItem.InitData();
+    //    _data.doll = d;
+    //    _data.menuDL = this;
+    //    _data.group = group;
+    //    _data.index = index;
+    //    di.Init(_data);
 
-        return di;
-    }
+    //    return di;
+    //}
 
-    protected DollLayoutSlot CreateOneSlotAndLink(List<DollLayoutSlot> _list, DollLayoutSlot sRef, Transform root, Vector2 lPos, int group, int index)
-    {
-        GameObject o = Instantiate(sRef.gameObject, root.position, root.rotation, root);
-        o.SetActive(true);
-        RectTransform rt = o.GetComponent<RectTransform>();
-        rt.localPosition = lPos;
-        DollLayoutSlot ds = o.GetComponent<DollLayoutSlot>();
-        DollLayoutSlot.InitData _data = new DollLayoutSlot.InitData();
-        _data.menuDL = this;
-        _data.group = group;
-        _data.index = index;
-        ds.Init(_data);
-        _list.Add(ds);
-        return ds;
-    }
+    //protected DollLayoutSlot CreateOneSlotAndLink(List<DollLayoutSlot> _list, DollLayoutSlot sRef, Transform root, Vector2 lPos, int group, int index)
+    //{
+    //    GameObject o = Instantiate(sRef.gameObject, root.position, root.rotation, root);
+    //    o.SetActive(true);
+    //    RectTransform rt = o.GetComponent<RectTransform>();
+    //    rt.localPosition = lPos;
+    //    DollLayoutSlot ds = o.GetComponent<DollLayoutSlot>();
+    //    DollLayoutSlot.InitData _data = new DollLayoutSlot.InitData();
+    //    _data.menuDL = this;
+    //    _data.group = group;
+    //    _data.index = index;
+    //    ds.Init(_data);
+    //    _list.Add(ds);
+    //    return ds;
+    //}
 
 }

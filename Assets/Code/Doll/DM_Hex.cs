@@ -9,11 +9,15 @@ public class DM_Hex : DollManager
 
     protected List<Node>[] nodeLayers;
 
-    protected class Node
+    protected List<Node> allNodes = new List<Node>();
+
+    public class Node           //為了給 UI 操作需要 public
     {
         public int slotIndex;
         public Transform slot;
         public Doll doll;
+        public float x;
+        public float y;
     }
 
     protected override void Start()
@@ -37,19 +41,20 @@ public class DM_Hex : DollManager
     protected void BuildHex()
     {
         const float StepX = 1.0f;
-        const float StepY = 0.875f; //間隔的 Y 寬，可以考慮縮短
+        //const float StepY = 1.0f; //間隔的 Y 寬，可以考慮縮短
+        const float StepY = 0.875f;
 
         nodeLayers = new List<Node>[N];
         for (int i = 0; i < N; i++)
             nodeLayers[i] = new List<Node>();
 
         int currIndex = 0;
-        float y = StepY * N;
+        float y = N;
         for (int i = -N; i<=N; i++)
         {
             int iAbs = Mathf.Abs(i);
             int lNum = N * 2 + 1 - iAbs;    //每一行的 Node 數
-            float x = StepX * (lNum-1) * -0.5f;
+            float x = (lNum-1) * -0.5f;
             for (int j = 0; j<lNum; j++)
             {
                 if (i != 0 || j != lNum / 2)            //正中間位留給 Player
@@ -58,12 +63,14 @@ public class DM_Hex : DollManager
                     node.slotIndex = currIndex;
                     node.slot = DollSlots[currIndex];
                     node.doll = null;
-                    node.slot.localPosition = new Vector3(x, 0, y);
+                    node.slot.localPosition = new Vector3(x * StepX, 0, y * StepY);
+                    node.x = x;
+                    node.y = y;
 
                     int edgeDis = Mathf.Min(Mathf.Abs(j), lNum - Mathf.Abs(j) - 1);
                     int L = Mathf.Max(N - edgeDis, iAbs);
 
-                    //Debug 用
+                    // ------ Debug 用
                     //GameObject o = new GameObject();
                     //o.transform.position = node.slot.transform.position;
                     //o.transform.rotation = Quaternion.Euler(90, 0, 0);
@@ -73,14 +80,16 @@ public class DM_Hex : DollManager
                     //tm.fontSize = 30;
                     //tm.color = Color.white;
                     //tm.text = L.ToString();
+                    // ------
 
                     nodeLayers[L-1].Add(node);
+                    allNodes.Add(node);
 
                     currIndex++;
                 }
-                x += StepX;
+                x += 1.0f;
             }
-            y -= StepY;
+            y -= 1.0f;
         }
 
         print("總共 Build 出了 Node 數: " + currIndex);
@@ -105,6 +114,14 @@ public class DM_Hex : DollManager
         }
 
         return false;
+    }
+
+    // ==================================== 以下為 UI 編輯使用的介面
+
+    public List<Node> GetValidNodes() 
+    {
+        //TODO: 根據大小給適當的層數
+        return allNodes; 
     }
 
 }
