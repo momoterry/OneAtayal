@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static DM_Dynamic;
 
 public class DM_Hex : DollManager
 {
@@ -116,6 +117,23 @@ public class DM_Hex : DollManager
         return false;
     }
 
+    public override bool AddOneDollWithGivenPosition(Doll doll, int group, int index)
+    {
+        if (group == 0 && index>=0 && index < MaxSlot)
+        {
+            if (allNodes[index].doll == null)
+            {
+                //print("DM_Hex 將 Doll 加到指定位置: " + index);
+                allNodes[index].doll = doll;
+                dolls[index] = doll;
+                doll.SetSlot(allNodes[index].slot);
+                return true;
+            }
+        }
+        //return AddOneDoll(doll);
+        return AddOneDoll(doll);
+    }
+
     public override void GetDollGroupAndIndex(Doll doll, ref int group, ref int index) 
     { 
         group = -1; index = -1;
@@ -158,8 +176,33 @@ public class DM_Hex : DollManager
         dolls[toIndex] = doll;
         dolls[fromIndex] = null;
 
-        //TODO: SaveAllToPlayerData
+        SaveAllToPlayerData();
 
         return true;
+    }
+
+
+    protected void SaveAllToPlayerData()
+    {
+        PlayerData pData = GameSystem.GetPlayerData();
+        ContinuousBattleManager.ResetBattleSavedDolls();
+
+        pData.RemoveAllUsingDolls();
+
+        for (int i = 0; i < allNodes.Count; i++)
+        {
+            if (allNodes[i].doll != null)
+            {
+                if (allNodes[i].doll.joinSaveType == DOLL_JOIN_SAVE_TYPE.FOREVER)
+                {
+                    pData.AddUsingDoll(allNodes[i].doll.ID, 0, i);
+                    //print("PlayerData 存入 Doll: " + allNodes[i].doll.ID + " slot: " + allNodes[i].slotIndex + " i: " + i);
+                }
+                else if (allNodes[i].doll.joinSaveType == DOLL_JOIN_SAVE_TYPE.BATTLE)
+                {
+                    ContinuousBattleManager.AddCollectedDoll(allNodes[i].doll.ID, 0, i);
+                }
+            }
+        }
     }
 }
