@@ -116,6 +116,19 @@ public class DM_Hex : DollManager
         return false;
     }
 
+    public override void GetDollGroupAndIndex(Doll doll, ref int group, ref int index) 
+    { 
+        group = -1; index = -1;
+        foreach (Node node in allNodes)
+        {
+            if (node.doll == doll)
+            {
+                group = 0;
+                index = node.slotIndex;
+            }
+        }
+    }
+
     public override void OnDollDestroy(Doll doll)
     {
         //print("DM_Hex OnDollDestroy: " + doll.name);
