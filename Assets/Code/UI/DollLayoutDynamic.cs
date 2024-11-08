@@ -15,8 +15,17 @@ public class DollLayoutUIBase : MonoBehaviour
     protected DollLayoutSlot touchSlot;
 
     public bool IsMenuActive() { return gameObject.activeSelf; }
-    public virtual void OpenMenu()  { gameObject.SetActive(true); }
-    public virtual void CloseMenu() { gameObject.SetActive(false); }
+    public virtual void OpenMenu()  
+    {
+        gameObject.SetActive(true);
+        BattleSystem.GetPC().ForceStop(true);
+    }
+    public virtual void CloseMenu() 
+    { 
+        gameObject.SetActive(false);
+        //GameSystem.GetInstance().SaveData();  考量到在戰鬥中也會出現，先不能存檔
+        BattleSystem.GetPC().ForceStop(false);
+    }
     public virtual void SetupDollManager(DollManager dm) { theDM = dm; }
 
     protected virtual bool MoveItemToSlot(DollLayoutItem item, DollLayoutSlot slot) { return false; }
