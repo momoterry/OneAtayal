@@ -7,7 +7,10 @@ public class DollSkillBase : MonoBehaviour
     public string ID = "";
     public int order;
     public Sprite icon;
-    public GameObject activeHint;
+    //public GameObject activeHint;
+
+    public GameObject[] enableObjs;
+    public GameObject[] disableObjs;
 
     //protected DollAuto doll;
     protected Doll doll;
@@ -20,8 +23,8 @@ public class DollSkillBase : MonoBehaviour
         //print("DollSkillBase.Awake");
         doll = GetComponent<Doll>();
         myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
-        if (activeHint)
-            activeHint.SetActive(false);
+        //if (activeHint)
+        //    activeHint.SetActive(false);
     }
 
 
@@ -47,8 +50,16 @@ public class DollSkillBase : MonoBehaviour
 
     virtual public void OnStartSkill(bool active = true) { 
         isActive = active;
-        if (activeHint)
-            activeHint.SetActive(active);
+        //if (activeHint)
+        //    activeHint.SetActive(active);
+        foreach (GameObject o in enableObjs)
+        {
+            o.SetActive(active);
+        }
+        foreach (GameObject o in disableObjs)
+        {
+            o.SetActive(!active);
+        }
 
         if (active)
         {

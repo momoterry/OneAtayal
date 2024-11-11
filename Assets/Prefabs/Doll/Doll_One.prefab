@@ -192,7 +192,9 @@ MonoBehaviour:
   ID: DollSkill_One
   order: 2001
   icon: {fileID: 21300000, guid: 2e8c1e40dc909a242a58e84ef856330f, type: 3}
-  activeHint: {fileID: 6908136768001195211}
+  enableObjs:
+  - {fileID: 6908136768001195211}
+  disableObjs: []
   bulletRef: {fileID: 8101537965375270392, guid: 2b84135f055ca544e8f516c0c6b34010, type: 3}
   AttackSpeedRate: 2
   AttackRangeAdd: 5

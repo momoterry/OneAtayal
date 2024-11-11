@@ -193,7 +193,10 @@ MonoBehaviour:
   ID: DollSklill_Shield
   order: 1002
   icon: {fileID: 2099318139, guid: 398d9f6cdbc27cc47a648a9011645a8c, type: 3}
-  activeHint: {fileID: 7272773709867519907}
+  enableObjs:
+  - {fileID: 4885300575710099434}
+  disableObjs:
+  - {fileID: 4790798014008892176}
   wall: {fileID: 8717049493187817672}
   defAdd: 20
 --- !u!114 &-894024693914061495
@@ -554,11 +557,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1601216126008066164, guid: 1e956e2751c3ad54da616bad840090f4, type: 3}
   m_PrefabInstance: {fileID: 1514735920954213390}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7272773709867519907 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8208788213892123565, guid: 1e956e2751c3ad54da616bad840090f4, type: 3}
-  m_PrefabInstance: {fileID: 1514735920954213390}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3613975552492452935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -573,11 +571,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1601216126008066164, guid: 1e956e2751c3ad54da616bad840090f4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.03125
       objectReference: {fileID: 0}
     - target: {fileID: 1601216126008066164, guid: 1e956e2751c3ad54da616bad840090f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0625
+      value: -0.1875
       objectReference: {fileID: 0}
     - target: {fileID: 1601216126008066164, guid: 1e956e2751c3ad54da616bad840090f4, type: 3}
       propertyPath: m_LocalPosition.z
