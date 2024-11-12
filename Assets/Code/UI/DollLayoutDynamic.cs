@@ -306,8 +306,8 @@ public class DollLayoutDynamic : DollLayoutUIBase
     {
         //print("MoveItemToSlot!! From: " + item.myGroup + ", " + item.myIndex + " To: " + slot.myGroup + ", " + slot.myIndex);
 
-        bool bResult = false;
-        bResult = dmD.ChangeDollPosition(item.myDoll, item.myGroup, slot.myGroup, item.myIndex, slot.myIndex);
+        //bool bResult = false;
+        bool bResult = dmD.ChangeDollPosition(item.myDoll, item.myGroup, slot.myGroup, item.myIndex, slot.myIndex);
 
         if (bResult)
         {
