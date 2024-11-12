@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static DM_Dynamic;
 
 public class DM_Hex : DollManager
 {
-    protected int N = 4;    //糷计
+    protected int N = 4;    //程糷计
     const int MaxSlot = 60; //沮糷计 (1+2+3+4) * 6
+    protected int[] LayerLimit = new int[] { 5, 15, 30, 61 };
+
+    protected int currN = 1;            //ヘ玡す砛ㄏノ糷计
+    protected int currDollNum = 0;      //ヘ玡 Doll 计
 
     protected List<Node>[] nodeLayers;
 
@@ -99,8 +102,13 @@ public class DM_Hex : DollManager
     public override bool AddOneDoll(Doll doll)
     {
         //return base.AddOneDoll(doll);
+        if (currN < N && currDollNum >= LayerLimit[currN-1])
+        {
+            currN++;
+            print("糷计耎: " + currN);
+        }
 
-        for (int n = 0; n < N; n++)
+        for (int n = 0; n < currN; n++)
         {
             for (int i = 0; i < nodeLayers[n].Count; i++)
             {
@@ -109,6 +117,7 @@ public class DM_Hex : DollManager
                     nodeLayers[n][i].doll = doll;
                     dolls[nodeLayers[n][i].slotIndex] = doll;
                     doll.SetSlot(nodeLayers[n][i].slot);
+                    currDollNum++;
                     return true;
                 }
             }
@@ -127,12 +136,37 @@ public class DM_Hex : DollManager
                 allNodes[index].doll = doll;
                 dolls[index] = doll;
                 doll.SetSlot(allNodes[index].slot);
+                currDollNum++;
+                if (currN < N && currDollNum > LayerLimit[currN-1])
+                {
+                    currN++;
+                    print("AddOneDollWithGivenPosition 糷计耎: " + currN);
+                }
                 return true;
             }
         }
         //return AddOneDoll(doll);
         return AddOneDoll(doll);
     }
+
+    public override void OnDollTempDeath(Doll doll)
+    {
+    }
+
+    public override void OnDollRevive(Doll doll)
+    {
+    }
+
+    public override void OnDollDestroy(Doll doll)
+    {
+        currDollNum--;
+        while (currN > 1 && currDollNum <= LayerLimit[currN - 2])
+        {
+            currN--;
+            print("糷计罽搭: " + currN);
+        }
+    }
+
 
     public override void GetDollGroupAndIndex(Doll doll, ref int group, ref int index) 
     { 
@@ -147,17 +181,16 @@ public class DM_Hex : DollManager
         }
     }
 
-    public override void OnDollDestroy(Doll doll)
-    {
-        //print("DM_Hex OnDollDestroy: " + doll.name);
-        base.OnDollDestroy(doll);
-    }
-
     // ====================================  UI 絪胯ㄏノざ
 
     public List<Node> GetValidNodes()
     {
-        return allNodes;
+        List<Node> result = new();
+        for (int i=0; i<currN; i++)
+        {
+            result.AddRange(nodeLayers[i]);
+        }
+        return result;
     }
 
     public bool ChangeDollPosition(Doll doll, int fromIndex, int toIndex)
