@@ -36,6 +36,12 @@ public class MR_Node : MonoBehaviour
         else if (shiftType == POS_SHIFT.LEAVE)
             sDir = OneUtility.GetReverseDIR( room.cell.to );
 
+        //if (this is MR_Node)
+        //{
+        //    print("room.cell.from : " + room.cell.from);
+        //    print("room.cell.to : " + room.cell.to);
+        //}
+
         float angle = 0;
         //以房間面向下方為基準調整位置 (入口在下、出口在上)
         switch (sDir)

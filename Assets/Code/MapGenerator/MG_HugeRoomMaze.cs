@@ -199,6 +199,8 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
         bigCell.value = CELL.NORMAL;
         bigCell.isMain = true;
         bigCell.U = bigCell.D = true;
+        bigCell.from = DIRECTION.D;
+        bigCell.to = DIRECTION.U;       // TODO: 實際連接?
         Vector3 vCenter = new Vector3((x1 + x2) * 0.5f, 0, (y1 + y2) * 0.5f );
 
         if (gameManager)
@@ -251,7 +253,7 @@ public class MG_HugeRoomMaze : MG_MazeOneBase
 
     protected override void PreCalculateGameplayInfo()
     {
-
+            //TODO: 各 Room 的實際連接 ?
     }
 
     //===========================================================================================

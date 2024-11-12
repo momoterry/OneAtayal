@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 4131299965550484537}
   - component: {fileID: 4894845663418771156}
   - component: {fileID: 198516083989624455}
+  - component: {fileID: 6378701789444011753}
   m_Layer: 0
   m_Name: OldWell
   m_TagString: Untagged
@@ -188,3 +189,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &6378701789444011753
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9122827080933831342}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.75, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
