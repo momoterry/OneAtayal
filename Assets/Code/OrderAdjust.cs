@@ -32,12 +32,13 @@ public class OrderAdjust : MonoBehaviour
 
     private void LateUpdate()
     {
-        currTime += Time.deltaTime;
-        if (currTime >= updatePeriod)
-        {
-            SetupOrder();
-            currTime = 0;
-        }
+        //currTime += Time.deltaTime;
+        //if (currTime >= updatePeriod)
+        //{
+        //    SetupOrder();
+        //    currTime = 0;
+        //}
+        SetupOrder();
     }
 
     private void SetupOrder()
