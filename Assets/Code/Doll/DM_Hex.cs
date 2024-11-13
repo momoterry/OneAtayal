@@ -6,6 +6,7 @@ public class DM_Hex : DollManager
 {
     protected int N = 4;    //程糷计
     const int MaxSlot = 60; //沮糷计 (1+2+3+4) * 6
+    //protected int[] LayerLimit = new int[] { 6, 18, 36, 60 }; // 骸癸酚
     protected int[] LayerLimit = new int[] { 5, 15, 30, 61 };
 
     protected int currN = 1;            //ヘ玡す砛ㄏノ糷计
