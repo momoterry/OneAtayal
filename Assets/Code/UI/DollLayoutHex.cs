@@ -38,16 +38,6 @@ public class DollLayoutHex : DollLayoutUIBase
         bool result = dmH.ChangeDollPosition(item.myDoll, item.myIndex, slot.myIndex);
         if (result) 
         {
-            //print("²¾°Ê¦¨¥\ !!");
-            //RectTransform rItem = item.GetComponent<RectTransform>();
-            //RectTransform rSlot = slot.GetComponent<RectTransform>();
-            //Vector3 tv = rItem.localPosition;
-            //rItem.localPosition = rSlot.localPosition;
-            //rSlot.localPosition = tv;
-
-            //int tempIndex = item.myIndex;
-            //item.myIndex = slot.myIndex;
-            //slot.myIndex = tempIndex;
             ClearAll();
             CreateAll();
         }

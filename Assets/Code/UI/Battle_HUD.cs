@@ -457,7 +457,6 @@ public class Battle_HUD : MonoBehaviour
     {
         if (currDollLayout)
         {
-
             if (currDollLayout.IsMenuActive())
             {
                 currDollLayout.CloseMenu();
@@ -469,6 +468,21 @@ public class Battle_HUD : MonoBehaviour
         }
     }
 
+    public void OpenDollLayoutUI()
+    {
+        if (!currDollLayout.IsMenuActive())
+        {
+            currDollLayout.OpenMenu();
+        }
+    }
+
+    public void CloseDollLayoutUI()
+    {
+        if (currDollLayout.IsMenuActive())
+        {
+            currDollLayout.CloseMenu();
+        }
+    }
     public void OnOffDollLayoutAll(bool isOn)
     {
         if (dollLayoutRoot != null)
