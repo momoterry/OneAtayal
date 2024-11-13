@@ -6,7 +6,7 @@ using static UnityEditor.Recorder.OutputPath;
 
 public class DollLayoutHex : DollLayoutUIBase
 {
-
+    public RectTransform defaultRoot;
     protected List<DollLayoutItem> itemList = new();
     protected List<DollLayoutSlot> slotList = new();
 
@@ -58,7 +58,7 @@ public class DollLayoutHex : DollLayoutUIBase
     protected void CreateAll()
     {
         List<DM_Hex.Node> nodes = dmH.GetValidNodes();
-        Transform root = transform;
+        Transform root = defaultRoot ? defaultRoot : transform;
         for (int i = 0; i < nodes.Count; i++)
         {
             Vector3 rPos = new Vector3(nodes[i].x * 16.0f, nodes[i].y * 16.0f);
@@ -67,7 +67,7 @@ public class DollLayoutHex : DollLayoutUIBase
                 DollLayoutItem di = CreateOneItem(dollLayoutItemRef, nodes[i].doll, root, rPos, 0, nodes[i].slotIndex);
                 itemList.Add(di);
             }
-            else
+            //else  //無論如何都加入 Slot
             {
                 DollLayoutSlot ds = CreateOneSlot(slotRef, root, rPos, 0, nodes[i].slotIndex);
                 slotList.Add(ds);

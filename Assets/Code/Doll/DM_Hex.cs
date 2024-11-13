@@ -197,17 +197,24 @@ public class DM_Hex : DollManager
     {
         Node nFrom = allNodes[fromIndex];
         Node nTo = allNodes[toIndex];
-        if (doll != nFrom.doll || nTo.doll != null)
+        if (doll != nFrom.doll)// || nTo.doll != null)
         {
-            One.ERROR("DM_Hex ²¾°Ê¿ù»~ !!");
+            One.ERROR("DM_Hex ²¾°Ê¿ù»~ !! nFrom: " + nFrom.doll + "nTo: " + nTo.doll);
             return false;
         }
 
+        Doll originalTo = nTo.doll;
+
         nTo.doll = doll;
-        nFrom.doll = null;
+        nFrom.doll = originalTo;
         doll.SetSlot(nTo.slot);
+        if (originalTo != null) 
+        {
+            originalTo.SetSlot(nFrom.slot);
+        }
+
         dolls[toIndex] = doll;
-        dolls[fromIndex] = null;
+        dolls[fromIndex] = originalTo;
 
         SaveAllToPlayerData();
 
