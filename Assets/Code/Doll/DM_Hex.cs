@@ -6,6 +6,7 @@ public class DM_Hex : DollManager
 {
     protected int N = 4;    //最大層數
     const int MaxSlot = 60; //根據層數 (1+2+3+4) * 6
+    //protected int[] LayerLimit = new int[] { 6, 18, 36, 60 }; // 滿員對照
     protected int[] LayerLimit = new int[] { 5, 15, 30, 61 };
 
     protected int currN = 1;            //目前允許使用的層數
@@ -197,17 +198,24 @@ public class DM_Hex : DollManager
     {
         Node nFrom = allNodes[fromIndex];
         Node nTo = allNodes[toIndex];
-        if (doll != nFrom.doll || nTo.doll != null)
+        if (doll != nFrom.doll)// || nTo.doll != null)
         {
-            One.ERROR("DM_Hex 移動錯誤 !!");
+            One.ERROR("DM_Hex 移動錯誤 !! nFrom: " + nFrom.doll + "nTo: " + nTo.doll);
             return false;
         }
 
+        Doll originalTo = nTo.doll;
+
         nTo.doll = doll;
-        nFrom.doll = null;
+        nFrom.doll = originalTo;
         doll.SetSlot(nTo.slot);
+        if (originalTo != null) 
+        {
+            originalTo.SetSlot(nFrom.slot);
+        }
+
         dolls[toIndex] = doll;
-        dolls[fromIndex] = null;
+        dolls[fromIndex] = originalTo;
 
         SaveAllToPlayerData();
 
