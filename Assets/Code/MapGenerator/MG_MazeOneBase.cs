@@ -127,8 +127,8 @@ public class MG_MazeOneBase : MapGeneratorBase
         PATH = 8,
     }
 
-    protected int puzzleX1;
-    protected int puzzleY1;
+    protected int puzzleX1;         //最左下角 的 OneMap 座標
+    protected int puzzleY1;         //最左下角 的 OneMap 座標
 
     //protected int iStart;
     //protected int iEnd;
