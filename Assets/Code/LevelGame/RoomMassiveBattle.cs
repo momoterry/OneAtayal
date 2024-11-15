@@ -25,6 +25,10 @@ public class RoomMassiveBattle : RoomGameplayBase
 
         GameObject theObj = new GameObject(name + "_" + room.cell.x + "_" + room.cell.y);
         theObj.transform.position = room.vCenter;
+        theObj.AddComponent<RoomMassiveBattleController>();
+        BoxCollider co = theObj.AddComponent<BoxCollider>();
+        co.size = new Vector3(room.width, 2.0f, room.height);
+        co.isTrigger = true;
 
 
 
@@ -40,7 +44,7 @@ public class RoomMassiveBattle : RoomGameplayBase
             me.height = Mathf.RoundToInt(ea.area.height);
             me.shiftType = MR_Node.POS_SHIFT.ENTER;
 
-            me.spawnOnStart = true; //TODO: 只是測試
+            //me.spawnOnStart = true; //TODO: 只是測試
 
             o.transform.parent = theObj.transform;
         }
@@ -51,4 +55,45 @@ public class RoomMassiveBattle : RoomGameplayBase
         }
 
     }
+
+
+    public class RoomMassiveBattleController : MonoBehaviour
+    {
+        public enum PHASE
+        {
+            NONE,
+            WAIT,
+            BATTLE,
+            FINISH,
+        }
+        protected PHASE currPhase = PHASE.NONE;
+        protected PHASE nextPhase = PHASE.NONE;
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Player") && currPhase == PHASE.WAIT)
+            {
+                //print("開始 !!");
+                foreach (MR_EnemyGroup eg in gameObject.GetComponentsInChildren<MR_EnemyGroup>())
+                {
+                    eg.SendMessage("OnTG", gameObject);
+                }
+                nextPhase = PHASE.BATTLE;
+
+                BoxCollider co = gameObject.GetComponent<BoxCollider>();
+                if (co)
+                    Destroy(co);
+            }
+        }
+
+        void Start()
+        {
+            nextPhase = PHASE.WAIT;
+        }
+
+        void Update()
+        {
+            currPhase = nextPhase;
+        }
+    }
+
 }
