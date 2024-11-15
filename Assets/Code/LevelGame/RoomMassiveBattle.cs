@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ============= 能直接處理關門的大型戰鬥
+// ====================================================
+//           能直接處理關門的大型戰鬥
+// ====================================================
 
 public class RoomMassiveBattle : RoomGameplayBase
 {
@@ -25,12 +27,8 @@ public class RoomMassiveBattle : RoomGameplayBase
 
         GameObject theObj = new GameObject(name + "_" + room.cell.x + "_" + room.cell.y);
         theObj.transform.position = room.vCenter;
-        theObj.AddComponent<RoomMassiveBattleController>();
-        BoxCollider co = theObj.AddComponent<BoxCollider>();
-        co.size = new Vector3(room.width, 2.0f, room.height);
-        co.isTrigger = true;
-
-
+        RoomMassiveBattleController rc = theObj.AddComponent<RoomMassiveBattleController>();
+        rc.Init(room);
 
         foreach (EnemyGroupAreaInfo ea in eInfos)
         {
@@ -56,44 +54,57 @@ public class RoomMassiveBattle : RoomGameplayBase
 
     }
 
+}
 
-    public class RoomMassiveBattleController : MonoBehaviour
+
+// ====================================================
+//        能直接處理關門的大型戰鬥
+// ====================================================
+
+public class RoomMassiveBattleController : MonoBehaviour
+{
+    public enum PHASE
     {
-        public enum PHASE
-        {
-            NONE,
-            WAIT,
-            BATTLE,
-            FINISH,
-        }
-        protected PHASE currPhase = PHASE.NONE;
-        protected PHASE nextPhase = PHASE.NONE;
-        public void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.CompareTag("Player") && currPhase == PHASE.WAIT)
-            {
-                //print("開始 !!");
-                foreach (MR_EnemyGroup eg in gameObject.GetComponentsInChildren<MR_EnemyGroup>())
-                {
-                    eg.SendMessage("OnTG", gameObject);
-                }
-                nextPhase = PHASE.BATTLE;
+        NONE,
+        WAIT,
+        BATTLE,
+        FINISH,
+    }
+    protected PHASE currPhase = PHASE.NONE;
+    protected PHASE nextPhase = PHASE.NONE;
 
-                BoxCollider co = gameObject.GetComponent<BoxCollider>();
-                if (co)
-                    Destroy(co);
-            }
-        }
+    protected BoxCollider trigCollider;
 
-        void Start()
-        {
-            nextPhase = PHASE.WAIT;
-        }
-
-        void Update()
-        {
-            currPhase = nextPhase;
-        }
+    public void Init(MazeGameManagerBase.RoomInfo room)
+    {
+        trigCollider = gameObject.AddComponent<BoxCollider>();
+        trigCollider.size = new Vector3(room.width, 2.0f, room.height);
+        trigCollider.isTrigger = true;
     }
 
+    void Start()
+    {
+        nextPhase = PHASE.WAIT;
+    }
+
+    void Update()
+    {
+        currPhase = nextPhase;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && currPhase == PHASE.WAIT)
+        {
+            //print("開始 !!");
+            foreach (MR_EnemyGroup eg in gameObject.GetComponentsInChildren<MR_EnemyGroup>())
+            {
+                eg.SendMessage("OnTG", gameObject);
+            }
+            nextPhase = PHASE.BATTLE;
+
+            if (trigCollider)
+                Destroy(trigCollider);
+        }
+    }
 }
