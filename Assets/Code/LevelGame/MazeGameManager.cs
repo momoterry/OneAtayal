@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Recorder.OutputPath;
 
 //  管理迷宮 Gameplay 的機制
 //  只支援 MG_MazeOneBase 為基底的 MapGenerator 
@@ -223,6 +224,8 @@ public class MazeGameManager : MazeGameManagerBase
             return roomInfo;
         }
 
+        //======= 以下只有 Room 才會繼續
+
         if (cell.isMain)
             mainRoomList.Add(roomInfo);
         else
@@ -278,6 +281,8 @@ public class MazeGameManager : MazeGameManagerBase
         //print("mainRoomList Count: " + mainRoomList.Count);
         mainRoomList.Sort(CompareMainRoom);
 
+
+        //指定的主線
         List<RoomInfo> normalMainRoomList = new List<RoomInfo>();
         int mIndex = 0;
         foreach (RoomInfo room in mainRoomList)
@@ -285,7 +290,7 @@ public class MazeGameManager : MazeGameManagerBase
             //int mIndex = Mathf.RoundToInt(room.mainRatio * (mainRoomList.Count + 1.0f)) - 1;
             //print("Build One Main Room!! " + mIndex + " main Ratio: " + room.mainRatio);
             if (mainGames[mIndex])
-                mainGames[mIndex].Build(room);
+                allRoomGames.Add(room, mainGames[mIndex]);//mainGames[mIndex].Build(room);
             else
                 normalMainRoomList.Add(room);
             //else if (defaultMainGame)
@@ -338,6 +343,7 @@ public class MazeGameManager : MazeGameManagerBase
             }
         }
 
+        //指定的支線端點
         OneUtility.Shuffle<RoomInfo>(branchEndRoomList);
         int iCount = 0;
         foreach (RoomGameplayBase g in allBranchGames)
@@ -349,7 +355,8 @@ public class MazeGameManager : MazeGameManagerBase
             }
             if (g)
             {
-                g.Build(branchEndRoomList[iCount]);
+                //g.Build(branchEndRoomList[iCount]);
+                allRoomGames.Add(branchEndRoomList[iCount], g);
             }
             iCount++;
         }
@@ -380,7 +387,7 @@ public class MazeGameManager : MazeGameManagerBase
         {
             RoomGameplayBase game = GetRandomGameplay(defautPathGames);
             if (game != null)
-                game.Build(room);
+                allRoomGames.Add(room, game);
         }
         //剩下的通道支點
         foreach (RoomInfo room in branchEndPathList)
