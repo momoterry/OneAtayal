@@ -23,8 +23,8 @@ public class MR_Node : MonoBehaviour
         widthRatio = room.width / ROOM_RELATIVE_SIZE;
         heightRatio = room.height / ROOM_RELATIVE_SIZE;
 
-        if (shiftType != POS_SHIFT.NONE)
-            transform.localPosition = new Vector3(transform.localPosition.x * widthRatio, transform.localPosition.y * heightRatio, transform.localPosition.z);
+        //if (shiftType != POS_SHIFT.NONE)
+        //    transform.localPosition = new Vector3(transform.localPosition.x * widthRatio, transform.localPosition.y * heightRatio, transform.localPosition.z);
 
         float x = transform.localPosition.x;
         float y = transform.localPosition.y;
@@ -65,5 +65,9 @@ public class MR_Node : MonoBehaviour
         }
         if (rotateWithShiftType)
             transform.localRotation = Quaternion.Euler(0, 0, angle);
+
+        //在旋轉完以後，才進行位置的縮放
+        if (shiftType != POS_SHIFT.NONE)
+            transform.localPosition = new Vector3(transform.localPosition.x * widthRatio, transform.localPosition.y * heightRatio, transform.localPosition.z);
     }
 }
