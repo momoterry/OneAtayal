@@ -55,8 +55,12 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
                     
                     if ( cell.isMain)
                     {
-                        print("Cell is Main? " + cell.isMain);
+                        //print("Cell is Main? " + cell.isMain + "Maind Deep: " + cell.mainDeep);
                         cell.isPath = cell.mainDeep % 2 == 0 ? true : false;
+                        if (cell.mainDeep == maxMainDeep - 1)
+                        {
+                            cell.isPath = false;    //結束前最後一格必定為 Room
+                        }
                     }
                     else
                     {

@@ -88,7 +88,7 @@ public class PlayerData : MonoBehaviour
     //以下為 Beta 版數值
     public const int INIT_MONEY = 2000;
     public const int INIT_LV = 1;
-    public const int INIT_MAX_DOLL_NUM = 10;
+    public const int INIT_MAX_DOLL_NUM = 24;
 
     protected bool isReady = false; //是否已經載入資料或完成初始化
 
