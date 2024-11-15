@@ -654,6 +654,77 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &954073049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 954073050}
+  - component: {fileID: 954073051}
+  m_Layer: 0
+  m_Name: HugeRoomOne_New
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &954073050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954073049}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3495891255675402518}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &954073051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954073049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eInfos:
+  - area:
+      serializedVersion: 2
+      x: 0
+      y: 3
+      width: 10
+      height: 2
+    eInfo:
+      enemys:
+      - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
+      enemyIDs: []
+      totalNumMin: 13
+      totalNumMax: 12
+      finishWhenEngaged: 1
+  - area:
+      serializedVersion: 2
+      x: 0
+      y: -2
+      width: 3
+      height: 3
+    eInfo:
+      enemys:
+      - {fileID: 7208015447484052683, guid: c6757ec52300c574080406a81876e414, type: 3}
+      enemyIDs: []
+      totalNumMin: 11
+      totalNumMax: 10
+      finishWhenEngaged: 1
 --- !u!1 &1066149157
 GameObject:
   m_ObjectHideFlags: 0
@@ -2407,6 +2478,7 @@ Transform:
   - {fileID: 1897754538822029956}
   - {fileID: 6396646557478804908}
   - {fileID: 4536847960275681489}
+  - {fileID: 954073050}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2502,12 +2574,10 @@ MonoBehaviour:
   difficultRateMax: 2
   enmeyLV: 1
   defaultMainGames:
-  - game: {fileID: 6895803084366293856}
+  - game: {fileID: 954073051}
     ratioPercent: 100
   fixStartGames: []
-  fixEndGames:
-  - relativeIndex: 1
-    game: {fileID: 156736580100191784}
+  fixEndGames: []
   defautPathGames:
   - game: {fileID: 8416918859233845304}
     ratioPercent: 100
