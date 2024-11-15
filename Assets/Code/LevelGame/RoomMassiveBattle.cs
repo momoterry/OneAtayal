@@ -17,6 +17,10 @@ public class RoomMassiveBattle : RoomGameplayBase
 
     public EnemyGroupAreaInfo[] eInfos;
 
+    public int RandomBlockNum = 0;
+    public Rect RandomBlockArea;        // 隨機組當的分布範圍，可以避開 EnemyArea
+    public Vector2 blockSizeMin;
+    public Vector2 blockSizeMax;
 
     public override void Build(MazeGameManagerBase.RoomInfo room)
     {
@@ -52,6 +56,42 @@ public class RoomMassiveBattle : RoomGameplayBase
             node.OnSetupByRoom(room);
         }
 
+    }
+
+    public override void BuildLayout(MazeGameManagerBase.RoomInfo room, OneMap oMap)
+    {
+        base.BuildLayout(room, oMap);
+
+        float widthRatio = room.width / MR_Node.ROOM_RELATIVE_SIZE;
+        float heightRatio = room.height / MR_Node.ROOM_RELATIVE_SIZE;
+        float blockBufferWidth = 0.5f;
+
+        int roomX1 = (room.mapRect.width - (int)room.width) / 2 + room.mapRect.x;
+        int roomY1 = (room.mapRect.height - (int)room.height) / 2 + room.mapRect.y;
+
+        for (int i = 0; i < RandomBlockNum; i++)
+        {
+            float rWidth = Random.Range(blockSizeMin.x, blockSizeMax.x);
+            float rHeight = Random.Range(blockSizeMin.y, blockSizeMax.y);
+            float rXMin = Random.Range(RandomBlockArea.xMin, RandomBlockArea.xMax - rWidth);
+            float rYMin = Random.Range(RandomBlockArea.yMin, RandomBlockArea.yMax - rHeight);
+            //Rect blockRect = new Rect(rXMin, rYMin, rWidth, rHeight);
+
+            print("RoomMassiveBattle 產生 Block");
+            int x = roomX1 + Mathf.RoundToInt((rXMin + 5.0f) * 0.1f * room.width);
+            int y = roomY1 + Mathf.RoundToInt((rYMin + 5.0f) * 0.1f * room.height);
+            int w = Mathf.RoundToInt(rWidth * 0.1f * room.width);
+            int h = Mathf.RoundToInt(rHeight * 0.1f * room.height);
+            //print("To Block :" + new RectInt(x, y, w, h));
+            oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.BLOCK);
+
+            GameObject newObject = new GameObject("RoomMassiveBattle_Block");
+            newObject.transform.position = new Vector3(x + w * 0.5f, 0, y + h * 0.5f);
+            BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
+            boxCollider.size = new Vector3(w - blockBufferWidth * 2, 2.0f, h - blockBufferWidth * 2);
+            newObject.layer = LayerMask.NameToLayer("Wall");
+            //newObject.transform.parent = transform;
+        }
     }
 
 }
