@@ -27,12 +27,17 @@ public class RoomMassiveBattle : RoomGameplayBase
     }
     public RandomBlockInfo[] randomBlocks;
 
-    public override void Build(MazeGameManagerBase.RoomInfo room)
-    {
-        base.Build(room);
+    protected MazeGameManagerBase.RoomInfo room;
+    protected float widthRatio;
+    protected float heightRatio;
 
-        float widthRatio = room.width / MR_Node.ROOM_RELATIVE_SIZE;
-        float heightRatio = room.height / MR_Node.ROOM_RELATIVE_SIZE;
+    public override void Build(MazeGameManagerBase.RoomInfo _room)
+    {
+        base.Build(_room);
+
+        room = _room;
+        widthRatio = room.width / MR_Node.ROOM_RELATIVE_SIZE;
+        heightRatio = room.height / MR_Node.ROOM_RELATIVE_SIZE;
 
         GameObject theObj = new GameObject(name + "_" + room.cell.x + "_" + room.cell.y);
         theObj.transform.position = room.vCenter;
@@ -100,7 +105,13 @@ public class RoomMassiveBattle : RoomGameplayBase
         }
     }
 
+    protected void BuildDoors()
+    {
+
+    }
+
 }
+
 
 
 // ====================================================
