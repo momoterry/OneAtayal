@@ -701,10 +701,10 @@ MonoBehaviour:
   eInfos:
   - area:
       serializedVersion: 2
-      x: 0
-      y: 1
+      x: -4
+      y: 0
       width: 8
-      height: 6
+      height: 4
     eInfo:
       enemys:
       - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
@@ -715,15 +715,15 @@ MonoBehaviour:
       totalNumMin: 60
       totalNumMax: 62
       finishWhenEngaged: 1
-  RandomBlockNum: 1
-  RandomBlockArea:
-    serializedVersion: 2
-    x: -3
-    y: -3
-    width: 6
-    height: 2
-  blockSizeMin: {x: 1.5, y: 1}
-  blockSizeMax: {x: 3, y: 2}
+  randomBlocks:
+  - area:
+      serializedVersion: 2
+      x: -4
+      y: -3
+      width: 8
+      height: 3
+    blockSizeMin: {x: 1, y: 1}
+    blockSizeMax: {x: 6, y: 2}
 --- !u!1 &1066149157
 GameObject:
   m_ObjectHideFlags: 0

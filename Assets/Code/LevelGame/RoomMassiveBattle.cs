@@ -17,10 +17,15 @@ public class RoomMassiveBattle : RoomGameplayBase
 
     public EnemyGroupAreaInfo[] eInfos;
 
-    public int RandomBlockNum = 0;
-    public Rect RandomBlockArea;        // 隨機組當的分布範圍，可以避開 EnemyArea
-    public Vector2 blockSizeMin;
-    public Vector2 blockSizeMax;
+    //public int RandomBlockNum = 0;
+    [System.Serializable]
+    public class RandomBlockInfo
+    {
+        public Rect area;               // 隨機組當的分布範圍，可以避開 EnemyArea，以中心點座標為 (0,0) 房間大小為 10 的相對範圍來指定
+        public Vector2 blockSizeMin;
+        public Vector2 blockSizeMax;
+    }
+    public RandomBlockInfo[] randomBlocks;
 
     public override void Build(MazeGameManagerBase.RoomInfo room)
     {
@@ -36,7 +41,7 @@ public class RoomMassiveBattle : RoomGameplayBase
 
         foreach (EnemyGroupAreaInfo ea in eInfos)
         {
-            Vector3 sPos = new Vector3(ea.area.x * widthRatio, 0, ea.area.y * heightRatio);
+            Vector3 sPos = new Vector3(ea.area.center.x * widthRatio, 0, ea.area.center.y * heightRatio);
             GameObject o = new GameObject("EnemyMR");
             o.transform.position = room.vCenter + sPos;
             MR_EnemyGroup me = o.AddComponent<MR_EnemyGroup>();
@@ -66,22 +71,23 @@ public class RoomMassiveBattle : RoomGameplayBase
         float heightRatio = room.height / MR_Node.ROOM_RELATIVE_SIZE;
         float blockBufferWidth = 0.5f;
 
-        int roomX1 = (room.mapRect.width - (int)room.width) / 2 + room.mapRect.x;
-        int roomY1 = (room.mapRect.height - (int)room.height) / 2 + room.mapRect.y;
+        int roomX1 = (room.mapRect.width - (int)room.width) / 2 + room.mapRect.xMin;
+        int roomY1 = (room.mapRect.height - (int)room.height) / 2 + room.mapRect.yMin;
 
-        for (int i = 0; i < RandomBlockNum; i++)
+        //for (int i = 0; i < RandomBlockNum; i++)
+        foreach (RandomBlockInfo ri in randomBlocks)
         {
-            float rWidth = Random.Range(blockSizeMin.x, blockSizeMax.x);
-            float rHeight = Random.Range(blockSizeMin.y, blockSizeMax.y);
-            float rXMin = Random.Range(RandomBlockArea.xMin, RandomBlockArea.xMax - rWidth);
-            float rYMin = Random.Range(RandomBlockArea.yMin, RandomBlockArea.yMax - rHeight);
+            float rWidth = Random.Range(ri.blockSizeMin.x, ri.blockSizeMax.x);
+            float rHeight = Random.Range(ri.blockSizeMin.y, ri.blockSizeMax.y);
+            float rXMin = Random.Range(ri.area.xMin, ri.area.xMax - rWidth);
+            float rYMin = Random.Range(ri.area.yMin, ri.area.yMax - rHeight);
             //Rect blockRect = new Rect(rXMin, rYMin, rWidth, rHeight);
 
             print("RoomMassiveBattle 產生 Block");
-            int x = roomX1 + Mathf.RoundToInt((rXMin + 5.0f) * 0.1f * room.width);
-            int y = roomY1 + Mathf.RoundToInt((rYMin + 5.0f) * 0.1f * room.height);
-            int w = Mathf.RoundToInt(rWidth * 0.1f * room.width);
-            int h = Mathf.RoundToInt(rHeight * 0.1f * room.height);
+            int x = roomX1 + Mathf.RoundToInt((rXMin + 5.0f) * widthRatio);     //左下座標
+            int y = roomY1 + Mathf.RoundToInt((rYMin + 5.0f) * heightRatio);    //左下座標
+            int w = Mathf.RoundToInt(rWidth * widthRatio);
+            int h = Mathf.RoundToInt(rHeight * heightRatio);
             //print("To Block :" + new RectInt(x, y, w, h));
             oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.BLOCK);
 
