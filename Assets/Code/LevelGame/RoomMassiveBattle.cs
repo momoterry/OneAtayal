@@ -27,6 +27,8 @@ public class RoomMassiveBattle : RoomGameplayBase
     }
     public RandomBlockInfo[] randomBlocks;
 
+    public GameObject doorObj;
+
     protected MazeGameManagerBase.RoomInfo room;
     protected float widthRatio;
     protected float heightRatio;
@@ -39,10 +41,20 @@ public class RoomMassiveBattle : RoomGameplayBase
         widthRatio = room.width / MR_Node.ROOM_RELATIVE_SIZE;
         heightRatio = room.height / MR_Node.ROOM_RELATIVE_SIZE;
 
+
+        // == 觸發器  (RoomMassiveBattleController) == 
+
         GameObject theObj = new GameObject(name + "_" + room.cell.x + "_" + room.cell.y);
         theObj.transform.position = room.vCenter;
         RoomMassiveBattleController rc = theObj.AddComponent<RoomMassiveBattleController>();
-        rc.Init(room);
+        rc.doorObj = doorObj;
+        //rc.Init(room);
+
+        // == 門 == 
+        //GameObject doorObj = new GameObject(name + "_DOOR_" + room.cell.x + "_" + room.cell.y);
+        //doorObj.transform.position = room.vCenter;
+        //doorObj.transform.parent = theObj.transform;
+        //MR_RoomDoorTrigger dt = doorObj.AddComponent<MR_RoomDoorTrigger>();
 
         foreach (EnemyGroupAreaInfo ea in eInfos)
         {
@@ -55,11 +67,15 @@ public class RoomMassiveBattle : RoomGameplayBase
             me.width = Mathf.RoundToInt(ea.area.width);
             me.height = Mathf.RoundToInt(ea.area.height);
             me.shiftType = MR_Node.POS_SHIFT.ENTER;
+            me.triggerTargetWhenAllKilled = new GameObject[1];
+            me.triggerTargetWhenAllKilled[0] = theObj;
 
             //me.spawnOnStart = true; //TODO: 只是測試
 
             o.transform.parent = theObj.transform;
         }
+
+        rc.Init(room);      //等子物件都創建完才可以正確 Init
 
         foreach (MR_Node node in theObj.GetComponentsInChildren<MR_Node>())
         {
@@ -105,11 +121,6 @@ public class RoomMassiveBattle : RoomGameplayBase
         }
     }
 
-    protected void BuildDoors()
-    {
-
-    }
-
 }
 
 
@@ -120,6 +131,7 @@ public class RoomMassiveBattle : RoomGameplayBase
 
 public class RoomMassiveBattleController : MonoBehaviour
 {
+    public GameObject doorObj;
     public enum PHASE
     {
         NONE,
@@ -131,12 +143,27 @@ public class RoomMassiveBattleController : MonoBehaviour
     protected PHASE nextPhase = PHASE.NONE;
 
     protected BoxCollider trigCollider;
+    protected MR_RoomDoorTrigger doorTrigger;
+    protected int enemyGroupNum = 0;
+
+    protected int finishEnemyGroupCount = 0;
 
     public void Init(MazeGameManagerBase.RoomInfo room)
     {
         trigCollider = gameObject.AddComponent<BoxCollider>();
         trigCollider.size = new Vector3(room.width, 2.0f, room.height);
         trigCollider.isTrigger = true;
+
+        // == 門 ==
+        GameObject o = new GameObject(name + "_DOOR");
+        doorTrigger = o.AddComponent<MR_RoomDoorTrigger>();
+        o.transform.position = transform.position;
+        o.transform.parent = transform;
+        doorTrigger.doorObj = doorObj;
+        doorTrigger.doorShiftBack = 2.0f;
+        doorTrigger.fadeOutAnimationTime = 0.5f;
+
+        enemyGroupNum = gameObject.GetComponentsInChildren<MR_EnemyGroup>().Length;
     }
 
     void Start()
@@ -162,6 +189,24 @@ public class RoomMassiveBattleController : MonoBehaviour
 
             if (trigCollider)
                 Destroy(trigCollider);
+
+            if (doorTrigger)
+                doorTrigger.OnTG(gameObject);
+        }
+    }
+
+    public void OnTG(GameObject whoTG)
+    {
+        if (currPhase == PHASE.BATTLE)
+        {
+            finishEnemyGroupCount++;
+            //print("RoomMassiveBattleController:OnTG  -- Count" + finishEnemyGroupCount);
+            if (finishEnemyGroupCount >= enemyGroupNum)
+            {
+                if (doorTrigger != null)
+                    doorTrigger.OnTG(gameObject);
+                nextPhase = PHASE.FINISH;
+            }
         }
     }
 }
