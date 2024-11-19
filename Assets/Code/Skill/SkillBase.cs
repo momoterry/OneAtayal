@@ -138,7 +138,7 @@ public class SkillBase : MonoBehaviour
     {
         if (currPhase != SKILL_PHASE.NONE)
         {
-            One.LOG("ERROR!!!! Skill 尚未完成.." + name);
+            One.LOG("ERROR!!!! Skill 尚未完成.." + name + " Phase: " + currPhase);
             result = SKILL_RESULT.COOL_DOWN;
             return false;
         }

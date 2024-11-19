@@ -117,13 +117,13 @@ public class SkillLaser : SkillBase
         nextPhase = SKILL_PHASE.COOL_DOWN;
     }
 
-    //void OnGUI()
-    //{
-    //    if (faction == FACTION_GROUP.ENEMY)
-    //    {
-    //        Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
-    //        thePoint.y = Camera.main.pixelHeight - thePoint.y;
-    //        GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "SkillLaser: " + currPhase.ToString());
-    //    }
-    //}
+    void OnGUI()
+    {
+        if (faction == FACTION_GROUP.ENEMY)
+        {
+            Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + Vector3.forward);
+            thePoint.y = Camera.main.pixelHeight - thePoint.y;
+            GUI.TextArea(new Rect(thePoint, new Vector2(100.0f, 40.0f)), "SkillLaser: " + currPhase.ToString());
+        }
+    }
 }
