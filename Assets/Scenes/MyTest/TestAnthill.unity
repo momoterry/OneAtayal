@@ -516,6 +516,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+--- !u!1 &628916211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 628916212}
+  - component: {fileID: 628916213}
+  m_Layer: 0
+  m_Name: HugeRoomOne_TestTower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &628916212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628916211}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3495891255675402518}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &628916213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628916211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eInfos:
+  - area:
+      serializedVersion: 2
+      x: 0
+      y: -3
+      width: 1
+      height: 1
+    eInfo:
+      enemys:
+      - {fileID: 4568917047187759288, guid: f63eb403f7cade541a018236349e1d4e, type: 3}
+      enemyIDs: []
+      totalNumMin: 2
+      totalNumMax: 2
+      finishWhenEngaged: 1
+  - area:
+      serializedVersion: 2
+      x: 0
+      y: -3
+      width: 3
+      height: 3
+    eInfo:
+      enemys:
+      - {fileID: 7208015447484052683, guid: 3f97bdf46b3cd0f498ba4d26a525ee49, type: 3}
+      enemyIDs: []
+      totalNumMin: 6
+      totalNumMax: 6
+      finishWhenEngaged: 1
+  randomBlocks: []
+  doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
 --- !u!1 &631198555
 GameObject:
   m_ObjectHideFlags: 0
@@ -2551,6 +2624,7 @@ Transform:
   - {fileID: 4536847960275681489}
   - {fileID: 954073050}
   - {fileID: 201448845}
+  - {fileID: 628916212}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2646,12 +2720,12 @@ MonoBehaviour:
   difficultRateMax: 2
   enmeyLV: 1
   defaultMainGames:
-  - game: {fileID: 201448846}
+  - game: {fileID: 628916213}
     ratioPercent: 100
   fixStartGames: []
   fixEndGames: []
   defautPathGames:
-  - game: {fileID: 8416918859233845304}
+  - game: {fileID: 628916213}
     ratioPercent: 100
   defaultBranchGames:
   - game: {fileID: 6209836115380713554}
