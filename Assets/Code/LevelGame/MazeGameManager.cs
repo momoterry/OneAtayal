@@ -566,7 +566,7 @@ public class MazeGameManager : MazeGameManagerBase
 
         CollectAllRooms();
 
-        print("=======要來處理房間中的布局了=======");
+        //print("=======要來處理房間中的布局了=======");
         foreach (KeyValuePair<RoomInfo, RoomGameplayBase> kv in allRoomGames)
         {
             kv.Value.BuildLayout(kv.Key, theMap);

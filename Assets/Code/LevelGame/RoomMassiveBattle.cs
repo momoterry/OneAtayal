@@ -104,7 +104,7 @@ public class RoomMassiveBattle : RoomGameplayBase
             float rYMin = Random.Range(ri.area.yMin, ri.area.yMax - rHeight);
             //Rect blockRect = new Rect(rXMin, rYMin, rWidth, rHeight);
 
-            print("RoomMassiveBattle 產生 Block");
+            //print("RoomMassiveBattle 產生 Block");
             int x = roomX1 + Mathf.RoundToInt((rXMin + 5.0f) * widthRatio);     //左下座標
             int y = roomY1 + Mathf.RoundToInt((rYMin + 5.0f) * heightRatio);    //左下座標
             int w = Mathf.RoundToInt(rWidth * widthRatio);

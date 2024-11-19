@@ -291,7 +291,7 @@ public class EnemyGroup : MonoBehaviour
                     //i--;
                     //slots.RemoveAt(i);
                     //grid[x, y] = 0;
-                    print("沒路可走了，先結束.... ");
+                    One.LOG("EenmyGroup 沒路可走了，先結束.... 少了: " + (numberOfCells - i));
                     break;
                 }
                 else

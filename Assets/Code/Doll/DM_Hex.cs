@@ -97,7 +97,7 @@ public class DM_Hex : DollManager
             y -= 1.0f;
         }
 
-        print("總共 Build 出了 Node 數: " + currIndex);
+        //print("總共 Build 出了 Node 數: " + currIndex);
     }
 
     public override bool AddOneDoll(Doll doll)
