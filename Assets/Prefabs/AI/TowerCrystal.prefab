@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2264226125545639902}
-  - component: {fileID: 3255296454070526904}
   - component: {fileID: 1702275515600879293}
   - component: {fileID: 8284228851848052660}
+  - component: {fileID: 1227778499418720513}
   - component: {fileID: 4274056214866837559}
   - component: {fileID: 7011486637474910002}
   - component: {fileID: 7933927348871159214}
@@ -19,7 +19,7 @@ GameObject:
   m_Layer: 10
   m_Name: TowerCrystal
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -39,34 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &3255296454070526904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4568917047187759288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cd377c4ef8e9b64083c42a4133b5242, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: -1
-  MaxHP: 100
-  spawnFX: {fileID: 0}
-  deadFX: {fileID: 0}
-  debris: {fileID: 0}
-  SpawnWaitTime: 0.1
-  ChaseRangeIn: 4
-  ChaseRangeOut: 7
-  AttackRangeIn: 1
-  AttackRangeOut: 1.2
-  AttackWait: 0.2
-  AttackCD: 1
-  Attack: 20
-  SlotOut: 12
-  myAnimator: {fileID: 0}
-  mySPAimator: {fileID: 0}
 --- !u!208 &1702275515600879293
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -104,6 +76,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1227778499418720513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568917047187759288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c789f5f5c529a48ad857afc9b76337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: -1
+  MaxHP: 2000
+  spawnFX: {fileID: 0}
+  deadFX: {fileID: 8091667162185462, guid: bdfc698cb8b0b5b4dbe807724abf6fa9, type: 3}
+  debris: {fileID: 4102302037370830796, guid: b403d85c0905b9d46b7c106e1172ac3b, type: 3}
+  SpawnWaitTime: 0.1
+  ChaseRangeIn: 0
+  ChaseRangeOut: 999
+  AttackRangeIn: 8
+  AttackRangeOut: 12
+  AttackWait: 0
+  AttackCD: 1
+  Attack: 50
+  SlotOut: 999
+  myAnimator: {fileID: 0}
+  mySPAimator: {fileID: 0}
+  normalSkillRef: {fileID: 5091870217862340967, guid: 1411c4a3afff00f4593c9bac3110af29, type: 3}
+  bigOneSkillRef: {fileID: 0}
+  skillPattern: 00000000
 --- !u!114 &4274056214866837559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,13 +114,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4568917047187759288}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73172fc6794736341bc242f6334ad36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   barRef: {fileID: 3890801454975395505, guid: 973c65eeb08fab642b86710e645afe25, type: 3}
-  barHeight: 1.25
+  barHeight: 1.5
 --- !u!114 &7011486637474910002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4847519023731070151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.3125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

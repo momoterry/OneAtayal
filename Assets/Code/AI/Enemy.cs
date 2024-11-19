@@ -477,7 +477,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void UpdateAttack()
     {
-        if ( !myAgent || !targetObj || !targetObj.activeInHierarchy)
+        if ( !targetObj || !targetObj.activeInHierarchy)
         {
             nextState = AI_STATE.IDLE;
             return;
