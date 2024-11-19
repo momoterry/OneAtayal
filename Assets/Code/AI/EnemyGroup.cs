@@ -11,6 +11,7 @@ public class EnemyGroup : MonoBehaviour
     public int randomEnemyTotal = 0;
     public int width = 4;
     public int height = 3;
+    //public bool spawnWithoutConnect = false;
     public float spwanDistance = 15.0f;
     public float alertDistance = 10.0f;
     public float stopDistance = 20.0f;
@@ -30,6 +31,7 @@ public class EnemyGroup : MonoBehaviour
         public string enemyID = "";      //如果有設定 ID，則 enemyRef 無效
         public int LV = 1;
         public int num;
+        public bool spawnWithoutConnect = false;        //是否相連
     }
 
     protected enum PHASE
@@ -153,7 +155,7 @@ public class EnemyGroup : MonoBehaviour
 
         foreach (EnemyInfo enemyInfo in enemyInfos)
         {
-            List<Vector2Int> iSlots = GetConnectedCells(enemyInfo.num, width + 1, height + 1, oGrid);
+            List<Vector2Int> iSlots = GetConnectedCells(enemyInfo.num, width + 1, height + 1, oGrid, enemyInfo.spawnWithoutConnect);
             foreach (Vector2Int slot in iSlots) 
             {
                 oGrid[slot.x, slot.y] = 1;
@@ -226,7 +228,7 @@ public class EnemyGroup : MonoBehaviour
         newHeight = yMax - yMin + 1.0f;
     }
 
-    private List<Vector2Int> GetConnectedCells(int numberOfCells, int width, int height, int[,] oGrid)
+    private List<Vector2Int> GetConnectedCells(int numberOfCells, int width, int height, int[,] oGrid, bool noConnect = false)
     {
         //int failureCount = 0;
         //int maxFailures = 100;
@@ -255,10 +257,11 @@ public class EnemyGroup : MonoBehaviour
             bool isSuccessStep = false;
             //slots.Add(new Vector2Int(x, y));
             //grid[x, y] = 1;
-            if (i == 0)
+            if (i == 0 || noConnect)
             {
                 Vector2Int randomStart = validStart[Random.Range(0, validStart.Count)];
                 x = randomStart.x; y = randomStart.y;
+                validStart.Remove(randomStart);
                 isSuccessStep = true;
             }
             else
