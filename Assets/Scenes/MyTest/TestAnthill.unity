@@ -316,7 +316,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaEnemyInfos: []
+  areaEnemyInfos:
+  - area:
+      serializedVersion: 2
+      x: -4
+      y: 0
+      width: 8
+      height: 4
+    eInfo:
+      enemys:
+      - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+      - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
+      - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
+      enemyIDs: []
+      totalNumMin: 40
+      totalNumMax: 45
+    spawnWithoutConnect: 0
+    diffToSingle: 0
+    spawnOnStart: 0
+    groupFinishType: 1
   randomBlocks:
   - area:
       serializedVersion: 2
@@ -557,10 +575,10 @@ MonoBehaviour:
       enemyIDs: []
       totalNumMin: 2
       totalNumMax: 2
-      finishWhenEngaged: 1
     spawnWithoutConnect: 1
     diffToSingle: 1
     spawnOnStart: 1
+    groupFinishType: 2
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
 --- !u!1 &631198555
@@ -2328,13 +2346,13 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 8
     totalNumMax: 10
-    finishWhenEngaged: 1
   width: 2
   height: 4
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 0
   spawnWithoutConnect: 0
+  groupFinishType: 2
   triggerTargetWhenAllKilled:
   - {fileID: 996216553737882145}
 --- !u!1 &2073035777412485551
@@ -2655,13 +2673,13 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 8
     totalNumMax: 10
-    finishWhenEngaged: 1
   width: 4
   height: 2
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 0
   spawnWithoutConnect: 0
+  groupFinishType: 2
   triggerTargetWhenAllKilled:
   - {fileID: 8133593307305569499}
 --- !u!114 &4112650418337154643
@@ -2777,13 +2795,13 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 8
     totalNumMax: 10
-    finishWhenEngaged: 1
   width: 4
   height: 2
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 0
   spawnWithoutConnect: 0
+  groupFinishType: 2
   triggerTargetWhenAllKilled:
   - {fileID: 996216553737882145}
 --- !u!4 &5184857429641245888
@@ -3060,13 +3078,13 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 8
     totalNumMax: 10
-    finishWhenEngaged: 1
   width: 2
   height: 4
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 0
   spawnWithoutConnect: 0
+  groupFinishType: 2
   triggerTargetWhenAllKilled:
   - {fileID: 996216553737882145}
 --- !u!4 &7631860270758180465
@@ -3239,7 +3257,6 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 4
     totalNumMax: 5
-    finishWhenEngaged: 0
 --- !u!114 &9142320473677101264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3260,13 +3277,13 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 1
     totalNumMax: 1
-    finishWhenEngaged: 0
   width: 1
   height: 1
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 1
   spawnWithoutConnect: 0
+  groupFinishType: 2
   triggerTargetWhenAllKilled:
   - {fileID: 8133593307305569499}
 --- !u!4 &9221917728764359126

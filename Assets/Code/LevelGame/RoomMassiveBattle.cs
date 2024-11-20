@@ -16,6 +16,7 @@ public class RoomMassiveBattle : RoomGameplayBase
         public bool spawnWithoutConnect;    //不相連分布
         public bool diffToSingle;           //關卡難度不影響強度而不是數量 (Boss 或固定數量隊長專用)
         public bool spawnOnStart;             //一開始就生成
+        public EnemyGroup.FINISH_TYPE groupFinishType = EnemyGroup.FINISH_TYPE.ON_ENGAGED;
     }
 
     public EnemyGroupAreaInfo[] areaEnemyInfos;
@@ -75,6 +76,7 @@ public class RoomMassiveBattle : RoomGameplayBase
             me.diffToSingle = ea.diffToSingle;
             me.spawnOnStart = ea.spawnOnStart;
             me.spawnWithoutConnect = ea.spawnWithoutConnect;
+            me.groupFinishType = ea.groupFinishType;
 
             //me.spawnOnStart = true; //TODO: 只是測試
 

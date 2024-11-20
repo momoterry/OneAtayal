@@ -22,7 +22,14 @@ public class EnemyGroup : MonoBehaviour
 
     public float difficulty = 1.0f;     //1.0f 為正常值
 
-    protected bool finishWhenEngaged = false;
+    //protected bool finishWhenEngaged = false;
+    public enum FINISH_TYPE
+    {
+        NORMAL,         //進行到結束
+        ON_ENGAGED,     //接觸到玩家後結束
+        ON_SPAWN,       //一生完怪就結束
+    }
+    public FINISH_TYPE finishType = FINISH_TYPE.NORMAL;
 
     [System.Serializable]
     public class EnemyInfo
@@ -60,10 +67,10 @@ public class EnemyGroup : MonoBehaviour
     protected float newHeight = 0;
 
 
-    public void SetFinishWhenEngaged(bool _finishWhenEngaged)
-    {
-        finishWhenEngaged = _finishWhenEngaged;
-    }
+    //public void SetFinishWhenEngaged(bool _finishWhenEngaged)
+    //{
+    //    finishWhenEngaged = _finishWhenEngaged;
+    //}
 
     void Awake()
     {
@@ -324,7 +331,10 @@ public class EnemyGroup : MonoBehaviour
             if (GetPlayerDistance() < spwanDistance)
             {
                 SpawnEnemies();
-                nextPhase = PHASE.WAIT;
+                if (finishType == FINISH_TYPE.ON_SPAWN)
+                    nextPhase = PHASE.TRACE_ONLY;
+                else
+                    nextPhase = PHASE.WAIT;
             }
         }
     }
@@ -433,7 +443,7 @@ public class EnemyGroup : MonoBehaviour
                 {
                     //已經抓到目標
                     moveDirection = Vector3.zero;
-                    if (finishWhenEngaged)
+                    if (finishType == FINISH_TYPE.ON_ENGAGED)
                         nextPhase = PHASE.TRACE_ONLY;
                 }
             }

@@ -13,7 +13,7 @@ public class RoomGameplayBase : MonoBehaviour
         public string[] enemyIDs;       //如果有指定 ID 的時候，會無視 GameObject 的指定
         public float totalNumMin = 2;
         public float totalNumMax = 3;
-        public bool finishWhenEngaged = false;
+        //public bool finishWhenEngaged = false;
     }
 
     public virtual void BuildLayout( MazeGameManagerBase.RoomInfo room, OneMap oMap)
@@ -24,7 +24,8 @@ public class RoomGameplayBase : MonoBehaviour
 
     static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter,
         int width = 4, int height = 4, float diffAddRate = 0, int enemyLV = 1, float forceAlertDistance = -1.0f,
-        bool diffToSingle = false, GameObject[] triggerTargets = null, bool spawnWithoutConnect = false)
+        bool diffToSingle = false, GameObject[] triggerTargets = null, bool spawnWithoutConnect = false, 
+        EnemyGroup.FINISH_TYPE groupFinithType = EnemyGroup.FINISH_TYPE.NORMAL)
     {
         float numF = Random.Range(info.totalNumMin, info.totalNumMax);
         if (!diffToSingle)
@@ -83,7 +84,8 @@ public class RoomGameplayBase : MonoBehaviour
             enemyGroup.enemyInfos[i].LV = enemyLV;
         }
 
-        enemyGroup.SetFinishWhenEngaged(info.finishWhenEngaged);
+        //enemyGroup.SetFinishWhenEngaged(info.finishWhenEngaged);
+        enemyGroup.finishType = groupFinithType;
         enemyGroup.triggerTargetWhenAllKilled = triggerTargets;
 
         return o;
