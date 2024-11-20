@@ -1123,6 +1123,85 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1301561631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1301561632}
+  - component: {fileID: 1301561633}
+  m_Layer: 0
+  m_Name: HugeRoomOne_TestCaptain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1301561632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301561631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3495891255675402518}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1301561633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301561631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areaEnemyInfos:
+  - area:
+      serializedVersion: 2
+      x: -2
+      y: 0
+      width: 4
+      height: 4
+    eInfo:
+      enemys:
+      - {fileID: 7208015447484052683, guid: 8ac977431f549334eb24e55f8d82315f, type: 3}
+      enemyIDs: []
+      totalNumMin: 1
+      totalNumMax: 1
+    spawnWithoutConnect: 1
+    diffToSingle: 1
+    spawnOnStart: 1
+    groupFinishType: 2
+  - area:
+      serializedVersion: 2
+      x: -2
+      y: 0
+      width: 4
+      height: 4
+    eInfo:
+      enemys:
+      - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+      enemyIDs: []
+      totalNumMin: 6
+      totalNumMax: 6
+    spawnWithoutConnect: 0
+    diffToSingle: 1
+    spawnOnStart: 1
+    groupFinishType: 2
+  randomBlocks: []
+  doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
 --- !u!1 &1356715259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,6 +2681,7 @@ Transform:
   - {fileID: 954073050}
   - {fileID: 201448845}
   - {fileID: 628916212}
+  - {fileID: 1301561632}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2698,7 +2778,7 @@ MonoBehaviour:
   difficultRateMax: 1.5
   enmeyLV: 1
   defaultMainGames:
-  - game: {fileID: 628916213}
+  - game: {fileID: 1301561633}
     ratioPercent: 100
   fixStartGames: []
   fixEndGames: []
