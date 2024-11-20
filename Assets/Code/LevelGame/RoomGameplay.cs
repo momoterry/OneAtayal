@@ -22,8 +22,9 @@ public class RoomGameplayBase : MonoBehaviour
     public virtual void Build( MazeGameManagerBase.RoomInfo room ) 
     {}
 
-    static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter, 
-        int width=4, int height=4, float diffAddRate=0, int enemyLV = 1, float forceAlertDistance = -1.0f, bool diffToSingle = false, GameObject[] triggerTargets = null)
+    static public GameObject SpawnEnemyGroupObject(EnemyGroupInfo info, Vector3 vCenter,
+        int width = 4, int height = 4, float diffAddRate = 0, int enemyLV = 1, float forceAlertDistance = -1.0f,
+        bool diffToSingle = false, GameObject[] triggerTargets = null, bool spawnWithoutConnect = false)
     {
         float numF = Random.Range(info.totalNumMin, info.totalNumMax);
         if (!diffToSingle)
@@ -64,6 +65,7 @@ public class RoomGameplayBase : MonoBehaviour
             {
                 enemyGroup.enemyInfos[i] = new EnemyGroup.EnemyInfo();
                 enemyGroup.enemyInfos[i].enemyRef = info.enemys[i];
+                enemyGroup.enemyInfos[i].spawnWithoutConnect = spawnWithoutConnect;
             }
         }
         if (info.enemyIDs != null)
@@ -73,6 +75,7 @@ public class RoomGameplayBase : MonoBehaviour
                 if (enemyGroup.enemyInfos[i] == null)
                     enemyGroup.enemyInfos[i] = new EnemyGroup.EnemyInfo();
                 enemyGroup.enemyInfos[i].enemyID = info.enemyIDs[i];
+                enemyGroup.enemyInfos[i].spawnWithoutConnect = spawnWithoutConnect;
             }
         }
         for (int i=0; i< eNum; i++)

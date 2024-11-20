@@ -11,11 +11,14 @@ public class RoomMassiveBattle : RoomGameplayBase
     [System.Serializable]
     public class EnemyGroupAreaInfo
     {
-        public Rect area;               // 以中心點座標為 (0,0) 房間大小為 10 的相對範圍來指定
+        public Rect area;                   // 以中心點座標為 (0,0) 房間大小為 10 的相對範圍來指定
         public EnemyGroupInfo eInfo;
+        public bool spawnWithoutConnect;    //不相連分布
+        public bool diffToSingle;           //關卡難度不影響強度而不是數量 (Boss 或固定數量隊長專用)
+        public bool spawnOnStart;             //一開始就生成
     }
 
-    public EnemyGroupAreaInfo[] eInfos;
+    public EnemyGroupAreaInfo[] areaEnemyInfos;
 
     //public int RandomBlockNum = 0;
     [System.Serializable]
@@ -56,7 +59,7 @@ public class RoomMassiveBattle : RoomGameplayBase
         //doorObj.transform.parent = theObj.transform;
         //MR_RoomDoorTrigger dt = doorObj.AddComponent<MR_RoomDoorTrigger>();
 
-        foreach (EnemyGroupAreaInfo ea in eInfos)
+        foreach (EnemyGroupAreaInfo ea in areaEnemyInfos)
         {
             Vector3 sPos = new Vector3(ea.area.center.x * widthRatio, 0, ea.area.center.y * heightRatio);
             GameObject o = new GameObject("EnemyMR");
@@ -69,6 +72,9 @@ public class RoomMassiveBattle : RoomGameplayBase
             me.shiftType = MR_Node.POS_SHIFT.ENTER;
             me.triggerTargetWhenAllKilled = new GameObject[1];
             me.triggerTargetWhenAllKilled[0] = theObj;
+            me.diffToSingle = ea.diffToSingle;
+            me.spawnOnStart = ea.spawnOnStart;
+            me.spawnWithoutConnect = ea.spawnWithoutConnect;
 
             //me.spawnOnStart = true; //TODO: 只是測試
 

@@ -316,23 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eInfos:
-  - area:
-      serializedVersion: 2
-      x: -3
-      y: -3
-      width: 6
-      height: 8
-    eInfo:
-      enemys:
-      - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
-      - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
-      - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
-      - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
-      enemyIDs: []
-      totalNumMin: 30
-      totalNumMax: 35
-      finishWhenEngaged: 1
+  areaEnemyInfos: []
   randomBlocks:
   - area:
       serializedVersion: 2
@@ -560,20 +544,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eInfos:
+  areaEnemyInfos:
   - area:
       serializedVersion: 2
-      x: 0
-      y: 3
-      width: 1
-      height: 1
+      x: -2
+      y: 0
+      width: 4
+      height: 4
     eInfo:
       enemys:
       - {fileID: 4568917047187759288, guid: f63eb403f7cade541a018236349e1d4e, type: 3}
       enemyIDs: []
-      totalNumMin: 1
-      totalNumMax: 1
+      totalNumMin: 2
+      totalNumMax: 2
       finishWhenEngaged: 1
+    spawnWithoutConnect: 1
+    diffToSingle: 1
+    spawnOnStart: 1
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
 --- !u!1 &631198555
@@ -829,23 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eInfos:
-  - area:
-      serializedVersion: 2
-      x: -4
-      y: 0
-      width: 8
-      height: 4
-    eInfo:
-      enemys:
-      - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
-      - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
-      - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
-      - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
-      enemyIDs: []
-      totalNumMin: 60
-      totalNumMax: 62
-      finishWhenEngaged: 1
+  areaEnemyInfos: []
   randomBlocks:
   - area:
       serializedVersion: 2
@@ -2363,6 +2334,7 @@ MonoBehaviour:
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 0
+  spawnWithoutConnect: 0
   triggerTargetWhenAllKilled:
   - {fileID: 996216553737882145}
 --- !u!1 &2073035777412485551
@@ -2689,6 +2661,7 @@ MonoBehaviour:
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 0
+  spawnWithoutConnect: 0
   triggerTargetWhenAllKilled:
   - {fileID: 8133593307305569499}
 --- !u!114 &4112650418337154643
@@ -2810,6 +2783,7 @@ MonoBehaviour:
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 0
+  spawnWithoutConnect: 0
   triggerTargetWhenAllKilled:
   - {fileID: 996216553737882145}
 --- !u!4 &5184857429641245888
@@ -3092,6 +3066,7 @@ MonoBehaviour:
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 0
+  spawnWithoutConnect: 0
   triggerTargetWhenAllKilled:
   - {fileID: 996216553737882145}
 --- !u!4 &7631860270758180465
@@ -3291,6 +3266,7 @@ MonoBehaviour:
   spawnOnStart: 0
   forceAlert: 1
   diffToSingle: 1
+  spawnWithoutConnect: 0
   triggerTargetWhenAllKilled:
   - {fileID: 8133593307305569499}
 --- !u!4 &9221917728764359126
