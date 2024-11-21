@@ -233,6 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5567210549488350558}
   - component: {fileID: 858065913680413152}
+  - component: {fileID: 4210470614934052102}
   - component: {fileID: 2075649660089510923}
   - component: {fileID: 8639384707586398088}
   - component: {fileID: 5681372215684571006}
@@ -240,7 +241,7 @@ GameObject:
   - component: {fileID: 8468139313982289568}
   - component: {fileID: 4929408087606568263}
   m_Layer: 10
-  m_Name: EGF_C_RedBook
+  m_Name: EC_RedBook
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,6 +292,20 @@ MonoBehaviour:
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 0}
   bulletRef: {fileID: 0}
+--- !u!114 &4210470614934052102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7208015447484052683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c7a27ea2cf10964eb265a56f09160eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomAuras:
+  - {fileID: 3575155596116267123, guid: 5d659d5709779aa48bb2c03ad5cd8125, type: 3}
 --- !u!195 &2075649660089510923
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -28,4 +28,12 @@ public class AuraGenerator : MonoBehaviour
             theAura.gameObject.transform.position = transform.position;
         }
     }
+
+    private void OnDestroy()
+    {
+        if (theAura)
+        {
+            Destroy(theAura);
+        }
+    }
 }
