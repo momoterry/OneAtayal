@@ -64,7 +64,6 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
                     }
                     else
                     {
-                        cell.isPath = true;
                         int branchDeep = cell.deep - cell.mainDeep;
                         if (branchDeep > MaxBranchDeep)
                         {
@@ -73,6 +72,10 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
                             {
                                 DisConnectCellByDir(cell, cell.from);
                             }
+                        }
+                        else
+                        {
+                            cell.isPath = cell.deep % 2 == 0 ? true : false;
                         }
                     }
                 }
