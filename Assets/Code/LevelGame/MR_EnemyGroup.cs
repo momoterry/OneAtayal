@@ -10,10 +10,11 @@ public class MR_EnemyGroup : MR_Node
     public int width;
     public int height;
     public bool spawnOnStart = false;               //只是生成 EnemyGroup ，而不是直接生怪
-    public bool forceAlert = false;
-    public bool diffToSingle = false;               //如果是 true 的話，難度會反映在單體強度而不是數量
-    public bool spawnWithoutConnect = false;        //如果是 true 的話，Spawn 後同類怪不會相連 //TODO: 最好可以一類一類設定
-    public EnemyGroup.FINISH_TYPE groupFinishType = EnemyGroup.FINISH_TYPE.NORMAL;
+
+    //public bool forceAlert = false;
+    //public bool diffToSingle = false;               //如果是 true 的話，難度會反映在單體強度而不是數量
+    //public bool spawnWithoutConnect = false;        //如果是 true 的話，Spawn 後同類怪不會相連 //TODO: 最好可以一類一類設定
+    //public EnemyGroup.FINISH_TYPE groupFinishType = EnemyGroup.FINISH_TYPE.NORMAL;
 
     public GameObject[] triggerTargetWhenAllKilled;
 
@@ -35,12 +36,12 @@ public class MR_EnemyGroup : MR_Node
 
     protected void CreateEnemyGroup()
     {
-        float forceAlertDistance = forceAlert? 999.0f : - 1.0f;
-        //float _diffAdd = diffToLV ? 0: diffAddRatio;
-        //int _LV = diffToLV ? enemyLV + Mathf.RoundToInt(diffAddRatio) : enemyLV;
-        GameObject o = SpawnEnemyGroupObject(eInfo, transform.position, width, height, diffAddRatio, enemyLV, 
-            forceAlertDistance, diffToSingle, triggerTargetWhenAllKilled, spawnWithoutConnect, groupFinishType);
-        //o.transform.position = room.vCenter;
+        //float forceAlertDistance = forceAlert? 999.0f : - 1.0f;
+
+        //GameObject o = SpawnEnemyGroupObject(eInfo, transform.position, width, height, diffAddRatio, enemyLV, 
+        //    forceAlertDistance, diffToSingle, triggerTargetWhenAllKilled, spawnWithoutConnect, groupFinishType);
+        GameObject o = SpawnEnemyGroupObject(eInfo, transform.position, width, height, diffAddRatio, enemyLV, triggerTargetWhenAllKilled);
+
         o.name = "MR_EnemyGroup_" + name + "_" + (int)(diffAddRatio * 100.0f + 100.0f);
     }
 

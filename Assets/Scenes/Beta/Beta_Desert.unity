@@ -2021,12 +2021,13 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 10
     totalNumMax: 12
-    finishWhenEngaged: 1
+    forceAlert: 1
+    diffToSingle: 0
+    spawnWithoutConnect: 0
+    groupFinishType: 1
   width: 4
   height: 2
   spawnOnStart: 0
-  forceAlert: 1
-  diffToSingle: 0
   triggerTargetWhenAllKilled:
   - {fileID: 8435523579772891671}
 --- !u!4 &1570041473054064903
@@ -2096,7 +2097,10 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 2
     totalNumMax: 3
-    finishWhenEngaged: 0
+    forceAlert: 0
+    diffToSingle: 0
+    spawnWithoutConnect: 0
+    groupFinishType: 0
 --- !u!4 &1924144132094137011
 Transform:
   m_ObjectHideFlags: 0
@@ -2401,12 +2405,13 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 1
     totalNumMax: 1
-    finishWhenEngaged: 0
+    forceAlert: 1
+    diffToSingle: 1
+    spawnWithoutConnect: 1
+    groupFinishType: 2
   width: 1
   height: 1
   spawnOnStart: 0
-  forceAlert: 1
-  diffToSingle: 1
   triggerTargetWhenAllKilled:
   - {fileID: 8435523579772891671}
 --- !u!4 &3716977959049151203
@@ -2855,12 +2860,13 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 8
     totalNumMax: 10
-    finishWhenEngaged: 1
+    forceAlert: 1
+    diffToSingle: 0
+    spawnWithoutConnect: 0
+    groupFinishType: 1
   width: 2
   height: 4
   spawnOnStart: 0
-  forceAlert: 1
-  diffToSingle: 0
   triggerTargetWhenAllKilled:
   - {fileID: 8761545999631188903}
 --- !u!1 &6402315587845765967
@@ -3367,12 +3373,13 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 8
     totalNumMax: 10
-    finishWhenEngaged: 1
+    forceAlert: 1
+    diffToSingle: 0
+    spawnWithoutConnect: 0
+    groupFinishType: 1
   width: 4
   height: 2
   spawnOnStart: 0
-  forceAlert: 1
-  diffToSingle: 0
   triggerTargetWhenAllKilled:
   - {fileID: 8761545999631188903}
 --- !u!1 &9126096412210265490
@@ -3411,11 +3418,12 @@ MonoBehaviour:
     enemyIDs: []
     totalNumMin: 8
     totalNumMax: 10
-    finishWhenEngaged: 1
+    forceAlert: 1
+    diffToSingle: 0
+    spawnWithoutConnect: 0
+    groupFinishType: 1
   width: 2
   height: 4
   spawnOnStart: 0
-  forceAlert: 1
-  diffToSingle: 0
   triggerTargetWhenAllKilled:
   - {fileID: 8761545999631188903}

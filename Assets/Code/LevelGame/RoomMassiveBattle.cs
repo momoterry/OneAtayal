@@ -13,10 +13,10 @@ public class RoomMassiveBattle : RoomGameplayBase
     {
         public Rect area;                   // 以中心點座標為 (0,0) 房間大小為 10 的相對範圍來指定
         public EnemyGroupInfo eInfo;
-        public bool spawnWithoutConnect;    //不相連分布
-        public bool diffToSingle;           //關卡難度不影響強度而不是數量 (Boss 或固定數量隊長專用)
+        //public bool spawnWithoutConnect;    //不相連分布
+        //public bool diffToSingle;           //關卡難度不影響強度而不是數量 (Boss 或固定數量隊長專用)
         public bool spawnOnStart;             //一開始就生成
-        public EnemyGroup.FINISH_TYPE groupFinishType = EnemyGroup.FINISH_TYPE.ON_ENGAGED;
+        //public EnemyGroup.FINISH_TYPE groupFinishType = EnemyGroup.FINISH_TYPE.ON_ENGAGED;
     }
 
     public EnemyGroupAreaInfo[] areaEnemyInfos;
@@ -73,10 +73,10 @@ public class RoomMassiveBattle : RoomGameplayBase
             me.shiftType = MR_Node.POS_SHIFT.ENTER;
             me.triggerTargetWhenAllKilled = new GameObject[1];
             me.triggerTargetWhenAllKilled[0] = theObj;
-            me.diffToSingle = ea.diffToSingle;
+            //me.diffToSingle = ea.diffToSingle;
             me.spawnOnStart = ea.spawnOnStart;
-            me.spawnWithoutConnect = ea.spawnWithoutConnect;
-            me.groupFinishType = ea.groupFinishType;
+            //me.spawnWithoutConnect = ea.spawnWithoutConnect;
+            //me.groupFinishType = ea.groupFinishType;
 
             //me.spawnOnStart = true; //TODO: 只是測試
 
