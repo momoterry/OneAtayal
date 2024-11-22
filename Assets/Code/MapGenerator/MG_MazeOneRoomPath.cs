@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MG_MazeOneRoomPath : MG_MazeOneEx
 {
+    public int MaxMainDeep = 6;
     public int MaxBranchDeep = 2;
 
 
@@ -39,11 +40,17 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
         puzzleMap[puzzleStart.x][puzzleStart.y].value = CELL.TERNIMAL;
         puzzleMap[puzzleEnd.x][puzzleEnd.y].value = CELL.TERNIMAL;
 
-        int maxMainDeep = Mathf.Max(puzzleMap[puzzleEnd.x][puzzleEnd.y].deep, 1);
-        CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.NONE, true, maxMainDeep);
+        int _maxMainDeep = Mathf.Max(puzzleMap[puzzleEnd.x][puzzleEnd.y].deep, 1);
+        CheckMainPathDeep(puzzleEnd.x, puzzleEnd.y, DIRECTION.NONE, true, _maxMainDeep);
 
         puzzleMap[puzzleStart.x][puzzleStart.y].isPath = true;
         puzzleMap[puzzleEnd.x][puzzleEnd.y].isPath = true;
+
+        if (_maxMainDeep < MaxMainDeep)
+        {
+            print("縮短 Main: " + MaxMainDeep + " >> " + _maxMainDeep);
+            MaxMainDeep = _maxMainDeep;
+        }
 
         for (int x = 0; x < puzzleWidth; x++)
         {
@@ -56,16 +63,45 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
                     if ( cell.isMain)
                     {
                         //print("Cell is Main? " + cell.isMain + "Maind Deep: " + cell.mainDeep);
-                        cell.isPath = cell.mainDeep % 2 == 0 ? true : false;
-                        if (cell.mainDeep == maxMainDeep - 1)
+                        if (cell.mainDeep > MaxMainDeep)
                         {
-                            cell.isPath = false;    //結束前最後一格必定為 Room
+                            cell.value = CELL.INVALID;
+                            if (cell.mainDeep == (MaxMainDeep + 1))
+                            {
+                                DisConnectCellByDir(cell, cell.from);
+                            }
                         }
+                        else if (cell.mainDeep == MaxMainDeep)
+                        {
+                            cell.isPath = true;
+                            if (MaxMainDeep < _maxMainDeep)
+                            {
+                                Vector2Int newPuzzleEnd = new Vector2Int(cell.x, cell.y);
+                                print("更換終點: " + puzzleEnd + " >> " + newPuzzleEnd);
+                                puzzleMap[puzzleEnd.x][puzzleEnd.y].value = CELL.INVALID;
+                                puzzleEnd = newPuzzleEnd;
+                            }
+                        }
+                        else
+                            cell.isPath = cell.mainDeep % 2 == 0 ? true : false;
+                        //if (cell.mainDeep == MaxMainDeep - 1)
+                        //{
+                        //    cell.isPath = false;    //結束前最後一格必定為 Room
+                        //    //TODO: 強迫斷開其它連結
+                        //}
                     }
                     else
                     {
                         int branchDeep = cell.deep - cell.mainDeep;
-                        if (branchDeep > MaxBranchDeep)
+                        if (cell.mainDeep >= (MaxMainDeep - 1))
+                        {
+                            cell.value = CELL.INVALID;
+                            if (branchDeep == 1)    //斷開分支
+                            {
+                                DisConnectCellByDir(cell, cell.from);
+                            }
+                        }
+                        else if (branchDeep > MaxBranchDeep)
                         {
                             cell.value = CELL.INVALID;
                             if (branchDeep == (MaxBranchDeep + 1))
