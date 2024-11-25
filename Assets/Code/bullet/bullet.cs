@@ -14,7 +14,7 @@ public struct Damage
     }
     public float damage;
     public OwnerType type;
-    public string ID;
+    public string ID;           //處理傷害統計的單位
     public GameObject Owner;
 
     public void Init(float _d, OwnerType _type, string _ID, GameObject _Owner)

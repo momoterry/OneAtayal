@@ -22,7 +22,7 @@ public class DollSkillBase : MonoBehaviour
     {
         //print("DollSkillBase.Awake");
         doll = GetComponent<Doll>();
-        myDamage.Init(0, Damage.OwnerType.PLAYER, gameObject.name, gameObject);
+        myDamage.Init(0, Damage.OwnerType.DOLL, doll.ID, doll.gameObject);
         //if (activeHint)
         //    activeHint.SetActive(false);
     }
