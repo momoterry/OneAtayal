@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class RoomMassiveBattle : RoomGameplayBase
 {
+    public bool CloseDoolBattle = true;
     [System.Serializable]
     public class EnemyGroupAreaInfo
     {
@@ -51,14 +52,11 @@ public class RoomMassiveBattle : RoomGameplayBase
         GameObject theObj = new GameObject(name + "_" + room.cell.x + "_" + room.cell.y);
         theObj.transform.position = room.vCenter;
         RoomMassiveBattleController rc = theObj.AddComponent<RoomMassiveBattleController>();
-        rc.doorObj = doorObj;
-        //rc.Init(room);
+        if (CloseDoolBattle)
+            rc.doorObj = doorObj;
+        else
+            rc.doorObj = null;
 
-        // == ªù == 
-        //GameObject doorObj = new GameObject(name + "_DOOR_" + room.cell.x + "_" + room.cell.y);
-        //doorObj.transform.position = room.vCenter;
-        //doorObj.transform.parent = theObj.transform;
-        //MR_RoomDoorTrigger dt = doorObj.AddComponent<MR_RoomDoorTrigger>();
 
         foreach (EnemyGroupAreaInfo ea in areaEnemyInfos)
         {
@@ -163,13 +161,18 @@ public class RoomMassiveBattleController : MonoBehaviour
         trigCollider.isTrigger = true;
 
         // == ªù ==
-        GameObject o = new GameObject(name + "_DOOR");
-        doorTrigger = o.AddComponent<MR_RoomDoorTrigger>();
-        o.transform.position = transform.position;
-        o.transform.parent = transform;
-        doorTrigger.doorObj = doorObj;
-        doorTrigger.doorShiftBack = 2.0f;
-        doorTrigger.fadeOutAnimationTime = 0.5f;
+        if (doorObj != null)
+        {
+            GameObject o = new GameObject(name + "_DOOR");
+            doorTrigger = o.AddComponent<MR_RoomDoorTrigger>();
+            o.transform.position = transform.position;
+            o.transform.parent = transform;
+            doorTrigger.doorObj = doorObj;
+            doorTrigger.doorShiftBack = 2.0f;
+            doorTrigger.fadeOutAnimationTime = 0.5f;
+        }
+        else
+            doorTrigger = null;
 
         enemyGroupNum = gameObject.GetComponentsInChildren<MR_EnemyGroup>().Length;
     }
