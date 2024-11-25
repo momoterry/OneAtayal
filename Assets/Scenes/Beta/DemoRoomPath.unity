@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CloseDoolBattle: 1
+  CloseDoolBattle: 0
   areaEnemyInfos:
   - area:
       serializedVersion: 2
@@ -287,6 +287,7 @@ MonoBehaviour:
     blockSizeMin: {x: 3, y: 1}
     blockSizeMax: {x: 6, y: 3}
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects: []
 --- !u!114 &210802122 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2946355047569297642, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
@@ -472,6 +473,7 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects: []
 --- !u!1 &631198555
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +741,9 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects:
+  - objPosShift: {x: 0, y: 0, z: -2}
+    objRef: {fileID: 9122827080933831342, guid: 6eea39e5290faf84daa1f1c9213703dd, type: 3}
 --- !u!1 &1066149157
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,7 +986,7 @@ GameObject:
   - component: {fileID: 1301561632}
   - component: {fileID: 1301561633}
   m_Layer: 0
-  m_Name: e_TestCaptainestCaptain
+  m_Name: HugeRoomOne_TestBook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1055,6 +1060,9 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects:
+  - objPosShift: {x: 0, y: 0, z: -2}
+    objRef: {fileID: 9122827080933831342, guid: 6eea39e5290faf84daa1f1c9213703dd, type: 3}
 --- !u!1001 &1494127079
 PrefabInstance:
   m_ObjectHideFlags: 0
