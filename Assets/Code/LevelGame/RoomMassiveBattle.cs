@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MR_Node;
 
 // ====================================================
 //           能直接處理關門的大型戰鬥
@@ -123,6 +124,7 @@ public class RoomMassiveBattle : RoomGameplayBase
         float widthRatio = room.width / MR_Node.ROOM_RELATIVE_SIZE;
         float heightRatio = room.height / MR_Node.ROOM_RELATIVE_SIZE;
         float blockBufferWidth = 0.5f;
+        DIRECTION sDir = sDir = room.cell.from;
 
         int roomX1 = (room.mapRect.width - (int)room.width) / 2 + room.mapRect.xMin;
         int roomY1 = (room.mapRect.height - (int)room.height) / 2 + room.mapRect.yMin;
@@ -130,15 +132,38 @@ public class RoomMassiveBattle : RoomGameplayBase
         //for (int i = 0; i < RandomBlockNum; i++)
         foreach (RandomBlockInfo ri in randomBlocks)
         {
-            float rWidth = Random.Range(ri.blockSizeMin.x, ri.blockSizeMax.x);
-            float rHeight = Random.Range(ri.blockSizeMin.y, ri.blockSizeMax.y);
-            float rXMin = Random.Range(ri.area.xMin, ri.area.xMax - rWidth);
-            float rYMin = Random.Range(ri.area.yMin, ri.area.yMax - rHeight);
+            float rWidthOriginal = Random.Range(ri.blockSizeMin.x, ri.blockSizeMax.x);
+            float rHeightOriginal = Random.Range(ri.blockSizeMin.y, ri.blockSizeMax.y);
+            float rXOriginal = Random.Range(ri.area.xMin + rWidthOriginal * 0.5f, ri.area.xMax - rWidthOriginal * 0.5f);
+            float rYOriginal = Random.Range(ri.area.yMin + rHeightOriginal * 0.5f, ri.area.yMax - rHeightOriginal * 0.5f);
             //Rect blockRect = new Rect(rXMin, rYMin, rWidth, rHeight);
+            float rWidth = rWidthOriginal;
+            float rHeight = rHeightOriginal;
+            float rX = rXOriginal;
+            float rY = rYOriginal;
+            switch (sDir)
+            {
+                case DIRECTION.U:
+                    rX = -rXOriginal;
+                    rY = -rYOriginal;
+                    break;
+                case DIRECTION.L:
+                    rWidth = rHeightOriginal;
+                    rHeight = rWidthOriginal;
+                    rX = rYOriginal;
+                    rY = -rXOriginal;
+                    break;
+                case DIRECTION.R:
+                    rWidth = rHeightOriginal;
+                    rHeight = rWidthOriginal;
+                    rX = -rYOriginal;
+                    rY = rXOriginal;
+                    break;
+            }
 
             //print("RoomMassiveBattle 產生 Block");
-            int x = roomX1 + Mathf.RoundToInt((rXMin + 5.0f) * widthRatio);     //左下座標
-            int y = roomY1 + Mathf.RoundToInt((rYMin + 5.0f) * heightRatio);    //左下座標
+            int x = roomX1 + Mathf.RoundToInt((rX + 5.0f - rWidth * 0.5f) * widthRatio);     //左下座標
+            int y = roomY1 + Mathf.RoundToInt((rY + 5.0f - rHeight * 0.5f) * heightRatio);    //左下座標
             int w = Mathf.RoundToInt(rWidth * widthRatio);
             int h = Mathf.RoundToInt(rHeight * heightRatio);
             //print("To Block :" + new RectInt(x, y, w, h));

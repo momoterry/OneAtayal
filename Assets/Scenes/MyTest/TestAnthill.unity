@@ -344,9 +344,9 @@ MonoBehaviour:
       x: -3
       y: -3
       width: 6
-      height: 3
-    blockSizeMin: {x: 6, y: 3}
-    blockSizeMax: {x: 6, y: 3}
+      height: 6
+    blockSizeMin: {x: 2, y: 2}
+    blockSizeMax: {x: 3, y: 3}
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!114 &210802122 stripped
@@ -1168,11 +1168,11 @@ MonoBehaviour:
       enemyIDs: []
       totalNumMin: 12
       totalNumMax: 16
-      forceAlert: 0
+      forceAlert: 1
       diffToSingle: 0
       spawnWithoutConnect: 0
       groupFinishType: 1
-    spawnOnStart: 1
+    spawnOnStart: 0
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects:
