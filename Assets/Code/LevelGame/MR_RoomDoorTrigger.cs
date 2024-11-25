@@ -176,6 +176,9 @@ public class MR_RoomDoorTrigger : MR_Node
         blockObj.transform.position = vCenter + doorOutDir * BlockerMoveDistance;
         NavMeshObstacle navO = blockObj.AddComponent<NavMeshObstacle>();
         navO.size = new Vector3(blockWidth, 2.0f, blockHeight);
+        navO.carveOnlyStationary = true;
+        navO.carvingTimeToStationary = 0.2f;
+        navO.carving = true;
         blockObj.transform.parent = rootObj.transform;
 
         MoveTrigger mt = rootObj.AddComponent<MoveTrigger>();
