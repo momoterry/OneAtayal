@@ -52,7 +52,20 @@ public class MR_EnemyGroup : MR_Node
         base.OnSetupByRoom(room);
         enemyLV = room.enemyLV;
         diffAddRatio = room.diffAddRatio;
-        width = Mathf.Max(Mathf.RoundToInt(width * widthRatio), 1);
-        height = Mathf.Max(Mathf.RoundToInt(height * heightRatio), 1);
+        int originalWidth = width;
+        int originalHeight = height;
+        switch (shiftDir) 
+        {
+            case DIRECTION.U:
+            case DIRECTION.D:
+                width = Mathf.Max(Mathf.RoundToInt(originalWidth * widthRatio), 1);
+                height = Mathf.Max(Mathf.RoundToInt(originalHeight * heightRatio), 1);
+                break;
+            case DIRECTION.L:
+            case DIRECTION.R:
+                width = Mathf.Max(Mathf.RoundToInt(originalHeight * widthRatio), 1);
+                height = Mathf.Max(Mathf.RoundToInt(originalWidth * heightRatio), 1);
+                break;
+        }
     }
 }

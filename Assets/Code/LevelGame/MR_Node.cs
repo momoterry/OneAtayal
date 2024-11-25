@@ -17,6 +17,8 @@ public class MR_Node : MonoBehaviour
     public const float ROOM_RELATIVE_SIZE = 10.0f;     //縮放等的基準
     protected float widthRatio = 1;
     protected float heightRatio = 1;
+
+    protected DIRECTION shiftDir;
     virtual public void OnSetupByRoom(MazeGameManager.RoomInfo room)
     {
         //TODO: Local 位置校正
@@ -30,11 +32,11 @@ public class MR_Node : MonoBehaviour
         float y = transform.localPosition.y;
         float z = transform.localPosition.z;
 
-        DIRECTION sDir = DIRECTION.NONE;
+        shiftDir = DIRECTION.NONE;
         if (shiftType == POS_SHIFT.ENTER)
-            sDir = room.cell.from;
+            shiftDir = room.cell.from;
         else if (shiftType == POS_SHIFT.LEAVE)
-            sDir = OneUtility.GetReverseDIR( room.cell.to );
+            shiftDir = OneUtility.GetReverseDIR( room.cell.to );
 
         //if (this is MR_Node)
         //{
@@ -44,7 +46,7 @@ public class MR_Node : MonoBehaviour
 
         float angle = 0;
         //以房間面向下方為基準調整位置 (入口在下、出口在上)
-        switch (sDir)
+        switch (shiftDir)
         {
             case DIRECTION.D:
                 transform.localPosition = new Vector3(x, y, z);
@@ -59,7 +61,7 @@ public class MR_Node : MonoBehaviour
                 angle = 180;
                 break;
             case DIRECTION.L:
-                transform.localPosition = new Vector3(y, x, z);
+                transform.localPosition = new Vector3(y, -x, z);
                 angle = -90;
                 break;
         }

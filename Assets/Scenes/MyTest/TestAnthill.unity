@@ -167,7 +167,7 @@ MonoBehaviour:
   pathRate: 0
   startAsPath: 1
   finishAsPath: 1
-  mazeDir: 0
+  mazeDir: 2
   FinishAtDeepest: 0
   finishPortalRef: {fileID: 0}
   portalAfterFirstRoomGamplay: 0
@@ -1158,21 +1158,21 @@ MonoBehaviour:
     spawnOnStart: 0
   - area:
       serializedVersion: 2
-      x: 0
-      y: 0
+      x: -2
+      y: -2
       width: 4
-      height: 4
+      height: 2
     eInfo:
       enemys:
       - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
       enemyIDs: []
       totalNumMin: 12
       totalNumMax: 16
-      forceAlert: 1
+      forceAlert: 0
       diffToSingle: 0
       spawnWithoutConnect: 0
       groupFinishType: 1
-    spawnOnStart: 0
+    spawnOnStart: 1
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects:

@@ -82,6 +82,7 @@ public class RoomMassiveBattle : RoomGameplayBase
             me.width = Mathf.RoundToInt(ea.area.width);
             me.height = Mathf.RoundToInt(ea.area.height);
             me.shiftType = MR_Node.POS_SHIFT.ENTER;
+            me.rotateWithShiftType = true;
             me.triggerTargetWhenAllKilled = new GameObject[1];
             me.triggerTargetWhenAllKilled[0] = theObj;
             //me.diffToSingle = ea.diffToSingle;
