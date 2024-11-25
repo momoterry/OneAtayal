@@ -192,6 +192,7 @@ MonoBehaviour:
   decadeGenerator: {fileID: 0}
   ChooseAlgorithm: 0
   extendTerminal: 1
+  MaxMainDeep: 6
   MaxBranchDeep: 1
 --- !u!4 &35147814
 Transform:
@@ -316,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CloseDoolBattle: 1
   areaEnemyInfos:
   - area:
       serializedVersion: 2
@@ -346,6 +348,7 @@ MonoBehaviour:
     blockSizeMin: {x: 6, y: 3}
     blockSizeMax: {x: 6, y: 3}
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects: []
 --- !u!114 &210802122 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2946355047569297642, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
@@ -510,6 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CloseDoolBattle: 1
   areaEnemyInfos:
   - area:
       serializedVersion: 2
@@ -530,6 +534,7 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects: []
 --- !u!1 &631198555
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CloseDoolBattle: 1
   areaEnemyInfos:
   - area:
       serializedVersion: 2
@@ -806,6 +812,7 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects: []
 --- !u!1 &1066149157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CloseDoolBattle: 1
   areaEnemyInfos:
   - area:
       serializedVersion: 2
@@ -1150,17 +1158,16 @@ MonoBehaviour:
     spawnOnStart: 0
   - area:
       serializedVersion: 2
-      x: -3
+      x: 0
       y: 0
-      width: 6
+      width: 4
       height: 4
     eInfo:
       enemys:
-      - {fileID: 7208015447484052683, guid: a3642aaf5797fd145b233258c50c4ea3, type: 3}
-      - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
+      - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
       enemyIDs: []
-      totalNumMin: 20
-      totalNumMax: 25
+      totalNumMin: 12
+      totalNumMax: 16
       forceAlert: 1
       diffToSingle: 0
       spawnWithoutConnect: 0
@@ -1168,6 +1175,9 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects:
+  - objPosShift: {x: 0, y: 0, z: -2}
+    objRef: {fileID: 9122827080933831342, guid: 6eea39e5290faf84daa1f1c9213703dd, type: 3}
 --- !u!1 &1356715259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,12 +2550,8 @@ MonoBehaviour:
   difficultRateMax: 2
   enmeyLV: 1
   defaultMainGames:
-  - game: {fileID: 201448846}
-    ratioPercent: 100
   - game: {fileID: 1301561633}
-    ratioPercent: 30
-  - game: {fileID: 628916213}
-    ratioPercent: 30
+    ratioPercent: 100
   fixStartGames: []
   fixEndGames: []
   defautPathGames:

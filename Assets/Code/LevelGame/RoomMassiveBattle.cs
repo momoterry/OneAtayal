@@ -34,6 +34,14 @@ public class RoomMassiveBattle : RoomGameplayBase
 
     public GameObject doorObj;
 
+    [System.Serializable]
+    public class ObjectPlaceInfo
+    {
+        public Vector3 objPosShift;
+        public GameObject objRef;
+    }
+    public ObjectPlaceInfo[] entranceObjects;  // 放置在入口處的物件
+
     protected MazeGameManagerBase.RoomInfo room;
     protected float widthRatio;
     protected float heightRatio;
@@ -51,18 +59,23 @@ public class RoomMassiveBattle : RoomGameplayBase
 
         GameObject theObj = new GameObject(name + "_" + room.cell.x + "_" + room.cell.y);
         theObj.transform.position = room.vCenter;
+        theObj.transform.rotation = Quaternion.Euler(90, 0, 0);
         RoomMassiveBattleController rc = theObj.AddComponent<RoomMassiveBattleController>();
         if (CloseDoolBattle)
             rc.doorObj = doorObj;
         else
             rc.doorObj = null;
+        BoxCollider trigCollider = theObj.AddComponent<BoxCollider>();
+        trigCollider.size = new Vector3(room.width, room.height, 2.0f);
+        trigCollider.isTrigger = true;
 
 
         foreach (EnemyGroupAreaInfo ea in areaEnemyInfos)
         {
-            Vector3 sPos = new Vector3(ea.area.center.x * widthRatio, 0, ea.area.center.y * heightRatio);
+            Vector3 sPos = new Vector3(ea.area.center.x, 0, ea.area.center.y);
             GameObject o = new GameObject("EnemyMR");
             o.transform.position = room.vCenter + sPos;
+            o.transform.rotation = Quaternion.Euler(90, 0, 0);
             MR_EnemyGroup me = o.AddComponent<MR_EnemyGroup>();
 
             me.eInfo = ea.eInfo;
@@ -80,6 +93,18 @@ public class RoomMassiveBattle : RoomGameplayBase
 
             o.transform.parent = theObj.transform;
         }
+
+        //入口物件
+        Vector3 posEntrance = room.vCenter + new Vector3(0, 0, MR_Node.ROOM_RELATIVE_SIZE * -0.5f);
+        foreach (ObjectPlaceInfo oInfo in entranceObjects)
+        {
+            GameObject o = BattleSystem.SpawnGameObj(oInfo.objRef, posEntrance + oInfo.objPosShift);
+            MR_Node n = o.AddComponent<MR_Node>();
+            n.shiftType = MR_Node.POS_SHIFT.ENTER;
+            o.transform.parent = theObj.transform;
+            //print("O Position: " + o.transform.localPosition);
+        }
+
 
         rc.Init(room);      //等子物件都創建完才可以正確 Init
 
@@ -156,9 +181,10 @@ public class RoomMassiveBattleController : MonoBehaviour
 
     public void Init(MazeGameManagerBase.RoomInfo room)
     {
-        trigCollider = gameObject.AddComponent<BoxCollider>();
-        trigCollider.size = new Vector3(room.width, 2.0f, room.height);
-        trigCollider.isTrigger = true;
+        //trigCollider = gameObject.AddComponent<BoxCollider>();
+        //trigCollider.size = new Vector3(room.width, 2.0f, room.height);
+        //trigCollider.isTrigger = true;
+        trigCollider = gameObject.GetComponent<BoxCollider>();
 
         // == 門 ==
         if (doorObj != null)
@@ -191,7 +217,7 @@ public class RoomMassiveBattleController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && currPhase == PHASE.WAIT)
         {
-            //print("開始 !!");
+            print("開始 !!");
             foreach (MR_EnemyGroup eg in gameObject.GetComponentsInChildren<MR_EnemyGroup>())
             {
                 eg.SendMessage("OnTG", gameObject);
