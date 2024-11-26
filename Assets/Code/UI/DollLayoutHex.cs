@@ -58,7 +58,7 @@ public class DollLayoutHex : DollLayoutUIBase
             }
             //else  //無論如何都加入 Slot
             DollLayoutSlot ds = CreateOneSlot(slotRef, root, rPos, 0, nodes[i].slotIndex);
-            //ds.ShowHint(nodes[i].doll == null); //空的欄位才顯示 hint
+            ds.ShowHint(nodes[i].doll == null); //空的欄位才顯示 hint
             slotList.Add(ds);
         }
 
