@@ -1,15 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class DollLayoutSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject outLine;
-    // Start is called before the first frame update
+    public GameObject hint;
 
     protected DollLayoutUIBase myMenu;
     [System.NonSerialized]
@@ -28,16 +26,7 @@ public class DollLayoutSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         myGroup = _data.group;
         myIndex = _data.index;
     }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void OnPointerEnter(PointerEventData data)
     {
         //print("....PointerEnter !!");
@@ -53,5 +42,13 @@ public class DollLayoutSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         outLine.gameObject.SetActive(isOn);
         outLine.transform.localScale = Vector3.one * (isOn? 1.5f: 1.0f);
+    }
+
+    public void ShowHint(bool isOn)
+    {
+        if (hint)
+        {
+            hint.gameObject.SetActive(isOn);
+        }
     }
 }

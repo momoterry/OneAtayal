@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Recorder.OutputPath;
 
 public class DollLayoutHex : DollLayoutUIBase
 {
@@ -58,10 +57,9 @@ public class DollLayoutHex : DollLayoutUIBase
                 itemList.Add(di);
             }
             //else  //無論如何都加入 Slot
-            {
-                DollLayoutSlot ds = CreateOneSlot(slotRef, root, rPos, 0, nodes[i].slotIndex);
-                slotList.Add(ds);
-            }
+            DollLayoutSlot ds = CreateOneSlot(slotRef, root, rPos, 0, nodes[i].slotIndex);
+            //ds.ShowHint(nodes[i].doll == null); //空的欄位才顯示 hint
+            slotList.Add(ds);
         }
 
         foreach (DollLayoutSlot slot in slotList)
