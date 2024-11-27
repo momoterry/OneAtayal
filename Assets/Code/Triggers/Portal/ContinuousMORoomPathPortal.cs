@@ -16,7 +16,6 @@ public class ContinuousMORoomPathData : ContinuousBattleDataBase
     public int MaxBranchDeep = 2;
 
     public GameManagerDataBase gameManagerData;     //螟㎝贱纘单膀セ把计砞﹚把计穦籠奔 MazeGameManagerBase ず
-    //public GameObject initGameplayRef;
 }
 
 public class ContinuousMORoomPathPortal : ScenePortal

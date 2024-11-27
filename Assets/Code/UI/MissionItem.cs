@@ -9,9 +9,13 @@ public class MissionItem : MonoBehaviour
     public Text leftText;
     public Text rightText;
 
+    protected MissionBoardMenu theMenu;
+
     protected MissionData myData;
-    public void InitValue(MissionData data)
+    public void InitValue(MissionData data, MissionBoardMenu _menu)
     {
+        theMenu = _menu;
+
         myData = data;
         TitleText.text = data.Title;
 
@@ -27,6 +31,8 @@ public class MissionItem : MonoBehaviour
     public void OnButtonClicked()
     {
         print("我被選上了 " + myData.Title);
+
+        theMenu.OnItemClicked(this, myData);
     }
 
 }

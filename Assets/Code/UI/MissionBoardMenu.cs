@@ -25,6 +25,12 @@ public class MissionBoardMenu : MonoBehaviour
         BattleSystem.GetPC().ForceStop(false);
     }
 
+    public void OnItemClicked(MissionItem item, MissionData mission)
+    {
+        //print("¥h§a¥h§a");
+        MissionManager.StartMission(mission);
+    }
+
     protected void CreateItems()
     {
         RectTransform rrt = itemRef.GetComponent<RectTransform>();
@@ -42,7 +48,7 @@ public class MissionBoardMenu : MonoBehaviour
             o.SetActive(true);
 
             MissionItem mItem = o.GetComponent<MissionItem>();
-            mItem.InitValue(data);
+            mItem.InitValue(data, this);
             items.Add(mItem);
 
             y -= yStep;

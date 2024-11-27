@@ -691,6 +691,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitOrder: 250
+  DemoBattleData:
+  - scene: DemoRoomPath
+    name: "\u5C0F\u4EFB\u52D9\u5730\u7A74"
+    levelID: 
+    cameraAdjust: 0
+    puzzleWidth: 5
+    puzzleHeight: 5
+    roomWidth: 24
+    roomHeight: 18
+    pathWidth: 6
+    pathHeight: 6
+    mazeDir: 0
+    MaxMainDeep: 4
+    MaxBranchDeep: 1
+    gameManagerData:
+      difficultRateMin: 0.5
+      difficultRateMax: 1.5
+      enmeyLV: 1
+      specialReward: 
+      specialRewardNum: 0
+      forceRandomObjectNum: 12
+  - scene: DemoRoomPath
+    name: "\u4EFB\u52D9\u5730\u7A74"
+    levelID: 
+    cameraAdjust: 0
+    puzzleWidth: 5
+    puzzleHeight: 5
+    roomWidth: 24
+    roomHeight: 32
+    pathWidth: 7
+    pathHeight: 7
+    mazeDir: 0
+    MaxMainDeep: 6
+    MaxBranchDeep: 2
+    gameManagerData:
+      difficultRateMin: 1
+      difficultRateMax: 2
+      enmeyLV: 1
+      specialReward: 
+      specialRewardNum: 0
+      forceRandomObjectNum: 16
+  - scene: DemoRoomPath
+    name: "\u5927\u4EFB\u52D9\u5730\u7A74"
+    levelID: 
+    cameraAdjust: 2
+    puzzleWidth: 6
+    puzzleHeight: 6
+    roomWidth: 24
+    roomHeight: 32
+    pathWidth: 8
+    pathHeight: 8
+    mazeDir: 0
+    MaxMainDeep: 8
+    MaxBranchDeep: 2
+    gameManagerData:
+      difficultRateMin: 3
+      difficultRateMax: 5
+      enmeyLV: 1
+      specialReward: 
+      specialRewardNum: 0
+      forceRandomObjectNum: 24
 --- !u!1 &5018605614993793648
 GameObject:
   m_ObjectHideFlags: 0

@@ -243,7 +243,7 @@ public class RoomMassiveBattleController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && currPhase == PHASE.WAIT)
         {
-            print("開始 !!");
+            //print("開始 !!");
             foreach (MR_EnemyGroup eg in gameObject.GetComponentsInChildren<MR_EnemyGroup>())
             {
                 eg.SendMessage("OnTG", gameObject);
