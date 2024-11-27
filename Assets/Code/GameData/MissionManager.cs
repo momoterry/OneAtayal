@@ -19,5 +19,22 @@ public class MissionData
 
 public class MissionManager : GlobalSystemBase
 {
+    static public List<MissionData> GenerateMissions() 
+    {
+        return _GenerateMissions();
+    }
+
+    static protected List<MissionData> _GenerateMissions()
+    {
+        List < MissionData > missions = new List < MissionData >();
+        for (int i = 0; i < 3; i ++) 
+        {
+            MissionData data = new();
+            data.Title = "¦a¬}±´¯Á";
+            data.type = MissionData.TYPE.EXPLORE;
+            missions.Add(data);
+        }
+        return missions;
+    }
 
 }
