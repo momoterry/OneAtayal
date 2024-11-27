@@ -33,6 +33,56 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
         }
     }
 
+
+    override protected void PresetByContinuousBattle()
+    {
+        ContinuousBattleDataBase cBase = ContinuousBattleManager.GetCurrBattleData();
+        if (cBase != null)
+        {
+            if (cBase is ContinuousMORoomPathData)
+            {
+                ContinuousMORoomPathData cData = (ContinuousMORoomPathData)cBase;
+                puzzleWidth = cData.puzzleWidth;
+                puzzleHeight = cData.puzzleHeight;
+                print("根據 ---RoomPathData-- 資料修正了迷宮大小: " + puzzleWidth + " - " + puzzleHeight);
+                roomWidth = cData.roomWidth;
+                roomHeight = cData.roomHeight;
+                pathWidth = cData.pathWidth;
+                pathHeight = cData.pathHeight;
+
+                mazeDir = cData.mazeDir;
+
+                MaxMainDeep = cData.MaxMainDeep;
+                MaxBranchDeep = cData.MaxBranchDeep;
+
+                //if (cData.gameManagerRef)
+                //{
+                //    GameObject o = Instantiate(cData.gameManagerRef.gameObject);
+                //    gameManager = o.GetComponent<MazeGameManagerBase>();
+                //}
+
+                if (gameManager && cData.gameManagerData != null)
+                {
+                    gameManager.SetupData(cData.gameManagerData);
+                }
+
+                //if (cData.initGameplayRef)
+                //{
+                //    initGampleyRef = cData.initGameplayRef;
+                //}
+
+                if (cData.levelID != null)
+                {
+                    BattleSystem.GetInstance().levelID = cData.levelID;
+                }
+            }
+            else
+            {
+                One.LOG("ERROR!! ContinuousBattle 錯誤，關卡資料不是 ContinuousMazeData !!");
+            }
+        }
+    }
+
     protected override void CalculateRoomPath()
     {
         CheckCellDeep(puzzleStart.x, puzzleStart.y, DIRECTION.NONE, 0);
