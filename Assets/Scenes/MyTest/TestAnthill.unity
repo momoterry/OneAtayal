@@ -156,10 +156,10 @@ MonoBehaviour:
   theSurface2D: {fileID: 1252285827}
   entraceList: []
   mapCameraAdjust: 2
-  puzzleWidth: 1
-  puzzleHeight: 1
-  roomWidth: 24
-  roomHeight: 32
+  puzzleWidth: 6
+  puzzleHeight: 4
+  roomWidth: 32
+  roomHeight: 24
   wallWidth: 2
   wallHeight: 2
   pathWidth: 8
@@ -167,9 +167,9 @@ MonoBehaviour:
   pathRate: 0
   startAsPath: 1
   finishAsPath: 1
-  mazeDir: 0
+  mazeDir: 2
   FinishAtDeepest: 0
-  finishPortalRef: {fileID: 0}
+  finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
   createWallCollider: 1
   groundTileGroup: {fileID: 1066149158}
@@ -193,7 +193,7 @@ MonoBehaviour:
   ChooseAlgorithm: 0
   extendTerminal: 1
   MaxMainDeep: 6
-  MaxBranchDeep: 1
+  MaxBranchDeep: 2
 --- !u!4 &35147814
 Transform:
   m_ObjectHideFlags: 0

@@ -77,6 +77,7 @@ public class MissionManager : GlobalSystemBase
         int[] dollLimits = { 10, 15, 20 };
         string[] titles = {"地洞探索","沙漠大會戰","地城的陰影" };
         string[] ObjectiveTexts = { "到達地洞深處", "清除敵人","擊殺 BOSS" };
+        string[] scenes = { "DemoRoomPath", "RoomPathDesert", "RoomPathDungeon" };
         string[] sceneTexts = { "地洞","沙漠","地城" };
         string[] rewardTexts = {"晶石","沙石素材","紅寶石" };
 
@@ -88,7 +89,7 @@ public class MissionManager : GlobalSystemBase
             MissionData data = new();
             data.Title = titles[i];
             data.type = types[i];// MissionData.TYPE.EXPLORE;
-            data.scene = "DemoRoomPath";
+            data.scene = scenes[i];
             //data.ObjectiveText = "到達地洞深處";
             data.ObjectiveText = ObjectiveTexts[i];
             data.sceneText = sceneTexts[i];
