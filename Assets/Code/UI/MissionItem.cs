@@ -9,6 +9,8 @@ public class MissionItem : MonoBehaviour
     public Text leftText;
     public Text rightText;
 
+    public Color[] typeColors;
+
     protected MissionBoardMenu theMenu;
 
     protected MissionData myData;
@@ -18,14 +20,15 @@ public class MissionItem : MonoBehaviour
 
         myData = data;
         TitleText.text = data.Title;
+        TitleText.color = typeColors[(int)data.type];
 
         leftText.text = "任務目標:\r\n";
         leftText.text += "規模:  " + MissionManager.GetScaleText(data.scale) + "\r\n";
-        leftText.text += "地點:  地洞";
+        leftText.text += "地點:  " + data.sceneText;
 
         rightText.text = data.ObjectiveText + "\r\n";
         rightText.text += "巫靈:  " + data.dollLimit + "\r\n";
-        rightText.text += "獎勵:  晶石";
+        rightText.text += "獎勵:  " + data.rewardText;// 晶石";
     }
 
     public void OnButtonClicked()

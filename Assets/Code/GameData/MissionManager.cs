@@ -8,6 +8,8 @@ public class MissionData
     public string Title;
     public string ObjectiveText;
     public string scene;
+    public string sceneText;
+    public string rewardText;
     public ContinuousBattleDataBase[] battles;
     public enum TYPE
     {
@@ -71,18 +73,26 @@ public class MissionManager : GlobalSystemBase
     protected List<MissionData> _GenerateMissions()
     {
         MissionData.SCALE[] scales = {MissionData.SCALE.SMALL,MissionData.SCALE.MEDIUM,MissionData.SCALE.LARGE,};
+        MissionData.TYPE[] types = {MissionData.TYPE.EXPLORE, MissionData.TYPE.NORMAL, MissionData.TYPE.BOSS };
         int[] dollLimits = { 10, 15, 20 };
-        string[] titles = {"地洞探索","深入地洞","大型地洞探險" };
-        //string[] ObjectiveText = {  };
+        string[] titles = {"地洞探索","沙漠大會戰","地城的陰影" };
+        string[] ObjectiveTexts = { "到達地洞深處", "清除敵人","擊殺 BOSS" };
+        string[] sceneTexts = { "地洞","沙漠","地城" };
+        string[] rewardTexts = {"晶石","沙石素材","紅寶石" };
+
+
 
         List < MissionData > missions = new List < MissionData >();
         for (int i = 0; i < 3; i ++) 
         {
             MissionData data = new();
             data.Title = titles[i];
-            data.type = MissionData.TYPE.EXPLORE;
+            data.type = types[i];// MissionData.TYPE.EXPLORE;
             data.scene = "DemoRoomPath";
-            data.ObjectiveText = "到達地洞深處";
+            //data.ObjectiveText = "到達地洞深處";
+            data.ObjectiveText = ObjectiveTexts[i];
+            data.sceneText = sceneTexts[i];
+            data.rewardText = rewardTexts[i];
             data.scale = scales[i];
             data.dollLimit = dollLimits[i];
             data.battles = new ContinuousBattleDataBase[1];
