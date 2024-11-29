@@ -156,10 +156,10 @@ MonoBehaviour:
   theSurface2D: {fileID: 1252285827}
   entraceList: []
   mapCameraAdjust: 2
-  puzzleWidth: 6
-  puzzleHeight: 4
-  roomWidth: 32
-  roomHeight: 24
+  puzzleWidth: 5
+  puzzleHeight: 5
+  roomWidth: 24
+  roomHeight: 32
   wallWidth: 2
   wallHeight: 2
   pathWidth: 8
@@ -167,7 +167,7 @@ MonoBehaviour:
   pathRate: 0
   startAsPath: 1
   finishAsPath: 1
-  mazeDir: 2
+  mazeDir: 0
   FinishAtDeepest: 0
   finishPortalRef: {fileID: 3774412451971612881, guid: 458450e59f82e7f4ab6ce7b54a7c929e, type: 3}
   portalAfterFirstRoomGamplay: 0
@@ -194,6 +194,8 @@ MonoBehaviour:
   extendTerminal: 1
   MaxMainDeep: 6
   MaxBranchDeep: 2
+  isRoomOnlyUp: 1
+  roomOnlyUpBrachPercent: 40
 --- !u!4 &35147814
 Transform:
   m_ObjectHideFlags: 0
@@ -372,6 +374,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5914974356280139868, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6336307250673488013, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 6971823420909225927, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -463,6 +473,10 @@ PrefabInstance:
     - target: {fileID: 7025706906285660581, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898119010039411957, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -109,8 +109,8 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
                 CELL cell = puzzleMap[x][y];
                 if (cell.value == CELL.NORMAL)
                 {
-                    
-                    if ( cell.isMain)
+
+                    if (cell.isMain)
                     {
                         //print("Cell is Main? " + cell.isMain + "Maind Deep: " + cell.mainDeep);
                         if (cell.mainDeep > MaxMainDeep)
@@ -134,11 +134,8 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
                         }
                         else
                             cell.isPath = cell.mainDeep % 2 == 0 ? true : false;
-                        //if (cell.mainDeep == MaxMainDeep - 1)
-                        //{
-                        //    cell.isPath = false;    //結束前最後一格必定為 Room
-                        //    //TODO: 強迫斷開其它連結
-                        //}
+
+                        cell.isPath = cell.mainDeep % 2 == 0 ? true : false;
                     }
                     else
                     {
@@ -159,6 +156,11 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
                                 DisConnectCellByDir(cell, cell.from);
                             }
                         }
+                        else if (cell.mainDeep == 0)
+                        {
+                            cell.value = CELL.INVALID;
+                            print("無效的  Cell");
+                        }
                         else
                         {
                             cell.isPath = cell.deep % 2 == 0 ? true : false;
@@ -168,9 +170,201 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
             }
         }
 
-
-
-        //base.CalculateRoomPath();
     }
 
+    //===========================================================================================
+    //針對 RoomPath 的 BackTrace 演算法
+    //===========================================================================================
+    //protected List<CELL> cellList = new List<CELL>();
+    //protected int startDSU = 0;
+    //protected bool gotFinal = false;
+
+    public bool isRoomOnlyUp = false;
+    public float roomOnlyUpBrachPercent = 50.0f;
+    protected override void CreatMazeMap()
+    {
+        if (isRoomOnlyUp)
+            CreateMazeByRoomPath();    //一個使用自己的 BackTrace
+        else
+            base.CreatMazeMap();
+    }
+
+    protected void CreateMazeByRoomPath()
+    {
+        puzzleDSU.Init(puzzleHeight * puzzleWidth);
+
+        startDSU = puzzleDSU.Find(GetCellID(puzzleStart.x, puzzleStart.y));
+        cellList.Add(puzzleMap[puzzleStart.x][puzzleStart.y]);
+
+        int mainDepth = 0;
+        //int branchDepth = 0;
+
+        while (cellList.Count > 0)
+        {
+            CELL cellToGo;
+            if (gotFinal)
+            {
+                cellToGo = cellList[Random.Range(0, cellList.Count)];
+            }
+            else
+            {
+                cellToGo = cellList[cellList.Count - 1];
+            }
+
+            bool isRoomConnect = false;
+            bool isForceStop = false;
+            if (!gotFinal)
+            {
+                isRoomConnect = mainDepth % 2 == 0;
+            }
+            else
+            {
+                if (Random.Range(0, 100.0f) > roomOnlyUpBrachPercent)
+                {
+                    print("這條不走了: " + cellToGo.x + "-" + cellToGo.y);
+                    isForceStop = true;
+                }
+            }
+            CELL nextCell = isForceStop ? null : TryConnectRandomPath(cellToGo, isRoomConnect);
+            if (nextCell != null)
+            {
+                //print("找到路了，++清單 " + cellList.Count);
+                if (!gotFinal)
+                {
+                    print("現在加的是主線: " + nextCell.x + "-" + nextCell.y);
+                    mainDepth++;
+                    if (mainDepth == MaxMainDeep)
+                    {
+                        print("主線挖到最深了 !!");
+                        gotFinal = true;
+                        cellList.Remove(cellToGo);  //倒數最後一間不要再連支線
+                        if (puzzleEnd.x != nextCell.x || puzzleEnd.y != nextCell.y)
+                        {
+                            print("更換終點: " + puzzleEnd + " >> " + nextCell.x + " - " + nextCell.y);
+                            puzzleMap[puzzleEnd.x][puzzleEnd.y].value = CELL.INVALID;
+                            puzzleEnd.x = nextCell.x;
+                            puzzleEnd.y = nextCell.y;
+                        }
+                    }
+                    else 
+                        cellList.Add(nextCell);
+                }
+                else
+                {
+                    //if (Random.Range(0, 100.0f) < roomOnlyUpBrachPercent)
+                    {
+                        print("現在加的是支線: " + nextCell.x + "-" + nextCell.y);
+                        cellList.Add(nextCell);
+                    }
+                    //else
+                    //{
+                    //    print("這條不走了: " + cellToGo.x + "-" + cellToGo.y);
+                    //    cellList.Remove(cellToGo);
+                    //}
+                }
+            }
+            else
+            {
+                cellList.Remove(cellToGo);
+            }
+        }
+    }
+
+    protected CELL TryConnectRandomPath(CELL cell, bool onlyUp = false)
+    {
+        if (onlyUp)
+            print("只往上長: " + cell.x + " - " + cell.y);
+        List<DIRECTION> choices = new List<DIRECTION>();
+        if (!cell.L && cell.x > 0 && puzzleMap[cell.x - 1][cell.y].value != CELL.INVALID && !onlyUp)
+        {
+            if (puzzleDSU.Find(GetCellID(cell.x - 1, cell.y)) != startDSU)
+                choices.Add(DIRECTION.L);
+
+        }
+        if (!cell.D && cell.y > 0 && puzzleMap[cell.x][cell.y - 1].value != CELL.INVALID && !onlyUp)
+        {
+            if (puzzleDSU.Find(GetCellID(cell.x, cell.y - 1)) != startDSU)
+                choices.Add(DIRECTION.D);
+
+        }
+        if (!cell.R && cell.x < puzzleWidth - 1 && puzzleMap[cell.x + 1][cell.y].value != CELL.INVALID && !onlyUp)
+        {
+            if (puzzleDSU.Find(GetCellID(cell.x + 1, cell.y)) != startDSU)
+                choices.Add(DIRECTION.R);
+
+        }
+        if (!cell.U && cell.y < puzzleHeight - 1 && puzzleMap[cell.x][cell.y + 1].value != CELL.INVALID)
+        {
+            if (puzzleDSU.Find(GetCellID(cell.x, cell.y + 1)) != startDSU)
+                choices.Add(DIRECTION.U);
+        }
+
+        if (choices.Count == 0)
+        {
+            return null;
+        }
+
+        DIRECTION dir = choices[Random.Range(0, choices.Count)];
+        CELL toCell = null;
+        int toDSU = -1;
+        switch (dir)
+        {
+            case DIRECTION.U:
+                toCell = puzzleMap[cell.x][cell.y + 1];
+                toDSU = GetCellID(cell.x, cell.y + 1);
+                break;
+            case DIRECTION.D:
+                toCell = puzzleMap[cell.x][cell.y - 1];
+                toDSU = GetCellID(cell.x, cell.y - 1);
+
+                break;
+            case DIRECTION.L:
+                toCell = puzzleMap[cell.x - 1][cell.y];
+                toDSU = GetCellID(cell.x - 1, cell.y);
+
+                break;
+            case DIRECTION.R:
+                toCell = puzzleMap[cell.x + 1][cell.y];
+                toDSU = GetCellID(cell.x + 1, cell.y);
+
+                break;
+        }
+        ConnectCells(cell, toCell, dir);
+        puzzleDSU.Union(startDSU, toDSU);
+
+        return toCell;
+    }
+
+    //protected bool DoOneRoomPathCycle()
+    //{
+        //CELL cellToGo;
+        //if (gotFinal)
+        //{
+        //    cellToGo = cellList[Random.Range(0, cellList.Count)];
+        //}
+        //else
+        //{
+        //    cellToGo = cellList[cellList.Count - 1];
+        //}
+
+        //CELL nextCell = TryConnectRandomCell(cellToGo);
+        //if (nextCell != null)
+        //{
+        //    //print("找到路了，++清單 " + cellList.Count);
+        //    if (!FinishAtDeepest && nextCell.x == puzzleEnd.x && nextCell.y == puzzleEnd.y)
+        //    {
+        //        gotFinal = true;
+        //    }
+        //    else
+        //    {
+        //        cellList.Add(nextCell);     //無論如何終點不要被加到 cellList，不要再另外連出去
+        //    }
+        //    return true;
+        //}
+        //else
+        //{
+        //    cellList.Remove(cellToGo);
+        //    return false;
+        //}
+    //}
 }
