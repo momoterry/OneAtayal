@@ -191,6 +191,17 @@ public class DM_Hex : DollManager
         {
             result.AddRange(nodeLayers[i]);
         }
+        //外層的 Node 如果有 Doll 也要補上
+        for (int i = currN; i < N; i++)
+        {
+            foreach (Node node in nodeLayers[i])
+            {
+                if (node.doll != null)
+                {
+                    result.Add(node);
+                }
+            }
+        }
         return result;
     }
 
