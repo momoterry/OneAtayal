@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Recorder.OutputPath;
 
 //  管理迷宮 Gameplay 的機制
 //  只支援 MG_MazeOneBase 為基底的 MapGenerator 
