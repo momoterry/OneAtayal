@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
@@ -77,7 +76,7 @@ public class BattleSystem : MonoBehaviour
     //Fade In/Out 相關
     public FadeBlocker fadeBlocker;
 
-    public void StartFadeOut(float fadeTime, FadeBlockerDelegate _cb = null) 
+    public void StartFadeOut(float fadeTime, FadeBlockerDelegate _cb = null)
     {
         if (fadeBlocker)
             fadeBlocker.StartFadeOut(fadeTime, _cb);
@@ -99,7 +98,7 @@ public class BattleSystem : MonoBehaviour
             print("ERROR !! 超過一份 BattleSystem 存在: ");
         instance = this;
 
-        foreach( BattleSystemAwakeCB cb in awakeCBs)
+        foreach (BattleSystemAwakeCB cb in awakeCBs)
         {
             cb(this);
         }
@@ -116,7 +115,7 @@ public class BattleSystem : MonoBehaviour
     public static Dialogue GetDialogue() { return instance.theBattleHUD.theDialogue; }
     public static Battle_HUD GetHUD() { return instance.theBattleHUD; }
     public static DollSkillManager GetDollSkillManager() { return instance.theDollSkillManager; }
-    public VPad GetVPad() {return theBattleHUD.theVPad; }
+    public VPad GetVPad() { return theBattleHUD.theVPad; }
     public VPad GetDirVPad() { return theBattleHUD.theRightPad; }
 
     public MapGeneratorBase GetMapGenerator() { return theMG; }
@@ -125,17 +124,17 @@ public class BattleSystem : MonoBehaviour
 
     public bool IsDuringBattle() { return currState == BATTLE_GAME_STATE.BATTLE; }
 
-    public void AddEnemy( GameObject enemyObj)
+    public void AddEnemy(GameObject enemyObj)
     {
         enemyList.Add(enemyObj);
     }
 
-    public void OnEnemyKilled( GameObject enemyObj)
+    public void OnEnemyKilled(GameObject enemyObj)
     {
         //TODO: 是否把 enemyList 改成 Enemy 而不是 GameObject ?
 
-       if ( enemyList.Remove(enemyObj))
-       {
+        if (enemyList.Remove(enemyObj))
+        {
             Enemy e = enemyObj.GetComponent<Enemy>();
             if (e)
             {
@@ -327,7 +326,7 @@ public class BattleSystem : MonoBehaviour
             }
             touchDownTracing.Clear();
         }
-        
+
     }
 
     protected void UpdateFail()
@@ -387,7 +386,7 @@ public class BattleSystem : MonoBehaviour
         //theBattleHUD.SetLevelText(levelText);
     }
 
-    protected virtual void SetUpLevel( int level = 1)
+    protected virtual void SetUpLevel(int level = 1)
     {
         //print("SetUpLevel " + level);
         currLevel = level;
@@ -419,7 +418,7 @@ public class BattleSystem : MonoBehaviour
                 thePC.initFaceDirAngle = initPlayerDirAngle;
                 thePC.SetupFaceDirByAngle(initPlayerDirAngle);  //確保 First Frame 轉向正確
                 //thePC.InitStatus(); 會在 PC 的 Start 被呼叫
-            }    
+            }
             else
             {
                 //舊有的關卡下一關，不會再用到，應該移掉
@@ -436,7 +435,7 @@ public class BattleSystem : MonoBehaviour
         SetUpHud();
     }
 
-    protected void ResetLevel( int level = 1 )
+    protected void ResetLevel(int level = 1)
     {
         print("Reset Level!!");
 
@@ -466,6 +465,20 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    // =================== 拾取相關
+
+    protected GameObject moneyAddFXRef;
+    public void OnAddMoney(int moneyAdd)
+    {
+        if (!moneyAddFXRef)
+            moneyAddFXRef = GameData.GetObjectRef("MoneyAdd");
+        GameSystem.GetPlayerData().AddMoney(moneyAdd);
+        if (moneyAddFXRef && thePC)
+        {
+            GameObject fo = SpawnGameplayObject(moneyAddFXRef, thePC.transform.position);
+            fo.transform.parent = thePC.transform;
+        }
+    }
 
     public bool OnDropItemPickUp(DropItem item)
     {
