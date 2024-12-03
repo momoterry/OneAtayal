@@ -63,23 +63,23 @@ public class MissionManager : GlobalSystemBase
         return "XX";
     }
 
-    static public void StartMission(MissionData mission)
+    static public MissionData GetCurrMission()
     {
-        ContinuousBattleManager.StartNewBattle(mission.battles);
-
-        string sceneName = mission.battles[0].scene;
-        BattleSystem.GetInstance().OnGotoScene(sceneName, "");
+        return instance._GetCurrMission();
     }
-
 
     static public void AcceptMission(MissionData mission)
     {
         instance._AcceptMission(mission);
     }
+    static public void CancelCurrMission()
+    {
+        instance._CancelCurrMission();
+    }
 
-    static public MissionData GetCurrMission() 
-    { 
-        return instance._GetCurrMission(); 
+    static public void FinishCurrMission()
+    {
+        instance._FinishCurrMission();
     }
 
     static public void StartCurrMission()
@@ -87,9 +87,12 @@ public class MissionManager : GlobalSystemBase
         instance._StartCurrMission();
     }
 
-    static public void CancelCurrMission()
+    static public void StartMission(MissionData mission)
     {
-        instance._CancelCurrMission();
+        ContinuousBattleManager.StartNewBattle(mission.battles);
+
+        string sceneName = mission.battles[0].scene;
+        BattleSystem.GetInstance().OnGotoScene(sceneName, "");
     }
 
     //================================================================
@@ -126,6 +129,14 @@ public class MissionManager : GlobalSystemBase
         currMission = null;
     }
 
+    protected void _FinishCurrMission()
+    {
+        if (currMission == null)
+        {
+            One.ERROR("FinishCurrMission 錯誤，沒有接收中的任務");
+        }
+        currMission = null;
+    }
 
     protected List<MissionData> _GenerateMissions()
     {

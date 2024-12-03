@@ -586,6 +586,10 @@ public class BattleSystem : MonoBehaviour
         {
             theMG.OnEixtMap();
         }
+        if (MissionManager.GetCurrMission() != null)
+        {
+            MissionManager.FinishCurrMission();
+        }
         ContinuousBattleManager.OnSceneExit();
         GameSystem.GetInstance().SaveData();
     }
