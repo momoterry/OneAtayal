@@ -9,7 +9,7 @@ public class MissionItem : MonoBehaviour
     public Text leftText;
     public Text rightText;
 
-    public Color[] typeColors;
+    //public Color[] typeColors;
 
     protected MissionBoardMenu theMenu;
 
@@ -20,7 +20,7 @@ public class MissionItem : MonoBehaviour
 
         myData = data;
         TitleText.text = data.Title;
-        TitleText.color = typeColors[(int)data.type];
+        TitleText.color = theMenu.typeColors[(int)data.type];
 
         leftText.text = "任務目標:\r\n";
         leftText.text += "規模:  " + MissionManager.GetScaleText(data.scale) + "\r\n";

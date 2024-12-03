@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MissionBoardMenu : MonoBehaviour
 {
     public Transform MenuRoot;
     public GameObject itemRef;
+
+    public Color[] typeColors;
+
+    public GameObject MissionTitle;
+    public Text MissionTitleText;
 
     protected List<MissionData> missions;
     protected List<MissionItem> items = new List<MissionItem>();
@@ -34,6 +40,14 @@ public class MissionBoardMenu : MonoBehaviour
         //MissionManager.StartMission(mission);
         MissionManager.AcceptMission(mission);
         CloseMenu();
+
+        if (MissionTitleText)
+        {
+            MissionTitleText.color = typeColors[(int)mission.type];
+            MissionTitleText.text = mission.Title;
+        }
+        if (MissionTitle)
+            MissionTitle.SetActive(true);
     }
 
     protected void CreateItems()
