@@ -12,9 +12,13 @@ public class MissionBoardMenu : MonoBehaviour
     public void OpenMenu(List<MissionData> missionList)
     {
         missions = missionList;
-        CreateItems();
         MenuRoot.gameObject.SetActive(true);
         BattleSystem.GetPC().ForceStop(true);
+
+        MissionData currMission = MissionManager.GetCurrMission();
+        if (currMission == null)
+            CreateItems();
+
     }
 
     public void CloseMenu()
@@ -26,8 +30,10 @@ public class MissionBoardMenu : MonoBehaviour
 
     public void OnItemClicked(MissionItem item, MissionData mission)
     {
-        //print("去吧去吧");
-        MissionManager.StartMission(mission);
+        print("接下任務喔");
+        //MissionManager.StartMission(mission);
+        MissionManager.AcceptMission(mission);
+        CloseMenu();
     }
 
     protected void CreateItems()

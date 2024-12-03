@@ -159,7 +159,7 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
                         else if (cell.mainDeep == 0)
                         {
                             cell.value = CELL.INVALID;
-                            print("無效的  Cell");
+                            //print("無效的  Cell");
                         }
                         else
                         {

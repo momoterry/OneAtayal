@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 [System.Serializable]
@@ -69,6 +70,62 @@ public class MissionManager : GlobalSystemBase
         string sceneName = mission.battles[0].scene;
         BattleSystem.GetInstance().OnGotoScene(sceneName, "");
     }
+
+
+    static public void AcceptMission(MissionData mission)
+    {
+        instance._AcceptMission(mission);
+    }
+
+    static public MissionData GetCurrMission() 
+    { 
+        return instance._GetCurrMission(); 
+    }
+
+    static public void StartCurrMission()
+    {
+        instance._StartCurrMission();
+    }
+
+    static public void CancelCurrMission()
+    {
+        instance._CancelCurrMission();
+    }
+
+    //================================================================
+
+    protected MissionData currMission = null;
+
+    protected void _AcceptMission(MissionData mission)
+    {
+        if (currMission != null)
+        {
+            One.ERROR("AcceptMission 錯誤，已存在 Mission: " + mission.Title);
+        }
+        currMission = mission;
+    }
+
+    protected MissionData _GetCurrMission() { return currMission; }
+
+    protected void _StartCurrMission()
+    {
+        if (currMission == null)
+        {
+            One.ERROR("StartCurrMission 錯誤，沒有接收中的任務");
+            return;
+        }
+        StartMission(currMission);
+    }
+
+    protected void _CancelCurrMission()
+    {
+        if (currMission == null)
+        {
+            One.ERROR("CancelCurrMission 錯誤，沒有接收中的任務");
+        }
+        currMission = null;
+    }
+
 
     protected List<MissionData> _GenerateMissions()
     {
