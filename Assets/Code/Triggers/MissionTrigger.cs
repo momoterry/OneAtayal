@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissionAcceptTrigger : MonoBehaviour
+//當任務狀態變更時送出 Trigger
+
+public class MissionTrigger : MonoBehaviour
 {
     public GameObject[] triggerTargetsOnAccept;
     public GameObject[] triggerTargetsOnCancel;
