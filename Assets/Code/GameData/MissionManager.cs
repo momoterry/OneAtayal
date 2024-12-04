@@ -36,6 +36,18 @@ public class MissionManager : GlobalSystemBase
     static MissionManager instance;
     static public MissionManager GetInstance() { return instance; }
 
+    // ====== 註冊任務開關時的 CallBack
+    public delegate void MissionManagerCB( MissionData mission);
+
+    static public void AddAcceptMissionCB(MissionManagerCB cb, bool isRemove = false)
+    {
+        instance._AddAcceptMissionCB(cb, isRemove);
+    }
+    static public void AddCancelMissionCB(MissionManagerCB cb, bool isRemove = false)
+    {
+        instance._AddCancelMissionCB(cb, isRemove);
+    }
+
     public override void InitSystem()
     {
         if (instance != null)
@@ -106,6 +118,10 @@ public class MissionManager : GlobalSystemBase
             One.ERROR("AcceptMission 錯誤，已存在 Mission: " + mission.Title);
         }
         currMission = mission;
+        foreach (MissionManagerCB cb in acceptCBs)
+        {
+            cb(currMission);
+        }
     }
 
     protected MissionData _GetCurrMission() { return currMission; }
@@ -126,6 +142,11 @@ public class MissionManager : GlobalSystemBase
         {
             One.ERROR("CancelCurrMission 錯誤，沒有接收中的任務");
         }
+        foreach (MissionManagerCB cb in cancelCBs) 
+        {
+            cb(currMission);
+        }
+
         currMission = null;
     }
 
@@ -171,4 +192,39 @@ public class MissionManager : GlobalSystemBase
         return missions;
     }
 
+    //==================== 處理任務接受、取消時的行為用
+    protected List<MissionManagerCB> acceptCBs = new List<MissionManagerCB>();
+    protected List<MissionManagerCB> cancelCBs = new List<MissionManagerCB>();
+    protected void _AddAcceptMissionCB(MissionManagerCB cb, bool isRemove = false)
+    {
+        if (!isRemove)
+        {
+            acceptCBs.Add(cb);
+        }
+        else
+        {
+            if (!acceptCBs.Remove(cb))
+            {
+                One.ERROR("MissionManager Remove AcceptCB ERROR");
+            }
+            else
+                print("移除 Accept CB 成功");
+        }
+    }
+    protected void _AddCancelMissionCB(MissionManagerCB cb, bool isRemove = false)
+    {
+        if (!isRemove)
+        {
+            cancelCBs.Add(cb);
+        }
+        else
+        {
+            if (!cancelCBs.Remove(cb))
+            {
+                One.ERROR("MissionManager Remove Cancel CB ERROR");
+            }
+            else
+                print("移除 Cancel CB 成功");
+        }
+    }
 }
