@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class MissionBoardMenu : MonoBehaviour
 {
+    public Text hintText;
     public Transform MenuRoot;
+    public MissionCard currMissionCard;
     public GameObject itemRef;
 
     public Color[] typeColors;
@@ -22,8 +24,18 @@ public class MissionBoardMenu : MonoBehaviour
         BattleSystem.GetPC().ForceStop(true);
 
         MissionData currMission = MissionManager.GetCurrMission();
-        if (currMission == null)
+        if (currMission != null)
+        {
+            hintText.text = "現在承接中的任務";
+            currMissionCard.gameObject.SetActive(true);
+            currMissionCard.InitValue(currMission, this);
+        }
+        else
+        {
+            hintText.text = "選擇要前往的任務";
+            currMissionCard.gameObject.SetActive(false);
             CreateItems();
+        }
 
     }
 
@@ -31,6 +43,7 @@ public class MissionBoardMenu : MonoBehaviour
     {
         ClearItems();
         MenuRoot.gameObject.SetActive(false);
+        currMissionCard.gameObject.SetActive(false);
         BattleSystem.GetPC().ForceStop(false);
     }
 
@@ -49,6 +62,15 @@ public class MissionBoardMenu : MonoBehaviour
         if (MissionTitle)
             MissionTitle.SetActive(true);
     }
+
+    public void OnCancelCurrMission()
+    {
+        MissionManager.CancelCurrMission();
+        if (MissionTitle)
+            MissionTitle.SetActive(false);
+        CloseMenu();
+    }
+
 
     protected void CreateItems()
     {
