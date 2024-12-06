@@ -156,7 +156,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 16365551, guid: 5c0cedddb6a686f48b20570a4282a5b7, type: 3}
+  m_Sprite: {fileID: 1054203251, guid: 6c316af747aeb1447985ad4dfa23560c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -199,8 +199,8 @@ MonoBehaviour:
     FPS: 4
   Idle:
     sprites:
-    - {fileID: 16365551, guid: 5c0cedddb6a686f48b20570a4282a5b7, type: 3}
-    - {fileID: -222677014, guid: 5c0cedddb6a686f48b20570a4282a5b7, type: 3}
+    - {fileID: 1054203251, guid: 6c316af747aeb1447985ad4dfa23560c, type: 3}
+    - {fileID: 1880586666, guid: 6c316af747aeb1447985ad4dfa23560c, type: 3}
     FPS: 12
 --- !u!1001 &6206768102851714992
 PrefabInstance:
@@ -254,6 +254,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2045005756800206773, guid: 413949d987e0b6740a2465ac29aa09e2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -257051655, guid: c6a8ddfafa0e4234b9e7e2356af2ffb2, type: 3}
+    - target: {fileID: 2232990853398261070, guid: 413949d987e0b6740a2465ac29aa09e2, type: 3}
+      propertyPath: Idle.sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: -257051655, guid: c6a8ddfafa0e4234b9e7e2356af2ffb2, type: 3}
+    - target: {fileID: 2232990853398261070, guid: 413949d987e0b6740a2465ac29aa09e2, type: 3}
+      propertyPath: Idle.sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: -254094255, guid: c6a8ddfafa0e4234b9e7e2356af2ffb2, type: 3}
+    - target: {fileID: 2232990853398261070, guid: 413949d987e0b6740a2465ac29aa09e2, type: 3}
+      propertyPath: Idle.sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: -816772074, guid: c6a8ddfafa0e4234b9e7e2356af2ffb2, type: 3}
+    - target: {fileID: 2232990853398261070, guid: 413949d987e0b6740a2465ac29aa09e2, type: 3}
+      propertyPath: Idle.sprites.Array.data[3]
+      value: 
+      objectReference: {fileID: -1028118190, guid: c6a8ddfafa0e4234b9e7e2356af2ffb2, type: 3}
     - target: {fileID: 8023984474166410849, guid: 413949d987e0b6740a2465ac29aa09e2, type: 3}
       propertyPath: m_Name
       value: LaserHit
