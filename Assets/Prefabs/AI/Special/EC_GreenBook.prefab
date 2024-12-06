@@ -232,7 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5567210549488350558}
-  - component: {fileID: 858065913680413152}
+  - component: {fileID: 7351994431377012770}
   - component: {fileID: 2075649660089510923}
   - component: {fileID: 8639384707586398088}
   - component: {fileID: 5681372215684571006}
@@ -262,7 +262,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &858065913680413152
+--- !u!114 &7351994431377012770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7208015447484052683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c4f431810e5fea4c90b2465b96fbf59, type: 3}
+  m_Script: {fileID: 11500000, guid: f519aa5acf9538e4d933a2d6904739d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 2000
@@ -282,15 +282,17 @@ MonoBehaviour:
   SpawnWaitTime: 0.5
   ChaseRangeIn: 10
   ChaseRangeOut: 15
-  AttackRangeIn: 5
-  AttackRangeOut: 7
-  AttackWait: 9999
-  AttackCD: 2
-  Attack: 6
-  SlotOut: 8
+  AttackRangeIn: 4
+  AttackRangeOut: 6
+  AttackWait: 0
+  AttackCD: 0.5
+  Attack: 20
+  SlotOut: 12
   myAnimator: {fileID: 0}
   mySPAimator: {fileID: 0}
-  bulletRef: {fileID: 0}
+  normalSkillRef: {fileID: 5809609788060707772, guid: f4f98ef2c4fdd5443819c7559c5b8180, type: 3}
+  bigOneSkillRef: {fileID: 0}
+  skillPattern: 00000000
 --- !u!195 &2075649660089510923
 NavMeshAgent:
   m_ObjectHideFlags: 0

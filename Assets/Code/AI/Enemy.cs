@@ -283,7 +283,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void SetTarget(GameObject o)
+    protected void SetTarget(GameObject o)
     {
         targetObj = o;
         if (o)
@@ -614,6 +614,8 @@ public class Enemy : MonoBehaviour
         if (myAgent)
             myAgent.SetDestination(transform.position);
     }
+
+    public float GetHP() { return hp; }
 
     private void OnGUI()
     {

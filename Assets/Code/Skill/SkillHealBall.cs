@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//補血球，目前只能用在玩家和 Doll
+//TODO: 針對 Enemy 的版本?
+
 public class SkillHealBall : SkillShoot
 {
     protected override GameObject FindBestShootTarget(float searchRange)

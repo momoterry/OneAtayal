@@ -80,7 +80,7 @@ public class SkillLaser : SkillBase
         }
     }
 
-    protected GameObject FindBestShootTarget(float searchRange)
+    protected virtual GameObject FindBestShootTarget(float searchRange)
     {
         if (theCaster == null)
             return null;
@@ -105,7 +105,7 @@ public class SkillLaser : SkillBase
         laserTime = 0;
         myLaser.gameObject.SetActive(true);
         Vector3 td = myTarget.transform.position - transform.position;
-        myLaser.InitValue(FACTION_GROUP.PLAYER, myDamage, td, myTarget);
+        myLaser.InitValue(faction, myDamage, td, myTarget);
         myLaser.UpdateLaser(myTarget, transform.position);
     }
 

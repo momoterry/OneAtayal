@@ -47,11 +47,6 @@ public class EnemyBeta : Enemy
 
     protected override void DoOneAttack()
     {
-        //print("EnemyBeta----DoOneAttack");
-        //base.DoOneAttack();
-
-        //if (currSkillCDLeft > 0)
-        //    return;
         if (runningSkill != null)
             return;
 
@@ -85,25 +80,12 @@ public class EnemyBeta : Enemy
             skillIndex = 0;
     }
 
-    //protected override void UpdateAttack()
-    //{
-    //    //print("EnemyBeta----UpdateAttack");
-    //    base.UpdateAttack();
 
-    //    //TODO: 希望把 CD 改用 AttackCD 的方式確保在移動時也會計算 CD
-    //    if (currSkillCDLeft > 0)
-    //    {
-    //        currSkillCDLeft -= Time.deltaTime;
-    //    }
-    //}
 
     protected override void PostUpdate()
     {
         base.PostUpdate();
-        //if (currSkillCDLeft > 0)
-        //{
-        //    currSkillCDLeft -= Time.deltaTime;
-        //}
+
         if (runningSkill != null)
         {
             if (runningSkill.IsReady())

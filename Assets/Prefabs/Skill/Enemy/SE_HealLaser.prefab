@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6908609267550144693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 122030480824612215}
+  - component: {fileID: 5809609788060707772}
+  m_Layer: 0
+  m_Name: SE_HealLaser
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &122030480824612215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6908609267550144693}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5809609788060707772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6908609267550144693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3163c84990dc84994ab4d7cd0c53f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faction: 2
+  damageRatio: 1
+  prepareTime: 0
+  duration: 0.2
+  manaCost: 0
+  coolDown: 0.25
+  groundHints: []
+  battlePointsCost: 0
+  quality: 0
+  icon: {fileID: 8036071202008269702, guid: 12740fcbb9b93be4a84a623a5a501659, type: 3}
+  theLaserRef: {fileID: 404306278161372763, guid: d323690fd24a37743bc90531180a870f, type: 3}
+  searchRange: 10
+  maxRange: 12
+  laserDuration: 1

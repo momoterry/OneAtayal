@@ -25,7 +25,7 @@ public class BulletLaser : bullet_base
         theDamage.damage = baseDamage;
     }
 
-    protected void DoOneDamage(GameObject targetO)
+    virtual protected void DoOneDamage(GameObject targetO)
     {
         targetO.SendMessage("OnDamage", myDamage);
     }
