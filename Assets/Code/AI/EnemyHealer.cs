@@ -14,7 +14,7 @@ public class EnemyHealer : EnemyBeta
         Collider[] cols = Physics.OverlapSphere(transform.position, searchRange, LayerMask.GetMask("Character"));
         foreach (Collider col in cols)
         {
-            if (col.gameObject.CompareTag("Enemy"))
+            if (col.gameObject.CompareTag("Enemy") && col.gameObject != gameObject)
             {
 
                 Enemy enemy = col.gameObject.GetComponent<Enemy>();

@@ -525,6 +525,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+    public float DoHeal(float healAbsoluteNum, float healRatio)
+    {
+        float newHp = hp + healAbsoluteNum + MaxHP * healRatio;
+        if (newHp >= MaxHP)
+            newHp = MaxHP;
+        float healResult = newHp - hp;
+        hp = newHp;
+        return healResult;
+    }
+
     //³Q¶Ë®`
     void OnDamage(Damage theDamage)
     {
