@@ -55,11 +55,11 @@ public class MG_MazeOneRoomPath : MG_MazeOneEx
                 MaxMainDeep = cData.MaxMainDeep;
                 MaxBranchDeep = cData.MaxBranchDeep;
 
-                //if (cData.gameManagerRef)
-                //{
-                //    GameObject o = Instantiate(cData.gameManagerRef.gameObject);
-                //    gameManager = o.GetComponent<MazeGameManagerBase>();
-                //}
+                if (cData.gameManagerRef)
+                {
+                    GameObject o = Instantiate(cData.gameManagerRef.gameObject);
+                    gameManager = o.GetComponent<MazeGameManagerBase>();
+                }
 
                 if (gameManager && cData.gameManagerData != null)
                 {
