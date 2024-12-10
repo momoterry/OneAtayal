@@ -8,7 +8,7 @@ public class MissionData
 {
     public string Title;
     public string ObjectiveText;
-    public string scene;
+    //public string scene;
     public string sceneText;
     public string rewardText;
     public ContinuousBattleDataBase[] battles;
@@ -178,7 +178,7 @@ public class MissionManager : GlobalSystemBase
             MissionData data = new();
             data.Title = titles[i];
             data.type = types[i];// MissionData.TYPE.EXPLORE;
-            data.scene = scenes[i];
+            //data.scene = scenes[i];
             //data.ObjectiveText = "到達地洞深處";
             data.ObjectiveText = ObjectiveTexts[i];
             data.sceneText = sceneTexts[i];
