@@ -39690,9 +39690,30 @@ MonoBehaviour:
       type: 0
       scale: 1
       dollLimit: 20
-    battleData:
-      scene: RoomPathDesert
-      name: "\u6C99\u6F20\u6E2C\u8A66\u95DC"
+    battleDatas:
+    - scene: RoomPathDesert
+      name: "\u6E2C\u8A66\u4E2D\u4E00"
+      levelID: 
+      cameraAdjust: 0
+      puzzleWidth: 5
+      puzzleHeight: 5
+      roomWidth: 15
+      roomHeight: 20
+      pathWidth: 5
+      pathHeight: 5
+      mazeDir: 0
+      MaxMainDeep: 6
+      MaxBranchDeep: 2
+      gameManagerRef: {fileID: 7671155461415584485, guid: f76215606b49539488762d83576f5b7c, type: 3}
+      gameManagerData:
+        difficultRateMin: 1
+        difficultRateMax: 2
+        enmeyLV: 1
+        specialReward: 
+        specialRewardNum: 0
+        forceRandomObjectNum: 12
+    - scene: RoomPathDesert
+      name: "\u6E2C\u8A66\u4E2D\u4E8C"
       levelID: 
       cameraAdjust: 0
       puzzleWidth: 5

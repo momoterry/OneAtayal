@@ -91,6 +91,7 @@ public class MissionManager : GlobalSystemBase
 
     static public void FinishCurrMission()
     {
+        print("MissionManager.FinishCurrMission()");
         instance._FinishCurrMission();
     }
 

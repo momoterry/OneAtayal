@@ -12,7 +12,7 @@ public class MissionBoardTrigger : MonoBehaviour
     public class MissionDataRoomPathTest
     {
         public MissionData missionData;
-        public ContinuousMORoomPathData battleData;
+        public ContinuousMORoomPathData[] battleDatas;
     }
     public MissionDataRoomPathTest[] testMissions;
 
@@ -29,7 +29,7 @@ public class MissionBoardTrigger : MonoBehaviour
             for (int i=0; i<testMissions.Length; i++)
             {
                 testMissions[i].missionData.battles = new ContinuousBattleDataBase[1];
-                testMissions[i].missionData.battles[0] = testMissions[i].battleData;
+                testMissions[i].missionData.battles = testMissions[i].battleDatas;
                 if (i< missionList.Count)
                     missionList[i] = testMissions[i].missionData;
                 else

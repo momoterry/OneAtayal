@@ -48,6 +48,7 @@ public class ContinuousBattleManager : GlobalSystemBase
 
     static public void StartNewBattle(ContinuousBattleDataBase[] battleArray)
     {
+        print("ContinuousBattleManager.StartNewBattle() !!!!");
         instance._StartNewBattle(battleArray);
     }
 
@@ -67,6 +68,11 @@ public class ContinuousBattleManager : GlobalSystemBase
         //collectedDolls.Clear();
         formationDollList.Clear();
         battlePlayerData = null;
+
+        if (MissionManager.GetCurrMission() != null)
+        {
+            MissionManager.FinishCurrMission();
+        }
     }
 
     static public void GotoNextBattle()

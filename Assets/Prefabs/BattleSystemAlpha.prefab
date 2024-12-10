@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 696619249053733077}
   - component: {fileID: 3409162885809416633}
   - component: {fileID: 2577647470315832755}
+  - component: {fileID: 6594542898528493232}
   m_Layer: 0
   m_Name: BattleSystemAlpha
   m_TagString: Untagged
@@ -235,6 +236,7 @@ MonoBehaviour:
     objRef: {fileID: 2549458001448485838, guid: 43cc48dd97b979f4b92197ceabf12577, type: 3}
     exp: 100
     Desc: 
+  dropMapInfos: []
 --- !u!114 &2339272432450874717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8528b97c102404989cc31f35a57ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EXP_MAX_STEP: 1.5
 --- !u!114 &2577647470315832755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +284,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49a52af979dcfee4f964e57ae742bed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6594542898528493232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781492699891297191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2f152ae27da644fa347bf22b822a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6451566470048753947

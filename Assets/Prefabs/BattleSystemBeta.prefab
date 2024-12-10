@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2327651728287563973}
   - component: {fileID: 2115730712960063245}
   - component: {fileID: 9109048466182531965}
+  - component: {fileID: 3846367958283921916}
   m_Layer: 0
   m_Name: BattleSystemBeta
   m_TagString: Untagged
@@ -59,7 +60,6 @@ MonoBehaviour:
   initPlayerPos: {fileID: 0}
   initPlayerDirAngle: 0
   playerRef: {fileID: 6214839875520186894, guid: e074e1f0de3417f4fab28ee730b4bfef, type: 3}
-  moneyEffectRef: {fileID: 5893646223909909219, guid: 5804ad7a55d4cc84ab13965fbd33d669, type: 3}
   ForceUsePlayerRef: 0
   IsBattleLevelUp: 0
   MaxLevel: 20
@@ -160,6 +160,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49a52af979dcfee4f964e57ae742bed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3846367958283921916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290568624679897216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2f152ae27da644fa347bf22b822a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &855731285187729188
