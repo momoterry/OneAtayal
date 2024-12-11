@@ -6,15 +6,15 @@ public class MissionBoardTrigger : MonoBehaviour
 {
     public MissionBoardMenu theMenu;
 
-    public bool useTestMission = false;
+    //public bool useTestMission = false;
 
-    [System.Serializable]
-    public class MissionDataRoomPathTest
-    {
-        public MissionData missionData;
-        public ContinuousMORoomPathData[] battleDatas;
-    }
-    public MissionDataRoomPathTest[] testMissions;
+    //[System.Serializable]
+    //public class MissionDataRoomPathTest
+    //{
+    //    public MissionData missionData;
+    //    public ContinuousMORoomPathData[] battleDatas;
+    //}
+    //public MissionDataRoomPathTest[] testMissions;
 
 
     protected List<MissionData> missionList;
@@ -24,18 +24,18 @@ public class MissionBoardTrigger : MonoBehaviour
 
         missionList = MissionManager.GenerateMissions();
 
-        if (useTestMission && testMissions!= null && testMissions.Length > 0)
-        {
-            for (int i=0; i<testMissions.Length; i++)
-            {
-                testMissions[i].missionData.battles = new ContinuousBattleDataBase[1];
-                testMissions[i].missionData.battles = testMissions[i].battleDatas;
-                if (i< missionList.Count)
-                    missionList[i] = testMissions[i].missionData;
-                else
-                    missionList.Add(testMissions[i].missionData);
-            }
-        }
+        //if (useTestMission && testMissions!= null && testMissions.Length > 0)
+        //{
+        //    for (int i=0; i<testMissions.Length; i++)
+        //    {
+        //        testMissions[i].missionData.battles = new ContinuousBattleDataBase[1];
+        //        testMissions[i].missionData.battles = testMissions[i].battleDatas;
+        //        if (i< missionList.Count)
+        //            missionList[i] = testMissions[i].missionData;
+        //        else
+        //            missionList.Add(testMissions[i].missionData);
+        //    }
+        //}
     }
 
     void OnTG(GameObject whoTG)
