@@ -16,32 +16,40 @@ public class MissionBoardTrigger : MonoBehaviour
     //}
     //public MissionDataRoomPathTest[] testMissions;
 
+    public bool directGo = false;   //任務一接就進入關卡
+
 
     protected List<MissionData> missionList;
 
     void Start()
     {
-
-        missionList = MissionManager.GenerateMissions();
-
-        //if (useTestMission && testMissions!= null && testMissions.Length > 0)
-        //{
-        //    for (int i=0; i<testMissions.Length; i++)
-        //    {
-        //        testMissions[i].missionData.battles = new ContinuousBattleDataBase[1];
-        //        testMissions[i].missionData.battles = testMissions[i].battleDatas;
-        //        if (i< missionList.Count)
-        //            missionList[i] = testMissions[i].missionData;
-        //        else
-        //            missionList.Add(testMissions[i].missionData);
-        //    }
-        //}
+        GenerateMissionList();
     }
 
-    void OnTG(GameObject whoTG)
+    virtual protected void GenerateMissionList()
     {
-        theMenu.OpenMenu(missionList);
+        missionList = MissionManager.GenerateMissions();
+    }
+
+    public void OnTG(GameObject whoTG)
+    {
+        theMenu.OpenMenu(missionList, directGo);
         whoTG.SendMessage("OnActionResult", true, SendMessageOptions.DontRequireReceiver);      //TODO: 改用 Trigger 的方式回應
     }
+
+
+    //void AcceptMissionCB(MissionData mission)
+    //{
+    //    if (directGo)
+    //    {
+    //        print("直接進任務吧 !!" + mission.Title);
+    //        MissionManager.StartCurrMission();
+    //    }
+    //}
+
+    //void OnDestroy()
+    //{
+    //    MissionManager.AddAcceptMissionCB(AcceptMissionCB, true);
+    //}
 
 }

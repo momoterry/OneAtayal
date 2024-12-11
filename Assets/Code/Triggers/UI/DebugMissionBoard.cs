@@ -21,19 +21,10 @@ public class DebugMissionBoard : MissionBoardTrigger
 
     public MissionDataRoomPathContinuousTest[] testLongMission;
 
-
-    void Start()
+    protected override void GenerateMissionList()
     {
         missionList = new List<MissionData>();
-        //if (testMissions != null && testMissions.Length > 0)
-        //{
-        //    for (int i = 0; i < testMissions.Length; i++)
-        //    {
-        //testMissions[i].missionData.battles = new ContinuousBattleDataBase[1];
-        //testMissions[i].missionData.battles[0] = testMissions[i].battleData;
-        //missionList.Add(testMissions[i].missionData);
-        //    }
-        //}
+
         testMission.missionData.battles = new ContinuousBattleDataBase[1];
         testMission.missionData.battles[0] = testMission.battleData;
         missionList.Add(testMission.missionData);
@@ -47,4 +38,5 @@ public class DebugMissionBoard : MissionBoardTrigger
             }
         }
     }
+
 }

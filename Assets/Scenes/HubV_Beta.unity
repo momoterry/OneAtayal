@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theMenu: {fileID: 6024251573417677039}
+  directGo: 1
   testMission:
     missionData:
       Title: "\u5FEB\u901F\u6E2C\u8A66"
@@ -435,15 +436,15 @@ MonoBehaviour:
       name: "\u6C99\u6F20\u6E2C\u8A66\u4EFB\u52D9"
       levelID: 
       cameraAdjust: 0
-      puzzleWidth: 5
-      puzzleHeight: 5
+      puzzleWidth: 6
+      puzzleHeight: 6
       roomWidth: 15
       roomHeight: 20
       pathWidth: 5
       pathHeight: 5
       mazeDir: 0
       MaxMainDeep: 6
-      MaxBranchDeep: 2
+      MaxBranchDeep: 3
       gameManagerRef: {fileID: 7671155461415584485, guid: f76215606b49539488762d83576f5b7c, type: 3}
       gameManagerData:
         difficultRateMin: 1
@@ -40053,6 +40054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theMenu: {fileID: 6024251573417677039}
+  directGo: 0
 --- !u!1 &6893924675102848692
 GameObject:
   m_ObjectHideFlags: 0

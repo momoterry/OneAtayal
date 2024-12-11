@@ -17,7 +17,10 @@ public class MissionBoardMenu : MonoBehaviour
 
     protected List<MissionData> missions;
     protected List<MissionItem> items = new List<MissionItem>();
-    public void OpenMenu(List<MissionData> missionList)
+
+    protected bool directGotoLevel = false;
+
+    public void OpenMenu(List<MissionData> missionList, bool directGo = false)
     {
         missions = missionList;
         MenuRoot.gameObject.SetActive(true);
@@ -36,7 +39,7 @@ public class MissionBoardMenu : MonoBehaviour
             currMissionCard.gameObject.SetActive(false);
             CreateItems();
         }
-
+        directGotoLevel = directGo;
     }
 
     public void CloseMenu()
@@ -61,6 +64,12 @@ public class MissionBoardMenu : MonoBehaviour
         }
         if (MissionTitle)
             MissionTitle.SetActive(true);
+
+        if (directGotoLevel)
+        {
+            MissionManager.StartCurrMission();
+        }
+
     }
 
     public void OnCancelCurrMission()
