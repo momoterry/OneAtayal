@@ -10,6 +10,8 @@ public class HpBar_PA : MonoBehaviour
 
     public int pixelWidth = 16;
 
+    protected bool pixelPerfect = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,7 @@ public class HpBar_PA : MonoBehaviour
     {
         //無條件捨去
         float pixelWidthF = (float)pixelWidth;
-        float fillPixelCountF = Mathf.Floor(rate * pixelWidthF);
+        float fillPixelCountF = pixelPerfect ? Mathf.Floor(rate * pixelWidthF) : rate * pixelWidthF;
         float scaleWidth = fillPixelCountF / pixelWidthF;
         float shiftValue = (pixelWidthF - fillPixelCountF) / 32.0f;
 

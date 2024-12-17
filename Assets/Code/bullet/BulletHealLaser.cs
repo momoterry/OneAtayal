@@ -13,7 +13,7 @@ public class BulletHealLaser : BulletLaser
             if (e)
             {
                 float healed = e.DoHeal(myDamage.damage * attackPeriod, 0);
-                print("Heal Enemy: " + healed);
+                //print("Heal Enemy: " + healed);
             }
         }
         else
