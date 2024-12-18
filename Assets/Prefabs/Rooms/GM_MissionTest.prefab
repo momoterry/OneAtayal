@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &284024420963756547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1018788341040570010}
+  - component: {fileID: 914479680986760204}
+  m_Layer: 0
+  m_Name: MissionSaveLeaf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1018788341040570010
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284024420963756547}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3833770860014951804}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &914479680986760204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284024420963756547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 979ef712e3c3fb641add57d025440265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2750724642145561427
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,6 +206,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerGame: {fileID: 6156379478295431081}
+--- !u!1 &6024046638605804985
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4105349665941289356}
+  - component: {fileID: 4287820591189577016}
+  m_Layer: 0
+  m_Name: DialogueHelp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4105349665941289356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6024046638605804985}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3833770860014951804}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4287820591189577016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6024046638605804985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f736bc16cc8aee848a9ad8d437558762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndTriggers:
+  - {fileID: 3932008527172255739}
+  - {fileID: 284024420963756547}
+  speakerName: "\u91CE\u8349\u9748"
+  speakerImage: {fileID: 0}
+  dialogueContents:
+  - "\u8B1D\u8B1D\u4F60\u6551\u4E86\u6211"
+  - "\u8B93\u6211\u52A0\u5165\u4F60\u7684\u884C\u5217"
 --- !u!1 &6156379478295431081
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +286,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4105349665941289356}
   - {fileID: 3932008527172255741}
+  - {fileID: 1018788341040570010}
   m_Father: {fileID: 2906986319549096515}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -258,6 +356,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3833770860014951804}
     m_Modifications:
+    - target: {fileID: 123641122762753270, guid: 24370a31510131746805bfc36062d4d5, type: 3}
+      propertyPath: TriggerTarget
+      value: 
+      objectReference: {fileID: 6024046638605804985}
     - target: {fileID: 4032685806379418579, guid: 24370a31510131746805bfc36062d4d5, type: 3}
       propertyPath: m_Name
       value: Doll_Collect_Leaf
@@ -311,6 +413,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24370a31510131746805bfc36062d4d5, type: 3}
+--- !u!1 &3932008527172255739 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4032685806379418579, guid: 24370a31510131746805bfc36062d4d5, type: 3}
+  m_PrefabInstance: {fileID: 101250400042744872}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3932008527172255741 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4032685806379418581, guid: 24370a31510131746805bfc36062d4d5, type: 3}
