@@ -40,4 +40,15 @@ public class MissionController : MonoBehaviour
             print("========== 無任務開局 ........");
         }
     }
+
+    public void RegisterObjective(MissionObjective objective)
+    {
+        print("========== 加入一個任務: " + objective.objectiveText);
+    }
+
+    public void CompleteObjective(MissionObjective objective)
+    {
+        print("========== 完成一個任務: " + objective.objectiveText);
+    }
+
 }
