@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static BattleStat;
 
 //在關卡中的任務狀態控制，決定任務完成與否的計算等
 //為了支援連續戰鬥的地城，所以也需要 BattleSave
@@ -14,6 +13,7 @@ public class MissionController : MonoBehaviour
         public List<MissionObjective> doneList = new();
     }
     protected MissionControllerSave saveData = new MissionControllerSave();
+    protected MissionData currMission;
 
     static private MissionController instance;
     private void Awake()
@@ -31,7 +31,7 @@ public class MissionController : MonoBehaviour
     void Start()
     {
         saveData = (MissionControllerSave)BattlePlayerData.GetInstance().SysncSaveData("MissionControllerSave", saveData);
-
+        currMission = MissionManager.GetCurrMission();
         MissionData currMissionData = MissionManager.GetCurrMission();
         if (currMissionData != null)
         {
@@ -54,7 +54,9 @@ public class MissionController : MonoBehaviour
         print("========== 完成一個任務: " + objective.objectiveText);
         saveData.todoList.Remove(objective);
         saveData.doneList.Add(objective);
-        print("==========  完成任務目標: " + saveData.doneList.Count + "  總共: " + (saveData.todoList.Count + saveData.doneList.Count));
+        //print("==========  完成任務目標: " + saveData.doneList.Count + "  總共: " + (saveData.todoList.Count + saveData.doneList.Count));
+        string missionTitle = currMission == null ? "--無任務--" : currMission.Title;
+        BattleSystem.GetHUD().missionControlUI.ShowObjectiveDoneMessage(missionTitle, objective.objectiveText, saveData.doneList.Count, saveData.todoList.Count + saveData.doneList.Count);
         if (saveData.todoList.Count == 0)
         {
             print("========== 全部完成啦 !!!!!!!!!!!!");

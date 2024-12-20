@@ -83,7 +83,8 @@ public class Battle_HUD : MonoBehaviour
     //勝敗頁面相關
     protected System.Action winMenuCB;
 
-
+    //任務進行 UI 相關
+    public MissionControlUI missionControlUI;
 
     private void Awake()
     {
