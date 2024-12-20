@@ -62,6 +62,7 @@ public class MissionController : MonoBehaviour
         if (saveData.todoList.Count == 0)
         {
             //print("========== 全部完成啦 !!!!!!!!!!!!" + objective.completePortalPos);
+            BattleSystem.GetHUD().missionControlUI.ShowMissionCompleteWindow(currMission);
             if (objective.completePortalPos)
             {
                 //print("========== 生成 Portal !!!!!!!!!!!!" + missionCompltePortalRef);
