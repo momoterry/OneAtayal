@@ -7,7 +7,7 @@ public class MissionObjective
 {
     public string OBJECTIVE_ID;
     public string objectiveText;
-    public Transform completePortalPos;
+    public Transform completePortalPos;     //如果沒有指定，就不會產生 Portal
 }
 
 public class MissionObjectTrigger : MonoBehaviour

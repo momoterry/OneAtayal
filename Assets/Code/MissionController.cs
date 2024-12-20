@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class MissionController : MonoBehaviour
 {
+    public GameObject missionCompltePortalRef;
+
     public class MissionControllerSave : BattleSaveBase
     {
         public List<MissionObjective> todoList = new();
@@ -51,15 +53,20 @@ public class MissionController : MonoBehaviour
 
     public void CompleteObjective(MissionObjective objective)
     {
-        print("========== 完成一個任務: " + objective.objectiveText);
+        //print("========== 完成一個任務: " + objective.objectiveText);
         saveData.todoList.Remove(objective);
         saveData.doneList.Add(objective);
         //print("==========  完成任務目標: " + saveData.doneList.Count + "  總共: " + (saveData.todoList.Count + saveData.doneList.Count));
-        string missionTitle = currMission == null ? "--無任務--" : currMission.Title;
+        string missionTitle = currMission == null ? "----" : currMission.Title;
         BattleSystem.GetHUD().missionControlUI.ShowObjectiveDoneMessage(missionTitle, objective.objectiveText, saveData.doneList.Count, saveData.todoList.Count + saveData.doneList.Count);
         if (saveData.todoList.Count == 0)
         {
-            print("========== 全部完成啦 !!!!!!!!!!!!");
+            //print("========== 全部完成啦 !!!!!!!!!!!!" + objective.completePortalPos);
+            if (objective.completePortalPos)
+            {
+                //print("========== 生成 Portal !!!!!!!!!!!!" + missionCompltePortalRef);
+                BattleSystem.SpawnGameObj(missionCompltePortalRef, objective.completePortalPos.position);
+            }
         }
     }
 
