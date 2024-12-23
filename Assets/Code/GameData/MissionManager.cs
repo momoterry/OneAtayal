@@ -27,6 +27,21 @@ public class MissionData
     }
     public SCALE scale;
     public int dollLimit;
+
+    [System.Serializable]
+    public class RewardData
+    {
+        public int Monney = 1000;
+        [System.Serializable]
+        public class RewardItemDef
+        {
+            public string ITEM_ID;
+            public int num_min;
+            public int num_max;
+        }
+        public RewardItemDef[] items;
+    }
+    public RewardData rewardData;
 }
 
 public class MissionManager : GlobalSystemBase
@@ -177,8 +192,14 @@ public class MissionManager : GlobalSystemBase
             One.ERROR("CompleteCurrMission 錯誤，沒有接收中的任務");
             return;
         }
-        SystemUI.ShowMessageBox(null, "得到獎勵 1000 元跟 " + currMission.rewardText);
-        GameSystem.GetPlayerData().AddMoney(1000);
+        SystemUI.ShowMessageBox(null, "得到獎勵錢錢 " + currMission.rewardData.Monney);
+        GameSystem.GetPlayerData().AddMoney(currMission.rewardData.Monney);
+        for (int i=0; i<currMission.rewardData.items.Length; i++)
+        {
+            int itemNum = Random.Range(currMission.rewardData.items[i].num_min, currMission.rewardData.items[i].num_max+1);
+            GameSystem.GetPlayerData().AddItem(currMission.rewardData.items[i].ITEM_ID, itemNum);
+            print("加入了 " + currMission.rewardData.items[i].ITEM_ID + " " + itemNum + "個");
+        }
     }
 
 
