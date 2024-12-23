@@ -48,6 +48,17 @@ public class MissionManager : GlobalSystemBase
 {
     public ContinuousMORoomPathData[] DemoBattleData;   //測試時用
 
+    public class MissionRewardResult
+    {
+        public class ItemData
+        {
+            public string itemID;
+            public int num;
+        }
+        public List<ItemData> itemList = new();
+        public int Money = 0;
+    }
+
     static MissionManager instance;
     static public MissionManager GetInstance() { return instance; }
 
@@ -104,15 +115,15 @@ public class MissionManager : GlobalSystemBase
         instance._CancelCurrMission();
     }
 
-    static public void CompleteCurrMission()        //任務成功完成，得到獎勵 (但還沒「結束」任務)
+    static public MissionRewardResult CompleteCurrMission()        //任務成功完成，得到獎勵 (但還沒「結束」任務)
     {
-        print("MissionManager.CompleteCurrMission()");
-        instance._CompleteCurrMission();
+        //print("MissionManager.CompleteCurrMission()");
+        return instance._CompleteCurrMission();
     }
 
     static public void FinishCurrMission()          //不管是成功與否，任務「結束」
     {
-        print("MissionManager.FinishCurrMission()");
+        //print("MissionManager.FinishCurrMission()");
         instance._FinishCurrMission();
     }
 
@@ -185,21 +196,31 @@ public class MissionManager : GlobalSystemBase
 
 
     //任務完成得到獎勵，因為還留在關卡中的關係，任務還沒 Finish
-    protected void _CompleteCurrMission()
+    protected MissionRewardResult _CompleteCurrMission()
     {
         if (currMission == null)
         {
             One.ERROR("CompleteCurrMission 錯誤，沒有接收中的任務");
-            return;
+            return null;
         }
-        SystemUI.ShowMessageBox(null, "得到獎勵錢錢 " + currMission.rewardData.Monney);
+
+        MissionRewardResult result = new();
+
+        //SystemUI.ShowMessageBox(null, "得到獎勵錢錢 " + currMission.rewardData.Monney);
         GameSystem.GetPlayerData().AddMoney(currMission.rewardData.Monney);
         for (int i=0; i<currMission.rewardData.items.Length; i++)
         {
             int itemNum = Random.Range(currMission.rewardData.items[i].num_min, currMission.rewardData.items[i].num_max+1);
             GameSystem.GetPlayerData().AddItem(currMission.rewardData.items[i].ITEM_ID, itemNum);
             print("加入了 " + currMission.rewardData.items[i].ITEM_ID + " " + itemNum + "個");
+            MissionRewardResult.ItemData item = new MissionRewardResult.ItemData();
+            item.itemID = currMission.rewardData.items[i].ITEM_ID;
+            item.num = itemNum;
+            result.itemList.Add(item);
         }
+        result.Money = currMission.rewardData.Monney;
+
+        return result;
     }
 
 

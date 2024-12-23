@@ -75,9 +75,9 @@ public class MissionController : MonoBehaviour
     protected void OnCompleteMission(MissionObjective lastObjective)
     {
         //得到獎勵的部份
-        MissionManager.CompleteCurrMission();
+        MissionManager.MissionRewardResult rewardResult = MissionManager.CompleteCurrMission();
 
-        BattleSystem.GetHUD().missionControlUI.ShowMissionCompleteWindow(currMission);
+        BattleSystem.GetHUD().missionControlUI.ShowMissionCompleteWindow(currMission, rewardResult);
         if (lastObjective.completePortalPos)
         {
             BattleSystem.SpawnGameObj(missionCompltePortalRef, lastObjective.completePortalPos.position);
