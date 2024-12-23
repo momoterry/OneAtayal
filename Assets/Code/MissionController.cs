@@ -61,14 +61,28 @@ public class MissionController : MonoBehaviour
         BattleSystem.GetHUD().missionControlUI.ShowObjectiveDoneMessage(missionTitle, objective.objectiveText, saveData.doneList.Count, saveData.todoList.Count + saveData.doneList.Count);
         if (saveData.todoList.Count == 0)
         {
-            //print("========== 全部完成啦 !!!!!!!!!!!!" + objective.completePortalPos);
-            BattleSystem.GetHUD().missionControlUI.ShowMissionCompleteWindow(currMission);
-            if (objective.completePortalPos)
-            {
-                //print("========== 生成 Portal !!!!!!!!!!!!" + missionCompltePortalRef);
-                BattleSystem.SpawnGameObj(missionCompltePortalRef, objective.completePortalPos.position);
-            }
+            ////print("========== 全部完成啦 !!!!!!!!!!!!" + objective.completePortalPos);
+            //BattleSystem.GetHUD().missionControlUI.ShowMissionCompleteWindow(currMission);
+            //if (objective.completePortalPos)
+            //{
+            //    //print("========== 生成 Portal !!!!!!!!!!!!" + missionCompltePortalRef);
+            //    BattleSystem.SpawnGameObj(missionCompltePortalRef, objective.completePortalPos.position);
+            //}
+            OnCompleteMission(objective);
         }
     }
+
+    protected void OnCompleteMission(MissionObjective lastObjective)
+    {
+        //得到獎勵的部份
+        MissionManager.CompleteCurrMission();
+
+        BattleSystem.GetHUD().missionControlUI.ShowMissionCompleteWindow(currMission);
+        if (lastObjective.completePortalPos)
+        {
+            BattleSystem.SpawnGameObj(missionCompltePortalRef, lastObjective.completePortalPos.position);
+        }
+    }
+
 
 }

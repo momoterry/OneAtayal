@@ -89,7 +89,13 @@ public class MissionManager : GlobalSystemBase
         instance._CancelCurrMission();
     }
 
-    static public void FinishCurrMission()
+    static public void CompleteCurrMission()        //任務成功完成，得到獎勵 (但還沒「結束」任務)
+    {
+        print("MissionManager.CompleteCurrMission()");
+        instance._CompleteCurrMission();
+    }
+
+    static public void FinishCurrMission()          //不管是成功與否，任務「結束」
     {
         print("MissionManager.FinishCurrMission()");
         instance._FinishCurrMission();
@@ -137,6 +143,7 @@ public class MissionManager : GlobalSystemBase
         StartMission(currMission);
     }
 
+
     protected void _CancelCurrMission()
     {
         if (currMission == null)
@@ -151,6 +158,7 @@ public class MissionManager : GlobalSystemBase
         currMission = null;
     }
 
+
     protected void _FinishCurrMission()
     {
         if (currMission == null)
@@ -159,6 +167,20 @@ public class MissionManager : GlobalSystemBase
         }
         currMission = null;
     }
+
+
+    //任務完成得到獎勵，因為還留在關卡中的關係，任務還沒 Finish
+    protected void _CompleteCurrMission()
+    {
+        if (currMission == null)
+        {
+            One.ERROR("CompleteCurrMission 錯誤，沒有接收中的任務");
+            return;
+        }
+        SystemUI.ShowMessageBox(null, "得到獎勵 1000 元跟 " + currMission.rewardText);
+        GameSystem.GetPlayerData().AddMoney(1000);
+    }
+
 
     protected List<MissionData> _GenerateMissions()
     {
