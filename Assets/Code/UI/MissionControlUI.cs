@@ -29,7 +29,7 @@ public class MissionControlUI : MonoBehaviour
         msgText.text = objective;
         titleText.text = title;
         MissionMessageBox.SetActive(true);
-        missionMessageBoxTimeLeft = 2.0f;
+        missionMessageBoxTimeLeft = 4.0f;
     }
 
     public void ShowMissionCompleteWindow( MissionData _mission, MissionManager.MissionRewardResult rewardResult = null)
