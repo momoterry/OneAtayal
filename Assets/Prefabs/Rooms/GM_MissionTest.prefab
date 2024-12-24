@@ -210,6 +210,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerGame: {fileID: 6156379478295431081}
+--- !u!1 &3991453534571962576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5005663646895718280}
+  - component: {fileID: 3330562446618672370}
+  m_Layer: 0
+  m_Name: Delay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5005663646895718280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3991453534571962576}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5614012091566242555}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3330562446618672370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3991453534571962576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33242d63823eb9f44b326c6ab98f0d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayTime: 0.5
+  TriggerTargets:
+  - {fileID: 284024420963756547}
 --- !u!1 &5436571154996665447
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,6 +288,7 @@ Transform:
   - {fileID: 4105349665941289356}
   - {fileID: 3932008527172255741}
   - {fileID: 1018788341040570010}
+  - {fileID: 5005663646895718280}
   m_Father: {fileID: 3833770860014951804}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -290,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndTriggers:
   - {fileID: 3932008527172255739}
-  - {fileID: 284024420963756547}
+  - {fileID: 3991453534571962576}
   speakerName: "\u91CE\u8349\u9748"
   speakerImage: {fileID: 0}
   dialogueContents:
