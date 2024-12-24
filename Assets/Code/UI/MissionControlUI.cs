@@ -15,6 +15,7 @@ public class MissionControlUI : MonoBehaviour
     public GameObject MissionRewardItemRef;
 
     float missionMessageBoxTimeLeft = 0;
+    const float MISSION_OBJECTIVE_BOX_TIME = 3.0f;
     //float missionCompleteWindowTimeLeft = 0;
 
     public class MissionRewardData
@@ -26,20 +27,29 @@ public class MissionControlUI : MonoBehaviour
     public void ShowObjectiveDoneMessage( string title, string objective, int objDone, int objTotal)
     {
         countText.text = objDone.ToString() + " / " + objTotal.ToString();
+        if (objDone == objTotal)
+        {
+            countText.text += " งนฆจ !!";
+        }
         msgText.text = objective;
         titleText.text = title;
         MissionMessageBox.SetActive(true);
-        missionMessageBoxTimeLeft = 4.0f;
+        missionMessageBoxTimeLeft = MISSION_OBJECTIVE_BOX_TIME;
     }
 
-    public void ShowMissionCompleteWindow( MissionData _mission, MissionManager.MissionRewardResult rewardResult = null)
+    public void SetupMissionCompleteWindow(MissionData _mission, MissionManager.MissionRewardResult rewardResult)
     {
         if (rewardResult != null)
         {
             CreateMissionCompleteRewardItems(rewardResult);
         }
+    }
+
+    protected System.Action closeCompleteWindowCB;
+    public void ShowMissionCompleteWindow(System.Action cb = null)
+    {
+        closeCompleteWindowCB = cb;
         MissionCoompleteWindowRoot.SetActive(true);
-        //missionCompleteWindowTimeLeft = 4.0f;
     }
 
 
@@ -106,6 +116,10 @@ public class MissionControlUI : MonoBehaviour
         }
         rewardItemList.Clear();
         MissionCoompleteWindowRoot.SetActive(false);
+        if (closeCompleteWindowCB != null)
+        {
+            closeCompleteWindowCB();
+        }
     }
 
 }

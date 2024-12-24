@@ -406,7 +406,11 @@ public class Battle_HUD : MonoBehaviour
 
     public void OnOpenWinMenu(System.Action cb)
     {
-        if (winMenu)
+        if (MissionManager.GetCurrMission() != null)
+        {
+            missionControlUI.ShowMissionCompleteWindow(OnMissionCompleteMenuDone);
+        }
+        else if (winMenu)
         {
             winMenu.SetActive(true);
         }
@@ -424,7 +428,14 @@ public class Battle_HUD : MonoBehaviour
         {
             winMenuCB();
         }
+    }
 
+    public void OnMissionCompleteMenuDone()
+    {
+        if (winMenuCB != null)
+        {
+            winMenuCB();
+        }
     }
 
     public void OnBackToScene()

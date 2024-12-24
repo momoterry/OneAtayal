@@ -17,7 +17,7 @@ public class MissionController : MonoBehaviour
     protected MissionControllerSave saveData = new MissionControllerSave();
     protected MissionData currMission;
 
-    protected float missionCompleteWait = 0;
+    //protected float missionCompleteWait = 0;
 
     static private MissionController instance;
     private void Awake()
@@ -47,17 +47,17 @@ public class MissionController : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (missionCompleteWait > 0)
-        {
-            missionCompleteWait -= Time.deltaTime;
-            if (missionCompleteWait <= 0)
-            {
-                OnShowCompleteWindow();
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    if (missionCompleteWait > 0)
+    //    {
+    //        missionCompleteWait -= Time.deltaTime;
+    //        if (missionCompleteWait <= 0)
+    //        {
+    //            OnShowCompleteWindow();
+    //        }
+    //    }
+    //}
 
     public void RegisterObjective(MissionObjective objective)
     {
@@ -79,33 +79,34 @@ public class MissionController : MonoBehaviour
         }
     }
 
-    protected Transform completePortalPos;
-    protected MissionManager.MissionRewardResult rewardResult;
+    //protected Transform completePortalPos;
+    //protected MissionManager.MissionRewardResult rewardResult;
 
     protected void OnCompleteMission(MissionObjective lastObjective)
     {
         //得到獎勵的部份
-        rewardResult = MissionManager.CompleteCurrMission();
+        MissionManager.MissionRewardResult rewardResult = MissionManager.CompleteCurrMission();
+        BattleSystem.GetHUD().missionControlUI.SetupMissionCompleteWindow(currMission, rewardResult);
 
         //BattleSystem.GetHUD().missionControlUI.ShowMissionCompleteWindow(currMission, rewardResult);
-        //if (lastObjective.completePortalPos)
-        //{
-        //    BattleSystem.SpawnGameObj(missionCompltePortalRef, lastObjective.completePortalPos.position);
-        //}
-        completePortalPos = lastObjective.completePortalPos;
-
-        missionCompleteWait = 2.0f;
-    }
-
-
-    protected void OnShowCompleteWindow()
-    {
-        BattleSystem.GetHUD().missionControlUI.ShowMissionCompleteWindow(currMission, rewardResult);
-        if (completePortalPos != null)
+        if (lastObjective.completePortalPos)
         {
-            BattleSystem.SpawnGameObj(missionCompltePortalRef, completePortalPos.position);
+            BattleSystem.SpawnGameObj(missionCompltePortalRef, lastObjective.completePortalPos.position);
         }
+        //completePortalPos = lastObjective.completePortalPos;
+
+        //missionCompleteWait = 2.0f;
     }
+
+
+    //protected void OnShowCompleteWindow()
+    //{
+    //    //BattleSystem.GetHUD().missionControlUI.ShowMissionCompleteWindow();
+    //    //if (completePortalPos != null)
+    //    //{
+    //    //    BattleSystem.SpawnGameObj(missionCompltePortalRef, completePortalPos.position);
+    //    //}
+    //}
 
 
 }
