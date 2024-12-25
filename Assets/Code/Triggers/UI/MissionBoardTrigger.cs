@@ -6,15 +6,7 @@ public class MissionBoardTrigger : MonoBehaviour
 {
     public MissionBoardMenu theMenu;
 
-    //public bool useTestMission = false;
-
-    //[System.Serializable]
-    //public class MissionDataRoomPathTest
-    //{
-    //    public MissionData missionData;
-    //    public ContinuousMORoomPathData[] battleDatas;
-    //}
-    //public MissionDataRoomPathTest[] testMissions;
+    public MissionRandomPool missionPool; //如果有指定的話，用 Pool 所產生的任務
 
     public bool directGo = false;   //任務一接就進入關卡
 
@@ -28,7 +20,14 @@ public class MissionBoardTrigger : MonoBehaviour
 
     virtual protected void GenerateMissionList()
     {
-        missionList = MissionManager.GenerateMissions();
+        if (missionPool != null)
+        {
+            missionList = missionPool.GenerateMissions();
+        }
+        else
+        {
+            missionList = MissionManager.GenerateMissions();
+        }
     }
 
     public void OnTG(GameObject whoTG)
