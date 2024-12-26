@@ -429,6 +429,9 @@ MonoBehaviour:
       ObjectiveText: "\u6551\u51FA\u8349\u9748\u5011"
       sceneText: "\u6C99\u6F20"
       rewardText: "\u4E00\u4E9B\u9322\u9322"
+      objectiveGame:
+        objectiveType: 0
+        objectiveGameRef: {fileID: 0}
       type: 0
       scale: 1
       dollLimit: 20
@@ -469,6 +472,9 @@ MonoBehaviour:
       ObjectiveText: "\u8D70\u5B8C\u5168\u7A0B"
       sceneText: 
       rewardText: "\u5F88\u591A\u5F88\u591A\u9322"
+      objectiveGame:
+        objectiveType: 0
+        objectiveGameRef: {fileID: 0}
       type: 2
       scale: 0
       dollLimit: 25
@@ -38446,32 +38452,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectives:
   - misisonType: 2
-    objectiveText: 
-    objectiveGameRef: {fileID: 0}
+    objectiveText: "\u6551\u51FA\u8349\u9748"
+    game:
+      objectiveType: 1
+      objectiveGameRef: {fileID: 3661946571368084564, guid: 475fd62e36d40d34d9062abed965f593, type: 3}
+    MainPathAdd: -1
+    BranchAdd: 1
   scenes:
   - sceneName: "\u5927\u6C99\u6F20"
-    baseBattleData:
-      scene: RoomPathDesert
-      name: "\u5927\u6C99\u6F20\u4E2D\u9593"
-      levelID: 
-      cameraAdjust: 0
-      puzzleWidth: 5
-      puzzleHeight: 5
-      roomWidth: 15
-      roomHeight: 20
-      pathWidth: 5
-      pathHeight: 5
-      mazeDir: 0
-      MaxMainDeep: 6
-      MaxBranchDeep: 2
-      gameManagerRef: {fileID: 8780784970917026116, guid: 0295bde21a806384098ba88dac6a8566, type: 3}
-      gameManagerData:
-        difficultRateMin: 1
-        difficultRateMax: 2
-        enmeyLV: 1
-        specialReward: 
-        specialRewardNum: 0
-        forceRandomObjectNum: 15
+    scene: RoomPathDesert
+    GM_Ref: {fileID: 8780784970917026116, guid: 0295bde21a806384098ba88dac6a8566, type: 3}
 --- !u!1 &1615385100
 GameObject:
   m_ObjectHideFlags: 0

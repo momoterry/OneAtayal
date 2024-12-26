@@ -11,6 +11,18 @@ public class MissionData
     //public string scene;
     public string sceneText;
     public string rewardText;
+    public enum OBJECTIVE_TYPE
+    {
+        MAIN_END,
+        BRANCH_END,
+    }
+    [System.Serializable]
+    public class ObjectiveGame
+    {
+        public OBJECTIVE_TYPE objectiveType;
+        public RoomGameplayBase objectiveGameRef;
+    }
+    public ObjectiveGame objectiveGame;
     public ContinuousBattleDataBase[] battles;
     public enum TYPE
     {
