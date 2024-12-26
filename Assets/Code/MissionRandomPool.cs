@@ -10,6 +10,8 @@ public class MissionRandomPool : MonoBehaviour
         public MissionData.TYPE misisonType;
         public string objectiveText;
         public RoomGameplayBase objectiveGameRef;
+        public int MainPathAdd = -1;
+        public int BranchAdd = 2;
     }
     public ObjectiveData[] objectives;
 
@@ -53,8 +55,8 @@ public class MissionRandomPool : MonoBehaviour
         battle.pathWidth = bRef.pathWidth;
         battle.pathHeight = bRef.pathHeight;
         battle.mazeDir = bRef.mazeDir;
-        battle.MaxMainDeep = bRef.MaxMainDeep;
-        battle.MaxBranchDeep = bRef.MaxBranchDeep;
+        battle.MaxMainDeep = bRef.MaxMainDeep + objectives[oi].MainPathAdd;
+        battle.MaxBranchDeep = bRef.MaxBranchDeep + objectives[oi].BranchAdd;
         battle.gameManagerRef = bRef.gameManagerRef;
         battle.gameManagerData = new();
         battle.gameManagerData.difficultRateMin = 1.0f;
