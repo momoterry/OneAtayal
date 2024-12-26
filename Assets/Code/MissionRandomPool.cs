@@ -39,7 +39,30 @@ public class MissionRandomPool : MonoBehaviour
         data.scale = MissionData.SCALE.MEDIUM;                  //TODO
         data.dollLimit = 10;                                    //TODO
         data.battles = new ContinuousBattleDataBase[1];
-        data.battles[0] = scenes[si].baseBattleData;
+        //Battle ªº¥Í¦¨
+        ContinuousMORoomPathData battle = new();
+        ContinuousMORoomPathData bRef = scenes[si].baseBattleData;
+
+        battle.scene = bRef.scene;
+        battle.name = bRef.name;
+        battle.cameraAdjust = bRef.cameraAdjust;
+        battle.puzzleWidth = bRef.puzzleWidth;
+        battle.puzzleHeight = bRef.puzzleHeight;
+        battle.roomWidth = bRef.roomWidth;
+        battle.roomHeight = bRef.roomHeight;
+        battle.pathWidth = bRef.pathWidth;
+        battle.pathHeight = bRef.pathHeight;
+        battle.mazeDir = bRef.mazeDir;
+        battle.MaxMainDeep = bRef.MaxMainDeep;
+        battle.MaxBranchDeep = bRef.MaxBranchDeep;
+        battle.gameManagerRef = bRef.gameManagerRef;
+        battle.gameManagerData = new();
+        battle.gameManagerData.difficultRateMin = 1.0f;
+        battle.gameManagerData.difficultRateMax = 2.0f;
+        battle.gameManagerData.forceRandomObjectNum = 12;
+
+        data.battles[0] = battle;
+        //data.battles[0] = scenes[si].baseBattleData;
         mList.Add(data);
         return mList;
     }
