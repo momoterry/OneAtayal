@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MissionData;
 
 public class MissionRandomPool : MonoBehaviour
 {
@@ -10,16 +11,11 @@ public class MissionRandomPool : MonoBehaviour
         public MissionData.TYPE misisonType;
         public string objectiveText;
 
-        //public enum OBJECTIVE_TYPE
-        //{
-        //    MAIN_END,
-        //    BRANCH_END,
-        //}
-        //public MissionData.OBJECTIVE_TYPE objectiveType;
-        //public RoomGameplayBase objectiveGameRef;
         public MissionData.ObjectiveGame game;
         public int MainPathAdd = -1;
         public int BranchAdd = 2;
+
+        public MissionData.RewardData rewardData;
     }
     public ObjectiveData[] objectives;
 
@@ -53,21 +49,11 @@ public class MissionRandomPool : MonoBehaviour
         data.scale = MissionData.SCALE.MEDIUM;                  //TODO
         data.dollLimit = 10;                                    //TODO
         data.objectiveGame = objectives[oi].game;
-        data.battles = new ContinuousBattleDataBase[1];
-        //Battle 的生成
-        ContinuousMORoomPathData battle = new();
-        //ContinuousMORoomPathData bRef = scenes[si].baseBattleData;
+        data.rewardData = objectives[oi].rewardData;
 
-        //battle.scene = bRef.scene;
-        //battle.name = bRef.name;
-        //battle.cameraAdjust = bRef.cameraAdjust;
-        //battle.puzzleWidth = bRef.puzzleWidth;
-        //battle.puzzleHeight = bRef.puzzleHeight;
-        //battle.roomWidth = bRef.roomWidth;
-        //battle.roomHeight = bRef.roomHeight;
-        //battle.pathWidth = bRef.pathWidth;
-        //battle.pathHeight = bRef.pathHeight;
-        //battle.mazeDir = bRef.mazeDir;
+        //Battle 的生成
+        data.battles = new ContinuousBattleDataBase[1];
+        ContinuousMORoomPathData battle = new();
         battle.scene = scenes[si].scene;
         battle.name = scenes[si].sceneName;
         battle.cameraAdjust = 0;
@@ -79,7 +65,7 @@ public class MissionRandomPool : MonoBehaviour
         battle.pathHeight = 6;
         battle.mazeDir = MG_MazeOneBase.MAZE_DIR.DONW_TO_TOP;
         battle.MaxMainDeep = 6 + objectives[oi].MainPathAdd;
-        battle.MaxBranchDeep = 3 + objectives[oi].BranchAdd;
+        battle.MaxBranchDeep = 2 + objectives[oi].BranchAdd;
         battle.gameManagerRef = scenes[si].GM_Ref;
         battle.gameManagerData = new();
         battle.gameManagerData.difficultRateMin = 1.0f;

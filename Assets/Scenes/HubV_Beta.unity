@@ -38456,8 +38456,14 @@ MonoBehaviour:
     game:
       objectiveType: 1
       objectiveGameRef: {fileID: 3661946571368084564, guid: 475fd62e36d40d34d9062abed965f593, type: 3}
-    MainPathAdd: -1
-    BranchAdd: 1
+    MainPathAdd: 0
+    BranchAdd: 0
+    rewardData:
+      Monney: 1200
+      items:
+      - ITEM_ID: Mat_GreenCrystal
+        num_min: 2
+        num_max: 3
   scenes:
   - sceneName: "\u5927\u6C99\u6F20"
     scene: RoomPathDesert

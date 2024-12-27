@@ -6,22 +6,30 @@ using UnityEngine;
 
 public class GM_MissionCombine : MazeGameManager
 {
-    public override void BuildAll()
+    public override void BuildLayout()
+    {
+        AddMissionObjectiveGames(); //在設定每個 Room 的 Gameplay 之前加入任務 Game
+        base.BuildLayout();
+    }
+
+    protected void AddMissionObjectiveGames()
     {
         MissionData mission = MissionManager.GetCurrMission();
-        if (mission != null) 
+        if (mission != null)
         {
-            if (mission.objectiveGame != null) 
+            if (mission.objectiveGame != null)
             {
-                GameObject o = Instantiate( mission.objectiveGame.objectiveGameRef.gameObject);
+                GameObject o = Instantiate(mission.objectiveGame.objectiveGameRef.gameObject);
                 RoomGameplayBase roomGame = o.GetComponent<RoomGameplayBase>();
-                //o.transform.parent = transform;
+                o.transform.parent = transform;
                 print(" ==== 處理任務目標房間");
                 switch (mission.objectiveGame.objectiveType)
                 {
                     case MissionData.OBJECTIVE_TYPE.BRANCH_END:
-                        fixBranchEndGames = new FixBranchEndGameInfo[2];
-                        for (int i = 0; i < fixBranchEndGames.Length; i++) 
+                        int bNum = branchEndRoomList.Count + branchEndPathList.Count;
+                        print("bRoom: " + branchEndRoomList.Count + " bPath" + branchEndPathList.Count);
+                        fixBranchEndGames = new FixBranchEndGameInfo[bNum];
+                        for (int i = 0; i < bNum; i++)
                         {
                             fixBranchEndGames[i] = new();
                             fixBranchEndGames[i].game = roomGame;
@@ -30,7 +38,13 @@ public class GM_MissionCombine : MazeGameManager
                 }
             }
         }
-
-        base.BuildAll();
     }
+
+    //public override void SetupData(GameManagerDataBase data)
+    //{
+    //    base.SetupData(data);
+
+
+    //}
+
 }
