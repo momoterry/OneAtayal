@@ -425,8 +425,8 @@ MonoBehaviour:
   directGo: 1
   testMission:
     missionData:
-      Title: "\u5FEB\u901F\u6E2C\u8A66"
-      ObjectiveText: "\u6551\u51FA\u8349\u9748\u5011"
+      Title: "\u6C99\u6F20\u5927\u6703\u6230"
+      ObjectiveText: "\u6E05\u9664\u6575\u4EBA"
       sceneText: "\u6C99\u6F20"
       rewardText: "\u4E00\u4E9B\u9322\u9322"
       objectiveGame:
@@ -445,12 +445,12 @@ MonoBehaviour:
           num_min: 3
           num_max: 4
     battleData:
-      scene: 
-      name: 
+      scene: RoomPathDesert
+      name: "\u5927\u6C99\u6F20"
       levelID: 
       cameraAdjust: 0
-      puzzleWidth: 0
-      puzzleHeight: 0
+      puzzleWidth: 5
+      puzzleHeight: 5
       roomWidth: 15
       roomHeight: 20
       pathWidth: 5
@@ -458,14 +458,14 @@ MonoBehaviour:
       mazeDir: 0
       MaxMainDeep: 6
       MaxBranchDeep: 2
-      gameManagerRef: {fileID: 0}
+      gameManagerRef: {fileID: 7671155461415584485, guid: f76215606b49539488762d83576f5b7c, type: 3}
       gameManagerData:
         difficultRateMin: 1
         difficultRateMax: 2
         enmeyLV: 1
         specialReward: 
         specialRewardNum: 0
-        forceRandomObjectNum: -1
+        forceRandomObjectNum: 12
   testLongMission:
   - missionData:
       Title: "\u9577\u4EFB\u52D9\u6E2C\u8A66"
@@ -482,12 +482,12 @@ MonoBehaviour:
         Monney: 1000
         items: []
     battles:
-    - scene: 
-      name: 
+    - scene: RoomPathDungeon
+      name: "\u6E2C\u8A66\u5730\u57CE"
       levelID: 
       cameraAdjust: 0
-      puzzleWidth: 0
-      puzzleHeight: 0
+      puzzleWidth: 5
+      puzzleHeight: 5
       roomWidth: 15
       roomHeight: 20
       pathWidth: 5
@@ -503,12 +503,12 @@ MonoBehaviour:
         specialReward: 
         specialRewardNum: 0
         forceRandomObjectNum: -1
-    - scene: 
-      name: 
+    - scene: RoomPathDungeon
+      name: "\u6E2C\u8A66\u5730\u57CE"
       levelID: 
       cameraAdjust: 0
-      puzzleWidth: 0
-      puzzleHeight: 0
+      puzzleWidth: 5
+      puzzleHeight: 5
       roomWidth: 15
       roomHeight: 20
       pathWidth: 5
