@@ -41,6 +41,14 @@ public class MissionData
     public int dollLimit;
 
     [System.Serializable]
+    public class HelpDollData
+    {
+        public GameObject dollRef;
+        public float ratioAdd = 0.0f;
+    }
+    public HelpDollData helpDoll;
+
+    [System.Serializable]
     public class RewardData
     {
         public int Monney = 1000;

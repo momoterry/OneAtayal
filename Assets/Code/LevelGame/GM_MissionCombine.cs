@@ -37,6 +37,17 @@ public class GM_MissionCombine : MazeGameManager
                         break;
                 }
             }
+
+            //加入野巫靈的部份
+            if (mission.helpDoll != null)
+            {
+                if (theOPM && mission.helpDoll.dollRef)
+                {
+                    print("修正了野巫靈獎勵");
+                    theOPM.randomObjects[0].objRef = mission.helpDoll.dollRef;
+                }
+                //TODO: 數量的校正
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MissionData;
 
 public class MissionRandomPool : MonoBehaviour
 {
@@ -31,7 +30,7 @@ public class MissionRandomPool : MonoBehaviour
     }
     public SceneData[] scenes;
 
-
+    public MissionData.HelpDollData[] helpDolls;
 
     public List<MissionData> GenerateMissions()
     {
@@ -39,6 +38,7 @@ public class MissionRandomPool : MonoBehaviour
 
         int oi = 0;
         int si = 0;
+        int di = 0;
 
         MissionData data = new();
         data.Title = "怎麼取名好呢";                          //TODO
@@ -73,7 +73,10 @@ public class MissionRandomPool : MonoBehaviour
         battle.gameManagerData.forceRandomObjectNum = 12;
 
         data.battles[0] = battle;
-        //data.battles[0] = scenes[si].baseBattleData;
+
+        //野巫靈的部份
+        data.helpDoll = helpDolls[di];
+
         mList.Add(data);
         return mList;
     }
