@@ -43,10 +43,11 @@ public class GM_MissionCombine : MazeGameManager
             {
                 if (theOPM && mission.helpDoll.dollRef)
                 {
-                    print("修正了野巫靈獎勵");
                     theOPM.randomObjects[0].objRef = mission.helpDoll.dollRef;
+                    theOPM.forceRandomNum *= (mission.helpDoll.ratioAdd + 1.0f);
+                    print("修正了野巫靈獎勵 " + theOPM.forceRandomNum);
+
                 }
-                //TODO: 數量的校正
             }
         }
     }

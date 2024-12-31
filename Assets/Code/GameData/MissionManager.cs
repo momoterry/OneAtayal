@@ -44,7 +44,7 @@ public class MissionData
     public class HelpDollData
     {
         public GameObject dollRef;
-        public float ratioAdd = 0.0f;
+        public float ratioAdd = 0.0f;   //0.5f 表示增加 50% 的野巫靈量
     }
     public HelpDollData helpDoll;
 
