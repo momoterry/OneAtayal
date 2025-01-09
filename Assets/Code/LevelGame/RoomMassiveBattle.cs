@@ -172,7 +172,8 @@ public class RoomMassiveBattle : RoomGameplayBase
             int w = Mathf.RoundToInt(rWidth * widthRatio * alignDivFloat) * alignRatioInt;
             int h = Mathf.RoundToInt(rHeight * heightRatio * alignDivFloat) * alignRatioInt;
             //print("To Block :" + new RectInt(x, y, w, h));
-            oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.BLOCK);
+            //oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.BLOCK);
+            oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.HOLE);
 
             GameObject newObject = new GameObject("RoomMassiveBattle_Block");
             newObject.transform.position = new Vector3(x + w * 0.5f, 0, y + h * 0.5f);

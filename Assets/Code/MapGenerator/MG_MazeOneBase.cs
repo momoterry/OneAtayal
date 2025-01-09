@@ -88,6 +88,8 @@ public class MG_MazeOneBase : MapGeneratorBase
     public TileEdgeGroupDataBase groundOutEdgeTileGroup;
     public TileGroupDataBase blockTileGroup;                //用在非邊界的 Block 區域
     public TileEdgeGroupDataBase blockTileEdgeGroup;
+    public TileGroupDataBase holeTileGroup;                
+    public TileEdgeGroupDataBase holeTileEdgeGroup;
     public TileGroupDataBase defautTileGroup;               //用在地圖的外邊界
     public TileGroupDataBase roomGroundTileGroup;
     public TileEdgeGroupDataBase roomGroundTileEdgeGroup;
@@ -124,6 +126,7 @@ public class MG_MazeOneBase : MapGeneratorBase
         GROUND = 4,
         ROOM = 5,
         BLOCK = 6,
+        HOLE = 7,   //阻擋移動但不阻擋子彈
         PATH = 8,
     }
 
@@ -871,10 +874,16 @@ public class MG_MazeOneBase : MapGeneratorBase
                 theMap.FillTileAll((int)MAP_TYPE.BLOCK, blockTM, blockTileGroup.GetTileGroup());
         }
 
-
         if (groundOutEdgeTileGroup && !blockTileEdgeGroup)
             theMap.FillTileAll((int)MAP_TYPE.GROUND, null, blockTM, null, groundOutEdgeTileGroup.GetTileEdgeGroup(), true, (int)MAP_TYPE.BLOCK);
 
+        if (holeTileGroup)
+        {
+            if (holeTileEdgeGroup)
+                theMap.FillTileAll((int)MAP_TYPE.HOLE, blockTM, blockTM, holeTileGroup.GetTileGroup(), holeTileEdgeGroup.GetTileEdgeGroup(), false);
+            else
+                theMap.FillTileAll((int)MAP_TYPE.HOLE, blockTM, holeTileGroup.GetTileGroup());
+        }
     }
 
     //=========================== 存讀檔相關
