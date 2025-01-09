@@ -333,8 +333,8 @@ MonoBehaviour:
       - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
       - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
       enemyIDs: []
-      totalNumMin: 30
-      totalNumMax: 35
+      totalNumMin: 20
+      totalNumMax: 30
       forceAlert: 1
       diffToSingle: 0
       spawnWithoutConnect: 0
@@ -348,7 +348,32 @@ MonoBehaviour:
       width: 6
       height: 6
     blockSizeMin: {x: 2, y: 2}
-    blockSizeMax: {x: 3, y: 3}
+    blockSizeMax: {x: 6, y: 6}
+  - area:
+      serializedVersion: 2
+      x: -3
+      y: -3
+      width: 6
+      height: 6
+    blockSizeMin: {x: 2, y: 2}
+    blockSizeMax: {x: 6, y: 6}
+  - area:
+      serializedVersion: 2
+      x: -4
+      y: -4
+      width: 8
+      height: 8
+    blockSizeMin: {x: 2, y: 2}
+    blockSizeMax: {x: 6, y: 6}
+  - area:
+      serializedVersion: 2
+      x: -4
+      y: -4
+      width: 8
+      height: 8
+    blockSizeMin: {x: 2, y: 2}
+    blockSizeMax: {x: 6, y: 6}
+  blockAlignment: 2
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!114 &210802122 stripped
@@ -547,6 +572,7 @@ MonoBehaviour:
       groupFinishType: 2
     spawnOnStart: 0
   randomBlocks: []
+  blockAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!1 &631198555
@@ -825,6 +851,7 @@ MonoBehaviour:
       groupFinishType: 1
     spawnOnStart: 0
   randomBlocks: []
+  blockAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!1 &1066149157
@@ -1187,6 +1214,7 @@ MonoBehaviour:
       groupFinishType: 1
     spawnOnStart: 0
   randomBlocks: []
+  blockAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects:
   - objPosShift: {x: 0, y: 0, z: -2}
@@ -2567,7 +2595,7 @@ MonoBehaviour:
   difficultRateMax: 2
   enmeyLV: 1
   defaultMainGames:
-  - game: {fileID: 954073051}
+  - game: {fileID: 201448846}
     ratioPercent: 100
   fixStartGames: []
   fixEndGames: []

@@ -32,6 +32,7 @@ public class RoomMassiveBattle : RoomGameplayBase
         public Vector2 blockSizeMax;
     }
     public RandomBlockInfo[] randomBlocks;
+    public int blockAlignment = 1;
 
     public GameObject doorObj;
 
@@ -130,6 +131,10 @@ public class RoomMassiveBattle : RoomGameplayBase
         int roomY1 = (room.mapRect.height - (int)room.height) / 2 + room.mapRect.yMin;
 
         //for (int i = 0; i < RandomBlockNum; i++)
+
+        int alignRatioInt = blockAlignment > 1 ? blockAlignment : 1;
+        float alignDivFloat = 1.0f / (float)alignRatioInt;
+
         foreach (RandomBlockInfo ri in randomBlocks)
         {
             float rWidthOriginal = Random.Range(ri.blockSizeMin.x, ri.blockSizeMax.x);
@@ -162,10 +167,10 @@ public class RoomMassiveBattle : RoomGameplayBase
             }
 
             //print("RoomMassiveBattle 產生 Block");
-            int x = roomX1 + Mathf.RoundToInt((rX + 5.0f - rWidth * 0.5f) * widthRatio);     //左下座標
-            int y = roomY1 + Mathf.RoundToInt((rY + 5.0f - rHeight * 0.5f) * heightRatio);    //左下座標
-            int w = Mathf.RoundToInt(rWidth * widthRatio);
-            int h = Mathf.RoundToInt(rHeight * heightRatio);
+            int x = roomX1 + Mathf.RoundToInt((rX + 5.0f - rWidth * 0.5f) * widthRatio * alignDivFloat) * alignRatioInt;     //左下座標
+            int y = roomY1 + Mathf.RoundToInt((rY + 5.0f - rHeight * 0.5f) * heightRatio * alignDivFloat) * alignRatioInt;    //左下座標
+            int w = Mathf.RoundToInt(rWidth * widthRatio * alignDivFloat) * alignRatioInt;
+            int h = Mathf.RoundToInt(rHeight * heightRatio * alignDivFloat) * alignRatioInt;
             //print("To Block :" + new RectInt(x, y, w, h));
             oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.BLOCK);
 
