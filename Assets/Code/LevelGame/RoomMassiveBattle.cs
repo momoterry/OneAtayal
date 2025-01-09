@@ -33,6 +33,8 @@ public class RoomMassiveBattle : RoomGameplayBase
     }
     public RandomBlockInfo[] randomBlocks;
     public int blockAlignment = 1;
+    public RandomBlockInfo[] randomHoles;       //請注意，目前 Block 跟 Hole 不能交疊，否則會出現 Hole 上方也有物理擋牆的現象 
+    public int holeAlignment = 1;
 
     public GameObject doorObj;
 
@@ -122,6 +124,72 @@ public class RoomMassiveBattle : RoomGameplayBase
     {
         base.BuildLayout(room, oMap);
 
+        BuildBlocks(room, oMap, false);
+        BuildBlocks(room, oMap, true);
+
+        //float widthRatio = room.width / MR_Node.ROOM_RELATIVE_SIZE;
+        //float heightRatio = room.height / MR_Node.ROOM_RELATIVE_SIZE;
+        //float blockBufferWidth = 0.5f;
+        //DIRECTION sDir = sDir = room.cell.from;
+
+        //int roomX1 = (room.mapRect.width - (int)room.width) / 2 + room.mapRect.xMin;
+        //int roomY1 = (room.mapRect.height - (int)room.height) / 2 + room.mapRect.yMin;
+
+        ////for (int i = 0; i < RandomBlockNum; i++)
+
+        //int alignRatioInt = blockAlignment > 1 ? blockAlignment : 1;
+        //float alignDivFloat = 1.0f / (float)alignRatioInt;
+
+        //foreach (RandomBlockInfo ri in randomBlocks)
+        //{
+        //    float rWidthOriginal = Random.Range(ri.blockSizeMin.x, ri.blockSizeMax.x);
+        //    float rHeightOriginal = Random.Range(ri.blockSizeMin.y, ri.blockSizeMax.y);
+        //    float rXOriginal = Random.Range(ri.area.xMin + rWidthOriginal * 0.5f, ri.area.xMax - rWidthOriginal * 0.5f);
+        //    float rYOriginal = Random.Range(ri.area.yMin + rHeightOriginal * 0.5f, ri.area.yMax - rHeightOriginal * 0.5f);
+        //    //Rect blockRect = new Rect(rXMin, rYMin, rWidth, rHeight);
+        //    float rWidth = rWidthOriginal;
+        //    float rHeight = rHeightOriginal;
+        //    float rX = rXOriginal;
+        //    float rY = rYOriginal;
+        //    switch (sDir)
+        //    {
+        //        case DIRECTION.U:
+        //            rX = -rXOriginal;
+        //            rY = -rYOriginal;
+        //            break;
+        //        case DIRECTION.L:
+        //            rWidth = rHeightOriginal;
+        //            rHeight = rWidthOriginal;
+        //            rX = rYOriginal;
+        //            rY = -rXOriginal;
+        //            break;
+        //        case DIRECTION.R:
+        //            rWidth = rHeightOriginal;
+        //            rHeight = rWidthOriginal;
+        //            rX = -rYOriginal;
+        //            rY = rXOriginal;
+        //            break;
+        //    }
+
+        //    //print("RoomMassiveBattle 產生 Block");
+        //    int x = roomX1 + Mathf.RoundToInt((rX + 5.0f - rWidth * 0.5f) * widthRatio * alignDivFloat) * alignRatioInt;     //左下座標
+        //    int y = roomY1 + Mathf.RoundToInt((rY + 5.0f - rHeight * 0.5f) * heightRatio * alignDivFloat) * alignRatioInt;    //左下座標
+        //    int w = Mathf.RoundToInt(rWidth * widthRatio * alignDivFloat) * alignRatioInt;
+        //    int h = Mathf.RoundToInt(rHeight * heightRatio * alignDivFloat) * alignRatioInt;
+        //    //print("To Block :" + new RectInt(x, y, w, h));
+        //    //oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.BLOCK);
+        //    oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.HOLE);
+
+        //    GameObject newObject = new GameObject("RoomMassiveBattle_Block");
+        //    newObject.transform.position = new Vector3(x + w * 0.5f, 0, y + h * 0.5f);
+        //    BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
+        //    boxCollider.size = new Vector3(w - blockBufferWidth * 2, 2.0f, h - blockBufferWidth * 2);
+        //    newObject.layer = LayerMask.NameToLayer("Wall");
+        //}
+    }
+
+    protected void BuildBlocks(MazeGameManagerBase.RoomInfo room, OneMap oMap, bool isHole)
+    {
         float widthRatio = room.width / MR_Node.ROOM_RELATIVE_SIZE;
         float heightRatio = room.height / MR_Node.ROOM_RELATIVE_SIZE;
         float blockBufferWidth = 0.5f;
@@ -132,10 +200,11 @@ public class RoomMassiveBattle : RoomGameplayBase
 
         //for (int i = 0; i < RandomBlockNum; i++)
 
-        int alignRatioInt = blockAlignment > 1 ? blockAlignment : 1;
-        float alignDivFloat = 1.0f / (float)alignRatioInt;
+        int alignRatioInt = isHole? (holeAlignment > 1? holeAlignment:1) : (blockAlignment > 1 ? blockAlignment : 1);
+        float alignDivFloat = 1.0f / alignRatioInt;
 
-        foreach (RandomBlockInfo ri in randomBlocks)
+        RandomBlockInfo[] blocks = isHole ? randomHoles : randomBlocks;
+        foreach (RandomBlockInfo ri in blocks)
         {
             float rWidthOriginal = Random.Range(ri.blockSizeMin.x, ri.blockSizeMax.x);
             float rHeightOriginal = Random.Range(ri.blockSizeMin.y, ri.blockSizeMax.y);
@@ -173,14 +242,16 @@ public class RoomMassiveBattle : RoomGameplayBase
             int h = Mathf.RoundToInt(rHeight * heightRatio * alignDivFloat) * alignRatioInt;
             //print("To Block :" + new RectInt(x, y, w, h));
             //oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.BLOCK);
-            oMap.FillValue(x, y, w, h, (int)MG_MazeOneBase.MAP_TYPE.HOLE);
+            oMap.FillValue(x, y, w, h, (int)(isHole ? MG_MazeOneBase.MAP_TYPE.HOLE : MG_MazeOneBase.MAP_TYPE.BLOCK));
 
-            GameObject newObject = new GameObject("RoomMassiveBattle_Block");
-            newObject.transform.position = new Vector3(x + w * 0.5f, 0, y + h * 0.5f);
-            BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
-            boxCollider.size = new Vector3(w - blockBufferWidth * 2, 2.0f, h - blockBufferWidth * 2);
-            newObject.layer = LayerMask.NameToLayer("Wall");
-            //newObject.transform.parent = transform;
+            if (!isHole)
+            {
+                GameObject newObject = new GameObject("RoomMassiveBattle_Block");
+                newObject.transform.position = new Vector3(x + w * 0.5f, 0, y + h * 0.5f);
+                BoxCollider boxCollider = newObject.AddComponent<BoxCollider>();
+                boxCollider.size = new Vector3(w - blockBufferWidth * 2, 2.0f, h - blockBufferWidth * 2);
+                newObject.layer = LayerMask.NameToLayer("Wall");
+            }
         }
     }
 

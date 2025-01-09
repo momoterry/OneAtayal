@@ -227,7 +227,7 @@ MonoBehaviour:
   groundEdgeTileGroup: {fileID: 0}
   groundOutEdgeTileGroup: {fileID: 980456600}
   blockTileGroup: {fileID: 1109349066}
-  blockTileEdgeGroup: {fileID: 0}
+  blockTileEdgeGroup: {fileID: 1408684023}
   holeTileGroup: {fileID: 414715358}
   holeTileEdgeGroup: {fileID: 980456600}
   defautTileGroup: {fileID: 0}
@@ -264,6 +264,7 @@ Transform:
   - {fileID: 28798113}
   - {fileID: 980456601}
   - {fileID: 1109349067}
+  - {fileID: 1408684022}
   - {fileID: 930109371}
   - {fileID: 414715357}
   m_Father: {fileID: 0}
@@ -429,6 +430,8 @@ MonoBehaviour:
     blockSizeMin: {x: 2, y: 2}
     blockSizeMax: {x: 6, y: 6}
   blockAlignment: 2
+  randomHoles: []
+  holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!114 &210802122 stripped
@@ -442,6 +445,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78990857d53ffd04fbd4b83f13742f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &233693142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 233693143}
+  - component: {fileID: 233693144}
+  m_Layer: 0
+  m_Name: HugeRoomOne_TestBlock_Hole
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &233693143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233693142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3495891255675402518}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &233693144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233693142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CloseDoolBattle: 1
+  areaEnemyInfos:
+  - area:
+      serializedVersion: 2
+      x: -4
+      y: 0
+      width: 8
+      height: 4
+    eInfo:
+      enemys:
+      - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+      - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
+      - {fileID: 7208015447484052683, guid: 362b0cca51e13bb43935f9180afb657c, type: 3}
+      enemyIDs: []
+      totalNumMin: 20
+      totalNumMax: 30
+      forceAlert: 1
+      diffToSingle: 0
+      spawnWithoutConnect: 0
+      groupFinishType: 1
+    spawnOnStart: 0
+  randomBlocks:
+  - area:
+      serializedVersion: 2
+      x: -4
+      y: 0
+      width: 8
+      height: 4
+    blockSizeMin: {x: 2, y: 2}
+    blockSizeMax: {x: 6, y: 3}
+  blockAlignment: 4
+  randomHoles:
+  - area:
+      serializedVersion: 2
+      x: -4
+      y: -4
+      width: 8
+      height: 4
+    blockSizeMin: {x: 2, y: 2}
+    blockSizeMax: {x: 6, y: 3}
+  holeAlignment: 4
+  doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects: []
 --- !u!1001 &314766403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -675,6 +765,8 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   blockAlignment: 1
+  randomHoles: []
+  holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!1 &631198555
@@ -1035,6 +1127,8 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   blockAlignment: 1
+  randomHoles: []
+  holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!1 &980456599
@@ -1396,6 +1490,8 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   blockAlignment: 1
+  randomHoles: []
+  holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects:
   - objPosShift: {x: 0, y: 0, z: -2}
@@ -1447,6 +1543,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shiftType: 2
   rotateWithShiftType: 0
+--- !u!1 &1408684021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1408684022}
+  - component: {fileID: 1408684023}
+  m_Layer: 0
+  m_Name: BlockEdgeTileGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1408684022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408684021}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 35147814}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1408684023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408684021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68ab9311db8512458b922dd67af2328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    UU: {fileID: 0}
+    DD: {fileID: 11400000, guid: d68abb48cae8e724090a9abede6c6c12, type: 2}
+    LL: {fileID: 11400000, guid: 17b05bdc73025f540ba8817f38c7e803, type: 2}
+    RR: {fileID: 11400000, guid: 554e810de322eca419a9cb41dd132cc9, type: 2}
+    LU: {fileID: 11400000, guid: 17b05bdc73025f540ba8817f38c7e803, type: 2}
+    RU: {fileID: 11400000, guid: 554e810de322eca419a9cb41dd132cc9, type: 2}
+    LD: {fileID: 11400000, guid: 75f7a4ce9f33a9e46b6a9400920bd393, type: 2}
+    RD: {fileID: 11400000, guid: 190faa8e4adf3d44590526b147c77340, type: 2}
+    LU_S: {fileID: 0}
+    RU_S: {fileID: 0}
+    LD_S: {fileID: 11400000, guid: 3a53dbf4e2902f042a78a3652ec56877, type: 2}
+    RD_S: {fileID: 11400000, guid: 0b0bde0935b412d41b21c83ac76ee51a, type: 2}
+    DD2: {fileID: 11400000, guid: c49903f313d53764eb576d3dedff0e4c, type: 2}
+    LD2: {fileID: 11400000, guid: cec5f6fcd5fab364a8c66c0e7b363223, type: 2}
+    RD2: {fileID: 11400000, guid: ce1d75ae2405056439335e0bb3226cb4, type: 2}
+    LD_S2: {fileID: 11400000, guid: b5bbfc351a1d50b4f8c1f4b540ef374b, type: 2}
+    RD_S2: {fileID: 11400000, guid: 8bde9dd0c2e581f47a1852e0bfbcfd0e, type: 2}
+    UU2: {fileID: 11400000, guid: 79f84f1b6bd5acc4296b0a53a2d154ad, type: 2}
+    LU2: {fileID: 11400000, guid: b14629a7b769acc4cbda992fa6a937d6, type: 2}
+    RU2: {fileID: 11400000, guid: 36ded6e5103fb134e85e0fef2fd3b4b1, type: 2}
+    LU_S2: {fileID: 11400000, guid: 6f2790090a275614daa095b27adb8fdd, type: 2}
+    RU_S2: {fileID: 11400000, guid: a6ecfe35b92b9ee4b8767242fc7e41ea, type: 2}
 --- !u!1001 &1494127079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2632,6 +2795,7 @@ Transform:
   - {fileID: 201448845}
   - {fileID: 628916212}
   - {fileID: 1301561632}
+  - {fileID: 233693143}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2728,7 +2892,7 @@ MonoBehaviour:
   difficultRateMax: 2
   enmeyLV: 1
   defaultMainGames:
-  - game: {fileID: 201448846}
+  - game: {fileID: 233693144}
     ratioPercent: 100
   fixStartGames: []
   fixEndGames: []
