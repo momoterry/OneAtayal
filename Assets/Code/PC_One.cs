@@ -1088,6 +1088,20 @@ public class PC_One : PlayerControllerBase
         }
     }
 
+    public void ReviveAllDoll()
+    {
+        List<Doll> dollList = myDollManager.GetDolls();
+        foreach (Doll d in dollList)
+        {
+            if (d.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            d.OnRevive();
+        }
+    }
+
     //private void OnGUI()
     //{
     //    Vector2 thePoint = Camera.main.WorldToScreenPoint(transform.position + faceDir);
