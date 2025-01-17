@@ -1098,7 +1098,7 @@ public class PC_One : PlayerControllerBase
                 HitBody b = d.gameObject.GetComponent<HitBody>();
                 if (b != null && b.GetHP() < b.GetHPMax())
                 {
-                    b.DoHeal(b.GetHPMax());
+                    b.DoHeal(Mathf.Infinity);
                 }
                 continue;
             }
@@ -1107,7 +1107,7 @@ public class PC_One : PlayerControllerBase
         }
         if (hp < HP_Max)
         {
-            DoHeal(HP_Max);//自己也補一下
+            DoHeal(Mathf.Infinity);//自己也補一下
         }
     }
 
