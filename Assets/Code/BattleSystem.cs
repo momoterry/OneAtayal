@@ -471,7 +471,7 @@ public class BattleSystem : MonoBehaviour
     public void OnAddMoney(int moneyAdd)
     {
         if (!moneyAddFXRef)
-            moneyAddFXRef = GameData.GetObjectRef("MoneyAdd");
+            moneyAddFXRef = GameData.GetObjectRef("MONEY_ADD");
         GameSystem.GetPlayerData().AddMoney(moneyAdd);
         if (moneyAddFXRef && thePC)
         {
