@@ -1090,6 +1090,8 @@ public class PC_One : PlayerControllerBase
 
     public void ReviveAllDoll()
     {
+        GameObject healFX = GameData.GetObjectRef(GameData.HEAL_FX);
+        GameObject reviveFX = GameData.GetObjectRef(GameData.DOLL_SUMMON);
         List<Doll> dollList = myDollManager.GetDolls();
         foreach (Doll d in dollList)
         {
@@ -1099,15 +1101,18 @@ public class PC_One : PlayerControllerBase
                 if (b != null && b.GetHP() < b.GetHPMax())
                 {
                     b.DoHeal(Mathf.Infinity);
+                    BattleSystem.GetInstance().SpawnGameplayObject(healFX, d.transform.position, d.transform);
                 }
                 continue;
             }
 
             d.OnRevive();
+            BattleSystem.GetInstance().SpawnGameplayObject(reviveFX, d.transform.position, d.transform);
         }
         if (hp < HP_Max)
         {
             DoHeal(Mathf.Infinity);//自己也補一下
+            BattleSystem.GetInstance().SpawnGameplayObject(healFX, transform.position, gameObject.transform);
         }
     }
 

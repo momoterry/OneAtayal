@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class GameData : GlobalSystemBase
 {
+    public const string HEAL_FX = "HEAL_FX";
+    public const string DOLL_SUMMON = "DOLL_SUMMON";
+    public const string MONEY_ADD = "MONEY_ADD";
+
+    [System.Serializable]
+    public class ID_GameData
+    {
+        public string ID;
+        public GameObject ObjectRef;
+    }
+    public ID_GameData[] ID_Group;
     [System.Serializable]
     public class DataGroup{
         public string GroupName;
@@ -52,6 +63,11 @@ public class GameData : GlobalSystemBase
         //{
         //    objMaps.Add(o.name, o);
         //}
+
+        foreach (ID_GameData data in ID_Group)
+        {
+            objMaps.Add(data.ID, data.ObjectRef);
+        }
 
         foreach (DataGroup group in DataGroups)
         {

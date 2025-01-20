@@ -306,6 +306,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitOrder: 50
+  ID_Group:
+  - ID: HEAL_FX
+    ObjectRef: {fileID: 2349360926062933808, guid: 86346f98b53b53443af314932ed834ce, type: 3}
+  - ID: DOLL_SUMMON
+    ObjectRef: {fileID: 1730805568862363463, guid: a317ae504c9dcdf4d8c1206bcc149841, type: 3}
+  - ID: MONEY_ADD
+    ObjectRef: {fileID: 5893646223909909219, guid: 312b2f66cc5d0894abb5b2d8edd2b74c, type: 3}
   DataGroups:
   - GroupName: EnemyRefs
     ObjectRefs:
@@ -326,6 +333,8 @@ MonoBehaviour:
   - GroupName: BattleData
     ObjectRefs:
     - {fileID: 5893646223909909219, guid: 312b2f66cc5d0894abb5b2d8edd2b74c, type: 3}
+    - {fileID: 2349360926062933808, guid: 86346f98b53b53443af314932ed834ce, type: 3}
+    - {fileID: 1730805568862363463, guid: a317ae504c9dcdf4d8c1206bcc149841, type: 3}
 --- !u!114 &5958012817621368183
 MonoBehaviour:
   m_ObjectHideFlags: 0
