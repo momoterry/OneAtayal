@@ -38,7 +38,7 @@ public class MissionRandomPool : MonoBehaviour
 
         int oi = 0;
         int si = Random.Range(0, scenes.Length);
-        int di = 0;
+        int di = Random.Range(0, helpDolls.Length);
 
         MissionData data = new();
         data.Title = "怎麼取名好呢";                          //TODO
