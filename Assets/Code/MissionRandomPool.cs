@@ -37,7 +37,7 @@ public class MissionRandomPool : MonoBehaviour
         List<MissionData> mList = new List<MissionData>();
 
         int oi = 0;
-        int si = 0;
+        int si = Random.Range(0, scenes.Length);
         int di = 0;
 
         MissionData data = new();
