@@ -177,6 +177,8 @@ MonoBehaviour:
   groundOutEdgeTileGroup: {fileID: 1208971282}
   blockTileGroup: {fileID: 1663081885}
   blockTileEdgeGroup: {fileID: 0}
+  holeTileGroup: {fileID: 0}
+  holeTileEdgeGroup: {fileID: 0}
   defautTileGroup: {fileID: 0}
   roomGroundTileGroup: {fileID: 0}
   roomGroundTileEdgeGroup: {fileID: 0}
@@ -374,6 +376,8 @@ MonoBehaviour:
     blockSizeMin: {x: 2, y: 2}
     blockSizeMax: {x: 6, y: 6}
   blockAlignment: 2
+  randomHoles: []
+  holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!114 &210802122 stripped
@@ -573,6 +577,8 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   blockAlignment: 1
+  randomHoles: []
+  holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!1 &631198555
@@ -852,6 +858,8 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   blockAlignment: 1
+  randomHoles: []
+  holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
 --- !u!1 &1066149157
@@ -907,6 +915,22 @@ Transform:
   m_Father: {fileID: 35147814}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1074148131 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+  m_PrefabInstance: {fileID: 6369747416194823070}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1074148132 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6330873777421484428, guid: 14a402124ef93524fb522f379b263693, type: 3}
+  m_PrefabInstance: {fileID: 6369747416194823070}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 797042974d2b82248a3d173ad285b8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1185413415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,6 +1239,8 @@ MonoBehaviour:
     spawnOnStart: 0
   randomBlocks: []
   blockAlignment: 1
+  randomHoles: []
+  holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects:
   - objPosShift: {x: 0, y: 0, z: -2}
@@ -2499,6 +2525,7 @@ Transform:
   - {fileID: 201448845}
   - {fileID: 628916212}
   - {fileID: 1301561632}
+  - {fileID: 1074148131}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2595,7 +2622,7 @@ MonoBehaviour:
   difficultRateMax: 2
   enmeyLV: 1
   defaultMainGames:
-  - game: {fileID: 201448846}
+  - game: {fileID: 1074148132}
     ratioPercent: 100
   fixStartGames: []
   fixEndGames: []
@@ -2871,6 +2898,67 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &6369747416194823070
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3495891255675402518}
+    m_Modifications:
+    - target: {fileID: 778738670565469245, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_Name
+      value: RoomM_SaveDollLeaf_Battle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744718591738835236, guid: 14a402124ef93524fb522f379b263693, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 14a402124ef93524fb522f379b263693, type: 3}
 --- !u!4 &6396646557478804908
 Transform:
   m_ObjectHideFlags: 0
