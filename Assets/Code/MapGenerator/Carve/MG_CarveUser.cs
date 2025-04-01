@@ -35,7 +35,24 @@ public class MG_CarveUser : MapGeneratorBase
         }
         map = myCarve.CreateCarveMap();
 
-        //FillAllTiles();
+        int width = map.GetLength(0);
+        int height = map.GetLength(1);
+        int border = 4;
+        theMap = new OneMap();
+        //Vector2Int carveCenter = new Vector2Int(0, height/2 - 2);
+        theMap.InitMap(new Vector2Int(0, height / 2 - 4), width + border * 2, height + border * 2, (int)MAP_TYPE.BLOCK);
+        for (int x=0; x<width; x++)
+        {
+            for (int y=0; y<height; y++)
+            {
+                if (map[x, y] != 0)
+                {
+                    theMap.SetValue(theMap.xMin + x + border, theMap.yMin + y + border, (int)MAP_TYPE.GROUND);
+                }
+            }
+        }
+
+        FillAllTiles();
 
         if (theSurface2D)
             GenerateNavMesh(theSurface2D);

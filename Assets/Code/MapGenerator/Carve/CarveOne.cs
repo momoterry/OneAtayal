@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class CarveOne : MonoBehaviour
 {
-    public int width = 120;
-    public int height = 60;
+    public int width = 60;
+    public int height = 120;
     public int roomWidthMin = 16;
     public int roomWidthMax = 20;
     public int roomHeightMin = 20;
