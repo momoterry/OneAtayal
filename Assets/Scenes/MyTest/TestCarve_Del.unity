@@ -152,10 +152,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 569912084}
   - {fileID: 556303973}
   - {fileID: 588473649}
   - {fileID: 1362213881}
-  - {fileID: 569912084}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -651,14 +651,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe03f6007793254c9c69f4affea36da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 60
-  height: 120
+  width: 100
+  height: 160
   roomWidthMin: 16
   roomWidthMax: 20
   roomHeightMin: 20
   roomHeightMax: 26
   intRoomWidth: 8
-  intRoomHeight: 8
+  intRoomHeight: 12
   corridorWidth: 4
   corridorLengthMin: 12
   corridorLengthMax: 20
