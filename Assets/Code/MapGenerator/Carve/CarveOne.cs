@@ -28,6 +28,7 @@ public class CarveOne : MonoBehaviour
         //GenerateDungeon();
         //GenerateDungeonPath(roomWidthMin, roomWidthMax, roomHeightMin, roomHeightMax, 2, true);
         GenerateDungeonPath(8, 8, 12, 12, 4, true);
+        GenerateDungeonPath(10, 10, 10, 10, 2, false);
         GenerateDungeonPath(12, 12, 16, 16, 2, true);
         return map;
     }
@@ -54,7 +55,9 @@ public class CarveOne : MonoBehaviour
 
         // 生成房間與通道
         List<Direction> directionsAll = new List<Direction> { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
-        Room prevRoom = rooms[rooms.Count - 1];
+
+        //如果是主線，從最後房間出發，如果是支線，從最後房間以外的房間隨機挑選
+        Room prevRoom = isMainPath ? rooms[rooms.Count - 1] : rooms[rand.Next(rooms.Count - 1)];
         for (int i = 0; i < num; i++)
         {
             List<Direction> directions = new();
@@ -74,8 +77,16 @@ public class CarveOne : MonoBehaviour
                 if (TryPlaceCorridorAndRoom(prevRoom, dir, out Room newRoom))
                 {
                     prevRoom = newRoom;
-                    rooms.Add(newRoom);
-                    roomPlaced = true;
+                    if (isMainPath)
+                    {
+                        rooms.Add(newRoom);
+                    }
+                    else
+                    {
+                        //如果是支線，插到最前面，避免被最後房間選中
+                        rooms.Insert(0, newRoom);
+                    }
+                        roomPlaced = true;
                 }
             }
         }
