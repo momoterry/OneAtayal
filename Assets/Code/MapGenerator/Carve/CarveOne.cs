@@ -38,7 +38,8 @@ public class CarveOne : MonoBehaviour
     protected int corridorLengthMax = 20;
 
     protected int[,] map;
-    protected List<Room> rooms = new List<Room>();
+    protected List<Room> mainPathRooms = new List<Room>();              //主線上的房間
+    protected List<Room> branchPathRooms = new List<Room>();      //主線上的房間
     protected System.Random rand = new System.Random();
 
     virtual public int[,] CreateCarveMap()
@@ -88,8 +89,9 @@ public class CarveOne : MonoBehaviour
         int startY = 0;
         Room startRoom = new Room(startX, startY, initRoomWidth, initRoomHeight);
         PlaceRoom(startRoom);
-        rooms.Clear();          //確保 InitDungeon 可以重複使用
-        rooms.Add(startRoom);
+        mainPathRooms.Clear();          //確保 InitDungeon 可以重複使用
+        mainPathRooms.Add(startRoom);
+        branchPathRooms.Clear();
     }
     protected int GenerateDungeonPath(int _roomWidthMin, int _roomWidthMax, int _roomHeightMin, int _roomHeightMax, int num, bool isMainPath)
     {
@@ -101,7 +103,7 @@ public class CarveOne : MonoBehaviour
         List<Direction> directionsAll = new List<Direction> { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
 
         //如果是主線，從最後房間出發，如果是支線，從最後房間以外的房間隨機挑選
-        Room prevRoom = isMainPath ? rooms[rooms.Count - 1] : rooms[rand.Next(rooms.Count - 1)];
+        Room prevRoom = isMainPath ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
         int roomPlacedNum = 0;
 
         // 生成房間與通道
@@ -126,12 +128,13 @@ public class CarveOne : MonoBehaviour
                     prevRoom = newRoom;
                     if (isMainPath)
                     {
-                        rooms.Add(newRoom);
+                        //如果是主線，加到主線列表中
+                        mainPathRooms.Add(newRoom);
                     }
                     else
                     {
-                        //如果是支線，插到最前面，避免被最後房間選中
-                        rooms.Insert(0, newRoom);
+                        //如果是支線，加到支線列表中
+                        branchPathRooms.Add(newRoom);
                     }
                     roomPlaced = true;
                     roomPlacedNum++;
