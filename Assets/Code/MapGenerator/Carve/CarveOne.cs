@@ -7,6 +7,8 @@ public class CarveOne : MonoBehaviour
     public int height = 120;
     public int initRoomWidth = 8;
     public int initRoomHeight = 8;
+    public int bufferWidth = 1;     //房間之間的最小間隔 = bufferWidth x 2
+    public int bufferHeight = 2;     //房間之間的最小間隔 = bufferHeight x 2
 
     [System.Serializable]
     public class PathInfo
@@ -41,16 +43,37 @@ public class CarveOne : MonoBehaviour
 
     virtual public int[,] CreateCarveMap()
     {
-        InitDungeon(initRoomWidth, initRoomWidth);
-        
-        for (int i = 0; i<paths.Length; i++)
+
+        int buildCount = 0;
+        bool buildFinish = false;
+        while (buildCount < 100 && !buildFinish)
         {
-            var path = paths[i];
-            GenerateDungeonPath(path.roomWidthMin, path.roomWidthMax, path.roomHeightMin, path.roomHeightMax, path.roomNum, path.isMainPath);
+            InitDungeon(initRoomWidth, initRoomWidth);
+
+            buildFinish = true;
+            buildCount++;
+
+            for (int i = 0; i < paths.Length; i++)
+            {
+                var path = paths[i];
+                int num = GenerateDungeonPath(path.roomWidthMin, path.roomWidthMax, path.roomHeightMin, path.roomHeightMax, path.roomNum, path.isMainPath);
+                if (num < path.roomNum)
+                {
+                    buildFinish = false;
+                    break;
+                }
+            }
         }
-        //GenerateDungeonPath(8, 8, 12, 12, 4, true);
-        //GenerateDungeonPath(10, 10, 10, 10, 2, false);
-        //GenerateDungeonPath(12, 12, 16, 16, 2, true);
+        
+        if (buildFinish)
+        {
+            One.LOG("路徑創建第 " + buildCount + " 次成功");
+        }
+        else
+        {
+            One.ERROR("路徑創建失敗");
+        }
+
         return map;
     }
 
@@ -65,20 +88,23 @@ public class CarveOne : MonoBehaviour
         int startY = 0;
         Room startRoom = new Room(startX, startY, initRoomWidth, initRoomHeight);
         PlaceRoom(startRoom);
+        rooms.Clear();          //確保 InitDungeon 可以重複使用
         rooms.Add(startRoom);
     }
-    protected void GenerateDungeonPath(int _roomWidthMin, int _roomWidthMax, int _roomHeightMin, int _roomHeightMax, int num, bool isMainPath)
+    protected int GenerateDungeonPath(int _roomWidthMin, int _roomWidthMax, int _roomHeightMin, int _roomHeightMax, int num, bool isMainPath)
     {
         roomWidthMin = _roomWidthMin;
         roomWidthMax = _roomWidthMax;
         roomHeightMin = _roomHeightMin;
         roomHeightMax = _roomHeightMax;
 
-        // 生成房間與通道
         List<Direction> directionsAll = new List<Direction> { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
 
         //如果是主線，從最後房間出發，如果是支線，從最後房間以外的房間隨機挑選
         Room prevRoom = isMainPath ? rooms[rooms.Count - 1] : rooms[rand.Next(rooms.Count - 1)];
+        int roomPlacedNum = 0;
+
+        // 生成房間與通道
         for (int i = 0; i < num; i++)
         {
             List<Direction> directions = new();
@@ -108,15 +134,18 @@ public class CarveOne : MonoBehaviour
                         rooms.Insert(0, newRoom);
                     }
                     roomPlaced = true;
+                    roomPlacedNum++;
                 }
             }
 
             if (!roomPlaced)
             {
-                print("房間創建失敗 .....");
+                //print("房間創建失敗 .....");
+                break;
             }
         }
 
+        return roomPlacedNum;
     }
 
     protected bool TryPlaceCorridorAndRoom(Room fromRoom, Direction dir, out Room newRoom)
@@ -172,12 +201,16 @@ public class CarveOne : MonoBehaviour
 
     protected bool IsValidPlacement(Room room)
     {
-        if (room.x - 1 < 0 || room.y - 1 < 0 || room.x + room.w >= width || room.y + room.h >= height)
+        if (room.x - bufferWidth < 0 || room.y - bufferHeight < 0 || room.x + room.w + bufferWidth > width || room.y + room.h + bufferHeight > height)
             return false;
 
-        for (int x = room.x - 1; x <= room.x + room.w; x++)
+        int xMin = Mathf.Max(0, room.x - bufferWidth * 2);
+        int xMax = Mathf.Min(width, room.x + room.w + bufferWidth * 2);
+        int yMin = Mathf.Max(0, room.y - bufferHeight * 2);
+        int yMax = Mathf.Min(height, room.y + room.h + bufferHeight * 2);
+        for (int x = xMin; x < xMax; x++)
         {
-            for (int y = room.y - 1; y <= room.y + room.h; y++)
+            for (int y = yMin; y < yMax; y++)
             {
                 if (map[x, y] != 0)
                     return false;
@@ -188,26 +221,19 @@ public class CarveOne : MonoBehaviour
 
     protected bool IsValidCorridor(int x, int y, int length, int w, Direction dir)
     {
-        //for (int i = 0; i < length; i++)
-        //{
-        //    int cx = (dir == Direction.Left) ? x - i : (dir == Direction.Right) ? x + i : x;
-        //    int cy = (dir == Direction.Up) ? y + i : (dir == Direction.Down) ? y - i : y;
-
-        //    if (cx < 0 || cy < 0 || cx + w >= width || cy >= height || map[cx, cy] != 0)
-        //        return false;
-        //}
-        //return true;
-
         Vector2Int dv = Vector2Int.zero;
+        int hW = w / 2; //檢查範圍的「半徑」
         switch (dir)
         {
             case Direction.Up:
             case Direction.Down:
                 dv = new Vector2Int(1, 0);
+                hW += bufferWidth;
                 break;
             case Direction.Left:
             case Direction.Right:
                 dv = new Vector2Int(0, 1);
+                hW += bufferHeight;
                 break;
         }
         for (int i = 0; i < length; i++)
@@ -215,8 +241,10 @@ public class CarveOne : MonoBehaviour
             int cx = (dir == Direction.Left) ? x - i : (dir == Direction.Right) ? x + i : x;
             int cy = (dir == Direction.Up) ? y + i : (dir == Direction.Down) ? y - i : y;
 
-            for (int j = -w / 2 + 1; j <= w / 2; j++)
+            for (int j = -hW + 1; j <= hW; j++)
             {
+                if (cx + dv.x * j < 0 || cx + dv.x * j >= width || cy + j * dv.y < 0 || cy + j * dv.y >= height)
+                    continue;
                 if (map[cx + dv.x * j, cy + j * dv.y] != 0)
                     return false;
             }
