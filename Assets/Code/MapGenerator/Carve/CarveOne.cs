@@ -5,19 +5,36 @@ public class CarveOne : MonoBehaviour
 {
     public int width = 60;
     public int height = 120;
-    public int roomWidthMin = 16;
-    public int roomWidthMax = 20;
-    public int roomHeightMin = 20;
-    public int roomHeightMax = 26;
-
     public int initRoomWidth = 8;
     public int initRoomHeight = 8;
 
-    public int corridorWidth = 4;
-    public int corridorLengthMin = 12;
-    public int corridorLengthMax = 20;
+    [System.Serializable]
+    public class PathInfo
+    {
+        [Header("基本設定")]
+        [Tooltip("是否為主路徑")]
+        public bool isMainPath = true;
+        [Tooltip("要生成的房間數量")]
+        [Min(1)]
+        public int roomNum = 2;
+        [Space(10)]
+        [Header("房間設定")]
+        public int roomWidthMin = 16;
+        public int roomWidthMax = 20;
+        public int roomHeightMin = 20;
+        public int roomHeightMax = 26;
+    }
+    public PathInfo[] paths;
 
-    public SpriteRenderer sr;
+    protected int roomWidthMin = 16;
+    protected int roomWidthMax = 20;
+    protected int roomHeightMin = 20;
+    protected int roomHeightMax = 26;
+
+    protected int corridorWidth = 4;
+    protected int corridorLengthMin = 12;
+    protected int corridorLengthMax = 20;
+
     protected int[,] map;
     protected List<Room> rooms = new List<Room>();
     protected System.Random rand = new System.Random();
@@ -25,11 +42,15 @@ public class CarveOne : MonoBehaviour
     virtual public int[,] CreateCarveMap()
     {
         InitDungeon(initRoomWidth, initRoomWidth);
-        //GenerateDungeon();
-        //GenerateDungeonPath(roomWidthMin, roomWidthMax, roomHeightMin, roomHeightMax, 2, true);
-        GenerateDungeonPath(8, 8, 12, 12, 4, true);
-        GenerateDungeonPath(10, 10, 10, 10, 2, false);
-        GenerateDungeonPath(12, 12, 16, 16, 2, true);
+        
+        for (int i = 0; i<paths.Length; i++)
+        {
+            var path = paths[i];
+            GenerateDungeonPath(path.roomWidthMin, path.roomWidthMax, path.roomHeightMin, path.roomHeightMax, path.roomNum, path.isMainPath);
+        }
+        //GenerateDungeonPath(8, 8, 12, 12, 4, true);
+        //GenerateDungeonPath(10, 10, 10, 10, 2, false);
+        //GenerateDungeonPath(12, 12, 16, 16, 2, true);
         return map;
     }
 
@@ -86,8 +107,13 @@ public class CarveOne : MonoBehaviour
                         //如果是支線，插到最前面，避免被最後房間選中
                         rooms.Insert(0, newRoom);
                     }
-                        roomPlaced = true;
+                    roomPlaced = true;
                 }
+            }
+
+            if (!roomPlaced)
+            {
+                print("房間創建失敗 .....");
             }
         }
 

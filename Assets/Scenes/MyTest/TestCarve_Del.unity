@@ -153,6 +153,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 569912084}
+  - {fileID: 1493579317}
   - {fileID: 556303973}
   - {fileID: 588473649}
   - {fileID: 1362213881}
@@ -175,7 +176,7 @@ MonoBehaviour:
   theSurface2D: {fileID: 1252285827}
   entraceList: []
   mapCameraAdjust: 0
-  myCarve: {fileID: 569912083}
+  myCarve: {fileID: 1493579316}
   groundTileGroup: {fileID: 556303972}
   groundEdgeTileGroup: {fileID: 0}
   groundOutEdgeTileGroup: {fileID: 588473648}
@@ -653,16 +654,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 120
   height: 160
-  roomWidthMin: 16
-  roomWidthMax: 20
-  roomHeightMin: 20
-  roomHeightMax: 26
   initRoomWidth: 8
   initRoomHeight: 8
-  corridorWidth: 4
-  corridorLengthMin: 8
-  corridorLengthMax: 8
-  sr: {fileID: 0}
+  paths: []
 --- !u!4 &569912084
 Transform:
   m_ObjectHideFlags: 0
@@ -1430,6 +1424,73 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1362213879}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 35147814}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1493579315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1493579317}
+  - component: {fileID: 1493579316}
+  m_Layer: 0
+  m_Name: Carve
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1493579316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493579315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbe03f6007793254c9c69f4affea36da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 120
+  height: 160
+  initRoomWidth: 8
+  initRoomHeight: 8
+  paths:
+  - isMainPath: 1
+    roomNum: 2
+    roomWidthMin: 12
+    roomWidthMax: 12
+    roomHeightMin: 16
+    roomHeightMax: 16
+  - isMainPath: 1
+    roomNum: 2
+    roomWidthMin: 16
+    roomWidthMax: 16
+    roomHeightMin: 24
+    roomHeightMax: 24
+  - isMainPath: 0
+    roomNum: 2
+    roomWidthMin: 10
+    roomWidthMax: 10
+    roomHeightMin: 12
+    roomHeightMax: 12
+--- !u!4 &1493579317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493579315}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
