@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +26,11 @@ public class CarveOne : MonoBehaviour
         public int roomWidthMax = 20;
         public int roomHeightMin = 20;
         public int roomHeightMax = 26;
+        [Space(10)]
+        [Header("通道設定")]
+        public int corridorWidth = 4;
+        public int corridorLengthMin = 12;
+        public int corridorLengthMax = 20;
     }
     public PathInfo[] paths;
 
@@ -32,10 +38,10 @@ public class CarveOne : MonoBehaviour
     protected int roomWidthMax = 20;
     protected int roomHeightMin = 20;
     protected int roomHeightMax = 26;
-
     protected int corridorWidth = 4;
     protected int corridorLengthMin = 12;
     protected int corridorLengthMax = 20;
+
 
     protected int[,] map;
     protected List<Room> mainPathRooms = new List<Room>();              //主線上的房間
@@ -57,7 +63,9 @@ public class CarveOne : MonoBehaviour
             for (int i = 0; i < paths.Length; i++)
             {
                 var path = paths[i];
-                int num = GenerateDungeonPath(path.roomWidthMin, path.roomWidthMax, path.roomHeightMin, path.roomHeightMax, path.roomNum, path.isMainPath);
+                //int num = GenerateDungeonPath(path.roomWidthMin, path.roomWidthMax, path.roomHeightMin, path.roomHeightMax, path.roomNum, path.isMainPath);
+                int num = GenerateDungeonPath(path);
+
                 if (num < path.roomNum)
                 {
                     buildFinish = false;
@@ -78,6 +86,17 @@ public class CarveOne : MonoBehaviour
         return map;
     }
 
+    protected void SetPathInfo( PathInfo pathInfo)
+    {
+        roomWidthMin = pathInfo.roomWidthMin;
+        roomWidthMax = pathInfo.roomWidthMax;
+        roomHeightMin = pathInfo.roomHeightMin;
+        roomHeightMax = pathInfo.roomHeightMax;
+        corridorWidth = pathInfo.corridorWidth;
+        corridorLengthMin = pathInfo.corridorLengthMin;
+        corridorLengthMax = pathInfo.corridorLengthMax;
+    }
+
     protected void InitDungeon(int _initRoomWidth, int _initRoomHeight)
     {
         map = new int[width, height];
@@ -93,21 +112,20 @@ public class CarveOne : MonoBehaviour
         mainPathRooms.Add(startRoom);
         branchPathRooms.Clear();
     }
-    protected int GenerateDungeonPath(int _roomWidthMin, int _roomWidthMax, int _roomHeightMin, int _roomHeightMax, int num, bool isMainPath)
+
+
+    protected int GenerateDungeonPath( PathInfo pathInfo)
     {
-        roomWidthMin = _roomWidthMin;
-        roomWidthMax = _roomWidthMax;
-        roomHeightMin = _roomHeightMin;
-        roomHeightMax = _roomHeightMax;
+        SetPathInfo(pathInfo);
 
         List<Direction> directionsAll = new List<Direction> { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
 
         //如果是主線，從最後房間出發，如果是支線，從最後房間以外的房間隨機挑選
-        Room prevRoom = isMainPath ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+        Room prevRoom = pathInfo.isMainPath ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
         int roomPlacedNum = 0;
 
         // 生成房間與通道
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < pathInfo.roomNum; i++)
         {
             List<Direction> directions = new();
             foreach (Direction d in directionsAll)
@@ -126,7 +144,7 @@ public class CarveOne : MonoBehaviour
                 if (TryPlaceCorridorAndRoom(prevRoom, dir, out Room newRoom))
                 {
                     prevRoom = newRoom;
-                    if (isMainPath)
+                    if (pathInfo.isMainPath)
                     {
                         //如果是主線，加到主線列表中
                         mainPathRooms.Add(newRoom);
@@ -150,6 +168,64 @@ public class CarveOne : MonoBehaviour
 
         return roomPlacedNum;
     }
+
+    //protected int GenerateDungeonPath(int _roomWidthMin, int _roomWidthMax, int _roomHeightMin, int _roomHeightMax, int num, bool isMainPath)
+    //{
+    //    roomWidthMin = _roomWidthMin;
+    //    roomWidthMax = _roomWidthMax;
+    //    roomHeightMin = _roomHeightMin;
+    //    roomHeightMax = _roomHeightMax;
+
+    //    List<Direction> directionsAll = new List<Direction> { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
+
+    //    //如果是主線，從最後房間出發，如果是支線，從最後房間以外的房間隨機挑選
+    //    Room prevRoom = isMainPath ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+    //    int roomPlacedNum = 0;
+
+    //    // 生成房間與通道
+    //    for (int i = 0; i < num; i++)
+    //    {
+    //        List<Direction> directions = new();
+    //        foreach (Direction d in directionsAll)
+    //        {
+    //            if (!prevRoom.IsPath(d))
+    //                directions.Add(d);
+    //        }
+    //        bool roomPlaced = false;
+
+    //        while (directions.Count > 0 && !roomPlaced)
+    //        {
+    //            Direction dir = directions[rand.Next(directions.Count)];
+    //            directions.Remove(dir);
+
+    //            //Room lastRoom = rooms[rooms.Count - 1];
+    //            if (TryPlaceCorridorAndRoom(prevRoom, dir, out Room newRoom))
+    //            {
+    //                prevRoom = newRoom;
+    //                if (isMainPath)
+    //                {
+    //                    //如果是主線，加到主線列表中
+    //                    mainPathRooms.Add(newRoom);
+    //                }
+    //                else
+    //                {
+    //                    //如果是支線，加到支線列表中
+    //                    branchPathRooms.Add(newRoom);
+    //                }
+    //                roomPlaced = true;
+    //                roomPlacedNum++;
+    //            }
+    //        }
+
+    //        if (!roomPlaced)
+    //        {
+    //            //print("房間創建失敗 .....");
+    //            break;
+    //        }
+    //    }
+
+    //    return roomPlacedNum;
+    //}
 
     protected bool TryPlaceCorridorAndRoom(Room fromRoom, Direction dir, out Room newRoom)
     {
