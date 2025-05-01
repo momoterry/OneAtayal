@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MR_Node;
 
 // ====================================================
 //           能直接處理關門的大型戰鬥
