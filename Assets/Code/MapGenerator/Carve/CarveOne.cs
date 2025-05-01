@@ -34,6 +34,20 @@ public class CarveOne : MonoBehaviour
     }
     public PathInfo[] paths;
 
+    //房間定義
+    public enum Direction { Up, Down, Left, Right, NUM }
+    public class Room
+    {
+        public int x, y, w, h;
+        public bool[] isPath = new bool[(int)Direction.NUM];
+        public bool IsPath(Direction dir) { return isPath[(int)dir]; }
+        public void SetIsPath(Direction dir, bool _isPath) { isPath[(int)dir] = _isPath; }
+        public Room(int x, int y, int w, int h)
+        {
+            this.x = x; this.y = y; this.w = w; this.h = h;
+        }
+    }
+
     protected int roomWidthMin = 16;
     protected int roomWidthMax = 20;
     protected int roomHeightMin = 20;
@@ -42,11 +56,15 @@ public class CarveOne : MonoBehaviour
     protected int corridorLengthMin = 12;
     protected int corridorLengthMax = 20;
 
-
     protected int[,] map;
     protected List<Room> mainPathRooms = new List<Room>();              //主線上的房間
     protected List<Room> branchPathRooms = new List<Room>();      //主線上的房間
     protected System.Random rand = new System.Random();
+
+    public List<Room> GetMainPathRooms()
+    {
+        return mainPathRooms;
+    }
 
     virtual public int[,] CreateCarveMap()
     {
@@ -366,15 +384,5 @@ public class CarveOne : MonoBehaviour
     }
 
     protected int RandomEven(int min, int max) => min + rand.Next((max - min) / 2 + 1) * 2;
-    protected enum Direction { Up, Down, Left, Right, NUM }
-    protected class Room 
-    { 
-        public int x, y, w, h;
-        public bool[] isPath = new bool[(int)Direction.NUM];
-        public bool IsPath(Direction dir) { return isPath[(int)dir]; }
-        public void SetIsPath(Direction dir, bool _isPath) { isPath[(int)dir] = _isPath; }
-        public Room(int x, int y, int w, int h) 
-        { 
-            this.x = x; this.y = y; this.w = w; this.h = h;
-        } }
+
 }
