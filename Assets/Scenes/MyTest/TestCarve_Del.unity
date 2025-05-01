@@ -2532,6 +2532,8 @@ MonoBehaviour:
   bossMission:
     width: 160
     height: 200
+    initRoomSize: {x: 10, y: 12}
+    pathWidth: 6
     mainPathInfo:
       isMainPath: 1
       roomNum: 4
@@ -2553,7 +2555,7 @@ MonoBehaviour:
       corridorLengthMin: 20
       corridorLengthMax: 24
     defaultRoomGameplay:
-    - {fileID: 1350714377}
+    - {fileID: 72897052}
   groundTileGroup: {fileID: 1352622563}
   groundEdgeTileGroup: {fileID: 0}
   groundOutEdgeTileGroup: {fileID: 548157668}

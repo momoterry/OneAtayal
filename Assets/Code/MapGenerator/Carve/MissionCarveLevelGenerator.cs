@@ -8,8 +8,12 @@ using static MazeGameManagerBase;
 [System.Serializable]
 public class MissionRoomInfo_Boss
 {
+    //這些是基本共同資訊
     public int width = 160;
     public int height = 200;
+    public Vector2Int initRoomSize = new Vector2Int(10, 12);
+    public int pathWidth = 6;
+
     public CarveOne.PathInfo mainPathInfo;
     public CarveOne.PathInfo brainchPathInfo;
 
@@ -53,6 +57,7 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
 
     protected void InitCarveInfoByMission()
     {
+        //自動修正
         //根據任務內容設定 Carve 參數
         //TODO: 目前只是暫代
         myCarve.width = bossMission.width;
@@ -61,6 +66,12 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
         myCarve.paths[0] = bossMission.mainPathInfo;
         myCarve.paths[1] = bossMission.brainchPathInfo;
         myCarve.paths[2] = bossMission.brainchPathInfo;
+        for (int i=0; i< myCarve.paths.Length; i++)
+        {
+            myCarve.paths[i].corridorWidth = bossMission.pathWidth;
+        }
+        myCarve.initRoomWidth = bossMission.initRoomSize.x;
+        myCarve.initRoomHeight = bossMission.initRoomSize.y;
     }
 
     protected void SetupGameplayByMission()
@@ -77,8 +88,7 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
             roomInfo.vCenter = new Vector3(rect.x + (rect.width)*0.5f, 0, rect.y + rect.height * 0.5f );
             roomInfo.width = mainRooms[i].w;
             roomInfo.height = mainRooms[i].h;
-            roomInfo.doorWidth = 6;
-            roomInfo.doorHeight = 6;
+            roomInfo.doorWidth = roomInfo.doorHeight = bossMission.pathWidth;
             roomInfo.wallWidth = 2;
             roomInfo.wallHeight = 2;
             roomInfo.mainRatio = i/finalDepth;
