@@ -1353,6 +1353,78 @@ MonoBehaviour:
   entranceObjects:
   - objPosShift: {x: 0, y: 0, z: -2}
     objRef: {fileID: 9122827080933831342, guid: 6eea39e5290faf84daa1f1c9213703dd, type: 3}
+--- !u!1 &1350714376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1350714378}
+  - component: {fileID: 1350714377}
+  m_Layer: 0
+  m_Name: Default_A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1350714377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350714376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CloseDoolBattle: 1
+  areaEnemyInfos:
+  - area:
+      serializedVersion: 2
+      x: -4
+      y: -4
+      width: 8
+      height: 8
+    eInfo:
+      enemys:
+      - {fileID: 7208015447484052683, guid: 45988e9d2765695418da9f8fe9f40e6c, type: 3}
+      - {fileID: 7208015447484052683, guid: 425cb249702ccfc4fae69b37c92f99af, type: 3}
+      - {fileID: 7208015447484052683, guid: f09676cddcbeddc409540e7ffd448441, type: 3}
+      - {fileID: 7208015447484052683, guid: c6757ec52300c574080406a81876e414, type: 3}
+      enemyIDs: []
+      totalNumMin: 30
+      totalNumMax: 32
+      forceAlert: 1
+      diffToSingle: 0
+      spawnWithoutConnect: 0
+      groupFinishType: 1
+    spawnOnStart: 0
+  randomBlocks: []
+  blockAlignment: 1
+  randomHoles: []
+  holeAlignment: 1
+  doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects: []
+--- !u!4 &1350714378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350714376}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1543200795}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1352622562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,6 +1938,38 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6eea39e5290faf84daa1f1c9213703dd, type: 3}
+--- !u!1 &1543200794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1543200795}
+  m_Layer: 0
+  m_Name: MissionBoss
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1543200795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543200794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1350714378}
+  m_Father: {fileID: 2024420090}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1559356155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,6 +2459,31 @@ MonoBehaviour:
   entraceList: []
   mapCameraAdjust: 0
   myCarve: {fileID: 2039194877}
+  bossMission:
+    width: 160
+    height: 200
+    mainPathInfo:
+      isMainPath: 1
+      roomNum: 4
+      roomWidthMin: 26
+      roomWidthMax: 28
+      roomHeightMin: 32
+      roomHeightMax: 36
+      corridorWidth: 6
+      corridorLengthMin: 16
+      corridorLengthMax: 20
+    brainchPathInfo:
+      isMainPath: 0
+      roomNum: 1
+      roomWidthMin: 20
+      roomWidthMax: 20
+      roomHeightMin: 20
+      roomHeightMax: 26
+      corridorWidth: 6
+      corridorLengthMin: 20
+      corridorLengthMax: 24
+    defaultRoomGameplay:
+    - {fileID: 1350714377}
   groundTileGroup: {fileID: 1352622563}
   groundEdgeTileGroup: {fileID: 0}
   groundOutEdgeTileGroup: {fileID: 548157668}
@@ -2381,6 +2510,7 @@ Transform:
   - {fileID: 1352622564}
   - {fileID: 548157669}
   - {fileID: 1407912409}
+  - {fileID: 1543200795}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

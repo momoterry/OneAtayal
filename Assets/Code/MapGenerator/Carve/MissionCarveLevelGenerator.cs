@@ -4,18 +4,32 @@ using UnityEngine;
 using static MG_MazeOneBase;
 using UnityEngine.Tilemaps;
 
-//public class MissionCarveLevelGenerator : MapGeneratorBase
-//{
-//    public override void BuildAll(int buildLevel = 1)
-//    {
-//        base.BuildAll(buildLevel);
-//    }
-//}
+[System.Serializable]
+public class MissionRoomInfo_Boss
+{
+    public int width = 160;
+    public int height = 200;
+    public CarveOne.PathInfo mainPathInfo;
+    public CarveOne.PathInfo brainchPathInfo;
+
+    public RoomGameplayBase[] defaultRoomGameplay;
+}
+
 
 public class MissionCarveLevelGenerator : MapGeneratorBase
 {
+    //Carve 資料相關
+    [Space(10)]
+    [Header("Carve 設定")]
     public CarveOne myCarve;
-    // Tile 資料相關
+
+    //測試的任務資料
+    public MissionRoomInfo_Boss bossMission;
+
+    //Tile 資料相關
+    [Space(10)]
+    [Header("Tile 設定")]
+    [Tooltip("Tile 設定")]
     public TileGroupDataBase groundTileGroup;
     public TileEdgeGroupDataBase groundEdgeTileGroup;
     public TileEdgeGroupDataBase groundOutEdgeTileGroup;
@@ -35,13 +49,37 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
     //Carve Map
     protected int[,] map;
 
+
+    protected void InitCarveInfoByMission()
+    {
+        //根據任務內容設定 Carve 參數
+        //TODO: 目前只是暫代
+        myCarve.width = bossMission.width;
+        myCarve.height = bossMission.height;
+        myCarve.paths = new CarveOne.PathInfo[3];
+        myCarve.paths[0] = bossMission.mainPathInfo;
+        myCarve.paths[1] = bossMission.brainchPathInfo;
+        myCarve.paths[2] = bossMission.brainchPathInfo;
+    }
+
+    protected void SetupGameplayByMission()
+    {
+        //從 Carve 產生的房間開始放置 Gameplay
+        List<CarveOne.Room> mainRooms = myCarve.GetMainPathRooms();
+    }
+
     public override void BuildAll(int buildLevel = 1)
     {
         if (!myCarve)
         {
             return;
         }
+
+        InitCarveInfoByMission();
+
         map = myCarve.CreateCarveMap();
+
+        SetupGameplayByMission();
 
         int width = map.GetLength(0);
         int height = map.GetLength(1);
