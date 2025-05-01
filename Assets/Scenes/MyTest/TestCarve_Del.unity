@@ -1175,6 +1175,75 @@ MonoBehaviour:
   holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
+--- !u!1 &956147624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 956147625}
+  - component: {fileID: 956147626}
+  m_Layer: 0
+  m_Name: TEST_Corridor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &956147625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956147624}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1543200795}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &956147626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956147624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CloseDoolBattle: 1
+  areaEnemyInfos:
+  - area:
+      serializedVersion: 2
+      x: -4
+      y: -4
+      width: 8
+      height: 8
+    eInfo:
+      enemys:
+      - {fileID: 7208015447484052683, guid: c6757ec52300c574080406a81876e414, type: 3}
+      enemyIDs: []
+      totalNumMin: 2
+      totalNumMax: 2
+      forceAlert: 1
+      diffToSingle: 0
+      spawnWithoutConnect: 0
+      groupFinishType: 1
+    spawnOnStart: 0
+  randomBlocks: []
+  blockAlignment: 1
+  randomHoles: []
+  holeAlignment: 1
+  doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
+  entranceObjects: []
 --- !u!1 &1185413415
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,6 +2106,7 @@ Transform:
   m_Children:
   - {fileID: 1350714378}
   - {fileID: 72897051}
+  - {fileID: 956147625}
   m_Father: {fileID: 2024420090}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2556,6 +2626,7 @@ MonoBehaviour:
       corridorLengthMax: 24
     defaultRoomGameplay:
     - {fileID: 72897052}
+    testCorridorGameplay: {fileID: 0}
   groundTileGroup: {fileID: 1352622563}
   groundEdgeTileGroup: {fileID: 0}
   groundOutEdgeTileGroup: {fileID: 548157668}

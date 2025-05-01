@@ -18,6 +18,8 @@ public class MissionRoomInfo_Boss
     public CarveOne.PathInfo brainchPathInfo;
 
     public RoomGameplayBase[] defaultRoomGameplay;
+
+    public RoomGameplayBase testCorridorGameplay;
 }
 
 
@@ -77,6 +79,7 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
     protected void SetupGameplayByMission()
     {
         List<RoomInfo> mainGameRooms = new List<RoomInfo>();
+        List<RoomInfo> corridorRooms = new List<RoomInfo>();
         //從 Carve 產生的房間開始放置 Gameplay
         List<CarveOne.Room> mainRooms = myCarve.GetMainPathRooms();
         int finalDepth = mainRooms.Count;
@@ -89,8 +92,8 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
             roomInfo.width = mainRooms[i].w;
             roomInfo.height = mainRooms[i].h;
             roomInfo.doorWidth = roomInfo.doorHeight = bossMission.pathWidth;
-            roomInfo.wallWidth = 2;
-            roomInfo.wallHeight = 2;
+            roomInfo.wallWidth = 0;
+            roomInfo.wallHeight = 0;
             roomInfo.mainRatio = i/finalDepth;
             roomInfo.cell = new CELL();
             roomInfo.cell.U = mainRooms[i].isPath[(int)DIRECTION.U];
@@ -102,13 +105,47 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
             roomInfo.enemyLV = 1;
 
             mainGameRooms.Add(roomInfo);
+
+            //通道的部份
+            if (mainRooms[i].corridorFrom != null)
+            {
+                RoomInfo corridor = new RoomInfo();
+                RectInt rc = new RectInt(mainRooms[i].corridorFrom.x + theMap.xMin + border, 
+                    mainRooms[i].corridorFrom.y + theMap.yMin + border, 
+                    mainRooms[i].corridorFrom.w, 
+                    mainRooms[i].corridorFrom.h);
+                corridor.mapRect = rc;
+                corridor.vCenter = new Vector3(rc.x + (rc.width) * 0.5f, 0, rc.y + rc.height * 0.5f);
+                corridor.width = mainRooms[i].corridorFrom.w;
+                corridor.height = mainRooms[i].corridorFrom.h;
+                corridor.doorWidth = corridor.doorHeight = bossMission.pathWidth;
+                corridor.wallWidth = 0;
+                corridor.wallHeight = 0;
+                corridor.mainRatio = i / finalDepth;
+                corridor.cell = new CELL();
+                corridor.cell.U = false;
+                corridor.cell.D = false;
+                corridor.cell.L = false;
+                corridor.cell.R = false;
+                corridor.cell.x = corridor.cell.y = i;
+                corridor.cell.isPath = true;
+                corridor.diffAddRatio = 1.0f;
+                corridor.enemyLV = 1;
+                corridorRooms.Add(corridor);
+            }
         }
 
-        //開始設置 Game
+        //開始設置房間 Gameplay
         for (int i = 0; i< mainGameRooms.Count; i++)
         {
             RoomGameplayBase game = bossMission.defaultRoomGameplay[Random.Range(0, bossMission.defaultRoomGameplay.Length)];
             game.Build(mainGameRooms[i]);
+        }
+
+        //開始放置通道上的 Gameplay
+        for (int i = 0;i< corridorRooms.Count; i++)
+        {
+            bossMission.testCorridorGameplay.Build(corridorRooms[i]);
         }
     }
 

@@ -34,12 +34,17 @@ public class CarveOne : MonoBehaviour
     }
     public PathInfo[] paths;
 
+    public class Corridor
+    {
+        public int x, y, w, h;
+    }
+
     //房間定義
-    //public enum Direction { Up, Down, Left, Right, NUM }
     public class Room
     {
         public int x, y, w, h;
         public bool[] isPath = new bool[4];
+        public Corridor corridorFrom = null;    //來到這個房間的通道
         public bool IsPath(DIRECTION dir) { return isPath[(int)dir]; }
         public void SetIsPath(DIRECTION dir, bool _isPath) { isPath[(int)dir] = _isPath; }
         public Room(int x, int y, int w, int h)
@@ -230,11 +235,12 @@ public class CarveOne : MonoBehaviour
         {
             return false;
         }
-        PlaceCorridor(cx, cy, corridorLength, corridorWidth, dir);
+        Corridor newCorridor = PlaceCorridor(cx, cy, corridorLength, corridorWidth, dir);
         PlaceRoom(candidateRoom);
         newRoom = candidateRoom;
         fromRoom.SetIsPath(dir, true);
         newRoom.SetIsPath(GetInverseDirection(dir),true);
+        newRoom.corridorFrom = newCorridor;
         return true;
     }
 
@@ -299,30 +305,66 @@ public class CarveOne : MonoBehaviour
                 map[x, y] = 1;
     }
 
-    protected void PlaceCorridor(int x, int y, int length, int w, DIRECTION dir)
+    protected Corridor PlaceCorridor(int x, int y, int length, int w, DIRECTION dir)
     {
-        Vector2Int dv = Vector2Int.zero;
+        int x2 = x, x1 = x, y1 = y, y2 = y;     //x1, y1, x2, y2 都是「包含」
         switch (dir)
         {
             case DIRECTION.U:
+                y2 += length - 1;
+                x1 -= w / 2 - 1;
+                x2 = x1 + w - 1;
+                break;
             case DIRECTION.D:
-                dv = new Vector2Int(1, 0);
+                y1 -= length + 1;
+                x1 -= w / 2 - 1;
+                x2 = x1 + w - 1;
+                break;
+            case DIRECTION.R:
+                x2 += length - 1;
+                y1 -= w / 2 - 1;
+                y2 = y1 + w - 1;
                 break;
             case DIRECTION.L:
-            case DIRECTION.R:
-                dv = new Vector2Int(0, 1);
+                x1 -= length;
+                y1 -= w / 2 - 1;
+                y2 = y1 + w - 1;
                 break;
-        }
-        for (int i = 0; i < length; i++)
-        {
-            int cx = (dir == DIRECTION.L) ? x - i : (dir == DIRECTION.R) ? x + i : x;
-            int cy = (dir == DIRECTION.U) ? y + i : (dir == DIRECTION.D) ? y - i : y;
 
-            for (int j = -w / 2 + 1; j <= w / 2; j++)
+        }
+
+        for (int i=x1; i<=x2; i++)
+        {
+            for (int j=y1; j<=y2; j++)
             {
-                map[cx + dv.x * j, cy + j * dv.y] = 2;
+                map[i, j] = 2;
             }
         }
+
+        //Vector2Int dv = Vector2Int.zero;
+        //switch (dir)
+        //{
+        //    case DIRECTION.U:
+        //    case DIRECTION.D:
+        //        dv = new Vector2Int(1, 0);
+        //        break;
+        //    case DIRECTION.L:
+        //    case DIRECTION.R:
+        //        dv = new Vector2Int(0, 1);
+        //        break;
+        //}
+        //for (int i = 0; i < length; i++)
+        //{
+        //    int cx = (dir == DIRECTION.L) ? x - i : (dir == DIRECTION.R) ? x + i : x;
+        //    int cy = (dir == DIRECTION.U) ? y + i : (dir == DIRECTION.D) ? y - i : y;
+
+        //    for (int j = -w / 2 + 1; j <= w / 2; j++)
+        //    {
+        //        map[cx + dv.x * j, cy + j * dv.y] = 2;
+        //    }
+        //}
+
+        return new Corridor { x = x1, y = y1, w = x2 - x1 + 1, h = y2 - y1 + 1 };
     }
 
     protected DIRECTION GetInverseDirection(DIRECTION dir)
