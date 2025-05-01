@@ -234,6 +234,7 @@ public class CarveOne : MonoBehaviour
         PlaceRoom(candidateRoom);
         newRoom = candidateRoom;
         fromRoom.SetIsPath(dir, true);
+        newRoom.SetIsPath(GetInverseDirection(dir),true);
         return true;
     }
 
@@ -322,6 +323,22 @@ public class CarveOne : MonoBehaviour
                 map[cx + dv.x * j, cy + j * dv.y] = 2;
             }
         }
+    }
+
+    protected DIRECTION GetInverseDirection(DIRECTION dir)
+    {
+        switch (dir)
+        {
+            case DIRECTION.U:
+                return DIRECTION.D;
+            case DIRECTION.D:
+                return DIRECTION.U;
+            case DIRECTION.L:
+                return DIRECTION.R;
+            case DIRECTION.R:
+                return DIRECTION.L;
+        }
+        return DIRECTION.NONE;
     }
 
     protected int RandomEven(int min, int max) => min + rand.Next((max - min) / 2 + 1) * 2;
