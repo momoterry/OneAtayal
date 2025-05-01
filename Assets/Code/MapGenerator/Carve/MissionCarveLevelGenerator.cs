@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static MG_MazeOneBase;
 using UnityEngine.Tilemaps;
+using static MazeGameManagerBase;
 
 [System.Serializable]
 public class MissionRoomInfo_Boss
@@ -64,10 +65,46 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
 
     protected void SetupGameplayByMission()
     {
+        List<RoomInfo> mainGameRooms = new List<RoomInfo>();
         //從 Carve 產生的房間開始放置 Gameplay
         List<CarveOne.Room> mainRooms = myCarve.GetMainPathRooms();
+        int finalDepth = mainRooms.Count;
+        for (int i = 1; i < mainRooms.Count; i++)
+        {
+            RoomInfo roomInfo = new RoomInfo();
+            RectInt rect = new RectInt(mainRooms[i].x + theMap.xMin + border, mainRooms[i].y + theMap.yMin + border, mainRooms[i].w, mainRooms[i].h);
+            roomInfo.mapRect = rect;
+            roomInfo.vCenter = new Vector3(rect.x + (rect.width)*0.5f, 0, rect.y + rect.height * 0.5f );
+            roomInfo.width = mainRooms[i].w;
+            roomInfo.height = mainRooms[i].h;
+            roomInfo.doorWidth = 6;
+            roomInfo.doorHeight = 6;
+            roomInfo.wallWidth = 2;
+            roomInfo.wallHeight = 2;
+            roomInfo.mainRatio = i/finalDepth;
+            roomInfo.cell = new CELL();
+            roomInfo.cell.U = mainRooms[i].isPath[(int)DIRECTION.U];
+            roomInfo.cell.D = mainRooms[i].isPath[(int)DIRECTION.D];
+            roomInfo.cell.L = mainRooms[i].isPath[(int)DIRECTION.L];
+            roomInfo.cell.R = mainRooms[i].isPath[(int)DIRECTION.R];
+            roomInfo.cell.x = roomInfo.cell.y = i;
+            roomInfo.diffAddRatio = 1.0f;
+            roomInfo.enemyLV = 1;
+
+            mainGameRooms.Add(roomInfo);
+        }
+
+        //開始設置 Game
+        for (int i = 0; i< mainGameRooms.Count; i++)
+        {
+            RoomGameplayBase game = bossMission.defaultRoomGameplay[Random.Range(0, bossMission.defaultRoomGameplay.Length)];
+            game.Build(mainGameRooms[i]);
+        }
     }
 
+    int width;
+    int height;
+    int border;
     public override void BuildAll(int buildLevel = 1)
     {
         if (!myCarve)
@@ -79,11 +116,9 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
 
         map = myCarve.CreateCarveMap();
 
-        SetupGameplayByMission();
-
-        int width = map.GetLength(0);
-        int height = map.GetLength(1);
-        int border = 4;
+        width = map.GetLength(0);
+        height = map.GetLength(1);
+        border = 4;
         theMap = new OneMap();
         //Vector2Int carveCenter = new Vector2Int(0, height/2 - 2);
         theMap.InitMap(new Vector2Int(0, height / 2 - 4), width + border * 2, height + border * 2, (int)MAP_TYPE.BLOCK);
@@ -97,6 +132,8 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
                 }
             }
         }
+
+        SetupGameplayByMission();
 
         FillAllTiles();
 

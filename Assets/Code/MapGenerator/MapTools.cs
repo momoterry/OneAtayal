@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+//OneMap 的操作座標 (x,y) 一律是世界座標 (相當於 Tile 座標)
+
 public class OneMap
 {
     public int mapWidth;
