@@ -27,6 +27,7 @@ public class MissionCarveGameData : MonoBehaviour
     public float difficultyMax = 2.0f;
     public RoomGameplayBase[] defaultRoomGameplay;
     public RoomGameplayBase[] corridorGameplay;
+    public ObjectPlacementManager theOPM;
 
     protected CarveOne myCarve;
     protected OneMap theMap;
@@ -71,13 +72,11 @@ public class MissionCarveGameData : MonoBehaviour
         roomInfo.doorWidth = roomInfo.doorHeight = pathWidth;
         roomInfo.wallWidth = 0;
         roomInfo.wallHeight = 0;
-        //roomInfo.mainRatio = i / finalDepth;
         roomInfo.cell = new MG_MazeOneBase.CELL();
         roomInfo.cell.U = room.isPath[(int)DIRECTION.U];
         roomInfo.cell.D = room.isPath[(int)DIRECTION.D];
         roomInfo.cell.L = room.isPath[(int)DIRECTION.L];
         roomInfo.cell.R = room.isPath[(int)DIRECTION.R];
-        //roomInfo.cell.x = roomInfo.cell.y = i;
         roomInfo.diffAddRatio = 1.0f;
         roomInfo.enemyLV = 1;
 
@@ -95,16 +94,15 @@ public class MissionCarveGameData : MonoBehaviour
         room.vCenter = new Vector3(rc.x + (rc.width) * 0.5f, 0, rc.y + rc.height * 0.5f);
         room.width = corridor.w;
         room.height = corridor.h;
-        room.doorWidth = room.doorHeight = pathWidth;
+        room.doorWidth = corridor.w;
+        room.doorHeight = corridor.h;
         room.wallWidth = 0;
         room.wallHeight = 0;
-        //room.mainRatio = i / finalDepth;
         room.cell = new MG_MazeOneBase.CELL();
         room.cell.U = false;
         room.cell.D = false;
         room.cell.L = false;
         room.cell.R = false;
-        //room.cell.x = corridor.cell.y = i;
         room.cell.isPath = true;
         room.diffAddRatio = 1.0f;
         room.enemyLV = 1;
@@ -190,7 +188,14 @@ public class MissionCarveGameData : MonoBehaviour
         {
             RoomGameplayBase game = corridorGameplay[Random.Range(0, corridorGameplay.Length)];
             game.Build(corridorRooms[i]);
+
+            if (theOPM)
+                theOPM.AddRoom(corridorRooms[i]);
         }
+
+        //所有放置物品
+        if (theOPM)
+            theOPM.BuildAll();
     }
 
 }

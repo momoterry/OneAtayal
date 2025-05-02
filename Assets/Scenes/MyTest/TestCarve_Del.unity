@@ -2139,6 +2139,7 @@ Transform:
   - {fileID: 1350714378}
   - {fileID: 72897051}
   - {fileID: 956147625}
+  - {fileID: 1890786596}
   m_Father: {fileID: 2024420090}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2165,18 +2166,18 @@ MonoBehaviour:
     roomHeightMin: 26
     roomHeightMax: 32
     corridorWidth: 6
-    corridorLengthMin: 12
-    corridorLengthMax: 20
+    corridorLengthMin: 20
+    corridorLengthMax: 24
   brainchPathInfo:
     type: 1
-    roomNum: 1
+    roomNum: 2
     roomWidthMin: 20
     roomWidthMax: 20
     roomHeightMin: 20
     roomHeightMax: 20
     corridorWidth: 6
-    corridorLengthMin: 20
-    corridorLengthMax: 20
+    corridorLengthMin: 16
+    corridorLengthMax: 32
   branchCount: 2
   difficultyMin: 1
   difficultyMax: 2
@@ -2184,6 +2185,7 @@ MonoBehaviour:
   - {fileID: 72897052}
   corridorGameplay:
   - {fileID: 956147626}
+  theOPM: {fileID: 1890786595}
 --- !u!1 &1559356155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,6 +2299,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1890786594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1890786596}
+  - component: {fileID: 1890786595}
+  m_Layer: 0
+  m_Name: OPM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1890786595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890786594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540531671b5437c40860e7da6be58377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixObjects:
+  - objRef: {fileID: 1427553042280373961, guid: 2dfa94ab6a693f34a8794dca301c7b50, type: 3}
+    placePercent: 2.5
+  - objRef: {fileID: 1427553042280373961, guid: 2ca85a981280063438e1a311beede797, type: 3}
+    placePercent: 2.5
+  randomObjects:
+  - objRef: {fileID: 1427553042280373961, guid: b182cad21c6eb424687fd05fef55f114, type: 3}
+    placePercent: 0.7
+    powerRatio: 1
+  randomSelectNum: 1
+  randomObjectInPathOnly: 1
+  forceRandomNum: 12
+--- !u!4 &1890786596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890786594}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1543200795}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1946328702
 GameObject:

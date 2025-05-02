@@ -379,7 +379,7 @@ public class CarveOne : MonoBehaviour
                 x2 = x1 + w - 1;
                 break;
             case DIRECTION.D:
-                y1 -= length + 1;
+                y1 -= length - 1;
                 x1 -= w / 2 - 1;
                 x2 = x1 + w - 1;
                 break;
@@ -389,7 +389,7 @@ public class CarveOne : MonoBehaviour
                 y2 = y1 + w - 1;
                 break;
             case DIRECTION.L:
-                x1 -= length;
+                x1 -= length - 1;
                 y1 -= w / 2 - 1;
                 y2 = y1 + w - 1;
                 break;
