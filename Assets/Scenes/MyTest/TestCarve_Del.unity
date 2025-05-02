@@ -529,6 +529,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3908599062000154700, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5914974356280139868, guid: f9070c77958bb7642935b8088c3981a3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 16
@@ -2085,6 +2089,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1543200795}
+  - component: {fileID: 1543200796}
   m_Layer: 0
   m_Name: MissionBoss
   m_TagString: Untagged
@@ -2110,6 +2115,46 @@ Transform:
   m_Father: {fileID: 2024420090}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1543200796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543200794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed89076267ae7341ac6585a5b1a8a0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapSize: {x: 160, y: 200}
+  initRoomSize: {x: 10, y: 12}
+  pathWidth: 6
+  mainPathInfo:
+    isMainPath: 1
+    roomNum: 3
+    roomWidthMin: 16
+    roomWidthMax: 20
+    roomHeightMin: 20
+    roomHeightMax: 26
+    corridorWidth: 6
+    corridorLengthMin: 12
+    corridorLengthMax: 20
+  brainchPathInfo:
+    isMainPath: 0
+    roomNum: 2
+    roomWidthMin: 20
+    roomWidthMax: 20
+    roomHeightMin: 20
+    roomHeightMax: 20
+    corridorWidth: 6
+    corridorLengthMin: 20
+    corridorLengthMax: 20
+  branchCount: 2
+  defaultRoomGameplay:
+  - {fileID: 72897052}
+  corridorGameplay:
+  - {fileID: 956147626}
 --- !u!1 &1559356155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,34 +2644,7 @@ MonoBehaviour:
   entraceList: []
   mapCameraAdjust: 0
   myCarve: {fileID: 2039194877}
-  bossMission:
-    width: 160
-    height: 200
-    initRoomSize: {x: 10, y: 12}
-    pathWidth: 6
-    mainPathInfo:
-      isMainPath: 1
-      roomNum: 4
-      roomWidthMin: 26
-      roomWidthMax: 28
-      roomHeightMin: 32
-      roomHeightMax: 36
-      corridorWidth: 6
-      corridorLengthMin: 16
-      corridorLengthMax: 20
-    brainchPathInfo:
-      isMainPath: 0
-      roomNum: 1
-      roomWidthMin: 20
-      roomWidthMax: 20
-      roomHeightMin: 20
-      roomHeightMax: 26
-      corridorWidth: 6
-      corridorLengthMin: 20
-      corridorLengthMax: 24
-    defaultRoomGameplay:
-    - {fileID: 72897052}
-    testCorridorGameplay: {fileID: 956147626}
+  missionGameData: {fileID: 1543200796}
   groundTileGroup: {fileID: 1352622563}
   groundEdgeTileGroup: {fileID: 0}
   groundOutEdgeTileGroup: {fileID: 548157668}

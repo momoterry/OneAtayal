@@ -5,22 +5,6 @@ using static MG_MazeOneBase;
 using UnityEngine.Tilemaps;
 using static MazeGameManagerBase;
 
-[System.Serializable]
-public class MissionRoomInfo_Boss
-{
-    //這些是基本共同資訊
-    public int width = 160;
-    public int height = 200;
-    public Vector2Int initRoomSize = new Vector2Int(10, 12);
-    public int pathWidth = 6;
-
-    public CarveOne.PathInfo mainPathInfo;
-    public CarveOne.PathInfo brainchPathInfo;
-
-    public RoomGameplayBase[] defaultRoomGameplay;
-
-    public RoomGameplayBase testCorridorGameplay;
-}
 
 
 public class MissionCarveLevelGenerator : MapGeneratorBase
@@ -30,8 +14,28 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
     [Header("Carve 設定")]
     public CarveOne myCarve;
 
-    //測試的任務資料
-    public MissionRoomInfo_Boss bossMission;
+    //任務資料
+    //[System.Serializable]
+    //public class MissionGameplayData
+    //{
+    //    //這些是基本共同資訊
+    //    public Vector2Int mapSize = new Vector2Int(120, 160);
+    //    public Vector2Int initRoomSize = new Vector2Int(10, 12);
+    //    public int pathWidth = 6;   //會改寫掉後面的 PathInfo
+
+    //    public CarveOne.PathInfo mainPathInfo;
+    //    public CarveOne.PathInfo brainchPathInfo;
+    //    public int branchCount = 2;
+
+    //    public RoomGameplayBase[] defaultRoomGameplay;
+
+    //    public RoomGameplayBase testCorridorGameplay;
+    //}
+    [Space(10)]
+    [Header("Mission 設定")]
+    [Tooltip("Mission 設定")]
+    //public MissionGameplayData missionGameData;
+    public MissionCarveGameData missionGameData;
 
     //Tile 資料相關
     [Space(10)]
@@ -61,19 +65,21 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
     {
         //自動修正
         //根據任務內容設定 Carve 參數
-        //TODO: 目前只是暫代
-        myCarve.width = bossMission.width;
-        myCarve.height = bossMission.height;
-        myCarve.paths = new CarveOne.PathInfo[3];
-        myCarve.paths[0] = bossMission.mainPathInfo;
-        myCarve.paths[1] = bossMission.brainchPathInfo;
-        myCarve.paths[2] = bossMission.brainchPathInfo;
+        myCarve.width = missionGameData.mapSize.x;
+        myCarve.height = missionGameData.mapSize.y;
+        myCarve.paths = new CarveOne.PathInfo[missionGameData.branchCount + 1];
+        myCarve.paths[0] = missionGameData.mainPathInfo;
+        for (int i = 1; i < myCarve.paths.Length; i++) 
+        {
+            myCarve.paths[i] = missionGameData.brainchPathInfo;
+
+        }
         for (int i=0; i< myCarve.paths.Length; i++)
         {
-            myCarve.paths[i].corridorWidth = bossMission.pathWidth;
+            myCarve.paths[i].corridorWidth = missionGameData.pathWidth;
         }
-        myCarve.initRoomWidth = bossMission.initRoomSize.x;
-        myCarve.initRoomHeight = bossMission.initRoomSize.y;
+        myCarve.initRoomWidth = missionGameData.initRoomSize.x;
+        myCarve.initRoomHeight = missionGameData.initRoomSize.y;
     }
 
     protected void SetupGameplayByMission()
@@ -91,7 +97,7 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
             roomInfo.vCenter = new Vector3(rect.x + (rect.width)*0.5f, 0, rect.y + rect.height * 0.5f );
             roomInfo.width = mainRooms[i].w;
             roomInfo.height = mainRooms[i].h;
-            roomInfo.doorWidth = roomInfo.doorHeight = bossMission.pathWidth;
+            roomInfo.doorWidth = roomInfo.doorHeight = missionGameData.pathWidth;
             roomInfo.wallWidth = 0;
             roomInfo.wallHeight = 0;
             roomInfo.mainRatio = i/finalDepth;
@@ -118,7 +124,7 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
                 corridor.vCenter = new Vector3(rc.x + (rc.width) * 0.5f, 0, rc.y + rc.height * 0.5f);
                 corridor.width = mainRooms[i].corridorFrom.w;
                 corridor.height = mainRooms[i].corridorFrom.h;
-                corridor.doorWidth = corridor.doorHeight = bossMission.pathWidth;
+                corridor.doorWidth = corridor.doorHeight = missionGameData.pathWidth;
                 corridor.wallWidth = 0;
                 corridor.wallHeight = 0;
                 corridor.mainRatio = i / finalDepth;
@@ -138,14 +144,15 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
         //開始設置房間 Gameplay
         for (int i = 0; i< mainGameRooms.Count; i++)
         {
-            RoomGameplayBase game = bossMission.defaultRoomGameplay[Random.Range(0, bossMission.defaultRoomGameplay.Length)];
+            RoomGameplayBase game = missionGameData.defaultRoomGameplay[Random.Range(0, missionGameData.defaultRoomGameplay.Length)];
             game.Build(mainGameRooms[i]);
         }
 
         //開始放置通道上的 Gameplay
         for (int i = 0;i< corridorRooms.Count; i++)
         {
-            bossMission.testCorridorGameplay.Build(corridorRooms[i]);
+            RoomGameplayBase game = missionGameData.corridorGameplay[Random.Range(0, missionGameData.corridorGameplay.Length)];
+            game.Build(corridorRooms[i]);
         }
     }
 
