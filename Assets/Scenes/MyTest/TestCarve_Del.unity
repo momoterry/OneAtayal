@@ -1799,7 +1799,7 @@ MonoBehaviour:
   bufferWidth: 2
   bufferHeight: 2
   paths:
-  - isMainPath: 1
+  - type: 0
     roomNum: 2
     roomWidthMin: 12
     roomWidthMax: 12
@@ -1808,16 +1808,16 @@ MonoBehaviour:
     corridorWidth: 4
     corridorLengthMin: 12
     corridorLengthMax: 12
-  - isMainPath: 1
-    roomNum: 4
-    roomWidthMin: 16
-    roomWidthMax: 16
+  - type: 0
+    roomNum: 2
+    roomWidthMin: 24
+    roomWidthMax: 24
     roomHeightMin: 24
     roomHeightMax: 24
     corridorWidth: 6
     corridorLengthMin: 20
     corridorLengthMax: 20
-  - isMainPath: 0
+  - type: 1
     roomNum: 2
     roomWidthMin: 10
     roomWidthMax: 10
@@ -1826,6 +1826,15 @@ MonoBehaviour:
     corridorWidth: 2
     corridorLengthMin: 12
     corridorLengthMax: 12
+  - type: 2
+    roomNum: 1
+    roomWidthMin: 12
+    roomWidthMax: 12
+    roomHeightMin: 12
+    roomHeightMax: 12
+    corridorWidth: 2
+    corridorLengthMin: 8
+    corridorLengthMax: 8
 --- !u!4 &1493579317
 Transform:
   m_ObjectHideFlags: 0
@@ -2131,18 +2140,18 @@ MonoBehaviour:
   initRoomSize: {x: 10, y: 12}
   pathWidth: 6
   mainPathInfo:
-    isMainPath: 1
-    roomNum: 3
-    roomWidthMin: 16
-    roomWidthMax: 20
-    roomHeightMin: 20
-    roomHeightMax: 26
+    type: 0
+    roomNum: 4
+    roomWidthMin: 24
+    roomWidthMax: 28
+    roomHeightMin: 26
+    roomHeightMax: 32
     corridorWidth: 6
     corridorLengthMin: 12
     corridorLengthMax: 20
   brainchPathInfo:
-    isMainPath: 0
-    roomNum: 2
+    type: 1
+    roomNum: 1
     roomWidthMin: 20
     roomWidthMax: 20
     roomHeightMin: 20
@@ -2726,7 +2735,7 @@ MonoBehaviour:
   bufferWidth: 2
   bufferHeight: 2
   paths:
-  - isMainPath: 1
+  - type: 0
     roomNum: 2
     roomWidthMin: 12
     roomWidthMax: 12
@@ -2735,7 +2744,7 @@ MonoBehaviour:
     corridorWidth: 4
     corridorLengthMin: 12
     corridorLengthMax: 12
-  - isMainPath: 1
+  - type: 0
     roomNum: 4
     roomWidthMin: 16
     roomWidthMax: 16
@@ -2744,7 +2753,7 @@ MonoBehaviour:
     corridorWidth: 6
     corridorLengthMin: 20
     corridorLengthMax: 20
-  - isMainPath: 0
+  - type: 0
     roomNum: 2
     roomWidthMin: 10
     roomWidthMax: 10
@@ -3060,7 +3069,7 @@ PrefabInstance:
     - target: {fileID: 1030251389730005932, guid: f5073921754ca4a4faa9a2dedbf5fca4, type: 3}
       propertyPath: theMG
       value: 
-      objectReference: {fileID: 2024420089}
+      objectReference: {fileID: 35147815}
     - target: {fileID: 1030251389730005932, guid: f5073921754ca4a4faa9a2dedbf5fca4, type: 3}
       propertyPath: playerRef
       value: 

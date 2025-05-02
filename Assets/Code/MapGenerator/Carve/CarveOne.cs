@@ -151,7 +151,24 @@ public class CarveOne : MonoBehaviour
         List<DIRECTION> directionsAll = new List<DIRECTION> { DIRECTION.U, DIRECTION.D, DIRECTION.L, DIRECTION.R };
 
         //如果是主線，從最後房間出發，如果是支線，從最後房間以外的房間隨機挑選
-        Room prevRoom = pathInfo.type == RoomSequenceInfo.TYPE.MAIN_ADD ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+        //Room prevRoom = pathInfo.type == RoomSequenceInfo.TYPE.MAIN_ADD ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+        Room prevRoom = null;
+        switch (pathInfo.type)
+        {
+            case RoomSequenceInfo.TYPE.MAIN_ADD:
+                prevRoom = mainPathRooms[mainPathRooms.Count - 1];
+                break;
+            case RoomSequenceInfo.TYPE.BRANCH_NEW:
+                prevRoom = mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+                break;
+            case RoomSequenceInfo.TYPE.BRANCH_ADD:
+                if (branchPathRooms.Count > 0)
+                    prevRoom = branchPathRooms[branchPathRooms.Count - 1];
+                else
+                    prevRoom = mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+                break;
+        }
+        
         int roomPlacedNum = 0;
 
         // 生成房間與通道
