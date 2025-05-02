@@ -6,16 +6,25 @@ using static MazeGameManagerBase;
 public class MissionCarveGameData : MonoBehaviour
 {
     //這些是基本共同資訊
+    [Space(10)]
+    [Header("地圖資訊")]
     public Vector2Int mapSize = new Vector2Int(120, 160);
     public Vector2Int initRoomSize = new Vector2Int(10, 12);
     public int pathWidth = 6;   //會改寫掉後面的 RoomSequenceInfo
 
 
     //這些是基本路徑資訊
+    [Space(10)]
+    [Header("路徑資訊")]
     public CarveOne.RoomSequenceInfo mainPathInfo;
     public CarveOne.RoomSequenceInfo brainchPathInfo;
     public int branchCount = 2;
 
+    //這些是 Gameplay 資訊
+    [Space(10)]
+    [Header("Gameplay 資訊")]
+    public float difficultyMin = 1.0f;
+    public float difficultyMax = 2.0f;
     public RoomGameplayBase[] defaultRoomGameplay;
     public RoomGameplayBase[] corridorGameplay;
 
@@ -111,30 +120,12 @@ public class MissionCarveGameData : MonoBehaviour
         List<RoomInfo> corridorRooms = new List<RoomInfo>();
         //從 Carve 產生的房間開始放置 Gameplay
         List<CarveOne.Room> mainRooms = myCarve.GetMainPathRooms();
-        int finalDepth = mainRooms.Count;
+        int finalDepth = mainRooms.Count - 1;
         for (int i = 1; i < mainRooms.Count; i++)
         {
-            //RoomInfo roomInfo = new RoomInfo();
-            //RectInt rect = new RectInt(mainRooms[i].x + theMap.xMin + border, mainRooms[i].y + theMap.yMin + border, mainRooms[i].w, mainRooms[i].h);
-            //roomInfo.mapRect = rect;
-            //roomInfo.vCenter = new Vector3(rect.x + (rect.width) * 0.5f, 0, rect.y + rect.height * 0.5f);
-            //roomInfo.width = mainRooms[i].w;
-            //roomInfo.height = mainRooms[i].h;
-            //roomInfo.doorWidth = roomInfo.doorHeight = pathWidth;
-            //roomInfo.wallWidth = 0;
-            //roomInfo.wallHeight = 0;
-            //roomInfo.mainRatio = i / finalDepth;
-            //roomInfo.cell = new MG_MazeOneBase.CELL();
-            //roomInfo.cell.U = mainRooms[i].isPath[(int)DIRECTION.U];
-            //roomInfo.cell.D = mainRooms[i].isPath[(int)DIRECTION.D];
-            //roomInfo.cell.L = mainRooms[i].isPath[(int)DIRECTION.L];
-            //roomInfo.cell.R = mainRooms[i].isPath[(int)DIRECTION.R];
-            //roomInfo.cell.x = roomInfo.cell.y = i;
-            //roomInfo.diffAddRatio = 1.0f;
-            //roomInfo.enemyLV = 1;
-
             RoomInfo roomInfo = CreateGameRoom(mainRooms[i]);
-            roomInfo.mainRatio = i / finalDepth;
+            roomInfo.mainRatio = (float)i / finalDepth;
+            roomInfo.diffAddRatio = -1.0f + difficultyMin + (difficultyMax - difficultyMin) * roomInfo.mainRatio;
             roomInfo.cell.x = roomInfo.cell.y = i;
 
             mainGameRooms.Add(roomInfo);
@@ -142,30 +133,9 @@ public class MissionCarveGameData : MonoBehaviour
             //通道的部份
             if (mainRooms[i].corridorFrom != null)
             {
-                //RoomInfo corridor = new RoomInfo();
-                //RectInt rc = new RectInt(mainRooms[i].corridorFrom.x + theMap.xMin + border,
-                //    mainRooms[i].corridorFrom.y + theMap.yMin + border,
-                //    mainRooms[i].corridorFrom.w,
-                //    mainRooms[i].corridorFrom.h);
-                //corridor.mapRect = rc;
-                //corridor.vCenter = new Vector3(rc.x + (rc.width) * 0.5f, 0, rc.y + rc.height * 0.5f);
-                //corridor.width = mainRooms[i].corridorFrom.w;
-                //corridor.height = mainRooms[i].corridorFrom.h;
-                //corridor.doorWidth = corridor.doorHeight = pathWidth;
-                //corridor.wallWidth = 0;
-                //corridor.wallHeight = 0;
-                //corridor.mainRatio = i / finalDepth;
-                //corridor.cell = new MG_MazeOneBase.CELL();
-                //corridor.cell.U = false;
-                //corridor.cell.D = false;
-                //corridor.cell.L = false;
-                //corridor.cell.R = false;
-                //corridor.cell.x = corridor.cell.y = i;
-                //corridor.cell.isPath = true;
-                //corridor.diffAddRatio = 1.0f;
-                //corridor.enemyLV = 1;
                 RoomInfo corridor = CreateCorridorRoom(mainRooms[i].corridorFrom);
-                corridor.mainRatio = i / finalDepth;
+                corridor.mainRatio = (float)i / finalDepth;
+                corridor.diffAddRatio = -1.0f + difficultyMin + (difficultyMax - difficultyMin) * corridor.mainRatio;
                 corridor.cell.x = corridor.cell.y = i;
                 corridorRooms.Add(corridor);
             }
@@ -181,7 +151,8 @@ public class MissionCarveGameData : MonoBehaviour
             for (int i = 0; i < b.rooms.Count; i++)
             {
                 RoomInfo roomInfo = CreateGameRoom(b.rooms[i]);
-                roomInfo.mainRatio = (b.mainDepth + i) / finalDepth;
+                roomInfo.mainRatio = (float)(b.mainDepth + i) / finalDepth;
+                roomInfo.diffAddRatio = -1.0f + difficultyMin + (difficultyMax - difficultyMin ) * roomInfo.mainRatio;
                 roomInfo.cell.x = b.mainDepth;
                 roomInfo.cell.y = i;
                 newBranch.rooms.Add(roomInfo);
@@ -189,7 +160,8 @@ public class MissionCarveGameData : MonoBehaviour
                 if (b.rooms[i].corridorFrom != null)
                 {
                     RoomInfo corridor = CreateCorridorRoom(b.rooms[i].corridorFrom);
-                    corridor.mainRatio = (b.mainDepth + i) / finalDepth;
+                    corridor.mainRatio = (float)(b.mainDepth + i) / finalDepth;
+                    corridor.diffAddRatio = -1.0f + difficultyMin + (difficultyMax - difficultyMin) * corridor.mainRatio;
                     corridor.cell.x = b.mainDepth;
                     corridor.cell.y = i;
                     corridorRooms.Add(corridor);
