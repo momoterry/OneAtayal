@@ -157,7 +157,6 @@ public class CarveOne : MonoBehaviour
         branchs.Clear();
     }
 
-    int mainIndexForBranch = 0;
     protected int GenerateDungeonPath( RoomSequenceInfo pathInfo)
     {
         SetPathInfo(pathInfo);
