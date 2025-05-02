@@ -21,10 +21,10 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
     //    //這些是基本共同資訊
     //    public Vector2Int mapSize = new Vector2Int(120, 160);
     //    public Vector2Int initRoomSize = new Vector2Int(10, 12);
-    //    public int pathWidth = 6;   //會改寫掉後面的 PathInfo
+    //    public int pathWidth = 6;   //會改寫掉後面的 RoomSequence
 
-    //    public CarveOne.PathInfo mainPathInfo;
-    //    public CarveOne.PathInfo brainchPathInfo;
+    //    public CarveOne.RoomSequence mainPathInfo;
+    //    public CarveOne.RoomSequence brainchPathInfo;
     //    public int branchCount = 2;
 
     //    public RoomGameplayBase[] defaultRoomGameplay;
@@ -67,7 +67,7 @@ public class MissionCarveLevelGenerator : MapGeneratorBase
         //根據任務內容設定 Carve 參數
         myCarve.width = missionGameData.mapSize.x;
         myCarve.height = missionGameData.mapSize.y;
-        myCarve.paths = new CarveOne.PathInfo[missionGameData.branchCount + 1];
+        myCarve.paths = new CarveOne.RoomSequence[missionGameData.branchCount + 1];
         myCarve.paths[0] = missionGameData.mainPathInfo;
         for (int i = 1; i < myCarve.paths.Length; i++) 
         {

@@ -12,11 +12,18 @@ public class CarveOne : MonoBehaviour
     public int bufferHeight = 2;     //房間之間的最小間隔 = bufferHeight x 2
 
     [System.Serializable]
-    public class PathInfo
+    public class RoomSequence
     {
+        public enum TYPE
+        {
+            MAIN_ADD,       //主線和線追加 (只有一條)
+            BRANCH_NEW,     //新支線
+            BRANCH_ADD,     //支線追加 (從上一個支線)
+        }
         [Header("基本設定")]
-        [Tooltip("是否為主路徑")]
-        public bool isMainPath = true;
+        [Tooltip("路徑追加方式")]
+        public TYPE type = TYPE.MAIN_ADD;
+        //public bool isMainPath = true;
         [Tooltip("要生成的房間數量")]
         [Min(1)]
         public int roomNum = 2;
@@ -32,7 +39,7 @@ public class CarveOne : MonoBehaviour
         public int corridorLengthMin = 12;
         public int corridorLengthMax = 20;
     }
-    public PathInfo[] paths;
+    public RoomSequence[] paths;
 
     public class Corridor
     {
@@ -109,7 +116,7 @@ public class CarveOne : MonoBehaviour
         return map;
     }
 
-    protected void SetPathInfo( PathInfo pathInfo)
+    protected void SetPathInfo( RoomSequence pathInfo)
     {
         roomWidthMin = pathInfo.roomWidthMin;
         roomWidthMax = pathInfo.roomWidthMax;
@@ -137,14 +144,14 @@ public class CarveOne : MonoBehaviour
     }
 
 
-    protected int GenerateDungeonPath( PathInfo pathInfo)
+    protected int GenerateDungeonPath( RoomSequence pathInfo)
     {
         SetPathInfo(pathInfo);
 
         List<DIRECTION> directionsAll = new List<DIRECTION> { DIRECTION.U, DIRECTION.D, DIRECTION.L, DIRECTION.R };
 
         //如果是主線，從最後房間出發，如果是支線，從最後房間以外的房間隨機挑選
-        Room prevRoom = pathInfo.isMainPath ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+        Room prevRoom = pathInfo.type == RoomSequence.TYPE.MAIN_ADD ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
         int roomPlacedNum = 0;
 
         // 生成房間與通道
@@ -167,16 +174,28 @@ public class CarveOne : MonoBehaviour
                 if (TryPlaceCorridorAndRoom(prevRoom, dir, out Room newRoom))
                 {
                     prevRoom = newRoom;
-                    if (pathInfo.isMainPath)
+                    switch (pathInfo.type)
                     {
-                        //如果是主線，加到主線列表中
-                        mainPathRooms.Add(newRoom);
+                        case RoomSequence.TYPE.MAIN_ADD:
+                            //如果是主線，加到主線列表中
+                            mainPathRooms.Add(newRoom);
+                            break;
+                        case RoomSequence.TYPE.BRANCH_NEW:
+                        case RoomSequence.TYPE.BRANCH_ADD:
+                            //如果是支線，加到支線列表中
+                            branchPathRooms.Add(newRoom);
+                            break;
                     }
-                    else
-                    {
-                        //如果是支線，加到支線列表中
-                        branchPathRooms.Add(newRoom);
-                    }
+                    //if (pathInfo.isMainPath)
+                    //{
+                    //    //如果是主線，加到主線列表中
+                    //    mainPathRooms.Add(newRoom);
+                    //}
+                    //else
+                    //{
+                    //    //如果是支線，加到支線列表中
+                    //    branchPathRooms.Add(newRoom);
+                    //}
                     roomPlaced = true;
                     roomPlacedNum++;
                 }
