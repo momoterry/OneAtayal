@@ -186,8 +186,11 @@ public class MissionCarveGameData : MonoBehaviour
         //開始放置通道上的 Gameplay
         for (int i = 0; i < corridorRooms.Count; i++)
         {
-            RoomGameplayBase game = corridorGameplay[Random.Range(0, corridorGameplay.Length)];
-            game.Build(corridorRooms[i]);
+            if (corridorGameplay.Length > 0)
+            {
+                RoomGameplayBase game = corridorGameplay[Random.Range(0, corridorGameplay.Length)];
+                game.Build(corridorRooms[i]);
+            }
 
             if (theOPM)
                 theOPM.AddRoom(corridorRooms[i]);
