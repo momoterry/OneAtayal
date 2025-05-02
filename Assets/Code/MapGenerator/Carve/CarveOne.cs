@@ -60,6 +60,13 @@ public class CarveOne : MonoBehaviour
         }
     }
 
+    //支線定義
+    public class Branch
+    {
+        public int mainDepth;       //從主線的第幾個房間分出來
+        public List<Room> rooms = new List<Room>();
+    }
+
     protected int roomWidthMin = 16;
     protected int roomWidthMax = 20;
     protected int roomHeightMin = 20;
@@ -70,12 +77,18 @@ public class CarveOne : MonoBehaviour
 
     protected int[,] map;
     protected List<Room> mainPathRooms = new List<Room>();              //主線上的房間
-    protected List<Room> branchPathRooms = new List<Room>();      //主線上的房間
+    //protected List<Room> branchPathRooms = new List<Room>();      //支線上的房間
+    protected List<Branch> branchs = new List<Branch>();            //所有支線定義
     protected System.Random rand = new System.Random();
 
     public List<Room> GetMainPathRooms()
     {
         return mainPathRooms;
+    }
+
+    public List<Branch> GetAllBranches()
+    {
+        return branchs;
     }
 
     virtual public int[,] CreateCarveMap()
@@ -140,10 +153,11 @@ public class CarveOne : MonoBehaviour
         PlaceRoom(startRoom);
         mainPathRooms.Clear();          //確保 InitDungeon 可以重複使用
         mainPathRooms.Add(startRoom);
-        branchPathRooms.Clear();
+        //branchPathRooms.Clear();
+        branchs.Clear();
     }
 
-
+    int mainIndexForBranch = 0;
     protected int GenerateDungeonPath( RoomSequenceInfo pathInfo)
     {
         SetPathInfo(pathInfo);
@@ -159,13 +173,26 @@ public class CarveOne : MonoBehaviour
                 prevRoom = mainPathRooms[mainPathRooms.Count - 1];
                 break;
             case RoomSequenceInfo.TYPE.BRANCH_NEW:
-                prevRoom = mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+                Branch newBranch = new();
+                newBranch.mainDepth = rand.Next(mainPathRooms.Count - 1);
+                branchs.Add(newBranch);
+                prevRoom = mainPathRooms[newBranch.mainDepth];
                 break;
             case RoomSequenceInfo.TYPE.BRANCH_ADD:
-                if (branchPathRooms.Count > 0)
-                    prevRoom = branchPathRooms[branchPathRooms.Count - 1];
+                //if (branchPathRooms.Count > 0)
+                //    prevRoom = branchPathRooms[branchPathRooms.Count - 1];
+                //else
+                //    prevRoom = mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+                if (branchs.Count > 0)
+                {
+                    List<Room> lastBranch = branchs[branchs.Count - 1].rooms;
+                    prevRoom = lastBranch[lastBranch.Count - 1];
+                }
                 else
-                    prevRoom = mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+                {
+                    One.ERROR("CarveOne : BRANCH_ADD 但沒有任何支線");
+                    return 0;
+                }
                 break;
         }
         
@@ -199,8 +226,9 @@ public class CarveOne : MonoBehaviour
                             break;
                         case RoomSequenceInfo.TYPE.BRANCH_NEW:
                         case RoomSequenceInfo.TYPE.BRANCH_ADD:
-                            //如果是支線，加到支線列表中
-                            branchPathRooms.Add(newRoom);
+                            //如果是支線，加到最後一個支線列表中
+                            //branchPathRooms.Add(newRoom);
+                            branchs[branchs.Count - 1].rooms.Add(newRoom);
                             break;
                     }
                     //if (pathInfo.isMainPath)
