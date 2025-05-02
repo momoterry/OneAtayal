@@ -12,7 +12,7 @@ public class CarveOne : MonoBehaviour
     public int bufferHeight = 2;     //房間之間的最小間隔 = bufferHeight x 2
 
     [System.Serializable]
-    public class RoomSequence
+    public class RoomSequenceInfo
     {
         public enum TYPE
         {
@@ -39,7 +39,7 @@ public class CarveOne : MonoBehaviour
         public int corridorLengthMin = 12;
         public int corridorLengthMax = 20;
     }
-    public RoomSequence[] paths;
+    public RoomSequenceInfo[] paths;
 
     public class Corridor
     {
@@ -116,7 +116,7 @@ public class CarveOne : MonoBehaviour
         return map;
     }
 
-    protected void SetPathInfo( RoomSequence pathInfo)
+    protected void SetPathInfo( RoomSequenceInfo pathInfo)
     {
         roomWidthMin = pathInfo.roomWidthMin;
         roomWidthMax = pathInfo.roomWidthMax;
@@ -144,14 +144,14 @@ public class CarveOne : MonoBehaviour
     }
 
 
-    protected int GenerateDungeonPath( RoomSequence pathInfo)
+    protected int GenerateDungeonPath( RoomSequenceInfo pathInfo)
     {
         SetPathInfo(pathInfo);
 
         List<DIRECTION> directionsAll = new List<DIRECTION> { DIRECTION.U, DIRECTION.D, DIRECTION.L, DIRECTION.R };
 
         //如果是主線，從最後房間出發，如果是支線，從最後房間以外的房間隨機挑選
-        Room prevRoom = pathInfo.type == RoomSequence.TYPE.MAIN_ADD ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
+        Room prevRoom = pathInfo.type == RoomSequenceInfo.TYPE.MAIN_ADD ? mainPathRooms[mainPathRooms.Count - 1] : mainPathRooms[rand.Next(mainPathRooms.Count - 1)];
         int roomPlacedNum = 0;
 
         // 生成房間與通道
@@ -176,12 +176,12 @@ public class CarveOne : MonoBehaviour
                     prevRoom = newRoom;
                     switch (pathInfo.type)
                     {
-                        case RoomSequence.TYPE.MAIN_ADD:
+                        case RoomSequenceInfo.TYPE.MAIN_ADD:
                             //如果是主線，加到主線列表中
                             mainPathRooms.Add(newRoom);
                             break;
-                        case RoomSequence.TYPE.BRANCH_NEW:
-                        case RoomSequence.TYPE.BRANCH_ADD:
+                        case RoomSequenceInfo.TYPE.BRANCH_NEW:
+                        case RoomSequenceInfo.TYPE.BRANCH_ADD:
                             //如果是支線，加到支線列表中
                             branchPathRooms.Add(newRoom);
                             break;
