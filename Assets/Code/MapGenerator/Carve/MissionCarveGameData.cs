@@ -27,7 +27,11 @@ public class MissionCarveGameData : MonoBehaviour
     public float difficultyMax = 2.0f;
     public RoomGameplayBase[] defaultRoomGameplay;
     public RoomGameplayBase[] corridorGameplay;
+
+    //掉落物相關
     public ObjectPlacementManager theOPM;
+    public GameObject helpDollRef;
+    public int helpDollNum = 10;
 
     protected CarveOne myCarve;
     protected OneMap theMap;
@@ -198,7 +202,17 @@ public class MissionCarveGameData : MonoBehaviour
 
         //所有放置物品
         if (theOPM)
+        {
+            //先處理野巫靈
+            if (helpDollRef)
+            {
+                theOPM.randomObjects = new ObjectPlacementManager.DollObjectInfo[1];
+                theOPM.randomObjects[0] = new ObjectPlacementManager.DollObjectInfo();
+                theOPM.randomObjects[0].objRef = helpDollRef;
+                theOPM.forceRandomNum = helpDollNum;
+            }
             theOPM.BuildAll();
+        }
     }
 
 }
