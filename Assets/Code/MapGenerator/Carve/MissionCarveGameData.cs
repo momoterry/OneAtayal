@@ -76,11 +76,13 @@ public class MissionCarveGameData : MonoBehaviour
     protected List<List<RoomGamePair>> branchPairLists = new List<List<RoomGamePair>>();
     protected List<RoomGamePair> corridorPairs = new List<RoomGamePair>();
 
-    public void SetupCarveOne( CarveOne carve)
+    virtual public void SetupCarveOne( CarveOne carve)
     {
         myCarve = carve;
 
         //根據任務內容設定 Carve 參數
+        mainPathInfo.type = CarveOne.RoomSequenceInfo.TYPE.MAIN_ADD;
+        brainchPathInfo.type = CarveOne.RoomSequenceInfo.TYPE.BRANCH_NEW;
         myCarve.width = mapSize.x;
         myCarve.height = mapSize.y;
         myCarve.paths = new CarveOne.RoomSequenceInfo[branchCount + 1];
