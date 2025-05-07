@@ -58,13 +58,13 @@ public class MissionCarveGameData : MonoBehaviour
 
     protected Dictionary<SPECIAL_ROOM_TYPE, RoomGameplayBase> specialRoomGames = new();
 
-    protected List<RoomInfo> mainGameRooms = new List<RoomInfo>();
-    protected List<RoomInfo> corridorRooms = new List<RoomInfo>();
-    protected class BranchSequence
-    {
-        public List<RoomInfo> rooms = new();
-    }
-    protected List<BranchSequence> branches = new();
+    //protected List<RoomInfo> mainGameRooms = new List<RoomInfo>();
+    //protected List<RoomInfo> corridorRooms = new List<RoomInfo>();
+    //protected class BranchSequence
+    //{
+    //    public List<RoomInfo> rooms = new();
+    //}
+    //protected List<BranchSequence> branches = new();
 
     protected class RoomGamePair
     {
@@ -169,7 +169,7 @@ public class MissionCarveGameData : MonoBehaviour
             roomInfo.diffAddRatio = -1.0f + difficultyMin + (difficultyMax - difficultyMin) * roomInfo.mainRatio;
             roomInfo.cell.x = roomInfo.cell.y = i;
 
-            mainGameRooms.Add(roomInfo);
+            //mainGameRooms.Add(roomInfo);
             mainPairs.Add(new RoomGamePair { room = roomInfo });
 
             //通道的部份
@@ -179,7 +179,7 @@ public class MissionCarveGameData : MonoBehaviour
                 corridor.mainRatio = (float)i / finalDepth;
                 corridor.diffAddRatio = -1.0f + difficultyMin + (difficultyMax - difficultyMin) * corridor.mainRatio;
                 corridor.cell.x = corridor.cell.y = i;
-                corridorRooms.Add(corridor);
+                //corridorRooms.Add(corridor);
                 corridorPairs.Add(new RoomGamePair { room = corridor });
             }
         }
@@ -188,8 +188,8 @@ public class MissionCarveGameData : MonoBehaviour
         List<CarveOne.Branch> allBranches = myCarve.GetAllBranches();
         foreach (CarveOne.Branch b in allBranches)
         {
-            BranchSequence newBranch = new BranchSequence();
-            branches.Add(newBranch);
+            //BranchSequence newBranch = new BranchSequence();
+            //branches.Add(newBranch);
 
             List<RoomGamePair> newPairs = new List<RoomGamePair>();
             branchPairLists.Add(newPairs);
@@ -201,7 +201,7 @@ public class MissionCarveGameData : MonoBehaviour
                 roomInfo.diffAddRatio = -1.0f + difficultyMin + (difficultyMax - difficultyMin) * roomInfo.mainRatio;
                 roomInfo.cell.x = b.mainDepth;
                 roomInfo.cell.y = i;
-                newBranch.rooms.Add(roomInfo);
+                //newBranch.rooms.Add(roomInfo);
                 newPairs.Add(new RoomGamePair { room = roomInfo });
 
                 if (b.rooms[i].corridorFrom != null)
@@ -211,7 +211,7 @@ public class MissionCarveGameData : MonoBehaviour
                     corridor.diffAddRatio = -1.0f + difficultyMin + (difficultyMax - difficultyMin) * corridor.mainRatio;
                     corridor.cell.x = b.mainDepth;
                     corridor.cell.y = i;
-                    corridorRooms.Add(corridor);
+                    //corridorRooms.Add(corridor);
                     corridorPairs.Add(new RoomGamePair { room = corridor });
                 }
             }
@@ -221,6 +221,10 @@ public class MissionCarveGameData : MonoBehaviour
 
     virtual protected void SetupSpecialGames()
     {
+        if (specialRoomGames.ContainsKey(SPECIAL_ROOM_TYPE.BOSS_END))
+        {
+            mainPairs[mainPairs.Count - 1].gameplay = specialRoomGames[SPECIAL_ROOM_TYPE.BOSS_END];
+        }
 
     }
 
@@ -229,19 +233,19 @@ public class MissionCarveGameData : MonoBehaviour
         // ============================================================================================
         //  開始設置房間 Gameplay
         // ============================================================================================
-        for (int i = 0; i < mainGameRooms.Count; i++)
-        {
-            RoomGameplayBase game;
-            if (i == mainGameRooms.Count - 1 && specialRoomGames.ContainsKey(SPECIAL_ROOM_TYPE.BOSS_END))
-            {
-                game = specialRoomGames[SPECIAL_ROOM_TYPE.BOSS_END];
-            }
-            else
-            {
-                game = defaultRoomGameplay[Random.Range(0, defaultRoomGameplay.Length)];
-            }
-            game.Build(mainGameRooms[i]);
-        }
+        //for (int i = 0; i < mainGameRooms.Count; i++)
+        //{
+        //    RoomGameplayBase game;
+        //    if (i == mainGameRooms.Count - 1 && specialRoomGames.ContainsKey(SPECIAL_ROOM_TYPE.BOSS_END))
+        //    {
+        //        game = specialRoomGames[SPECIAL_ROOM_TYPE.BOSS_END];
+        //    }
+        //    else
+        //    {
+        //        game = defaultRoomGameplay[Random.Range(0, defaultRoomGameplay.Length)];
+        //    }
+        //    game.Build(mainGameRooms[i]);
+        //}
         for (int i=0; i<mainPairs.Count; i++)
         {
             if (mainPairs[i].gameplay == null)
@@ -250,14 +254,14 @@ public class MissionCarveGameData : MonoBehaviour
             }
         }
 
-        foreach (BranchSequence bs in branches)
-        {
-            for (int i = 0; i < bs.rooms.Count; i++)
-            {
-                RoomGameplayBase game = defaultRoomGameplay[Random.Range(0, defaultRoomGameplay.Length)];
-                game.Build(bs.rooms[i]);
-            }
-        }
+        //foreach (BranchSequence bs in branches)
+        //{
+        //    for (int i = 0; i < bs.rooms.Count; i++)
+        //    {
+        //        RoomGameplayBase game = defaultRoomGameplay[Random.Range(0, defaultRoomGameplay.Length)];
+        //        game.Build(bs.rooms[i]);
+        //    }
+        //}
         foreach (List<RoomGamePair> bList in branchPairLists)
         {
             for (int i=0; i<bList.Count; i++)
@@ -270,25 +274,25 @@ public class MissionCarveGameData : MonoBehaviour
         }
 
         //開始放置通道上的 Gameplay
-        for (int i = 0; i < corridorRooms.Count; i++)
-        {
-            if (corridorGameplay.Length > 0)
-            {
-                RoomGameplayBase game = corridorGameplay[Random.Range(0, corridorGameplay.Length)];
-                //game.Build(corridorRooms[i]);
-            }
+        //for (int i = 0; i < corridorRooms.Count; i++)
+        //{
+        //    if (corridorGameplay.Length > 0)
+        //    {
+        //        RoomGameplayBase game = corridorGameplay[Random.Range(0, corridorGameplay.Length)];
+        //        game.Build(corridorRooms[i]);
+        //    }
 
-            if (theOPM)
-                theOPM.AddRoom(corridorRooms[i]);
-        }
+        //    //if (theOPM)
+        //    //    theOPM.AddRoom(corridorRooms[i]);
+        //}
         for (int i=0; i< corridorPairs.Count; i++)
         {
             if (corridorPairs[i].gameplay = null)
             {
                 corridorPairs[i].gameplay = corridorGameplay[Random.Range(0, corridorGameplay.Length)];
             }
-            //if (theOPM)
-            //    theOPM.AddRoom(corridorPairs[i].room);
+            if (theOPM)
+                theOPM.AddRoom(corridorPairs[i].room);
         }
     }
 
@@ -316,13 +320,20 @@ public class MissionCarveGameData : MonoBehaviour
         }
         allList.Add(corridorPairs);
 
-        //foreach (List<RoomGamePair> list in allList)
-        //{
-        //    foreach (RoomGamePair pair in list)
-        //    {
-        //        pair.gameplay.Build(pair.room);
-        //    }
-        //}
+        foreach (List<RoomGamePair> list in allList)
+        {
+            foreach (RoomGamePair pair in list)
+            {
+                if (pair.gameplay != null)
+                {
+                    pair.gameplay.Build(pair.room);
+                }
+                //else
+                //{
+                //    print("沒有 Game 的房間 " + pair.room.mainRatio);
+                //}
+            }
+        }
 
         //所有放置物品
         if (theOPM)
