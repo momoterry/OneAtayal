@@ -28,7 +28,26 @@ public class MissionCarveGameData : MonoBehaviour
     public RoomGameplayBase[] defaultRoomGameplay;
     public RoomGameplayBase[] corridorGameplay;
 
+    //特別 Game Room
+    public enum SPECIAL_ROOM_TYPE
+    {
+        BOSS_END,
+        EXPLORE_END,    //探索任務端點前大戰
+        EXPLORE_REWARD, //探索任務端點獎勵
+    }
+    [System.Serializable]
+    public class SPECIAL_ROOM_DEF
+    {
+        public SPECIAL_ROOM_TYPE type;
+        public RoomGameplayBase roomGameplay;
+    }
+    [Space(10)]
+    [Header("特別 Game Room")]
+    public SPECIAL_ROOM_DEF[] specialRooms;
+
     //掉落物相關
+    [Space(10)]
+    [Header("掉落資訊")]
     public ObjectPlacementManager theOPM;
     public GameObject helpDollRef;
     public int helpDollNum = 10;
@@ -36,6 +55,8 @@ public class MissionCarveGameData : MonoBehaviour
     protected CarveOne myCarve;
     protected OneMap theMap;
     protected int border;
+
+    protected Dictionary<SPECIAL_ROOM_TYPE, RoomGameplayBase> specialRoomGames = new();
 
     protected class BranchSequence
     {
@@ -114,8 +135,21 @@ public class MissionCarveGameData : MonoBehaviour
         return room;
     }
 
+
+    protected void InitSpecialGameplay() 
+    {
+        foreach (SPECIAL_ROOM_DEF special in specialRooms) 
+        {
+            specialRoomGames[special.type] = special.roomGameplay;
+        }
+
+    }
+
+
     public void SetupGameplay(OneMap _theMap, int _border)
     {
+        InitSpecialGameplay();
+
         theMap = _theMap;
         border = _border;
         List<RoomInfo> mainGameRooms = new List<RoomInfo>();
@@ -171,10 +205,20 @@ public class MissionCarveGameData : MonoBehaviour
             }
         }
 
-        //開始設置房間 Gameplay
+        // ============================================================================================
+        //  開始設置房間 Gameplay
+        // ============================================================================================
         for (int i = 0; i < mainGameRooms.Count; i++)
         {
-            RoomGameplayBase game = defaultRoomGameplay[Random.Range(0, defaultRoomGameplay.Length)];
+            RoomGameplayBase game;
+            if (i == mainGameRooms.Count - 1 && specialRoomGames.ContainsKey(SPECIAL_ROOM_TYPE.BOSS_END))
+            {
+                game = specialRoomGames[SPECIAL_ROOM_TYPE.BOSS_END];
+            }
+            else 
+            { 
+                game = defaultRoomGameplay[Random.Range(0, defaultRoomGameplay.Length)]; 
+            }
             game.Build(mainGameRooms[i]);
         }
 
