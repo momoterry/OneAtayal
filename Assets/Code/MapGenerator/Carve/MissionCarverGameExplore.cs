@@ -51,6 +51,26 @@ public class MissionCarverExplore : MissionCarveGameData
 
     protected override void SetupSpecialGames()
     {
-        base.SetupSpecialGames();
+        //base.SetupSpecialGames();
+        if (specialRoomGames.ContainsKey(SPECIAL_ROOM_TYPE.EXPLORE_REWARD) && mainPairs.Count > 0)
+        {
+            mainPairs[mainPairs.Count - 1].gameplay = specialRoomGames[SPECIAL_ROOM_TYPE.EXPLORE_REWARD];
+        }
+        if (specialRoomGames.ContainsKey(SPECIAL_ROOM_TYPE.EXPLORE_BATTLE) && mainPairs.Count > 1)
+        {
+            mainPairs[mainPairs.Count - 2].gameplay = specialRoomGames[SPECIAL_ROOM_TYPE.EXPLORE_BATTLE];
+        }
+
+        foreach (List<RoomGamePair> bList in branchPairLists)
+        {
+            if (specialRoomGames.ContainsKey(SPECIAL_ROOM_TYPE.EXPLORE_REWARD) && bList.Count > 0)
+            {
+                bList[bList.Count - 1].gameplay = specialRoomGames[SPECIAL_ROOM_TYPE.EXPLORE_REWARD];
+            }
+            if (specialRoomGames.ContainsKey(SPECIAL_ROOM_TYPE.EXPLORE_BATTLE) && bList.Count > 1)
+            {
+                bList[bList.Count - 2].gameplay = specialRoomGames[SPECIAL_ROOM_TYPE.EXPLORE_BATTLE];
+            }
+        }
     }
 }

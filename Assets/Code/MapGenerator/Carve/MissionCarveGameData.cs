@@ -32,7 +32,7 @@ public class MissionCarveGameData : MonoBehaviour
     public enum SPECIAL_ROOM_TYPE
     {
         BOSS_END,
-        EXPLORE_END,    //探索任務端點前大戰
+        EXPLORE_BATTLE,    //探索任務端點前大戰
         EXPLORE_REWARD, //探索任務端點獎勵
     }
     [System.Serializable]
