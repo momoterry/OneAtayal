@@ -138,10 +138,10 @@ public class MissionCarveGameData : MonoBehaviour
         room.wallWidth = 0;
         room.wallHeight = 0;
         room.cell = new MG_MazeOneBase.CELL();
-        room.cell.U = false;
-        room.cell.D = false;
-        room.cell.L = false;
-        room.cell.R = false;
+        room.cell.U = corridor.U;
+        room.cell.D = corridor.D;
+        room.cell.L = corridor.L;
+        room.cell.R = corridor.R;
         room.cell.isPath = true;
         room.diffAddRatio = 1.0f;
         room.enemyLV = 1;

@@ -44,6 +44,7 @@ public class CarveOne : MonoBehaviour
     public class Corridor
     {
         public int x, y, w, h;
+        public bool U, D, L, R;
     }
 
     //房間定義
@@ -230,16 +231,6 @@ public class CarveOne : MonoBehaviour
                             branchs[branchs.Count - 1].rooms.Add(newRoom);
                             break;
                     }
-                    //if (pathInfo.isMainPath)
-                    //{
-                    //    //如果是主線，加到主線列表中
-                    //    mainPathRooms.Add(newRoom);
-                    //}
-                    //else
-                    //{
-                    //    //如果是支線，加到支線列表中
-                    //    branchPathRooms.Add(newRoom);
-                    //}
                     roomPlaced = true;
                     roomPlacedNum++;
                 }
@@ -426,8 +417,17 @@ public class CarveOne : MonoBehaviour
         //        map[cx + dv.x * j, cy + j * dv.y] = 2;
         //    }
         //}
+        Corridor corridor = new Corridor { x = x1, y = y1, w = x2 - x1 + 1, h = y2 - y1 + 1 };
+        if (dir == DIRECTION.U || dir == DIRECTION.D)
+        {
+            corridor.U = corridor.D = true;
+        }
+        else
+        {
+            corridor.L = corridor.R = true;
+        }
 
-        return new Corridor { x = x1, y = y1, w = x2 - x1 + 1, h = y2 - y1 + 1 };
+        return corridor;
     }
 
     protected DIRECTION GetInverseDirection(DIRECTION dir)

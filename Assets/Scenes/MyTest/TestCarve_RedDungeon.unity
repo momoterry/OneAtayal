@@ -1643,10 +1643,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: {x: 160, y: 200}
   initRoomSize: {x: 10, y: 12}
-  pathWidth: 6
+  pathWidth: 8
   mainPathInfo:
     type: 0
-    roomNum: 3
+    roomNum: 2
     roomWidthMin: 20
     roomWidthMax: 20
     roomHeightMin: 26
@@ -1656,7 +1656,7 @@ MonoBehaviour:
     corridorLengthMax: 20
   brainchPathInfo:
     type: 1
-    roomNum: 2
+    roomNum: 1
     roomWidthMin: 20
     roomWidthMax: 20
     roomHeightMin: 26
@@ -1664,7 +1664,7 @@ MonoBehaviour:
     corridorWidth: 4
     corridorLengthMin: 12
     corridorLengthMax: 20
-  branchCount: 3
+  branchCount: 2
   difficultyMin: 1
   difficultyMax: 2
   defaultRoomGameplay:
