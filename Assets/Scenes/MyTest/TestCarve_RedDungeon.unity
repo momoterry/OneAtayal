@@ -192,75 +192,6 @@ MonoBehaviour:
   holeAlignment: 1
   doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
   entranceObjects: []
---- !u!1 &115350164
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 115350165}
-  - component: {fileID: 115350166}
-  m_Layer: 0
-  m_Name: Boss
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &115350165
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 115350164}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1159962838}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &115350166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 115350164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea4eb8822042f84cbbf44c038d1abe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CloseDoolBattle: 1
-  areaEnemyInfos:
-  - area:
-      serializedVersion: 2
-      x: 0
-      y: -4
-      width: 0
-      height: 0
-    eInfo:
-      enemys:
-      - {fileID: 7208015447484052683, guid: c720d4ffc3baf3540b5bc68e4f366beb, type: 3}
-      enemyIDs: []
-      totalNumMin: 1
-      totalNumMax: 1
-      forceAlert: 1
-      diffToSingle: 1
-      spawnWithoutConnect: 0
-      groupFinishType: 1
-    spawnOnStart: 0
-  randomBlocks: []
-  blockAlignment: 1
-  randomHoles: []
-  holeAlignment: 1
-  doorObj: {fileID: 1385156248001605250, guid: bbbf6c91737d1d841a61a4017bb5dfe8, type: 3}
-  entranceObjects: []
 --- !u!1 &129269536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,7 +1643,6 @@ Transform:
   - {fileID: 335327339}
   - {fileID: 1840235850}
   - {fileID: 1143244910}
-  - {fileID: 115350165}
   - {fileID: 590833859}
   m_Father: {fileID: 2024420090}
   m_RootOrder: -1
@@ -1762,7 +1692,7 @@ MonoBehaviour:
   - type: 2
     roomGameplay: {fileID: 590833860}
   - type: 1
-    roomGameplay: {fileID: 115350166}
+    roomGameplay: {fileID: 0}
   theOPM: {fileID: 1840235851}
   helpDollRef: {fileID: 1427553042280373961, guid: 4de8757a346ab0b43967bc77f2e936be, type: 3}
   helpDollNum: 15
