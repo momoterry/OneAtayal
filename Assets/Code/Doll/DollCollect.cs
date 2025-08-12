@@ -6,6 +6,7 @@ public class DollCollect : MonoBehaviour
 {
     //public GameObject dollObject;
     public bool spawnNewDoll = false;
+    public bool multipleCollect = false;    //可重複收集，只有在 spawnNewDoll 才有意義
     public string spawnDollID;
     public bool collectForever;
     public bool isDollMaterial = true;
@@ -56,7 +57,8 @@ public class DollCollect : MonoBehaviour
             //ComicTalk.StartTalk(joinTalk, o, 2.0f);
             o.SendMessage("OnTalkCondition", TALK_CONDITION.COLLECTED, SendMessageOptions.DontRequireReceiver);
 
-            Destroy(gameObject);
+            if (!multipleCollect)
+                Destroy(gameObject);
             return;
         }
 
