@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 6386306619188588561}
   - component: {fileID: 2791446130118766409}
   m_Layer: 10
-  m_Name: Doll_Slingshot
+  m_Name: Doll_Ice
   m_TagString: Doll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,8 +54,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47e42299cf24e7488916990912e3e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: DollSlingshot
-  icon: {fileID: 314198167, guid: 706667c3597f6c84abffea6ecaaadd9a, type: 3}
+  ID: DollIce
+  icon: {fileID: -417516398, guid: 30adad2bb1d70834f8942dee78df0e98, type: 3}
   positionType: 1
   bulletRef: {fileID: 8101537965375270392, guid: 26597747faeb1c841831e13bdc9174c7, type: 3}
   bulletInitDis: 0.5
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 314198167, guid: 706667c3597f6c84abffea6ecaaadd9a, type: 3}
+  m_Sprite: {fileID: -417516398, guid: 30adad2bb1d70834f8942dee78df0e98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -259,13 +259,13 @@ MonoBehaviour:
     FPS: 4
   Idle:
     sprites:
-    - {fileID: 314198167, guid: 706667c3597f6c84abffea6ecaaadd9a, type: 3}
-    - {fileID: -148387313, guid: 706667c3597f6c84abffea6ecaaadd9a, type: 3}
+    - {fileID: -417516398, guid: 30adad2bb1d70834f8942dee78df0e98, type: 3}
+    - {fileID: 1992372412, guid: 30adad2bb1d70834f8942dee78df0e98, type: 3}
     FPS: 2
   IdleUp:
     sprites:
-    - {fileID: -1652972702, guid: 706667c3597f6c84abffea6ecaaadd9a, type: 3}
-    - {fileID: -861373844, guid: 706667c3597f6c84abffea6ecaaadd9a, type: 3}
+    - {fileID: -417516398, guid: 30adad2bb1d70834f8942dee78df0e98, type: 3}
+    - {fileID: 1992372412, guid: 30adad2bb1d70834f8942dee78df0e98, type: 3}
     FPS: 2
 --- !u!114 &2791446130118766409
 MonoBehaviour:
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectTalks:
-  - "\u6211\u662F\u5F48\u5F13"
+  - "\u6211\u662F\u51B0\u6676"
 --- !u!1 &8600799296620060968
 GameObject:
   m_ObjectHideFlags: 0
